@@ -16,27 +16,18 @@
         .animate-bounce-in { animation: bounceIn 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 antialiased selection:bg-indigo-500 selection:text-white pb-20">
+<body class="bg-white text-gray-800 antialiased selection:bg-indigo-500 selection:text-white pb-24">
 
-    <!-- MOBILE-FIRST LUXURY WRAPPER -->
-    <div class="max-w-md mx-auto min-h-screen bg-gray-50 shadow-2xl relative flex flex-col">
+    <!-- MOBILE-FIRST CLEAN WHITE LUXURY WRAPPER -->
+    <div class="max-w-md mx-auto min-h-screen bg-white shadow-2xl relative flex flex-col">
 
-        <!-- 1. TOP HEADER (Clean Brand Title & Stealth Admin Trigger) -->
-        <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex items-center justify-between">
-            <div id="brandLogo" class="cursor-pointer select-none flex items-center space-x-1">
-                <h1 class="text-base font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">SHASHA99</h1>
-                <span id="stealthTrigger" class="text-gray-300 text-xs cursor-pointer hover:text-gray-400">|</span>
-            </div>
-            <span class="text-[10px] bg-indigo-50 text-indigo-600 px-2.5 py-1 rounded-full font-bold shadow-sm">✨ Luxury Edition</span>
-        </header>
-
-        <!-- 2. FLOATING CRYSTAL SEARCH BAR (Sticky Glass below header) -->
-        <div class="sticky top-[53px] z-40 bg-white/60 backdrop-blur-md px-4 py-2 border-b border-gray-100/50">
+        <!-- 1. FLOATING CRYSTAL SEARCH BAR (Floating right above the bottom menu) -->
+        <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto z-40 bg-white/80 backdrop-blur-md px-4 py-2.5 border-t border-gray-100 shadow-lg">
             <div class="relative flex items-center">
                 <span class="absolute left-3 text-gray-400">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </span>
-                <input type="text" id="searchInput" placeholder="লাক্সারি প্রোডাক্ট বা সার্ভিস সার্চ করুন..." class="w-full pl-9 pr-16 py-2 bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-full text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition outline-none shadow-sm">
+                <input type="text" id="searchInput" placeholder="লাক্সারি প্রোডাক্ট বা সার্ভিস সার্চ করুন..." class="w-full pl-9 pr-16 py-2 bg-gray-100/80 backdrop-blur-sm border border-gray-200/60 rounded-full text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition outline-none">
                 <div class="absolute right-3 flex items-center space-x-2 text-gray-500">
                     <button onclick="triggerCameraSearch()" class="hover:text-indigo-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg></button>
                     <button onclick="triggerVoiceSearch()" class="hover:text-indigo-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
@@ -44,10 +35,10 @@
             </div>
         </div>
 
-        <!-- 3. SLIDING ITEM WHEEL DRAWER (Opens when 'Items' is clicked) -->
-        <div id="itemWheelContainer" class="hidden px-4 py-2 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+        <!-- 2. SLIDING ITEM WHEEL DRAWER (Opens when 'Items' is clicked) -->
+        <div id="itemWheelContainer" class="hidden fixed bottom-32 left-0 right-0 max-w-md mx-auto z-40 px-4 py-2 bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-xl transition-all duration-300">
             <p class="text-[10px] text-gray-400 font-semibold mb-1 text-center">চাকার মতো ঘুরিয়ে আইটেম সিলেক্ট করুন:</p>
-            <div class="relative w-full h-20 bg-white/90 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex items-center justify-center">
+            <div class="relative w-full h-20 bg-gray-50 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex items-center justify-center">
                 <div class="absolute w-11/12 h-7 bg-indigo-600/10 border border-indigo-500/20 rounded-xl pointer-events-none z-10"></div>
                 <div id="verticalWheel" class="w-full h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar py-6 space-y-1 text-center cursor-pointer">
                     <div onclick="selectWheelItem(this, 'all')" class="snap-center text-xs font-bold text-indigo-600">🔥 সমস্ত আইটেম</div>
@@ -58,8 +49,8 @@
             </div>
         </div>
 
-        <!-- 4. PINTEREST STYLE 2-COLUMN FEED -->
-        <main class="flex-1 p-3">
+        <!-- 3. PINTEREST STYLE 2-COLUMN FEED -->
+        <main class="flex-1 p-3 pt-4">
             <div class="grid grid-cols-2 gap-3">
                 
                 <!-- Product Card 1 -->
@@ -68,7 +59,7 @@
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </button>
                     <div>
-                        <div class="bg-gray-200 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
+                        <div class="bg-gray-100 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
                             <span>Vertical Video (2:3)</span>
                         </div>
                         <h3 class="font-medium text-xs truncate">প্রিমিয়াম গ্যামার উড চেয়ার</h3>
@@ -82,7 +73,7 @@
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </button>
                     <div>
-                        <div class="bg-gray-200 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
+                        <div class="bg-gray-100 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
                             <span>Vertical Video (2:3)</span>
                         </div>
                         <h3 class="font-medium text-xs truncate">বেবি কেয়ার কম্বো সেট</h3>
@@ -93,8 +84,8 @@
             </div>
         </main>
 
-        <!-- 5. BOTTOM NAVIGATION BAR (Exact Sequence: Digital Svc -> Seller -> Logo -> Earn -> Items) -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-white/90 backdrop-blur-md border-t border-gray-200 px-3 py-2 flex items-center justify-between text-center shadow-lg">
+        <!-- 4. BOTTOM NAVIGATION BAR (Exact Sequence: Digital Svc -> Seller -> Logo -> Earn -> Items) -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-white border-t border-gray-200 px-3 py-2 flex items-center justify-between text-center shadow-lg">
             
             <!-- 1. Digital Svc -->
             <button onclick="alert('ডিজিটাল সার্ভিস ও স্টুডিও সেকশন ওপেন হচ্ছে...')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-indigo-600 transition">
@@ -109,7 +100,7 @@
             </button>
 
             <!-- 3. Logo (Home) -->
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex-1 flex flex-col items-center text-indigo-600 transition">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center text-indigo-600 transition">
                 <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 <span class="text-[9px] font-bold">Logo</span>
             </button>
@@ -128,7 +119,7 @@
 
         </nav>
 
-        <!-- 6. ONE-CLICK DETAIL POPUP -->
+        <!-- 5. ONE-CLICK DETAIL POPUP -->
         <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
             <div class="bg-white w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-5 relative max-h-[90vh] overflow-y-auto no-scrollbar animate-bounce-in">
                 <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center text-gray-500">✕</button>
@@ -147,7 +138,7 @@
             </div>
         </div>
 
-        <!-- 7. STEALTH ADMIN PANEL -->
+        <!-- 6. STEALTH ADMIN PANEL -->
         <div id="adminModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
             <div class="bg-white w-full max-w-md rounded-3xl p-5 relative">
                 <button onclick="closeModal('adminModal')" class="absolute top-4 right-4 text-gray-400 font-bold">✕</button>
@@ -176,9 +167,9 @@
             openModal('productDetailModal');
         }
 
-        // Stealth Admin Trigger (Click 5 times on the separator '|')
+        // Stealth Admin Trigger (Click 5 times on the 'Logo' button)
         let clickCount = 0;
-        document.getElementById('stealthTrigger').addEventListener('click', () => {
+        document.getElementById('stealthTrigger').addEventListener('click', (e) => {
             clickCount++;
             if (clickCount >= 5) {
                 clickCount = 0;
