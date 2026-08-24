@@ -1,1 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MASUDAR ENTERPRISE | All-in-One Global Ecosystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0c0c0c;
+            --gold-primary: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --text-main: #FFFFFF;
+            --border-luxury: rgba(212, 175, 55, 0.4);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            text-align: center; 
+            overflow-x: hidden;
+        }
+
+        /* Top Header - Fully Centered & Stacked for Mobile Elegance */
+        .top-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 15px;
+            background: #000;
+            border-bottom: 1px solid var(--border-luxury);
+            gap: 15px;
+        }
+        .brand-box-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+        .brand-logo-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            border: 1px solid var(--gold-primary);
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(212,175,55,0.3);
+        }
+        .brand-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            margin: 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .brand-text span {
+            font-size: 9px;
+            color: #ddd;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .top-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            color: #FFFFFF;
+            font-size: 11px;
+            padding: 7px 14px;
+            border-radius: 22px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+        .badge i {
+            color: var(--gold-primary);
+        }
+
+        /* Hero Section */
+        .hero { padding: 35px 15px 20px 15px; }
+        .hero h2 { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 28px; 
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            margin-bottom: 8px; 
+            line-height: 1.3;
+        }
+        .hero p { 
+            color: #aaa; 
+            font-size: 10px; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+        }
+
+        /* Vertical Stacked Layout */
+        .vertical-container { 
+            display: flex;
+            flex-direction: column;
+            gap: 24px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 0 15px 90px 15px;
+        }
+        
+        .luxury-card { 
+            background: var(--surface-color); 
+            border: 1px solid var(--border-luxury); 
+            border-radius: 18px; 
+            padding: 30px 20px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.4s ease; 
+            text-decoration: none; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .luxury-card:hover { 
+            border-color: var(--gold-primary); 
+            transform: translateY(-5px);
+            box-shadow: 0 0 35px rgba(212,175,55,0.35); 
+        }
+        
+        .luxury-card i { 
+            font-size: 42px; 
+            background: var(--gold-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 15px; 
+            animation: prominentZoom 2.5s infinite ease-in-out;
+        }
+        @keyframes prominentZoom {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(0.9); }
+        }
+
+        .luxury-card h3 { 
+            font-size: 16px; 
+            margin-bottom: 6px; 
+            color: #fff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .luxury-card p {
+            color: #999;
+            font-size: 11px;
+            margin-bottom: 22px;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn { 
+            display: inline-block; 
+            background: var(--gold-gradient); 
+            color: #000; 
+            padding: 11px 26px; 
+            border-radius: 28px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            font-size: 10px; 
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 15px rgba(212,175,55,0.25);
+        }
+
+        /* --- Floating Live Chat Widget --- */
+        .chat-widget-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 20px;
+            z-index: 99999;
+        }
+        .live-chat-bubble-btn {
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 13px 26px;
+            border-radius: 38px;
+            font-weight: 900;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 25px rgba(212,175,55,0.6);
+            border: 2px solid #fff;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.8); }
+            70% { box-shadow: 0 0 0 14px rgba(212,175,55,0); }
+            100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+        }
+
+        /* Live Chat Window */
+        .live-chat-window {
+            display: none;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 310px;
+            background: var(--surface-color);
+            border: 1px solid var(--gold-primary);
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.95);
+            overflow: hidden;
+            text-align: left;
+        }
+        .chat-top-bar {
+            background: #000;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-luxury);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+        }
+        .close-chat-x {
+            color: #aaa;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .close-chat-x:hover { color: #fff; }
+
+        .chat-conversation-area {
+            height: 220px;
+            padding: 14px;
+            overflow-y: auto;
+            font-size: 11px;
+            color: #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .support-agent-msg {
+            background: rgba(212,175,55,0.12);
+            border-left: 2px solid var(--gold-primary);
+            padding: 9px 12px;
+            border-radius: 6px;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+        .visitor-msg {
+            background: #222;
+            color: #fff;
+            padding: 9px 12px;
+            border-radius: 6px;
+            max-width: 90%;
+            align-self: flex-end;
+            border-right: 2px solid #fff;
+        }
+
+        .chat-bottom-input {
+            padding: 10px 12px;
+            background: #000;
+            border-top: 1px solid var(--border-luxury);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chat-bottom-input input {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 9px 12px;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            font-size: 11px;
+        }
+        .chat-bottom-input i {
+            color: var(--gold-primary);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0 3px;
+        }
+        
+        .send-btn-text {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 15px;
+            font-weight: 800;
+            font-size: 9px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header - Centered Layout -->
+    <div class="top-header">
+        <div class="brand-box-center">
+            <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s400" alt="Logo" class="brand-logo-img">
+            <div class="brand-text">
+                <h1>MR MASUDAR ENTERPRISE</h1>
+                <span>ALL-IN-ONE . LESS IS MORE</span>
+            </div>
+        </div>
+        <div class="top-badges">
+            <div class="badge"><i class="fa-solid fa-globe"></i> 237+</div>
+            <div class="badge"><i class="fa-solid fa-headset"></i> 24/7</div>
+            <a href="app.html" class="badge"><i class="fa-solid fa-download"></i> INSTALL APP</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h2>ALL-IN-ONE GLOBAL ECOSYSTEM</h2>
+        <p>Explore elite gateways & shop instantly via live human support</p>
+    </div>
+
+    <!-- Vertical Stacked Cards Layout -->
+    <div class="vertical-container">
+        <!-- 1. Bangladesh Market -->
+        <a href="bd.html" class="luxury-card">
+            <i class="fa-solid fa-house-chimney"></i>
+            <h3>BANGLADESH MARKET</h3>
+            <p>Local Retail & Daily Essentials</p>
+            <span class="btn">SHOP LOCAL</span>
+        </a>
+
+        <!-- 2. Global Marketplace -->
+        <a href="global.html" class="luxury-card">
+            <i class="fa-solid fa-earth-americas"></i>
+            <h3>GLOBAL MARKETPLACE</h3>
+            <p>Premium Products Worldwide</p>
+            <span class="btn">EXPLORE GLOBAL</span>
+        </a>
+
+        <!-- 3. Wholesale Market -->
+        <a href="b2b.html" class="luxury-card">
+            <i class="fa-solid fa-warehouse"></i>
+            <h3>WHOLESALE MARKET</h3>
+            <p>Bulk Business & B2B Solutions</p>
+            <span class="btn">BULK ORDER</span>
+        </a>
+
+        <!-- 4. Seller Ecosystem -->
+        <a href="seller.html" class="luxury-card">
+            <i class="fa-solid fa-store"></i>
+            <h3>SELLER ECOSYSTEM</h3>
+            <p>Onboard & Expand Business</p>
+            <span class="btn">JOIN NOW</span>
+        </a>
+
+        <!-- 5. Affiliate Network -->
+        <a href="affiliate.html" class="luxury-card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>AFFILIATE NETWORK</h3>
+            <p>Global Earnings & Analytics (10%)</p>
+            <span class="btn">OPEN PORTAL</span>
+        </a>
+
+        <!-- 6. Careers & Talent -->
+        <a href="career.html" class="luxury-card">
+            <i class="fa-solid fa-users-gear"></i>
+            <h3>CAREERS & TALENT</h3>
+            <p>Join the Elite Workforce</p>
+            <span class="btn">APPLY NOW</span>
+        </a>
+
+        <!-- 7. Enterprise Solutions -->
+        <a href="enterprise.html" class="luxury-card">
+            <i class="fa-solid fa-gem"></i>
+            <h3>ENTERPRISE SOLUTIONS</h3>
+            <p>Custom Global Infrastructure</p>
+            <span class="btn">EXPLORE</span>
+        </a>
+    </div>
+
+    <!-- Floating Live Chat Widget -->
+    <div class="chat-widget-fixed">
+        <div class="live-chat-bubble-btn" onclick="toggleChatWindow()">
+            <i class="fa-solid fa-comments"></i> LIVE CHAT
+        </div>
+
+        <div class="live-chat-window" id="liveChatWindow">
+            <div class="chat-top-bar">
+                <div class="agent-status">
+                    <span class="status-dot"></span> <span>Mr Masudar Support</span>
+                </div>
+                <span class="close-chat-x" onclick="toggleChatWindow()">&times;</span>
+            </div>
+            <div class="chat-conversation-area" id="chatAreaBox">
+                <div class="support-agent-msg">Mr Masudar Enterprise-এ স্বাগতম! আমাদের প্রধান সেবা: বাংলাদেশ ও গ্লোবাল মার্কেটপ্লেস এবং হোলসেল (B2B)। কীভাবে সহায়তা করতে পারি?</div>
+            </div>
+            <div class="chat-bottom-input">
+                <input type="text" id="chatInputField" placeholder="Type message..." onkeypress="handleKey(event)">
+                <i class="fa-solid fa-microphone" title="Voice Input" onclick="startSpeechRecognition()"></i>
+                <i class="fa-solid fa-camera" title="Upload Image" onclick="document.getElementById('hiddenImageUpload').click()"></i>
+                <input type="file" id="hiddenImageUpload" style="display:none" accept="image/*" onchange="handleImageSelected(event)">
+                <button class="send-btn-text" onclick="sendVisitorMessage()">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChatWindow() {
+            const win = document.getElementById('liveChatWindow');
+            win.style.display = (win.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function sendVisitorMessage() {
+            const input = document.getElementById('chatInputField');
+            const area = document.getElementById('chatAreaBox');
+            if(input.value.trim() !== '') {
+                const userMsg = document.createElement('div');
+                userMsg.className = 'visitor-msg';
+                userMsg.innerText = input.value;
+                area.appendChild(userMsg);
+
+                let txt = input.value.trim();
+                let lowerTxt = txt.toLowerCase();
+                input.value = '';
+                area.scrollTop = area.scrollHeight;
+
+                setTimeout(() => {
+                    const agentMsg = document.createElement('div');
+                    agentMsg.className = 'support-agent-msg';
+                    
+                    if (/[\u0600-\u06FF]/.test(txt)) {
+                        agentMsg.innerText = "أهلاً بك! نقدم خدمات السوق البنغلاديشي، السوق العالمي، والبيع بالجملة. كيف يمكنني مساعدتك؟";
+                    } else if (/^[a-zA-Z\s]+$/.test(txt)) {
+                        if (lowerTxt.includes('market') || lowerTxt.includes('global') || lowerTxt.includes('bangladesh') || lowerTxt.includes('retail')) {
+                            agentMsg.innerText = "We offer Bangladesh Market local retail, Global Marketplace with 10+ categories, and Wholesale B2B bulk solutions.";
+                        } else if (lowerTxt.includes('wholesale') || lowerTxt.includes('b2b')) {
+                            agentMsg.innerText = "Our Wholesale Market provides commercial bulk order solutions and direct B2B trade globally.";
+                        } else if (lowerTxt.includes('hello') || lowerTxt.includes('hi') || lowerTxt.includes('hey')) {
+                            agentMsg.innerText = "Hello! Welcome to Mr Masudar Enterprise. How can we assist you with our global ecosystem today?";
+                        } else {
+                            agentMsg.innerText = "Thank you for your query. Our 24/7 support team across 237+ countries is ready to assist you instantly!";
+                        }
+                    } else {
+                        if (lowerTxt.includes('market') || lowerTxt.includes('বাজার') || lowerTxt.includes('সেবা') || lowerTxt.includes('service') || lowerTxt.includes('বাংলাদেশ')) {
+                            agentMsg.innerText = "আমাদের প্রধান সেবার মধ্যে রয়েছে বাংলাদেশ মার্কেট (লোকাল রিটেল), গ্লোবাল মার্কেটপ্লেস এবং হোলসেল (B2B) সলিউশন।";
+                        } else if (lowerTxt.includes('wholesale') || lowerTxt.includes('হোলসেল') || lowerTxt.includes('bulk') || lowerTxt.includes('বাল্ক')) {
+                            agentMsg.innerText = "আমাদের হোলসেল মার্কেটে আপনি খুব সহজেই যেকোনো পণ্যের বাল্ক অর্ডার বা B2B সলিউশন পেতে পারেন।";
+                        } else if (lowerTxt.includes('সালাম') || lowerTxt.includes('কেমন') || lowerTxt.includes('কী') || lowerTxt.includes('হ্যালো')) {
+                            agentMsg.innerText = "ওয়ালাইকুম আসসালাম! Mr Masudar Enterprise-এ আপনাকে স্বাগতম। বলুন আমাদের কোন সার্ভিসটি সম্পর্কে জানতে চান?";
+                        } else {
+                            agentMsg.innerText = "আপনার কথাটি বুঝতে পেরেছি। আমাদের ২৩৭+ দেশের নেটওয়ার্ক থেকে আপনার রিকোয়েস্টটি দ্রুত প্রসেস করা হচ্ছে।";
+                        }
+                    }
+
+                    area.appendChild(agentMsg);
+                    area.scrollTop = area.scrollHeight;
+                }, 400);
+            }
+        }
+
+        function handleKey(e) {
+            if(e.key === 'Enter') {
+                sendVisitorMessage();
+            }
+        }
+
+        function startSpeechRecognition() {
+            try {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    alert("Speech recognition is not supported in this browser.");
+                    return;
+                }
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.start();
+
+                const inputField = document.getElementById('chatInputField');
+                inputField.placeholder = "Listening...";
+
+                recognition.onresult = function(event) {
+                    inputField.value = event.results[0][0].transcript;
+                    inputField.placeholder = "Type message...";
+                };
+
+                recognition.onerror = function() {
+                    inputField.placeholder = "Type message...";
+                };
+            } catch (err) {
+                alert("Microphone access error.");
+            }
+        }
+
+        function handleImageSelected(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const area = document.getElementById('chatAreaBox');
+                const imgMsg = document.createElement('div');
+                imgMsg.className = 'visitor-msg';
+                imgMsg.innerText = "📷 Uploaded: " + file.name;
+                area.appendChild(imgMsg);
+                area.scrollTop = area.scrollHeight;
+
+                setTimeout(() => {
+                    const reply = document.createElement('div');
+                    reply.className = 'support-agent-msg';
+                    reply.innerText = "ছবিটি পেয়েছি! আমাদের প্রতিনিধি প্রোডাক্ট স্পেসিফিকেশন চেক করছেন।";
+                    area.appendChild(reply);
+                    area.scrollTop = area.scrollHeight;
+                }, 800);
+            }
+        }
+    </script>
+
+</body>
+</html>
 
