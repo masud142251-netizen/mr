@@ -3,12 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHASHA99 - Luxury Social Marketplace</title>
+    <title>SHASHA99 - Royal Luxury Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Royal Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Typography Classes */
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+
+        /* Golden Gradient Colors & Borders */
+        .golden-gradient-text {
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .golden-gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: #000000;
+        }
+        .golden-gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1.5px;
+            border-radius: 1.1rem;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            z-index: -1;
+            pointer-events: none;
+        }
+
         @keyframes bounceIn {
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
@@ -16,134 +46,135 @@
         .animate-bounce-in { animation: bounceIn 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="bg-white text-gray-800 antialiased selection:bg-indigo-500 selection:text-white pb-24">
+<body class="bg-[#000000] text-[#FFFFFF] antialiased selection:bg-[#BF953F] selection:text-black pb-24">
 
-    <!-- MOBILE-FIRST CLEAN WHITE LUXURY WRAPPER -->
-    <div class="max-w-md mx-auto min-h-screen bg-white shadow-2xl relative flex flex-col">
+    <!-- MOBILE-FIRST ROYAL LUXURY WRAPPER -->
+    <div class="max-w-md mx-auto min-h-screen bg-[#000000] shadow-2xl relative flex flex-col border-x border-[#1a1a1a]">
 
-        <!-- 1. FLOATING CRYSTAL SEARCH BAR (Floating right above the bottom menu) -->
-        <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto z-40 bg-white/80 backdrop-blur-md px-4 py-2.5 border-t border-gray-100 shadow-lg">
+        <!-- 1. FLOATING CRYSTAL SEARCH BAR -->
+        <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto z-40 bg-[#0a0a0a]/90 backdrop-blur-md px-4 py-2.5 border-t border-[#222222] shadow-2xl">
             <div class="relative flex items-center">
-                <span class="absolute left-3 text-gray-400">
+                <span class="absolute left-3 text-[#BF953F]">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </span>
-                <input type="text" id="searchInput" placeholder="লাক্সারি প্রোডাক্ট বা সার্ভিস সার্চ করুন..." class="w-full pl-9 pr-16 py-2 bg-gray-100/80 backdrop-blur-sm border border-gray-200/60 rounded-full text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition outline-none">
-                <div class="absolute right-3 flex items-center space-x-2 text-gray-500">
-                    <button onclick="triggerCameraSearch()" class="hover:text-indigo-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg></button>
-                    <button onclick="triggerVoiceSearch()" class="hover:text-indigo-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
+                <input type="text" id="searchInput" placeholder="Search Royal Collection..." class="w-full pl-9 pr-16 py-2 bg-[#000000] border border-[#332211] rounded-full text-xs font-cormorant text-white placeholder-gray-500 focus:ring-1 focus:ring-[#BF953F] outline-none">
+                <div class="absolute right-3 flex items-center space-x-2 text-[#BF953F]">
+                    <button onclick="triggerCameraSearch()" class="hover:text-white"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg></button>
+                    <button onclick="triggerVoiceSearch()" class="hover:text-white"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
                 </div>
             </div>
         </div>
 
-        <!-- 2. SLIDING ITEM WHEEL DRAWER (Opens when 'Items' is clicked) -->
-        <div id="itemWheelContainer" class="hidden fixed bottom-32 left-0 right-0 max-w-md mx-auto z-40 px-4 py-2 bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-xl transition-all duration-300">
-            <p class="text-[10px] text-gray-400 font-semibold mb-1 text-center">চাকার মতো ঘুরিয়ে আইটেম সিলেক্ট করুন:</p>
-            <div class="relative w-full h-20 bg-gray-50 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex items-center justify-center">
-                <div class="absolute w-11/12 h-7 bg-indigo-600/10 border border-indigo-500/20 rounded-xl pointer-events-none z-10"></div>
-                <div id="verticalWheel" class="w-full h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar py-6 space-y-1 text-center cursor-pointer">
-                    <div onclick="selectWheelItem(this, 'all')" class="snap-center text-xs font-bold text-indigo-600">🔥 সমস্ত আইটেম</div>
-                    <div onclick="selectWheelItem(this, 'furniture')" class="snap-center text-xs font-semibold text-gray-400">🪑 গ্যামার উড ফার্নিচার</div>
-                    <div onclick="selectWheelItem(this, 'baby')" class="snap-center text-xs font-semibold text-gray-400">🍼 বেবি কেয়ার আইটেম</div>
-                    <div onclick="selectWheelItem(this, 'gadget')" class="snap-center text-xs font-semibold text-gray-400">⚡ লাক্সারি টেক গ্যাজেট</div>
+        <!-- 2. SLIDING ITEM WHEEL DRAWER -->
+        <div id="itemWheelContainer" class="hidden fixed bottom-32 left-0 right-0 max-w-md mx-auto z-40 px-4 py-2 bg-[#0a0a0a]/95 backdrop-blur-md border-t border-[#222222] shadow-2xl transition-all duration-300">
+            <p class="text-[10px] text-[#BF953F] font-cinzel font-semibold mb-1 text-center">Select Category Wheel</p>
+            <div class="relative w-full h-20 bg-[#000000] border border-[#332211] rounded-2xl shadow-inner overflow-hidden flex items-center justify-center">
+                <div class="absolute w-11/12 h-7 bg-[#BF953F]/10 border border-[#BF953F]/30 rounded-xl pointer-events-none z-10"></div>
+                <div id="verticalWheel" class="w-full h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar py-6 space-y-1 text-center cursor-pointer font-cormorant text-sm">
+                    <div onclick="selectWheelItem(this, 'all')" class="snap-center font-bold golden-gradient-text">✦ All Collections</div>
+                    <div onclick="selectWheelItem(this, 'furniture')" class="snap-center text-gray-400">🪑 Gamar Wood Furniture</div>
+                    <div onclick="selectWheelItem(this, 'baby')" class="snap-center text-gray-400">🍼 Baby Care Essentials</div>
+                    <div onclick="selectWheelItem(this, 'gadget')" class="snap-center text-gray-400">⚡ Luxury Tech Gadgets</div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. PINTEREST STYLE 2-COLUMN FEED -->
+        <!-- 3. PINTEREST STYLE 2-COLUMN FEED WITH GOLDEN GRADIENT BORDER -->
         <main class="flex-1 p-3 pt-4">
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-3.5">
                 
                 <!-- Product Card 1 -->
-                <div onclick="openProductDetail('প্রিমিয়াম গ্যামার উড চেয়ার', '৳ ২,৫০০', '#101')" class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 relative flex flex-col justify-between cursor-pointer group active:scale-95 transition">
-                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-white/80 p-1.5 rounded-full shadow hover:bg-white text-gray-400 hover:text-red-500 transition">
+                <div onclick="openProductDetail('Royal Gamar Wood Chair', '৳ ২,৫০০', '#101')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm p-1.5 rounded-full text-gray-400 hover:text-red-500 transition">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </button>
                     <div>
-                        <div class="bg-gray-100 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
-                            <span>Vertical Video (2:3)</span>
+                        <!-- Lazy Loading Image Simulation via CDN -->
+                        <div class="bg-[#111111] h-44 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                            <span class="font-cormorant tracking-wider">Vertical Video (2:3)</span>
                         </div>
-                        <h3 class="font-medium text-xs truncate">প্রিমিয়াম গ্যামার উড চেয়ার</h3>
-                        <p class="text-indigo-600 font-bold text-xs mt-0.5">৳ ২,৫০০ <span class="text-[9px] text-gray-400 font-normal line-through">৳ ৩,০০০</span></p>
+                        <h3 class="font-playfair font-bold text-xs truncate text-white">Royal Gamar Wood Chair</h3>
+                        <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ২,৫০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ৩,০০০</span></p>
                     </div>
                 </div>
 
                 <!-- Product Card 2 -->
-                <div onclick="openProductDetail('বেবি কেয়ার কম্বো সেট', '৳ ১,২০০', '#102')" class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 relative flex flex-col justify-between cursor-pointer group active:scale-95 transition">
-                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-white/80 p-1.5 rounded-full shadow hover:bg-white text-gray-400 hover:text-red-500 transition">
+                <div onclick="openProductDetail('Luxury Baby Combo Set', '৳ ১,২০০', '#102')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm p-1.5 rounded-full text-gray-400 hover:text-red-500 transition">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </button>
                     <div>
-                        <div class="bg-gray-100 h-44 rounded-xl mb-2 flex items-center justify-center text-gray-400 text-[11px] overflow-hidden">
-                            <span>Vertical Video (2:3)</span>
+                        <div class="bg-[#111111] h-44 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                            <span class="font-cormorant tracking-wider">Vertical Video (2:3)</span>
                         </div>
-                        <h3 class="font-medium text-xs truncate">বেবি কেয়ার কম্বো সেট</h3>
-                        <p class="text-indigo-600 font-bold text-xs mt-0.5">৳ ১,২০০ <span class="text-[9px] text-gray-400 font-normal line-through">৳ ১,৫০০</span></p>
+                        <h3 class="font-playfair font-bold text-xs truncate text-white">Luxury Baby Combo Set</h3>
+                        <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ১,২০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ১,৫০০</span></p>
                     </div>
                 </div>
 
             </div>
         </main>
 
-        <!-- 4. BOTTOM NAVIGATION BAR (Exact Sequence: Digital Svc -> Seller -> Logo -> Earn -> Items) -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-white border-t border-gray-200 px-3 py-2 flex items-center justify-between text-center shadow-lg">
+        <!-- 4. BOTTOM NAVIGATION BAR WITH GOLDEN GRADIENT LOGO -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-[#000000]/95 backdrop-blur-md border-t border-[#222222] px-3 py-2 flex items-center justify-between text-center shadow-2xl">
             
             <!-- 1. Digital Svc -->
-            <button onclick="alert('ডিজিটাল সার্ভিস ও স্টুডিও সেকশন ওপেন হচ্ছে...')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-indigo-600 transition">
+            <button onclick="alert('Digital Studio & Svc Opening...')" class="flex-1 flex flex-col items-center text-gray-400 hover:text-[#BF953F] transition">
                 <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span class="text-[9px] font-medium">Digital Svc</span>
+                <span class="text-[9px] font-cormorant tracking-wide">Digital Svc</span>
             </button>
 
             <!-- 2. Seller -->
-            <button onclick="openModal('sellerModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-indigo-600 transition">
+            <button onclick="openModal('sellerModal')" class="flex-1 flex flex-col items-center text-gray-400 hover:text-[#BF953F] transition">
                 <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                <span class="text-[9px] font-medium">Seller</span>
+                <span class="text-[9px] font-cormorant tracking-wide">Seller</span>
             </button>
 
-            <!-- 3. Logo (Home) -->
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center text-indigo-600 transition">
-                <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                <span class="text-[9px] font-bold">Logo</span>
+            <!-- 3. Logo (Golden Gradient Brand) -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition">
+                <span class="font-cinzel text-xs font-black golden-gradient-text tracking-widest">SHASHA</span>
+                <span class="text-[9px] font-cinzel text-[#BF953F]">LOGO</span>
             </button>
 
             <!-- 4. Earn -->
-            <button onclick="openModal('earnModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-indigo-600 transition">
+            <button onclick="openModal('earnModal')" class="flex-1 flex flex-col items-center text-gray-400 hover:text-[#BF953F] transition">
                 <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="text-[9px] font-medium">Earn</span>
+                <span class="text-[9px] font-cormorant tracking-wide">Earn</span>
             </button>
 
             <!-- 5. Items -->
-            <button onclick="toggleItemWheel()" class="flex-1 flex flex-col items-center text-gray-600 hover:text-indigo-600 transition">
+            <button onclick="toggleItemWheel()" class="flex-1 flex flex-col items-center text-gray-400 hover:text-[#BF953F] transition">
                 <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                <span class="text-[9px] font-medium">Items</span>
+                <span class="text-[9px] font-cormorant tracking-wide">Items</span>
             </button>
 
         </nav>
 
         <!-- 5. ONE-CLICK DETAIL POPUP -->
-        <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
-            <div class="bg-white w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-5 relative max-h-[90vh] overflow-y-auto no-scrollbar animate-bounce-in">
-                <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center text-gray-500">✕</button>
-                <div class="w-full h-52 bg-gray-900 rounded-2xl mb-3 flex items-center justify-center text-white text-xs">
-                    <span>Embedded Video Player</span>
+        <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
+            <div class="bg-[#0a0a0a] border border-[#332211] w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-5 relative max-h-[90vh] overflow-y-auto no-scrollbar animate-bounce-in text-white shadow-2xl">
+                <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-[#1a1a1a] w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white">✕</button>
+                <div class="w-full h-52 bg-black rounded-2xl mb-3 flex items-center justify-center text-gray-500 text-xs border border-[#222222]">
+                    <span class="font-cormorant">Embedded Video Player</span>
                 </div>
-                <h2 id="modalTitle" class="text-sm font-bold text-gray-900 mb-1">প্রোডাক্ট টাইটেল</h2>
-                <div class="flex items-center justify-between mb-3">
-                    <p id="modalPrice" class="text-indigo-600 font-extrabold text-base">৳ ০.০০</p>
-                    <span id="modalSeller" class="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-semibold">Seller: #101</span>
+                <h2 id="modalTitle" class="font-playfair text-base font-bold text-white mb-1">Product Title</h2>
+                <div class="flex items-center justify-between mb-4">
+                    <p id="modalPrice" class="font-cinzel golden-gradient-text font-extrabold text-base">৳ ০.০০</p>
+                    <span id="modalSeller" class="font-cormorant text-[10px] bg-[#221505] text-[#BF953F] border border-[#BF953F]/30 px-2.5 py-0.5 rounded-full font-semibold">Seller: #101</span>
                 </div>
-                <div class="space-y-2">
-                    <button onclick="alert('অর্ডার সাকসেসফুল!')" class="w-full py-3 bg-indigo-600 text-white rounded-2xl text-xs font-bold shadow-lg">এখনই অর্ডার করুন (Buy Now)</button>
-                    <button onclick="shareProduct()" class="w-full py-2.5 bg-gray-100 text-gray-700 rounded-2xl text-xs font-semibold">↗ শেয়ার ও লিংক কপি</button>
+                <div class="space-y-2.5">
+                    <button onclick="alert('Order Placed Successfully!')" class="w-full py-3 bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] text-black rounded-2xl text-xs font-cinzel font-bold shadow-lg">BUY NOW</button>
+                    <button onclick="shareProduct()" class="w-full py-2.5 bg-[#1a1a1a] text-gray-300 rounded-2xl text-xs font-cormorant hover:bg-[#262626]">↗ Share & Copy Link</button>
                 </div>
             </div>
         </div>
 
         <!-- 6. STEALTH ADMIN PANEL -->
-        <div id="adminModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
-            <div class="bg-white w-full max-w-md rounded-3xl p-5 relative">
+        <div id="adminModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden items-center justify-center p-4">
+            <div class="bg-[#0a0a0a] border border-[#332211] w-full max-w-md rounded-3xl p-5 relative text-white">
                 <button onclick="closeModal('adminModal')" class="absolute top-4 right-4 text-gray-400 font-bold">✕</button>
-                <h2 class="text-sm font-bold text-red-600 mb-2">🔒 মাস্টার অ্যাডমিন কন্ট্রোল</h2>
-                <p class="text-xs text-gray-500">সিস্টেমের ৩টি সিক্রেট মডিউল এখানে কাজ করছে।</p>
+                <h2 class="font-cinzel text-sm font-bold golden-gradient-text mb-2">🔒 Master Admin Control</h2>
+                <p class="font-cormorant text-xs text-gray-400">Secure Cloudflare & Supabase Core Engine Active.</p>
             </div>
         </div>
 
@@ -151,10 +182,9 @@
 
     <!-- SCRIPT -->
     <script>
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.getElementById(id).classList.add('flex'); }
+        function openModal(id) { document.getElementById(id).classList.add('flex'); document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.remove('flex'); document.getElementById(id).classList.add('hidden'); }
 
-        // Toggle Item Wheel Drawer
         function toggleItemWheel() {
             let wheel = document.getElementById('itemWheelContainer');
             wheel.classList.toggle('hidden');
@@ -167,9 +197,8 @@
             openModal('productDetailModal');
         }
 
-        // Stealth Admin Trigger (Click 5 times on the 'Logo' button)
         let clickCount = 0;
-        document.getElementById('stealthTrigger').addEventListener('click', (e) => {
+        document.getElementById('stealthTrigger').addEventListener('click', () => {
             clickCount++;
             if (clickCount >= 5) {
                 clickCount = 0;
@@ -178,9 +207,9 @@
         });
 
         function toggleLike(btn) { btn.classList.toggle('text-red-500'); btn.querySelector('svg').classList.toggle('fill-current'); }
-        function shareProduct() { navigator.clipboard.writeText(window.location.href); alert("লিংক কপি সফল হয়েছে!"); }
-        function triggerCameraSearch() { alert("ইমেজ সার্চ ক্যামেরা ওপেন হচ্ছে..."); }
-        function triggerVoiceSearch() { alert("ভয়েস সার্চ ওপেন হচ্ছে..."); }
+        function shareProduct() { navigator.clipboard.writeText(window.location.href); alert("Royal Link Copied!"); }
+        function triggerCameraSearch() { alert("Visual Search Initializing..."); }
+        function triggerVoiceSearch() { alert("Voice Search Initializing..."); }
         function selectWheelItem(el, cat) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     </script>
 </body>
