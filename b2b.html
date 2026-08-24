@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr Masudar - Royal Luxury Edition</title>
+    <title>Mr. Masudar - Royal Luxury Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for Royal Typography -->
@@ -29,6 +29,27 @@
             transition: all 0.3s ease;
         }
         .luxury-gold-btn:active { transform: scale(0.95); }
+
+        /* Golden Circular Border for Navigation Items */
+        .golden-circle-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #000000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .golden-circle-icon::before {
+            content: '';
+            position: absolute;
+            inset: -1.5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            z-index: -1;
+            pointer-events: none;
+        }
 
         .golden-gradient-border {
             position: relative;
@@ -57,13 +78,13 @@
     <!-- MOBILE-FIRST ROYAL LUXURY WRAPPER -->
     <div class="max-w-md mx-auto min-h-screen bg-[#000000] shadow-2xl relative flex flex-col border-x border-[#1a1a1a]">
 
-        <!-- 1. FLOATING CRYSTAL SEARCH BAR (Transparent Glass with clear background view) -->
+        <!-- 1. FLOATING CRYSTAL SEARCH BAR -->
         <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto z-40 bg-black/60 backdrop-blur-xl px-4 py-3 border-t border-white/10 shadow-2xl">
             <div class="relative flex items-center">
                 <span class="absolute left-3 text-[#BF953F]">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </span>
-                <input type="text" id="searchInput" placeholder="Search Mr. Masood Collection..." class="w-full pl-9 pr-16 py-2 bg-black/40 border border-[#BF953F]/40 rounded-full text-xs font-cormorant text-white placeholder-gray-400 focus:ring-1 focus:ring-[#BF953F] outline-none shadow-inner">
+                <input type="text" id="searchInput" placeholder="Search Mr. Masudar Collection..." class="w-full pl-9 pr-16 py-2 bg-black/40 border border-[#BF953F]/40 rounded-full text-xs font-cormorant text-white placeholder-gray-400 focus:ring-1 focus:ring-[#BF953F] outline-none shadow-inner">
                 <div class="absolute right-3 flex items-center space-x-2 text-[#BF953F]">
                     <button onclick="triggerCameraSearch()" class="hover:text-white transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg></button>
                     <button onclick="triggerVoiceSearch()" class="hover:text-white transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
@@ -71,7 +92,7 @@
             </div>
         </div>
 
-        <!-- 2. HALF-SCREEN CATEGORY WHEEL DRAWER (Bottom-up sliding panel with 1-word clear tags) -->
+        <!-- 2. CATEGORY WHEEL DRAWER -->
         <div id="itemWheelContainer" class="hidden fixed inset-x-0 bottom-24 max-w-md mx-auto z-50 p-4 bg-black/90 backdrop-blur-2xl border-t border-[#BF953F]/30 rounded-t-3xl shadow-2xl animate-slide-up">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="font-cinzel text-xs font-bold golden-gradient-text tracking-wider">Select Category</h3>
@@ -93,7 +114,6 @@
                 
                 <!-- Column 1 -->
                 <div class="space-y-3">
-                    <!-- Card 1 (9:16 Ratio Video/Image Container) -->
                     <div onclick="openProductDetail('Royal Gamar Wood Chair', '৳ ২,৫০০', '#101')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
                         <div>
                             <div class="bg-[#111] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-400 text-xs overflow-hidden border border-[#222]">
@@ -107,7 +127,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 3 -->
                     <div onclick="openProductDetail('Smart Luxury Watch', '৳ ৩,৫০০', '#103')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
                         <div>
                             <div class="bg-[#111] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-400 text-xs overflow-hidden border border-[#222]">
@@ -122,9 +141,8 @@
                     </div>
                 </div>
 
-                <!-- Column 2 (Offset for Masonry feel) -->
+                <!-- Column 2 -->
                 <div class="space-y-3 pt-6">
-                    <!-- Card 2 -->
                     <div onclick="openProductDetail('Luxury Baby Combo Set', '৳ ১,২০০', '#102')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
                         <div>
                             <div class="bg-[#111] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-400 text-xs overflow-hidden border border-[#222]">
@@ -138,7 +156,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 4 -->
                     <div onclick="openProductDetail('Professional Video Editing', '৳ ৫,০০০', '#104')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
                         <div>
                             <div class="bg-[#111] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-400 text-xs overflow-hidden border border-[#222]">
@@ -156,39 +173,47 @@
             </div>
         </main>
 
-        <!-- 4. BOTTOM NAVIGATION BAR (Four Clear Luxury Buttons + Mr. Masood Center Branding) -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-[#000000] border-t border-[#BF953F]/30 px-3 py-2 flex items-center justify-between text-center shadow-2xl">
+        <!-- 4. BOTTOM NAVIGATION BAR (All with Golden Circular Border & Single-Line Text) -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-[#000000] border-t border-[#BF953F]/30 px-2 py-2 flex items-center justify-between text-center shadow-2xl">
             
             <!-- 1. Digital Svc -->
             <button onclick="alert('Digital Studio & Svc Opening...')" class="flex-1 flex flex-col items-center text-gray-300 hover:text-[#BF953F] transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span class="text-[10px] font-cinzel tracking-wider font-semibold">Digital</span>
+                <div class="golden-circle-icon mb-0.5">
+                    <svg class="w-4 h-4 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <span class="text-[9px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Digital Svc</span>
             </button>
 
             <!-- 2. Seller -->
             <button onclick="openModal('sellerModal')" class="flex-1 flex flex-col items-center text-gray-300 hover:text-[#BF953F] transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                <span class="text-[10px] font-cinzel tracking-wider font-semibold">Seller</span>
+                <div class="golden-circle-icon mb-0.5">
+                    <svg class="w-4 h-4 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </div>
+                <span class="text-[9px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Seller</span>
             </button>
 
-            <!-- 3. Center Mr. Masood Branding & Logo -->
+            <!-- 3. Center Mr. Masudar Branding & Logo with Golden Circle -->
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition group">
-                <div class="w-9 h-9 rounded-full p-0.5 bg-gradient-to-tr from-[#BF953F] via-[#FCF6BA] to-[#AA771C] shadow-lg group-active:scale-95 transition flex items-center justify-center overflow-hidden">
-                    <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s220" alt="Mr. Masood" class="w-full h-full object-cover rounded-full">
+                <div class="golden-circle-icon mb-0.5 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s220" alt="Mr. Masudar" class="w-full h-full object-cover rounded-full">
                 </div>
-                <span class="text-[9px] font-cinzel golden-gradient-text mt-0.5 tracking-widest font-extrabold">Mr. Masood</span>
+                <span class="text-[9px] font-cinzel golden-gradient-text tracking-tight font-extrabold whitespace-nowrap">Mr. Masudar</span>
             </button>
 
             <!-- 4. Earn -->
             <button onclick="openModal('earnModal')" class="flex-1 flex flex-col items-center text-gray-300 hover:text-[#BF953F] transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="text-[10px] font-cinzel tracking-wider font-semibold">Earn</span>
+                <div class="golden-circle-icon mb-0.5">
+                    <svg class="w-4 h-4 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span class="text-[9px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Earn</span>
             </button>
 
-            <!-- 5. Items (Trigger Category Wheel) -->
+            <!-- 5. Items -->
             <button onclick="toggleItemWheel()" class="flex-1 flex flex-col items-center text-gray-300 hover:text-[#BF953F] transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                <span class="text-[10px] font-cinzel tracking-wider font-semibold">Items</span>
+                <div class="golden-circle-icon mb-0.5">
+                    <svg class="w-4 h-4 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </div>
+                <span class="text-[9px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Items</span>
             </button>
 
         </nav>
@@ -217,7 +242,7 @@
             <div class="bg-[#0a0a0a] border border-[#BF953F]/50 w-full max-w-md rounded-3xl p-5 relative text-white">
                 <button onclick="closeModal('adminModal')" class="absolute top-4 right-4 text-gray-400 font-bold text-xs">✕</button>
                 <h2 class="font-cinzel text-sm font-bold golden-gradient-text mb-1">🔒 Master Admin Control</h2>
-                <p class="font-cormorant text-xs text-gray-400">Mr. Masood Core Cloud Engine Active.</p>
+                <p class="font-cormorant text-xs text-gray-400">Mr. Masudar Core Cloud Engine Active.</p>
             </div>
         </div>
 
@@ -254,7 +279,6 @@
             }
         });
 
-        // Real Camera & Voice Search Integration
         function triggerCameraSearch() {
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
