@@ -17,13 +17,26 @@
         .font-playfair { font-family: 'Playfair Display', serif; }
         .font-cormorant { font-family: 'Cormorant Garamond', serif; }
 
-        /* Golden Gradient Colors & Borders */
+        /* Golden Gradient Colors & Text */
         .golden-gradient-text {
             background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+        /* Luxury Golden Gradient Button style based on your reference */
+        .luxury-gold-btn {
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            color: #000000;
+            box-shadow: 0 0 15px rgba(191, 149, 63, 0.4);
+            transition: all 0.3s ease;
+        }
+        .luxury-gold-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px rgba(191, 149, 63, 0.8);
+        }
+
+        /* Rounded Golden Gradient Border for Cards */
         .golden-gradient-border {
             position: relative;
             border-radius: 1rem;
@@ -46,7 +59,7 @@
         .animate-bounce-in { animation: bounceIn 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="bg-[#000000] text-[#FFFFFF] antialiased selection:bg-[#BF953F] selection:text-black pb-24">
+<body class="bg-[#000000] text-[#FFFFFF] antialiased selection:bg-[#BF953F] selection:text-black pb-28">
 
     <!-- MOBILE-FIRST ROYAL LUXURY WRAPPER -->
     <div class="max-w-md mx-auto min-h-screen bg-[#000000] shadow-2xl relative flex flex-col border-x border-[#1a1a1a]">
@@ -79,44 +92,65 @@
             </div>
         </div>
 
-        <!-- 3. PINTEREST STYLE 2-COLUMN FEED WITH GOLDEN GRADIENT BORDER -->
+        <!-- 3. PINTEREST-STYLE MASONRY / CASCADING FEED (No Hearts) -->
         <main class="flex-1 p-3 pt-4">
-            <div class="grid grid-cols-2 gap-3.5">
+            <div class="grid grid-cols-2 gap-3 items-start">
                 
-                <!-- Product Card 1 -->
-                <div onclick="openProductDetail('Royal Gamar Wood Chair', '৳ ২,৫০০', '#101')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
-                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm p-1.5 rounded-full text-gray-400 hover:text-red-500 transition">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </button>
-                    <div>
-                        <!-- Lazy Loading Image Simulation via CDN -->
-                        <div class="bg-[#111111] h-44 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
-                            <span class="font-cormorant tracking-wider">Vertical Video (2:3)</span>
+                <!-- Column 1 -->
+                <div class="space-y-3">
+                    <!-- Card 1 (Tall Video Aspect Ratio) -->
+                    <div onclick="openProductDetail('Royal Gamar Wood Chair', '৳ ২,৫০০', '#101')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                        <div>
+                            <div class="bg-[#111111] h-52 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                                <span class="font-cormorant tracking-wider">Vertical Video (9:16)</span>
+                            </div>
+                            <h3 class="font-playfair font-bold text-xs text-white">Royal Gamar Wood Chair</h3>
+                            <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ২,৫০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ৩,০০০</span></p>
                         </div>
-                        <h3 class="font-playfair font-bold text-xs truncate text-white">Royal Gamar Wood Chair</h3>
-                        <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ২,৫০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ৩,০০০</span></p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="openProductDetail('Smart Luxury Watch', '৳ ৩,৫০০', '#103')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                        <div>
+                            <div class="bg-[#111111] h-36 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                                <span class="font-cormorant tracking-wider">Vertical Feed</span>
+                            </div>
+                            <h3 class="font-playfair font-bold text-xs text-white">Smart Luxury Watch</h3>
+                            <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ৩,৫০০</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Product Card 2 -->
-                <div onclick="openProductDetail('Luxury Baby Combo Set', '৳ ১,২০০', '#102')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
-                    <button onclick="event.stopPropagation(); toggleLike(this)" class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm p-1.5 rounded-full text-gray-400 hover:text-red-500 transition">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </button>
-                    <div>
-                        <div class="bg-[#111111] h-44 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
-                            <span class="font-cormorant tracking-wider">Vertical Video (2:3)</span>
+                <!-- Column 2 -->
+                <div class="space-y-3 pt-4">
+                    <!-- Card 2 -->
+                    <div onclick="openProductDetail('Luxury Baby Combo Set', '৳ ১,২০০', '#102')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                        <div>
+                            <div class="bg-[#111111] h-36 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                                <span class="font-cormorant tracking-wider">Vertical Feed</span>
+                            </div>
+                            <h3 class="font-playfair font-bold text-xs text-white">Luxury Baby Combo Set</h3>
+                            <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ১,২০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ১,৫০০০</span></p>
                         </div>
-                        <h3 class="font-playfair font-bold text-xs truncate text-white">Luxury Baby Combo Set</h3>
-                        <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ১,২০০ <span class="text-[9px] text-gray-500 font-normal line-through font-cormorant">৳ ১,৫০০</span></p>
+                    </div>
+
+                    <!-- Card 4 (Taller) -->
+                    <div onclick="openProductDetail('Handcrafted Luxury Decor', '৳ ৪,৮০০', '#104')" class="golden-gradient-border p-2.5 flex flex-col justify-between cursor-pointer group active:scale-95 transition shadow-xl">
+                        <div>
+                            <div class="bg-[#111111] h-48 rounded-xl mb-2 flex items-center justify-center text-gray-500 text-[11px] overflow-hidden border border-[#222222]">
+                                <span class="font-cormorant tracking-wider">Vertical Video (9:16)</span>
+                            </div>
+                            <h3 class="font-playfair font-bold text-xs text-white">Handcrafted Luxury Decor</h3>
+                            <p class="font-cinzel golden-gradient-text text-xs font-extrabold mt-1">৳ ৪,৮০০</p>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </main>
 
-        <!-- 4. BOTTOM NAVIGATION BAR WITH GOLDEN GRADIENT LOGO -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-[#000000]/95 backdrop-blur-md border-t border-[#222222] px-3 py-2 flex items-center justify-between text-center shadow-2xl">
+        <!-- 4. BOTTOM NAVIGATION BAR (Center Logo + Luxury Golden Buttons) -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-[#000000]/95 backdrop-blur-md border-t border-[#222222] px-3 py-2.5 flex items-center justify-between text-center shadow-2xl">
             
             <!-- 1. Digital Svc -->
             <button onclick="alert('Digital Studio & Svc Opening...')" class="flex-1 flex flex-col items-center text-gray-400 hover:text-[#BF953F] transition">
@@ -130,10 +164,14 @@
                 <span class="text-[9px] font-cormorant tracking-wide">Seller</span>
             </button>
 
-            <!-- 3. Logo (Golden Gradient Brand) -->
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition">
-                <span class="font-cinzel text-xs font-black golden-gradient-text tracking-widest">SHASHA</span>
-                <span class="text-[9px] font-cinzel text-[#BF953F]">LOGO</span>
+            <!-- 3. Center Logo (SHASHA99 Golden Brand Icon) -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition group">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#BF953F] via-[#FCF6BA] to-[#AA771C] p-0.5 shadow-lg group-active:scale-95 transition flex items-center justify-center">
+                    <div class="w-full h-full bg-black rounded-full flex items-center justify-center">
+                        <span class="font-cinzel text-[10px] font-black golden-gradient-text">99</span>
+                    </div>
+                </div>
+                <span class="text-[8px] font-cinzel golden-gradient-text mt-0.5 tracking-widest">SHASHA</span>
             </button>
 
             <!-- 4. Earn -->
@@ -150,7 +188,7 @@
 
         </nav>
 
-        <!-- 5. ONE-CLICK DETAIL POPUP -->
+        <!-- 5. ONE-CLICK DETAIL POPUP WITH LUXURY GOLD BUTTONS -->
         <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
             <div class="bg-[#0a0a0a] border border-[#332211] w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-5 relative max-h-[90vh] overflow-y-auto no-scrollbar animate-bounce-in text-white shadow-2xl">
                 <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-[#1a1a1a] w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white">✕</button>
@@ -163,7 +201,8 @@
                     <span id="modalSeller" class="font-cormorant text-[10px] bg-[#221505] text-[#BF953F] border border-[#BF953F]/30 px-2.5 py-0.5 rounded-full font-semibold">Seller: #101</span>
                 </div>
                 <div class="space-y-2.5">
-                    <button onclick="alert('Order Placed Successfully!')" class="w-full py-3 bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] text-black rounded-2xl text-xs font-cinzel font-bold shadow-lg">BUY NOW</button>
+                    <!-- Luxury Gold Glowing Button -->
+                    <button onclick="alert('Order Placed Successfully!')" class="w-full py-3 luxury-gold-btn rounded-2xl text-xs font-cinzel font-bold tracking-wider">BUY NOW</button>
                     <button onclick="shareProduct()" class="w-full py-2.5 bg-[#1a1a1a] text-gray-300 rounded-2xl text-xs font-cormorant hover:bg-[#262626]">↗ Share & Copy Link</button>
                 </div>
             </div>
@@ -206,7 +245,6 @@
             }
         });
 
-        function toggleLike(btn) { btn.classList.toggle('text-red-500'); btn.querySelector('svg').classList.toggle('fill-current'); }
         function shareProduct() { navigator.clipboard.writeText(window.location.href); alert("Royal Link Copied!"); }
         function triggerCameraSearch() { alert("Visual Search Initializing..."); }
         function triggerVoiceSearch() { alert("Voice Search Initializing..."); }
