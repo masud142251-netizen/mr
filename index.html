@@ -160,18 +160,18 @@
             display: none;
         }
 
-        /* 🌟 True Brick-Wall Masonry Layout (Exact Interlocking Offset Structure) */
+        /* 🌟 True Brick-Wall Masonry Interlocking Layout (Exact Brick Joint Offset) */
         .feed-container {
             column-count: 2;
-            column-gap: 10px;
-            padding: 10px;
+            column-gap: 12px;
+            padding: 12px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
                 column-count: 4;
-                column-gap: 14px;
-                padding: 14px;
+                column-gap: 16px;
+                padding: 16px;
             }
         }
 
@@ -179,7 +179,7 @@
             background: #121212;
             border-radius: 14px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             break-inside: avoid;
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
             transition: all 0.35s ease;
@@ -188,17 +188,17 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Brick-wall interlocking offset for alternate cards to create natural staggered beauty */
+        /* Exact Brick-wall Joint Interlocking Offset (Even cards pushed down to hit the exact middle joint) */
         .product-card:nth-child(even) {
-            margin-top: 15px;
+            margin-top: 35px;
         }
 
         @media (min-width: 768px) {
             .product-card:nth-child(3n) {
-                margin-top: 20px;
+                margin-top: 45px;
             }
             .product-card:nth-child(4n) {
-                margin-top: -10px;
+                margin-top: 15px;
             }
         }
 
@@ -449,6 +449,32 @@
             font-weight: 600;
             cursor: pointer;
         }
+
+        /* 🌟 Clean Toast Notification for Pure URL Copy */
+        .toast-notification {
+            position: fixed;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(18, 18, 18, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -482,12 +508,12 @@
         <!-- JavaScript will dynamically render cards -->
     </main>
 
-    <!-- Custom Social Share Bottom Sheet Modal with X (Twitter) Logo Included -->
+    <!-- Custom Social Share Bottom Sheet Modal with Pure X (Black) Logo -->
     <div class="share-modal" id="shareModal" onclick="closeShareModal(event)">
         <div class="share-sheet" onclick="event.stopPropagation()">
             <div class="share-title">Share Ecosystem</div>
             <div class="share-grid">
-                <div class="share-option" onclick="copyShortLink()">
+                <div class="share-option" onclick="copyPureUrl()">
                     <i class="fa-solid fa-copy"></i>
                     <span>Copy Link</span>
                 </div>
@@ -503,9 +529,9 @@
                     <i class="fa-brands fa-telegram"></i>
                     <span>Telegram</span>
                 </a>
-                <a href="#" id="twShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-x-twitter"></i>
-                    <span>Twitter/X</span>
+                <a href="#" id="xShare" target="_blank" class="share-option">
+                    <i class="fa-brands fa-x-twitter" style="color: #ffffff; background: #000; padding: 2px; border-radius: 4px;"></i>
+                    <span>X (Twitter)</span>
                 </a>
                 <a href="#" id="pinShare" target="_blank" class="share-option">
                     <i class="fa-brands fa-pinterest"></i>
@@ -523,6 +549,9 @@
             <button class="close-share" onclick="closeShareModalForce()">Cancel</button>
         </div>
     </div>
+
+    <!-- Toast Notification for Pure URL Copy (No alert popups) -->
+    <div class="toast-notification" id="toastNotification">Link copied to clipboard!</div>
 
     <!-- Luxury Sticky Bottom Navigation -->
     <nav class="bottom-nav">
@@ -555,7 +584,7 @@
 
         function handleGallerySelect(event) {
             if (event.target.files[0]) {
-                alert('Image loaded from gallery successfully!');
+                showToast('Image loaded successfully!');
             }
         }
 
@@ -569,7 +598,7 @@
                     document.getElementById('mainSearchInput').value = event.results[0][0].transcript;
                 };
             } else {
-                alert('Voice search is not supported.');
+                showToast('Voice search not supported.');
             }
         }
 
@@ -658,18 +687,18 @@
             }
         }
 
-        // Open Real Social Share Sheet with all platforms including X (Twitter)
+        // Open Real Social Share Sheet with X (Twitter)
         let activeShareBtn = null;
         function openShareModal(btn) {
             activeShareBtn = btn;
             btn.classList.add('shared');
-            const currentUrl = window.location.href;
+            const currentUrl = window.location.href.split('#')[0];
             
             document.getElementById('fbShare').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`;
-            document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item')}`;
-            document.getElementById('twShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this luxury item')}`;
-            document.getElementById('pinShare').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&description=${encodeURIComponent('Luxury Ecosystem Item')}`;
+            document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(currentUrl)}`;
+            document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}`;
+            document.getElementById('xShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}`;
+            document.getElementById('pinShare').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}`;
             document.getElementById('ttShare').href = `https://www.tiktok.com/`;
             document.getElementById('ytShare').href = `https://www.youtube.com/`;
             
@@ -689,21 +718,23 @@
             }
         }
 
-        function copyShortLink() {
-            const dummyUrl = window.location.href;
+        // 🌟 Pure URL Copy without any long text alerts
+        function copyPureUrl() {
+            const cleanUrl = window.location.href.split('#')[0];
+            
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(dummyUrl).then(() => {
-                    alert('Short link copied successfully: ' + dummyUrl);
+                navigator.clipboard.writeText(cleanUrl).then(() => {
+                    showToast('Link copied!');
                     closeShareModalForce();
                 }).catch(() => {
-                    fallbackCopy(dummyUrl);
+                    fallbackCopyPure(cleanUrl);
                 });
             } else {
-                fallbackCopy(dummyUrl);
+                fallbackCopyPure(cleanUrl);
             }
         }
 
-        function fallbackCopy(text) {
+        function fallbackCopyPure(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
             textArea.style.position = "fixed";
@@ -712,12 +743,22 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                alert('Short link copied successfully!');
+                showToast('Link copied!');
             } catch (err) {
-                alert('Failed to copy link.');
+                showToast('Failed to copy.');
             }
             document.body.removeChild(textArea);
             closeShareModalForce();
+        }
+
+        // Toast Message Helper
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
         }
     </script>
 </body>
