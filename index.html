@@ -87,7 +87,7 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        /* 🌟 Luxury Glass Search Bar (Clean & Short Placeholder) */
+        /* 🌟 Luxury Glass Search Bar */
         .search-container {
             padding: 12px 15px;
             background: rgba(8, 8, 8, 0.85);
@@ -160,11 +160,11 @@
             display: none;
         }
 
-        /* 🌟 Pinterest Style Masonry Grid (Perfect staggered heights & balanced gaps) */
+        /* 🌟 Pinterest Style Masonry Grid with Staggered Offsets for Luxury Balance */
         .feed-container {
             column-count: 2;
-            column-gap: 10px;
-            padding: 10px;
+            column-gap: 12px;
+            padding: 12px;
         }
 
         @media (min-width: 768px) {
@@ -179,7 +179,7 @@
             background: #121212;
             border-radius: 14px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             break-inside: avoid;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
             transition: all 0.35s ease;
@@ -188,10 +188,25 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* Staggering specific cards to give that alternating offset luxury look */
+        .product-card:nth-child(even) {
+            transform: translateY(15px);
+        }
+
+        @media (min-width: 768px) {
+            .product-card:nth-child(3n) {
+                transform: translateY(20px);
+            }
+            .product-card:nth-child(4n) {
+                transform: translateY(-10px);
+            }
+        }
+
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 55, 0.25);
-            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.5);
+            z-index: 10;
         }
 
         .product-img-wrapper {
@@ -210,14 +225,14 @@
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
         .product-info {
             padding: 8px 10px;
         }
 
-        /* Single line layout with slightly larger clear action icons */
+        /* Single line layout with clean clear icons */
         .card-footer-actions {
             display: flex;
             justify-content: space-between;
@@ -449,7 +464,6 @@
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="mainSearchInput" placeholder="Search luxury products...">
             <div class="search-actions">
-                <!-- Gallery Picker instead of direct camera opening -->
                 <label for="hiddenGalleryInput" title="Image Search"><i class="fa-solid fa-camera"></i></label>
                 <input type="file" id="hiddenGalleryInput" accept="image/*" onchange="handleGallerySelect(event)">
                 <i class="fa-solid fa-microphone" title="Voice Search" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
@@ -457,7 +471,7 @@
         </div>
     </div>
 
-    <!-- Pinterest Style Masonry Feed Grid -->
+    <!-- Pinterest Style Masonry Feed Grid with Staggered Offsets -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -553,13 +567,13 @@
             }
         }
 
-        // Your exact unique Google Drive direct image links provided without duplication
+        // Your exact unique Google Drive direct image links provided without duplication (including new ones)
         const exactDriveImages = [
             'https://lh3.googleusercontent.com/d/1N4lXfL2RIjolz0sVcazAc2BzMpO70M3c=s800',
-            'https://lh3.googleusercontent.com/d/1p16qTDjEPJNM0zBwVADM0ArD7SQyVoRr=s800',
-            'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
             'https://lh3.googleusercontent.com/d/1TtSnFLCM5X9feuJW-kqfzJ26MWShTLYw=s800',
             'https://lh3.googleusercontent.com/d/1kABixV17PsZve_MG8hbiKSTAtR54HdMq=s800',
+            'https://lh3.googleusercontent.com/d/1p16qTDjEPJNM0zBwVADM0ArD7SQyVoRr=s800',
+            'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
             'https://lh3.googleusercontent.com/d/1zx3Rf7LxOvFne8nTirOQFTQcA14gdyP7=s800',
             'https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi=s800',
             'https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2=s800',
@@ -657,7 +671,6 @@
                 alert('Short link copied successfully: ' + dummyUrl);
                 closeShareModalForce();
             }).catch(err => {
-                // Fallback for restricted environments
                 const textArea = document.createElement("textarea");
                 textArea.value = dummyUrl;
                 document.body.appendChild(textArea);
