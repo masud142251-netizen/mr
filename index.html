@@ -19,10 +19,16 @@
         }
 
         body {
-            background-color: #070707;
+            background-color: #050505;
             color: #ffffff;
             padding-bottom: 90px;
             overflow-x: hidden;
+        }
+
+        /* 🌟 Real Metallic Golden Gradient Variable */
+        :root {
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fc6 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            --gold-color: #d4af37;
         }
 
         /* 🌟 Futuristic Luxury Header */
@@ -31,10 +37,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 18px;
-            background: rgba(12, 12, 12, 0.9);
+            background: rgba(10, 10, 10, 0.92);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -51,7 +57,7 @@
             height: 38px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #d4af37;
+            border: 2px solid #bf953f;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
             animation: pulseGlow 3s infinite alternate;
         }
@@ -59,7 +65,7 @@
         .logo-title {
             font-size: 14px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 20%, #ffd700 70%, #ff8c00 100%);
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
@@ -67,22 +73,24 @@
 
         .global-badge {
             background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.35);
+            border: 1px solid rgba(212, 175, 55, 0.4);
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
-            color: #ffd700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 5px;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        /* 🌟 Luxury Glass Search Bar (Fully Mobile Fixed & Aligned) */
+        /* 🌟 Luxury Glass Search Bar */
         .search-container {
             padding: 12px 15px;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(8, 8, 8, 0.85);
             backdrop-filter: blur(12px);
             position: sticky;
             top: 63px;
@@ -92,21 +100,23 @@
         .glass-search-bar {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.45);
             border-radius: 30px;
             padding: 10px 14px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
         }
 
         .glass-search-bar:focus-within {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            border-color: #bf953f;
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.5);
         }
 
         .glass-search-bar i.search-icon {
-            color: #ffd700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-size: 15px;
             margin-right: 10px;
         }
@@ -129,75 +139,78 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #ffd700;
             font-size: 16px;
             cursor: pointer;
             margin-left: 8px;
         }
 
-        .search-actions label, .search-actions i {
+        .search-actions label i, .search-actions i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             cursor: pointer;
-            transition: transform 0.3s, color 0.3s;
+            transition: transform 0.3s;
         }
 
         .search-actions i:hover {
-            color: #ff8c00;
             transform: scale(1.15);
         }
 
-        /* Hidden file input for direct camera/image selection */
         #hiddenCameraInput {
             display: none;
         }
 
-        /* 🌟 Product Feed Grid (Single Clean Balanced Cards - No Double Images) */
+        /* 🌟 Pinterest Style Masonry Grid Layout */
         .feed-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            column-count: 2;
+            column-gap: 12px;
             padding: 12px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 18px;
-                padding: 18px;
+                column-count: 4;
+                column-gap: 16px;
+                padding: 16px;
             }
         }
 
         .product-card {
-            background: #111111;
+            background: #121212;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
+            break-inside: avoid;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
             transition: all 0.35s ease;
             position: relative;
             animation: cardAppear 0.5s ease-out backwards;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.4);
         }
 
         .product-img-wrapper {
             position: relative;
             width: 100%;
-            height: 190px;
             background: #000;
             overflow: hidden;
         }
 
         .product-img-wrapper img {
             width: 100%;
-            height: 100%;
+            height: auto;
+            display: block;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.06);
+            transform: scale(1.05);
         }
 
         .product-info {
@@ -207,16 +220,20 @@
         .product-code {
             font-size: 12px;
             font-weight: 600;
-            color: #ffd700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 6px;
         }
 
+        /* Single line layout for Code, Like, Share, and Views */
         .card-footer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
-            color: #aaa;
+            color: #ffffff;
+            white-space: nowrap;
         }
 
         .action-btn {
@@ -227,40 +244,46 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            transition: transform 0.2s, color 0.3s;
+            transition: transform 0.2s;
         }
 
         .action-btn:active {
             transform: scale(0.85);
         }
 
-        /* Like Button: Default Red (Pinkish-Red), Click to Metallic Gradient Gold */
+        /* Like Button: Default Red (Pinkish-Red) ⇄ Metallic Golden Gradient */
         .like-btn {
             color: #ff3366; 
         }
-        .like-btn.liked {
-            color: #ffd700;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
+        .like-btn.liked i, .like-btn.liked span {
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
         }
 
-        /* Share Button: Default Gradient Gold, Click to Orange */
-        .share-btn {
-            color: #ffd700;
+        /* Share Button: Default Metallic Golden Gradient ⇄ Orange */
+        .share-btn i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .share-btn.shared {
+        .share-btn.shared i {
             color: #ff8c00;
-            filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.7));
+            background: none;
+            -webkit-text-fill-color: #ff8c00;
+            filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.8));
         }
 
         .view-count {
             font-size: 11px;
-            color: #bbb;
+            color: #ffffff; /* Clean White Text */
             display: flex;
             align-items: center;
             gap: 4px;
+        }
+        .view-count i {
+            color: #ffffff;
         }
 
         /* 🌟 Luxury Sticky Bottom Navigation */
@@ -273,7 +296,7 @@
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(212, 175, 55, 0.25);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -294,11 +317,11 @@
 
         .nav-item i {
             font-size: 19px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 3px;
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));
+            filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5));
             transition: transform 0.3s;
         }
 
@@ -314,12 +337,97 @@
         /* Animations */
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
-            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
+            100% { box-shadow: 0 0 22px rgba(212, 175, 55, 0.8); }
         }
 
         @keyframes cardAppear {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🌟 Custom Social Share Modal Styling */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .share-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .share-sheet {
+            background: #161616;
+            width: 100%;
+            max-width: 500px;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            padding: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .share-modal.active .share-sheet {
+            transform: translateY(0);
+        }
+        .share-title {
+            font-size: 15px;
+            font-weight: 600;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .share-option {
+            background: rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 12px 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-option:hover {
+            background: rgba(212, 175, 55, 0.15);
+        }
+        .share-option i {
+            font-size: 22px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .close-share {
+            width: 100%;
+            background: rgba(255,255,255,0.08);
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -342,20 +450,43 @@
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="mainSearchInput" placeholder="Search products, digital services or items...">
             <div class="search-actions">
-                <!-- Direct Camera / Image Upload Trigger -->
                 <label for="hiddenCameraInput" title="Image Search"><i class="fa-solid fa-camera"></i></label>
                 <input type="file" id="hiddenCameraInput" accept="image/*" capture="environment" onchange="handleImageCapture(event)">
-                
-                <!-- Voice Search Trigger -->
                 <i class="fa-solid fa-microphone" title="Voice Search" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
             </div>
         </div>
     </div>
 
-    <!-- Product Feed Grid (Single balanced items with randomized natural views & red-to-golden likes) -->
+    <!-- Pinterest Style Masonry Feed Grid -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
+
+    <!-- Custom Social Share Bottom Sheet Modal -->
+    <div class="share-modal" id="shareModal" onclick="closeShareModal(event)">
+        <div class="share-sheet" onclick="event.stopPropagation()">
+            <div class="share-title">Share Ecosystem Item</div>
+            <div class="share-grid">
+                <div class="share-option" onclick="copyShortLink()">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy Link</span>
+                </div>
+                <a href="#" id="fbShare" target="_blank" class="share-option">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" id="waShare" target="_blank" class="share-option">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="#" id="tgShare" target="_blank" class="share-option">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
+            <button class="close-share" onclick="closeShareModalForce()">Cancel</button>
+        </div>
+    </div>
 
     <!-- Luxury Sticky Bottom Navigation -->
     <nav class="bottom-nav">
@@ -383,40 +514,30 @@
 
     <script>
         function focusSearchInput() {
-            const input = document.getElementById('mainSearchInput');
-            input.focus();
+            document.getElementById('mainSearchInput').focus();
         }
 
-        // Direct camera capture handler
         function handleImageCapture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                alert('Image captured/uploaded successfully for visual search!');
+            if (event.target.files[0]) {
+                alert('Image captured successfully for visual search!');
             }
         }
 
-        // Direct voice search handler using Web Speech API if supported
         function triggerVoiceSearch() {
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 const recognition = new SpeechRecognition();
                 recognition.lang = 'en-US';
                 recognition.start();
-                
                 recognition.onresult = function(event) {
-                    const speechText = event.results[0][0].transcript;
-                    document.getElementById('mainSearchInput').value = speechText;
-                };
-                
-                recognition.onerror = function() {
-                    alert('Voice recognition error or permission denied.');
+                    document.getElementById('mainSearchInput').value = event.results[0][0].transcript;
                 };
             } else {
-                alert('Voice search is not supported in this browser.');
+                alert('Voice search is not supported.');
             }
         }
 
-        // Your Google Drive Product Images Source List
+        // Your Google Drive 100% clean valid image sources (excluding blank ones)
         const driveProductImages = [
             'https://lh3.googleusercontent.com/d/1k0XXn9tBtH42S26sC2sAEQow-jZKvFuf=s800',
             'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
@@ -424,34 +545,34 @@
             'https://lh3.googleusercontent.com/d/13UmE17PJ1F-Xl4D54Q-rKXeXg5RjwJ3A=s800'
         ];
 
-        // Non-uniform randomized views for organic realistic look
+        // Realistic low-initial counts to look natural
         function generateRandomViews() {
-            const viewsOptions = [450, 1150, 2400, 4500, 8750, 12500, 32000, 52000, 87500];
+            const viewsOptions = [120, 245, 380, 520, 710, 950, 1250, 1840, 2400];
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // Dynamic Product Feed Generation (20 balanced single image cards)
+        // Dynamic Pinterest Masonry Feed Generation (16 balanced items)
         const feedContainer = document.getElementById('productFeed');
         
-        for(let i = 1; i <= 20; i++) {
+        for(let i = 1; i <= 16; i++) {
             let randomImg = driveProductImages[(i - 1) % driveProductImages.length];
             let randomViews = generateRandomViews();
-            let randomLikes = Math.floor(Math.random() * 450 + 30);
+            let randomLikes = Math.floor(Math.random() * 85 + 12);
 
             let card = document.createElement('div');
             card.className = 'product-card';
-            card.style.animationDelay = `${i * 0.04}s`;
+            card.style.animationDelay = `${i * 0.03}s`;
             card.innerHTML = `
                 <div class="product-img-wrapper">
                     <img src="${randomImg}" alt="Luxury Product">
                 </div>
                 <div class="product-info">
-                    <div class="product-code">VEIW ${50000 + (i * 7)}K</div>
                     <div class="card-footer-actions">
+                        <span class="product-code">VEIW ${5000 + (i * 3)}K</span>
                         <button class="action-btn like-btn" onclick="toggleLike(this)">
                             <i class="fa-solid fa-heart"></i> <span class="like-count">${randomLikes}</span>
                         </button>
-                        <button class="action-btn share-btn" onclick="toggleShare(this)">
+                        <button class="action-btn share-btn" onclick="openShareModal(this)">
                             <i class="fa-solid fa-share-nodes"></i>
                         </button>
                         <span class="view-count"><i class="fa-solid fa-eye"></i> ${randomViews}</span>
@@ -461,7 +582,7 @@
             feedContainer.appendChild(card);
         }
 
-        // Like Toggle: Red (Pinkish-Red) ⇄ Metallic Golden
+        // Like Toggle: Red ⇄ Metallic Golden
         function toggleLike(btn) {
             let countSpan = btn.querySelector('.like-count');
             let currentLikes = parseInt(countSpan.innerText);
@@ -475,14 +596,37 @@
             }
         }
 
-        // Share Toggle: Golden ⇄ Orange with short link action
-        function toggleShare(btn) {
-            if (!btn.classList.contains('shared')) {
-                btn.classList.add('shared');
-                alert('Short link copied & social share panel opened!');
-            } else {
-                btn.classList.remove('shared');
+        // Open Real Social Share Sheet
+        let activeShareBtn = null;
+        function openShareModal(btn) {
+            activeShareBtn = btn;
+            btn.classList.add('shared');
+            const currentUrl = window.location.href;
+            document.getElementById('fbShare').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+            document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury product: ' + currentUrl)}`;
+            document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item')}`;
+            
+            document.getElementById('shareModal').classList.add('active');
+        }
+
+        function closeShareModal(event) {
+            if (event.target.id === 'shareModal') {
+                closeShareModalForce();
             }
+        }
+
+        function closeShareModalForce() {
+            document.getElementById('shareModal').classList.remove('active');
+            if (activeShareBtn) {
+                setTimeout(() => activeShareBtn.classList.remove('shared'), 300);
+            }
+        }
+
+        function copyShortLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Short link copied to clipboard successfully!');
+                closeShareModalForce();
+            });
         }
     </script>
 </body>
