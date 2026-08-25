@@ -160,19 +160,18 @@
             display: none;
         }
 
-        /* 🌟 Balanced Feed Grid Layout */
+        /* 🌟 Brick-Wall Masonry Grid (Exact Pinterest Staggered Layout) */
         .feed-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            column-count: 2;
+            column-gap: 10px;
             padding: 10px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 16px;
-                padding: 16px;
+                column-count: 4;
+                column-gap: 14px;
+                padding: 14px;
             }
         }
 
@@ -180,43 +179,47 @@
             background: #121212;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
+            margin-bottom: 10px;
+            break-inside: avoid;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
             transition: all 0.35s ease;
             position: relative;
-            animation: cardAppear 0.5s ease-out backwards;
+            animation: cardAppear 0.4s ease-out backwards;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .product-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 55, 0.25);
-            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.5);
+            z-index: 10;
         }
 
         .product-img-wrapper {
             position: relative;
             width: 100%;
-            height: 200px;
             background: #000;
             overflow: hidden;
         }
 
+        /* Natural aspect ratio preservation - keeping original picture dimensions uncropped */
         .product-img-wrapper img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
+            object-fit: contain;
             transition: transform 0.5s ease;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .product-info {
             padding: 8px 10px;
         }
 
-        /* Single line layout for Like, Views, and Share */
+        /* Single line compact footer actions */
         .card-footer-actions {
             display: flex;
             justify-content: space-between;
@@ -231,7 +234,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 3px;
@@ -339,7 +342,7 @@
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -455,7 +458,7 @@
         </div>
     </div>
 
-    <!-- Balanced Feed Grid with First Two Fixed & Rest Shuffled -->
+    <!-- Brick-Wall Masonry Feed Grid -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -551,13 +554,13 @@
             }
         }
 
-        // 🌟 First two specific fixed images from user request
+        // 🌟 First two specific fixed images as requested
         const fixedStartImages = [
             'https://lh3.googleusercontent.com/d/1U7L779X0OtP3bwkreLJmrXh3glpqUpDK=s800',
             'https://lh3.googleusercontent.com/d/1PUFSmdryF1vr5mxwem3Rj9TszG7L3lE_=s800'
         ];
 
-        // 🌟 Rest of the unique product images that will shuffle randomly on reload
+        // 🌟 Remaining unique product images that will shuffle randomly on reload
         const shuffleableImages = [
             'https://lh3.googleusercontent.com/d/1TtSnFLCM5X9feuJW-kqfzJ26MWShTLYw=s800',
             'https://lh3.googleusercontent.com/d/1kABixV17PsZve_MG8hbiKSTAtR54HdMq=s800',
@@ -574,7 +577,7 @@
             'https://lh3.googleusercontent.com/d/1TeIFQUm4PNduJgEQT4Ekmw8kHNSGq9Vx=s800'
         ];
 
-        // Fisher-Yates Shuffle Algorithm to randomize the rest of the images on every visit/refresh
+        // Fisher-Yates Shuffle Algorithm for randomizing the feed on reload
         function shuffleArray(array) {
             let arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -584,7 +587,7 @@
             return arr;
         }
 
-        // Combine fixed start images + randomly shuffled remaining images
+        // Combine fixed start images + shuffled remaining images
         const finalImageList = [...fixedStartImages, ...shuffleArray(shuffleableImages)];
 
         // Realistic low-initial counts
@@ -593,7 +596,7 @@
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // Dynamic Feed Generation
+        // Dynamic Masonry Feed Generation with Uncropped Original Images
         const feedContainer = document.getElementById('productFeed');
         
         finalImageList.forEach((imgUrl, index) => {
@@ -647,7 +650,7 @@
             document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`;
             document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item')}`;
             document.getElementById('twShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this luxury item')}`;
-            document.getElementById('pinShare').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&description=${encodeURIComponent('Luxury Ecosystem Item')}`;
+            document.getElementById('pinShare').href, `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&description=${encodeURIComponent('Luxury Ecosystem Item')}`;
             document.getElementById('ttShare').href = `https://www.tiktok.com/`;
             document.getElementById('ytShare').href = `https://www.youtube.com/`;
             
