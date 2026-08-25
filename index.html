@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -342,8 +342,8 @@
     <!-- Header Section -->
     <header class="header">
         <div class="logo-area">
-            <!-- আপনার লোগো বা ড্রাইভ লিংক এখানে বসানো হয়েছে -->
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Brand Logo" id="brandLogo">
+            <!-- আপনার গুগল ড্রাইভ ফোল্ডারের লোগো বা ইমেজের ডিরেক্ট লিংক এখানে বসবে -->
+            <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s400" alt="Brand Logo" id="brandLogo">
             <span class="logo-title">MR MASUDAR ENTERPRISE</span>
         </div>
         <div class="global-badge">
@@ -355,65 +355,63 @@
     <div class="search-container">
         <div class="glass-search-bar" onclick="focusSearchInput()">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="mainSearchInput" placeholder="প্রোডাক্ট বা ডিজিটাল সার্ভিস সার্চ করুন...">
+            <input type="text" id="mainSearchInput" placeholder="Search products, digital services or items...">
             <div class="search-actions">
-                <i class="fa-solid fa-camera" title="ইমেজ সার্চ" onclick="event.stopPropagation(); triggerCameraSearch();"></i>
-                <i class="fa-solid fa-microphone" title="ভয়েস সার্চ" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
+                <i class="fa-solid fa-camera" title="Image Search" onclick="event.stopPropagation(); triggerCameraSearch();"></i>
+                <i class="fa-solid fa-microphone" title="Voice Search" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
             </div>
         </div>
     </div>
 
-    <!-- Product Feed Grid (Dynamic & Randomized) -->
+    <!-- Product Feed Grid (Dynamic & Randomized with Your Drive Images) -->
     <main class="feed-container" id="productFeed">
-        <!-- JavaScript দিয়ে কার্ডগুলো জেনারেট হবে -->
+        <!-- JavaScript will dynamically render cards -->
     </main>
 
-    <!-- Sticky Bottom Navigation (Luxury Black & Golden) -->
+    <!-- Luxury Sticky Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item">
             <i class="fa-solid fa-house"></i>
-            <span>হোম</span>
+            <span>HOME</span>
         </a>
         <a href="etech.html" class="nav-item">
             <i class="fa-solid fa-bolt"></i>
-            <span>ইটেক</span>
+            <span>E-TECH</span>
         </a>
         <a href="seller.html" class="nav-item">
             <i class="fa-solid fa-bag-shopping"></i>
-            <span>সেলার</span>
+            <span>SELLER</span>
         </a>
         <a href="earn.html" class="nav-item">
             <i class="fa-solid fa-handshake"></i>
-            <span>আর্ন</span>
+            <span>EARN</span>
         </a>
         <a href="item.html" class="nav-item">
             <i class="fa-solid fa-basket-shopping"></i>
-            <span>আইটেম</span>
+            <span>ITEM</span>
         </a>
     </nav>
 
     <script>
-        // সার্চ বারে ক্লিক করলে ফোকাস করার ফাংশন
         function focusSearchInput() {
             const input = document.getElementById('mainSearchInput');
             input.focus();
         }
 
         function triggerCameraSearch() {
-            alert('সিস্টেম: ক্যামেরা স্ক্যানার ও ইমেজ সার্চ উইন্ডো ওপেন হচ্ছে...');
+            alert('System: Opening AI Camera Scanner & Image Search...');
         }
 
         function triggerVoiceSearch() {
-            alert('সিস্টেম: ভয়েস রিকগনিশন চালু হয়েছে, কথা বলুন...');
+            alert('System: Voice Recognition activated, speak now...');
         }
 
-        // স্যাম্পল ইমেজ লিস্ট (আপনার ড্রাইভ বা ফোল্ডারের ছবিগুলোর সাথে কানেক্ট করা যাবে)
-        const sampleImages = [
-            'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500',
-            'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500',
-            'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500',
-            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'
+        // আপনার ড্রাইভ ফোল্ডারের প্রোডাক্ট ইমেজগুলোর ডিরেক্ট সোর্স লিস্ট
+        const driveProductImages = [
+            'https://lh3.googleusercontent.com/d/1k0XXn9tBtH42S26sC2sAEQow-jZKvFuf=s800',
+            'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
+            'https://lh3.googleusercontent.com/d/1N4lXfL2RIjolz0sVcazAc2BzMpO70M3c=s800',
+            'https://lh3.googleusercontent.com/d/13UmE17PJ1F-Xl4D54Q-rKXeXg5RjwJ3A=s800'
         ];
 
         // র্যান্ডম ভিউ জেনারেটর (ন্যাচারাল ও নন-ইউনিফর্ম বৈচিত্র্যের জন্য)
@@ -426,7 +424,7 @@
         const feedContainer = document.getElementById('productFeed');
         
         for(let i = 1; i <= 20; i++) {
-            let randomImg = sampleImages[Math.floor(Math.random() * sampleImages.length)];
+            let randomImg = driveProductImages[(i - 1) % driveProductImages.length];
             let randomViews = generateRandomViews();
             let randomLikes = Math.floor(Math.random() * 600) + 50;
 
@@ -436,7 +434,7 @@
             card.innerHTML = `
                 <div class="product-img-wrapper">
                     <div class="corner-badge">MR MR</div>
-                    <img src="${randomImg}" alt="Product Item">
+                    <img src="${randomImg}" alt="Luxury Product">
                 </div>
                 <div class="product-info">
                     <div class="product-code">VEIW ${50000 + (i * 7)}K</div>
@@ -472,7 +470,7 @@
         function toggleShare(btn) {
             if (!btn.classList.contains('shared')) {
                 btn.classList.add('shared');
-                alert('সফলভাবে শর্ট লিংক জেনারেট হয়েছে এবং সোশ্যাল শেয়ার পপ-আপ খোলা হয়েছে!');
+                alert('Short link successfully generated & Social share popup opened!');
             } else {
                 btn.classList.remove('shared');
             }
