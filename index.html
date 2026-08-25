@@ -89,7 +89,7 @@
 
         /* 🌟 Luxury Glass Search Bar */
         .search-container {
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: rgba(8, 8, 8, 0.85);
             backdrop-filter: blur(12px);
             position: sticky;
@@ -103,7 +103,7 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(212, 175, 55, 0.45);
             border-radius: 30px;
-            padding: 10px 14px;
+            padding: 8px 14px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
         }
@@ -117,7 +117,7 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 15px;
+            font-size: 14px;
             margin-right: 10px;
         }
 
@@ -139,7 +139,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             margin-left: 8px;
         }
@@ -160,52 +160,38 @@
             display: none;
         }
 
-        /* 🌟 Pinterest Style Masonry Grid with Staggered Offsets for Luxury Balance */
+        /* 🌟 Seamless Connected Masonry Layout (Zero Unwanted Gaps) */
         .feed-container {
             column-count: 2;
-            column-gap: 12px;
-            padding: 12px;
+            column-gap: 8px;
+            padding: 8px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
                 column-count: 4;
-                column-gap: 16px;
-                padding: 16px;
+                column-gap: 10px;
+                padding: 10px;
             }
         }
 
         .product-card {
             background: #121212;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             break-inside: avoid;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
-            transition: all 0.35s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
             position: relative;
-            animation: cardAppear 0.5s ease-out backwards;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Staggering specific cards to give that alternating offset luxury look */
-        .product-card:nth-child(even) {
-            transform: translateY(15px);
-        }
-
-        @media (min-width: 768px) {
-            .product-card:nth-child(3n) {
-                transform: translateY(20px);
-            }
-            .product-card:nth-child(4n) {
-                transform: translateY(-10px);
-            }
+            animation: cardAppear 0.4s ease-out backwards;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .product-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
-            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.4);
             z-index: 10;
         }
 
@@ -221,36 +207,36 @@
             height: auto;
             display: block;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.4s ease;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.06);
+            transform: scale(1.04);
         }
 
         .product-info {
-            padding: 8px 10px;
+            padding: 6px 8px;
         }
 
-        /* Single line layout with clean clear icons */
+        /* Single line compact footer actions */
         .card-footer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #ffffff;
             white-space: nowrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .action-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             transition: transform 0.2s;
         }
 
@@ -274,7 +260,7 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 15px;
+            font-size: 14px;
         }
         .share-btn.shared i {
             color: #ff8c00;
@@ -284,20 +270,20 @@
 
         /* View Count in Golden Color with Eye Icon */
         .view-count {
-            font-size: 12px;
+            font-size: 11px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             font-weight: 600;
         }
         .view-count i {
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* 🌟 Luxury Sticky Bottom Navigation */
@@ -355,7 +341,7 @@
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -471,7 +457,7 @@
         </div>
     </div>
 
-    <!-- Pinterest Style Masonry Feed Grid with Staggered Offsets -->
+    <!-- Seamless Single-Card Masonry Feed Grid -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -567,9 +553,8 @@
             }
         }
 
-        // Your exact unique Google Drive direct image links provided without duplication (including new ones)
+        // Clean unique drive images (excluding duplicate/unwanted first item)
         const exactDriveImages = [
-            'https://lh3.googleusercontent.com/d/1N4lXfL2RIjolz0sVcazAc2BzMpO70M3c=s800',
             'https://lh3.googleusercontent.com/d/1TtSnFLCM5X9feuJW-kqfzJ26MWShTLYw=s800',
             'https://lh3.googleusercontent.com/d/1kABixV17PsZve_MG8hbiKSTAtR54HdMq=s800',
             'https://lh3.googleusercontent.com/d/1p16qTDjEPJNM0zBwVADM0ArD7SQyVoRr=s800',
@@ -591,7 +576,7 @@
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // Dynamic Pinterest Masonry Feed Generation using all unique images
+        // Dynamic Single Card Feed Generation
         const feedContainer = document.getElementById('productFeed');
         
         exactDriveImages.forEach((imgUrl, index) => {
