@@ -3,39 +3,972 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr. Masudar Enterprise</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>MR MASUDAR ENTERPRISE | Global Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #FFFFFF; color: #1A1A1A; }
-        .gold-text { background: linear-gradient(135deg, #BF953F 0%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gold-bg { background: linear-gradient(135deg, #BF953F 0%, #D4AF37 100%); }
+        :root {
+            --bg-color: #000000;
+            --surface-card: #0a0a0a;
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --border-luxury: rgba(212, 175, 55, 0.4);
+            --text-white: #ffffff;
+            --text-gray: #aaaaaa;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 10px;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Admin Lock */
+        .lock-btn-fixed { position: fixed; bottom: 3px; left: 3px; color: var(--gold-primary); font-size: 8px; cursor: pointer; z-index: 99999; opacity: 0.08; transition: 0.3s; padding: 4px; }
+        .lock-btn-fixed:hover { opacity: 1; transform: scale(1.5); }
+
+        /* Top Header & Search Bar */
+        .market-header {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid var(--border-luxury);
+            border-radius: 16px;
+            background: var(--surface-card);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            max-width: 1200px;
+            margin: 0 auto 12px auto;
+        }
+        .market-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 4px 0;
+            letter-spacing: 1px;
+        }
+
+        .search-bar-container {
+            display: flex;
+            align-items: center;
+            background: #000;
+            border: 1px solid var(--gold-primary);
+            border-radius: 30px;
+            max-width: 500px;
+            margin: 10px auto 0 auto;
+            padding: 5px 12px;
+        }
+        .search-bar-container input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 11px;
+            outline: none;
+            padding: 5px;
+        }
+        .search-icon-btn {
+            background: transparent;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 13px;
+            cursor: pointer;
+            padding: 0 6px;
+        }
+
+        /* Auto-Sliding Luxury Categories Menu */
+        .category-menu-wrap {
+            max-width: 1200px;
+            margin: 0 auto 15px auto;
+            overflow: hidden;
+            position: relative;
+            padding: 5px 0;
+        }
+        .category-menu {
+            display: flex;
+            gap: 10px;
+            width: max-content;
+            animation: autoScrollCat 25s linear infinite;
+        }
+        .category-menu:hover { animation-play-state: paused; }
+        @keyframes autoScrollCat {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .cat-chip {
+            background: var(--surface-card);
+            border: 1px solid var(--border-luxury);
+            color: var(--gold-light);
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .cat-chip:hover, .cat-chip.active {
+            background: var(--gold-gradient);
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* Draggable & Floating Luxury Basket */
+        .floating-basket {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gold-gradient);
+            color: #000;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+            cursor: grab;
+            z-index: 9999;
+            user-select: none;
+            touch-action: none;
+            animation: basketFloatEffect 3s ease-in-out infinite;
+            transition: transform 0.2s ease;
+        }
+        @keyframes basketFloatEffect {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.05); }
+        }
+        .floating-basket:active { cursor: grabbing; animation: none; }
+        
+        .basket-center-focus {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) scale(1.6) !important;
+            box-shadow: 0 0 60px #fff, 0 0 40px var(--gold-primary) !important;
+            z-index: 99999 !important;
+            animation: none !important;
+        }
+
+        .basket-count {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            background: #fff;
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 50%;
+            border: 2px solid #000;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: var(--surface-card);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.2s;
+        }
+        .product-card:hover { border-color: var(--gold-primary); transform: translateY(-2px); }
+        .product-img-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .product-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .product-info { padding: 8px; text-align: center; }
+        .product-title { font-size: 10px; font-weight: 700; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+        .stars { color: var(--gold-primary); font-size: 8px; margin-bottom: 4px; }
+        .card-actions { display: flex; border-top: 1px solid #222; }
+        .card-btn { flex: 1; background: transparent; border: none; padding: 8px; color: var(--gold-primary); font-size: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .card-btn:hover { background: rgba(212, 175, 55, 0.15); }
+
+        /* Modal Details & Checkout */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background: var(--surface-card);
+            border: 2px solid var(--gold-primary);
+            border-radius: 18px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px; right: 12px;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 11px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .apply-btn {
+            background: var(--gold-gradient);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #000;
+            width: 100%;
+            max-width: 280px;
+            display: block;
+            margin: 15px auto 0 auto;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(212,175,55,0.3);
+            font-size: 11px;
+        }
+
+        .grand-total-box {
+            background: rgba(212, 175, 55, 0.12);
+            border: 2px solid var(--gold-primary);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+            box-shadow: 0 0 20px rgba(212,175,55,0.2);
+        }
+        .grand-total-price {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gold-primary);
+            margin: 4px 0;
+        }
+
+        .details-stack { display: flex; flex-direction: column; gap: 12px; }
+        .large-preview-wrap { background: #000; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; aspect-ratio: 1/1; width: 100%; max-height: 220px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 auto; }
+        .large-preview-wrap img { width: 100%; height: 100%; object-fit: contain; }
+        .thumb-gallery { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
+        .thumb-img { width: 45px; height: 45px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3); object-fit: cover; cursor: pointer; background: #000; flex-shrink: 0; }
+        
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 8px 0; }
+        .qty-btn { background: #222; border: 1px solid var(--gold-primary); color: #fff; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; background: #000; border: 1px solid #333; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; font-size: 11px; }
+        .cart-remove-btn { color: #ff4d4d; cursor: pointer; font-size: 13px; background: none; border: none; }
+
+        /* Large Luxury Coin Animation */
+        .flying-coin {
+            position: fixed;
+            width: 45px;
+            height: 45px;
+            background: var(--gold-gradient);
+            border: 3px solid #fff;
+            border-radius: 50%;
+            z-index: 99999;
+            pointer-events: none;
+            box-shadow: 0 0 25px var(--gold-primary);
+            transition: all 0.6s cubic-bezier(0.15, 0.85, 0.25, 1);
+        }
+
+        .form-group-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
+        .form-full { grid-column: span 2; }
+        .input-box { width: 100%; background: #000; border: 1px solid #333; padding: 10px; color: #fff; border-radius: 8px; margin-top: 3px; font-size: 11px; box-sizing: border-box; outline: none; }
+        .input-box:focus { border-color: var(--gold-primary); }
+
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 10px; margin-top: 10px; }
+        .admin-table th, .admin-table td { border: 1px solid #333; padding: 8px; text-align: left; }
+        .admin-table th { background: rgba(212,175,55,0.2); color: var(--gold-primary); }
+
+        @media(max-width: 768px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .market-header h1 { font-size: 16px; }
+            .form-group-grid { grid-template-columns: 1fr; }
+            .form-full { grid-column: span 1; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
 
-    <!-- Top Header -->
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-100 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full gold-bg flex items-center justify-center text-white font-bold">M</div>
-            <div>
-                <h1 class="font-bold text-lg gold-text leading-tight">Mr. Masudar Enterprise</h1>
-                <p class="text-xs text-gray-400">B2B, B2C & Affiliate Platform</p>
-            </div>
-        </div>
-        <div>
-            <a href="https://mrmasudar.com/enterprise" target="_blank" class="text-xs font-semibold px-4 py-2 rounded-full border border-[#BF953F] text-[#BF953F] hover:bg-[#BF953F] hover:text-white transition">
-                Digital Services
-            </a>
-        </div>
-    </header>
+    <!-- Admin Lock (Password: mrbtrmlc) -->
+    <div class="lock-btn-fixed" onclick="openAdminModal()"><i class="fa-solid fa-lock"></i></div>
 
-    <div class="p-6 text-center">
-        <h2 class="text-xl font-bold gold-text">ধাপ ১ সফলভাবে সম্পন্ন হয়েছে!</h2>
-        <p class="text-xs text-gray-500 mt-2">এবার বলুন, এর পরের ধাপে আমরা কোন অংশটি (যেমন: ক্যাটাগরি হুইল বা পেমেন্ট সেকশন) যোগ করব?</p>
+    <!-- Floating Basket -->
+    <div class="floating-basket" id="floatingBasket" title="Checkout">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="basket-count" id="cartBadge">0</span>
     </div>
 
+    <!-- Header & Search Bar -->
+    <div class="market-header">
+        <h1>MR MASUDAR ENTERPRISE</h1>
+        <p style="color: var(--text-gray); font-size: 7px; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Global Luxury Marketplace Worldwide</p>
+        
+        <div class="search-bar-container">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-primary); margin-left: 4px;"></i>
+            <input type="text" id="searchInput" placeholder="Search luxury products..." onkeyup="filterProducts()">
+            <button class="search-icon-btn" onclick="startVoiceSearch()"><i class="fa-solid fa-microphone"></i></button>
+            <button class="search-icon-btn" onclick="triggerImageSearch()"><i class="fa-solid fa-camera"></i></button>
+            <input type="file" id="imageUploadInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
+        </div>
+    </div>
+
+    <!-- Auto-Sliding Luxury Categories Menu -->
+    <div class="category-menu-wrap">
+        <div class="category-menu" id="catMenu">
+            <div class="cat-chip" onclick="filterCategory('Women\'s Fashion', this)">👗 Women's Fashion</div>
+            <div class="cat-chip" onclick="filterCategory('Men\'s Fashion', this)">👔 Men's Fashion</div>
+            <div class="cat-chip" onclick="filterCategory('Baby', this)">🍼 Baby</div>
+            <div class="cat-chip" onclick="filterCategory('Gift', this)">🎁 Gift</div>
+            <div class="cat-chip" onclick="filterCategory('Decor', this)">🏺 Decor</div>
+            <div class="cat-chip" onclick="filterCategory('Women\'s Fashion', this)">👗 Women's Fashion</div>
+            <div class="cat-chip" onclick="filterCategory('Men\'s Fashion', this)">👔 Men's Fashion</div>
+            <div class="cat-chip" onclick="filterCategory('Baby', this)">🍼 Baby</div>
+            <div class="cat-chip" onclick="filterCategory('Gift', this)">🎁 Gift</div>
+            <div class="cat-chip" onclick="filterCategory('Decor', this)">🏺 Decor</div>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="marketProductGrid"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content" id="modalBody"></div>
+    </div>
+
+    <script>
+        // Real-Time IP Location Tracking for Visitor's Exact Country & City
+        let detectedCountry = "United States";
+        let detectedCity = "New York";
+        let detectedPhoneCode = "+1";
+        let autoShippingRate = 25;
+
+        async function detectGlobalLocation() {
+            try {
+                let res = await fetch('https://ipapi.co/json/');
+                let data = await res.json();
+                if(data && data.country_name) {
+                    detectedCountry = data.country_name;
+                    detectedCity = data.city || "Metropolitan City";
+                    detectedPhoneCode = data.country_calling_code || "+1";
+                    
+                    if(data.country_name === "Bangladesh") {
+                        autoShippingRate = 10;
+                    } else if(data.continent_code === 'AS') {
+                        autoShippingRate = 18;
+                    } else if(data.continent_code === 'EU' || data.continent_code === 'NA') {
+                        autoShippingRate = 25;
+                    } else {
+                        autoShippingRate = 35;
+                    }
+                }
+            } catch(e) {
+                detectedCountry = "United States";
+                detectedCity = "New York";
+                detectedPhoneCode = "+1";
+                autoShippingRate = 25;
+            }
+        }
+
+        // 5 Minutes Inactivity Timer
+        let idleTimer;
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                localStorage.removeItem('mme_global_cart');
+                location.reload();
+            }, 300000);
+        }
+
+        window.onload = async () => {
+            await detectGlobalLocation();
+            loadMarketProducts("Women's Fashion");
+            resetIdleTimer();
+            updateCartBadgeCount();
+        };
+        document.onmousemove = resetIdleTimer;
+        document.onkeypress = resetIdleTimer;
+
+        function updateCartBadgeCount() {
+            let cart = JSON.parse(localStorage.getItem('mme_global_cart') || '[]');
+            let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartBadge').innerText = totalQty;
+        }
+
+        // Draggable Basket
+        const basket = document.getElementById('floatingBasket');
+        let isDragging = false, startX, startY, initialX, initialY;
+
+        basket.addEventListener('mousedown', dragStart);
+        basket.addEventListener('touchstart', dragStart, {passive: true});
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, {passive: true});
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            isDragging = true;
+            startX = e.clientX || e.touches[0].clientX;
+            startY = e.clientY || e.touches[0].clientY;
+            let r = basket.getBoundingClientRect();
+            initialX = r.left;
+            initialY = r.top;
+            basket.style.right = 'auto';
+            basket.style.top = initialY + 'px';
+            basket.style.left = initialX + 'px';
+        }
+
+        function drag(e) {
+            if(!isDragging) return;
+            let currentX = e.clientX || e.touches[0].clientX;
+            let currentY = e.clientY || e.touches[0].clientY;
+            basket.style.left = (initialX + (currentX - startX)) + 'px';
+            basket.style.top = (initialY + (currentY - startY)) + 'px';
+        }
+
+        function dragEnd() { isDragging = false; }
+        basket.onclick = function() { if(!isDragging) { openCheckoutModal(); } };
+
+        // Global Products in USD ($)
+        function getProducts() {
+            let p = JSON.parse(localStorage.getItem('mme_global_products') || '[]');
+            if(p.length === 0) {
+                p = [
+                    { name: "Designer Silk Saree", title: "Royal Katan Silk Saree", category: "Women's Fashion", price: 150, display: "$ 150", shipping: autoShippingRate, desc: "Exquisite hand-woven golden zari work for luxury international occasions." },
+                    { name: "Executive Silk Suit", title: "Premium Men's Formal Wear", category: "Men's Fashion", price: 95, display: "$ 95", shipping: autoShippingRate, desc: "Tailored Italian cut luxury fabric designed for top global executives." },
+                    { name: "Golden Baby Stroller", title: "Ultra Safe Luxury Pram", category: "Baby", price: 250, display: "$ 250", shipping: autoShippingRate + 15, desc: "Gold-plated alloy frame with shock-absorbent wheels." },
+                    { name: "Luxury Gift Hamper", title: "Gold-Accent Gift Box", category: "Gift", price: 55, display: "$ 55", shipping: autoShippingRate - 10, desc: "Exotic curated luxury gift items for special global events." },
+                    { name: "Royal Gamar Bed", title: "Handcrafted Luxury Teak Bed", category: "Decor", price: 500, display: "$ 500", shipping: autoShippingRate + 30, desc: "Pure high-gloss lacquer finish with solid Gamar wood structure." }
+                ];
+            }
+            return p;
+        }
+
+        function loadMarketProducts(filterCat = "Women's Fashion") {
+            let grid = document.getElementById('marketProductGrid');
+            let products = getProducts().filter(p => p.category && p.category.toLowerCase() === filterCat.toLowerCase());
+            grid.innerHTML = products.map((p) => `
+                <div class="product-card">
+                    <div class="product-img-box" onclick="openProductDetails('${p.title}')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png" alt="Product">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title" onclick="openProductDetails('${p.title}')">${p.title}</div>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <div style="font-size:10px; color:var(--gold-primary); font-weight:bold;">${p.display}</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-btn" onclick="openProductDetails('${p.title}')">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat, el) {
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            loadMarketProducts(cat);
+        }
+
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let products = getProducts();
+            let grid = document.getElementById('marketProductGrid');
+            grid.innerHTML = products.filter(p => p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query)).map((p) => `
+                <div class="product-card">
+                    <div class="product-img-box" onclick="openProductDetails('${p.title}')"><img src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png"></div>
+                    <div class="product-info">
+                        <div class="product-title">${p.title}</div>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <div style="font-size:10px; color:var(--gold-primary); font-weight:bold;">${p.display}</div>
+                    </div>
+                    <div class="card-actions"><button class="card-btn" onclick="openProductDetails('${p.title}')">View Details</button></div>
+                </div>
+            `).join('');
+        }
+
+        function startVoiceSearch() {
+            try {
+                let rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                rec.lang = 'en-US';
+                rec.onresult = (e) => {
+                    document.getElementById('searchInput').value = e.results[0][0].transcript;
+                    filterProducts();
+                };
+                rec.start();
+            } catch(e) {
+                let txt = prompt("Type product name:");
+                if(txt) { document.getElementById('searchInput').value = txt; filterProducts(); }
+            }
+        }
+
+        function triggerImageSearch() { document.getElementById('imageUploadInput').click(); }
+        function handleImageUpload(e) { alert("AI Visual Match Found!"); document.getElementById('searchInput').value = "Royal"; filterProducts(); }
+
+        let currentQty = 1;
+        let activePrice = 0;
+        let activeShipping = 0;
+        let activeTitle = "";
+
+        function openProductDetails(title) {
+            let p = getProducts().find(item => item.title === title) || getProducts()[0];
+            activePrice = p.price;
+            activeShipping = autoShippingRate;
+            activeTitle = p.title;
+            currentQty = 1;
+
+            document.getElementById('modalBody').innerHTML = `
+                <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <div class="details-stack">
+                    <div>
+                        <div class="large-preview-wrap"><img id="mainPreviewImg" src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png"></div>
+                        <div class="thumb-gallery">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png" class="thumb-img" onclick="document.getElementById('mainPreviewImg').src=this.src">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2933/2933888.png" class="thumb-img" onclick="document.getElementById('mainPreviewImg').src=this.src">
+                        </div>
+                    </div>
+                    <div>
+                        <span style="font-size:8px; color:var(--gold-primary); font-weight:bold; letter-spacing:1px;">${p.category}</span>
+                        <h2 style="font-family:'Cormorant Garamond', serif; color:#fff; font-size:22px; margin:2px 0;">${p.title}</h2>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p style="color:#aaa; font-size:10px; line-height:1.5; margin:8px 0;">${p.desc}</p>
+                        
+                        <div style="font-size:14px; color:var(--gold-primary); font-weight:bold;">Unit Price: $ <span id="unitPrice">${activePrice}</span></div>
+                        <div style="font-size:10px; color:#aaa;">Auto-Tracked Shipping (${detectedCountry}): $ <span id="shippingFee">${activeShipping}</span></div>
+
+                        <div class="qty-box">
+                            <span style="font-size:10px; color:var(--gold-light);">Quantity:</span>
+                            <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                            <span id="prodQty" style="font-weight:bold; font-size:12px; min-width:15px; text-align:center;">1</span>
+                            <button class="qty-btn" onclick="updateQty(1)">+</button>
+                        </div>
+
+                        <div style="font-size:13px; color:#fff; font-weight:bold; text-align:center; margin-bottom:10px;">Subtotal: $ <span id="totalItemPrice">${activePrice + activeShipping}</span></div>
+
+                        <button class="apply-btn" id="addToCartBtn">ADD TO CART</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('productModal').style.display = 'flex';
+
+            document.getElementById('addToCartBtn').onclick = function(e) {
+                addCartAndAnimate(e, activeTitle, activePrice, activeShipping);
+            };
+        }
+
+        function updateQty(change) {
+            currentQty += change;
+            if(currentQty < 1) currentQty = 1;
+            document.getElementById('prodQty').innerText = currentQty;
+            let subtotal = (activePrice * currentQty) + autoShippingRate;
+            document.getElementById('totalItemPrice').innerText = subtotal;
+        }
+
+        // Luxury Sound Effect & Large Coin Animation
+        function playLuxurySound() {
+            try {
+                let ctx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = ctx.createOscillator();
+                let gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1600, ctx.currentTime + 0.25);
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch(e) {}
+        }
+
+        function addCartAndAnimate(event, name, price, shipping) {
+            let cart = JSON.parse(localStorage.getItem('mme_global_cart') || '[]');
+            cart.push({ name: name, qty: currentQty, price: price, shipping: shipping });
+            localStorage.setItem('mme_global_cart', JSON.stringify(cart));
+            updateCartBadgeCount();
+
+            playLuxurySound();
+            closeModal();
+
+            let btnRect = event.target.getBoundingClientRect();
+            let basketRect = basket.getBoundingClientRect();
+
+            let coin = document.createElement('div');
+            coin.className = 'flying-coin';
+            coin.style.left = btnRect.left + 'px';
+            coin.style.top = btnRect.top + 'px';
+            document.body.appendChild(coin);
+
+            setTimeout(() => {
+                coin.style.left = (basketRect.left + 15) + 'px';
+                coin.style.top = (basketRect.top + 15) + 'px';
+                coin.style.transform = 'scale(0.2) rotate(720deg)';
+                coin.style.opacity = '0';
+            }, 30);
+
+            setTimeout(() => {
+                coin.remove();
+                let oldLeft = basket.style.left;
+                let oldTop = basket.style.top;
+                basket.classList.add('basket-center-focus');
+                
+                setTimeout(() => {
+                    basket.classList.remove('basket-center-focus');
+                    basket.style.left = oldLeft;
+                    basket.style.top = oldTop;
+                }, 800);
+            }, 600);
+        }
+
+        function openCheckoutModal() {
+            let cart = JSON.parse(localStorage.getItem('mme_global_cart') || '[]');
+            if(cart.length === 0) {
+                alert("Your global cart is currently empty.");
+                return;
+            }
+
+            let prodCost = 0, shipCost = 0;
+            cart.forEach(i => { prodCost += (i.price * i.qty); shipCost += i.shipping; });
+            let grandTotal = prodCost + shipCost;
+
+            let cartItemsHTML = cart.map((item, idx) => `
+                <div class="cart-item-row">
+                    <span><b>${item.name}</b> (x${item.qty}) - $ ${(item.price * item.qty)}</span>
+                    <button class="cart-remove-btn" onclick="removeCartItem(${idx})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            document.getElementById('modalBody').innerHTML = `
+                <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <h3 style="font-family:'Cormorant Garamond', serif; color:var(--gold-primary); font-size:20px; text-align:center; margin-bottom:5px;">Global Secure Checkout</h3>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size:9px; color:var(--gold-light); text-transform:uppercase; margin-bottom:5px; font-weight:bold;">Selected Cart Items (Manage / Remove):</div>
+                    <div style="max-height: 120px; overflow-y: auto;">${cartItemsHTML}</div>
+                </div>
+
+                <div class="grand-total-box">
+                    <div style="font-size:10px; color:#aaa; text-transform:uppercase;">Grand Total (Products + Shipping)</div>
+                    <div class="grand-total-price">$ ${grandTotal}</div>
+                    <div style="font-size:9px; color:var(--gold-light);">Items: ${cart.length} | Shipping Included: $ ${shipCost}</div>
+                </div>
+
+                <div class="form-group-grid">
+                    <div>
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">Full Name *</label>
+                        <input type="text" id="custName" class="input-box" placeholder="Full name">
+                    </div>
+                    <div>
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">Email Address *</label>
+                        <input type="email" id="custEmail" class="input-box" placeholder="client@email.com">
+                    </div>
+                    <div>
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">WhatsApp Number *</label>
+                        <div style="display:flex; gap:4px; margin-top:3px;">
+                            <select id="countryPhoneCode" style="width:105px; background:#000; border:1px solid #333; color:#fff; padding:8px; border-radius:6px; font-size:10px;">
+                                <option value="${detectedPhoneCode}">${detectedPhoneCode} (Auto)</option>
+                                <option value="+93">+93 (Afghanistan)</option>
+                                <option value="+355">+355 (Albania)</option>
+                                <option value="+213">+213 (Algeria)</option>
+                                <option value="+376">+376 (Andorra)</option>
+                                <option value="+244">+244 (Angola)</option>
+                                <option value="+54">+54 (Argentina)</option>
+                                <option value="+374">+374 (Armenia)</option>
+                                <option value="+61">+61 (Australia)</option>
+                                <option value="+43">+43 (Austria)</option>
+                                <option value="+994">+994 (Azerbaijan)</option>
+                                <option value="+973">+973 (Bahrain)</option>
+                                <option value="+880">+880 (Bangladesh)</option>
+                                <option value="+375">+375 (Belarus)</option>
+                                <option value="+32">+32 (Belgium)</option>
+                                <option value="+501">+501 (Belize)</option>
+                                <option value="+229">+229 (Benin)</option>
+                                <option value="+975">+975 (Bhutan)</option>
+                                <option value="+591">+591 (Bolivia)</option>
+                                <option value="+387">+387 (Bosnia)</option>
+                                <option value="+267">+267 (Botswana)</option>
+                                <option value="+55">+55 (Brazil)</option>
+                                <option value="+673">+673 (Brunei)</option>
+                                <option value="+359">+359 (Bulgaria)</option>
+                                <option value="+226">+226 (Burkina Faso)</option>
+                                <option value="+257">+257 (Burundi)</option>
+                                <option value="+855">+855 (Cambodia)</option>
+                                <option value="+237">+237 (Cameroon)</option>
+                                <option value="+1">+1 (Canada)</option>
+                                <option value="+238">+238 (Cape Verde)</option>
+                                <option value="+236">+236 (Central African Rep)</option>
+                                <option value="+235">+235 (Chad)</option>
+                                <option value="+56">+56 (Chile)</option>
+                                <option value="+86">+86 (China)</option>
+                                <option value="+57">+57 (Colombia)</option>
+                                <option value="+269">+269 (Comoros)</option>
+                                <option value="+242">+242 (Congo)</option>
+                                <option value="+506">+506 (Costa Rica)</option>
+                                <option value="+385">+385 (Croatia)</option>
+                                <option value="+53">+53 (Cuba)</option>
+                                <option value="+357">+357 (Cyprus)</option>
+                                <option value="+420">+420 (Czech Republic)</option>
+                                <option value="+45">+45 (Denmark)</option>
+                                <option value="+253">+253 (Djibouti)</option>
+                                <option value="+1767">+1767 (Dominica)</option>
+                                <option value="+1809">+1809 (Dominican Rep)</option>
+                                <option value="+593">+593 (Ecuador)</option>
+                                <option value="+20">+20 (Egypt)</option>
+                                <option value="+503">+503 (El Salvador)</option>
+                                <option value="+240">+240 (Equatorial Guinea)</option>
+                                <option value="+291">+291 (Eritrea)</option>
+                                <option value="+372">+372 (Estonia)</option>
+                                <option value="+251">+251 (Ethiopia)</option>
+                                <option value="+679">+679 (Fiji)</option>
+                                <option value="+358">+358 (Finland)</option>
+                                <option value="+33">+33 (France)</option>
+                                <option value="+241">+241 (Gabon)</option>
+                                <option value="+220">+220 (Gambia)</option>
+                                <option value="+995">+995 (Georgia)</option>
+                                <option value="+49">+49 (Germany)</option>
+                                <option value="+233">+233 (Ghana)</option>
+                                <option value="+30">+30 (Greece)</option>
+                                <option value="+299">+299 (Greenland)</option>
+                                <option value="+502">+502 (Guatemala)</option>
+                                <option value="+224">+224 (Guinea)</option>
+                                <option value="+509">+509 (Haiti)</option>
+                                <option value="+504">+504 (Honduras)</option>
+                                <option value="+852">+852 (Hong Kong)</option>
+                                <option value="+36">+36 (Hungary)</option>
+                                <option value="+354">+354 (Iceland)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+62">+62 (Indonesia)</option>
+                                <option value="+98">+98 (Iran)</option>
+                                <option value="+964">+964 (Iraq)</option>
+                                <option value="+353">+353 (Ireland)</option>
+                                <option value="+972">+972 (Israel)</option>
+                                <option value="+39">+39 (Italy)</option>
+                                <option value="+1876">+1876 (Jamaica)</option>
+                                <option value="+81">+81 (Japan)</option>
+                                <option value="+962">+962 (Jordan)</option>
+                                <option value="+7">+7 (Kazakhstan)</option>
+                                <option value="+254">+254 (Kenya)</option>
+                                <option value="+965">+965 (Kuwait)</option>
+                                <option value="+996">+996 (Kyrgyzstan)</option>
+                                <option value="+856">+856 (Laos)</option>
+                                <option value="+371">+371 (Latvia)</option>
+                                <option value="+961">+961 (Lebanon)</option>
+                                <option value="+266">+266 (Lesotho)</option>
+                                <option value="+231">+231 (Liberia)</option>
+                                <option value="+218">+218 (Libya)</option>
+                                <option value="+423">+423 (Liechtenstein)</option>
+                                <option value="+370">+370 (Lithuania)</option>
+                                <option value="+352">+352 (Luxembourg)</option>
+                                <option value="+853">+853 (Macau)</option>
+                                <option value="+389">+389 (Macedonia)</option>
+                                <option value="+261">+261 (Madagascar)</option>
+                                <option value="+265">+265 (Malawi)</option>
+                                <option value="+60">+60 (Malaysia)</option>
+                                <option value="+960">+960 (Maldives)</option>
+                                <option value="+223">+223 (Mali)</option>
+                                <option value="+356">+356 (Malta)</option>
+                                <option value="+222">+222 (Mauritania)</option>
+                                <option value="+230">+230 (Mauritius)</option>
+                                <option value="+52">+52 (Mexico)</option>
+                                <option value="+373">+373 (Moldova)</option>
+                                <option value="+377">+377 (Monaco)</option>
+                                <option value="+976">+976 (Mongolia)</option>
+                                <option value="+382">+382 (Montenegro)</option>
+                                <option value="+212">+212 (Morocco)</option>
+                                <option value="+258">+258 (Mozambique)</option>
+                                <option value="+95">+95 (Myanmar)</option>
+                                <option value="+264">+264 (Namibia)</option>
+                                <option value="+977">+977 (Nepal)</option>
+                                <option value="+31">+31 (Netherlands)</option>
+                                <option value="+64">+64 (New Zealand)</option>
+                                <option value="+505">+505 (Nicaragua)</option>
+                                <option value="+227">+227 (Niger)</option>
+                                <option value="+234">+234 (Nigeria)</option>
+                                <option value="+47">+47 (Norway)</option>
+                                <option value="+968">+968 (Oman)</option>
+                                <option value="+92">+92 (Pakistan)</option>
+                                <option value="+507">+507 (Panama)</option>
+                                <option value="+675">+675 (Papua New Guinea)</option>
+                                <option value="+595">+595 (Paraguay)</option>
+                                <option value="+51">+51 (Peru)</option>
+                                <option value="+63">+63 (Philippines)</option>
+                                <option value="+48">+48 (Poland)</option>
+                                <option value="+351">+351 (Portugal)</option>
+                                <option value="+974">+974 (Qatar)</option>
+                                <option value="+40">+40 (Romania)</option>
+                                <option value="+7">+7 (Russia)</option>
+                                <option value="+250">+250 (Rwanda)</option>
+                                <option value="+966">+966 (Saudi Arabia)</option>
+                                <option value="+221">+221 (Senegal)</option>
+                                <option value="+381">+381 (Serbia)</option>
+                                <option value="+248">+248 (Seychelles)</option>
+                                <option value="+232">+232 (Sierra Leone)</option>
+                                <option value="+65">+65 (Singapore)</option>
+                                <option value="+421">+421 (Slovakia)</option>
+                                <option value="+386">+386 (Slovenia)</option>
+                                <option value="+252">+252 (Somalia)</option>
+                                <option value="+27">+27 (South Africa)</option>
+                                <option value="+82">+82 (South Korea)</option>
+                                <option value="+34">+34 (Spain)</option>
+                                <option value="+94">+94 (Sri Lanka)</option>
+                                <option value="+249">+249 (Sudan)</option>
+                                <option value="+597">+597 (Suriname)</option>
+                                <option value="+46">+46 (Sweden)</option>
+                                <option value="+41">+41 (Switzerland)</option>
+                                <option value="+963">+963 (Syria)</option>
+                                <option value="+886">+886 (Taiwan)</option>
+                                <option value="+992">+992 (Tajikistan)</option>
+                                <option value="+255">+255 (Tanzania)</option>
+                                <option value="+66">+66 (Thailand)</option>
+                                <option value="+228">+228 (Togo)</option>
+                                <option value="+676">+676 (Tonga)</option>
+                                <option value="+216">+216 (Tunisia)</option>
+                                <option value="+90">+90 (Turkey)</option>
+                                <option value="+993">+993 (Turkmenistan)</option>
+                                <option value="+256">+256 (Uganda)</option>
+                                <option value="+380">+380 (Ukraine)</option>
+                                <option value="+971">+971 (UAE)</option>
+                                <option value="+44">+44 (United Kingdom)</option>
+                                <option value="+1">+1 (United States)</option>
+                                <option value="+598">+598 (Uruguay)</option>
+                                <option value="+998">+998 (Uzbekistan)</option>
+                                <option value="+58">+58 (Venezuela)</option>
+                                <option value="+84">+84 (Vietnam)</option>
+                                <option value="+967">+967 (Yemen)</option>
+                                <option value="+260">+260 (Zambia)</option>
+                                <option value="+263">+263 (Zimbabwe)</option>
+                            </select>
+                            <input type="text" id="custPhone" class="input-box" placeholder="17XXXXXXXX / Number" style="margin-top:0;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">Country / Region *</label>
+                        <input type="text" id="custCountry" class="input-box" value="${detectedCountry}">
+                    </div>
+                    <div>
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">City *</label>
+                        <input type="text" id="custCity" class="input-box" value="${detectedCity}">
+                    </div>
+                    <div class="form-full">
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">Complete Delivery Address *</label>
+                        <textarea id="custAddr" rows="2" class="input-box" placeholder="Street, Building, Postal Code..."></textarea>
+                    </div>
+                    <div class="form-full">
+                        <label style="font-size:8px; color:var(--gold-light); text-transform:uppercase; font-weight:bold;">Global Cards Accepted *</label>
+                        <select id="paymentMethod" class="input-box">
+                            <option value="Global Cards Accepted">Global Cards Accepted (All Major Cards)</option>
+                            <option value="Visa / Mastercard">Visa / MasterCard / Maestro</option>
+                            <option value="American Express">American Express (AMEX)</option>
+                            <option value="Discover / JCB">Discover / JCB / UnionPay</option>
+                            <option value="PayPal Global">PayPal Global Secure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="apply-btn" onclick="submitFinalOrder(${grandTotal})">CONFIRM & PAY NOW</button>
+            `;
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function removeCartItem(index) {
+            let cart = JSON.parse(localStorage.getItem('mme_global_cart') || '[]');
+            cart.splice(index, 1);
+            localStorage.setItem('mme_global_cart', JSON.stringify(cart));
+            updateCartBadgeCount();
+            openCheckoutModal();
+        }
+
+        function submitFinalOrder(grandTotal) {
+            let name = document.getElementById('custName').value;
+            let email = document.getElementById('custEmail').value;
+            let phoneCode = document.getElementById('countryPhoneCode').value;
+            let phone = document.getElementById('custPhone').value;
+            let country = document.getElementById('custCountry').value;
+            let city = document.getElementById('custCity').value;
+            let addr = document.getElementById('custAddr').value;
+            let payment = document.getElementById('paymentMethod').value;
+            let cart = JSON.parse(localStorage.getItem('mme_global_cart') || '[]');
+
+            if(!name || !email || !phone || !country || !city || !addr) {
+                alert("Please fill in all required shipping and contact fields.");
+                return;
+            }
+
+            let orderData = {
+                id: 'GLB-' + Math.floor(100000 + Math.random() * 900000),
+                name: name, email: email, phone: phoneCode + ' ' + phone, country: country, city: city, addr: addr,
+                payment: payment,
+                total: '$ ' + grandTotal,
+                status: 'Paid / Global Dispatch',
+                items: cart.map(i => `${i.name} (x${i.qty})`).join(', '),
+                date: new Date().toLocaleString()
+            };
+
+            let orders = JSON.parse(localStorage.getItem('mme_global_orders') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('mme_global_orders', JSON.stringify(orders));
+
+            localStorage.removeItem('mme_global_cart');
+            updateCartBadgeCount();
+            alert("Global Order Placed Successfully via Global Cards Accepted!");
+            closeModal();
+        }
+
+        function openAdminModal() {
+            let p = prompt("Enter Global Admin Password:");
+            if(p === 'mrbtrmlc') {
+                let orders = JSON.parse(localStorage.getItem('mme_global_orders') || '[]');
+                let rows = orders.length > 0 ? orders.map(o => `<tr><td><b>${o.id}</b></td><td>${o.name}<br>${o.email} (${o.phone})</td><td>${o.status}<br>${o.payment}</td><td><b>${o.items}</b><br><span style="color:var(--gold-primary);">${o.total}</span></td></tr>`).join('') : '<tr><td colspan="4" style="text-align:center;">No global orders yet.</td></tr>';
+                document.getElementById('modalBody').innerHTML = `
+                    <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                    <h3 style="color:var(--gold-primary); text-align:center;">Global Master Admin Panel</h3>
+                    <p style="font-size:10px; color:#2ecc71;">Total Global Orders: ${orders.length}</p>
+                    <div style="max-height:300px; overflow-y:auto;"><table class="admin-table"><thead><tr><th>ID</th><th>Customer</th><th>Status/Gateway</th><th>Total/Items</th></tr></thead><tbody>${rows}</tbody></table></div>
+                `;
+                document.getElementById('productModal').style.display = 'flex';
+            } else if(p) {
+                alert("Incorrect Password!");
+            }
+        }
+
+        function closeModal() { document.getElementById('productModal').style.display = 'none'; }
+    </script>
 </body>
 </html>
