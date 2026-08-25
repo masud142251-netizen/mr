@@ -160,38 +160,61 @@
             display: none;
         }
 
-        /* 🌟 Seamless Connected Masonry Layout (Zero Unwanted Gaps) */
+        /* 🌟 Pinterest Exact Style Asymmetric Masonry Grid */
         .feed-container {
             column-count: 2;
-            column-gap: 8px;
-            padding: 8px;
+            column-gap: 10px;
+            padding: 10px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
                 column-count: 4;
-                column-gap: 10px;
-                padding: 10px;
+                column-gap: 14px;
+                padding: 14px;
             }
         }
 
         .product-card {
             background: #121212;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             break-inside: avoid;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
+            transition: all 0.35s ease;
             position: relative;
             animation: cardAppear 0.4s ease-out backwards;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Creating natural Pinterest height staggering (some cards taller like the reference image) */
+        .product-card:nth-child(odd) .product-img-wrapper {
+            height: 280px;
+        }
+        .product-card:nth-child(even) .product-img-wrapper {
+            height: 190px;
+        }
+        .product-card:nth-child(3n) .product-img-wrapper {
+            height: 330px;
+        }
+
+        @media (min-width: 768px) {
+            .product-card:nth-child(odd) .product-img-wrapper {
+                height: 340px;
+            }
+            .product-card:nth-child(even) .product-img-wrapper {
+                height: 220px;
+            }
+            .product-card:nth-child(3n) .product-img-wrapper {
+                height: 400px;
+            }
         }
 
         .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.2);
-            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.5);
             z-index: 10;
         }
 
@@ -204,18 +227,18 @@
 
         .product-img-wrapper img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.5s ease;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.04);
+            transform: scale(1.06);
         }
 
         .product-info {
-            padding: 6px 8px;
+            padding: 8px 10px;
         }
 
         /* Single line compact footer actions */
@@ -457,7 +480,7 @@
         </div>
     </div>
 
-    <!-- Seamless Single-Card Masonry Feed Grid -->
+    <!-- Pinterest Exact Asymmetric Masonry Feed Grid -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -576,7 +599,7 @@
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // Dynamic Single Card Feed Generation
+        // Dynamic Pinterest Asymmetric Feed Generation
         const feedContainer = document.getElementById('productFeed');
         
         exactDriveImages.forEach((imgUrl, index) => {
