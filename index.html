@@ -160,7 +160,7 @@
             display: none;
         }
 
-        /* 🌟 Brick-Wall Masonry Layout (True Staggered Offset with Zero Crop) */
+        /* 🌟 True Brick-Wall Masonry Layout (Exact Interlocking Offset Structure) */
         .feed-container {
             column-count: 2;
             column-gap: 10px;
@@ -188,6 +188,20 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* Brick-wall interlocking offset for alternate cards to create natural staggered beauty */
+        .product-card:nth-child(even) {
+            margin-top: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .product-card:nth-child(3n) {
+                margin-top: 20px;
+            }
+            .product-card:nth-child(4n) {
+                margin-top: -10px;
+            }
+        }
+
         .product-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
@@ -205,11 +219,11 @@
             overflow: hidden;
         }
 
-        /* Zero Crop Guarantee: object-fit contain ensures full image visibility without cutting */
+        /* Zero Crop Guarantee: Full image preserved with uncropped clean display */
         .product-img-wrapper img {
             width: 100%;
             height: auto;
-            max-height: 420px;
+            max-height: 450px;
             display: block;
             object-fit: contain;
             transition: transform 0.5s ease;
@@ -468,7 +482,7 @@
         <!-- JavaScript will dynamically render cards -->
     </main>
 
-    <!-- Custom Social Share Bottom Sheet Modal -->
+    <!-- Custom Social Share Bottom Sheet Modal with X (Twitter) Logo Included -->
     <div class="share-modal" id="shareModal" onclick="closeShareModal(event)">
         <div class="share-sheet" onclick="event.stopPropagation()">
             <div class="share-title">Share Ecosystem</div>
@@ -541,7 +555,7 @@
 
         function handleGallerySelect(event) {
             if (event.target.files[0]) {
-                alert('Image loaded from gallery for visual search successfully!');
+                alert('Image loaded from gallery successfully!');
             }
         }
 
@@ -644,7 +658,7 @@
             }
         }
 
-        // Open Real Social Share Sheet with all platforms
+        // Open Real Social Share Sheet with all platforms including X (Twitter)
         let activeShareBtn = null;
         function openShareModal(btn) {
             activeShareBtn = btn;
@@ -677,19 +691,33 @@
 
         function copyShortLink() {
             const dummyUrl = window.location.href;
-            navigator.clipboard.writeText(dummyUrl).then(() => {
-                alert('Short link copied successfully: ' + dummyUrl);
-                closeShareModalForce();
-            }).catch(err => {
-                const textArea = document.createElement("textarea");
-                textArea.value = dummyUrl;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand("copy");
-                document.body.removeChild(textArea);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(dummyUrl).then(() => {
+                    alert('Short link copied successfully: ' + dummyUrl);
+                    closeShareModalForce();
+                }).catch(() => {
+                    fallbackCopy(dummyUrl);
+                });
+            } else {
+                fallbackCopy(dummyUrl);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
                 alert('Short link copied successfully!');
-                closeShareModalForce();
-            });
+            } catch (err) {
+                alert('Failed to copy link.');
+            }
+            document.body.removeChild(textArea);
+            closeShareModalForce();
         }
     </script>
 </body>
