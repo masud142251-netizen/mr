@@ -1,327 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR MASUDAR ENTERPRISE | Ultimate Global Ecosystem</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Mr Masudar Enterprise</title>
     <style>
+        /* বেসিক রিসেট ও ডার্ক থিম */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #050505;
-            color: #ffffff;
-            padding-bottom: 90px;
-            overflow-x: hidden;
+            background-color: #0b0b0b;
+            color: #fff;
+            padding-bottom: 70px; /* নিচের ফিক্সড ন্যাভবারের জন্য জায়গা রাখা */
         }
 
-        /* 🌟 Real Metallic Golden Gradient */
-        :root {
-            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fc6 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-            --gold-color: #d4af37;
-        }
-
-        /* 🌟 Futuristic Luxury Header */
-        .header {
+        /* টপ হেডার ও সার্চ বার */
+        .top-header {
+            padding: 12px 15px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px 18px;
-            background: rgba(10, 10, 10, 0.92);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: #111;
+            border-bottom: 1px solid #222;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .brand-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #d4af37;
         }
 
-        .logo-area img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #bf953f;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
-            animation: pulseGlow 3s infinite alternate;
-        }
-
-        .logo-title {
-            font-size: 14px;
-            font-weight: 700;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
-        }
-
-        .global-badge {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        /* 🌟 Luxury Glass Search Bar */
         .search-container {
-            padding: 10px 12px;
-            background: rgba(8, 8, 8, 0.85);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 63px;
-            z-index: 999;
+            padding: 10px 15px;
+            background: #0b0b0b;
         }
 
-        .glass-search-bar {
+        .search-box {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.45);
-            border-radius: 30px;
-            padding: 8px 14px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-            transition: all 0.3s ease;
+            background: #161616;
+            border: 1px solid #333;
+            border-radius: 25px;
+            padding: 8px 15px;
         }
 
-        .glass-search-bar:focus-within {
-            border-color: #bf953f;
-            box-shadow: 0 0 22px rgba(212, 175, 55, 0.5);
-        }
-
-        .glass-search-bar i.search-icon {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        .glass-search-bar input {
-            flex: 1;
+        .search-box input {
             background: transparent;
             border: none;
             outline: none;
             color: #fff;
-            font-size: 13px;
-            min-width: 0;
-        }
-
-        .glass-search-bar input::placeholder {
-            color: #888;
-        }
-
-        .search-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 15px;
-            cursor: pointer;
+            width: 100%;
             margin-left: 8px;
+            font-size: 14px;
         }
 
-        .search-actions label i, .search-actions i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .search-actions i:hover {
-            transform: scale(1.15);
-        }
-
-        #hiddenGalleryInput {
-            display: none;
-        }
-
-        /* 🌟 True Brick-Wall Masonry Interlocking Layout (Exact Brick Joint Offset) */
-        .feed-container {
-            column-count: 2;
-            column-gap: 12px;
-            padding: 12px;
-        }
-
-        @media (min-width: 768px) {
-            .feed-container {
-                column-count: 4;
-                column-gap: 16px;
-                padding: 16px;
-            }
+        /* সমান গ্যাপ ও স্ট্যান্ডার্ড প্রোডাক্ট গ্রিড (Masonry সমস্যার সমাধান) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* মোবাইলে নিখুঁত দুটি কলাম */
+            gap: 10px; /* প্রতিটি কার্ডের মাঝে একদম সমান গ্যাপ */
+            padding: 10px 12px;
         }
 
         .product-card {
-            background: #121212;
-            border-radius: 14px;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 12px;
-            break-inside: avoid;
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
-            transition: all 0.35s ease;
-            position: relative;
-            animation: cardAppear 0.4s ease-out backwards;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Exact Brick-wall Joint Interlocking Offset (Even cards pushed down to hit the exact middle joint) */
-        .product-card:nth-child(even) {
-            margin-top: 35px;
-        }
-
-        @media (min-width: 768px) {
-            .product-card:nth-child(3n) {
-                margin-top: 45px;
-            }
-            .product-card:nth-child(4n) {
-                margin-top: 15px;
-            }
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.3);
-            border-color: rgba(212, 175, 55, 0.5);
-            z-index: 10;
-        }
-
-        .product-img-wrapper {
-            position: relative;
-            width: 100%;
-            background: #000;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Zero Crop Guarantee: Full image preserved with uncropped clean display */
-        .product-img-wrapper img {
+        .product-card img {
             width: 100%;
-            height: auto;
-            max-height: 450px;
-            display: block;
-            object-fit: contain;
-            transition: transform 0.5s ease;
-            background: #000;
-        }
-
-        .product-card:hover .product-img-wrapper img {
-            transform: scale(1.03);
+            height: 160px; /* নির্দিষ্ট উচ্চতা যাতে লেআউট নষ্ট না হয় */
+            object-fit: cover;
         }
 
         .product-info {
-            padding: 8px 10px;
-        }
-
-        /* Single line compact footer actions */
-        .card-footer-actions {
+            padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            color: #ffffff;
-            white-space: nowrap;
-            gap: 6px;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            transition: transform 0.2s;
-        }
-
-        .action-btn:active {
-            transform: scale(0.85);
-        }
-
-        /* Like Button: Default Red ⇄ Metallic Golden Gradient */
-        .like-btn {
-            color: #ff3366; 
-        }
-        .like-btn.liked i, .like-btn.liked span {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
-        }
-
-        /* Share Button: Metallic Golden Gradient */
-        .share-btn i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 14px;
-        }
-        .share-btn.shared i {
-            color: #ff8c00;
-            background: none;
-            -webkit-text-fill-color: #ff8c00;
-        }
-
-        /* View Count in Golden Color with Eye Icon */
-        .view-count {
-            font-size: 11px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            font-weight: 600;
-        }
-        .view-count i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             font-size: 13px;
+            color: #ccc;
         }
 
-        /* 🌟 Luxury Sticky Bottom Navigation */
+        /* নিচের ৫টি ফিক্সড স্টিকি ন্যাভবার (Bottom Sticky Navbar) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 65px;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            height: 60px;
+            background: #111;
+            border-top: 1px solid #222;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.9);
         }
 
         .nav-item {
@@ -329,437 +112,103 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: #ffffff;
-            font-size: 10px;
+            color: #aaa;
+            font-size: 11px;
             font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item i {
-            font-size: 19px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3px;
-            filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5));
-            transition: transform 0.3s;
         }
 
         .nav-item span {
-            color: #ffffff;
-            letter-spacing: 0.3px;
+            font-size: 18px;
+            margin-bottom: 2px;
         }
 
-        .nav-item:hover i {
-            transform: translateY(-2px) scale(1.1);
-        }
-
-        /* Animations */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
-            100% { box-shadow: 0 0 22px rgba(212, 175, 55, 0.8); }
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 🌟 Custom Social Share Bottom Sheet Modal */
-        .share-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .share-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .share-sheet {
-            background: #161616;
-            width: 100%;
-            max-width: 500px;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            padding: 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.4);
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .share-modal.active .share-sheet {
-            transform: translateY(0);
-        }
-        .share-title {
-            font-size: 15px;
-            font-weight: 600;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .share-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .share-option {
-            background: rgba(255,255,255,0.05);
-            border-radius: 14px;
-            padding: 10px 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-            text-decoration: none;
-            color: #fff;
-            font-size: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        .share-option:hover {
-            background: rgba(212, 175, 55, 0.15);
-        }
-        .share-option i {
-            font-size: 20px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .close-share {
-            width: 100%;
-            background: rgba(255,255,255,0.08);
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* 🌟 Clean Toast Notification for Pure URL Copy */
-        .toast-notification {
-            position: fixed;
-            bottom: 85px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(18, 18, 18, 0.95);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 500;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(10px);
-        }
-        .toast-notification.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
+        .nav-item.active, .nav-item:hover {
+            color: #d4af37;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header class="header">
-        <div class="logo-area">
-            <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s400" alt="Brand Logo" id="brandLogo">
-            <span class="logo-title">MR MASUDAR ENTERPRISE</span>
-        </div>
-        <div class="global-badge">
-            <i class="fa-solid fa-globe"></i> 237+
-        </div>
-    </header>
+    <!-- টপ হেডার -->
+    <div class="top-header">
+        <div class="brand-title">🛒 MR MASUDAR ENTERPRISE</div>
+        <div style="color: #d4af37; font-size: 13px; border: 1px solid #333; padding: 4px 10px; border-radius: 15px;">🌐 237+</div>
+    </div>
 
-    <!-- Luxury Glass Search Bar -->
+    <!-- সার্চ বার -->
     <div class="search-container">
-        <div class="glass-search-bar" onclick="focusSearchInput()">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="mainSearchInput" placeholder="Search luxury products...">
-            <div class="search-actions">
-                <label for="hiddenGalleryInput" title="Image Search"><i class="fa-solid fa-camera"></i></label>
-                <input type="file" id="hiddenGalleryInput" accept="image/*" onchange="handleGallerySelect(event)">
-                <i class="fa-solid fa-microphone" title="Voice Search" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" placeholder="Search luxury products...">
+        </div>
+    </div>
+
+    <!-- প্রোডাক্ট গ্রিড সেকশন -->
+    <div class="product-grid">
+        <!-- প্রোডাক্ট কার্ড ১ -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400" alt="Product">
+            <div class="product-info">
+                <span>❤️ 27</span>
+                <span>👁️ 155</span>
+                <span>🔗</span>
+            </div>
+        </div>
+
+        <!-- প্রোডাক্ট কার্ড ২ -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Product">
+            <div class="product-info">
+                <span>❤️ 29</span>
+                <span>👁️ 155</span>
+                <span>🔗</span>
+            </div>
+        </div>
+
+        <!-- প্রোডাক্ট কার্ড ৩ -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Product">
+            <div class="product-info">
+                <span>❤️ 16</span>
+                <span>👁️ 340</span>
+                <span>🔗</span>
+            </div>
+        </div>
+
+        <!-- প্রোডাক্ট কার্ড ৪ -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400" alt="Product">
+            <div class="product-info">
+                <span>❤️ 29</span>
+                <span>👁️ 110</span>
+                <span>🔗</span>
             </div>
         </div>
     </div>
 
-    <!-- Brick-Wall Staggered Masonry Feed Grid -->
-    <main class="feed-container" id="productFeed">
-        <!-- JavaScript will dynamically render cards -->
-    </main>
-
-    <!-- Custom Social Share Bottom Sheet Modal with Pure X (Black) Logo -->
-    <div class="share-modal" id="shareModal" onclick="closeShareModal(event)">
-        <div class="share-sheet" onclick="event.stopPropagation()">
-            <div class="share-title">Share Ecosystem</div>
-            <div class="share-grid">
-                <div class="share-option" onclick="copyPureUrl()">
-                    <i class="fa-solid fa-copy"></i>
-                    <span>Copy Link</span>
-                </div>
-                <a href="#" id="fbShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-facebook"></i>
-                    <span>Facebook</span>
-                </a>
-                <a href="#" id="waShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="#" id="tgShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-                <a href="#" id="xShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-x-twitter" style="color: #ffffff; background: #000; padding: 2px; border-radius: 4px;"></i>
-                    <span>X (Twitter)</span>
-                </a>
-                <a href="#" id="pinShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-pinterest"></i>
-                    <span>Pinterest</span>
-                </a>
-                <a href="#" id="ttShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-tiktok"></i>
-                    <span>TikTok</span>
-                </a>
-                <a href="#" id="ytShare" target="_blank" class="share-option">
-                    <i class="fa-brands fa-youtube"></i>
-                    <span>YouTube</span>
-                </a>
-            </div>
-            <button class="close-share" onclick="closeShareModalForce()">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Toast Notification for Pure URL Copy (No alert popups) -->
-    <div class="toast-notification" id="toastNotification">Link copied to clipboard!</div>
-
-    <!-- Luxury Sticky Bottom Navigation -->
+    <!-- ৫টি ফিক্সড বাটন সম্বলিত স্টিকি ন্যাভবার -->
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-            <i class="fa-solid fa-house"></i>
-            <span>HOME</span>
+        <a href="index.html" class="nav-item active">
+            <span>🏠</span>
+            HOME
         </a>
-        <a href="etech.html" class="nav-item">
-            <i class="fa-solid fa-bolt"></i>
-            <span>E-TECH</span>
+        <a href="study.html" class="nav-item">
+            <span>⚡</span>
+            E-TECH
         </a>
         <a href="seller.html" class="nav-item">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>SELLER</span>
+            <span>🛍️</span>
+            SELLER
         </a>
         <a href="earn.html" class="nav-item">
-            <i class="fa-solid fa-handshake"></i>
-            <span>EARN</span>
+            <span>🤝</span>
+            EARN
         </a>
         <a href="item.html" class="nav-item">
-            <i class="fa-solid fa-border-all"></i>
-            <span>ITEM</span>
+            <span>🛍️</span>
+            ITEM
         </a>
     </nav>
 
-    <script>
-        function focusSearchInput() {
-            document.getElementById('mainSearchInput').focus();
-        }
-
-        function handleGallerySelect(event) {
-            if (event.target.files[0]) {
-                showToast('Image loaded successfully!');
-            }
-        }
-
-        function triggerVoiceSearch() {
-            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                const recognition = new SpeechRecognition();
-                recognition.lang = 'en-US';
-                recognition.start();
-                recognition.onresult = function(event) {
-                    document.getElementById('mainSearchInput').value = event.results[0][0].transcript;
-                };
-            } else {
-                showToast('Voice search not supported.');
-            }
-        }
-
-        // 🌟 First two specific fixed base images as requested
-        const fixedStartImages = [
-            'https://lh3.googleusercontent.com/d/1U7L779X0OtP3bwkreLJmrXh3glpqUpDK=s800',
-            'https://lh3.googleusercontent.com/d/1PUFSmdryF1vr5mxwem3Rj9TszG7L3lE_=s800'
-        ];
-
-        // 🌟 Remaining unique product images that will shuffle randomly on reload
-        const shuffleableImages = [
-            'https://lh3.googleusercontent.com/d/1TtSnFLCM5X9feuJW-kqfzJ26MWShTLYw=s800',
-            'https://lh3.googleusercontent.com/d/1kABixV17PsZve_MG8hbiKSTAtR54HdMq=s800',
-            'https://lh3.googleusercontent.com/d/1p16qTDjEPJNM0zBwVADM0ArD7SQyVoRr=s800',
-            'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
-            'https://lh3.googleusercontent.com/d/1zx3Rf7LxOvFne8nTirOQFTQcA14gdyP7=s800',
-            'https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi=s800',
-            'https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2=s800',
-            'https://lh3.googleusercontent.com/d/1_nmXWhJSFEM0FEEwqB5REvdzY1j4U9Fy=s800',
-            'https://lh3.googleusercontent.com/d/1cXunjOOOJkoAWAmpDMsy1HL1zOffTQj3=s800',
-            'https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB=s800',
-            'https://lh3.googleusercontent.com/d/1cIlfXcPU7VulDpX1V1t4irnLpScx12mI=s800',
-            'https://lh3.googleusercontent.com/d/1k0XXn9tBtH42S26sC2sAEQow-jZKvFuf=s800',
-            'https://lh3.googleusercontent.com/d/1TeIFQUm4PNduJgEQT4Ekmw8kHNSGq9Vx=s800'
-        ];
-
-        // Fisher-Yates Shuffle Algorithm for randomizing the feed on reload
-        function shuffleArray(array) {
-            let arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                let j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        // Combine fixed start images + shuffled remaining images
-        const finalImageList = [...fixedStartImages, ...shuffleArray(shuffleableImages)];
-
-        // Realistic low-initial counts
-        function generateRandomViews() {
-            const viewsOptions = [25, 48, 72, 110, 155, 210, 285, 340];
-            return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
-        }
-
-        // Dynamic Masonry Feed Generation with Uncropped Original Images
-        const feedContainer = document.getElementById('productFeed');
-        
-        finalImageList.forEach((imgUrl, index) => {
-            let randomViews = generateRandomViews();
-            let randomLikes = Math.floor(Math.random() * 30 + 4);
-
-            let card = document.createElement('div');
-            card.className = 'product-card';
-            card.style.animationDelay = `${index * 0.03}s`;
-            card.innerHTML = `
-                <div class="product-img-wrapper">
-                    <img src="${imgUrl}" alt="Luxury Product">
-                </div>
-                <div class="product-info">
-                    <div class="card-footer-actions">
-                        <button class="action-btn like-btn" onclick="toggleLike(this)">
-                            <i class="fa-solid fa-heart"></i> <span class="like-count">${randomLikes}</span>
-                        </button>
-                        <span class="view-count"><i class="fa-solid fa-eye"></i> ${randomViews}</span>
-                        <button class="action-btn share-btn" onclick="openShareModal(this)">
-                            <i class="fa-solid fa-share-nodes"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-            feedContainer.appendChild(card);
-        });
-
-        // Like Toggle: Red ⇄ Metallic Golden
-        function toggleLike(btn) {
-            let countSpan = btn.querySelector('.like-count');
-            let currentLikes = parseInt(countSpan.innerText);
-
-            if (!btn.classList.contains('liked')) {
-                btn.classList.add('liked');
-                countSpan.innerText = currentLikes + 1;
-            } else {
-                btn.classList.remove('liked');
-                countSpan.innerText = currentLikes - 1;
-            }
-        }
-
-        // Open Real Social Share Sheet with X (Twitter)
-        let activeShareBtn = null;
-        function openShareModal(btn) {
-            activeShareBtn = btn;
-            btn.classList.add('shared');
-            const currentUrl = window.location.href.split('#')[0];
-            
-            document.getElementById('fbShare').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('xShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('pinShare').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}`;
-            document.getElementById('ttShare').href = `https://www.tiktok.com/`;
-            document.getElementById('ytShare').href = `https://www.youtube.com/`;
-            
-            document.getElementById('shareModal').classList.add('active');
-        }
-
-        function closeShareModal(event) {
-            if (event.target.id === 'shareModal') {
-                closeShareModalForce();
-            }
-        }
-
-        function closeShareModalForce() {
-            document.getElementById('shareModal').classList.remove('active');
-            if (activeShareBtn) {
-                setTimeout(() => activeShareBtn.classList.remove('shared'), 300);
-            }
-        }
-
-        // 🌟 Pure URL Copy without any long text alerts
-        function copyPureUrl() {
-            const cleanUrl = window.location.href.split('#')[0];
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(cleanUrl).then(() => {
-                    showToast('Link copied!');
-                    closeShareModalForce();
-                }).catch(() => {
-                    fallbackCopyPure(cleanUrl);
-                });
-            } else {
-                fallbackCopyPure(cleanUrl);
-            }
-        }
-
-        function fallbackCopyPure(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast('Link copied!');
-            } catch (err) {
-                showToast('Failed to copy.');
-            }
-            document.body.removeChild(textArea);
-            closeShareModalForce();
-        }
-
-        // Toast Message Helper
-        function showToast(message) {
-            const toast = document.getElementById('toastNotification');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
-        }
-    </script>
 </body>
 </html>
