@@ -160,7 +160,7 @@
             display: none;
         }
 
-        /* 🌟 Brick-Wall Masonry Grid (Exact Pinterest Staggered Layout) */
+        /* 🌟 Brick-Wall Masonry Layout (True Staggered Offset with Zero Crop) */
         .feed-container {
             column-count: 2;
             column-gap: 10px;
@@ -199,20 +199,25 @@
             position: relative;
             width: 100%;
             background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
         }
 
-        /* Natural aspect ratio preservation - keeping original picture dimensions uncropped */
+        /* Zero Crop Guarantee: object-fit contain ensures full image visibility without cutting */
         .product-img-wrapper img {
             width: 100%;
             height: auto;
+            max-height: 420px;
             display: block;
             object-fit: contain;
             transition: transform 0.5s ease;
+            background: #000;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.04);
+            transform: scale(1.03);
         }
 
         .product-info {
@@ -458,7 +463,7 @@
         </div>
     </div>
 
-    <!-- Brick-Wall Masonry Feed Grid -->
+    <!-- Brick-Wall Staggered Masonry Feed Grid -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -554,7 +559,7 @@
             }
         }
 
-        // 🌟 First two specific fixed images as requested
+        // 🌟 First two specific fixed base images as requested
         const fixedStartImages = [
             'https://lh3.googleusercontent.com/d/1U7L779X0OtP3bwkreLJmrXh3glpqUpDK=s800',
             'https://lh3.googleusercontent.com/d/1PUFSmdryF1vr5mxwem3Rj9TszG7L3lE_=s800'
@@ -650,7 +655,7 @@
             document.getElementById('waShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`;
             document.getElementById('tgShare').href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item')}`;
             document.getElementById('twShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this luxury item')}`;
-            document.getElementById('pinShare').href, `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&description=${encodeURIComponent('Luxury Ecosystem Item')}`;
+            document.getElementById('pinShare').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&description=${encodeURIComponent('Luxury Ecosystem Item')}`;
             document.getElementById('ttShare').href = `https://www.tiktok.com/`;
             document.getElementById('ytShare').href = `https://www.youtube.com/`;
             
