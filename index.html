@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr Masudar Enterprise</title>
+    <title>MR MASUDAR ENTERPRISE</title>
     <style>
-        /* বেসিক রিসেট ও ডার্ক থিম স্টাইল */
         * {
             margin: 0;
             padding: 0;
@@ -16,17 +15,16 @@
         body {
             background-color: #0b0b0b;
             color: #fff;
-            padding-bottom: 70px; /* নিচের ফিক্সড ন্যাভবারের জন্য জায়গা রাখা */
+            padding-bottom: 75px; /* নিচের ফিক্সড ন্যাভবারের জন্য জায়গা */
         }
 
-        /* হেডার সেকশন */
+        /* হেডার সেকশন (আপনার ছবির মতো গোল্ডেন গ্লো বর্ডার সহ) */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
+            padding: 14px 16px;
             background: #0b0b0b;
-            border-bottom: 1px solid #222;
         }
 
         .brand-logo-area {
@@ -36,36 +34,39 @@
         }
 
         .logo-icon {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #d4af37;
+            width: 38px;
+            height: 38px;
+            background: #141414;
+            border: 1.5px solid #d4af37;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            font-size: 16px;
         }
 
         .brand-title {
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 700;
             color: #d4af37;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
 
         .header-right-btn {
-            background: #1a1a1a;
-            border: 1px solid #333;
+            background: #141414;
+            border: 1px solid #d4af37;
             color: #d4af37;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
         }
 
-        /* সার্চ বার সেকশন */
+        /* সার্চ বার সেকশন (গোল্ডেন বর্ডার সহ) */
         .search-container {
-            padding: 10px 16px;
+            padding: 8px 16px 14px 16px;
             background: #0b0b0b;
         }
 
@@ -73,10 +74,11 @@
             display: flex;
             align-items: center;
             background: #141414;
-            border: 1px solid #332711;
+            border: 1.2px solid #d4af37;
             border-radius: 30px;
-            padding: 8px 14px;
-            gap: 10px;
+            padding: 10px 16px;
+            gap: 12px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
         }
 
         .search-box input {
@@ -92,18 +94,25 @@
             color: #777;
         }
 
+        .search-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
         /* প্রোডাক্ট গ্রিড - মোবাইলে নিখুঁত দুটি কলাম ও সমান গ্যাপ */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* মোবাইলে একদম পাশাপাশি দুটি কার্ড */
-            gap: 10px; /* কার্ডগুলোর মাঝখানে সুনির্দিষ্ট ও সমান গ্যাপ */
-            padding: 10px 12px;
+            grid-template-columns: repeat(2, 1fr); /* মোবাইলে পাশাপাশি একদম দুটি কার্ড */
+            gap: 12px; /* কার্ডগুলোর মাঝখানে সুনির্দিষ্ট ও সমান গ্যাপ */
+            padding: 0 12px;
         }
 
         /* প্রোডাক্ট কার্ড */
         .product-card {
             background: #141414;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             border: 1px solid #222;
             display: flex;
@@ -113,8 +122,8 @@
 
         .product-img-container {
             width: 100%;
-            height: 170px; /* সব ছবির জন্য সমান স্ট্যান্ডার্ড উচ্চতা */
-            background: #fff;
+            height: 180px; /* সমান স্ট্যান্ডার্ড উচ্চতা */
+            background: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,8 +133,8 @@
         .product-img-container img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* ছবি যেন কেটে না যায় বা চ্যাপ্টা না হয় */
-            padding: 8px;
+            object-fit: contain;
+            padding: 10px;
         }
 
         /* কার্ডের ফুটার (লাইক, ভিউ, শেয়ার) */
@@ -133,16 +142,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: #141414;
-            font-size: 12px;
+            font-size: 13px;
             color: #aaa;
+            border-top: 1px solid #1f1f1f;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
         }
 
         .stat-item span.heart {
@@ -173,10 +183,10 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: #888;
-            font-size: 10px;
+            color: #777;
+            font-size: 11px;
             font-weight: 600;
-            gap: 2px;
+            gap: 3px;
         }
 
         .nav-item.active {
@@ -201,13 +211,13 @@
         </div>
     </header>
 
-    <!-- সার্চ বার -->
+    <!-- সার্চ বার (গোল্ডেন বর্ডার সহ) -->
     <div class="search-container">
         <div class="search-box">
-            <span>🔍</span>
+            <span style="color: #d4af37;">🔍</span>
             <input type="text" placeholder="Search luxury products...">
-            <span>📷</span>
-            <span>🎙️</span>
+            <button class="search-icon-btn">📷</button>
+            <button class="search-icon-btn">🎙️</button>
         </div>
     </div>
 
