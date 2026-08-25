@@ -1,550 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <link rel="icon" type="image/png" href="https://drive.google.com/file/d/1um6fsgwSoNM4r7mhhgnTeWNyxyOrrKRa/view?usp=drive_link">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR MASUDAR ENTERPRISE | All-in-One Global Ecosystem</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Mr. Masudar Enterprise - Royal Luxury Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Royal Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #050505;
-            --surface-color: #0c0c0c;
-            --gold-primary: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --text-main: #FFFFFF;
-            --border-luxury: rgba(212, 175, 55, 0.4);
-        }
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            text-align: center; 
-            overflow-x: hidden;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Top Header - Fully Centered & Stacked for Mobile Elegance */
-        .top-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px 15px;
-            background: #000;
-            border-bottom: 1px solid var(--border-luxury);
-            gap: 15px;
-        }
-        .brand-box-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 10px;
-        }
-        .brand-logo-img {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            border: 1px solid var(--gold-primary);
-            object-fit: cover;
-            box-shadow: 0 0 15px rgba(212,175,55,0.3);
-        }
-        .brand-text h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            margin: 0;
-            background: var(--gold-gradient);
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+
+        .golden-gradient-text {
+            background: linear-gradient(135deg, #BF953F, #D4AF37, #AA771C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-        .brand-text span {
-            font-size: 9px;
-            color: #ddd;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: block;
-            font-weight: 600;
-            margin-top: 3px;
         }
 
-        .top-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-        .badge {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+        .luxury-gold-btn {
+            background: linear-gradient(135deg, #BF953F, #D4AF37, #AA771C);
             color: #FFFFFF;
-            font-size: 11px;
-            padding: 7px 14px;
-            border-radius: 22px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(191, 149, 63, 0.4);
+            transition: all 0.3s ease;
         }
-        .badge i {
-            color: var(--gold-primary);
-        }
+        .luxury-gold-btn:active { transform: scale(0.95); }
 
-        /* Hero Section */
-        .hero { padding: 35px 15px 20px 15px; }
-        .hero h2 { 
-            font-family: 'Cormorant Garamond', serif; 
-            font-size: 28px; 
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase; 
-            letter-spacing: 1.5px;
-            margin-bottom: 8px; 
-            line-height: 1.3;
-        }
-        .hero p { 
-            color: #aaa; 
-            font-size: 10px; 
-            letter-spacing: 1.5px; 
-            text-transform: uppercase; 
-        }
-
-        /* Vertical Stacked Layout */
-        .vertical-container { 
-            display: flex;
-            flex-direction: column;
-            gap: 24px; 
-            max-width: 900px; 
-            margin: 0 auto; 
-            padding: 0 15px 90px 15px;
-        }
-        
-        .luxury-card { 
-            background: var(--surface-color); 
-            border: 1px solid var(--border-luxury); 
-            border-radius: 18px; 
-            padding: 30px 20px; 
-            text-align: center; 
-            cursor: pointer; 
-            transition: all 0.4s ease; 
-            text-decoration: none; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-            position: relative;
-        }
-        .luxury-card:hover { 
-            border-color: var(--gold-primary); 
-            transform: translateY(-5px);
-            box-shadow: 0 0 35px rgba(212,175,55,0.35); 
-        }
-        
-        .luxury-card i { 
-            font-size: 42px; 
-            background: var(--gold-gradient); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            margin-bottom: 15px; 
-            animation: prominentZoom 2.5s infinite ease-in-out;
-        }
-        @keyframes prominentZoom {
-            0% { transform: scale(0.9); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(0.9); }
-        }
-
-        .luxury-card h3 { 
-            font-size: 16px; 
-            margin-bottom: 6px; 
-            color: #fff;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-        .luxury-card p {
-            color: #999;
-            font-size: 11px;
-            margin-bottom: 22px;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn { 
-            display: inline-block; 
-            background: var(--gold-gradient); 
-            color: #000; 
-            padding: 11px 26px; 
-            border-radius: 28px; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            font-size: 10px; 
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 15px rgba(212,175,55,0.25);
-        }
-
-        /* --- Floating Live Chat Widget --- */
-        .chat-widget-fixed {
-            position: fixed;
-            bottom: 25px;
-            right: 20px;
-            z-index: 99999;
-        }
-        .live-chat-bubble-btn {
-            background: var(--gold-gradient);
-            color: #000;
-            padding: 13px 26px;
-            border-radius: 38px;
-            font-weight: 900;
-            font-size: 12px;
-            letter-spacing: 1.5px;
+        .nav-icon-container {
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 6px 25px rgba(212,175,55,0.6);
-            border: 2px solid #fff;
-            cursor: pointer;
-            animation: pulseGlow 2s infinite;
-        }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.8); }
-            70% { box-shadow: 0 0 0 14px rgba(212,175,55,0); }
-            100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+            justify-content: center;
         }
 
-        /* Live Chat Window */
-        .live-chat-window {
-            display: none;
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            width: 310px;
-            background: var(--surface-color);
-            border: 1px solid var(--gold-primary);
-            border-radius: 16px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.95);
-            overflow: hidden;
-            text-align: left;
-        }
-        .chat-top-bar {
-            background: #000;
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border-luxury);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .agent-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            color: var(--gold-primary);
-            font-weight: bold;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #2ecc71;
-            border-radius: 50%;
-        }
-        .close-chat-x {
-            color: #aaa;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .close-chat-x:hover { color: #fff; }
-
-        .chat-conversation-area {
-            height: 220px;
-            padding: 14px;
-            overflow-y: auto;
-            font-size: 11px;
-            color: #ddd;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .support-agent-msg {
-            background: rgba(212,175,55,0.12);
-            border-left: 2px solid var(--gold-primary);
-            padding: 9px 12px;
-            border-radius: 6px;
-            max-width: 90%;
-            line-height: 1.4;
-        }
-        .visitor-msg {
-            background: #222;
-            color: #fff;
-            padding: 9px 12px;
-            border-radius: 6px;
-            max-width: 90%;
-            align-self: flex-end;
-            border-right: 2px solid #fff;
-        }
-
-        .chat-bottom-input {
-            padding: 10px 12px;
-            background: #000;
-            border-top: 1px solid var(--border-luxury);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .chat-bottom-input input {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 20px;
-            padding: 9px 12px;
-            color: #fff;
+        /* Responsive Pinterest True Masonry Staggered Grid for Mobile & Desktop */
+        .pinterest-masonry {
+            column-count: 2;
+            column-gap: 12px;
             width: 100%;
-            outline: none;
-            font-size: 11px;
         }
-        .chat-bottom-input i {
-            color: var(--gold-primary);
-            font-size: 14px;
-            cursor: pointer;
-            padding: 0 3px;
+        @media (min-width: 640px) { .pinterest-masonry { column-count: 3; } }
+        @media (min-width: 1024px) { .pinterest-masonry { column-count: 4; column-gap: 16px; } }
+        @media (min-width: 1280px) { .pinterest-masonry { column-count: 5; } }
+
+        .pinterest-card {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            background: #FFFFFF;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07), 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
-        
-        .send-btn-text {
-            background: var(--gold-gradient);
-            color: #000;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 9px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            white-space: nowrap;
+        .pinterest-card:hover, .pinterest-card:active {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
         }
+
+        @keyframes slideUpHalf {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-up-half { animation: slideUpHalf 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
-<body>
+<body class="bg-[#F4F6F9] text-[#111111] antialiased selection:bg-[#BF953F] selection:text-white pb-32">
 
-    <!-- Top Header - Centered Layout -->
-    <div class="top-header">
-        <div class="brand-box-center">
-            <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s400" alt="Logo" class="brand-logo-img">
-            <div class="brand-text">
-                <h1>MR MASUDAR ENTERPRISE</h1>
-                <span>ALL-IN-ONE . LESS IS MORE</span>
-            </div>
-        </div>
-        <div class="top-badges">
-            <div class="badge"><i class="fa-solid fa-globe"></i> 237+</div>
-            <div class="badge"><i class="fa-solid fa-headset"></i> 24/7</div>
-            <a href="app.html" class="badge"><i class="fa-solid fa-download"></i> INSTALL APP</a>
-        </div>
-    </div>
+    <!-- RESPONSIVE LUXURY WRAPPER (Adapts to Mobile and Desktop seamlessly) -->
+    <div class="w-full max-w-7xl mx-auto min-h-screen bg-[#FFFFFF] shadow-2xl relative flex flex-col border-x border-gray-100 overflow-hidden">
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <h2>ALL-IN-ONE GLOBAL ECOSYSTEM</h2>
-        <p>Explore elite gateways & shop instantly via live human support</p>
-    </div>
+        <!-- Hidden File Input for Gallery Image Search -->
+        <input type="file" id="galleryInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
 
-    <!-- Vertical Stacked Cards Layout -->
-    <div class="vertical-container">
-        <!-- 1. Bangladesh Market -->
-        <a href="bd.html" class="luxury-card">
-            <i class="fa-solid fa-house-chimney"></i>
-            <h3>BANGLADESH MARKET</h3>
-            <p>Local Retail & Daily Essentials</p>
-            <span class="btn">SHOP LOCAL</span>
-        </a>
+        <!-- TOP WELCOME, INFO & APP DOWNLOAD BANNER -->
+        <header class="bg-gradient-to-b from-[#111111] to-[#1a1a1a] text-white px-6 pt-6 pb-8 rounded-b-[2.5rem] shadow-xl mb-4">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="font-cinzel text-sm sm:text-base font-bold tracking-widest text-[#D4AF37] uppercase mb-1.5">WELCOME MR MASUDAR ENTERPRISE</h1>
+                <p class="font-cormorant text-xs sm:text-sm text-gray-300 tracking-wider mb-4">All in one, B2C, B2B Global Hub</p>
+                
+                <!-- App Install Download Buttons (Apple & Android) -->
+                <div class="flex items-center justify-center space-x-3">
+                    <button onclick="alert('iOS App Download Starting...')" class="flex items-center space-x-2 bg-black/80 border border-[#BF953F]/40 px-4 py-2 rounded-xl hover:border-[#D4AF37] transition shadow-md">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.85 5.27c.62-.75 1.04-1.79.93-2.83-.9 0-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.76 1.01.08 2.05-.58 2.67-1.28z"/></svg>
+                        <div class="text-left">
+                            <p class="text-[8px] text-gray-400 font-cormorant leading-none">Download on the</p>
+                            <p class="text-xs font-cinzel font-bold text-white leading-tight">App Store</p>
+                        </div>
+                    </button>
 
-        <!-- 2. Global Marketplace -->
-        <a href="global.html" class="luxury-card">
-            <i class="fa-solid fa-earth-americas"></i>
-            <h3>GLOBAL MARKETPLACE</h3>
-            <p>Premium Products Worldwide</p>
-            <span class="btn">EXPLORE GLOBAL</span>
-        </a>
-
-        <!-- 3. Wholesale Market -->
-        <a href="b2b.html" class="luxury-card">
-            <i class="fa-solid fa-warehouse"></i>
-            <h3>WHOLESALE MARKET</h3>
-            <p>Bulk Business & B2B Solutions</p>
-            <span class="btn">BULK ORDER</span>
-        </a>
-
-        <!-- 4. Seller Ecosystem -->
-        <a href="seller.html" class="luxury-card">
-            <i class="fa-solid fa-store"></i>
-            <h3>SELLER ECOSYSTEM</h3>
-            <p>Onboard & Expand Business</p>
-            <span class="btn">JOIN NOW</span>
-        </a>
-
-        <!-- 5. Affiliate Network -->
-        <a href="affiliate.html" class="luxury-card">
-            <i class="fa-solid fa-chart-line"></i>
-            <h3>AFFILIATE NETWORK</h3>
-            <p>Global Earnings & Analytics (10%)</p>
-            <span class="btn">OPEN PORTAL</span>
-        </a>
-
-        <!-- 6. Careers & Talent -->
-        <a href="career.html" class="luxury-card">
-            <i class="fa-solid fa-users-gear"></i>
-            <h3>CAREERS & TALENT</h3>
-            <p>Join the Elite Workforce</p>
-            <span class="btn">APPLY NOW</span>
-        </a>
-
-        <!-- 7. Enterprise Solutions -->
-        <a href="enterprise.html" class="luxury-card">
-            <i class="fa-solid fa-gem"></i>
-            <h3>ENTERPRISE SOLUTIONS</h3>
-            <p>Custom Global Infrastructure</p>
-            <span class="btn">EXPLORE</span>
-        </a>
-    </div>
-
-    <!-- Floating Live Chat Widget -->
-    <div class="chat-widget-fixed">
-        <div class="live-chat-bubble-btn" onclick="toggleChatWindow()">
-            <i class="fa-solid fa-comments"></i> LIVE CHAT
-        </div>
-
-        <div class="live-chat-window" id="liveChatWindow">
-            <div class="chat-top-bar">
-                <div class="agent-status">
-                    <span class="status-dot"></span> <span>Mr Masudar Support</span>
+                    <button onclick="alert('Android APK Download Starting...')" class="flex items-center space-x-2 bg-black/80 border border-[#BF953F]/40 px-4 py-2 rounded-xl hover:border-[#D4AF37] transition shadow-md">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a1.35 1.35 0 0 1-.22-.76V2.574c0-.285.08-.57.22-.76zM15.208 13.416l2.122 2.122-11.455 6.613 9.333-8.735zm0-2.832L5.875 1.85l11.455 6.613-2.122 2.121zM18.04 12.18l2.96 1.71a1.05 1.05 0 0 1 0 1.82l-2.03 1.17-2.43-2.43 1.5-2.27z"/></svg>
+                        <div class="text-left">
+                            <p class="text-[8px] text-gray-400 font-cormorant leading-none">Get it on</p>
+                            <p class="text-xs font-cinzel font-bold text-white leading-tight">Google Play</p>
+                        </div>
+                    </button>
                 </div>
-                <span class="close-chat-x" onclick="toggleChatWindow()">&times;</span>
             </div>
-            <div class="chat-conversation-area" id="chatAreaBox">
-                <div class="support-agent-msg">Mr Masudar Enterprise-এ স্বাগতম! আমাদের প্রধান সেবা: বাংলাদেশ ও গ্লোবাল মার্কেটপ্লেস এবং হোলসেল (B2B)। কীভাবে সহায়তা করতে পারি?</div>
+        </header>
+
+        <!-- 1. PINTEREST TRUE MASONRY STAGGERED FEED (Auto-scales on Mobile & Computer) -->
+        <main class="flex-1 px-4 pt-2 pb-24">
+            <div class="pinterest-masonry">
+                
+                <!-- Card 1 -->
+                <div onclick="openProductDetail('Royal Gamar Wood Chair')" class="pinterest-card p-2 cursor-pointer">
+                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
+                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
+                    </div>
+                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Royal Gamar Wood Chair</h3>
+                </div>
+
+                <!-- Card 2 -->
+                <div onclick="openProductDetail('Luxury Baby Combo Set')" class="pinterest-card p-2 cursor-pointer">
+                    <div class="bg-[#F0F2F5] w-full aspect-[4/5] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
+                        <span class="font-cormorant tracking-widest text-sm font-semibold">4:5 Visual</span>
+                    </div>
+                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Luxury Baby Combo Set</h3>
+                </div>
+
+                <!-- Card 3 -->
+                <div onclick="openProductDetail('Smart Luxury Watch')" class="pinterest-card p-2 cursor-pointer">
+                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
+                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
+                    </div>
+                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Smart Luxury Watch</h3>
+                </div>
+
+                <!-- Card 4 -->
+                <div onclick="openProductDetail('Professional Video Editing')" class="pinterest-card p-2 cursor-pointer">
+                    <div class="bg-[#F0F2F5] w-full aspect-[1/1] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
+                        <span class="font-cormorant tracking-widest text-sm font-semibold">1:1 Visual</span>
+                    </div>
+                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Professional Video Editing</h3>
+                </div>
+
+                <!-- Card 5 -->
+                <div onclick="openProductDetail('Handcrafted Decor')" class="pinterest-card p-2 cursor-pointer">
+                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
+                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
+                    </div>
+                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Handcrafted Decor</h3>
+                </div>
+
             </div>
-            <div class="chat-bottom-input">
-                <input type="text" id="chatInputField" placeholder="Type message..." onkeypress="handleKey(event)">
-                <i class="fa-solid fa-microphone" title="Voice Input" onclick="startSpeechRecognition()"></i>
-                <i class="fa-solid fa-camera" title="Upload Image" onclick="document.getElementById('hiddenImageUpload').click()"></i>
-                <input type="file" id="hiddenImageUpload" style="display:none" accept="image/*" onchange="handleImageSelected(event)">
-                <button class="send-btn-text" onclick="sendVisitorMessage()">SEND</button>
+        </main>
+
+        <!-- 2. WATER-FLOW FLOATING SEARCH BAR -->
+        <div class="fixed bottom-20 left-0 right-0 max-w-lg mx-auto z-40 px-4 pointer-events-none">
+            <div class="bg-white/90 backdrop-blur-md px-5 py-3 rounded-full border border-[#BF953F]/40 shadow-2xl pointer-events-auto flex items-center relative">
+                <span class="absolute left-5 text-[#BF953F]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" id="searchInput" placeholder="Search Luxury Collection..." class="w-full pl-9 pr-16 py-1 bg-transparent border-none text-xs sm:text-sm font-cormorant text-gray-900 placeholder-gray-500 focus:outline-none">
+                <div class="absolute right-5 flex items-center space-x-3 text-[#BF953F]">
+                    <button onclick="triggerCameraOrGallery()" class="hover:text-black transition" title="Camera / Gallery Search">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+                    </button>
+                    <button onclick="triggerVoiceSearch()" class="hover:text-black transition" title="Voice Search">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
+
+        <!-- 3. HALF-SCREEN ROLLING CATEGORY WHEEL -->
+        <div id="itemWheelContainer" class="hidden fixed inset-x-0 bottom-0 h-1/2 max-w-xl mx-auto z-50 bg-white/95 backdrop-blur-2xl border-t border-[#BF953F]/40 rounded-t-3xl shadow-2xl animate-slide-up-half p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
+                    <h3 class="font-cinzel text-sm font-bold golden-gradient-text tracking-wider">Select Category</h3>
+                    <button onclick="toggleItemWheel()" class="text-gray-400 hover:text-black text-base font-bold px-2">✕</button>
+                </div>
+                <div class="space-y-2 overflow-y-auto max-h-[35vh] no-scrollbar">
+                    <button onclick="selectCategory('All')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">✦ All Collections</button>
+                    <button onclick="selectCategory('Furniture')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">🪑 Furniture</button>
+                    <button onclick="selectCategory('Baby')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">🍼 Baby Care</button>
+                    <button onclick="selectCategory('Gadget')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">⚡ Tech Gadgets</button>
+                    <button onclick="selectCategory('Digital')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">💻 Digital Services</button>
+                </div>
+            </div>
+            <div class="text-center text-[10px] text-gray-400 font-cinzel">Mr. Masudar Animated Hub</div>
+        </div>
+
+        <!-- 4. BOTTOM NAVIGATION BAR -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-7xl mx-auto z-50 bg-[#FFFFFF] border-t border-gray-200 px-4 py-2 flex items-center justify-between text-center shadow-2xl">
+            
+            <button onclick="alert('Digital Studio & Svc Opening...')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
+                <div class="nav-icon-container mb-0.5">
+                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Digital Svc</span>
+            </button>
+
+            <button onclick="openModal('sellerModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
+                <div class="nav-icon-container mb-0.5">
+                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </div>
+                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Seller</span>
+            </button>
+
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition group">
+                <div class="nav-icon-container mb-0.5 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1um6fsgwSoNM4r7mhhgnTeWNyxyOrrKRa=s220" alt="Mr. Masudar" class="w-full h-full object-contain">
+                </div>
+                <span class="text-[10px] font-cinzel golden-gradient-text tracking-tight font-extrabold whitespace-nowrap">Mr. Masudar</span>
+            </button>
+
+            <button onclick="openModal('earnModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
+                <div class="nav-icon-container mb-0.5">
+                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Earn</span>
+            </button>
+
+            <button onclick="toggleItemWheel()" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
+                <div class="nav-icon-container mb-0.5">
+                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </div>
+                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Items</span>
+            </button>
+
+        </nav>
+
+        <!-- 5. PRODUCT DETAIL POPUP -->
+        <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
+            <div class="bg-white border border-gray-200 w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto no-scrollbar text-gray-900 shadow-2xl">
+                <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:text-black text-xs">✕</button>
+                <div class="w-full aspect-[9/16] bg-gray-100 rounded-2xl mb-4 flex items-center justify-center text-gray-400 text-sm border border-gray-200">
+                    <span class="font-cormorant tracking-widest">9:16 Video Player</span>
+                </div>
+                <h2 id="modalTitle" class="font-playfair text-lg font-bold text-gray-900 mb-4">Product Title</h2>
+                <div class="space-y-3">
+                    <button onclick="alert('Order Placed Successfully!')" class="w-full py-3.5 luxury-gold-btn rounded-2xl text-xs sm:text-sm font-cinzel font-bold tracking-wider">BUY NOW</button>
+                    <button onclick="shareProduct()" class="w-full py-3 bg-gray-100 text-gray-800 rounded-2xl text-xs sm:text-sm font-cormorant hover:bg-gray-200">↗ Share & Copy Link</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. STEALTH ADMIN PANEL -->
+        <div id="adminModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-center justify-center p-4">
+            <div class="bg-white border border-gray-200 w-full max-w-md rounded-3xl p-6 relative text-gray-900 shadow-2xl">
+                <button onclick="closeModal('adminModal')" class="absolute top-4 right-4 text-gray-400 font-bold text-xs">✕</button>
+                <h2 class="font-cinzel text-sm sm:text-base font-bold golden-gradient-text mb-2">🔒 Master Admin Control</h2>
+                <p class="font-cormorant text-xs sm:text-sm text-gray-500">Mr. Masudar Core Cloud Engine Active.</p>
+            </div>
+        </div>
+
     </div>
 
+    <!-- SCRIPT -->
     <script>
-        function toggleChatWindow() {
-            const win = document.getElementById('liveChatWindow');
-            win.style.display = (win.style.display === 'block') ? 'none' : 'block';
+        function openModal(id) { document.getElementById(id).classList.add('flex'); document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('flex'); document.getElementById(id).classList.add('hidden'); }
+
+        function toggleItemWheel() {
+            let wheel = document.getElementById('itemWheelContainer');
+            wheel.classList.toggle('hidden');
         }
 
-        function sendVisitorMessage() {
-            const input = document.getElementById('chatInputField');
-            const area = document.getElementById('chatAreaBox');
-            if(input.value.trim() !== '') {
-                const userMsg = document.createElement('div');
-                userMsg.className = 'visitor-msg';
-                userMsg.innerText = input.value;
-                area.appendChild(userMsg);
+        function selectCategory(cat) {
+            alert(cat + " category selected!");
+            toggleItemWheel();
+        }
 
-                let txt = input.value.trim();
-                let lowerTxt = txt.toLowerCase();
-                input.value = '';
-                area.scrollTop = area.scrollHeight;
+        function openProductDetail(title) {
+            document.getElementById('modalTitle').innerText = title;
+            openModal('productDetailModal');
+        }
 
-                setTimeout(() => {
-                    const agentMsg = document.createElement('div');
-                    agentMsg.className = 'support-agent-msg';
-                    
-                    if (/[\u0600-\u06FF]/.test(txt)) {
-                        agentMsg.innerText = "أهلاً بك! نقدم خدمات السوق البنغلاديشي، السوق العالمي، والبيع بالجملة. كيف يمكنني مساعدتك؟";
-                    } else if (/^[a-zA-Z\s]+$/.test(txt)) {
-                        if (lowerTxt.includes('market') || lowerTxt.includes('global') || lowerTxt.includes('bangladesh') || lowerTxt.includes('retail')) {
-                            agentMsg.innerText = "We offer Bangladesh Market local retail, Global Marketplace with 10+ categories, and Wholesale B2B bulk solutions.";
-                        } else if (lowerTxt.includes('wholesale') || lowerTxt.includes('b2b')) {
-                            agentMsg.innerText = "Our Wholesale Market provides commercial bulk order solutions and direct B2B trade globally.";
-                        } else if (lowerTxt.includes('hello') || lowerTxt.includes('hi') || lowerTxt.includes('hey')) {
-                            agentMsg.innerText = "Hello! Welcome to Mr Masudar Enterprise. How can we assist you with our global ecosystem today?";
-                        } else {
-                            agentMsg.innerText = "Thank you for your query. Our 24/7 support team across 237+ countries is ready to assist you instantly!";
-                        }
-                    } else {
-                        if (lowerTxt.includes('market') || lowerTxt.includes('বাজার') || lowerTxt.includes('সেবা') || lowerTxt.includes('service') || lowerTxt.includes('বাংলাদেশ')) {
-                            agentMsg.innerText = "আমাদের প্রধান সেবার মধ্যে রয়েছে বাংলাদেশ মার্কেট (লোকাল রিটেল), গ্লোবাল মার্কেটপ্লেস এবং হোলসেল (B2B) সলিউশন।";
-                        } else if (lowerTxt.includes('wholesale') || lowerTxt.includes('হোলসেল') || lowerTxt.includes('bulk') || lowerTxt.includes('বাল্ক')) {
-                            agentMsg.innerText = "আমাদের হোলসেল মার্কেটে আপনি খুব সহজেই যেকোনো পণ্যের বাল্ক অর্ডার বা B2B সলিউশন পেতে পারেন।";
-                        } else if (lowerTxt.includes('সালাম') || lowerTxt.includes('কেমন') || lowerTxt.includes('কী') || lowerTxt.includes('হ্যালো')) {
-                            agentMsg.innerText = "ওয়ালাইকুম আসসালাম! Mr Masudar Enterprise-এ আপনাকে স্বাগতম। বলুন আমাদের কোন সার্ভিসটি সম্পর্কে জানতে চান?";
-                        } else {
-                            agentMsg.innerText = "আপনার কথাটি বুঝতে পেরেছি। আমাদের ২৩৭+ দেশের নেটওয়ার্ক থেকে আপনার রিকোয়েস্টটি দ্রুত প্রসেস করা হচ্ছে।";
-                        }
-                    }
-
-                    area.appendChild(agentMsg);
-                    area.scrollTop = area.scrollHeight;
-                }, 400);
+        let clickCount = 0;
+        document.getElementById('stealthTrigger').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 5) {
+                clickCount = 0;
+                openModal('adminModal');
             }
+        });
+
+        function triggerCameraOrGallery() {
+            document.getElementById('galleryInput').click();
         }
 
-        function handleKey(e) {
-            if(e.key === 'Enter') {
-                sendVisitorMessage();
-            }
-        }
-
-        function startSpeechRecognition() {
-            try {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if (!SpeechRecognition) {
-                    alert("Speech recognition is not supported in this browser.");
-                    return;
-                }
-                const recognition = new SpeechRecognition();
-                recognition.lang = 'en-US';
-                recognition.start();
-
-                const inputField = document.getElementById('chatInputField');
-                inputField.placeholder = "Listening...";
-
-                recognition.onresult = function(event) {
-                    inputField.value = event.results[0][0].transcript;
-                    inputField.placeholder = "Type message...";
-                };
-
-                recognition.onerror = function() {
-                    inputField.placeholder = "Type message...";
-                };
-            } catch (err) {
-                alert("Microphone access error.");
-            }
-        }
-
-        function handleImageSelected(event) {
+        function handleImageUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                const area = document.getElementById('chatAreaBox');
-                const imgMsg = document.createElement('div');
-                imgMsg.className = 'visitor-msg';
-                imgMsg.innerText = "📷 Uploaded: " + file.name;
-                area.appendChild(imgMsg);
-                area.scrollTop = area.scrollHeight;
-
-                setTimeout(() => {
-                    const reply = document.createElement('div');
-                    reply.className = 'support-agent-msg';
-                    reply.innerText = "ছবিটি পেয়েছি! আমাদের প্রতিনিধি প্রোডাক্ট স্পেসিফিকেশন চেক করছেন।";
-                    area.appendChild(reply);
-                    area.scrollTop = area.scrollHeight;
-                }, 800);
+                alert("Image uploaded successfully! Scanning product visually...");
+                document.getElementById('searchInput').value = "Scanned: " + file.name;
             }
         }
-    </script>
 
+        function triggerVoiceSearch() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'bn-BD';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+                recognition.start();
+                
+                alert("Listening... Speak now.");
+
+                recognition.onresult = function(event) {
+                    const speechResult = event.results[0][0].transcript;
+                    document.getElementById('searchInput').value = speechResult;
+                    alert("Voice searched: " + speechResult);
+                };
+                recognition.onerror = function() { 
+                    alert("Voice recognition error or permission denied."); 
+                };
+            } else {
+                alert("Voice search is not supported in this browser.");
+            }
+        }
+
+        function shareProduct() { navigator.clipboard.writeText(window.location.href); alert("Royal Link Copied!"); }
+    </script>
 </body>
 </html>
-
