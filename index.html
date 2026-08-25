@@ -15,16 +15,17 @@
         body {
             background-color: #0b0b0b;
             color: #fff;
-            padding-bottom: 75px; /* নিচের ফিক্সড ন্যাভবারের জন্য জায়গা */
+            padding-bottom: 85px;
         }
 
-        /* হেডার সেকশন (আপনার ছবির মতো গোল্ডেন গ্লো বর্ডার সহ) */
+        /* হেডার সেকশন - লাক্সারি গোল্ডেন গ্রাডিয়েন্ট বর্ডার */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 14px 16px;
             background: #0b0b0b;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .brand-logo-area {
@@ -34,39 +35,42 @@
         }
 
         .logo-icon {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             background: #141414;
-            border: 1.5px solid #d4af37;
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) 1;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-            font-size: 16px;
+            box-shadow: 0 0 15px rgba(191, 149, 63, 0.4);
+            font-size: 18px;
         }
 
         .brand-title {
             font-size: 13px;
             font-weight: 700;
-            color: #d4af37;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 1.2px;
         }
 
         .header-right-btn {
-            background: #141414;
-            border: 1px solid #d4af37;
-            color: #d4af37;
+            background: linear-gradient(135deg, #1f1a10, #141414);
+            border: 1.5px solid #BF953F;
+            color: #FCF6BA;
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 10px rgba(191, 149, 63, 0.3);
         }
 
-        /* সার্চ বার সেকশন (গোল্ডেন বর্ডার সহ) */
+        /* সার্চ বার সেকশন */
         .search-container {
-            padding: 8px 16px 14px 16px;
+            padding: 10px 16px 16px 16px;
             background: #0b0b0b;
         }
 
@@ -74,11 +78,12 @@
             display: flex;
             align-items: center;
             background: #141414;
-            border: 1.2px solid #d4af37;
+            border: 1.5px solid;
+            border-image: linear-gradient(135deg, #BF953F, #B38728) 1;
             border-radius: 30px;
             padding: 10px 16px;
             gap: 12px;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 12px rgba(191, 149, 63, 0.2);
         }
 
         .search-box input {
@@ -91,7 +96,7 @@
         }
 
         .search-box input::placeholder {
-            color: #777;
+            color: #888;
         }
 
         .search-icon-btn {
@@ -99,30 +104,60 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+            padding: 2px;
+            transition: transform 0.2s;
         }
 
-        /* প্রোডাক্ট গ্রিড - মোবাইলে নিখুঁত দুটি কলাম ও সমান গ্যাপ */
+        .search-icon-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* আপলোড সেকশন (কাস্টমার ছবি আপলোড করার জন্য) */
+        .upload-section {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .upload-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #BF953F, #AA771C);
+            color: #0b0b0b;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(191, 149, 63, 0.3);
+        }
+
+        /* প্রোডাক্ট গ্রিড */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* মোবাইলে পাশাপাশি একদম দুটি কার্ড */
-            gap: 12px; /* কার্ডগুলোর মাঝখানে সুনির্দিষ্ট ও সমান গ্যাপ */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             padding: 0 12px;
         }
 
-        /* প্রোডাক্ট কার্ড */
         .product-card {
             background: #141414;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid #222;
+            border: 1px solid rgba(191, 149, 63, 0.25);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         .product-img-container {
             width: 100%;
-            height: 180px; /* সমান স্ট্যান্ডার্ড উচ্চতা */
+            height: 180px;
             background: #ffffff;
             display: flex;
             align-items: center;
@@ -137,7 +172,6 @@
             padding: 10px;
         }
 
-        /* কার্ডের ফুটার (লাইক, ভিউ, শেয়ার) */
         .card-footer {
             display: flex;
             justify-content: space-between;
@@ -153,6 +187,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
         }
 
         .stat-item span.heart {
@@ -160,22 +195,159 @@
         }
 
         .stat-item span.eye {
-            color: #d4af37;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
         }
 
-        /* মোবাইল ফ্রেন্ডলি ফিক্সড বটম ন্যাভবার (Bottom Sticky Navbar) */
+        .share-btn-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            transition: transform 0.2s;
+        }
+
+        .share-btn-trigger:hover {
+            transform: scale(1.15);
+        }
+
+        /* শেয়ার পপআপ মডাল */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 2000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #141414;
+            width: 100%;
+            max-width: 500px;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            border: 1.5px solid #BF953F;
+            border-bottom: none;
+            padding: 20px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            background: linear-gradient(135deg, #BF953F, #FCF6BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .short-link-box {
+            display: flex;
+            background: #0b0b0b;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 8px 12px;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .short-link-box input {
+            background: transparent;
+            border: none;
+            color: #FCF6BA;
+            font-size: 12px;
+            width: 100%;
+            outline: none;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #BF953F, #AA771C);
+            border: none;
+            color: #0b0b0b;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .social-share-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: #0b0b0b;
+            border: 1px solid rgba(191, 149, 63, 0.3);
+            padding: 12px 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .social-icon-box:hover {
+            border-color: #BF953F;
+            background: #1a160d;
+        }
+
+        .social-icon-box span {
+            font-size: 20px;
+        }
+
+        /* ফিক্সড বটম ন্যাভবার - লাক্সারি গোল্ডেন থিম */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #0b0b0b;
-            border-top: 1px solid #222;
+            border-top: 1px solid rgba(191, 149, 63, 0.25);
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 8px 0;
             z-index: 1000;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.8);
         }
 
         .nav-item {
@@ -183,18 +355,21 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: #777;
-            font-size: 11px;
+            color: #ffffff; /* সাদা টেক্সট */
+            font-size: 10px;
             font-weight: 600;
             gap: 3px;
         }
 
-        .nav-item.active {
-            color: #d4af37;
+        .nav-item.active .icon {
+            filter: drop-shadow(0 0 6px rgba(191, 149, 63, 0.6));
         }
 
-        .nav-item span.icon {
+        .nav-item .icon {
             font-size: 18px;
+            background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
@@ -211,18 +386,26 @@
         </div>
     </header>
 
-    <!-- সার্চ বার (গোল্ডেন বর্ডার সহ) -->
+    <!-- সার্চ বার -->
     <div class="search-container">
         <div class="search-box">
-            <span style="color: #d4af37;">🔍</span>
-            <input type="text" placeholder="Search luxury products...">
-            <button class="search-icon-btn">📷</button>
-            <button class="search-icon-btn">🎙️</button>
+            <span style="background: linear-gradient(135deg, #BF953F, #FCF6BA); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search luxury products...">
+            <button class="search-icon-btn" onclick="triggerCameraSearch()" title="Camera Search">📷</button>
+            <button class="search-icon-btn" onclick="triggerVoiceSearch()" title="Voice Search">🎙️</button>
         </div>
     </div>
 
+    <!-- কাস্টমার প্রোডাক্ট আপলোড বাটন -->
+    <div class="upload-section">
+        <button class="upload-btn" onclick="document.getElementById('imageUploadInput').click()">
+            <span>➕</span> Upload Your Product Image
+        </button>
+        <input type="file" id="imageUploadInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+    </div>
+
     <!-- প্রোডাক্ট গ্রিড সেকশন -->
-    <main class="product-grid">
+    <main class="product-grid" id="productGrid">
         
         <!-- প্রোডাক্ট কার্ড ১ -->
         <div class="product-card">
@@ -230,9 +413,9 @@
                 <img src="https://images.unsplash.com/photo-1611591483321-722137db09c0?w=400" alt="Product">
             </div>
             <div class="card-footer">
-                <div class="stat-item"><span class="heart">❤️</span> 29</div>
+                <div class="stat-item"><span class="heart">❤️</span> <span class="like-count">29</span></div>
                 <div class="stat-item"><span class="eye">👁️</span> 110</div>
-                <div class="stat-item">🔗</div>
+                <button class="share-btn-trigger" onclick="openShareModal('https://mrmasudar.com/product/1')">🔗</button>
             </div>
         </div>
 
@@ -242,9 +425,9 @@
                 <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400" alt="Product">
             </div>
             <div class="card-footer">
-                <div class="stat-item"><span class="heart">❤️</span> 26</div>
+                <div class="stat-item"><span class="heart">❤️</span> <span class="like-count">26</span></div>
                 <div class="stat-item"><span class="eye">👁️</span> 25</div>
-                <div class="stat-item">🔗</div>
+                <button class="share-btn-trigger" onclick="openShareModal('https://mrmasudar.com/product/2')">🔗</button>
             </div>
         </div>
 
@@ -254,9 +437,9 @@
                 <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400" alt="Product">
             </div>
             <div class="card-footer">
-                <div class="stat-item"><span class="heart">❤️</span> 19</div>
+                <div class="stat-item"><span class="heart">❤️</span> <span class="like-count">19</span></div>
                 <div class="stat-item"><span class="eye">👁️</span> 155</div>
-                <div class="stat-item">🔗</div>
+                <button class="share-btn-trigger" onclick="openShareModal('https://mrmasudar.com/product/3')">🔗</button>
             </div>
         </div>
 
@@ -266,15 +449,47 @@
                 <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400" alt="Product">
             </div>
             <div class="card-footer">
-                <div class="stat-item"><span class="heart">❤️</span> 17</div>
+                <div class="stat-item"><span class="heart">❤️</span> <span class="like-count">17</span></div>
                 <div class="stat-item"><span class="eye">👁️</span> 285</div>
-                <div class="stat-item">🔗</div>
+                <button class="share-btn-trigger" onclick="openShareModal('https://mrmasudar.com/product/4')">🔗</button>
             </div>
         </div>
 
     </main>
 
-    <!-- ফিক্সড বটম ন্যাভবার (Sticky Bottom Navigation) -->
+    <!-- শেয়ার পপআপ মডাল -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Share Luxury Product</div>
+                <button class="close-modal" onclick="closeShareModal()">✕</button>
+            </div>
+            
+            <div class="short-link-box">
+                <input type="text" id="shortLinkInput" readonly value="https://mrmasudar.com/p/luxury-item">
+                <button class="copy-btn" onclick="copyShortLink()">Copy Link</button>
+            </div>
+
+            <div style="font-size: 11px; color: #888; margin-bottom: 8px; font-weight: 600;">SHARE TO SOCIAL MEDIA</div>
+            
+            <div class="social-share-grid">
+                <a href="#" class="social-icon-box" onclick="shareToSocial('Facebook')">
+                    <span>📘</span> Facebook
+                </a>
+                <a href="#" class="social-icon-box" onclick="shareToSocial('YouTube')">
+                    <span>▶️</span> YouTube
+                </a>
+                <a href="#" class="social-icon-box" onclick="shareToSocial('Instagram')">
+                    <span>📷</span> Instagram
+                </a>
+                <a href="#" class="social-icon-box" onclick="shareToSocial('TikTok')">
+                    <span>🎵</span> TikTok
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ফিক্সড বটম ন্যাভবার -->
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
             <span class="icon">🏠</span>
@@ -293,10 +508,108 @@
             <span>EARN</span>
         </a>
         <a href="item.html" class="nav-item">
-            <span class="icon">🛍️</span>
+            <span class="icon">📦</span>
             <span>ITEM</span>
         </a>
     </nav>
 
+    <script>
+        // ক্যামেরা সার্চ ফাংশন
+        function triggerCameraSearch() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.capture = 'environment';
+            input.onchange = e => {
+                alert('Image captured successfully! Searching matching luxury products...');
+            };
+            input.click();
+        }
+
+        // ভয়েস সার্চ ফাংশন
+        function triggerVoiceSearch() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.onstart = function() {
+                    document.getElementById('searchInput').placeholder = "Listening...";
+                };
+                recognition.onresult = function(event) {
+                    const speechToText = event.results[0][0].transcript;
+                    document.getElementById('searchInput').value = speechToText;
+                };
+                recognition.onerror = function() {
+                    alert('Voice recognition error. Please try again.');
+                    document.getElementById('searchInput').placeholder = "Search luxury products...";
+                };
+                recognition.onend = function() {
+                    document.getElementById('searchInput').placeholder = "Search luxury products...";
+                };
+                recognition.start();
+            } else {
+                alert('Voice search is not supported in this browser.');
+            }
+        }
+
+        // কাস্টমার ছবি আপলোড করে নতুন কার্ড তৈরি করার ফাংশন
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const grid = document.getElementById('productGrid');
+                    const newCard = document.createElement('div');
+                    newCard.className = 'product-card';
+                    newCard.innerHTML = `
+                        <div class="product-img-container">
+                            <img src="${e.target.result}" alt="Uploaded Product">
+                        </div>
+                        <div class="card-footer">
+                            <div class="stat-item"><span class="heart">❤️</span> <span class="like-count">1</span></div>
+                            <div class="stat-item"><span class="eye">👁️</span> 1</div>
+                            <button class="share-btn-trigger" onclick="openShareModal('https://mrmasudar.com/product/custom')">🔗</button>
+                        </div>
+                    `;
+                    grid.prepend(newCard);
+                    alert('Your product image has been uploaded and displayed successfully!');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // শেয়ার পপআপ কন্ট্রোল
+        function openShareModal(url) {
+            document.getElementById('shortLinkInput').value = url;
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        // লিংক কপি ফাংশন
+        function copyShortLink() {
+            const copyText = document.getElementById('shortLinkInput');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert('Short link copied to clipboard!');
+        }
+
+        // সোশ্যাল মিডিয়া শেয়ার সিমুলেশন
+        function shareToSocial(platform) {
+            const link = document.getElementById('shortLinkInput').value;
+            alert(`Sharing to ${platform}: ${link}`);
+        }
+
+        // বাইরে ক্লিক করলে মডাল বন্ধ হওয়া
+        window.onclick = function(event) {
+            const modal = document.getElementById('shareModal');
+            if (event.target == modal) {
+                closeShareModal();
+            }
+        }
+    </script>
 </body>
 </html>
