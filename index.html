@@ -30,11 +30,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 20px;
-            background: rgba(12, 12, 12, 0.85);
+            padding: 12px 18px;
+            background: rgba(12, 12, 12, 0.9);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -43,74 +43,72 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-area img {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
             animation: pulseGlow 3s infinite alternate;
         }
 
         .logo-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
+            background: linear-gradient(135deg, #fff 20%, #ffd700 70%, #ff8c00 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
         }
 
         .global-badge {
             background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 5px 12px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            color: #d4af37;
+            color: #ffd700;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        /* 🌟 Luxury Glass Search Bar with Animation */
+        /* 🌟 Luxury Glass Search Bar (Fully Mobile Fixed & Aligned) */
         .search-container {
-            padding: 15px 20px;
-            background: rgba(10, 10, 10, 0.7);
+            padding: 12px 15px;
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(12px);
             position: sticky;
-            top: 71px;
+            top: 63px;
             z-index: 999;
         }
 
         .glass-search-bar {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            border-radius: 35px;
-            padding: 12px 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.02);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: borderGlow 4s infinite alternate;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 30px;
+            padding: 10px 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
         }
 
         .glass-search-bar:focus-within {
-            border-color: #d4af37;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.1);
-            transform: scale(1.01);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         .glass-search-bar i.search-icon {
-            color: #d4af37;
-            font-size: 16px;
-            margin-right: 12px;
+            color: #ffd700;
+            font-size: 15px;
+            margin-right: 10px;
         }
 
         .glass-search-bar input {
@@ -119,7 +117,8 @@
             border: none;
             outline: none;
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
+            min-width: 0;
         }
 
         .glass-search-bar input::placeholder {
@@ -128,56 +127,64 @@
 
         .search-actions {
             display: flex;
-            gap: 15px;
-            color: #d4af37;
-            font-size: 17px;
+            align-items: center;
+            gap: 12px;
+            color: #ffd700;
+            font-size: 16px;
             cursor: pointer;
+            margin-left: 8px;
         }
 
-        .search-actions i {
+        .search-actions label, .search-actions i {
+            cursor: pointer;
             transition: transform 0.3s, color 0.3s;
         }
 
         .search-actions i:hover {
             color: #ff8c00;
-            transform: scale(1.2);
+            transform: scale(1.15);
         }
 
-        /* 🌟 Product Feed Grid (Floating 3D Cards) */
+        /* Hidden file input for direct camera/image selection */
+        #hiddenCameraInput {
+            display: none;
+        }
+
+        /* 🌟 Product Feed Grid (Single Clean Balanced Cards - No Double Images) */
         .feed-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            padding: 15px;
+            gap: 12px;
+            padding: 12px;
         }
 
         @media (min-width: 768px) {
             .feed-container {
                 grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-                padding: 20px;
+                gap: 18px;
+                padding: 18px;
             }
         }
 
         .product-card {
             background: #111111;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 1px rgba(212, 175, 55, 0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.35s ease;
             position: relative;
-            animation: cardAppear 0.6s ease-out backwards;
+            animation: cardAppear 0.5s ease-out backwards;
         }
 
         .product-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
         .product-img-wrapper {
             position: relative;
             width: 100%;
-            height: 210px;
+            height: 190px;
             background: #000;
             overflow: hidden;
         }
@@ -186,47 +193,29 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.5s ease;
         }
 
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.08);
-        }
-
-        /* Watermark / Corner Badge */
-        .corner-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 700;
-            color: #d4af37;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 2;
+            transform: scale(1.06);
         }
 
         .product-info {
-            padding: 12px 14px;
+            padding: 10px 12px;
         }
 
         .product-code {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: #d4af37;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            color: #ffd700;
+            margin-bottom: 6px;
         }
 
         .card-footer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #aaa;
         }
 
@@ -234,10 +223,10 @@
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             transition: transform 0.2s, color 0.3s;
         }
 
@@ -245,40 +234,43 @@
             transform: scale(0.85);
         }
 
-        /* Like Button: Default Orange ⇄ Click Golden with Glow */
+        /* Like Button: Default Red (Pinkish-Red), Click to Metallic Gradient Gold */
         .like-btn {
-            color: #ff8c00; 
+            color: #ff3366; 
         }
         .like-btn.liked {
-            color: #d4af37;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            color: #ffd700;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
         }
 
-        /* Share Button: Default Golden ⇄ Click Orange with Glow */
+        /* Share Button: Default Gradient Gold, Click to Orange */
         .share-btn {
-            color: #d4af37;
+            color: #ffd700;
         }
         .share-btn.shared {
             color: #ff8c00;
-            text-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+            filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.7));
         }
 
         .view-count {
             font-size: 11px;
-            color: #888;
+            color: #bbb;
             display: flex;
             align-items: center;
             gap: 4px;
         }
 
-        /* 🌟 Luxury Sticky Bottom Navigation (Black & Golden with Glow) */
+        /* 🌟 Luxury Sticky Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-            background: rgba(10, 10, 10, 0.92);
+            height: 65px;
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(212, 175, 55, 0.25);
@@ -298,13 +290,14 @@
             font-size: 10px;
             font-weight: 500;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-item i {
-            font-size: 20px;
-            color: #d4af37;
-            margin-bottom: 4px;
+            font-size: 19px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3px;
             filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));
             transition: transform 0.3s;
         }
@@ -314,25 +307,18 @@
             letter-spacing: 0.3px;
         }
 
-        .nav-item:hover i, .nav-item:active i {
-            transform: translateY(-3px) scale(1.15);
-            color: #ff8c00;
-            filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.6));
+        .nav-item:hover i {
+            transform: translateY(-2px) scale(1.1);
         }
 
-        /* 🌟 Advanced Keyframe Animations */
+        /* Animations */
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-            100% { box-shadow: 0 0 22px rgba(212, 175, 55, 0.7); }
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: rgba(212, 175, 55, 0.2); }
-            100% { border-color: rgba(212, 175, 55, 0.6); }
+            0% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -342,7 +328,6 @@
     <!-- Header Section -->
     <header class="header">
         <div class="logo-area">
-            <!-- আপনার গুগল ড্রাইভ ফোল্ডারের লোগো বা ইমেজের ডিরেক্ট লিংক এখানে বসবে -->
             <img src="https://lh3.googleusercontent.com/d/1iph42wSVX9xNglnVKSKTXicbInSJ3y4j=s400" alt="Brand Logo" id="brandLogo">
             <span class="logo-title">MR MASUDAR ENTERPRISE</span>
         </div>
@@ -357,13 +342,17 @@
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="mainSearchInput" placeholder="Search products, digital services or items...">
             <div class="search-actions">
-                <i class="fa-solid fa-camera" title="Image Search" onclick="event.stopPropagation(); triggerCameraSearch();"></i>
+                <!-- Direct Camera / Image Upload Trigger -->
+                <label for="hiddenCameraInput" title="Image Search"><i class="fa-solid fa-camera"></i></label>
+                <input type="file" id="hiddenCameraInput" accept="image/*" capture="environment" onchange="handleImageCapture(event)">
+                
+                <!-- Voice Search Trigger -->
                 <i class="fa-solid fa-microphone" title="Voice Search" onclick="event.stopPropagation(); triggerVoiceSearch();"></i>
             </div>
         </div>
     </div>
 
-    <!-- Product Feed Grid (Dynamic & Randomized with Your Drive Images) -->
+    <!-- Product Feed Grid (Single balanced items with randomized natural views & red-to-golden likes) -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -398,15 +387,36 @@
             input.focus();
         }
 
-        function triggerCameraSearch() {
-            alert('System: Opening AI Camera Scanner & Image Search...');
+        // Direct camera capture handler
+        function handleImageCapture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert('Image captured/uploaded successfully for visual search!');
+            }
         }
 
+        // Direct voice search handler using Web Speech API if supported
         function triggerVoiceSearch() {
-            alert('System: Voice Recognition activated, speak now...');
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.start();
+                
+                recognition.onresult = function(event) {
+                    const speechText = event.results[0][0].transcript;
+                    document.getElementById('mainSearchInput').value = speechText;
+                };
+                
+                recognition.onerror = function() {
+                    alert('Voice recognition error or permission denied.');
+                };
+            } else {
+                alert('Voice search is not supported in this browser.');
+            }
         }
 
-        // আপনার ড্রাইভ ফোল্ডারের প্রোডাক্ট ইমেজগুলোর ডিরেক্ট সোর্স লিস্ট
+        // Your Google Drive Product Images Source List
         const driveProductImages = [
             'https://lh3.googleusercontent.com/d/1k0XXn9tBtH42S26sC2sAEQow-jZKvFuf=s800',
             'https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C=s800',
@@ -414,26 +424,25 @@
             'https://lh3.googleusercontent.com/d/13UmE17PJ1F-Xl4D54Q-rKXeXg5RjwJ3A=s800'
         ];
 
-        // র্যান্ডম ভিউ জেনারেটর (ন্যাচারাল ও নন-ইউনিফর্ম বৈচিত্র্যের জন্য)
+        // Non-uniform randomized views for organic realistic look
         function generateRandomViews() {
-            const viewsOptions = [850, 4500, 12500, 32000, 52000, 1150, 87500, 2400, 15000, 38000];
+            const viewsOptions = [450, 1150, 2400, 4500, 8750, 12500, 32000, 52000, 87500];
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // ডাইনামিক প্রোডাক্ট ফিড রেন্ডারিং (প্রথম ২০টি প্রোডাক্ট)
+        // Dynamic Product Feed Generation (20 balanced single image cards)
         const feedContainer = document.getElementById('productFeed');
         
         for(let i = 1; i <= 20; i++) {
             let randomImg = driveProductImages[(i - 1) % driveProductImages.length];
             let randomViews = generateRandomViews();
-            let randomLikes = Math.floor(Math.random() * 600) + 50;
+            let randomLikes = Math.floor(Math.random() * 450 + 30);
 
             let card = document.createElement('div');
             card.className = 'product-card';
-            card.style.animationDelay = `${i * 0.05}s`;
+            card.style.animationDelay = `${i * 0.04}s`;
             card.innerHTML = `
                 <div class="product-img-wrapper">
-                    <div class="corner-badge">MR MR</div>
                     <img src="${randomImg}" alt="Luxury Product">
                 </div>
                 <div class="product-info">
@@ -452,7 +461,7 @@
             feedContainer.appendChild(card);
         }
 
-        // লাইক টগল ফাংশন (কমলা ⇄ গোল্ডেন উইথ গ্লো অ্যানিমেশন)
+        // Like Toggle: Red (Pinkish-Red) ⇄ Metallic Golden
         function toggleLike(btn) {
             let countSpan = btn.querySelector('.like-count');
             let currentLikes = parseInt(countSpan.innerText);
@@ -466,11 +475,11 @@
             }
         }
 
-        // শেয়ার বাটন টগল ফাংশন (গোল্ডেন ⇄ কমলা উইথ গ্লো অ্যানিমেশন)
+        // Share Toggle: Golden ⇄ Orange with short link action
         function toggleShare(btn) {
             if (!btn.classList.contains('shared')) {
                 btn.classList.add('shared');
-                alert('Short link successfully generated & Social share popup opened!');
+                alert('Short link copied & social share panel opened!');
             } else {
                 btn.classList.remove('shared');
             }
