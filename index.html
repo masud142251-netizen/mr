@@ -160,7 +160,7 @@
             display: none;
         }
 
-        /* 🌟 Original Clean Balanced Feed Grid Layout */
+        /* 🌟 Balanced Feed Grid Layout */
         .feed-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -455,7 +455,7 @@
         </div>
     </div>
 
-    <!-- Clean Balanced Feed Grid -->
+    <!-- Balanced Feed Grid with First Two Fixed & Rest Shuffled -->
     <main class="feed-container" id="productFeed">
         <!-- JavaScript will dynamically render cards -->
     </main>
@@ -551,8 +551,14 @@
             }
         }
 
-        // Clean unique drive images without unwanted items
-        const exactDriveImages = [
+        // 🌟 First two specific fixed images from user request
+        const fixedStartImages = [
+            'https://lh3.googleusercontent.com/d/1U7L779X0OtP3bwkreLJmrXh3glpqUpDK=s800',
+            'https://lh3.googleusercontent.com/d/1PUFSmdryF1vr5mxwem3Rj9TszG7L3lE_=s800'
+        ];
+
+        // 🌟 Rest of the unique product images that will shuffle randomly on reload
+        const shuffleableImages = [
             'https://lh3.googleusercontent.com/d/1TtSnFLCM5X9feuJW-kqfzJ26MWShTLYw=s800',
             'https://lh3.googleusercontent.com/d/1kABixV17PsZve_MG8hbiKSTAtR54HdMq=s800',
             'https://lh3.googleusercontent.com/d/1p16qTDjEPJNM0zBwVADM0ArD7SQyVoRr=s800',
@@ -568,16 +574,29 @@
             'https://lh3.googleusercontent.com/d/1TeIFQUm4PNduJgEQT4Ekmw8kHNSGq9Vx=s800'
         ];
 
+        // Fisher-Yates Shuffle Algorithm to randomize the rest of the images on every visit/refresh
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Combine fixed start images + randomly shuffled remaining images
+        const finalImageList = [...fixedStartImages, ...shuffleArray(shuffleableImages)];
+
         // Realistic low-initial counts
         function generateRandomViews() {
             const viewsOptions = [25, 48, 72, 110, 155, 210, 285, 340];
             return viewsOptions[Math.floor(Math.random() * viewsOptions.length)];
         }
 
-        // Dynamic Feed Generation with uncropped original aspect ratio cards
+        // Dynamic Feed Generation
         const feedContainer = document.getElementById('productFeed');
         
-        exactDriveImages.forEach((imgUrl, index) => {
+        finalImageList.forEach((imgUrl, index) => {
             let randomViews = generateRandomViews();
             let randomLikes = Math.floor(Math.random() * 30 + 4);
 
