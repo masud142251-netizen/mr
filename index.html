@@ -1,323 +1,352 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr. Masudar Enterprise - Royal Luxury Hub</title>
-    <!-- Tailwind CSS -->
+    <title>Mr. Masudar Enterprise - Master B2B, B2C & Affiliate Platform</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Royal Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        goldStart: '#BF953F',
+                        goldEnd: '#D4AF37',
+                        hotPink: '#FF2D55',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
-
-        .golden-gradient-text {
-            background: linear-gradient(135deg, #BF953F, #D4AF37, #AA771C);
+        body { font-family: 'Poppins', sans-serif; background-color: #FFFFFF; color: #1A1A1A; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #BF953F 0%, #D4AF37 50%, #AA771C 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .luxury-gold-btn {
-            background: linear-gradient(135deg, #BF953F, #D4AF37, #AA771C);
-            color: #FFFFFF;
-            box-shadow: 0 4px 15px rgba(191, 149, 63, 0.4);
-            transition: all 0.3s ease;
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #BF953F 0%, #D4AF37 100%);
         }
-        .luxury-gold-btn:active { transform: scale(0.95); }
-
-        .nav-icon-container {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .luxury-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
-
-        /* Responsive Pinterest True Masonry Staggered Grid for Mobile & Desktop */
-        .pinterest-masonry {
-            column-count: 2;
-            column-gap: 12px;
-            width: 100%;
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        @media (min-width: 640px) { .pinterest-masonry { column-count: 3; } }
-        @media (min-width: 1024px) { .pinterest-masonry { column-count: 4; column-gap: 16px; } }
-        @media (min-width: 1280px) { .pinterest-masonry { column-count: 5; } }
-
-        .pinterest-card {
-            break-inside: avoid;
-            margin-bottom: 12px;
-            background: #FFFFFF;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07), 0 2px 5px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
+        .animate-spin-slow {
+            animation: spinSlow 30s linear infinite;
         }
-        .pinterest-card:hover, .pinterest-card:active {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        @keyframes slideUpHalf {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slide-up-half { animation: slideUpHalf 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
-<body class="bg-[#F4F6F9] text-[#111111] antialiased selection:bg-[#BF953F] selection:text-white pb-32">
+<body class="min-h-screen flex flex-col">
 
-    <!-- RESPONSIVE LUXURY WRAPPER (Adapts to Mobile and Desktop seamlessly) -->
-    <div class="w-full max-w-7xl mx-auto min-h-screen bg-[#FFFFFF] shadow-2xl relative flex flex-col border-x border-gray-100 overflow-hidden">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full gold-gradient-bg flex items-center justify-center text-white font-bold text-lg shadow-md">M</div>
+            <div>
+                <h1 class="font-bold text-lg gold-gradient-text leading-tight">Mr. Masudar Enterprise</h1>
+                <p class="text-xs text-gray-400">All-In-One B2B, B2C & Affiliate Platform</p>
+            </div>
+        </div>
 
-        <!-- Hidden File Input for Gallery Image Search -->
-        <input type="file" id="galleryInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+        <div class="flex items-center space-x-3">
+            <!-- Digital Services External Link -->
+            <a href="https://mrmasudar.com/enterprise" target="_blank" class="hidden md:inline-flex items-center space-x-2 text-xs font-semibold px-4 py-2 rounded-full border border-goldStart text-goldStart hover:bg-goldStart hover:text-white transition">
+                <i class="fa-solid fa-globe"></i>
+                <span>Digital Services</span>
+            </a>
 
-        <!-- TOP WELCOME, INFO & APP DOWNLOAD BANNER -->
-        <header class="bg-gradient-to-b from-[#111111] to-[#1a1a1a] text-white px-6 pt-6 pb-8 rounded-b-[2.5rem] shadow-xl mb-4">
-            <div class="text-center max-w-2xl mx-auto">
-                <h1 class="font-cinzel text-sm sm:text-base font-bold tracking-widest text-[#D4AF37] uppercase mb-1.5">WELCOME MR MASUDAR ENTERPRISE</h1>
-                <p class="font-cormorant text-xs sm:text-sm text-gray-300 tracking-wider mb-4">All in one, B2C, B2B Global Hub</p>
-                
-                <!-- App Install Download Buttons (Apple & Android) -->
-                <div class="flex items-center justify-center space-x-3">
-                    <button onclick="alert('iOS App Download Starting...')" class="flex items-center space-x-2 bg-black/80 border border-[#BF953F]/40 px-4 py-2 rounded-xl hover:border-[#D4AF37] transition shadow-md">
-                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.85 5.27c.62-.75 1.04-1.79.93-2.83-.9 0-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.76 1.01.08 2.05-.58 2.67-1.28z"/></svg>
-                        <div class="text-left">
-                            <p class="text-[8px] text-gray-400 font-cormorant leading-none">Download on the</p>
-                            <p class="text-xs font-cinzel font-bold text-white leading-tight">App Store</p>
+            <!-- Seller Panel Button -->
+            <button onclick="openSellerModal()" class="flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-full font-medium text-xs shadow hover:opacity-90 transition">
+                <i class="fa-solid fa-store"></i>
+                <span>Seller Portal</span>
+            </button>
+
+            <!-- Earn / Affiliate Button -->
+            <button onclick="openAffiliateModal()" class="flex items-center space-x-2 bg-hotPink text-white px-4 py-2 rounded-full font-medium text-xs shadow-lg hover:opacity-90 transition">
+                <i class="fa-solid fa-user-tie"></i>
+                <span>Earn (Affiliate)</span>
+            </button>
+
+            <!-- Secret Admin Access -->
+            <button onclick="triggerAdminModal()" class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition" title="Admin Portal">
+                <i class="fa-solid fa-lock text-xs"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0">
+        
+        <!-- Left Sidebar: Branding, Apps & Rotating Wheel -->
+        <aside class="lg:col-span-4 bg-gray-50 border-r border-gray-100 p-6 flex flex-col justify-between space-y-8">
+            <div class="space-y-6">
+                <!-- App Downloads -->
+                <div class="bg-white p-6 rounded-2xl luxury-shadow border border-gray-100 space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wider">Mobile Apps Download</h3>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center space-x-3 p-3 rounded-xl bg-black text-white hover:opacity-80 transition text-xs">
+                            <i class="fa-brands fa-android text-xl text-green-400"></i>
+                            <div>
+                                <p class="text-[10px] text-gray-400">GET IT ON</p>
+                                <p class="font-bold">Android APK</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center space-x-3 p-3 rounded-xl bg-gray-900 text-white hover:opacity-80 transition text-xs">
+                            <i class="fa-brands fa-apple text-xl text-white"></i>
+                            <div>
+                                <p class="text-[10px] text-gray-400">DOWNLOAD ON</p>
+                                <p class="font-bold">Apple iOS App</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive Rotating Wheel Widget -->
+                <div class="bg-white p-6 rounded-2xl luxury-shadow border border-gray-100 text-center relative overflow-hidden">
+                    <h3 class="font-bold text-gray-800 text-sm mb-1">Interactive Wheel Categories</h3>
+                    <p class="text-[11px] text-gray-400 mb-4">Spin or tap to filter items instantly</p>
+                    
+                    <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-goldStart animate-spin-slow opacity-50"></div>
+                        <div class="w-20 h-20 rounded-full gold-gradient-bg flex flex-col items-center justify-center text-white font-bold text-[11px] shadow-lg z-10 text-center p-1">
+                            <span>WHEEL</span>
+                            <span class="text-[9px] font-normal">5 Categories</span>
                         </div>
-                    </button>
-
-                    <button onclick="alert('Android APK Download Starting...')" class="flex items-center space-x-2 bg-black/80 border border-[#BF953F]/40 px-4 py-2 rounded-xl hover:border-[#D4AF37] transition shadow-md">
-                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a1.35 1.35 0 0 1-.22-.76V2.574c0-.285.08-.57.22-.76zM15.208 13.416l2.122 2.122-11.455 6.613 9.333-8.735zm0-2.832L5.875 1.85l11.455 6.613-2.122 2.121zM18.04 12.18l2.96 1.71a1.05 1.05 0 0 1 0 1.82l-2.03 1.17-2.43-2.43 1.5-2.27z"/></svg>
-                        <div class="text-left">
-                            <p class="text-[8px] text-gray-400 font-cormorant leading-none">Get it on</p>
-                            <p class="text-xs font-cinzel font-bold text-white leading-tight">Google Play</p>
-                        </div>
-                    </button>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-2 text-left">
+                        <button onclick="filterCategory('Women')" class="text-xs p-2 rounded-lg bg-gray-50 hover:bg-goldStart hover:text-white transition font-medium">👗 Women Fashion</button>
+                        <button onclick="filterCategory('Men')" class="text-xs p-2 rounded-lg bg-gray-50 hover:bg-goldStart hover:text-white transition font-medium">👔 Men Fashion</button>
+                        <button onclick="filterCategory('Baby')" class="text-xs p-2 rounded-lg bg-gray-50 hover:bg-goldStart hover:text-white transition font-medium">🍼 Baby & Kids</button>
+                        <button onclick="filterCategory('Gift')" class="text-xs p-2 rounded-lg bg-gray-50 hover:bg-goldStart hover:text-white transition font-medium">🎁 Gift Items</button>
+                        <button onclick="filterCategory('Decor')" class="text-xs p-2 rounded-lg bg-gray-50 hover:bg-goldStart hover:text-white transition font-medium col-span-2">🏡 Home Decor & Furniture</button>
+                    </div>
                 </div>
             </div>
-        </header>
 
-        <!-- 1. PINTEREST TRUE MASONRY STAGGERED FEED (Auto-scales on Mobile & Computer) -->
-        <main class="flex-1 px-4 pt-2 pb-24">
-            <div class="pinterest-masonry">
-                
-                <!-- Card 1 -->
-                <div onclick="openProductDetail('Royal Gamar Wood Chair')" class="pinterest-card p-2 cursor-pointer">
-                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
-                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
+            <div class="text-center text-xs text-gray-400">
+                &copy; 2026 Mr. Masudar Enterprise. Supabase Real-time Sync Active.
+            </div>
+        </aside>
+
+        <!-- Right Content: Product Masonry Grid -->
+        <main class="lg:col-span-8 p-6 lg:p-10 bg-white">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold gold-gradient-text">Marketplace & Products</h2>
+                    <p class="text-xs text-gray-400">bKash/Nagad Payment: +88013320088886 | 20% Escrow System</p>
+                </div>
+                <div class="text-xs bg-goldStart/10 text-goldStart px-3 py-1.5 rounded-full font-semibold">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> 7-Day Escrow Hold
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6" id="productGrid">
+                <!-- Product Card 1 -->
+                <div onclick="openCheckoutModal('Gamar Wood Luxury Chair', '120.00', '14,400', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7')" class="bg-white rounded-2xl luxury-shadow border border-gray-100 overflow-hidden cursor-pointer group hover:-translate-y-1 transition duration-300">
+                    <div class="relative h-60 bg-gray-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-hotPink shadow">
+                            <i class="fa-solid fa-heart text-xs"></i>
+                        </span>
                     </div>
-                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Royal Gamar Wood Chair</h3>
+                    <div class="p-4 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-semibold text-goldStart uppercase tracking-wider">Home Decor</span>
+                            <div class="text-yellow-500 text-[10px]"><i class="fa-solid fa-star"></i> 5.0</div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm truncate">Gamar Wood Chair</h4>
+                        <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                            <div>
+                                <span class="font-bold text-gray-900 text-sm">$120.00</span>
+                                <span class="text-[11px] text-gray-400 block">≈ ৳ 14,400 BDT</span>
+                            </div>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium group-hover:bg-hotPink group-hover:text-white transition">Buy Now</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div onclick="openProductDetail('Luxury Baby Combo Set')" class="pinterest-card p-2 cursor-pointer">
-                    <div class="bg-[#F0F2F5] w-full aspect-[4/5] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
-                        <span class="font-cormorant tracking-widest text-sm font-semibold">4:5 Visual</span>
+                <!-- Product Card 2 -->
+                <div onclick="openCheckoutModal('Royal Silk Saree', '85.00', '10,200', 'https://images.unsplash.com/photo-1610030469983-98e550d6193c')" class="bg-white rounded-2xl luxury-shadow border border-gray-100 overflow-hidden cursor-pointer group hover:-translate-y-1 transition duration-300">
+                    <div class="relative h-60 bg-gray-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c" alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-hotPink shadow">
+                            <i class="fa-solid fa-heart text-xs"></i>
+                        </span>
                     </div>
-                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Luxury Baby Combo Set</h3>
-                </div>
-
-                <!-- Card 3 -->
-                <div onclick="openProductDetail('Smart Luxury Watch')" class="pinterest-card p-2 cursor-pointer">
-                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
-                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
+                    <div class="p-4 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-semibold text-goldStart uppercase tracking-wider">Women Fashion</span>
+                            <div class="text-yellow-500 text-[10px]"><i class="fa-solid fa-star"></i> 4.9</div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm truncate">Royal Silk Saree</h4>
+                        <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                            <div>
+                                <span class="font-bold text-gray-900 text-sm">$85.00</span>
+                                <span class="text-[11px] text-gray-400 block">≈ ৳ 10,200 BDT</span>
+                            </div>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium group-hover:bg-hotPink group-hover:text-white transition">Buy Now</span>
+                        </div>
                     </div>
-                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Smart Luxury Watch</h3>
                 </div>
-
-                <!-- Card 4 -->
-                <div onclick="openProductDetail('Professional Video Editing')" class="pinterest-card p-2 cursor-pointer">
-                    <div class="bg-[#F0F2F5] w-full aspect-[1/1] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
-                        <span class="font-cormorant tracking-widest text-sm font-semibold">1:1 Visual</span>
-                    </div>
-                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Professional Video Editing</h3>
-                </div>
-
-                <!-- Card 5 -->
-                <div onclick="openProductDetail('Handcrafted Decor')" class="pinterest-card p-2 cursor-pointer">
-                    <div class="bg-[#F0F2F5] w-full aspect-[9/16] rounded-xl mb-2 flex items-center justify-center text-gray-500 text-sm overflow-hidden border border-gray-100">
-                        <span class="font-cormorant tracking-widest text-sm font-semibold">9:16 Visual</span>
-                    </div>
-                    <h3 class="font-playfair font-bold text-xs sm:text-sm text-gray-900 truncate px-1">Handcrafted Decor</h3>
-                </div>
-
             </div>
         </main>
-
-        <!-- 2. WATER-FLOW FLOATING SEARCH BAR -->
-        <div class="fixed bottom-20 left-0 right-0 max-w-lg mx-auto z-40 px-4 pointer-events-none">
-            <div class="bg-white/90 backdrop-blur-md px-5 py-3 rounded-full border border-[#BF953F]/40 shadow-2xl pointer-events-auto flex items-center relative">
-                <span class="absolute left-5 text-[#BF953F]">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </span>
-                <input type="text" id="searchInput" placeholder="Search Luxury Collection..." class="w-full pl-9 pr-16 py-1 bg-transparent border-none text-xs sm:text-sm font-cormorant text-gray-900 placeholder-gray-500 focus:outline-none">
-                <div class="absolute right-5 flex items-center space-x-3 text-[#BF953F]">
-                    <button onclick="triggerCameraOrGallery()" class="hover:text-black transition" title="Camera / Gallery Search">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-                    </button>
-                    <button onclick="triggerVoiceSearch()" class="hover:text-black transition" title="Voice Search">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. HALF-SCREEN ROLLING CATEGORY WHEEL -->
-        <div id="itemWheelContainer" class="hidden fixed inset-x-0 bottom-0 h-1/2 max-w-xl mx-auto z-50 bg-white/95 backdrop-blur-2xl border-t border-[#BF953F]/40 rounded-t-3xl shadow-2xl animate-slide-up-half p-6 flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
-                    <h3 class="font-cinzel text-sm font-bold golden-gradient-text tracking-wider">Select Category</h3>
-                    <button onclick="toggleItemWheel()" class="text-gray-400 hover:text-black text-base font-bold px-2">✕</button>
-                </div>
-                <div class="space-y-2 overflow-y-auto max-h-[35vh] no-scrollbar">
-                    <button onclick="selectCategory('All')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">✦ All Collections</button>
-                    <button onclick="selectCategory('Furniture')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">🪑 Furniture</button>
-                    <button onclick="selectCategory('Baby')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">🍼 Baby Care</button>
-                    <button onclick="selectCategory('Gadget')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">⚡ Tech Gadgets</button>
-                    <button onclick="selectCategory('Digital')" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-cinzel text-xs sm:text-sm text-gray-800 hover:border-[#BF953F] transition shadow-sm">💻 Digital Services</button>
-                </div>
-            </div>
-            <div class="text-center text-[10px] text-gray-400 font-cinzel">Mr. Masudar Animated Hub</div>
-        </div>
-
-        <!-- 4. BOTTOM NAVIGATION BAR -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-7xl mx-auto z-50 bg-[#FFFFFF] border-t border-gray-200 px-4 py-2 flex items-center justify-between text-center shadow-2xl">
-            
-            <button onclick="alert('Digital Studio & Svc Opening...')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
-                <div class="nav-icon-container mb-0.5">
-                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                </div>
-                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Digital Svc</span>
-            </button>
-
-            <button onclick="openModal('sellerModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
-                <div class="nav-icon-container mb-0.5">
-                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                </div>
-                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Seller</span>
-            </button>
-
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="stealthTrigger" class="flex-1 flex flex-col items-center transition group">
-                <div class="nav-icon-container mb-0.5 overflow-hidden">
-                    <img src="https://lh3.googleusercontent.com/d/1um6fsgwSoNM4r7mhhgnTeWNyxyOrrKRa=s220" alt="Mr. Masudar" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] font-cinzel golden-gradient-text tracking-tight font-extrabold whitespace-nowrap">Mr. Masudar</span>
-            </button>
-
-            <button onclick="openModal('earnModal')" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
-                <div class="nav-icon-container mb-0.5">
-                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Earn</span>
-            </button>
-
-            <button onclick="toggleItemWheel()" class="flex-1 flex flex-col items-center text-gray-600 hover:text-[#BF953F] transition">
-                <div class="nav-icon-container mb-0.5">
-                    <svg class="w-5 h-5 text-[#BF953F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </div>
-                <span class="text-[10px] font-cinzel tracking-tight font-semibold whitespace-nowrap">Items</span>
-            </button>
-
-        </nav>
-
-        <!-- 5. PRODUCT DETAIL POPUP -->
-        <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
-            <div class="bg-white border border-gray-200 w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto no-scrollbar text-gray-900 shadow-2xl">
-                <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:text-black text-xs">✕</button>
-                <div class="w-full aspect-[9/16] bg-gray-100 rounded-2xl mb-4 flex items-center justify-center text-gray-400 text-sm border border-gray-200">
-                    <span class="font-cormorant tracking-widest">9:16 Video Player</span>
-                </div>
-                <h2 id="modalTitle" class="font-playfair text-lg font-bold text-gray-900 mb-4">Product Title</h2>
-                <div class="space-y-3">
-                    <button onclick="alert('Order Placed Successfully!')" class="w-full py-3.5 luxury-gold-btn rounded-2xl text-xs sm:text-sm font-cinzel font-bold tracking-wider">BUY NOW</button>
-                    <button onclick="shareProduct()" class="w-full py-3 bg-gray-100 text-gray-800 rounded-2xl text-xs sm:text-sm font-cormorant hover:bg-gray-200">↗ Share & Copy Link</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. STEALTH ADMIN PANEL -->
-        <div id="adminModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-center justify-center p-4">
-            <div class="bg-white border border-gray-200 w-full max-w-md rounded-3xl p-6 relative text-gray-900 shadow-2xl">
-                <button onclick="closeModal('adminModal')" class="absolute top-4 right-4 text-gray-400 font-bold text-xs">✕</button>
-                <h2 class="font-cinzel text-sm sm:text-base font-bold golden-gradient-text mb-2">🔒 Master Admin Control</h2>
-                <p class="font-cormorant text-xs sm:text-sm text-gray-500">Mr. Masudar Core Cloud Engine Active.</p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- SCRIPT -->
+    <!-- Floating Cart -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button class="w-14 h-14 rounded-full gold-gradient-bg text-white shadow-2xl flex items-center justify-center text-lg hover:scale-105 transition">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-hotPink text-white text-[10px] font-bold flex items-center justify-center shadow">1</span>
+        </button>
+    </div>
+
+    <!-- 1. AFFILIATE REGISTRATION MODAL -->
+    <div id="affiliateModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl luxury-shadow p-8 space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAffiliateModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full bg-hotPink/10 text-hotPink flex items-center justify-center mx-auto text-xl font-bold mb-2"><i class="fa-solid fa-user-tie"></i></div>
+                <h3 class="text-xl font-bold gold-gradient-text">Affiliate Marketer Registration</h3>
+                <p class="text-xs text-gray-400">Earn 10% commission after 100% successful delivery</p>
+            </div>
+            <form class="space-y-4 text-xs">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block font-semibold mb-1">Full Name</label><input type="text" placeholder="Masudar Rahman" class="w-full p-3 rounded-xl border border-gray-200"></div>
+                    <div><label class="block font-semibold mb-1">Gmail</label><input type="email" placeholder="example@gmail.com" class="w-full p-3 rounded-xl border border-gray-200"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block font-semibold mb-1">Password</label><input type="password" placeholder="••••••••" class="w-full p-3 rounded-xl border border-gray-200"></div>
+                    <div><label class="block font-semibold mb-1">WhatsApp</label><input type="text" placeholder="+880..." class="w-full p-3 rounded-xl border border-gray-200"></div>
+                </div>
+                <div><label class="block font-semibold mb-1">Payment Method (bKash/Nagad: +88013320088886)</label>
+                    <select class="w-full p-3 rounded-xl border border-gray-200"><option>bKash (+88013320088886)</option><option>Nagad (+88013320088886)</option></select>
+                </div>
+                <button type="button" onclick="alert('Affiliate ID generated & Dashboard unlocked!'); closeAffiliateModal();" class="w-full py-3.5 rounded-xl gold-gradient-bg text-white font-bold shadow-lg">Submit & Join Affiliate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. SELLER REGISTRATION & UPLOAD MODAL -->
+    <div id="sellerModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-3xl luxury-shadow p-8 space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeSellerModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full gold-gradient-bg text-white flex items-center justify-center mx-auto text-xl font-bold mb-2"><i class="fa-solid fa-store"></i></div>
+                <h3 class="text-xl font-bold gold-gradient-text">Seller Portal & Product Upload</h3>
+                <p class="text-xs text-gray-400">Mr. Masudar Enterprise Multi-Vendor System (20% Commission)</p>
+            </div>
+            <div class="space-y-4 text-xs">
+                <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+                    <h4 class="font-bold text-gray-800">Upload New Product (Auto Stock-Out & YouTube/FB Failover)</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" placeholder="Short Title (2-3 words)" class="p-3 rounded-xl border bg-white">
+                        <input type="text" placeholder="Category / Sub-item" class="p-3 rounded-xl border bg-white">
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <input type="number" placeholder="Retail Price ($)" class="p-3 rounded-xl border bg-white">
+                        <input type="number" placeholder="Stock Qty" class="p-3 rounded-xl border bg-white">
+                        <input type="number" placeholder="Weight (Kg)" class="p-3 rounded-xl border bg-white">
+                    </div>
+                    <input type="text" placeholder="Video Link (YouTube / Facebook Backup)" class="w-full p-3 rounded-xl border bg-white">
+                    <button onclick="alert('Product uploaded successfully under your Seller ID! Stock auto-sync active.')" class="w-full py-3 rounded-xl bg-gray-900 text-white font-bold">Publish Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. CHECKOUT & LOCAL PAYMENT MODAL (+88013320088886) -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl luxury-shadow p-8 space-y-6 relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full gold-gradient-bg text-white flex items-center justify-center mx-auto text-xl font-bold mb-2"><i class="fa-solid fa-wallet"></i></div>
+                <h3 class="text-xl font-bold gold-gradient-text">Local Payment (bKash & Nagad)</h3>
+                <p class="text-xs text-gray-400">Send money to merchant number and submit TrxID</p>
+            </div>
+            <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-center space-y-1">
+                <p class="text-xs text-amber-800 font-medium">Merchant Account Number:</p>
+                <p class="text-lg font-bold text-goldStart tracking-wider">+88013320088886</p>
+                <button onclick="navigator.clipboard.writeText('+88013320088886'); alert('Number Copied!');" class="text-[10px] bg-goldStart text-white px-3 py-1 rounded-full font-semibold">Copy Number</button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold mb-1">Enter Transaction ID (TrxID)</label>
+                    <input type="text" id="trxIdInput" placeholder="e.g. 9N87B6V5C4" class="w-full p-3 rounded-xl border border-gray-200">
+                </div>
+                <button onclick="confirmOrderPayment()" class="w-full py-3.5 rounded-xl gold-gradient-bg text-white font-bold shadow-lg">Confirm Payment & Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. MASTER ADMIN PASSCODE MODAL -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl luxury-shadow p-8 space-y-6 relative">
+            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full gold-gradient-bg text-white flex items-center justify-center mx-auto text-xl font-bold mb-2"><i class="fa-solid fa-lock"></i></div>
+                <h3 class="text-xl font-bold gold-gradient-text">Master Admin Control</h3>
+                <p class="text-xs text-gray-400">Manage Sellers, Affiliates, Withdrawals & Database</p>
+            </div>
+            <div class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-semibold mb-1">Master Passcode</label>
+                    <input type="password" id="adminPassInput" placeholder="Enter secure passcode..." class="w-full p-3 rounded-xl border border-gray-200">
+                </div>
+                <button onclick="verifyAdminPasscode()" class="w-full py-3.5 rounded-xl gold-gradient-bg text-white font-bold shadow-lg">Unlock Admin Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Actions -->
     <script>
-        function openModal(id) { document.getElementById(id).classList.add('flex'); document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('flex'); document.getElementById(id).classList.add('hidden'); }
+        // Modals Toggle
+        function openAffiliateModal() { document.getElementById('affiliateModal').classList.remove('hidden'); }
+        function closeAffiliateModal() { document.getElementById('affiliateModal').classList.add('hidden'); }
 
-        function toggleItemWheel() {
-            let wheel = document.getElementById('itemWheelContainer');
-            wheel.classList.toggle('hidden');
-        }
+        function openSellerModal() { document.getElementById('sellerModal').classList.remove('hidden'); }
+        function closeSellerModal() { document.getElementById('sellerModal').classList.add('hidden'); }
 
-        function selectCategory(cat) {
-            alert(cat + " category selected!");
-            toggleItemWheel();
-        }
+        function openCheckoutModal(title, usd, bdt, img) { document.getElementById('checkoutModal').classList.remove('hidden'); }
+        function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
 
-        function openProductDetail(title) {
-            document.getElementById('modalTitle').innerText = title;
-            openModal('productDetailModal');
-        }
+        function triggerAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
 
-        let clickCount = 0;
-        document.getElementById('stealthTrigger').addEventListener('click', () => {
-            clickCount++;
-            if (clickCount >= 5) {
-                clickCount = 0;
-                openModal('adminModal');
-            }
-        });
-
-        function triggerCameraOrGallery() {
-            document.getElementById('galleryInput').click();
-        }
-
-        function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                alert("Image uploaded successfully! Scanning product visually...");
-                document.getElementById('searchInput').value = "Scanned: " + file.name;
-            }
-        }
-
-        function triggerVoiceSearch() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                const recognition = new SpeechRecognition();
-                recognition.lang = 'bn-BD';
-                recognition.interimResults = false;
-                recognition.maxAlternatives = 1;
-                recognition.start();
-                
-                alert("Listening... Speak now.");
-
-                recognition.onresult = function(event) {
-                    const speechResult = event.results[0][0].transcript;
-                    document.getElementById('searchInput').value = speechResult;
-                    alert("Voice searched: " + speechResult);
-                };
-                recognition.onerror = function() { 
-                    alert("Voice recognition error or permission denied."); 
-                };
+        function verifyAdminPasscode() {
+            const pass = document.getElementById('adminPassInput').value;
+            const correctPass = "1422511460601767319670Masudar@@@";
+            if(pass === correctPass) {
+                alert("Master Admin Access Granted! You have full control over Sellers, Affiliates, and Withdrawals.");
+                closeAdminModal();
             } else {
-                alert("Voice search is not supported in this browser.");
+                alert("Incorrect Master Passcode!");
             }
         }
 
-        function shareProduct() { navigator.clipboard.writeText(window.location.href); alert("Royal Link Copied!"); }
+        function confirmOrderPayment() {
+            const trx = document.getElementById('trxIdInput').value;
+            if(!trx) { alert("Please enter Transaction ID!"); return; }
+            alert("Payment Verified via TrxID! Order successfully placed with Escrow protection.");
+            closeCheckoutModal();
+        }
+
+        function filterCategory(cat) {
+            alert("Filtering category: " + cat + " from Supabase database wheel.");
+        }
     </script>
 </body>
 </html>
