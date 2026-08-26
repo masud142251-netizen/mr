@@ -156,7 +156,7 @@
             font-weight: 600;
         }
 
-        /* Floating Cart with Epic Center Bounce & Zoom */
+        /* Floating Cart with Local Shake/Bounce Animation */
         .floating-cart {
             position: fixed;
             bottom: 72px;
@@ -172,19 +172,18 @@
             cursor: pointer;
             box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
             z-index: 1050;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.2s ease;
         }
 
-        /* Epic Cart Animation: Flies to Center, Bounces & Returns */
-        .floating-cart.epic-center-animation {
-            animation: epicCenterZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+        .floating-cart.local-bounce {
+            animation: localCartBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         }
 
-        @keyframes epicCenterZoom {
-            0% { transform: scale(1) translate(0, 0); }
-            35% { transform: scale(2.2) translate(-38vw, -35vh) rotate(-15deg); box-shadow: 0 0 50px var(--gold-solid); }
-            65% { transform: scale(2.2) translate(-38vw, -35vh) rotate(15deg); box-shadow: 0 0 60px var(--gold-solid); }
-            100% { transform: scale(1) translate(0, 0); }
+        @keyframes localCartBounce {
+            0% { transform: scale(1) rotate(0deg); }
+            30% { transform: scale(1.35) rotate(-12deg); box-shadow: 0 0 30px var(--gold-solid); }
+            60% { transform: scale(1.2) rotate(12deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
 
         .floating-cart i {
@@ -221,7 +220,7 @@
             box-shadow: 0 0 14px var(--gold-solid);
             z-index: 9999;
             pointer-events: none;
-            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Pinterest Masonry Layout Feed */
@@ -1100,7 +1099,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Multi-Coin Burst & Epic Center Cart Animation
+        // Multi-Coin Burst & Local Cart Bounce Animation
         function addToCartWithAnimation(event) {
             closeProductModal();
             cartCount++;
@@ -1116,15 +1115,14 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
-            // Spawn 5 flying coins with staggered delays for a luxurious burst effect
+            // Spawn 5 flying coins successively towards the fixed cart
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
                     coin.className = 'flying-coin';
                     
-                    // Add slight random offset for each coin to make it look natural and rich
-                    const offsetX = (Math.random() - 0.5) * 40;
-                    const offsetY = (Math.random() - 0.5) * 40;
+                    const offsetX = (Math.random() - 0.5) * 45;
+                    const offsetY = (Math.random() - 0.5) * 45;
                     
                     coin.style.left = `${btnRect.left + btnRect.width / 2 + offsetX - 11}px`;
                     coin.style.top = `${btnRect.top + btnRect.height / 2 + offsetY - 11}px`;
@@ -1133,23 +1131,23 @@
                     setTimeout(() => {
                         coin.style.left = `${cartRect.left + cartRect.width / 2 - 11}px`;
                         coin.style.top = `${cartRect.top + cartRect.height / 2 - 11}px`;
-                        coin.style.transform = 'scale(0.3) rotate(720deg)';
-                        coin.style.opacity = '0.3';
+                        coin.style.transform = 'scale(0.35) rotate(720deg)';
+                        coin.style.opacity = '0.4';
                     }, 40);
 
                     setTimeout(() => {
                         coin.remove();
-                    }, 1000);
-                }, i * 90);
+                    }, 800);
+                }, i * 70);
             }
 
-            // Trigger Epic Center Zoom & Bounce on the Cart
+            // Trigger Local Bounce & Shake on the fixed Cart
             setTimeout(() => {
-                cartElement.classList.add('epic-center-animation');
+                cartElement.classList.add('local-bounce');
                 setTimeout(() => {
-                    cartElement.classList.remove('epic-center-animation');
-                }, 1200);
-            }, 300);
+                    cartElement.classList.remove('local-bounce');
+                }, 600);
+            }, 350);
         }
 
         function openShareModal(title, id) {
