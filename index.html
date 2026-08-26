@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR Masudar Enterprise - Luxury Shopping</title>
-    <!-- Google Fonts & FontAwesome for Icons -->
+    <title>MR MASUDAR ENTERPRISE - Luxury Shopping</title>
+    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -30,7 +30,7 @@
         body {
             background-color: var(--bg-black);
             color: var(--text-white);
-            padding-bottom: 90px; /* Space for bottom nav */
+            padding-bottom: 90px;
             overflow-x: hidden;
         }
 
@@ -39,33 +39,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 18px;
             background: rgba(11, 11, 11, 0.95);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             backdrop-filter: blur(10px);
         }
 
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            background: #000;
         }
 
         .brand-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -78,8 +79,8 @@
             position: relative;
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -89,15 +90,21 @@
             transition: transform 0.2s ease;
         }
 
-        .floating-cart:active {
-            transform: scale(0.9);
+        .floating-cart.bounce {
+            animation: bounceCart 0.4s ease;
+        }
+
+        @keyframes bounceCart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3) rotate(10deg); }
+            100% { transform: scale(1); }
         }
 
         .floating-cart i {
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .cart-badge {
@@ -106,9 +113,9 @@
             right: -5px;
             background: var(--pink-heart);
             color: white;
-            font-size: 0.75rem;
-            width: 20px;
-            height: 20px;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -116,76 +123,11 @@
             font-weight: 600;
         }
 
-        /* Search Bar Area */
-        .search-section {
-            padding: 15px 20px;
-            background: var(--bg-black);
-            position: sticky;
-            top: 76px;
-            z-index: 990;
-        }
-
-        .search-bar-wrapper {
-            display: flex;
-            align-items: center;
-            background: var(--card-bg);
-            border: 2px solid var(--gold-solid);
-            border-radius: 30px;
-            padding: 5px 15px;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .search-bar-wrapper input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-white);
-            font-size: 0.95rem;
-            padding: 8px;
-        }
-
-        .search-bar-wrapper input::placeholder {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        .search-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--gold-solid);
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        .search-actions i {
-            transition: transform 0.2s;
-        }
-
-        .search-actions i:active {
-            transform: scale(1.2);
-        }
-
-        .search-btn-icon {
-            background: var(--gold-gradient);
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-black);
-            cursor: pointer;
-        }
-
         /* Pinterest Masonry Grid */
         .feed-container {
-            padding: 10px 15px;
+            padding: 12px;
             column-count: 2;
-            column-gap: 15px;
+            column-gap: 12px;
         }
 
         @media (min-width: 768px) {
@@ -197,18 +139,17 @@
         .product-card {
             break-inside: avoid;
             background: var(--card-bg);
-            border-radius: 16px;
-            margin-bottom: 15px;
+            border-radius: 14px;
+            margin-bottom: 12px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.2);
             position: relative;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease-in-out;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -228,15 +169,15 @@
         /* Floating Interactive Bar on Product Image */
         .floating-product-actions {
             position: absolute;
-            bottom: 10px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(8px);
-            padding: 6px 14px;
-            border-radius: 20px;
-            gap: 15px;
+            padding: 5px 12px;
+            border-radius: 18px;
+            gap: 12px;
             border: 1px solid rgba(212, 175, 55, 0.4);
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
@@ -251,7 +192,7 @@
         }
 
         .action-item i {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .action-item.view-icon i {
@@ -262,7 +203,7 @@
 
         .action-item.like-icon i {
             color: var(--pink-heart);
-            transition: color 0.3s ease, transform 0.2s;
+            transition: color 0.3s ease;
         }
 
         .action-item.like-icon.active i {
@@ -277,88 +218,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Product Details Info */
-        .product-info {
-            padding: 12px;
-        }
-
-        .product-price {
-            font-size: 1rem;
-            font-weight: 700;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-        }
-
-        .product-title {
-            font-size: 0.85rem;
-            color: var(--text-white);
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            background: var(--gold-gradient);
-            border: none;
-            padding: 8px;
-            border-radius: 8px;
-            color: var(--bg-black);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
-            transition: opacity 0.2s;
-        }
-
-        .add-to-cart-btn:active {
-            opacity: 0.8;
-        }
-
-        /* Bottom Navigation Bar */
-        nav.bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #111111;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-gray);
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-item i {
-            font-size: 1.2rem;
-            margin-bottom: 3px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-item.active, .nav-item:hover {
-            color: var(--gold-solid);
-        }
-
-        /* Popup Modal for Full Product View & Share Options */
+        /* Popup Detail Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -370,62 +230,226 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(6px);
+            padding: 15px;
         }
 
         .modal-content {
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
-            width: 90%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            padding: 18px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
             animation: scaleUp 0.3s ease;
         }
 
         @keyframes scaleUp {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
             border: none;
             color: var(--text-white);
-            font-size: 1.2rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
         }
 
+        .modal-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-price-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .modal-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-discount {
+            background: rgba(255, 45, 85, 0.15);
+            color: var(--pink-heart);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .modal-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-white);
+        }
+
+        .modal-desc {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .modal-add-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: var(--bg-black);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Share Options Grid */
         .share-options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .share-option-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            padding: 10px;
+            border-radius: 10px;
             cursor: pointer;
             border: 1px solid rgba(212, 175, 55, 0.2);
             color: var(--text-white);
-            font-size: 0.75rem;
-            gap: 6px;
+            font-size: 0.7rem;
+            gap: 5px;
         }
 
         .share-option-item i {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* Flying Coin Animation Element */
+        .flying-coin {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            background: var(--gold-solid);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px var(--gold-solid);
+            z-index: 9999;
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.15, 0.85, 0.35, 1.2);
+        }
+
+        /* Bottom Navigation & Search Bar Bar Combined Layout */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.98);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+
+        .nav-menus-left {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--gold-solid);
+        }
+
+        /* Integrated Bottom Search Bar */
+        .bottom-search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1.5px solid var(--gold-solid);
+            border-radius: 20px;
+            padding: 3px 10px;
+            width: 48%;
+            max-width: 200px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
+        }
+
+        .bottom-search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-white);
+            font-size: 0.8rem;
+            padding: 4px;
+        }
+
+        .bottom-search-wrapper input::placeholder {
+            color: var(--text-gray);
+            font-size: 0.75rem;
+        }
+
+        .bottom-search-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold-solid);
+            font-size: 0.9rem;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -437,37 +461,38 @@
             <img src="mr masudar logo (25).jpg" alt="Logo" class="logo">
             <span class="brand-title">MR MASUDAR ENTERPRISE</span>
         </div>
-        <div class="floating-cart" onclick="openCart()">
+        <div class="floating-cart" id="floatingCart" onclick="openCart()">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
         </div>
     </header>
 
-    <!-- Search Bar Area -->
-    <div class="search-section">
-        <div class="search-bar-wrapper">
-            <input type="text" id="searchInput" placeholder="Search luxury products...">
-            <div class="search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Camera Search"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice Search"></i>
-                <button class="search-btn-icon" onclick="performSearch()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Pinterest Style Masonry Feed -->
     <main class="feed-container" id="productFeed">
-        <!-- Products will be dynamically loaded here with Lazy Loading effect -->
+        <!-- Products dynamically loaded -->
     </main>
+
+    <!-- Full Product Detail Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            <img id="modalImg" src="" alt="Product" class="modal-img">
+            <div class="modal-price-box">
+                <span class="modal-price" id="modalPrice">$0.00</span>
+                <span class="modal-discount" id="modalDiscount">0% OFF</span>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Product Title</h3>
+            <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance, featuring supreme gold finishing and certified artisan quality.</p>
+            <button class="modal-add-btn" onclick="addToCartWithAnimation(event)">Add To Cart</button>
+        </div>
+    </div>
 
     <!-- Share Modal -->
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 10px;">Share Luxury Item</h3>
-            <p style="font-size: 0.8rem; color: var(--text-gray); text-align: center; margin-bottom: 15px;" id="shareItemName">Product Link</p>
+            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 5px;">Share Luxury Item</h3>
+            <p style="font-size: 0.75rem; color: var(--text-gray); text-align: center; margin-bottom: 12px;" id="shareItemName">Product Link</p>
             
             <div class="share-options-grid">
                 <div class="share-option-item" onclick="shareToSocial('copy')">
@@ -492,7 +517,7 @@
                 </div>
                 <div class="share-option-item" onclick="shareToSocial('twitter')">
                     <i class="fa-brands fa-x-twitter"></i>
-                    <span>X (Twitter)</span>
+                    <span>X</span>
                 </div>
                 <div class="share-option-item" onclick="shareToSocial('linkedin')">
                     <i class="fa-brands fa-linkedin"></i>
@@ -502,40 +527,45 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar with 3 Menus on Left and Search Bar on Right -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Seller</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-handshake"></i>
-            <span>Earn</span>
-        </a>
-        <a href="#" class="nav-item active">
-            <i class="fa-solid fa-clipboard-list"></i>
-            <span>Item</span>
-        </a>
-        <a href="#" class="nav-item" onclick="focusSearch()">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Search</span>
-        </a>
+        <div class="nav-menus-left">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Seller</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Earn</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Item</span>
+            </a>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search luxury...">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Camera"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice"></i>
+            </div>
+        </div>
     </nav>
 
-    <!-- JavaScript for Dynamic Loading, Interactions, and Animations -->
+    <!-- JavaScript Logic & Animations -->
     <script>
-        // Sample Luxury Products Data mapped from provided links
         const products = [
-            { id: 1, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 420, likes: 135 },
-            { id: 2, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 512, likes: 188 },
-            { id: 3, title: "Signature Edition Premium Ornament", price: "$310.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 389, likes: 110 },
-            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 605, likes: 210 },
-            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 470, likes: 155 },
-            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 720, likes: 304 }
+            { id: 1, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", discount: "15% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 420, likes: 135, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
+            { id: 2, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", discount: "20% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 512, likes: 188, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
+            { id: 3, title: "Signature Edition Premium Ornament", price: "$310.00", discount: "10% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 389, likes: 110, desc: "Exquisite signature creation reflecting elite taste and royal standard craftsmanship." },
+            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", discount: "25% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
+            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", discount: "5% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
+            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", discount: "30% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." }
         ];
 
         let cartCount = 0;
         let currentShareUrl = '';
+        let activeProductForCart = null;
 
         // Load Products into Pinterest Masonry Grid
         function loadProducts() {
@@ -546,9 +576,9 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-image-box">
+                    <div class="product-image-box" onclick="openProductModal(${item.id})">
                         <img src="${item.image}" alt="${item.title}" loading="lazy">
-                        <div class="floating-product-actions">
+                        <div class="floating-product-actions" onclick="event.stopPropagation()">
                             <div class="action-item view-icon">
                                 <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
                             </div>
@@ -560,17 +590,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product-info">
-                        <div class="product-price">${item.price}</div>
-                        <div class="product-title">${item.title}</div>
-                        <button class="add-to-cart-btn" onclick="addToCart(event)">Add To Cart</button>
-                    </div>
                 `;
                 feed.appendChild(card);
             });
         }
 
-        // Like Button Interaction (Pink to Golden/Gold Gradient effect)
+        // Like Button Interaction
         function toggleLike(element, id) {
             element.classList.toggle('active');
             const countSpan = document.getElementById(`like-count-${id}`);
@@ -582,24 +607,63 @@
             }
         }
 
-        // Add to Cart with Coin/Cart Animation & Sound effect simulation
-        function addToCart(event) {
+        // Open Full Product Detail Modal
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if(!product) return;
+            activeProductForCart = product;
+
+            document.getElementById('modalImg').src = product.image;
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalDiscount').innerText = product.discount;
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalDesc').innerText = product.desc;
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Add to Cart with Coin Fly Animation & Sound Effect
+        function addToCartWithAnimation(event) {
+            closeProductModal();
             cartCount++;
             document.getElementById('cartCount').innerText = cartCount;
-            
-            // Subtle Luxury Sound Effect (Audio feedback simulation)
+
+            // Play Luxury Coin / Add sound simulation
             try {
                 let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
                 audio.volume = 0.3;
                 audio.play();
             } catch(e) {}
 
-            // Visual pulse animation on cart
-            const cartIcon = document.querySelector('.floating-cart');
-            cartIcon.style.transform = 'scale(1.2)';
+            // Create Flying Coin Element from button towards Cart
+            const btnRect = event.target.getBoundingClientRect();
+            const cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+
+            const coin = document.createElement('div');
+            coin.className = 'flying-coin';
+            coin.style.left = `${btnRect.left + btnRect.width / 2 - 12}px`;
+            coin.style.top = `${btnRect.top + btnRect.height / 2 - 12}px`;
+            document.body.appendChild(coin);
+
+            // Trigger Fly Animation
             setTimeout(() => {
-                cartIcon.style.transform = 'scale(1)';
-            }, 200);
+                coin.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
+                coin.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
+                coin.style.transform = 'scale(0.4) rotate(360deg)';
+                coin.style.opacity = '0.5';
+            }, 50);
+
+            // Remove coin after animation and bounce cart
+            setTimeout(() => {
+                coin.remove();
+                const cart = document.getElementById('floatingCart');
+                cart.classList.add('bounce');
+                setTimeout(() => cart.classList.remove('bounce'), 400);
+            }, 850);
         }
 
         // Open Share Modal
@@ -613,7 +677,7 @@
             document.getElementById('shareModal').style.display = 'none';
         }
 
-        // Share functionality
+        // Social Share Execution
         function shareToSocial(platform) {
             if(platform === 'copy') {
                 navigator.clipboard.writeText(currentShareUrl);
@@ -627,15 +691,15 @@
                 if(shareWindowUrl) {
                     window.open(shareWindowUrl, '_blank');
                 } else {
-                    alert("Link ready to share on " + platform);
+                    alert("Link ready for " + platform);
                 }
             }
             closeShareModal();
         }
 
-        // Camera & Voice Search Mock Triggers
+        // Camera & Voice Search Triggers
         function triggerCamera() {
-            alert("Camera Image Search activated. Uploading/Capturing image for visual matching...");
+            alert("Visual Image Search initiated. Uploading photo for instant match...");
         }
 
         function triggerVoiceSearch() {
@@ -643,41 +707,26 @@
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 const recognition = new SpeechRecognition();
                 recognition.lang = 'bn-BD';
-                recognition.onstart = function() {
-                    document.getElementById('searchInput').placeholder = "Listening...";
-                };
-                recognition.onresult = function(event) {
-                    const speechToText = event.results[0][0].transcript;
-                    document.getElementById('searchInput').value = speechToText;
-                    document.getElementById('searchInput').placeholder = "Search luxury products...";
+                recognition.onstart = () => { document.getElementById('searchInput').placeholder = "Listening..."; };
+                recognition.onresult = (event) => {
+                    document.getElementById('searchInput').value = event.results[0][0].transcript;
+                    document.getElementById('searchInput').placeholder = "Search luxury...";
                 };
                 recognition.start();
             } else {
-                alert("Voice search is ready. Speak now to search.");
-            }
-        }
-
-        function focusSearch() {
-            document.getElementById('searchInput').focus();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function performSearch() {
-            const query = document.getElementById('searchInput').value;
-            if(query.trim() !== "") {
-                alert("Searching for: " + query);
+                alert("Voice search is active. Speak now.");
             }
         }
 
         function openCart() {
             if(cartCount === 0) {
-                alert("Your shopping cart is empty. Please add items.");
+                alert("Your shopping cart is currently empty.");
             } else {
-                alert("Proceeding to checkout with " + cartCount + " items.");
+                alert("Proceeding to Checkout with " + cartCount + " luxury items.");
             }
         }
 
-        // Initial Load
+        // Initial Page Load
         window.onload = function() {
             loadProducts();
         };
