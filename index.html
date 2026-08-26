@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MR MASUDAR ENTERPRISE - Luxury Shopping</title>
+    <title>MR MASUDAR ENTERPRISE - Luxury Ecosystem</title>
     
     <!-- Favicon / Tab Logo -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
@@ -40,22 +40,25 @@
         }
 
         body {
+            padding-top: 65px;
             padding-bottom: 95px;
         }
 
-        /* Top Header */
-        header {
+        /* Independent & Sticky Luxury Header Section */
+        header.app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 12px;
+            padding: 10px 15px;
             background: rgba(11, 11, 11, 0.98);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+            backdrop-filter: blur(12px);
             width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
 
         .brand-container {
@@ -106,14 +109,52 @@
             margin-top: 2px;
         }
 
-        /* Top Right Clean Badges */
+        /* Top Right Controls (Auth Button + Notification + Badges) */
         .top-right-controls {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .country-square-badge, .support-square-badge {
+        .auth-top-btn {
+            background: var(--gold-gradient);
+            color: var(--bg-black);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            white-space: nowrap;
+        }
+
+        .notification-bell-badge {
+            position: relative;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-solid);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gold-solid);
+            transition: 0.3s;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 7px;
+            height: 7px;
+            background: var(--pink-heart);
+            border-radius: 50%;
+        }
+
+        .country-square-badge {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -122,38 +163,149 @@
             border: 1px solid var(--gold-solid);
             padding: 3px 6px;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
             text-align: center;
-            min-width: 48px;
+            min-width: 42px;
         }
 
         .badge-top-text {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .badge-top-text i {
-            -webkit-text-fill-color: var(--gold-solid);
-            font-size: 0.6rem;
-        }
-
-        .support-square-badge .badge-top-text {
-            color: var(--gold-solid);
-            -webkit-text-fill-color: var(--gold-solid);
         }
 
         .badge-bottom-text {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--text-gray);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+        }
+
+        /* Luxury Auth & Notification Modals */
+        .auth-modal-overlay, .notification-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.88);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+            padding: 12px;
+        }
+
+        .auth-modal-box, .notification-popup-box {
+            background: var(--card-bg);
+            border: 2px solid var(--gold-solid);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            padding: 22px;
+            position: relative;
+            box-shadow: 0 0 35px rgba(212,175,55,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            padding: 10px;
             font-weight: 600;
+            font-size: 0.85krem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .auth-tab-btn.active {
+            color: var(--gold-solid);
+            border-bottom: 2px solid var(--gold-solid);
+        }
+
+        .auth-form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .auth-form-group label {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--gold-solid);
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .auth-form-group input, .auth-form-group select {
+            width: 100%;
+            background: #000;
+            border: 1px solid rgba(212,175,55,0.4);
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .auth-form-group input:focus, .auth-form-group select:focus {
+            border-color: var(--gold-solid);
+            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            border: none;
+            padding: 11px;
+            border-radius: 10px;
+            color: var(--bg-black);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
+        }
+
+        .forgot-pass-link {
+            display: block;
+            text-align: right;
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .forgot-pass-link:hover {
+            color: var(--gold-solid);
         }
 
         /* Floating Cart */
@@ -259,12 +411,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
-        @media (min-width: 768px) {
-            .product-card {
-                margin-bottom: 12px;
-            }
-        }
-
         .product-media-box {
             position: relative;
             width: 100%;
@@ -358,7 +504,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Modals */
+        /* Product & Share Modals */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -384,23 +530,6 @@
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: var(--text-white);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
         }
 
         .modal-media-slider {
@@ -579,7 +708,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Bottom Fixed Navigation Bar with Subdomains */
+        /* Bottom Fixed Navigation Bar with Subdomains & target="_blank" */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
@@ -687,8 +816,8 @@
 </head>
 <body>
 
-    <!-- Top Header -->
-    <header>
+    <!-- Independent & Sticky Luxury Header Section -->
+    <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
@@ -698,17 +827,114 @@
                 </span>
             </div>
         </div>
+        
         <div class="top-right-controls">
+            <!-- Auth / Sign In Button -->
+            <button class="auth-top-btn" onclick="openAuthModal('signin')">
+                <i class="fa-solid fa-user"></i> Login
+            </button>
+
+            <!-- NNS App Notification Bell Trigger -->
+            <div class="notification-bell-badge" onclick="openNotificationPopup()" title="NNS App Notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notification-dot"></span>
+            </div>
+
             <div class="country-square-badge">
                 <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
                 <span class="badge-bottom-text">Country</span>
             </div>
-            <div class="support-square-badge">
-                <span class="badge-top-text">24/7</span>
-                <span class="badge-bottom-text">Support</span>
-            </div>
         </div>
     </header>
+
+    <!-- Luxury Sign In / Sign Up / Forgot Password Modal -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal-box">
+            <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthTab('signin')">Sign In</button>
+                <button class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <div id="signInFormContainer">
+                <form onsubmit="handleSignInSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Email or Phone</label>
+                        <input type="text" placeholder="Enter your email or phone" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" required>
+                        <span class="forgot-pass-link" onclick="openForgotPassModal()">Forgot Password?</span>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Sign In</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form (Role-Based Identification) -->
+            <div id="signUpFormContainer" style="display: none;">
+                <form onsubmit="handleSignUpSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Enter active email" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Enter mobile number" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Select Your Account Role</label>
+                        <select id="userRoleSelect" required>
+                            <option value="customer">Customer (Luxury Shopping)</option>
+                            <option value="seller">Seller (Store & Products Owner)</option>
+                            <option value="affiliate">Earn / Affiliate Marketer</option>
+                        </select>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Create strong password" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Create Account</button>
+                </form>
+            </div>
+
+            <!-- Forgot Password Container -->
+            <div id="forgotPassContainer" style="display: none;">
+                <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); margin-bottom: 10px; font-size: 1rem; text-align: center;">Reset Password</h3>
+                <p style="font-size: 0.75rem; color: var(--text-gray); margin-bottom: 15px; text-align: center;">Enter your registered email to receive a secure password reset link.</p>
+                <form onsubmit="handleForgotPassSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Registered Email</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Send Reset Link</button>
+                    <span class="forgot-pass-link" style="text-align: center; display: block; margin-top: 10px;" onclick="switchAuthTab('signin')">Back to Sign In</span>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NNS App Popup Notification Modal -->
+    <div class="notification-popup-overlay" id="notificationPopup">
+        <div class="notification-popup-box">
+            <button class="close-modal" onclick="closeNotificationPopup()"><i class="fa-solid fa-xmark"></i></button>
+            <div style="font-size: 2rem; color: var(--gold-solid); margin-bottom: 10px;">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); margin-bottom: 10px; font-size: 1.1rem;">NNS App & Global Updates</h3>
+            <p style="font-size: 0.8rem; color: var(--text-gray); margin-bottom: 18px; line-height: 1.5;">
+                Welcome to MR Masudar Enterprise! Follow our store for upcoming NNS App launch, exclusive drops, and real-time live updates.
+            </p>
+            <button class="modal-add-btn" onclick="followStoreAction()">Follow & Enable Alerts</button>
+        </div>
+    </div>
 
     <!-- Floating Cart -->
     <div class="floating-cart" id="floatingCart" onclick="openCart()">
@@ -718,7 +944,7 @@
 
     <!-- Product Feed -->
     <main class="feed-container" id="productFeed">
-        <!-- Dynamically Loaded -->
+        <!-- Dynamically Loaded Products -->
     </main>
 
     <!-- Hidden file input -->
@@ -783,18 +1009,18 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar (Connected to Subdomains) -->
+    <!-- Bottom Navigation Bar (Connected to Subdomains with target="_blank") -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <a href="https://etech.mrmasudar.com" class="nav-item">
+            <a href="https://etech.mrmasudar.com" target="_blank" class="nav-item">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>E-Tech</span>
             </a>
-            <a href="https://seller.mrmasudar.com" class="nav-item">
+            <a href="https://seller.mrmasudar.com" target="_blank" class="nav-item">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
             </a>
-            <a href="https://affiliate.mrmasudar.com" class="nav-item">
+            <a href="https://affiliate.mrmasudar.com" target="_blank" class="nav-item">
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
@@ -1096,6 +1322,75 @@
 
         function closeProductModal() {
             document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Auth Modal & Role Control Logic
+        function openAuthModal(mode) {
+            document.getElementById('authModal').style.display = 'flex';
+            switchAuthTab(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthTab(tab) {
+            const signInForm = document.getElementById('signInFormContainer');
+            const signUpForm = document.getElementById('signUpFormContainer');
+            const forgotForm = document.getElementById('forgotPassContainer');
+            const btnSignIn = document.getElementById('tabSignInBtn');
+            const btnSignUp = document.getElementById('tabSignUpBtn');
+
+            signInForm.style.display = 'none';
+            signUpForm.style.display = 'none';
+            forgotForm.style.display = 'none';
+            btnSignIn.classList.remove('active');
+            btnSignUp.classList.remove('active');
+
+            if (tab === 'signin') {
+                signInForm.style.display = 'block';
+                btnSignIn.classList.add('active');
+            } else if (tab === 'signup') {
+                signUpForm.style.display = 'block';
+                btnSignUp.classList.add('active');
+            }
+        }
+
+        function openForgotPassModal() {
+            document.getElementById('signInFormContainer').style.display = 'none';
+            document.getElementById('signUpFormContainer').style.display = 'none';
+            document.getElementById('forgotPassContainer').style.display = 'block';
+        }
+
+        function handleSignInSubmit(e) {
+            e.preventDefault();
+            alert("Successfully Signed In!");
+            closeAuthModal();
+        }
+
+        function handleSignUpSubmit(e) {
+            e.preventDefault();
+            const selectedRole = document.getElementById('userRoleSelect').value;
+            alert(`Account created successfully as a [ ${selectedRole.toUpperCase()} ]! Redirecting to your dashboard ecosystem.`);
+            closeAuthModal();
+        }
+
+        function handleForgotPassSubmit(e) {
+            e.preventDefault();
+            alert("Password reset instructions have been sent to your email.");
+            switchAuthTab('signin');
+        }
+
+        // NNS App Notification Popup Functions
+        function openNotificationPopup() {
+            document.getElementById('notificationPopup').style.display = 'flex';
+        }
+        function closeNotificationPopup() {
+            document.getElementById('notificationPopup').style.display = 'none';
+        }
+        function followStoreAction() {
+            alert("Thank you! You are now following MR Masudar Enterprise for NNS App alerts.");
+            closeNotificationPopup();
         }
 
         function addToCartWithAnimation(event) {
