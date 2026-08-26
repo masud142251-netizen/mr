@@ -39,7 +39,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
+            padding: 10px 15px;
             background: rgba(11, 11, 11, 0.98);
             position: sticky;
             top: 0;
@@ -88,43 +88,57 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 5.5px; /* Spaced out for luxury look matching top text length */
+            letter-spacing: 5.5px;
             text-transform: uppercase;
             text-align: justify;
             text-justify: distribute;
         }
 
-        /* Top Right Controls */
+        /* Top Right Luxury Global & 24/7 Badges */
         .top-right-controls {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 3px;
         }
 
-        .country-badge {
+        .global-luxury-badge {
             display: flex;
             align-items: center;
-            gap: 5px;
-            background: linear-gradient(135deg, rgba(20,20,20,0.9), rgba(40,40,40,0.9));
-            border: 1.5px solid var(--gold-solid);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.72rem;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
+            border: 1px solid var(--gold-solid);
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 0.7rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
             white-space: nowrap;
+        }
+
+        .global-luxury-badge i {
+            -webkit-text-fill-color: var(--gold-solid);
+            font-size: 0.75rem;
+        }
+
+        .sub-global-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.58rem;
+            color: var(--text-gray);
             letter-spacing: 0.5px;
         }
 
-        .country-badge i {
-            -webkit-text-fill-color: var(--gold-solid);
-            font-size: 0.8rem;
+        .sub-global-info span {
+            color: var(--gold-solid);
+            font-weight: 600;
         }
 
-        /* Floating Cart Icon (Positioned right above the search bar area with dynamic animation) */
+        /* Always Visible Floating Cart on Bottom Right */
         .floating-cart {
             position: fixed;
             bottom: 78px;
@@ -184,7 +198,7 @@
             font-weight: 700;
         }
 
-        /* Pinterest Masonry Grid Feed (Optimized for Mobile & Desktop) */
+        /* Pinterest Masonry Grid Feed */
         .feed-container {
             padding: 12px 10px;
             column-count: 2;
@@ -570,7 +584,8 @@
             transition: transform 0.2s;
         }
 
-        .nav-item.active, .nav-item:hover {
+        /* Fixed: Item tab is now unselected by default like others, active only when clicked */
+        .nav-item:hover, .nav-item.active {
             color: var(--gold-solid);
             background: rgba(212, 175, 55, 0.08);
         }
@@ -655,7 +670,7 @@
 </head>
 <body>
 
-    <!-- Top Header with Logo, Stylized Brand Name & Country Badge -->
+    <!-- Top Header with Logo, Stylized Brand Name & Luxury Global Badges -->
     <header>
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
@@ -665,8 +680,11 @@
             </div>
         </div>
         <div class="top-right-controls">
-            <div class="country-badge">
-                <i class="fa-solid fa-globe"></i> 237+ Country
+            <div class="global-luxury-badge">
+                <i class="fa-solid fa-globe"></i> 200+ Country 🌍🇺🇸🇬🇧🇸🇦🇦🇪
+            </div>
+            <div class="sub-global-info">
+                <span>24/7</span> Support & Delivery ⚡
             </div>
         </div>
     </header>
@@ -748,19 +766,19 @@
     <!-- Bottom Navigation Bar: E-Tech, Seller, Earn, Item & Search Bar with Submit -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" onclick="setActiveNav(this)">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>E-Tech</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" onclick="setActiveNav(this)">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" onclick="setActiveNav(this)">
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
-            <a href="#" class="nav-item active">
+            <a href="#" class="nav-item" onclick="setActiveNav(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <span>Item</span>
             </a>
@@ -820,6 +838,12 @@
                 `;
                 feed.appendChild(card);
             });
+        }
+
+        // Handle Active state for bottom nav tabs dynamically
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
         }
 
         // Like Button Interaction
