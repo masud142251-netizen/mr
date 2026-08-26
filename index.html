@@ -156,7 +156,7 @@
             font-weight: 600;
         }
 
-        /* Floating Cart with Local Shake/Bounce Animation */
+        /* Floating Cart */
         .floating-cart {
             position: fixed;
             bottom: 72px;
@@ -209,7 +209,6 @@
             font-weight: 700;
         }
 
-        /* Multiple Flying Coins Burst Effect */
         .flying-coin {
             position: fixed;
             width: 22px;
@@ -284,7 +283,6 @@
             object-fit: cover;
         }
 
-        /* Super-Sonic Clean YouTube Shorts Wrapper */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -360,7 +358,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Full Product Detail Modal */
+        /* Modals */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -533,7 +531,6 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
         }
 
-        /* Share Options Grid & Selectable Link Box */
         .share-link-box {
             background: #000;
             border: 1px solid var(--gold-solid);
@@ -582,7 +579,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Bottom Fixed Navigation Bar */
+        /* Bottom Fixed Navigation Bar with Subdomains */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
@@ -617,6 +614,7 @@
             white-space: nowrap;
             padding: 3px 4px;
             border-radius: 6px;
+            transition: 0.3s;
         }
 
         .nav-item i {
@@ -632,6 +630,7 @@
             background: rgba(212, 175, 55, 0.08);
         }
 
+        /* Search Bar Section */
         .bottom-search-wrapper {
             display: flex;
             align-items: center;
@@ -784,18 +783,18 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar (Connected to Subdomains) -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <a href="#" class="nav-item" onclick="setActiveNav(this)">
+            <a href="https://etech.mrmasudar.com" class="nav-item">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>E-Tech</span>
             </a>
-            <a href="#" class="nav-item" onclick="setActiveNav(this)">
+            <a href="https://seller.mrmasudar.com" class="nav-item">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
             </a>
-            <a href="#" class="nav-item" onclick="setActiveNav(this)">
+            <a href="https://affiliate.mrmasudar.com" class="nav-item">
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
@@ -1099,7 +1098,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Multi-Coin Burst & Local Cart Bounce Animation
         function addToCartWithAnimation(event) {
             closeProductModal();
             cartCount++;
@@ -1115,7 +1113,6 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
-            // Spawn 5 flying coins successively towards the fixed cart
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
@@ -1141,7 +1138,6 @@
                 }, i * 70);
             }
 
-            // Trigger Local Bounce & Shake on the fixed Cart
             setTimeout(() => {
                 cartElement.classList.add('local-bounce');
                 setTimeout(() => {
@@ -1250,91 +1246,5 @@
             loadProducts();
         };
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR MASUDAR ENTERPRISE | Global Ecosystem</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #030303;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding-bottom: 80px; /* নিচের ফিক্সড বারের জন্য জায়গা রাখা হলো যেন প্রোডাক্ট ঢেকে না যায় */
-        }
-        /* একদম নিচে ফিক্সড নেভিগেশন বার */
-        .bottom-fixed-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #0b0b0b;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 12px 0;
-            z-index: 99999;
-            box-sizing: border-box;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
-        }
-        .bottom-fixed-nav a {
-            text-decoration: none;
-            color: #fff;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .bottom-fixed-nav a:hover {
-            transform: scale(1.1);
-        }
-        .bottom-fixed-nav i {
-            color: #D4AF37;
-            font-size: 18px;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .bottom-fixed-nav span {
-            font-size: 9.5px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- আপনার মূল সাইটের প্রোডাক্ট ও কন্টেন্ট এখানে থাকবে -->
-    <div style="padding: 20px; text-align: center;">
-        <h2 style="color: #D4AF37; font-family: 'Cormorant Garamond', serif;">MR MASUDAR ENTERPRISE</h2>
-        <p style="color: #888; font-size: 11px;">Welcome to the Global E-Commerce & Affiliate Ecosystem</p>
-    </div>
-
-    <!-- একদম নিচের পারফেক্ট ফিক্সড নেভিগেশন বার (সাবডোমেইন কানেক্টেড) -->
-    <div class="bottom-fixed-nav">
-        <!-- E-Tech Subdomain -->
-        <a href="https://etech.mrmasudar.com">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <span>E-Tech</span>
-        </a>
-
-        <!-- Seller Subdomain -->
-        <a href="https://seller.mrmasudar.com">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Seller</span>
-        </a>
-
-        <!-- Earn / Affiliate Subdomain -->
-        <a href="https://affiliate.mrmasudar.com">
-            <i class="fa-solid fa-handshake"></i>
-            <span>Earn</span>
-        </a>
-    </div>
-
 </body>
 </html>
