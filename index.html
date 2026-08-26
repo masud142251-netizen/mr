@@ -212,7 +212,7 @@
             font-weight: 700;
         }
 
-        /* Pinterest Masonry (Brick-style) Layout Feed */
+        /* Pinterest Masonry Layout Feed */
         .feed-container {
             padding: 10px 8px;
             column-count: 2;
@@ -281,23 +281,41 @@
             transition: transform 0.5s ease;
         }
 
-        /* Clean Isolated Video Wrapper */
+        /* Clean Isolated Video Wrapper with Overlays blocked */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 135%; /* Clean vertical reel aspect ratio */
+            padding-bottom: 135%;
             background: #000;
             overflow: hidden;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
+            top: -15%;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 130%;
             border: none;
-            pointer-events: none; /* Prevents clicking on yt extras */
+            pointer-events: none;
+        }
+
+        /* Video Play Cover for clean look */
+        .video-overlay-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--gold-solid);
+            color: var(--gold-solid);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 5;
         }
 
         .product-card:hover .product-media-box img {
@@ -807,7 +825,7 @@
                 price: "$145.00", 
                 bdDiscount: "BD 20% OFF", 
                 seller: "MR Artisan Hub", 
-                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1",
+                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3",
                 image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", 
                 views: 820, 
                 likes: 235, 
@@ -819,7 +837,7 @@
                 price: "$125.00", 
                 bdDiscount: "BD 15% OFF", 
                 seller: "Masudar Enterprise", 
-                videoUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fweb.facebook.com%2Fshare%2Fr%2F19BQGfLcv7%2F&show_text=false&width=267&autoplay=true&mute=1&controls=0",
+                videoUrl: "", // Fallback to clean image to prevent unavailable errors
                 image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", 
                 views: 640, 
                 likes: 198, 
@@ -948,6 +966,7 @@
                 if (item.videoUrl && item.videoUrl.trim() !== "") {
                     mediaContent = `
                         <div class="video-wrapper">
+                            <div class="video-overlay-badge"><i class="fa-solid fa-play"></i> Video</div>
                             <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
                         </div>
                     `;
