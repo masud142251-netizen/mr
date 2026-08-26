@@ -73,6 +73,7 @@
         .brand-text-box {
             display: flex;
             flex-direction: column;
+            align-items: stretch; /* Ensures inner text stretches to identical width */
         }
 
         .brand-title-main {
@@ -82,23 +83,24 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
             line-height: 1.1;
             text-transform: uppercase;
             white-space: nowrap;
         }
 
+        /* Perfectly matched width alignment for ENTERPRISE */
         .brand-title-sub {
             font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
+            font-size: 0.63rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 4.8px; /* Perfect proportional match with MR MASUDAR */
+            letter-spacing: 5.6px; 
             text-transform: uppercase;
-            text-align: justify;
-            text-justify: distribute;
+            display: flex;
+            justify-content: space-between; /* Automatically stretches letters to match top width */
+            margin-top: 2px;
         }
 
         /* Top Right Clean Badges */
@@ -211,7 +213,7 @@
             font-weight: 700;
         }
 
-        /* Pinterest Masonry (Brick-style / ইটের গাঁথুনি) Layout Feed */
+        /* Pinterest Masonry (Brick-style) Layout Feed */
         .feed-container {
             padding: 10px 8px;
             column-count: 2;
@@ -231,7 +233,7 @@
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4; /* Exactly 4 columns on PC in masonry style */
+                column-count: 4; /* Exactly 4 columns on PC */
                 column-gap: 14px;
                 padding: 18px;
             }
@@ -650,7 +652,9 @@
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
             <div class="brand-text-box">
                 <span class="brand-title-main">MR MASUDAR</span>
-                <span class="brand-title-sub">ENTERPRISE</span>
+                <span class="brand-title-sub">
+                    <span>E</span><span>N</span><span>T</span><span>E</span><span>R</span><span>P</span><span>R</span><span>I</span><span>S</span><span>E</span>
+                </span>
             </div>
         </div>
         <div class="top-right-controls">
