@@ -95,7 +95,7 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 4px; /* Perfectly matches MR MASUDAR length */
+            letter-spacing: 4px;
             text-transform: uppercase;
             text-align: justify;
             text-justify: distribute;
@@ -151,7 +151,7 @@
             font-weight: 600;
         }
 
-        /* Always Visible Floating Cart (Safely positioned above bottom nav) */
+        /* Floating Cart */
         .floating-cart {
             position: fixed;
             bottom: 72px;
@@ -211,7 +211,7 @@
             font-weight: 700;
         }
 
-        /* Pinterest Masonry Grid Feed (Fixed for mobile 2 columns, PC 4 columns, zero horizontal shift) */
+        /* Feed Grid */
         .feed-container {
             padding: 10px 8px;
             column-count: 2;
@@ -231,7 +231,7 @@
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4; /* Exactly 4 columns on PC */
+                column-count: 4;
             }
         }
 
@@ -244,25 +244,13 @@
             border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            animation: fadeIn 0.4s ease-in-out;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        @media (min-width: 768px) {
-            .product-card {
-                margin-bottom: 12px;
-            }
         }
 
         .product-card:hover {
             transform: translateY(-3px);
             border-color: var(--gold-solid);
             box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-image-box {
@@ -290,7 +278,6 @@
             transform: scale(1.04);
         }
 
-        /* Floating Interactive Bar on Product Image */
         .floating-product-actions {
             position: absolute;
             bottom: 6px;
@@ -304,7 +291,6 @@
             gap: 10px;
             border: 1px solid rgba(212, 175, 55, 0.5);
             white-space: nowrap;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .action-item {
@@ -314,15 +300,6 @@
             font-size: 0.7rem;
             color: var(--text-white);
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .action-item:active {
-            transform: scale(1.2);
-        }
-
-        .action-item i {
-            font-size: 0.85rem;
         }
 
         .action-item.view-icon i {
@@ -333,7 +310,6 @@
 
         .action-item.like-icon i {
             color: var(--pink-heart);
-            transition: color 0.3s ease;
         }
 
         .action-item.like-icon.active i {
@@ -374,12 +350,6 @@
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
-            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
@@ -451,21 +421,25 @@
             border-radius: 5px;
             font-weight: 700;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .modal-seller-tag {
-            font-size: 0.65rem;
+        /* Clickable Seller Button Style */
+        .modal-seller-btn {
+            font-size: 0.72rem;
             color: var(--gold-solid);
-            background: rgba(212, 175, 55, 0.1);
-            padding: 3px 6px;
-            border-radius: 5px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.12);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 120px;
+        }
+
+        .modal-seller-btn:active {
+            transform: scale(0.95);
+            background: rgba(212, 175, 55, 0.25);
         }
 
         .modal-title {
@@ -526,7 +500,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Slow Motion Flying Coin Animation */
         .flying-coin {
             position: fixed;
             width: 24px;
@@ -540,7 +513,7 @@
             transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Bottom Fixed Navigation Bar (100% stable, fully visible, zero clipping on mobile) */
+        /* Bottom Fixed Navigation Bar */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
@@ -591,7 +564,6 @@
             background: rgba(212, 175, 55, 0.08);
         }
 
-        /* Search Bar on Right Side of Bottom Nav */
         .bottom-search-wrapper {
             display: flex;
             align-items: center;
@@ -695,7 +667,8 @@
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <span class="modal-seller-tag" id="modalSeller">Seller: Masudar</span>
+                <!-- Clickable Seller Button -->
+                <button class="modal-seller-btn" id="modalSellerBtn" onclick="revealSellerName()">Seller</button>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
             <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance.</p>
@@ -791,6 +764,7 @@
 
         let cartCount = 0;
         let currentShareUrl = '';
+        let activeCurrentSeller = '';
 
         // Auto-increment Views & Likes daily simulation
         function autoBoostEngagement() {
@@ -853,14 +827,32 @@
             const product = products.find(p => p.id === id);
             if(!product) return;
 
+            activeCurrentSeller = product.seller;
             document.getElementById('modalImg').src = product.image;
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalSeller').innerText = "Seller: " + product.seller;
+            
+            // Reset seller button text to default "Seller"
+            const sellerBtn = document.getElementById('modalSellerBtn');
+            sellerBtn.innerText = "Seller";
+            sellerBtn.style.color = "var(--gold-solid)";
+
             document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalDesc').innerText = product.desc;
 
             document.getElementById('productModal').style.display = 'flex';
+        }
+
+        // Reveal Seller Name on Click
+        function revealSellerName() {
+            const sellerBtn = document.getElementById('modalSellerBtn');
+            if (sellerBtn.innerText === "Seller") {
+                sellerBtn.innerText = activeCurrentSeller;
+                sellerBtn.style.color = "#fff";
+            } else {
+                sellerBtn.innerText = "Seller";
+                sellerBtn.style.color = "var(--gold-solid)";
+            }
         }
 
         function closeProductModal() {
