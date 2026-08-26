@@ -95,7 +95,7 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 5.2px; /* Adjusted to perfectly match MR MASUDAR width */
+            letter-spacing: 5.2px;
             text-transform: uppercase;
             text-align: justify;
             text-justify: distribute;
@@ -211,48 +211,43 @@
             font-weight: 700;
         }
 
-        /* Feed Grid (Fixed: 4 columns on PC, exactly as requested) */
+        /* Feed Grid (Fixed: Exactly 4 columns on PC using CSS Grid) */
         .feed-container {
-            padding: 10px 8px;
-            column-count: 2;
-            column-gap: 8px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 12px;
             width: 100%;
-            max-width: 1550px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         @media (min-width: 768px) {
             .feed-container {
-                column-count: 3;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
                 padding: 15px;
-                column-gap: 12px;
             }
         }
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4; /* Exactly 4 columns on PC */
-                column-gap: 14px;
-                padding: 18px;
+                grid-template-columns: repeat(4, 1fr); /* Exactly 4 columns on PC */
+                gap: 16px;
+                padding: 20px;
             }
         }
 
         .product-card {
-            break-inside: avoid;
             background: var(--card-bg);
             border-radius: 12px;
-            margin-bottom: 8px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        @media (min-width: 768px) {
-            .product-card {
-                margin-bottom: 12px;
-            }
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
@@ -266,7 +261,8 @@
             width: 100%;
             cursor: pointer;
             background: #111;
-            min-height: 140px;
+            min-height: 180px;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -276,7 +272,7 @@
         .product-image-box img {
             width: 100%;
             height: auto;
-            max-height: 300px;
+            max-height: 320px;
             display: block;
             object-fit: cover;
             transition: transform 0.5s ease;
@@ -478,12 +474,31 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
         }
 
-        /* Share Options Grid */
+        /* Share Options Grid & Selectable Link Box */
+        .share-link-box {
+            background: #000;
+            border: 1px solid var(--gold-solid);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .share-link-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--gold-solid);
+            font-size: 0.75rem;
+            text-align: center;
+            outline: none;
+            user-select: all;
+        }
+
         .share-options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-top: 12px;
         }
 
         .share-option-item {
@@ -684,17 +699,20 @@
         </div>
     </div>
 
-    <!-- Share Modal -->
+    <!-- Share Modal with Auto-Select Link Box (No Alert Popups) -->
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 5px;">Share Luxury Item</h3>
-            <p style="font-size: 0.7rem; color: var(--text-gray); text-align: center; margin-bottom: 10px; word-break: break-all;" id="shareItemName">Link</p>
+            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
+            
+            <div class="share-link-box">
+                <input type="text" id="shareLinkInput" class="share-link-input" readonly onclick="this.select()">
+            </div>
             
             <div class="share-options-grid">
                 <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)">
                     <i class="fa-solid fa-link"></i>
-                    <span>Copy</span>
+                    <span>Copy Link</span>
                 </a>
                 <a href="#" id="shareFacebook" target="_blank" class="share-option-item">
                     <i class="fa-brands fa-facebook"></i>
@@ -902,7 +920,8 @@
 
         function openShareModal(title, id) {
             currentShareUrl = `https://mrmasudar.com/product.html?id=${id}&ref=aff_masud`;
-            document.getElementById('shareItemName').innerText = currentShareUrl;
+            const linkInput = document.getElementById('shareLinkInput');
+            linkInput.value = currentShareUrl;
 
             document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
             document.getElementById('shareYoutube').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(title)}`;
@@ -918,11 +937,21 @@
             document.getElementById('shareModal').style.display = 'none';
         }
 
+        // Copy Affiliate Link with Auto-Select & No Alert Popups
         function copyAffiliateLink(e) {
             e.preventDefault();
-            navigator.clipboard.writeText(currentShareUrl);
-            alert("Affiliate Link Copied: " + currentShareUrl);
-            closeShareModal();
+            const linkInput = document.getElementById('shareLinkInput');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(linkInput.value);
+            
+            // Visual feedback without alert popup
+            const copyBtnText = e.currentTarget.querySelector('span');
+            const originalText = copyBtnText.innerText;
+            copyBtnText.innerText = "Copied!";
+            setTimeout(() => {
+                copyBtnText.innerText = originalText;
+            }, 1200);
         }
 
         function performSearchSubmit() {
