@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
@@ -73,7 +73,7 @@
         .brand-text-box {
             display: flex;
             flex-direction: column;
-            align-items: stretch; /* Ensures inner text stretches to identical width */
+            align-items: stretch;
         }
 
         .brand-title-main {
@@ -88,7 +88,6 @@
             white-space: nowrap;
         }
 
-        /* Perfectly matched width alignment for ENTERPRISE */
         .brand-title-sub {
             font-family: 'Cinzel', serif;
             font-size: 0.63rem;
@@ -96,10 +95,10 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 5.6px; 
+            letter-spacing: 5.6px;
             text-transform: uppercase;
             display: flex;
-            justify-content: space-between; /* Automatically stretches letters to match top width */
+            justify-content: space-between;
             margin-top: 2px;
         }
 
@@ -233,7 +232,7 @@
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4; /* Exactly 4 columns on PC */
+                column-count: 4;
                 column-gap: 14px;
                 padding: 18px;
             }
@@ -263,7 +262,7 @@
             box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
         }
 
-        .product-image-box {
+        .product-media-box {
             position: relative;
             width: 100%;
             cursor: pointer;
@@ -274,15 +273,20 @@
             overflow: hidden;
         }
 
-        .product-image-box img {
+        .product-media-box img, .product-media-box iframe {
             width: 100%;
             height: auto;
             display: block;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border: none;
         }
 
-        .product-card:hover .product-image-box img {
+        .product-media-box iframe {
+            min-height: 280px;
+            pointer-events: none; /* Allows click to open modal */
+        }
+
+        .product-card:hover .product-media-box img {
             transform: scale(1.04);
         }
 
@@ -299,6 +303,7 @@
             gap: 10px;
             border: 1px solid rgba(212, 175, 55, 0.5);
             white-space: nowrap;
+            z-index: 10;
         }
 
         .action-item {
@@ -704,7 +709,7 @@
         </div>
     </div>
 
-    <!-- Share Modal with Auto-Select Link Box (No Alert Popups) -->
+    <!-- Share Modal with Auto-Select Link Box -->
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -782,22 +787,132 @@
     <!-- JavaScript Logic -->
     <script>
         const products = [
-            { id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", views: 820, likes: 235, desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." },
-            { id: 2, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", bdDiscount: "BD 15% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 640, likes: 198, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
-            { id: 3, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", bdDiscount: "BD 25% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 910, likes: 310, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
-            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", bdDiscount: "BD 18% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 750, likes: 240, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
-            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", bdDiscount: "BD 10% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 530, likes: 175, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
-            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", bdDiscount: "BD 30% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 1020, likes: 380, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
-            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", bdDiscount: "BD 12% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 680, likes: 215, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
-            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", bdDiscount: "BD 22% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 890, likes: 295, desc: "Radiant golden glow finish built for high-end exhibition and style." },
-            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", bdDiscount: "BD 15% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 740, likes: 260, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." }
+            { 
+                id: 1, 
+                title: "Exquisite Resin & Gold Leaf Wall Clock", 
+                price: "$145.00", 
+                bdDiscount: "BD 20% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0",
+                image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", 
+                views: 820, 
+                likes: 235, 
+                desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." 
+            },
+            { 
+                id: 2, 
+                title: "Luxury Gold Crafted Designer Bracelet", 
+                price: "$125.00", 
+                bdDiscount: "BD 15% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", // Fallback to image
+                image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", 
+                views: 640, 
+                likes: 198, 
+                desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." 
+            },
+            { 
+                id: 3, 
+                title: "Exquisite Royal Handcrafted Masterpiece", 
+                price: "$240.00", 
+                bdDiscount: "BD 25% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", 
+                views: 910, 
+                likes: 310, 
+                desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." 
+            },
+            { 
+                id: 4, 
+                title: "Imperial Gold Elite Collection Item", 
+                price: "$180.00", 
+                bdDiscount: "BD 18% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", 
+                views: 750, 
+                likes: 240, 
+                desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." 
+            },
+            { 
+                id: 5, 
+                title: "Classic Artisan Luxury Artifact", 
+                price: "$95.00", 
+                bdDiscount: "BD 10% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", 
+                views: 530, 
+                likes: 175, 
+                desc: "Classic artisan craft with refined texture and aesthetic appeal." 
+            },
+            { 
+                id: 6, 
+                title: "Prestige Golden Finish Special Craft", 
+                price: "$450.00", 
+                bdDiscount: "BD 30% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", 
+                views: 1020, 
+                likes: 380, 
+                desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." 
+            },
+            { 
+                id: 7, 
+                title: "Royal Golden Heritage Mastercraft", 
+                price: "$215.00", 
+                bdDiscount: "BD 12% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", 
+                views: 680, 
+                likes: 215, 
+                desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." 
+            },
+            { 
+                id: 8, 
+                title: "Elite Golden Glow Luxury Piece", 
+                price: "$350.00", 
+                bdDiscount: "BD 22% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", 
+                views: 890, 
+                likes: 295, 
+                desc: "Radiant golden glow finish built for high-end exhibition and style." 
+            },
+            { 
+                id: 9, 
+                title: "Supreme Artisan Collection Craft", 
+                price: "$290.00", 
+                bdDiscount: "BD 15% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", 
+                views: 740, 
+                likes: 260, 
+                desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." 
+            }
         ];
 
         let cartCount = 0;
         let currentShareUrl = '';
         let activeCurrentSeller = '';
 
-        // Auto-increment Views & Likes daily simulation
+        // Random Shuffle (Эলোমেলো সাজানো) function
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // Auto-increment Views & Likes simulation
         function autoBoostEngagement() {
             products.forEach(item => {
                 item.views += Math.floor(Math.random() * 4) + 1;
@@ -810,12 +925,25 @@
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
 
-            dataToRender.forEach(item => {
+            // Shuffle products every time feed loads for random display
+            let shuffledList = [...dataToRender];
+            shuffleArray(shuffledList);
+
+            shuffledList.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                
+                // Video Primary, Image Fallback Logic
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `<iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>`;
+                } else {
+                    mediaContent = `<img src="${item.image}" alt="${item.title}" loading="lazy">`;
+                }
+
                 card.innerHTML = `
-                    <div class="product-image-box" onclick="openProductModal(${item.id})">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    <div class="product-media-box" onclick="openProductModal(${item.id})">
+                        ${mediaContent}
                         <div class="floating-product-actions" onclick="event.stopPropagation()">
                             <div class="action-item view-icon">
                                 <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
@@ -1025,3 +1153,11 @@
     </script>
 </body>
 </html>
+"""
+
+import os
+file_path = "index.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"Generated file: {file_path}")
