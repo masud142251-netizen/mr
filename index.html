@@ -361,7 +361,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Full Product Detail Modal with Swipeable Video & Multiple Images */
+        /* Full Product Detail Modal with Ultra-Clean Swipeable Media */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -436,10 +436,23 @@
             overflow: hidden;
         }
 
-        .modal-slide-item iframe {
+        /* Perfectly Clean Modal Video Wrapper to hide controls */
+        .modal-video-box {
+            position: relative;
             width: 100%;
             height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .modal-video-box iframe {
+            position: absolute;
+            top: -15%;
+            left: -10%;
+            width: 120%;
+            height: 130%;
             border: none;
+            pointer-events: none; /* Keeps it super clean with no pop-up buttons */
         }
 
         .modal-slide-item img {
@@ -735,12 +748,12 @@
     <!-- Hidden file input -->
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Modal with Swipeable Video & Multiple Images -->
+    <!-- Product Modal with Ultra-Clean Swipeable Video & Multiple Images -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-media-slider" id="modalMediaSlider">
-                <!-- Dynamically populated video first, then multiple images -->
+                <!-- Dynamically populated clean video first, then multiple images -->
             </div>
             <div class="modal-price-box">
                 <div class="modal-price-group">
@@ -1075,15 +1088,18 @@
 
             activeCurrentSeller = product.seller;
             
-            // Populate slider items (Video first, then all images dynamically) inside modal
+            // Populate slider items with Clean Masked Video inside Modal
             const slider = document.getElementById('modalMediaSlider');
             slider.innerHTML = "";
 
             if (product.videoUrl && product.videoUrl.trim() !== "") {
                 const videoSlide = document.createElement('div');
                 videoSlide.className = 'modal-slide-item';
-                let cleanModalVideo = product.videoUrl.replace("controls=0", "controls=1");
-                videoSlide.innerHTML = `<iframe src="${cleanModalVideo}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                videoSlide.innerHTML = `
+                    <div class="modal-video-box">
+                        <iframe src="${product.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                `;
                 slider.appendChild(videoSlide);
             }
 
