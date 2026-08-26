@@ -168,25 +168,17 @@
             cursor: pointer;
             box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
             z-index: 1050;
-            animation: cartFocusPulse 1.8s infinite ease-in-out;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes cartFocusPulse {
-            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); transform: scale(1); }
-            50% { box-shadow: 0 0 24px rgba(212, 175, 55, 0.95); transform: scale(1.06); }
-            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); transform: scale(1); }
+            transition: transform 0.3s ease;
         }
 
         .floating-cart.bounce-center {
-            animation: cartCenterAnim 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            animation: cartCenterAnim 0.6s ease !important;
         }
 
         @keyframes cartCenterAnim {
-            0% { transform: scale(1) translate(0, 0); }
-            40% { transform: scale(1.3) translate(-100px, -150px) rotate(-15deg); box-shadow: 0 0 35px var(--gold-solid); }
-            70% { transform: scale(1.1) translate(-40px, -60px) rotate(10deg); }
-            100% { transform: scale(1) translate(0, 0); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(-10deg); }
+            100% { transform: scale(1); }
         }
 
         .floating-cart i {
@@ -247,19 +239,12 @@
             border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         @media (min-width: 768px) {
             .product-card {
                 margin-bottom: 12px;
             }
-        }
-
-        .product-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--gold-solid);
-            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
         }
 
         .product-media-box {
@@ -278,10 +263,9 @@
             height: auto;
             display: block;
             object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        /* Clean YouTube Shorts Card Wrapper */
+        /* Fast Clean YouTube Shorts Wrapper */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -308,10 +292,6 @@
             height: 100%;
             z-index: 4;
             cursor: pointer;
-        }
-
-        .product-card:hover .product-media-box img {
-            transform: scale(1.04);
         }
 
         .floating-product-actions {
@@ -361,7 +341,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Full Product Detail Modal with Ultra-Clean Swipeable Media */
+        /* Full Product Detail Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -436,7 +416,6 @@
             overflow: hidden;
         }
 
-        /* Perfectly Clean Modal Video Wrapper to hide controls */
         .modal-video-box {
             position: relative;
             width: 100%;
@@ -452,7 +431,7 @@
             width: 120%;
             height: 130%;
             border: none;
-            pointer-events: none; /* Keeps it super clean with no pop-up buttons */
+            pointer-events: none;
         }
 
         .modal-slide-item img {
@@ -505,13 +484,7 @@
             border: 1px solid rgba(212, 175, 55, 0.4);
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s ease;
             white-space: nowrap;
-        }
-
-        .modal-seller-btn:active {
-            transform: scale(0.95);
-            background: rgba(212, 175, 55, 0.25);
         }
 
         .modal-title {
@@ -601,7 +574,7 @@
             box-shadow: 0 0 12px var(--gold-solid);
             z-index: 9999;
             pointer-events: none;
-            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Bottom Fixed Navigation Bar */
@@ -636,7 +609,6 @@
             color: var(--text-gray);
             font-size: 0.55rem;
             font-weight: 500;
-            transition: all 0.2s ease;
             white-space: nowrap;
             padding: 3px 4px;
             border-radius: 6px;
@@ -714,7 +686,7 @@
     <!-- Top Header -->
     <header>
         <div class="brand-container">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MR MASUDAR</span>
                 <span class="brand-title-sub">
@@ -740,7 +712,7 @@
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- Product Feed (Pinterest Masonry / Brick Style) -->
+    <!-- Product Feed -->
     <main class="feed-container" id="productFeed">
         <!-- Dynamically Loaded -->
     </main>
@@ -748,19 +720,16 @@
     <!-- Hidden file input -->
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Modal with Ultra-Clean Swipeable Video & Multiple Images -->
+    <!-- Product Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-media-slider" id="modalMediaSlider">
-                <!-- Dynamically populated clean video first, then multiple images -->
-            </div>
+            <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-price-box">
                 <div class="modal-price-group">
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <!-- Clickable Seller Button -->
                 <button class="modal-seller-btn" id="modalSellerBtn" onclick="revealSellerName()">Seller</button>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
@@ -769,16 +738,14 @@
         </div>
     </div>
 
-    <!-- Share Modal with Auto-Select Link Box -->
+    <!-- Share Modal -->
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
-            
             <div class="share-link-box">
                 <input type="text" id="shareLinkInput" class="share-link-input" readonly onclick="this.select()">
             </div>
-            
             <div class="share-options-grid">
                 <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)">
                     <i class="fa-solid fa-link"></i>
@@ -812,7 +779,7 @@
         </div>
     </div>
 
-    <!-- Fixed Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <a href="#" class="nav-item" onclick="setActiveNav(this)">
@@ -1003,14 +970,6 @@
             return array;
         }
 
-        function autoBoostEngagement() {
-            products.forEach(item => {
-                item.views += Math.floor(Math.random() * 4) + 1;
-                item.likes += Math.floor(Math.random() * 2);
-            });
-        }
-        setInterval(autoBoostEngagement, 10000);
-
         function loadProducts(dataToRender = products) {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
@@ -1088,7 +1047,6 @@
 
             activeCurrentSeller = product.seller;
             
-            // Populate slider items with Clean Masked Video inside Modal
             const slider = document.getElementById('modalMediaSlider');
             slider.innerHTML = "";
 
@@ -1097,7 +1055,7 @@
                 videoSlide.className = 'modal-slide-item';
                 videoSlide.innerHTML = `
                     <div class="modal-video-box">
-                        <iframe src="${product.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe src="${product.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
                     </div>
                 `;
                 slider.appendChild(videoSlide);
@@ -1106,7 +1064,7 @@
             product.images.forEach(imgSrc => {
                 const imgSlide = document.createElement('div');
                 imgSlide.className = 'modal-slide-item';
-                imgSlide.innerHTML = `<img src="${imgSrc}" alt="${product.title}">`;
+                imgSlide.innerHTML = `<img src="${imgSrc}" alt="${product.title}" loading="lazy">`;
                 slider.appendChild(imgSlide);
             });
 
@@ -1161,16 +1119,16 @@
             setTimeout(() => {
                 coin.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
                 coin.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
-                coin.style.transform = 'scale(0.35) rotate(720deg)';
-                coin.style.opacity = '0.6';
+                coin.style.transform = 'scale(0.3) rotate(360deg)';
+                coin.style.opacity = '0';
             }, 50);
 
             setTimeout(() => {
                 coin.remove();
                 const cart = document.getElementById('floatingCart');
                 cart.classList.add('bounce-center');
-                setTimeout(() => cart.classList.remove('bounce-center'), 800);
-            }, 1200);
+                setTimeout(() => cart.classList.remove('bounce-center'), 600);
+            }, 800);
         }
 
         function openShareModal(title, id) {
