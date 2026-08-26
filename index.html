@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MR MASUDAR ENTERPRISE - Luxury Shopping</title>
+    
+    <!-- Favicon / Tab Logo -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
+
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -960,7 +964,6 @@
         let currentShareUrl = '';
         let activeCurrentSeller = '';
 
-        // Super-sonic Fisher-Yates shuffle algorithm for fully randomized feeds
         function shuffleArray(array) {
             let shuffled = [...array];
             let currentIndex = shuffled.length, randomIndex;
@@ -976,7 +979,6 @@
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
 
-            // Completely randomize every time the page loads or reloads
             let randomizedList = shuffleArray(dataToRender);
 
             randomizedList.forEach(item => {
