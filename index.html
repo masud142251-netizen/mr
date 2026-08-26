@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
@@ -273,17 +273,31 @@ html_content = """<!DOCTYPE html>
             overflow: hidden;
         }
 
-        .product-media-box img, .product-media-box iframe {
+        .product-media-box img {
             width: 100%;
             height: auto;
             display: block;
             object-fit: cover;
-            border: none;
+            transition: transform 0.5s ease;
         }
 
-        .product-media-box iframe {
-            min-height: 280px;
-            pointer-events: none; /* Allows click to open modal */
+        /* Clean Isolated Video Wrapper */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 135%; /* Clean vertical reel aspect ratio */
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none; /* Prevents clicking on yt extras */
         }
 
         .product-card:hover .product-media-box img {
@@ -793,7 +807,7 @@ html_content = """<!DOCTYPE html>
                 price: "$145.00", 
                 bdDiscount: "BD 20% OFF", 
                 seller: "MR Artisan Hub", 
-                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0",
+                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1",
                 image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", 
                 views: 820, 
                 likes: 235, 
@@ -805,7 +819,7 @@ html_content = """<!DOCTYPE html>
                 price: "$125.00", 
                 bdDiscount: "BD 15% OFF", 
                 seller: "Masudar Enterprise", 
-                videoUrl: "", // Fallback to image
+                videoUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fweb.facebook.com%2Fshare%2Fr%2F19BQGfLcv7%2F&show_text=false&width=267&autoplay=true&mute=1&controls=0",
                 image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", 
                 views: 640, 
                 likes: 198, 
@@ -901,7 +915,6 @@ html_content = """<!DOCTYPE html>
         let currentShareUrl = '';
         let activeCurrentSeller = '';
 
-        // Random Shuffle (Эলোমেলো সাজানো) function
         function shuffleArray(array) {
             let currentIndex = array.length, randomIndex;
             while (currentIndex !== 0) {
@@ -912,7 +925,6 @@ html_content = """<!DOCTYPE html>
             return array;
         }
 
-        // Auto-increment Views & Likes simulation
         function autoBoostEngagement() {
             products.forEach(item => {
                 item.views += Math.floor(Math.random() * 4) + 1;
@@ -925,7 +937,6 @@ html_content = """<!DOCTYPE html>
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
 
-            // Shuffle products every time feed loads for random display
             let shuffledList = [...dataToRender];
             shuffleArray(shuffledList);
 
@@ -933,27 +944,34 @@ html_content = """<!DOCTYPE html>
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
-                // Video Primary, Image Fallback Logic
                 let mediaContent = "";
                 if (item.videoUrl && item.videoUrl.trim() !== "") {
-                    mediaContent = `<iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>`;
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    `;
                 } else {
-                    mediaContent = `<img src="${item.image}" alt="${item.title}" loading="lazy">`;
+                    mediaContent = `
+                        <div class="product-media-box">
+                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
                 }
 
                 card.innerHTML = `
-                    <div class="product-media-box" onclick="openProductModal(${item.id})">
+                    <div onclick="openProductModal(${item.id})" style="cursor: pointer;">
                         ${mediaContent}
-                        <div class="floating-product-actions" onclick="event.stopPropagation()">
-                            <div class="action-item view-icon">
-                                <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
-                            </div>
-                            <div class="action-item like-icon" onclick="toggleLike(this, ${item.id})">
-                                <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${item.likes}</span>
-                            </div>
-                            <div class="action-item share-icon" onclick="openShareModal('${item.title.replace(/'/g, "\\'")}', ${item.id})">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </div>
+                    </div>
+                    <div class="floating-product-actions" onclick="event.stopPropagation()">
+                        <div class="action-item view-icon">
+                            <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
+                        </div>
+                        <div class="action-item like-icon" onclick="toggleLike(this, ${item.id})">
+                            <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${item.likes}</span>
+                        </div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title.replace(/'/g, "\'")}', ${item.id})">
+                            <i class="fa-solid fa-share-nodes"></i>
                         </div>
                     </div>
                 `;
@@ -1153,11 +1171,3 @@ html_content = """<!DOCTYPE html>
     </script>
 </body>
 </html>
-"""
-
-import os
-file_path = "index.html"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(f"Generated file: {file_path}")
