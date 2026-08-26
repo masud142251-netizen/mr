@@ -16,7 +16,8 @@
         :root {
             --bg-black: #080808;
             --card-bg: #121212;
-            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%);
+            /* আসল সমৃদ্ধ এবং চকচকে রয়্যাল গোল্ডেন গ্রেডিয়েন্ট */
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
             --text-gray: #b3b3b3;
@@ -40,7 +41,7 @@
         }
 
         body {
-            padding-top: 62px;
+            padding-top: 60px;
             padding-bottom: 95px;
         }
 
@@ -49,13 +50,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 10px;
+            padding: 8px 12px;
             background: rgba(11, 11, 11, 0.98);
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
             backdrop-filter: blur(12px);
             width: 100%;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8);
@@ -68,12 +69,12 @@
         }
 
         .logo {
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
             background: #000;
         }
 
@@ -109,7 +110,7 @@
             margin-top: 1px;
         }
 
-        /* Top Right Controls (Larger Login Button & Country Badge) */
+        /* Top Right Controls (Luxury Login Button & Country Badge) */
         .top-right-controls {
             display: flex;
             align-items: center;
@@ -118,14 +119,14 @@
 
         .auth-top-btn {
             background: var(--gold-gradient);
-            color: #000;
+            color: #111;
             border: none;
             padding: 6px 14px;
             border-radius: 8px;
             font-weight: 800;
             font-size: 0.78rem;
             cursor: pointer;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
             white-space: nowrap;
             letter-spacing: 0.5px;
             display: flex;
@@ -134,6 +135,7 @@
         }
 
         .auth-top-btn i {
+            -webkit-text-fill-color: #111;
             font-size: 0.8rem;
         }
 
@@ -144,18 +146,27 @@
             justify-content: center;
             background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
             border: 1px solid var(--gold-solid);
-            padding: 3px 5px;
+            padding: 3px 6px;
             border-radius: 6px;
             text-align: center;
-            min-width: 38px;
+            min-width: 40px;
+            box-shadow: 0 0 10px rgba(212,175,55,0.2);
         }
 
         .badge-top-text {
-            font-size: 0.55rem;
+            font-size: 0.58rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .badge-top-text i {
+            -webkit-text-fill-color: var(--gold-solid);
+            font-size: 0.55rem;
         }
 
         .badge-bottom-text {
@@ -188,7 +199,7 @@
             border-radius: 18px;
             padding: 22px;
             position: relative;
-            box-shadow: 0 0 35px rgba(212,175,55,0.3);
+            box-shadow: 0 0 35px rgba(212,175,55,0.4);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -213,7 +224,7 @@
         .auth-tabs {
             display: flex;
             margin-bottom: 15px;
-            border-bottom: 1px solid rgba(212,175,55,0.3);
+            border-bottom: 1px solid rgba(212,175,55,0.4);
         }
 
         .auth-tab-btn {
@@ -229,8 +240,11 @@
         }
 
         .auth-tab-btn.active {
-            color: var(--gold-solid);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             border-bottom: 2px solid var(--gold-solid);
+            font-weight: 700;
         }
 
         .auth-form-group {
@@ -241,16 +255,18 @@
         .auth-form-group label {
             display: block;
             font-size: 0.72rem;
-            color: var(--gold-solid);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 4px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
         .auth-form-group input {
             width: 100%;
             background: #000;
-            border: 1px solid rgba(212,175,55,0.4);
+            border: 1.5px solid rgba(212,175,55,0.5);
             padding: 10px;
             border-radius: 8px;
             color: var(--text-white);
@@ -260,7 +276,7 @@
 
         .auth-form-group input:focus {
             border-color: var(--gold-solid);
-            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+            box-shadow: 0 0 10px rgba(212,175,55,0.4);
         }
 
         .auth-submit-btn {
@@ -270,11 +286,11 @@
             padding: 11px;
             border-radius: 10px;
             color: var(--bg-black);
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.9rem;
             cursor: pointer;
             margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
         .forgot-pass-link {
@@ -305,7 +321,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
             z-index: 1050;
             transition: transform 0.2s ease;
         }
@@ -389,7 +405,7 @@
             border-radius: 12px;
             margin-bottom: 8px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
@@ -446,12 +462,12 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.88);
             backdrop-filter: blur(8px);
             padding: 4px 10px;
             border-radius: 20px;
             gap: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.6);
             white-space: nowrap;
             z-index: 10;
         }
@@ -513,6 +529,24 @@
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 0 35px rgba(212,175,55,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
         }
 
         .modal-media-slider {
@@ -523,7 +557,7 @@
             scroll-snap-type: x mandatory;
             gap: 10px;
             margin-bottom: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.4);
             background: #000;
             scrollbar-width: none;
         }
@@ -605,13 +639,14 @@
 
         .modal-seller-btn {
             font-size: 0.72rem;
-            color: var(--gold-solid);
-            background: rgba(212, 175, 55, 0.12);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             padding: 5px 10px;
             border-radius: 6px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.5);
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             white-space: nowrap;
         }
 
@@ -637,10 +672,10 @@
             padding: 10px;
             border-radius: 10px;
             color: var(--bg-black);
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
         .share-link-box {
@@ -656,11 +691,14 @@
             width: 100%;
             background: transparent;
             border: none;
-            color: var(--gold-solid);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-size: 0.75rem;
             text-align: center;
             outline: none;
             user-select: all;
+            font-weight: 600;
         }
 
         .share-options-grid {
@@ -677,7 +715,7 @@
             padding: 8px;
             border-radius: 8px;
             cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--text-white);
             font-size: 0.65rem;
             gap: 4px;
@@ -698,7 +736,7 @@
             left: 0;
             width: 100%;
             background: rgba(11, 11, 11, 0.99);
-            border-top: 1px solid rgba(212, 175, 55, 0.35);
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -739,7 +777,14 @@
 
         .nav-item:hover, .nav-item.active {
             color: var(--gold-solid);
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-item.active span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
         }
 
         /* Search Bar Section */
@@ -751,7 +796,7 @@
             border-radius: 16px;
             padding: 2px 5px;
             width: 38%;
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
         }
 
         .bottom-search-wrapper input {
@@ -778,6 +823,13 @@
             font-size: 0.75rem;
         }
 
+        .bottom-search-actions i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
         .search-submit-btn {
             background: var(--gold-gradient);
             border: none;
@@ -790,6 +842,13 @@
             color: var(--bg-black);
             font-size: 0.6rem;
             cursor: pointer;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .search-submit-btn i {
+            background: none !important;
+            -webkit-text-fill-color: var(--bg-black) !important;
+            color: var(--bg-black) !important;
         }
 
         #hiddenCameraInput {
@@ -812,7 +871,7 @@
         </div>
         
         <div class="top-right-controls">
-            <!-- Larger & Clear Login / Auth Button -->
+            <!-- Larger & Clear Luxury Login Button -->
             <button class="auth-top-btn" onclick="openAuthModal('signin')">
                 <i class="fa-solid fa-user"></i> Login
             </button>
@@ -875,7 +934,7 @@
 
             <!-- Forgot Password Container -->
             <div id="forgotPassContainer" style="display: none;">
-                <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); margin-bottom: 10px; font-size: 1rem; text-align: center;">Reset Password</h3>
+                <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; font-size: 1rem; text-align: center;">Reset Password</h3>
                 <p style="font-size: 0.75rem; color: var(--text-gray); margin-bottom: 15px; text-align: center;">Enter your registered email to receive a secure password reset link.</p>
                 <form onsubmit="handleForgotPassSubmit(event)">
                     <div class="auth-form-group">
@@ -926,7 +985,7 @@
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
+            <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
             <div class="share-link-box">
                 <input type="text" id="shareLinkInput" class="share-link-input" readonly onclick="this.select()">
             </div>
