@@ -897,8 +897,8 @@
             <div id="signInFormContainer">
                 <form onsubmit="handleSignInSubmit(event)">
                     <div class="auth-form-group">
-                        <label>Email or WhatsApp Phone</label>
-                        <input type="text" placeholder="Enter your email or phone" required>
+                        <label>Email or WhatsApp Number</label>
+                        <input type="text" placeholder="Enter your email or WhatsApp" required>
                     </div>
                     <div class="auth-form-group">
                         <label>Password</label>
@@ -909,7 +909,7 @@
                 </form>
             </div>
 
-            <!-- Sign Up Form (Clean & Simplified) -->
+            <!-- Sign Up Form (Updated Label) -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
                     <div class="auth-form-group">
@@ -921,7 +921,7 @@
                         <input type="email" placeholder="Enter active email" required>
                     </div>
                     <div class="auth-form-group">
-                        <label>WhatsApp Phone Number</label>
+                        <label>WhatsApp Number</label>
                         <input type="tel" placeholder="Enter WhatsApp number" required>
                     </div>
                     <div class="auth-form-group">
@@ -1383,7 +1383,7 @@
 
         function handleSignUpSubmit(e) {
             e.preventDefault();
-            alert("Account registered successfully! We have saved your WhatsApp & details to set up your account.");
+            alert("Account registered successfully! We have saved your WhatsApp number & details to set up your account.");
             closeAuthModal();
         }
 
