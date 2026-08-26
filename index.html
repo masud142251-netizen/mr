@@ -281,7 +281,7 @@
             transition: transform 0.5s ease;
         }
 
-        /* Advanced Clean YouTube Shorts Wrapper (Hides mobile channel watermark & reload glitches) */
+        /* Bulletproof Clean YouTube Shorts Wrapper with Click Shield */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -292,12 +292,23 @@
 
         .video-wrapper iframe {
             position: absolute;
-            top: -18%;
+            top: -15%;
             left: -10%;
             width: 120%;
-            height: 136%;
+            height: 130%;
             border: none;
-            pointer-events: none;
+            pointer-events: none; /* Prevents touch interaction with YouTube player */
+        }
+
+        /* Invisible Shield to block mobile touch controls & trigger modal */
+        .video-click-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            cursor: pointer;
         }
 
         .video-overlay-badge {
@@ -315,6 +326,7 @@
             align-items: center;
             gap: 3px;
             z-index: 5;
+            pointer-events: none;
         }
 
         .product-card:hover .product-media-box img {
@@ -972,20 +984,19 @@
                         <div class="video-wrapper">
                             <div class="video-overlay-badge"><i class="fa-solid fa-play"></i> YouTube</div>
                             <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal(${item.id})"></div>
                         </div>
                     `;
                 } else {
                     mediaContent = `
-                        <div class="product-media-box">
+                        <div class="product-media-box" onclick="openProductModal(${item.id})">
                             <img src="${item.image}" alt="${item.title}" loading="lazy">
                         </div>
                     `;
                 }
 
                 card.innerHTML = `
-                    <div onclick="openProductModal(${item.id})" style="cursor: pointer;">
-                        ${mediaContent}
-                    </div>
+                    ${mediaContent}
                     <div class="floating-product-actions" onclick="event.stopPropagation()">
                         <div class="action-item view-icon">
                             <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
