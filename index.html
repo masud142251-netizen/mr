@@ -281,11 +281,11 @@
             transition: transform 0.5s ease;
         }
 
-        /* Optimized Taller YouTube Shorts Wrapper (Hides mobile logos & watermarks completely) */
+        /* Clean YouTube Shorts Card Wrapper */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 145%; /* Made slightly taller for perfect portrait luxury view */
+            padding-bottom: 145%;
             background: #000;
             overflow: hidden;
         }
@@ -308,24 +308,6 @@
             height: 100%;
             z-index: 4;
             cursor: pointer;
-        }
-
-        .video-overlay-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.75);
-            border: 1px solid var(--gold-solid);
-            color: var(--gold-solid);
-            padding: 2px 7px;
-            border-radius: 20px;
-            font-size: 0.58rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            z-index: 5;
-            pointer-events: none;
         }
 
         .product-card:hover .product-media-box img {
@@ -379,7 +361,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Full Product Detail Modal with Swipeable Image Gallery */
+        /* Full Product Detail Modal with Swipeable Video & Images */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -424,7 +406,7 @@
             z-index: 10;
         }
 
-        .modal-img-container {
+        .modal-media-slider {
             width: 100%;
             border-radius: 12px;
             overflow-x: auto;
@@ -437,17 +419,33 @@
             scrollbar-width: none;
         }
 
-        .modal-img-container::-webkit-scrollbar {
+        .modal-media-slider::-webkit-scrollbar {
             display: none;
         }
 
-        .modal-img {
+        .modal-slide-item {
             flex: 0 0 100%;
             width: 100%;
-            height: auto;
-            max-height: 280px;
-            object-fit: contain;
+            height: 320px;
             scroll-snap-align: center;
+            position: relative;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-slide-item iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-slide-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
 
@@ -737,12 +735,12 @@
     <!-- Hidden file input -->
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Modal with Swipeable Images -->
+    <!-- Product Modal with Swipeable Video & Images -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-img-container" id="modalImgContainer">
-                <!-- Dynamically populated images for swiping -->
+            <div class="modal-media-slider" id="modalMediaSlider">
+                <!-- Dynamically populated video (if any) and images for swiping -->
             </div>
             <div class="modal-price-box">
                 <div class="modal-price-group">
@@ -1016,7 +1014,6 @@
                 if (item.videoUrl && item.videoUrl.trim() !== "") {
                     mediaContent = `
                         <div class="video-wrapper">
-                            <div class="video-overlay-badge"><i class="fa-solid fa-play"></i> YouTube</div>
                             <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
                             <div class="video-click-shield" onclick="openProductModal(${item.id})"></div>
                         </div>
@@ -1074,14 +1071,24 @@
 
             activeCurrentSeller = product.seller;
             
-            // Populate swipeable images inside modal
-            const imgContainer = document.getElementById('modalImgContainer');
-            imgContainer.innerHTML = "";
+            // Populate slider items (Video first if available, then images) inside modal
+            const slider = document.getElementById('modalMediaSlider');
+            slider.innerHTML = "";
+
+            if (product.videoUrl && product.videoUrl.trim() !== "") {
+                const videoSlide = document.createElement('div');
+                videoSlide.className = 'modal-slide-item';
+                // Inside modal, we allow controls and clear view for the detailed shorts video
+                let cleanModalVideo = product.videoUrl.replace("controls=0", "controls=1");
+                videoSlide.innerHTML = `<iframe src="${cleanModalVideo}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                slider.appendChild(videoSlide);
+            }
+
             product.images.forEach(imgSrc => {
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.className = 'modal-img';
-                imgContainer.appendChild(img);
+                const imgSlide = document.createElement('div');
+                imgSlide.className = 'modal-slide-item';
+                imgSlide.innerHTML = `<img src="${imgSrc}" alt="${product.title}">`;
+                slider.appendChild(imgSlide);
             });
 
             document.getElementById('modalPrice').innerText = product.price;
@@ -1202,6 +1209,7 @@
             loadProducts(filtered);
         }
 
+        /nisearch/triggerCamera()
         function triggerCamera() {
             document.getElementById('hiddenCameraInput').click();
         }
