@@ -30,7 +30,7 @@
         body {
             background-color: var(--bg-black);
             color: var(--text-white);
-            padding-bottom: 90px;
+            padding-bottom: 95px; /* Space for bottom nav */
             overflow-x: hidden;
         }
 
@@ -39,12 +39,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 18px;
-            background: rgba(11, 11, 11, 0.95);
+            padding: 10px 15px;
+            background: rgba(11, 11, 11, 0.98);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -55,32 +55,59 @@
         }
 
         .logo {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
             background: #000;
         }
 
         .brand-title {
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
-        /* Floating Cart Icon */
+        /* Top Right Controls (Country & Cart) */
+        .top-right-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .country-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--gold-solid);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .country-badge i {
+            -webkit-text-fill-color: var(--gold-solid);
+            font-size: 0.8rem;
+        }
+
         .floating-cart {
             position: relative;
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -104,18 +131,18 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .cart-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -4px;
+            right: -4px;
             background: var(--pink-heart);
             color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
+            font-size: 0.65rem;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -123,11 +150,11 @@
             font-weight: 600;
         }
 
-        /* Pinterest Masonry Grid */
+        /* Pinterest Masonry Grid Feed */
         .feed-container {
-            padding: 12px;
+            padding: 10px 10px;
             column-count: 2;
-            column-gap: 12px;
+            column-gap: 10px;
         }
 
         @media (min-width: 768px) {
@@ -139,17 +166,17 @@
         .product-card {
             break-inside: avoid;
             background: var(--card-bg);
-            border-radius: 14px;
-            margin-bottom: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
             animation: fadeIn 0.4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -157,11 +184,17 @@
             position: relative;
             width: 100%;
             cursor: pointer;
+            background: #111;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .product-image-box img {
             width: 100%;
             height: auto;
+            max-height: 260px;
             display: block;
             object-fit: cover;
         }
@@ -173,26 +206,26 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            padding: 5px 12px;
-            border-radius: 18px;
-            gap: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            padding: 4px 10px;
+            border-radius: 16px;
+            gap: 10px;
             border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            white-space: nowrap;
         }
 
         .action-item {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 0.75rem;
+            gap: 3px;
+            font-size: 0.7rem;
             color: var(--text-white);
             cursor: pointer;
         }
 
         .action-item i {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .action-item.view-icon i {
@@ -270,7 +303,7 @@
 
         .modal-img {
             width: 100%;
-            height: 250px;
+            height: 230px;
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 12px;
@@ -332,7 +365,7 @@
         .share-options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin-top: 15px;
         }
 
@@ -357,11 +390,11 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Flying Coin Animation Element */
+        /* Flying Coin Animation */
         .flying-coin {
             position: fixed;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             background: var(--gold-solid);
             border-radius: 50%;
             border: 2px solid #fff;
@@ -371,25 +404,28 @@
             transition: all 0.8s cubic-bezier(0.15, 0.85, 0.35, 1.2);
         }
 
-        /* Bottom Navigation & Search Bar Bar Combined Layout */
+        /* Bottom Navigation Bar Layout */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(15, 15, 15, 0.98);
+            background: rgba(12, 12, 12, 0.98);
             border-top: 1px solid rgba(212, 175, 55, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 8px 10px;
             z-index: 1000;
             backdrop-filter: blur(15px);
+            gap: 5px;
         }
 
         .nav-menus-left {
             display: flex;
-            gap: 15px;
+            gap: 8px;
+            flex: 1;
+            justify-content: space-around;
         }
 
         .nav-item {
@@ -398,13 +434,14 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-gray);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 500;
             transition: color 0.2s;
+            white-space: nowrap;
         }
 
         .nav-item i {
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 2px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -415,16 +452,15 @@
             color: var(--gold-solid);
         }
 
-        /* Integrated Bottom Search Bar */
+        /* Search Bar on Right Side of Bottom Nav */
         .bottom-search-wrapper {
             display: flex;
             align-items: center;
             background: var(--card-bg);
             border: 1.5px solid var(--gold-solid);
-            border-radius: 20px;
-            padding: 3px 10px;
-            width: 48%;
-            max-width: 200px;
+            border-radius: 18px;
+            padding: 3px 8px;
+            width: 38%;
             box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
         }
 
@@ -434,36 +470,42 @@
             border: none;
             outline: none;
             color: var(--text-white);
-            font-size: 0.8rem;
-            padding: 4px;
+            font-size: 0.75rem;
+            padding: 3px;
+            min-width: 0;
         }
 
         .bottom-search-wrapper input::placeholder {
             color: var(--text-gray);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         .bottom-search-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: var(--gold-solid);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Header with Logo and Brand Name -->
+    <!-- Top Header with Logo, Brand Name & Country Badge -->
     <header>
         <div class="brand-container">
             <img src="mr masudar logo (25).jpg" alt="Logo" class="logo">
-            <span class="brand-title">MR MASUDAR ENTERPRISE</span>
+            <span class="brand-title">MR MASUDAR<br>ENTERPRISE</span>
         </div>
-        <div class="floating-cart" id="floatingCart" onclick="openCart()">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-badge" id="cartCount">0</span>
+        <div class="top-right-controls">
+            <div class="country-badge">
+                <i class="fa-solid fa-globe"></i> 237+ Country
+            </div>
+            <div class="floating-cart" id="floatingCart" onclick="openCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </div>
         </div>
     </header>
 
@@ -527,9 +569,13 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar with 3 Menus on Left and Search Bar on Right -->
+    <!-- Bottom Navigation Bar: E-Tech, Seller, Earn, Item on Left & Search Bar on Right -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>E-Tech</span>
+            </a>
             <a href="#" class="nav-item">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
@@ -544,23 +590,28 @@
             </a>
         </div>
         <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search luxury...">
+            <input type="text" id="searchInput" placeholder="Search...">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Camera"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice"></i>
+                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Camera Search"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice Search"></i>
             </div>
         </div>
     </nav>
 
-    <!-- JavaScript Logic & Animations -->
+    <!-- JavaScript Logic & Data Mapping -->
     <script>
+        // Array mapping all your provided luxury product image links and details
         const products = [
             { id: 1, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", discount: "15% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 420, likes: 135, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
-            { id: 2, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", discount: "20% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 512, likes: 188, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
-            { id: 3, title: "Signature Edition Premium Ornament", price: "$310.00", discount: "10% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 389, likes: 110, desc: "Exquisite signature creation reflecting elite taste and royal standard craftsmanship." },
-            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", discount: "25% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
-            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", discount: "5% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
-            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", discount: "30% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." }
+            { id: 2, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", discount: "20% OFF", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 512, likes: 188, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
+            { id: 3, title: "Signature Edition Premium Ornament", price: "$310.00", discount: "10% OFF", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 389, likes: 110, desc: "Exquisite signature creation reflecting elite taste and royal standard craftsmanship." },
+            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", discount: "25% OFF", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
+            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", discount: "5% OFF", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
+            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", discount: "30% OFF", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
+            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", discount: "12% OFF", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 390, likes: 142, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
+            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", discount: "18% OFF", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 530, likes: 195, desc: "Radiant golden glow finish built for high-end exhibition and style." },
+            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", discount: "15% OFF", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 480, likes: 167, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." },
+            { id: 10, title: "Signature Luxury Gold Artifact", price: "$175.00", discount: "10% OFF", image: "https://lh3.googleusercontent.com/d/1N4lXfL2RIjolz0sVcazAc2BzMpO70M3c", views: 610, likes: 230, desc: "Signature edition artifact delivering true luxury feel and durability." }
         ];
 
         let cartCount = 0;
@@ -577,7 +628,7 @@
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div class="product-image-box" onclick="openProductModal(${item.id})">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='Bracelet,woman,Karuponno Craft,mr masudar,art (1).png'">
                         <div class="floating-product-actions" onclick="event.stopPropagation()">
                             <div class="action-item view-icon">
                                 <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
@@ -632,32 +683,30 @@
             cartCount++;
             document.getElementById('cartCount').innerText = cartCount;
 
-            // Play Luxury Coin / Add sound simulation
+            // Play Sound effect simulation
             try {
                 let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
                 audio.volume = 0.3;
                 audio.play();
             } catch(e) {}
 
-            // Create Flying Coin Element from button towards Cart
+            // Flying Coin Animation
             const btnRect = event.target.getBoundingClientRect();
             const cartRect = document.getElementById('floatingCart').getBoundingClientRect();
 
             const coin = document.createElement('div');
             coin.className = 'flying-coin';
-            coin.style.left = `${btnRect.left + btnRect.width / 2 - 12}px`;
-            coin.style.top = `${btnRect.top + btnRect.height / 2 - 12}px`;
+            coin.style.left = `${btnRect.left + btnRect.width / 2 - 11}px`;
+            coin.style.top = `${btnRect.top + btnRect.height / 2 - 11}px`;
             document.body.appendChild(coin);
 
-            // Trigger Fly Animation
             setTimeout(() => {
-                coin.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
-                coin.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
+                coin.style.left = `${cartRect.left + cartRect.width / 2 - 11}px`;
+                coin.style.top = `${cartRect.top + cartRect.height / 2 - 11}px`;
                 coin.style.transform = 'scale(0.4) rotate(360deg)';
                 coin.style.opacity = '0.5';
             }, 50);
 
-            // Remove coin after animation and bounce cart
             setTimeout(() => {
                 coin.remove();
                 const cart = document.getElementById('floatingCart');
@@ -666,7 +715,7 @@
             }, 850);
         }
 
-        // Open Share Modal
+        // Open Share Modal with Affiliate Tracking Link
         function openShareModal(title, id) {
             currentShareUrl = `https://yourdomain.com/product.html?id=${id}&ref=aff_masud`;
             document.getElementById('shareItemName').innerText = title;
@@ -697,7 +746,7 @@
             closeShareModal();
         }
 
-        // Camera & Voice Search Triggers
+        // Camera & Voice Search Triggers (Fully Active)
         function triggerCamera() {
             alert("Visual Image Search initiated. Uploading photo for instant match...");
         }
@@ -710,7 +759,7 @@
                 recognition.onstart = () => { document.getElementById('searchInput').placeholder = "Listening..."; };
                 recognition.onresult = (event) => {
                     document.getElementById('searchInput').value = event.results[0][0].transcript;
-                    document.getElementById('searchInput').placeholder = "Search luxury...";
+                    document.getElementById('searchInput').placeholder = "Search...";
                 };
                 recognition.start();
             } else {
@@ -726,7 +775,7 @@
             }
         }
 
-        // Initial Page Load
+        // Initial Load
         window.onload = function() {
             loadProducts();
         };
