@@ -281,26 +281,25 @@
             transition: transform 0.5s ease;
         }
 
-        /* Bulletproof Clean YouTube Shorts Wrapper with Click Shield */
+        /* Optimized Taller YouTube Shorts Wrapper (Hides mobile logos & watermarks completely) */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 135%;
+            padding-bottom: 145%; /* Made slightly taller for perfect portrait luxury view */
             background: #000;
             overflow: hidden;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: -15%;
-            left: -10%;
-            width: 120%;
-            height: 130%;
+            top: -22%;
+            left: -15%;
+            width: 130%;
+            height: 144%;
             border: none;
-            pointer-events: none; /* Prevents touch interaction with YouTube player */
+            pointer-events: none;
         }
 
-        /* Invisible Shield to block mobile touch controls & trigger modal */
         .video-click-shield {
             position: absolute;
             top: 0;
@@ -380,7 +379,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Full Product Detail Modal */
+        /* Full Product Detail Modal with Swipeable Image Gallery */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -428,20 +427,27 @@
         .modal-img-container {
             width: 100%;
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
             margin-bottom: 12px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            scrollbar-width: none;
+        }
+
+        .modal-img-container::-webkit-scrollbar {
+            display: none;
         }
 
         .modal-img {
+            flex: 0 0 100%;
             width: 100%;
             height: auto;
             max-height: 280px;
             object-fit: contain;
+            scroll-snap-align: center;
             display: block;
         }
 
@@ -731,12 +737,12 @@
     <!-- Hidden file input -->
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Modal -->
+    <!-- Product Modal with Swipeable Images -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-img-container">
-                <img id="modalImg" src="" alt="Product" class="modal-img">
+            <div class="modal-img-container" id="modalImgContainer">
+                <!-- Dynamically populated images for swiping -->
             </div>
             <div class="modal-price-box">
                 <div class="modal-price-group">
@@ -837,7 +843,11 @@
                 bdDiscount: "BD 20% OFF", 
                 seller: "MR Artisan Hub", 
                 videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3",
-                image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                    "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb",
+                    "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW"
+                ], 
                 views: 820, 
                 likes: 235, 
                 desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." 
@@ -848,8 +858,11 @@
                 price: "$125.00", 
                 bdDiscount: "BD 15% OFF", 
                 seller: "Masudar Enterprise", 
-                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3", 
-                image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb",
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                ], 
                 views: 640, 
                 likes: 198, 
                 desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." 
@@ -861,7 +874,10 @@
                 bdDiscount: "BD 25% OFF", 
                 seller: "Karuponno Craft", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW",
+                    "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB"
+                ], 
                 views: 910, 
                 likes: 310, 
                 desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." 
@@ -873,7 +889,10 @@
                 bdDiscount: "BD 18% OFF", 
                 seller: "MR Artisan Hub", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB",
+                    "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C"
+                ], 
                 views: 750, 
                 likes: 240, 
                 desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." 
@@ -885,7 +904,10 @@
                 bdDiscount: "BD 10% OFF", 
                 seller: "Masudar Enterprise", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C",
+                    "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi"
+                ], 
                 views: 530, 
                 likes: 175, 
                 desc: "Classic artisan craft with refined texture and aesthetic appeal." 
@@ -897,7 +919,10 @@
                 bdDiscount: "BD 30% OFF", 
                 seller: "Karuponno Craft", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi",
+                    "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2"
+                ], 
                 views: 1020, 
                 likes: 380, 
                 desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." 
@@ -909,7 +934,10 @@
                 bdDiscount: "BD 12% OFF", 
                 seller: "MR Artisan Hub", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2",
+                    "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf"
+                ], 
                 views: 680, 
                 likes: 215, 
                 desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." 
@@ -921,7 +949,10 @@
                 bdDiscount: "BD 22% OFF", 
                 seller: "Masudar Enterprise", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf",
+                    "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH"
+                ], 
                 views: 890, 
                 likes: 295, 
                 desc: "Radiant golden glow finish built for high-end exhibition and style." 
@@ -933,7 +964,10 @@
                 bdDiscount: "BD 15% OFF", 
                 seller: "Karuponno Craft", 
                 videoUrl: "", 
-                image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH",
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                ], 
                 views: 740, 
                 likes: 260, 
                 desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." 
@@ -990,7 +1024,7 @@
                 } else {
                     mediaContent = `
                         <div class="product-media-box" onclick="openProductModal(${item.id})">
-                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
                         </div>
                     `;
                 }
@@ -1039,7 +1073,17 @@
             if(!product) return;
 
             activeCurrentSeller = product.seller;
-            document.getElementById('modalImg').src = product.image;
+            
+            // Populate swipeable images inside modal
+            const imgContainer = document.getElementById('modalImgContainer');
+            imgContainer.innerHTML = "";
+            product.images.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.className = 'modal-img';
+                imgContainer.appendChild(img);
+            });
+
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             
