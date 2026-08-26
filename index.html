@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MR MASUDAR ENTERPRISE - Luxury Shopping</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -27,11 +27,16 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            overflow-x: hidden !important;
             background-color: var(--bg-black);
             color: var(--text-white);
-            padding-bottom: 110px;
-            overflow-x: hidden;
+            position: relative;
+        }
+
+        body {
+            padding-bottom: 95px;
         }
 
         /* Top Header */
@@ -39,13 +44,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 10px 12px;
             background: rgba(11, 11, 11, 0.98);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             backdrop-filter: blur(10px);
+            width: 100%;
         }
 
         .brand-container {
@@ -55,12 +61,12 @@
         }
 
         .logo {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
             background: #000;
         }
 
@@ -71,97 +77,104 @@
 
         .brand-title-main {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 900;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             line-height: 1.1;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .brand-title-sub {
             font-family: 'Cinzel', serif;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 5.5px;
+            letter-spacing: 4px; /* Perfectly matches MR MASUDAR length */
             text-transform: uppercase;
             text-align: justify;
             text-justify: distribute;
         }
 
-        /* Top Right Luxury Global & 24/7 Badges */
+        /* Top Right Clean Badges */
         .top-right-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 3px;
-        }
-
-        .global-luxury-badge {
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .country-square-badge, .support-square-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
             border: 1px solid var(--gold-solid);
-            padding: 4px 10px;
-            border-radius: 14px;
-            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+            text-align: center;
+            min-width: 48px;
+        }
+
+        .badge-top-text {
+            font-size: 0.65rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
-            white-space: nowrap;
-        }
-
-        .global-luxury-badge i {
-            -webkit-text-fill-color: var(--gold-solid);
-            font-size: 0.75rem;
-        }
-
-        .sub-global-info {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.58rem;
-            color: var(--text-gray);
-            letter-spacing: 0.5px;
+            gap: 2px;
         }
 
-        .sub-global-info span {
+        .badge-top-text i {
+            -webkit-text-fill-color: var(--gold-solid);
+            font-size: 0.6rem;
+        }
+
+        .support-square-badge .badge-top-text {
             color: var(--gold-solid);
+            -webkit-text-fill-color: var(--gold-solid);
+        }
+
+        .badge-bottom-text {
+            font-size: 8px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-weight: 600;
         }
 
-        /* Always Visible Floating Cart on Bottom Right */
+        /* Always Visible Floating Cart (Safely positioned above bottom nav) */
         .floating-cart {
             position: fixed;
-            bottom: 78px;
+            bottom: 72px;
             right: 15px;
             background: var(--card-bg);
-            border: 2.5px solid var(--gold-solid);
-            width: 56px;
-            height: 56px;
+            border: 2px solid var(--gold-solid);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 0 22px rgba(212, 175, 55, 0.7);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
             z-index: 1050;
             animation: cartFocusPulse 1.8s infinite ease-in-out;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes cartFocusPulse {
-            0% { box-shadow: 0 0 12px rgba(212, 175, 55, 0.5); transform: scale(1); }
-            50% { box-shadow: 0 0 28px rgba(212, 175, 55, 0.95); transform: scale(1.08); }
-            100% { box-shadow: 0 0 12px rgba(212, 175, 55, 0.5); transform: scale(1); }
+            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 24px rgba(212, 175, 55, 0.95); transform: scale(1.06); }
+            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); transform: scale(1); }
         }
 
         .floating-cart.bounce-center {
@@ -170,8 +183,8 @@
 
         @keyframes cartCenterAnim {
             0% { transform: scale(1) translate(0, 0); }
-            40% { transform: scale(1.4) translate(-120px, -180px) rotate(-15deg); box-shadow: 0 0 40px var(--gold-solid); }
-            70% { transform: scale(1.2) translate(-50px, -80px) rotate(10deg); }
+            40% { transform: scale(1.3) translate(-100px, -150px) rotate(-15deg); box-shadow: 0 0 35px var(--gold-solid); }
+            70% { transform: scale(1.1) translate(-40px, -60px) rotate(10deg); }
             100% { transform: scale(1) translate(0, 0); }
         }
 
@@ -179,18 +192,18 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.4rem;
+            font-size: 1.25rem;
         }
 
         .cart-badge {
             position: absolute;
-            top: -4px;
-            right: -4px;
+            top: -3px;
+            right: -3px;
             background: var(--pink-heart);
             color: white;
-            font-size: 0.72rem;
-            width: 21px;
-            height: 21px;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -198,44 +211,53 @@
             font-weight: 700;
         }
 
-        /* Pinterest Masonry Grid Feed */
+        /* Pinterest Masonry Grid Feed (Fixed for mobile 2 columns, PC 4 columns, zero horizontal shift) */
         .feed-container {
-            padding: 12px 10px;
+            padding: 10px 8px;
             column-count: 2;
-            column-gap: 10px;
-            max-width: 1400px;
+            column-gap: 8px;
+            width: 100%;
+            max-width: 1450px;
             margin: 0 auto;
         }
 
         @media (min-width: 768px) {
             .feed-container {
                 column-count: 3;
+                padding: 15px;
+                column-gap: 12px;
             }
         }
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4;
+                column-count: 4; /* Exactly 4 columns on PC */
             }
         }
 
         .product-card {
             break-inside: avoid;
             background: var(--card-bg);
-            border-radius: 14px;
-            margin-bottom: 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             animation: fadeIn 0.4s ease-in-out;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .product-card {
+                margin-bottom: 12px;
+            }
         }
 
         .product-card:hover {
-            transform: translateY(-5px) scale(1.01);
+            transform: translateY(-3px);
             border-color: var(--gold-solid);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
         }
 
         @keyframes fadeIn {
@@ -248,7 +270,7 @@
             width: 100%;
             cursor: pointer;
             background: #111;
-            min-height: 160px;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,31 +287,31 @@
         }
 
         .product-card:hover .product-image-box img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         /* Floating Interactive Bar on Product Image */
         .floating-product-actions {
             position: absolute;
-            bottom: 8px;
+            bottom: 6px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            gap: 12px;
+            gap: 10px;
             border: 1px solid rgba(212, 175, 55, 0.5);
             white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .action-item {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 0.75rem;
+            gap: 3px;
+            font-size: 0.7rem;
             color: var(--text-white);
             cursor: pointer;
             transition: transform 0.2s;
@@ -300,7 +322,7 @@
         }
 
         .action-item i {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .action-item.view-icon i {
@@ -346,11 +368,11 @@
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
             width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 20px;
+            max-width: 380px;
+            border-radius: 18px;
+            padding: 18px;
             position: relative;
-            max-height: 92vh;
+            max-height: 90vh;
             overflow-y: auto;
             animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -362,13 +384,13 @@
 
         .close-modal {
             position: absolute;
-            top: 14px;
-            right: 14px;
+            top: 12px;
+            right: 12px;
             background: rgba(255,255,255,0.1);
             border: none;
             color: var(--text-white);
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -379,9 +401,9 @@
 
         .modal-img-container {
             width: 100%;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: #000;
             display: flex;
@@ -392,7 +414,7 @@
         .modal-img {
             width: 100%;
             height: auto;
-            max-height: 320px;
+            max-height: 280px;
             object-fit: contain;
             display: block;
         }
@@ -401,19 +423,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
-            gap: 8px;
+            margin-bottom: 8px;
+            gap: 6px;
         }
 
         .modal-price-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             min-width: 0;
         }
 
         .modal-price {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -424,68 +446,62 @@
         .modal-bd-discount {
             background: linear-gradient(135deg, #ff2d55, #ff6b8b);
             color: white;
-            font-size: 0.68rem;
-            padding: 3px 8px;
-            border-radius: 6px;
+            font-size: 0.62rem;
+            padding: 3px 6px;
+            border-radius: 5px;
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            box-shadow: 0 2px 8px rgba(255, 45, 85, 0.4);
         }
 
         .modal-seller-tag {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--gold-solid);
             background: rgba(212, 175, 55, 0.1);
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 3px 6px;
+            border-radius: 5px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 130px;
+            max-width: 120px;
         }
 
         .modal-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--text-white);
             line-height: 1.3;
         }
 
         .modal-desc {
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             color: var(--text-gray);
-            margin-bottom: 18px;
-            line-height: 1.5;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
 
         .modal-add-btn {
             width: 100%;
             background: var(--gold-gradient);
             border: none;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             color: var(--bg-black);
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
-            transition: transform 0.2s;
-        }
-
-        .modal-add-btn:active {
-            transform: scale(0.97);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.35);
         }
 
         /* Share Options Grid */
         .share-options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .share-option-item {
@@ -493,27 +509,18 @@
             flex-direction: column;
             align-items: center;
             background: rgba(255,255,255,0.04);
-            padding: 10px;
-            border-radius: 10px;
+            padding: 8px;
+            border-radius: 8px;
             cursor: pointer;
             border: 1px solid rgba(212, 175, 55, 0.2);
             color: var(--text-white);
-            font-size: 0.7rem;
-            gap: 5px;
+            font-size: 0.65rem;
+            gap: 4px;
             text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .share-option-item:active {
-            transform: scale(0.95);
-        }
-
-        .share-option-item:hover {
-            background: rgba(212, 175, 55, 0.1);
         }
 
         .share-option-item i {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -522,38 +529,38 @@
         /* Slow Motion Flying Coin Animation */
         .flying-coin {
             position: fixed;
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             background: var(--gold-solid);
             border-radius: 50%;
             border: 2px solid #fff;
-            box-shadow: 0 0 15px var(--gold-solid);
+            box-shadow: 0 0 12px var(--gold-solid);
             z-index: 9999;
             pointer-events: none;
             transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Bottom Navigation Bar Layout */
+        /* Bottom Fixed Navigation Bar (100% stable, fully visible, zero clipping on mobile) */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(12, 12, 12, 0.98);
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(11, 11, 11, 0.99);
+            border-top: 1px solid rgba(212, 175, 55, 0.35);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 10px;
+            padding: 6px 8px;
             z-index: 1000;
             backdrop-filter: blur(15px);
-            gap: 6px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.8);
         }
 
         .nav-menus-left {
             display: flex;
-            gap: 4px;
-            flex: 1;
+            gap: 2px;
+            flex: 1.1;
             justify-content: space-around;
         }
 
@@ -563,52 +570,37 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-gray);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 500;
             transition: all 0.2s ease;
             white-space: nowrap;
-            padding: 4px 6px;
-            border-radius: 8px;
-        }
-
-        .nav-item:active {
-            transform: scale(0.9);
+            padding: 3px 4px;
+            border-radius: 6px;
         }
 
         .nav-item i {
-            font-size: 0.95rem;
-            margin-bottom: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 1px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transition: transform 0.2s;
         }
 
-        /* Fixed: Item tab is now unselected by default like others, active only when clicked */
         .nav-item:hover, .nav-item.active {
             color: var(--gold-solid);
             background: rgba(212, 175, 55, 0.08);
         }
 
-        .nav-item.active i {
-            transform: scale(1.15);
-        }
-
-        /* Search Bar on Right Side of Bottom Nav with Submit Button */
+        /* Search Bar on Right Side of Bottom Nav */
         .bottom-search-wrapper {
             display: flex;
             align-items: center;
             background: var(--card-bg);
             border: 1.5px solid var(--gold-solid);
-            border-radius: 18px;
-            padding: 3px 6px;
-            width: 36%;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
-            transition: transform 0.2s;
-        }
-
-        .bottom-search-wrapper:active {
-            transform: scale(0.98);
+            border-radius: 16px;
+            padding: 2px 5px;
+            width: 38%;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
         }
 
         .bottom-search-wrapper input {
@@ -617,50 +609,36 @@
             border: none;
             outline: none;
             color: var(--text-white);
-            font-size: 0.72rem;
-            padding: 3px;
+            font-size: 0.68rem;
+            padding: 2px;
             min-width: 0;
         }
 
         .bottom-search-wrapper input::placeholder {
             color: var(--text-gray);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
         }
 
         .bottom-search-actions {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             color: var(--gold-solid);
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .bottom-search-actions i {
-            transition: transform 0.2s;
-        }
-
-        .bottom-search-actions i:active {
-            transform: scale(1.3);
+            font-size: 0.75rem;
         }
 
         .search-submit-btn {
             background: var(--gold-gradient);
             border: none;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--bg-black);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .search-submit-btn:active {
-            transform: scale(1.2);
         }
 
         #hiddenCameraInput {
@@ -670,7 +648,7 @@
 </head>
 <body>
 
-    <!-- Top Header with Logo, Stylized Brand Name & Luxury Global Badges -->
+    <!-- Top Header -->
     <header>
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
@@ -680,30 +658,32 @@
             </div>
         </div>
         <div class="top-right-controls">
-            <div class="global-luxury-badge">
-                <i class="fa-solid fa-globe"></i> 200+ Country 🌍🇺🇸🇬🇧🇸🇦🇦🇪
+            <div class="country-square-badge">
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
+                <span class="badge-bottom-text">Country</span>
             </div>
-            <div class="sub-global-info">
-                <span>24/7</span> Support & Delivery ⚡
+            <div class="support-square-badge">
+                <span class="badge-top-text">24/7</span>
+                <span class="badge-bottom-text">Support</span>
             </div>
         </div>
     </header>
 
-    <!-- Always Visible Floating Cart on Bottom Right -->
+    <!-- Floating Cart -->
     <div class="floating-cart" id="floatingCart" onclick="openCart()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- Pinterest Style Masonry Feed -->
+    <!-- Product Feed -->
     <main class="feed-container" id="productFeed">
-        <!-- Products dynamically loaded -->
+        <!-- Dynamically Loaded -->
     </main>
 
-    <!-- Hidden file input for direct gallery image search -->
+    <!-- Hidden file input -->
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Full Product Detail Modal -->
+    <!-- Product Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -718,22 +698,22 @@
                 <span class="modal-seller-tag" id="modalSeller">Seller: Masudar</span>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
-            <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance, featuring supreme gold finishing and certified artisan quality.</p>
+            <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance.</p>
             <button class="modal-add-btn" onclick="addToCartWithAnimation(event)">Add To Cart</button>
         </div>
     </div>
 
-    <!-- Share Modal with Direct Social Links & Affiliate Copy -->
+    <!-- Share Modal -->
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); text-align: center; margin-bottom: 5px;">Share Luxury Item</h3>
-            <p style="font-size: 0.75rem; color: var(--text-gray); text-align: center; margin-bottom: 12px; word-break: break-all;" id="shareItemName">Product Link</p>
+            <p style="font-size: 0.7rem; color: var(--text-gray); text-align: center; margin-bottom: 10px; word-break: break-all;" id="shareItemName">Link</p>
             
             <div class="share-options-grid">
                 <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)">
                     <i class="fa-solid fa-link"></i>
-                    <span>Copy Link</span>
+                    <span>Copy</span>
                 </a>
                 <a href="#" id="shareFacebook" target="_blank" class="share-option-item">
                     <i class="fa-brands fa-facebook"></i>
@@ -763,7 +743,7 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar: E-Tech, Seller, Earn, Item & Search Bar with Submit -->
+    <!-- Fixed Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <a href="#" class="nav-item" onclick="setActiveNav(this)">
@@ -786,8 +766,8 @@
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Upload from Gallery"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice Search"></i>
+                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Upload"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice"></i>
                 <button class="search-submit-btn" onclick="performSearchSubmit()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -795,24 +775,32 @@
         </div>
     </nav>
 
-    <!-- JavaScript Logic & Direct Integration -->
+    <!-- JavaScript Logic -->
     <script>
         const products = [
-            { id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", views: 420, likes: 135, desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." },
-            { id: 2, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", bdDiscount: "BD 15% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 512, likes: 188, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
-            { id: 3, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", bdDiscount: "BD 25% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 389, likes: 110, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
-            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", bdDiscount: "BD 18% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
-            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", bdDiscount: "BD 10% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
-            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", bdDiscount: "BD 30% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
-            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", bdDiscount: "BD 12% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 390, likes: 142, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
-            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", bdDiscount: "BD 22% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 530, likes: 195, desc: "Radiant golden glow finish built for high-end exhibition and style." },
-            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", bdDiscount: "BD 15% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 480, likes: 167, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." }
+            { id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", views: 820, likes: 235, desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." },
+            { id: 2, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", bdDiscount: "BD 15% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 640, likes: 198, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
+            { id: 3, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", bdDiscount: "BD 25% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 910, likes: 310, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
+            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", bdDiscount: "BD 18% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 750, likes: 240, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
+            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", bdDiscount: "BD 10% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 530, likes: 175, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
+            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", bdDiscount: "BD 30% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 1020, likes: 380, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
+            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", bdDiscount: "BD 12% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 680, likes: 215, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
+            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", bdDiscount: "BD 22% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 890, likes: 295, desc: "Radiant golden glow finish built for high-end exhibition and style." },
+            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", bdDiscount: "BD 15% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 740, likes: 260, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." }
         ];
 
         let cartCount = 0;
         let currentShareUrl = '';
 
-        // Load Products into Pinterest Masonry Grid
+        // Auto-increment Views & Likes daily simulation
+        function autoBoostEngagement() {
+            products.forEach(item => {
+                item.views += Math.floor(Math.random() * 4) + 1;
+                item.likes += Math.floor(Math.random() * 2);
+            });
+        }
+        setInterval(autoBoostEngagement, 10000);
+
         function loadProducts(dataToRender = products) {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
@@ -840,25 +828,27 @@
             });
         }
 
-        // Handle Active state for bottom nav tabs dynamically
         function setActiveNav(element) {
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // Like Button Interaction
         function toggleLike(element, id) {
             element.classList.toggle('active');
             const countSpan = document.getElementById(`like-count-${id}`);
             let currentLikes = parseInt(countSpan.innerText);
+            const product = products.find(p => p.id === id);
+            
             if(element.classList.contains('active')) {
-                countSpan.innerText = currentLikes + 1;
+                currentLikes += 1;
+                product.likes = currentLikes;
             } else {
-                countSpan.innerText = currentLikes - 1;
+                currentLikes -= 1;
+                product.likes = currentLikes;
             }
+            countSpan.innerText = currentLikes;
         }
 
-        // Open Full Product Detail Modal
         function openProductModal(id) {
             const product = products.find(p => p.id === id);
             if(!product) return;
@@ -877,7 +867,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add to Cart with Slow Motion Flying Coin Animation & Center Cart Bounce Effect
         function addToCartWithAnimation(event) {
             closeProductModal();
             cartCount++;
@@ -894,13 +883,13 @@
 
             const coin = document.createElement('div');
             coin.className = 'flying-coin';
-            coin.style.left = `${btnRect.left + btnRect.width / 2 - 13}px`;
-            coin.style.top = `${btnRect.top + btnRect.height / 2 - 13}px`;
+            coin.style.left = `${btnRect.left + btnRect.width / 2 - 12}px`;
+            coin.style.top = `${btnRect.top + btnRect.height / 2 - 12}px`;
             document.body.appendChild(coin);
 
             setTimeout(() => {
-                coin.style.left = `${cartRect.left + cartRect.width / 2 - 13}px`;
-                coin.style.top = `${cartRect.top + cartRect.height / 2 - 13}px`;
+                coin.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
+                coin.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
                 coin.style.transform = 'scale(0.35) rotate(720deg)';
                 coin.style.opacity = '0.6';
             }, 50);
@@ -913,7 +902,6 @@
             }, 1200);
         }
 
-        // Open Share Modal with Direct Social Links & Affiliate Tracking Link
         function openShareModal(title, id) {
             currentShareUrl = `https://mrmasudar.com/product.html?id=${id}&ref=aff_masud`;
             document.getElementById('shareItemName').innerText = currentShareUrl;
@@ -932,7 +920,6 @@
             document.getElementById('shareModal').style.display = 'none';
         }
 
-        // Direct Copy Affiliate Link
         function copyAffiliateLink(e) {
             e.preventDefault();
             navigator.clipboard.writeText(currentShareUrl);
@@ -940,7 +927,6 @@
             closeShareModal();
         }
 
-        // Direct Search Trigger via Button or Enter Key
         function performSearchSubmit() {
             const query = document.getElementById('searchInput').value;
             handleSearch(query);
@@ -962,7 +948,6 @@
             loadProducts(filtered);
         }
 
-        // Direct Gallery Image Search Trigger (No permission prompt)
         function triggerCamera() {
             document.getElementById('hiddenCameraInput').click();
         }
@@ -970,11 +955,10 @@
         function handleGalleryImage(event) {
             const file = event.target.files[0];
             if(file) {
-                alert("Gallery image uploaded successfully for visual matching: " + file.name);
+                alert("Gallery image uploaded successfully: " + file.name);
             }
         }
 
-        // Direct Voice Search Trigger
         function triggerVoiceSearch() {
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1005,7 +989,6 @@
             }
         }
 
-        // Initial Load
         window.onload = function() {
             loadProducts();
         };
