@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MR MASUDAR ENTERPRISE - Luxury Shopping</title>
     <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -30,7 +30,7 @@
         body {
             background-color: var(--bg-black);
             color: var(--text-white);
-            padding-bottom: 95px; /* Space for bottom nav */
+            padding-bottom: 95px;
             overflow-x: hidden;
         }
 
@@ -39,7 +39,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 10px 12px;
             background: rgba(11, 11, 11, 0.98);
             position: sticky;
             top: 0;
@@ -51,12 +51,12 @@
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
@@ -66,42 +66,44 @@
 
         .brand-title {
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 800;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
         }
 
-        /* Top Right Controls (Country & Cart) */
+        /* Top Right Controls */
         .top-right-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .country-badge {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             background: var(--card-bg);
-            border: 1.5px solid var(--gold-solid);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border: 1px solid var(--gold-solid);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.68rem;
             font-weight: 600;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
         }
 
         .country-badge i {
             -webkit-text-fill-color: var(--gold-solid);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
 
+        /* Floating Cart Icon with Pulse Animation */
         .floating-cart {
             position: relative;
             background: var(--card-bg);
@@ -113,8 +115,15 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            animation: cartPulse 2s infinite ease-in-out;
             transition: transform 0.2s ease;
+        }
+
+        @keyframes cartPulse {
+            0% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 18px rgba(212, 175, 55, 0.8); transform: scale(1.05); }
+            100% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
         }
 
         .floating-cart.bounce {
@@ -131,7 +140,7 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .cart-badge {
@@ -140,7 +149,7 @@
             right: -4px;
             background: var(--pink-heart);
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -152,9 +161,9 @@
 
         /* Pinterest Masonry Grid Feed */
         .feed-container {
-            padding: 10px 10px;
+            padding: 10px 8px;
             column-count: 2;
-            column-gap: 10px;
+            column-gap: 8px;
         }
 
         @media (min-width: 768px) {
@@ -167,12 +176,18 @@
             break-inside: avoid;
             background: var(--card-bg);
             border-radius: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.25);
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
             animation: fadeIn 0.4s ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold-solid);
         }
 
         @keyframes fadeIn {
@@ -185,7 +200,7 @@
             width: 100%;
             cursor: pointer;
             background: #111;
-            min-height: 160px;
+            min-height: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -194,7 +209,7 @@
         .product-image-box img {
             width: 100%;
             height: auto;
-            max-height: 260px;
+            max-height: 280px;
             display: block;
             object-fit: cover;
         }
@@ -206,26 +221,27 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(6px);
-            padding: 4px 10px;
-            border-radius: 16px;
-            gap: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            gap: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         .action-item {
             display: flex;
             align-items: center;
-            gap: 3px;
-            font-size: 0.7rem;
+            gap: 4px;
+            font-size: 0.75rem;
             color: var(--text-white);
             cursor: pointer;
         }
 
         .action-item i {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
         .action-item.view-icon i {
@@ -236,7 +252,11 @@
 
         .action-item.like-icon i {
             color: var(--pink-heart);
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.2s;
+        }
+
+        .action-item.like-icon:active {
+            transform: scale(1.3);
         }
 
         .action-item.like-icon.active i {
@@ -251,114 +271,148 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Popup Detail Modal */
+        /* Full Product Detail Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.88);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            backdrop-filter: blur(6px);
-            padding: 15px;
+            backdrop-filter: blur(8px);
+            padding: 12px;
         }
 
         .modal-content {
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
             width: 100%;
-            max-width: 380px;
-            border-radius: 18px;
-            padding: 18px;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 20px;
             position: relative;
-            max-height: 90vh;
+            max-height: 92vh;
             overflow-y: auto;
-            animation: scaleUp 0.3s ease;
+            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes scaleUp {
-            from { transform: scale(0.85); opacity: 0; }
+            from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 14px;
+            right: 14px;
             background: rgba(255,255,255,0.1);
             border: none;
             color: var(--text-white);
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-img-container {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-img {
             width: 100%;
-            height: 230px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            height: auto;
+            max-height: 320px;
+            object-fit: contain;
+            display: block;
         }
 
         .modal-price-box {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .modal-price-group {
+            display: flex;
+            align-items: center;
             gap: 10px;
-            margin-bottom: 8px;
         }
 
         .modal-price {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .modal-discount {
-            background: rgba(255, 45, 85, 0.15);
-            color: var(--pink-heart);
+        .modal-bd-discount {
+            background: linear-gradient(135deg, #ff2d55, #ff6b8b);
+            color: white;
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255, 45, 85, 0.4);
+        }
+
+        .modal-seller-tag {
             font-size: 0.75rem;
-            padding: 2px 8px;
+            color: var(--gold-solid);
+            background: rgba(212, 175, 55, 0.1);
+            padding: 3px 8px;
             border-radius: 6px;
-            font-weight: 600;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .modal-title {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-white);
+            line-height: 1.3;
         }
 
         .modal-desc {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-gray);
-            margin-bottom: 15px;
-            line-height: 1.4;
+            margin-bottom: 18px;
+            line-height: 1.5;
         }
 
         .modal-add-btn {
             width: 100%;
             background: var(--gold-gradient);
             border: none;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             color: var(--bg-black);
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .modal-add-btn:active {
+            transform: scale(0.98);
         }
 
         /* Share Options Grid */
@@ -381,6 +435,11 @@
             color: var(--text-white);
             font-size: 0.7rem;
             gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .share-option-item:hover {
+            background: rgba(212, 175, 55, 0.1);
         }
 
         .share-option-item i {
@@ -390,18 +449,18 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Flying Coin Animation */
+        /* Slow Motion Flying Coin Animation */
         .flying-coin {
             position: fixed;
-            width: 22px;
-            height: 22px;
+            width: 26px;
+            height: 26px;
             background: var(--gold-solid);
             border-radius: 50%;
             border: 2px solid #fff;
-            box-shadow: 0 0 10px var(--gold-solid);
+            box-shadow: 0 0 15px var(--gold-solid);
             z-index: 9999;
             pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.15, 0.85, 0.35, 1.2);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Bottom Navigation Bar Layout */
@@ -418,12 +477,12 @@
             padding: 8px 10px;
             z-index: 1000;
             backdrop-filter: blur(15px);
-            gap: 5px;
+            gap: 6px;
         }
 
         .nav-menus-left {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex: 1;
             justify-content: space-around;
         }
@@ -434,7 +493,7 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-gray);
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 500;
             transition: color 0.2s;
             white-space: nowrap;
@@ -462,6 +521,7 @@
             padding: 3px 8px;
             width: 38%;
             box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
+            cursor: pointer;
         }
 
         .bottom-search-wrapper input {
@@ -473,6 +533,7 @@
             font-size: 0.75rem;
             padding: 3px;
             min-width: 0;
+            cursor: pointer;
         }
 
         .bottom-search-wrapper input::placeholder {
@@ -495,8 +556,8 @@
     <!-- Top Header with Logo, Brand Name & Country Badge -->
     <header>
         <div class="brand-container">
-            <img src="mr masudar logo (25).jpg" alt="Logo" class="logo">
-            <span class="brand-title">MR MASUDAR<br>ENTERPRISE</span>
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="MR Masudar Enterprise Logo" class="logo">
+            <span class="brand-title">MR MASUDAR ENTERPRISE</span>
         </div>
         <div class="top-right-controls">
             <div class="country-badge">
@@ -518,10 +579,15 @@
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <img id="modalImg" src="" alt="Product" class="modal-img">
+            <div class="modal-img-container">
+                <img id="modalImg" src="" alt="Product" class="modal-img">
+            </div>
             <div class="modal-price-box">
-                <span class="modal-price" id="modalPrice">$0.00</span>
-                <span class="modal-discount" id="modalDiscount">0% OFF</span>
+                <div class="modal-price-group">
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+                <span class="modal-seller-tag" id="modalSeller">Seller: Masudar Admin</span>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
             <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance, featuring supreme gold finishing and certified artisan quality.</p>
@@ -589,29 +655,28 @@
                 <span>Item</span>
             </a>
         </div>
-        <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search...">
+        <div class="bottom-search-wrapper" onclick="focusSearchInput()">
+            <input type="text" id="searchInput" placeholder="Search..." oninput="handleSearch(this.value)">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Camera Search"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice Search"></i>
+                <i class="fa-solid fa-camera" onclick="event.stopPropagation(); triggerCamera()" title="Camera Search"></i>
+                <i class="fa-solid fa-microphone" onclick="event.stopPropagation(); triggerVoiceSearch()" title="Voice Search"></i>
             </div>
         </div>
     </nav>
 
     <!-- JavaScript Logic & Data Mapping -->
     <script>
-        // Array mapping all your provided luxury product image links and details
+        // Updated product list with your provided new product link and other high-end items
         const products = [
-            { id: 1, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", discount: "15% OFF", image: "Bracelet,woman,Karuponno Craft,mr masudar,art (1).png", views: 420, likes: 135, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
-            { id: 2, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", discount: "20% OFF", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 512, likes: 188, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
-            { id: 3, title: "Signature Edition Premium Ornament", price: "$310.00", discount: "10% OFF", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 389, likes: 110, desc: "Exquisite signature creation reflecting elite taste and royal standard craftsmanship." },
-            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", discount: "25% OFF", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
-            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", discount: "5% OFF", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
-            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", discount: "30% OFF", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
-            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", discount: "12% OFF", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 390, likes: 142, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
-            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", discount: "18% OFF", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 530, likes: 195, desc: "Radiant golden glow finish built for high-end exhibition and style." },
-            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", discount: "15% OFF", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 480, likes: 167, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." },
-            { id: 10, title: "Signature Luxury Gold Artifact", price: "$175.00", discount: "10% OFF", image: "https://lh3.googleusercontent.com/d/1N4lXfL2RIjolz0sVcazAc2BzMpO70M3c", views: 610, likes: 230, desc: "Signature edition artifact delivering true luxury feel and durability." }
+            { id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", views: 420, likes: 135, desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." },
+            { id: 2, title: "Luxury Gold Crafted Designer Bracelet", price: "$125.00", bdDiscount: "BD 15% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", views: 512, likes: 188, desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." },
+            { id: 3, title: "Exquisite Royal Handcrafted Masterpiece", price: "$240.00", bdDiscount: "BD 25% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW", views: 389, likes: 110, desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." },
+            { id: 4, title: "Imperial Gold Elite Collection Item", price: "$180.00", bdDiscount: "BD 18% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB", views: 605, likes: 210, desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." },
+            { id: 5, title: "Classic Artisan Luxury Artifact", price: "$95.00", bdDiscount: "BD 10% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C", views: 470, likes: 155, desc: "Classic artisan craft with refined texture and aesthetic appeal." },
+            { id: 6, title: "Prestige Golden Finish Special Craft", price: "$450.00", bdDiscount: "BD 30% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi", views: 720, likes: 304, desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." },
+            { id: 7, title: "Royal Golden Heritage Mastercraft", price: "$215.00", bdDiscount: "BD 12% OFF", seller: "MR Artisan Hub", image: "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2", views: 390, likes: 142, desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." },
+            { id: 8, title: "Elite Golden Glow Luxury Piece", price: "$350.00", bdDiscount: "BD 22% OFF", seller: "Masudar Enterprise", image: "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf", views: 530, likes: 195, desc: "Radiant golden glow finish built for high-end exhibition and style." },
+            { id: 9, title: "Supreme Artisan Collection Craft", price: "$290.00", bdDiscount: "BD 15% OFF", seller: "Karuponno Craft", image: "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH", views: 480, likes: 167, desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." }
         ];
 
         let cartCount = 0;
@@ -619,16 +684,16 @@
         let activeProductForCart = null;
 
         // Load Products into Pinterest Masonry Grid
-        function loadProducts() {
+        function loadProducts(dataToRender = products) {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
 
-            products.forEach(item => {
+            dataToRender.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div class="product-image-box" onclick="openProductModal(${item.id})">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='Bracelet,woman,Karuponno Craft,mr masudar,art (1).png'">
+                        <img src="${item.image}" alt="${item.title}" loading="lazy">
                         <div class="floating-product-actions" onclick="event.stopPropagation()">
                             <div class="action-item view-icon">
                                 <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
@@ -666,7 +731,8 @@
 
             document.getElementById('modalImg').src = product.image;
             document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalDiscount').innerText = product.discount;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalSeller').innerText = "Seller: " + product.seller;
             document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalDesc').innerText = product.desc;
 
@@ -677,7 +743,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add to Cart with Coin Fly Animation & Sound Effect
+        // Add to Cart with Slow Motion Flying Coin Animation & Sound Effect
         function addToCartWithAnimation(event) {
             closeProductModal();
             cartCount++;
@@ -690,21 +756,21 @@
                 audio.play();
             } catch(e) {}
 
-            // Flying Coin Animation
+            // Slow Motion Flying Coin Animation
             const btnRect = event.target.getBoundingClientRect();
             const cartRect = document.getElementById('floatingCart').getBoundingClientRect();
 
             const coin = document.createElement('div');
             coin.className = 'flying-coin';
-            coin.style.left = `${btnRect.left + btnRect.width / 2 - 11}px`;
-            coin.style.top = `${btnRect.top + btnRect.height / 2 - 11}px`;
+            coin.style.left = `${btnRect.left + btnRect.width / 2 - 13}px`;
+            coin.style.top = `${btnRect.top + btnRect.height / 2 - 13}px`;
             document.body.appendChild(coin);
 
             setTimeout(() => {
-                coin.style.left = `${cartRect.left + cartRect.width / 2 - 11}px`;
-                coin.style.top = `${cartRect.top + cartRect.height / 2 - 11}px`;
-                coin.style.transform = 'scale(0.4) rotate(360deg)';
-                coin.style.opacity = '0.5';
+                coin.style.left = `${cartRect.left + cartRect.width / 2 - 13}px`;
+                coin.style.top = `${cartRect.top + cartRect.height / 2 - 13}px`;
+                coin.style.transform = 'scale(0.35) rotate(720deg)';
+                coin.style.opacity = '0.6';
             }, 50);
 
             setTimeout(() => {
@@ -712,12 +778,12 @@
                 const cart = document.getElementById('floatingCart');
                 cart.classList.add('bounce');
                 setTimeout(() => cart.classList.remove('bounce'), 400);
-            }, 850);
+            }, 1200); // Slow motion duration
         }
 
         // Open Share Modal with Affiliate Tracking Link
         function openShareModal(title, id) {
-            currentShareUrl = `https://yourdomain.com/product.html?id=${id}&ref=aff_masud`;
+            currentShareUrl = `https://mrmasudar.com/product.html?id=${id}&ref=aff_masud`;
             document.getElementById('shareItemName').innerText = title;
             document.getElementById('shareModal').style.display = 'flex';
         }
@@ -746,7 +812,20 @@
             closeShareModal();
         }
 
-        // Camera & Voice Search Triggers (Fully Active)
+        // Search bar interactive functions
+        function focusSearchInput() {
+            const input = document.getElementById('searchInput');
+            input.focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleSearch(query) {
+            const keyword = query.toLowerCase().trim();
+            const filtered = products.filter(p => p.title.toLowerCase().includes(keyword) || p.desc.toLowerCase().includes(keyword));
+            loadProducts(filtered);
+        }
+
+        // Camera & Voice Search Triggers
         function triggerCamera() {
             alert("Visual Image Search initiated. Uploading photo for instant match...");
         }
@@ -758,12 +837,14 @@
                 recognition.lang = 'bn-BD';
                 recognition.onstart = () => { document.getElementById('searchInput').placeholder = "Listening..."; };
                 recognition.onresult = (event) => {
-                    document.getElementById('searchInput').value = event.results[0][0].transcript;
+                    const text = event.results[0][0].transcript;
+                    document.getElementById('searchInput').value = text;
+                    handleSearch(text);
                     document.getElementById('searchInput').placeholder = "Search...";
                 };
                 recognition.start();
             } else {
-                alert("Voice search is active. Speak now.");
+                alert("Voice search active. Speak now.");
             }
         }
 
