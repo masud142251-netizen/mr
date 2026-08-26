@@ -90,12 +90,12 @@
 
         .brand-title-sub {
             font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 4px;
+            letter-spacing: 5.2px; /* Adjusted to perfectly match MR MASUDAR width */
             text-transform: uppercase;
             text-align: justify;
             text-justify: distribute;
@@ -211,13 +211,13 @@
             font-weight: 700;
         }
 
-        /* Feed Grid */
+        /* Feed Grid (Fixed: 4 columns on PC, exactly as requested) */
         .feed-container {
             padding: 10px 8px;
             column-count: 2;
             column-gap: 8px;
             width: 100%;
-            max-width: 1450px;
+            max-width: 1550px;
             margin: 0 auto;
         }
 
@@ -231,7 +231,9 @@
 
         @media (min-width: 1024px) {
             .feed-container {
-                column-count: 4;
+                column-count: 4; /* Exactly 4 columns on PC */
+                column-gap: 14px;
+                padding: 18px;
             }
         }
 
@@ -245,6 +247,12 @@
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .product-card {
+                margin-bottom: 12px;
+            }
         }
 
         .product-card:hover {
@@ -832,7 +840,6 @@
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             
-            // Reset seller button text to default "Seller"
             const sellerBtn = document.getElementById('modalSellerBtn');
             sellerBtn.innerText = "Seller";
             sellerBtn.style.color = "var(--gold-solid)";
@@ -843,7 +850,6 @@
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        // Reveal Seller Name on Click
         function revealSellerName() {
             const sellerBtn = document.getElementById('modalSellerBtn');
             if (sellerBtn.innerText === "Seller") {
