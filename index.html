@@ -14,9 +14,9 @@
     
     <style>
         :root {
-            --bg-black: #0b0b0b;
-            --card-bg: #141414;
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --bg-black: #080808;
+            --card-bg: #121212;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
             --text-gray: #b3b3b3;
@@ -40,16 +40,16 @@
         }
 
         body {
-            padding-top: 65px;
+            padding-top: 62px;
             padding-bottom: 95px;
         }
 
-        /* Independent & Sticky Luxury Header Section */
+        /* Independent & Clean Sticky Header Section */
         header.app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 8px 10px;
             background: rgba(11, 11, 11, 0.98);
             position: fixed;
             top: 0;
@@ -64,16 +64,16 @@
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold-solid);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
             background: #000;
         }
 
@@ -85,7 +85,7 @@
 
         .brand-title-main {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 900;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -97,61 +97,44 @@
 
         .brand-title-sub {
             font-family: 'Cinzel', serif;
-            font-size: 0.63rem;
+            font-size: 0.52rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 5.6px;
+            letter-spacing: 4.2px;
             text-transform: uppercase;
             display: flex;
             justify-content: space-between;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
-        /* Top Right Controls (Auth Button + Notification + Badges) */
+        /* Top Right Controls (Larger Login Button & Country Badge) */
         .top-right-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .auth-top-btn {
             background: var(--gold-gradient);
-            color: var(--bg-black);
+            color: #000;
             border: none;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.7rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.78rem;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
             white-space: nowrap;
-        }
-
-        .notification-bell-badge {
-            position: relative;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold-solid);
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--gold-solid);
-            transition: 0.3s;
+            gap: 5px;
         }
 
-        .notification-dot {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 7px;
-            height: 7px;
-            background: var(--pink-heart);
-            border-radius: 50%;
+        .auth-top-btn i {
+            font-size: 0.8rem;
         }
 
         .country-square-badge {
@@ -161,14 +144,14 @@
             justify-content: center;
             background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
             border: 1px solid var(--gold-solid);
-            padding: 3px 6px;
+            padding: 3px 5px;
             border-radius: 6px;
             text-align: center;
-            min-width: 42px;
+            min-width: 38px;
         }
 
         .badge-top-text {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -176,13 +159,13 @@
         }
 
         .badge-bottom-text {
-            font-size: 7px;
+            font-size: 6px;
             color: var(--text-gray);
             text-transform: uppercase;
         }
 
-        /* Luxury Auth & Notification Modals */
-        .auth-modal-overlay, .notification-popup-overlay {
+        /* Luxury Auth Modal */
+        .auth-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -197,7 +180,7 @@
             padding: 12px;
         }
 
-        .auth-modal-box, .notification-popup-box {
+        .auth-modal-box {
             background: var(--card-bg);
             border: 2px solid var(--gold-solid);
             width: 100%;
@@ -240,7 +223,7 @@
             color: var(--text-gray);
             padding: 10px;
             font-weight: 600;
-            font-size: 0.85krem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -264,7 +247,7 @@
             text-transform: uppercase;
         }
 
-        .auth-form-group input, .auth-form-group select {
+        .auth-form-group input {
             width: 100%;
             background: #000;
             border: 1px solid rgba(212,175,55,0.4);
@@ -275,7 +258,7 @@
             outline: none;
         }
 
-        .auth-form-group input:focus, .auth-form-group select:focus {
+        .auth-form-group input:focus {
             border-color: var(--gold-solid);
             box-shadow: 0 0 8px rgba(212,175,55,0.3);
         }
@@ -816,7 +799,7 @@
 </head>
 <body>
 
-    <!-- Independent & Sticky Luxury Header Section -->
+    <!-- Independent & Clean Sticky Header Section -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -829,16 +812,10 @@
         </div>
         
         <div class="top-right-controls">
-            <!-- Auth / Sign In Button -->
+            <!-- Larger & Clear Login / Auth Button -->
             <button class="auth-top-btn" onclick="openAuthModal('signin')">
                 <i class="fa-solid fa-user"></i> Login
             </button>
-
-            <!-- NNS App Notification Bell Trigger -->
-            <div class="notification-bell-badge" onclick="openNotificationPopup()" title="NNS App Notifications">
-                <i class="fa-solid fa-bell"></i>
-                <span class="notification-dot"></span>
-            </div>
 
             <div class="country-square-badge">
                 <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
@@ -861,7 +838,7 @@
             <div id="signInFormContainer">
                 <form onsubmit="handleSignInSubmit(event)">
                     <div class="auth-form-group">
-                        <label>Email or Phone</label>
+                        <label>Email or WhatsApp Phone</label>
                         <input type="text" placeholder="Enter your email or phone" required>
                     </div>
                     <div class="auth-form-group">
@@ -873,7 +850,7 @@
                 </form>
             </div>
 
-            <!-- Sign Up Form (Role-Based Identification) -->
+            <!-- Sign Up Form (Clean & Simplified) -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
                     <div class="auth-form-group">
@@ -885,20 +862,12 @@
                         <input type="email" placeholder="Enter active email" required>
                     </div>
                     <div class="auth-form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" placeholder="Enter mobile number" required>
-                    </div>
-                    <div class="auth-form-group">
-                        <label>Select Your Account Role</label>
-                        <select id="userRoleSelect" required>
-                            <option value="customer">Customer (Luxury Shopping)</option>
-                            <option value="seller">Seller (Store & Products Owner)</option>
-                            <option value="affiliate">Earn / Affiliate Marketer</option>
-                        </select>
+                        <label>WhatsApp Phone Number</label>
+                        <input type="tel" placeholder="Enter WhatsApp number" required>
                     </div>
                     <div class="auth-form-group">
                         <label>Password</label>
-                        <input type="password" placeholder="Create strong password" required>
+                        <input type="password" placeholder="Create password" required>
                     </div>
                     <button type="submit" class="auth-submit-btn">Create Account</button>
                 </form>
@@ -918,21 +887,6 @@
                 </form>
             </div>
 
-        </div>
-    </div>
-
-    <!-- NNS App Popup Notification Modal -->
-    <div class="notification-popup-overlay" id="notificationPopup">
-        <div class="notification-popup-box">
-            <button class="close-modal" onclick="closeNotificationPopup()"><i class="fa-solid fa-xmark"></i></button>
-            <div style="font-size: 2rem; color: var(--gold-solid); margin-bottom: 10px;">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-            <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); margin-bottom: 10px; font-size: 1.1rem;">NNS App & Global Updates</h3>
-            <p style="font-size: 0.8rem; color: var(--text-gray); margin-bottom: 18px; line-height: 1.5;">
-                Welcome to MR Masudar Enterprise! Follow our store for upcoming NNS App launch, exclusive drops, and real-time live updates.
-            </p>
-            <button class="modal-add-btn" onclick="followStoreAction()">Follow & Enable Alerts</button>
         </div>
     </div>
 
@@ -1324,7 +1278,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Auth Modal & Role Control Logic
+        // Auth Modal Logic
         function openAuthModal(mode) {
             document.getElementById('authModal').style.display = 'flex';
             switchAuthTab(mode);
@@ -1370,8 +1324,7 @@
 
         function handleSignUpSubmit(e) {
             e.preventDefault();
-            const selectedRole = document.getElementById('userRoleSelect').value;
-            alert(`Account created successfully as a [ ${selectedRole.toUpperCase()} ]! Redirecting to your dashboard ecosystem.`);
+            alert("Account registered successfully! We have saved your WhatsApp & details to set up your account.");
             closeAuthModal();
         }
 
@@ -1379,18 +1332,6 @@
             e.preventDefault();
             alert("Password reset instructions have been sent to your email.");
             switchAuthTab('signin');
-        }
-
-        // NNS App Notification Popup Functions
-        function openNotificationPopup() {
-            document.getElementById('notificationPopup').style.display = 'flex';
-        }
-        function closeNotificationPopup() {
-            document.getElementById('notificationPopup').style.display = 'none';
-        }
-        function followStoreAction() {
-            alert("Thank you! You are now following MR Masudar Enterprise for NNS App alerts.");
-            closeNotificationPopup();
         }
 
         function addToCartWithAnimation(event) {
