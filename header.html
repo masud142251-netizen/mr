@@ -1,1 +1,1546 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MR MASUDAR ENTERPRISE - Luxury Ecosystem</title>
+    
+    <!-- Favicon / Tab Logo -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
+
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-black: #080808;
+            --card-bg: #121212;
+            /* আসল সমৃদ্ধ এবং চকচকে রয়্যাল গোল্ডেন গ্রেডিয়েন্ট */
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --gold-solid: #d4af37;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --pink-heart: #ff2d55;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden !important;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            position: relative;
+        }
+
+        body {
+            padding-top: 60px;
+            padding-bottom: 95px;
+        }
+
+        /* Independent & Clean Sticky Header Section */
+        header.app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(11, 11, 11, 0.98);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            backdrop-filter: blur(12px);
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold-solid);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+            background: #000;
+        }
+
+        .brand-text-box {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .brand-title-main {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.9rem;
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .brand-title-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 0.52rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4.2px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1px;
+        }
+
+        /* Top Right Controls (Luxury Login Button & Country Badge) */
+        .top-right-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .auth-top-btn {
+            background: var(--gold-gradient);
+            color: #111;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.78rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .auth-top-btn i {
+            -webkit-text-fill-color: #111;
+            font-size: 0.8rem;
+        }
+
+        .country-square-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
+            border: 1px solid var(--gold-solid);
+            padding: 3px 6px;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 40px;
+            box-shadow: 0 0 10px rgba(212,175,55,0.2);
+        }
+
+        .badge-top-text {
+            font-size: 0.58rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .badge-top-text i {
+            -webkit-text-fill-color: var(--gold-solid);
+            font-size: 0.55rem;
+        }
+
+        .badge-bottom-text {
+            font-size: 6px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+
+        /* Luxury Auth Modal */
+        .auth-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.88);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+            padding: 12px;
+        }
+
+        .auth-modal-box {
+            background: var(--card-bg);
+            border: 2px solid var(--gold-solid);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            padding: 22px;
+            position: relative;
+            box-shadow: 0 0 35px rgba(212,175,55,0.4);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212,175,55,0.4);
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            padding: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .auth-tab-btn.active {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid var(--gold-solid);
+            font-weight: 700;
+        }
+
+        .auth-form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .auth-form-group label {
+            display: block;
+            font-size: 0.72rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .auth-form-group input {
+            width: 100%;
+            background: #000;
+            border: 1.5px solid rgba(212,175,55,0.5);
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .auth-form-group input:focus {
+            border-color: var(--gold-solid);
+            box-shadow: 0 0 10px rgba(212,175,55,0.4);
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            border: none;
+            padding: 11px;
+            border-radius: 10px;
+            color: var(--bg-black);
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .forgot-pass-link {
+            display: block;
+            text-align: right;
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .forgot-pass-link:hover {
+            color: var(--gold-solid);
+        }
+
+        /* Floating Cart */
+        .floating-cart {
+            position: fixed;
+            bottom: 72px;
+            right: 15px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold-solid);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            z-index: 1050;
+            transition: transform 0.2s ease;
+        }
+
+        .floating-cart.local-bounce {
+            animation: localCartBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        @keyframes localCartBounce {
+            0% { transform: scale(1) rotate(0deg); }
+            30% { transform: scale(1.35) rotate(-12deg); box-shadow: 0 0 30px var(--gold-solid); }
+            60% { transform: scale(1.2) rotate(12deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .floating-cart i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.25rem;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            background: var(--pink-heart);
+            color: white;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .flying-coin {
+            position: fixed;
+            width: 22px;
+            height: 22px;
+            background: var(--gold-solid);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 14px var(--gold-solid);
+            z-index: 9999;
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Pinterest Masonry Layout Feed */
+        .feed-container {
+            padding: 10px 8px;
+            column-count: 2;
+            column-gap: 8px;
+            width: 100%;
+            max-width: 1650px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .feed-container {
+                column-count: 3;
+                padding: 14px;
+                column-gap: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .feed-container {
+                column-count: 4;
+                column-gap: 14px;
+                padding: 18px;
+            }
+        }
+
+        .product-card {
+            break-inside: avoid;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .product-media-box {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-media-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 145%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: -22%;
+            left: -15%;
+            width: 130%;
+            height: 144%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .video-click-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            cursor: pointer;
+        }
+
+        .floating-product-actions {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            padding: 4px 10px;
+            border-radius: 20px;
+            gap: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.7rem;
+            color: var(--text-white);
+            cursor: pointer;
+        }
+
+        .action-item.view-icon i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .action-item.like-icon i {
+            color: var(--pink-heart);
+        }
+
+        .action-item.like-icon.active i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .action-item.share-icon i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Product & Share Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.88);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            padding: 12px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--gold-solid);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            padding: 18px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 35px rgba(212,175,55,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-media-slider {
+            width: 100%;
+            border-radius: 12px;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: #000;
+            scrollbar-width: none;
+        }
+
+        .modal-media-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .modal-slide-item {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 320px;
+            scroll-snap-align: center;
+            position: relative;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-video-box {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .modal-video-box iframe {
+            position: absolute;
+            top: -15%;
+            left: -10%;
+            width: 120%;
+            height: 130%;
+            border: none;
+        }
+
+        .modal-slide-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .modal-price-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            gap: 6px;
+        }
+
+        .modal-price-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .modal-price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+
+        .modal-bd-discount {
+            background: linear-gradient(135deg, #ff2d55, #ff6b8b);
+            color: white;
+            font-size: 0.62rem;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .modal-seller-btn {
+            font-size: 0.72rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            cursor: pointer;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .modal-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-white);
+            line-height: 1.3;
+        }
+
+        .modal-desc {
+            font-size: 0.78rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .modal-add-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: var(--bg-black);
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .share-link-box {
+            background: #000;
+            border: 1px solid var(--gold-solid);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .share-link-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.75rem;
+            text-align: center;
+            outline: none;
+            user-select: all;
+            font-weight: 600;
+        }
+
+        .share-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .share-option-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.04);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-white);
+            font-size: 0.65rem;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .share-option-item i {
+            font-size: 1.2rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Bottom Fixed Navigation Bar with Subdomains & target="_blank" */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(11, 11, 11, 0.99);
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.8);
+        }
+
+        .nav-menus-left {
+            display: flex;
+            gap: 2px;
+            flex: 1.1;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 0.55rem;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 3px 4px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            font-size: 0.9rem;
+            margin-bottom: 1px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--gold-solid);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-item.active span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* Search Bar Section */
+        .bottom-search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1.5px solid var(--gold-solid);
+            border-radius: 16px;
+            padding: 2px 5px;
+            width: 38%;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
+        }
+
+        .bottom-search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-white);
+            font-size: 0.68rem;
+            padding: 2px;
+            min-width: 0;
+        }
+
+        .bottom-search-wrapper input::placeholder {
+            color: var(--text-gray);
+            font-size: 0.6rem;
+        }
+
+        .bottom-search-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--gold-solid);
+            font-size: 0.75rem;
+        }
+
+        .bottom-search-actions i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        .search-submit-btn {
+            background: var(--gold-gradient);
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-black);
+            font-size: 0.6rem;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .search-submit-btn i {
+            background: none !important;
+            -webkit-text-fill-color: var(--bg-black) !important;
+            color: var(--bg-black) !important;
+        }
+
+        #hiddenCameraInput {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Independent & Clean Sticky Header Section -->
+    <header class="app-header">
+        <div class="brand-container">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
+            <div class="brand-text-box">
+                <span class="brand-title-main">MR MASUDAR</span>
+                <span class="brand-title-sub">
+                    <span>E</span><span>N</span><span>T</span><span>E</span><span>R</span><span>P</span><span>R</span><span>I</span><span>S</span><span>E</span>
+                </span>
+            </div>
+        </div>
+        
+        <div class="top-right-controls">
+            <!-- Larger & Clear Luxury Login Button -->
+            <button class="auth-top-btn" onclick="openAuthModal('signin')">
+                <i class="fa-solid fa-user"></i> Login
+            </button>
+
+            <div class="country-square-badge">
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
+                <span class="badge-bottom-text">Country</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Luxury Sign In / Sign Up / Forgot Password Modal -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal-box">
+            <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthTab('signin')">Sign In</button>
+                <button class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <div id="signInFormContainer">
+                <form onsubmit="handleSignInSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Email or WhatsApp Number</label>
+                        <input type="text" placeholder="Enter your email or WhatsApp" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" required>
+                        <span class="forgot-pass-link" onclick="openForgotPassModal()">Forgot Password?</span>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Sign In</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form (Updated Label) -->
+            <div id="signUpFormContainer" style="display: none;">
+                <form onsubmit="handleSignUpSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Enter active email" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel" placeholder="Enter WhatsApp number" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Create password" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Create Account</button>
+                </form>
+            </div>
+
+            <!-- Forgot Password Container -->
+            <div id="forgotPassContainer" style="display: none;">
+                <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; font-size: 1rem; text-align: center;">Reset Password</h3>
+                <p style="font-size: 0.75rem; color: var(--text-gray); margin-bottom: 15px; text-align: center;">Enter your registered email to receive a secure password reset link.</p>
+                <form onsubmit="handleForgotPassSubmit(event)">
+                    <div class="auth-form-group">
+                        <label>Registered Email</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Send Reset Link</button>
+                    <span class="forgot-pass-link" style="text-align: center; display: block; margin-top: 10px;" onclick="switchAuthTab('signin')">Back to Sign In</span>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="floating-cart" id="floatingCart" onclick="openCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <!-- Product Feed -->
+    <main class="feed-container" id="productFeed">
+        <!-- Dynamically Loaded Products -->
+    </main>
+
+    <!-- Hidden file input -->
+    <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-price-box">
+                <div class="modal-price-group">
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+                <button class="modal-seller-btn" id="modalSellerBtn" onclick="revealSellerName()">Seller</button>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Product Title</h3>
+            <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance.</p>
+            <button class="modal-add-btn" onclick="addToCartWithAnimation(event)">Add To Cart</button>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
+            <div class="share-link-box">
+                <input type="text" id="shareLinkInput" class="share-link-input" readonly onclick="this.select()">
+            </div>
+            <div class="share-options-grid">
+                <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)">
+                    <i class="fa-solid fa-link"></i>
+                    <span>Copy Link</span>
+                </a>
+                <a href="#" id="shareFacebook" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" id="shareYoutube" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>YouTube</span>
+                </a>
+                <a href="#" id="shareInstagram" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" id="shareTiktok" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+                <a href="#" id="shareTwitter" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <span>X</span>
+                </a>
+                <a href="#" id="shareLinkedin" target="_blank" class="share-option-item">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar (Connected to Subdomains with target="_blank") -->
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <a href="https://etech.mrmasudar.com" target="_blank" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>E-Tech</span>
+            </a>
+            <a href="https://seller.mrmasudar.com" target="_blank" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Seller</span>
+            </a>
+            <a href="https://affiliate.mrmasudar.com" target="_blank" class="nav-item">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Earn</span>
+            </a>
+            <a href="#" class="nav-item" onclick="setActiveNav(this)">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Item</span>
+            </a>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Upload"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const products = [
+            { 
+                id: 1, 
+                title: "Exquisite Resin & Gold Leaf Wall Clock", 
+                price: "$145.00", 
+                bdDiscount: "BD 20% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3",
+                images: [
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                    "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb",
+                    "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW",
+                    "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB",
+                    "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C"
+                ], 
+                views: 820, 
+                likes: 235, 
+                desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes and premium resin finish." 
+            },
+            { 
+                id: 2, 
+                title: "Luxury Gold Crafted Designer Bracelet", 
+                price: "$125.00", 
+                bdDiscount: "BD 15% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb",
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                    "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi",
+                    "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2"
+                ], 
+                views: 640, 
+                likes: 198, 
+                desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." 
+            },
+            { 
+                id: 3, 
+                title: "Exquisite Royal Handcrafted Masterpiece", 
+                price: "$240.00", 
+                bdDiscount: "BD 25% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/14k4gig3LQTmiJ-gXXynhWWzSFIohNNXW",
+                    "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB"
+                ], 
+                views: 910, 
+                likes: 310, 
+                desc: "A true masterpiece featuring premium golden lining and superior long-lasting durability." 
+            },
+            { 
+                id: 4, 
+                title: "Imperial Gold Elite Collection Item", 
+                price: "$180.00", 
+                bdDiscount: "BD 18% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/19VsN9TzJ2EhkII6ep6RVCoNREE4KbpPB",
+                    "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C"
+                ], 
+                views: 750, 
+                likes: 240, 
+                desc: "Imperial tier luxury item built for modern trendsetters and sophisticated collectors." 
+            },
+            { 
+                id: 5, 
+                title: "Classic Artisan Luxury Artifact", 
+                price: "$95.00", 
+                bdDiscount: "BD 10% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1A90qVOYpq8gBVcahDQlQ9-DuB_60og6C",
+                    "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi"
+                ], 
+                views: 530, 
+                likes: 175, 
+                desc: "Classic artisan craft with refined texture and aesthetic appeal." 
+            },
+            { 
+                id: 6, 
+                title: "Prestige Golden Finish Special Craft", 
+                price: "$450.00", 
+                bdDiscount: "BD 30% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi",
+                    "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2"
+                ], 
+                views: 1020, 
+                likes: 380, 
+                desc: "Prestige grade golden finish artifact for ultimate luxury enthusiasts." 
+            },
+            { 
+                id: 7, 
+                title: "Royal Golden Heritage Mastercraft", 
+                price: "$215.00", 
+                bdDiscount: "BD 12% OFF", 
+                seller: "MR Artisan Hub", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1F_qzWEo6U2-Ob2HdsVBjjOat4IQMG9o2",
+                    "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf"
+                ], 
+                views: 680, 
+                likes: 215, 
+                desc: "Heritage inspired classic crafted with unmatched gold gradient detailing." 
+            },
+            { 
+                id: 8, 
+                title: "Elite Golden Glow Luxury Piece", 
+                price: "$350.00", 
+                bdDiscount: "BD 22% OFF", 
+                seller: "Masudar Enterprise", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1IKZJGzP4RTQUyvlOSIA6zXyEt8qi-trf",
+                    "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH"
+                ], 
+                views: 890, 
+                likes: 295, 
+                desc: "Radiant golden glow finish built for high-end exhibition and style." 
+            },
+            { 
+                id: 9, 
+                title: "Supreme Artisan Collection Craft", 
+                price: "$290.00", 
+                bdDiscount: "BD 15% OFF", 
+                seller: "Karuponno Craft", 
+                videoUrl: "", 
+                images: [
+                    "https://lh3.googleusercontent.com/d/1KF5hU9uiKqNyG27Hzqr0KZY3lLJ8gWtH",
+                    "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                ], 
+                views: 740, 
+                likes: 260, 
+                desc: "Supreme tier artisan creation showcasing exceptional aesthetic perfection." 
+            }
+        ];
+
+        let cartCount = 0;
+        let currentShareUrl = '';
+        let activeCurrentSeller = '';
+
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            let currentIndex = shuffled.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]];
+            }
+            return shuffled;
+        }
+
+        function loadProducts(dataToRender = products) {
+            const feed = document.getElementById('productFeed');
+            feed.innerHTML = "";
+
+            let randomizedList = shuffleArray(dataToRender);
+
+            randomizedList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal(${item.id})"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal(${item.id})">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaContent}
+                    <div class="floating-product-actions" onclick="event.stopPropagation()">
+                        <div class="action-item view-icon">
+                            <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
+                        </div>
+                        <div class="action-item like-icon" onclick="toggleLike(this, ${item.id})">
+                            <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${item.likes}</span>
+                        </div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title.replace(/'/g, "\'")}', ${item.id})">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function toggleLike(element, id) {
+            element.classList.toggle('active');
+            const countSpan = document.getElementById(`like-count-${id}`);
+            let currentLikes = parseInt(countSpan.innerText);
+            const product = products.find(p => p.id === id);
+            
+            if(element.classList.contains('active')) {
+                currentLikes += 1;
+                product.likes = currentLikes;
+            } else {
+                currentLikes -= 1;
+                product.likes = currentLikes;
+            }
+            countSpan.innerText = currentLikes;
+        }
+
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if(!product) return;
+
+            activeCurrentSeller = product.seller;
+            
+            const slider = document.getElementById('modalMediaSlider');
+            slider.innerHTML = "";
+
+            if (product.videoUrl && product.videoUrl.trim() !== "") {
+                const videoSlide = document.createElement('div');
+                videoSlide.className = 'modal-slide-item';
+                
+                let soundModalVideo = product.videoUrl.replace("mute=1&", "").replace("mute=1", "");
+                
+                videoSlide.innerHTML = `
+                    <div class="modal-video-box">
+                        <iframe src="${soundModalVideo}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                `;
+                slider.appendChild(videoSlide);
+            }
+
+            product.images.forEach(imgSrc => {
+                const imgSlide = document.createElement('div');
+                imgSlide.className = 'modal-slide-item';
+                imgSlide.innerHTML = `<img src="${imgSrc}" alt="${product.title}" loading="lazy">`;
+                slider.appendChild(imgSlide);
+            });
+
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            
+            const sellerBtn = document.getElementById('modalSellerBtn');
+            sellerBtn.innerText = "Seller";
+            sellerBtn.style.color = "var(--gold-solid)";
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalDesc').innerText = product.desc;
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function revealSellerName() {
+            const sellerBtn = document.getElementById('modalSellerBtn');
+            if (sellerBtn.innerText === "Seller") {
+                sellerBtn.innerText = activeCurrentSeller;
+                sellerBtn.style.color = "#fff";
+            } else {
+                sellerBtn.innerText = "Seller";
+                sellerBtn.style.color = "var(--gold-solid)";
+            }
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Auth Modal Logic
+        function openAuthModal(mode) {
+            document.getElementById('authModal').style.display = 'flex';
+            switchAuthTab(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthTab(tab) {
+            const signInForm = document.getElementById('signInFormContainer');
+            const signUpForm = document.getElementById('signUpFormContainer');
+            const forgotForm = document.getElementById('forgotPassContainer');
+            const btnSignIn = document.getElementById('tabSignInBtn');
+            const btnSignUp = document.getElementById('tabSignUpBtn');
+
+            signInForm.style.display = 'none';
+            signUpForm.style.display = 'none';
+            forgotForm.style.display = 'none';
+            btnSignIn.classList.remove('active');
+            btnSignUp.classList.remove('active');
+
+            if (tab === 'signin') {
+                signInForm.style.display = 'block';
+                btnSignIn.classList.add('active');
+            } else if (tab === 'signup') {
+                signUpForm.style.display = 'block';
+                btnSignUp.classList.add('active');
+            }
+        }
+
+        function openForgotPassModal() {
+            document.getElementById('signInFormContainer').style.display = 'none';
+            document.getElementById('signUpFormContainer').style.display = 'none';
+            document.getElementById('forgotPassContainer').style.display = 'block';
+        }
+
+        function handleSignInSubmit(e) {
+            e.preventDefault();
+            alert("Successfully Signed In!");
+            closeAuthModal();
+        }
+
+        function handleSignUpSubmit(e) {
+            e.preventDefault();
+            alert("Account registered successfully! We have saved your WhatsApp number & details to set up your account.");
+            closeAuthModal();
+        }
+
+        function handleForgotPassSubmit(e) {
+            e.preventDefault();
+            alert("Password reset instructions have been sent to your email.");
+            switchAuthTab('signin');
+        }
+
+        function addToCartWithAnimation(event) {
+            closeProductModal();
+            cartCount++;
+            document.getElementById('cartCount').innerText = cartCount;
+
+            try {
+                let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                audio.volume = 0.4;
+                audio.play();
+            } catch(e) {}
+
+            const btnRect = event.target.getBoundingClientRect();
+            const cartElement = document.getElementById('floatingCart');
+            const cartRect = cartElement.getBoundingClientRect();
+
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const coin = document.createElement('div');
+                    coin.className = 'flying-coin';
+                    
+                    const offsetX = (Math.random() - 0.5) * 45;
+                    const offsetY = (Math.random() - 0.5) * 45;
+                    
+                    coin.style.left = `${btnRect.left + btnRect.width / 2 + offsetX - 11}px`;
+                    coin.style.top = `${btnRect.top + btnRect.height / 2 + offsetY - 11}px`;
+                    document.body.appendChild(coin);
+
+                    setTimeout(() => {
+                        coin.style.left = `${cartRect.left + cartRect.width / 2 - 11}px`;
+                        coin.style.top = `${cartRect.top + cartRect.height / 2 - 11}px`;
+                        coin.style.transform = 'scale(0.35) rotate(720deg)';
+                        coin.style.opacity = '0.4';
+                    }, 40);
+
+                    setTimeout(() => {
+                        coin.remove();
+                    }, 800);
+                }, i * 70);
+            }
+
+            setTimeout(() => {
+                cartElement.classList.add('local-bounce');
+                setTimeout(() => {
+                    cartElement.classList.remove('local-bounce');
+                }, 600);
+            }, 350);
+        }
+
+        function openShareModal(title, id) {
+            currentShareUrl = `https://mrmasudar.com/product.html?id=${id}&ref=aff_masud`;
+            const linkInput = document.getElementById('shareLinkInput');
+            linkInput.value = currentShareUrl;
+
+            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
+            document.getElementById('shareYoutube').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(title)}`;
+            document.getElementById('shareInstagram').href = `https://www.instagram.com/`;
+            document.getElementById('shareTiktok').href = `https://www.tiktok.com/`;
+            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareUrl)}&text=${encodeURIComponent(title)}`;
+            document.getElementById('shareLinkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentShareUrl)}`;
+
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        function copyAffiliateLink(e) {
+            e.preventDefault();
+            const linkInput = document.getElementById('shareLinkInput');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(linkInput.value);
+            
+            const copyBtnText = e.currentTarget.querySelector('span');
+            const originalText = copyBtnText.innerText;
+            copyBtnText.innerText = "Copied!";
+            setTimeout(() => {
+                copyBtnText.innerText = originalText;
+            }, 1200);
+        }
+
+        function performSearchSubmit() {
+            const query = document.getElementById('searchInput').value;
+            handleSearch(query);
+        }
+
+        function handleSearchKey(e) {
+            if (e.key === 'Enter') {
+                performSearchSubmit();
+            }
+        }
+
+        function handleSearch(query) {
+            const keyword = query.toLowerCase().trim();
+            if(keyword === "") {
+                loadProducts(products);
+                return;
+            }
+            const filtered = products.filter(p => p.title.toLowerCase().includes(keyword) || p.desc.toLowerCase().includes(keyword));
+            loadProducts(filtered);
+        }
+
+        function triggerCamera() {
+            document.getElementById('hiddenCameraInput').click();
+        }
+
+        function handleGalleryImage(event) {
+            const file = event.target.files[0];
+            if(file) {
+                alert("Gallery image uploaded successfully: " + file.name);
+            }
+        }
+
+        function triggerVoiceSearch() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'bn-BD';
+                recognition.onstart = () => { document.getElementById('searchInput').placeholder = "Listening..."; };
+                recognition.onresult = (event) => {
+                    const text = event.results[0][0].transcript;
+                    document.getElementById('searchInput').value = text;
+                    handleSearch(text);
+                    document.getElementById('searchInput').placeholder = "Search...";
+                };
+                recognition.start();
+            } else {
+                let text = prompt("Enter search keywords:");
+                if(text) {
+                    document.getElementById('searchInput').value = text;
+                    handleSearch(text);
+                }
+            }
+        }
+
+        function openCart() {
+            if(cartCount === 0) {
+                alert("Your shopping cart is currently empty.");
+            } else {
+                alert("Proceeding to Checkout with " + cartCount + " luxury items.");
+            }
+        }
+
+        window.onload = function() {
+            loadProducts();
+        };
+    </script>
+</body>
+</html>
 
