@@ -171,7 +171,7 @@
             text-transform: uppercase;
         }
 
-        /* Glassmorphism Floating Category Modal with Luxury Animations */
+        /* Glassmorphism Floating Category Modal with Soft Animations */
         .category-modal-overlay {
             position: fixed;
             top: 0;
@@ -203,7 +203,7 @@
             border-radius: 22px;
             padding: 22px;
             position: relative;
-            box-shadow: 0 0 50px rgba(212,175,55,0.35);
+            box-shadow: 0 0 30px rgba(212,175,55,0.2);
             transform: scale(0.85);
             animation: popUpScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
@@ -235,7 +235,7 @@
         .cat-popup-item {
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             padding: 14px 10px;
             border-radius: 14px;
             color: var(--text-white);
@@ -257,27 +257,27 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 12px 16px;
-            animation: allProductsPulse 2.5s infinite ease-in-out;
+            animation: allProductsSoftPulse 3s infinite ease-in-out;
         }
 
-        @keyframes allProductsPulse {
-            0% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-            50% { border-color: var(--gold-solid); box-shadow: 0 0 22px rgba(212, 175, 55, 0.6); }
-            100% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        @keyframes allProductsSoftPulse {
+            0% { border-color: rgba(212, 175, 55, 0.3); }
+            50% { border-color: rgba(212, 175, 55, 0.7); }
+            100% { border-color: rgba(212, 175, 55, 0.3); }
         }
 
-        /* Zoom-In & Zoom-Out Luxury Logo/Icon Animation */
+        /* Soft Zoom-In & Zoom-Out Animation (No Harsh Lighting) */
         .cat-popup-item i {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: luxuryZoomPulse 2s infinite ease-in-out;
+            animation: softZoomPulse 2.5s infinite ease-in-out;
         }
 
-        @keyframes luxuryZoomPulse {
+        @keyframes softZoomPulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.22); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8)); }
+            50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
 
@@ -286,14 +286,72 @@
             color: var(--bg-black);
             border-color: var(--gold-solid);
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
         }
 
         .cat-popup-item:hover i, .cat-popup-item:active i {
             -webkit-text-fill-color: var(--bg-black);
             color: var(--bg-black);
             animation: none;
-            transform: scale(1.25);
+            transform: scale(1.2);
+        }
+
+        /* Ecosystem In-Page Viewer Modal (For E-Tech, Seller, Earn) */
+        .ecosystem-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.92);
+            display: none;
+            flex-direction: column;
+            z-index: 4000;
+            backdrop-filter: blur(10px);
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .ecosystem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(15, 15, 15, 0.98);
+            border-bottom: 1px solid var(--gold-solid);
+        }
+
+        .ecosystem-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .ecosystem-close-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--gold-solid);
+            color: var(--text-white);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .ecosystem-body {
+            flex: 1;
+            width: 100%;
+            background: #000;
+            position: relative;
+        }
+
+        .ecosystem-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* Luxury Auth Modal */
@@ -996,7 +1054,7 @@
         </div>
     </header>
 
-    <!-- Glassmorphism Floating Category Modal with Animated Logos -->
+    <!-- Glassmorphism Floating Category Modal with Soft Animations -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -1030,6 +1088,17 @@
                     <span>Art & Craft</span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Ecosystem In-Page Viewer Modal -->
+    <div class="ecosystem-modal-overlay" id="ecosystemModal">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
+            <button class="ecosystem-close-btn" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i> Close</button>
+        </div>
+        <div class="ecosystem-body">
+            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
     </div>
 
@@ -1189,18 +1258,18 @@
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <a href="https://etech.mrmasudar.com" target="_blank" class="nav-item">
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>E-Tech</span>
-            </a>
-            <a href="https://seller.mrmasudar.com" target="_blank" class="nav-item">
+            </div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
-            </a>
-            <a href="https://affiliate.mrmasudar.com" target="_blank" class="nav-item">
+            </div>
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)">
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
-            </a>
+            </div>
             <!-- Item Button Triggers Glassmorphism Category Modal -->
             <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
@@ -1301,6 +1370,21 @@
                 let filtered = allProds.filter(p => p.category === categoryName);
                 loadCombinedProducts(filtered);
             }
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
         }
 
         function togglePasswordVisibility(fieldId, btn) {
