@@ -1451,6 +1451,7 @@
                 });
             }
 
+            // লোকালস্টোরেজ থেকে কার্ট রিকভার করা (যাতে পেজ রিফ্রেশ বা সাবডোমেইনে গেলে ডেটা না হারায়)
             let savedCart = localStorage.getItem('mme_cart_items');
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
@@ -1878,6 +1879,7 @@
             if(!activeCurrentProduct) activeCurrentProduct = getAllProducts()[0];
             closeProductModal();
 
+            // কার্ট আইটেমে প্রোডাক্টের ইমেজ, টাইটেল ও দাম সেভ করা
             cartItems.push({
                 id: activeCurrentProduct.id,
                 title: activeCurrentProduct.title,
@@ -1889,6 +1891,7 @@
             cartTotalAmount += selectedActiveProductPrice;
             document.getElementById('cartCount').innerText = cartCount;
 
+            // লোকালস্টোরেজে কার্ট ডেটা পার্মানেন্টলি সেভ করা
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
 
@@ -1902,6 +1905,7 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
+            // ফ্লাইং কয়েন অ্যানিমেশন
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
@@ -1923,6 +1927,7 @@
                 }, i * 70);
             }
 
+            // ঝুড়ি সেন্টারে স্মুথলি ট্রাভেল করে বাউন্স করার ইফেক্ট
             setTimeout(() => {
                 cartElement.classList.add('smooth-center-bounce');
                 setTimeout(() => { 
@@ -1931,13 +1936,13 @@
             }, 350);
         }
 
-        // [আপডেট করা হলো]: এখন এফিলিয়েট বা ই-টেক-এর মতোই চেকআউট পেজটি ইন-পেজ মডালে (ক্রস বাটন সহ) খুলবে!
+        // চেকআউট এবং pay.mrmasudar.com ডোমেইনে রিডাইরেক্ট ফাংশন
         function handleCartCheckout() {
             if(cartCount === 0) {
                 alert("Your shopping cart is currently empty. Please add items first.");
             } else {
                 localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
-                openEcosystemPage(`https://pay.mrmasudar.com/?total=${cartTotalAmount.toFixed(2)}`, 'Secure Checkout', null);
+                window.location.href = `https://pay.mrmasudar.com/?total=${cartTotalAmount.toFixed(2)}`;
             }
         }
 
