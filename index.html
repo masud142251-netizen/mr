@@ -1980,3 +1980,11 @@
     </script>
 </body>
 </html>
+// হোমপেজের কার্ট বা চেকআউট বাটনের জাভাস্ক্রিপ্ট ফাংশন:
+function redirectToCheckout() {
+    let currentCartTotal = 145.00; // আপনার কার্টের মোট হিসাব এখানে বসবে
+    localStorage.setItem('mme_cart_total', currentCartTotal);
+    
+    // সাবডোমেইনে রিডাইরেক্ট করা
+    window.location.href = `https://pay.mrmasudar.com/?total=${currentCartTotal}`;
+}
