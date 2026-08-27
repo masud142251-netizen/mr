@@ -171,19 +171,19 @@
             text-transform: uppercase;
         }
 
-        /* Luxury Floating Category Modal (Animate on Click) */
+        /* Glassmorphism Luxury Floating Category Modal */
         .category-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(5, 5, 5, 0.5); /* Dim background so products behind remain visible */
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2500;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(4px); /* Light blur */
             padding: 15px;
             animation: fadeInOverlay 0.3s ease;
         }
@@ -194,16 +194,18 @@
         }
 
         .category-modal-box {
-            background: linear-gradient(145deg, #121212, #0d0d0d);
+            background: rgba(12, 12, 12, 0.75); /* Frosted glass effect */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 2px solid var(--gold-solid);
             width: 100%;
-            max-width: 360px;
-            border-radius: 20px;
-            padding: 24px;
+            max-width: 420px;
+            border-radius: 22px;
+            padding: 22px;
             position: relative;
-            box-shadow: 0 0 40px rgba(212,175,55,0.5);
-            transform: scale(0.8);
-            animation: popUpScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0 0 50px rgba(212,175,55,0.35);
+            transform: scale(0.85);
+            animation: popUpScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes popUpScale {
@@ -212,44 +214,57 @@
 
         .cat-modal-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
+        /* Modern Grid / Tiles Layout for Categories */
         .category-grid-popup {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
 
         .cat-popup-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1.5px solid rgba(212, 175, 55, 0.35);
-            padding: 12px 15px;
-            border-radius: 12px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 14px 10px;
+            border-radius: 14px;
             color: var(--text-white);
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            text-align: center;
+            gap: 6px;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .cat-popup-item:nth-child(1) {
+            grid-column: span 2; /* Make 'All Products' span full width */
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 12px 16px;
         }
 
         .cat-popup-item:hover, .cat-popup-item:active {
             background: var(--gold-gradient);
             color: var(--bg-black);
             border-color: var(--gold-solid);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
         .cat-popup-item:hover i, .cat-popup-item:active i {
@@ -258,10 +273,10 @@
         }
 
         .cat-popup-item i {
+            font-size: 1.25rem;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1rem;
         }
 
         /* Luxury Auth Modal */
@@ -964,32 +979,38 @@
         </div>
     </header>
 
-    <!-- Luxury Floating Category Modal (Triggered by Item Button) -->
+    <!-- Glassmorphism Floating Category Modal (Grid Tiles Layout) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="cat-modal-title">✨ Luxury Categories</h3>
             <div class="category-grid-popup">
                 <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span>✨ All Products</span> <i class="fa-solid fa-chevron-right"></i>
+                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')">
-                    <span>👔 Men Fashion</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-shirt"></i>
+                    <span>Men Fashion</span>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')">
-                    <span>👗 Women Fashion</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-person-dress"></i>
+                    <span>Women Fashion</span>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')">
-                    <span>👶 Baby & Kids</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-child"></i>
+                    <span>Baby & Kids</span>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')">
-                    <span>🎁 Luxury Gifts</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-gift"></i>
+                    <span>Luxury Gifts</span>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')">
-                    <span>🏡 Home Decor</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span>Home Decor</span>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')">
-                    <span>🎨 Art & Craft</span> <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Art & Craft</span>
                 </div>
             </div>
         </div>
@@ -1163,7 +1184,7 @@
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
-            <!-- Item Button Triggers Floating Category Modal -->
+            <!-- Item Button Triggers Glassmorphism Category Modal -->
             <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <span>Item</span>
