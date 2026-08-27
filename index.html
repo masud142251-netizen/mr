@@ -752,6 +752,7 @@
             border: 1px solid rgba(212, 175, 55, 0.4);
             background: #000;
             scrollbar-width: none;
+            position: relative;
         }
 
         .modal-media-slider::-webkit-scrollbar {
@@ -776,6 +777,33 @@
             height: 100%;
             object-fit: contain;
             display: block;
+        }
+
+        /* Custom Sound Toggle Floating Button Inside Modal Video */
+        .modal-sound-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid var(--gold-solid);
+            color: var(--gold-solid);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .modal-sound-btn:active {
+            transform: scale(0.9);
+            background: var(--gold-solid);
+            color: #000;
         }
 
         .modal-price-box {
@@ -1549,12 +1577,17 @@
                 
                 let rawBase = product.videoUrl.split('?')[0];
                 let videoIdMatch = rawBase.split('/').pop();
-                // ডিটেইলস মোডালে সম্পূর্ণ ক্লিন শর্টস স্টাইল (কোনো এক্সট্রা লোগো বা টাইটেল ছাড়াই)
-                let cleanModalVideo = `${rawBase}?autoplay=1&mute=0&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                
+                // মোডালে প্রথমে মিউট থাকবে (mute=1), কিন্তু কাস্টমার সাউন্ড বাটন দিয়ে অন করতে পারবে
+                let modalVideoUrlMuted = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                let modalVideoUrlUnmuted = `${rawBase}?autoplay=1&mute=0&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
 
                 videoSlide.innerHTML = `
-                    <div style="position:relative; width:100%; height:100%; background:#000; overflow:hidden;">
-                        <iframe src="${cleanModalVideo}" style="position:absolute; top:-15%; left:-15%; width:130%; height:130%; border:none; pointer-events:auto;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div style="position:relative; width:100%; height:100%; background:#000; overflow:hidden;" id="modalVideoContainer">
+                        <iframe id="modalYoutubeIframe" src="${modalVideoUrlMuted}" style="position:absolute; top:-15%; left:-15%; width:130%; height:130%; border:none; pointer-events:auto;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <button class="modal-sound-btn" id="modalSoundToggleBtn" onclick="toggleModalSound('${modalVideoUrlMuted}', '${modalVideoUrlUnmuted}')" title="Toggle Sound">
+                            <i class="fa-solid fa-volume-xmark" id="modalSoundIcon"></i>
+                        </button>
                     </div>
                 `;
                 slider.appendChild(videoSlide);
@@ -1580,6 +1613,22 @@
             document.getElementById('productModal').style.display = 'flex';
         }
 
+        let isModalAudioOn = false;
+        function toggleModalSound(mutedUrl, unmutedUrl) {
+            const iframe = document.getElementById('modalYoutubeIframe');
+            const icon = document.getElementById('modalSoundIcon');
+            if(!iframe) return;
+
+            isModalAudioOn = !isModalAudioOn;
+            if(isModalAudioOn) {
+                iframe.src = unmutedUrl;
+                icon.className = "fa-solid fa-volume-high";
+            } else {
+                iframe.src = mutedUrl;
+                icon.className = "fa-solid fa-volume-xmark";
+            }
+        }
+
         function revealSellerName() {
             const sellerBtn = document.getElementById('modalSellerBtn');
             if (sellerBtn.innerText === "Seller") {
@@ -1592,6 +1641,7 @@
         }
 
         function closeProductModal() {
+            isModalAudioOn = false;
             document.getElementById('productModal').style.display = 'none';
         }
 
