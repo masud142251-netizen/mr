@@ -1435,6 +1435,15 @@
             sellers.forEach(s => {
                 if(s.uploadedProducts && s.uploadedProducts.length > 0) {
                     s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let embedLink = p.videoUrl.replace("watch?v=", "embed/");
+                            if(!embedLink.includes("autoplay=1")) {
+                                embedLink += (embedLink.includes("?") ? "&" : "?") + "autoplay=1&mute=1&loop=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3";
+                            }
+                            cleanVid = embedLink;
+                        }
+
                         all.push({
                             id: 'v-' + s.id + '-' + i,
                             name: p.name,
@@ -1443,7 +1452,7 @@
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
                             seller: s.biz || s.name,
                             category: p.category || '🏡 HOME DECOR',
-                            videoUrl: p.videoUrl ? p.videoUrl.replace("watch?v=", "embed/") : "",
+                            videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
                             views: Math.floor(200 + Math.random() * 800),
                             likes: Math.floor(50 + Math.random() * 200),
@@ -1539,7 +1548,8 @@
             if (product.videoUrl && product.videoUrl.trim() !== "") {
                 const videoSlide = document.createElement('div');
                 videoSlide.className = 'modal-slide-item';
-                let soundModalVideo = product.videoUrl.replace("mute=1&", "").replace("mute=1", "");
+                // ইন ডিটেইলস মোডালে সাউন্ড অন বা কন্ট্রোল দেখার সুযোগ রাখা হয়েছে
+                let soundModalVideo = product.videoUrl.replace("mute=1&", "").replace("mute=1", "").replace("controls=0", "controls=1");
                 videoSlide.innerHTML = `
                     <div style="position:relative; width:100%; height:100%; background:#000;">
                         <iframe src="${soundModalVideo}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
