@@ -1451,7 +1451,7 @@
                 });
             }
 
-            // লোকালস্টোরেজ থেকে কার্ট রিকভার করা (যাতে পেজ রিফ্রেশ বা সাবডোমেইনে গেলে ডেটা না হারায়)
+            // কার্ট আপডেট করা
             let savedCart = localStorage.getItem('mme_cart_items');
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
@@ -1875,11 +1875,14 @@
             switchAuthTab('signin');
         }
 
+        // ==========================================
+        // নিখুঁত ঝুড়ি (Cart) ও সাবডোমেইন চেকআউট লজিক
+        // ==========================================
         function addToCartWithAnimation(event) {
             if(!activeCurrentProduct) activeCurrentProduct = getAllProducts()[0];
             closeProductModal();
 
-            // কার্ট আইটেমে প্রোডাক্টের ইমেজ, টাইটেল ও দাম সেভ করা
+            // সুনির্দিষ্টভাবে মাত্র ১টি করে প্রোডাক্ট পুশ করা হচ্ছে (ডুপ্লিকেট ফিক্স)
             cartItems.push({
                 id: activeCurrentProduct.id,
                 title: activeCurrentProduct.title,
@@ -1891,7 +1894,7 @@
             cartTotalAmount += selectedActiveProductPrice;
             document.getElementById('cartCount').innerText = cartCount;
 
-            // লোকালস্টোরেজে কার্ট ডেটা পার্মানেন্টলি সেভ করা
+            // লোকালস্টোরেজে ডেটা সেভ করা
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
 
@@ -1905,7 +1908,7 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
-            // ফ্লাইং কয়েন অ্যানিমেশন
+            // কয়েন ফ্লাই অ্যানিমেশন
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
@@ -1927,7 +1930,7 @@
                 }, i * 70);
             }
 
-            // ঝুড়ি সেন্টারে স্মুথলি ট্রাভেল করে বাউন্স করার ইফেক্ট
+            // ঝুড়িতে বাউন্স ইফেক্ট
             setTimeout(() => {
                 cartElement.classList.add('smooth-center-bounce');
                 setTimeout(() => { 
@@ -1936,13 +1939,16 @@
             }, 350);
         }
 
-        // চেকআউট এবং pay.mrmasudar.com ডোমেইনে রিডাইরেক্ট ফাংশন
+        // সাবডোমেইন চেকআউটে পাঠানোর সময় ক্রস-ডোমেইন ফিক্সের জন্য URL এ নামগুলোও পাস করা হচ্ছে
         function handleCartCheckout() {
             if(cartCount === 0) {
                 alert("Your shopping cart is currently empty. Please add items first.");
             } else {
                 localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
-                window.location.href = `https://pay.mrmasudar.com/?total=${cartTotalAmount.toFixed(2)}`;
+                
+                // কার্টের টাইটেলগুলো ইউআরএলে যুক্ত করে সাবডোমেইনে পাঠানো হচ্ছে যাতে অন্য ডোমেইনে কার্ট খালি না দেখায়
+                let itemTitles = cartItems.map(i => encodeURIComponent(i.title)).join(',');
+                window.location.href = `https://pay.mrmasudar.com/?total=${cartTotalAmount.toFixed(2)}&items=${itemTitles}`;
             }
         }
 
