@@ -171,19 +171,19 @@
             text-transform: uppercase;
         }
 
-        /* Glassmorphism Luxury Floating Category Modal */
+        /* Glassmorphism Floating Category Modal with Luxury Animations */
         .category-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 5, 0.5); /* Dim background so products behind remain visible */
+            background: rgba(5, 5, 5, 0.5);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2500;
-            backdrop-filter: blur(4px); /* Light blur */
+            backdrop-filter: blur(4px);
             padding: 15px;
             animation: fadeInOverlay 0.3s ease;
         }
@@ -194,7 +194,7 @@
         }
 
         .category-modal-box {
-            background: rgba(12, 12, 12, 0.75); /* Frosted glass effect */
+            background: rgba(12, 12, 12, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 2px solid var(--gold-solid);
@@ -225,7 +225,7 @@
             letter-spacing: 1.5px;
         }
 
-        /* Modern Grid / Tiles Layout for Categories */
+        /* Modern Grid / Tiles Layout */
         .category-grid-popup {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -253,30 +253,47 @@
         }
 
         .cat-popup-item:nth-child(1) {
-            grid-column: span 2; /* Make 'All Products' span full width */
+            grid-column: span 2;
             flex-direction: row;
             justify-content: space-between;
             padding: 12px 16px;
+            animation: allProductsPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes allProductsPulse {
+            0% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+            50% { border-color: var(--gold-solid); box-shadow: 0 0 22px rgba(212, 175, 55, 0.6); }
+            100% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        }
+
+        /* Zoom-In & Zoom-Out Luxury Logo/Icon Animation */
+        .cat-popup-item i {
+            font-size: 1.3rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: luxuryZoomPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes luxuryZoomPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.22); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8)); }
+            100% { transform: scale(1); }
         }
 
         .cat-popup-item:hover, .cat-popup-item:active {
             background: var(--gold-gradient);
             color: var(--bg-black);
             border-color: var(--gold-solid);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
         }
 
         .cat-popup-item:hover i, .cat-popup-item:active i {
             -webkit-text-fill-color: var(--bg-black);
             color: var(--bg-black);
-        }
-
-        .cat-popup-item i {
-            font-size: 1.25rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            animation: none;
+            transform: scale(1.25);
         }
 
         /* Luxury Auth Modal */
@@ -979,7 +996,7 @@
         </div>
     </header>
 
-    <!-- Glassmorphism Floating Category Modal (Grid Tiles Layout) -->
+    <!-- Glassmorphism Floating Category Modal with Animated Logos -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
