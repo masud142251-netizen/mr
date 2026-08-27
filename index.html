@@ -16,7 +16,6 @@
         :root {
             --bg-black: #080808;
             --card-bg: #121212;
-            /* আসল সমৃদ্ধ এবং চকচকে রয়্যাল গোল্ডেন গ্রেডিয়েন্ট */
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
@@ -45,7 +44,7 @@
             padding-bottom: 95px;
         }
 
-        /* Independent & Clean Sticky Header Section */
+        /* Sticky Header Section */
         header.app-header {
             display: flex;
             justify-content: space-between;
@@ -110,7 +109,6 @@
             margin-top: 1px;
         }
 
-        /* Top Right Controls (Luxury Login Button & Country Badge) */
         .top-right-controls {
             display: flex;
             align-items: center;
@@ -402,12 +400,13 @@
         .product-card {
             break-inside: avoid;
             background: var(--card-bg);
-            border-radius: 12px;
-            margin-bottom: 8px;
+            border-radius: 14px;
+            margin-bottom: 10px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.35);
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
         }
 
         .product-media-box {
@@ -456,29 +455,25 @@
             cursor: pointer;
         }
 
-        .floating-product-actions {
-            position: absolute;
-            bottom: 6px;
-            left: 50%;
-            transform: translateX(-50%);
+        /* নিচে সুন্দরভাবে সাজানো অ্যাকশন বার (Views, Likes, Share) */
+        .product-bottom-actions {
             display: flex;
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(8px);
-            padding: 4px 10px;
-            border-radius: 20px;
-            gap: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.6);
-            white-space: nowrap;
-            z-index: 10;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98));
+            padding: 8px 6px;
+            border-top: 1px solid rgba(212, 175, 55, 0.25);
+            font-size: 0.72rem;
         }
 
         .action-item {
             display: flex;
             align-items: center;
-            gap: 3px;
-            font-size: 0.7rem;
+            gap: 4px;
             color: var(--text-white);
             cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
         }
 
         .action-item.view-icon i {
@@ -489,6 +484,11 @@
 
         .action-item.like-icon i {
             color: var(--pink-heart);
+            transition: transform 0.2s;
+        }
+
+        .action-item.like-icon:hover i {
+            transform: scale(1.2);
         }
 
         .action-item.like-icon.active i {
@@ -530,23 +530,6 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 0 35px rgba(212,175,55,0.3);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: var(--text-white);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
         }
 
         .modal-media-slider {
@@ -858,7 +841,7 @@
 </head>
 <body>
 
-    <!-- Independent & Clean Sticky Header Section -->
+    <!-- Sticky Header Section -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -871,7 +854,6 @@
         </div>
         
         <div class="top-right-controls">
-            <!-- Larger & Clear Luxury Login Button -->
             <button class="auth-top-btn" onclick="openAuthModal('signin')">
                 <i class="fa-solid fa-user"></i> Login
             </button>
@@ -883,7 +865,7 @@
         </div>
     </header>
 
-    <!-- Luxury Sign In / Sign Up / Forgot Password Modal -->
+    <!-- Luxury Sign In / Sign Up Modal -->
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal-box">
             <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -909,7 +891,7 @@
                 </form>
             </div>
 
-            <!-- Sign Up Form (Updated Label) -->
+            <!-- Sign Up Form -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
                     <div class="auth-form-group">
@@ -1022,7 +1004,7 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar (Connected to Subdomains with target="_blank") -->
+    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <a href="https://etech.mrmasudar.com" target="_blank" class="nav-item">
@@ -1037,7 +1019,7 @@
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
-            <a href="#" class="nav-item" onclick="setActiveNav(this)">
+            <a href="#" class="nav-item active" onclick="setActiveNav(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <span>Item</span>
             </a>
@@ -1242,7 +1224,7 @@
 
                 card.innerHTML = `
                     ${mediaContent}
-                    <div class="floating-product-actions" onclick="event.stopPropagation()">
+                    <div class="product-bottom-actions">
                         <div class="action-item view-icon">
                             <i class="fa-solid fa-eye"></i> <span>${item.views}</span>
                         </div>
@@ -1250,7 +1232,7 @@
                             <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${item.likes}</span>
                         </div>
                         <div class="action-item share-icon" onclick="openShareModal('${item.title.replace(/'/g, "\'")}', ${item.id})">
-                            <i class="fa-solid fa-share-nodes"></i>
+                            <i class="fa-solid fa-share-nodes"></i> <span>Share</span>
                         </div>
                     </div>
                 `;
