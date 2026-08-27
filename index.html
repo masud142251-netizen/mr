@@ -171,35 +171,97 @@
             text-transform: uppercase;
         }
 
-        /* Category Filter Bar */
-        .category-filter-bar {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 10px 12px;
-            background: rgba(15,15,15,0.95);
-            border-bottom: 1px solid rgba(212,175,55,0.2);
-            scrollbar-width: none;
-        }
-        .category-filter-bar::-webkit-scrollbar {
+        /* Luxury Floating Category Modal (Animate on Click) */
+        .category-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
             display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            animation: fadeInOverlay 0.3s ease;
         }
-        .cat-chip {
-            background: #1a1a1a;
-            border: 1px solid rgba(212,175,55,0.4);
-            color: var(--text-white);
-            padding: 5px 12px;
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .category-modal-box {
+            background: linear-gradient(145deg, #121212, #0d0d0d);
+            border: 2px solid var(--gold-solid);
+            width: 100%;
+            max-width: 360px;
             border-radius: 20px;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: 600;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(212,175,55,0.5);
+            transform: scale(0.8);
+            animation: popUpScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-        .cat-chip.active, .cat-chip:hover {
+
+        @keyframes popUpScale {
+            to { transform: scale(1); }
+        }
+
+        .cat-modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
             background: var(--gold-gradient);
-            color: #080808;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-grid-popup {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .cat-popup-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: var(--text-white);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .cat-popup-item:hover, .cat-popup-item:active {
+            background: var(--gold-gradient);
+            color: var(--bg-black);
             border-color: var(--gold-solid);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cat-popup-item:hover i, .cat-popup-item:active i {
+            -webkit-text-fill-color: var(--bg-black);
+            color: var(--bg-black);
+        }
+
+        .cat-popup-item i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1rem;
         }
 
         /* Luxury Auth Modal */
@@ -902,15 +964,35 @@
         </div>
     </header>
 
-    <!-- Category Filter Bar -->
-    <div class="category-filter-bar" id="categoryFilterBar">
-        <div class="cat-chip active" onclick="filterByCategory('All')">✨ All Products</div>
-        <div class="cat-chip" onclick="filterByCategory('👔 FASHION (MEN)')">👔 Men Fashion</div>
-        <div class="cat-chip" onclick="filterByCategory('👗 FASHION (WOMEN)')">👗 Women Fashion</div>
-        <div class="cat-chip" onclick="filterByCategory('👶 BABY & KIDS')">👶 Baby & Kids</div>
-        <div class="cat-chip" onclick="filterByCategory('🎁 LUXURY GIFTS')">🎁 Luxury Gifts</div>
-        <div class="cat-chip" onclick="filterByCategory('🏡 HOME DECOR')">🏡 Home Decor</div>
-        <div class="cat-chip" onclick="filterByCategory('🎨 ART & CRAFT')">🎨 Art & Craft</div>
+    <!-- Luxury Floating Category Modal (Triggered by Item Button) -->
+    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
+        <div class="category-modal-box">
+            <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="cat-modal-title">✨ Luxury Categories</h3>
+            <div class="category-grid-popup">
+                <div class="cat-popup-item" onclick="selectCategory('All')">
+                    <span>✨ All Products</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')">
+                    <span>👔 Men Fashion</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')">
+                    <span>👗 Women Fashion</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')">
+                    <span>👶 Baby & Kids</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')">
+                    <span>🎁 Luxury Gifts</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')">
+                    <span>🏡 Home Decor</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')">
+                    <span>🎨 Art & Craft</span> <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Luxury Auth Modal -->
@@ -942,7 +1024,7 @@
                 </form>
             </div>
 
-            <!-- Sign Up Form (Clean, Fast & Essential Fields Only) -->
+            <!-- Sign Up Form -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
                     <div class="auth-form-group">
@@ -1081,7 +1163,8 @@
                 <i class="fa-solid fa-handshake"></i>
                 <span>Earn</span>
             </a>
-            <div class="nav-item active" onclick="triggerItemTab(this)">
+            <!-- Item Button Triggers Floating Category Modal -->
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <span>Item</span>
             </div>
@@ -1158,6 +1241,29 @@
             }
             loadCombinedProducts();
         });
+
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(e.target.id === 'categoryModalOverlay') {
+                document.getElementById('categoryModalOverlay').style.display = 'none';
+            }
+        }
+
+        function selectCategory(categoryName) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let allProds = getAllProducts();
+            if(categoryName === 'All') {
+                loadCombinedProducts(allProds);
+            } else {
+                let filtered = allProds.filter(p => p.category === categoryName);
+                loadCombinedProducts(filtered);
+            }
+        }
 
         function togglePasswordVisibility(fieldId, btn) {
             const inputField = document.getElementById(fieldId);
@@ -1287,25 +1393,6 @@
                 `;
                 feed.appendChild(card);
             });
-        }
-
-        function filterByCategory(categoryName) {
-            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            let allProds = getAllProducts();
-            if(categoryName === 'All') {
-                loadCombinedProducts(allProds);
-            } else {
-                let filtered = allProds.filter(p => p.category === categoryName);
-                loadCombinedProducts(filtered);
-            }
-        }
-
-        function triggerItemTab(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
-            loadCombinedProducts(getAllProducts());
         }
 
         function toggleLike(element, id) {
