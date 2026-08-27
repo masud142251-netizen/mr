@@ -130,11 +130,11 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: transform 0.2s ease;
         }
 
-        .auth-top-btn i {
-            -webkit-text-fill-color: #111;
-            font-size: 0.8rem;
+        .auth-top-btn:active {
+            transform: scale(0.95);
         }
 
         .country-square-badge {
@@ -321,7 +321,11 @@
             cursor: pointer;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
             z-index: 1050;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .floating-cart:active {
+            transform: scale(0.9);
         }
 
         .floating-cart.local-bounce {
@@ -397,6 +401,7 @@
             }
         }
 
+        /* অতি স্মুথ ও লাক্সারি কার্ড অ্যানিমেশন */
         .product-card {
             break-inside: avoid;
             background: var(--card-bg);
@@ -404,9 +409,18 @@
             margin-bottom: 10px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+            will-change: transform;
+        }
+
+        /* মাউস বা টাচ করলে কার্ডটি হালকা উপরে উঠে লাক্সারি ফিল দেবে */
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-solid);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
         }
 
         .product-media-box {
@@ -420,11 +434,17 @@
             overflow: hidden;
         }
 
+        /* ইমেজে সফট এবং প্রিমিয়াম জুম ইফেক্ট */
         .product-media-box img {
             width: 100%;
             height: auto;
             display: block;
             object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:hover .product-media-box img {
+            transform: scale(1.06);
         }
 
         .video-wrapper {
@@ -443,6 +463,11 @@
             height: 144%;
             border: none;
             pointer-events: none;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:hover .video-wrapper iframe {
+            transform: scale(1.05);
         }
 
         .video-click-shield {
@@ -455,13 +480,13 @@
             cursor: pointer;
         }
 
-        /* নিচে সুন্দরভাবে সাজানো অ্যাকশন বার (Views, Likes, Share) */
+        /* কার্ডের নিচের চমৎকার অ্যাকশন বার */
         .product-bottom-actions {
             display: flex;
             justify-content: space-around;
             align-items: center;
             background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98));
-            padding: 8px 6px;
+            padding: 9px 6px;
             border-top: 1px solid rgba(212, 175, 55, 0.25);
             font-size: 0.72rem;
         }
@@ -473,7 +498,11 @@
             color: var(--text-white);
             cursor: pointer;
             font-weight: 500;
-            transition: 0.2s;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .action-item:active {
+            transform: scale(0.9);
         }
 
         .action-item.view-icon i {
@@ -484,11 +513,11 @@
 
         .action-item.like-icon i {
             color: var(--pink-heart);
-            transition: transform 0.2s;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .action-item.like-icon:hover i {
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
 
         .action-item.like-icon.active i {
@@ -517,6 +546,12 @@
             z-index: 2000;
             backdrop-filter: blur(8px);
             padding: 12px;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-content {
@@ -659,6 +694,11 @@
             font-size: 0.9rem;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-add-btn:active {
+            transform: scale(0.97);
         }
 
         .share-link-box {
@@ -703,6 +743,11 @@
             font-size: 0.65rem;
             gap: 4px;
             text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .share-option-item:active {
+            transform: scale(0.95);
         }
 
         .share-option-item i {
@@ -712,7 +757,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Bottom Fixed Navigation Bar with Subdomains & target="_blank" */
+        /* Bottom Fixed Navigation Bar */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
@@ -811,6 +856,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .bottom-search-actions i:active {
+            transform: scale(0.85);
         }
 
         .search-submit-btn {
@@ -826,6 +876,11 @@
             font-size: 0.6rem;
             cursor: pointer;
             box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .search-submit-btn:active {
+            transform: scale(0.9);
         }
 
         .search-submit-btn i {
