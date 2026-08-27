@@ -502,7 +502,7 @@
             text-decoration: underline;
         }
 
-        /* Floating Cart */
+        /* Floating Cart with Smooth Centralized Bounce & Travel Animation */
         .floating-cart {
             position: fixed;
             bottom: 72px;
@@ -518,18 +518,29 @@
             cursor: pointer;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
             z-index: 1050;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .floating-cart.local-bounce {
-            animation: localCartBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        .floating-cart.smooth-center-bounce {
+            animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         }
 
-        @keyframes localCartBounce {
-            0% { transform: scale(1) rotate(0deg); }
-            30% { transform: scale(1.35) rotate(-12deg); box-shadow: 0 0 30px var(--gold-solid); }
-            60% { transform: scale(1.2) rotate(12deg); }
-            100% { transform: scale(1) rotate(0deg); }
+        @keyframes smoothCartCenterBounce {
+            0% { 
+                transform: scale(1) translate(0, 0) rotate(0deg); 
+            }
+            35% { 
+                transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); 
+                box-shadow: 0 0 40px var(--gold-solid);
+            }
+            65% { 
+                transform: scale(1.5) translate(-38vw, -32vh) rotate(15deg); 
+                box-shadow: 0 0 50px var(--gold-solid);
+            }
+            100% { 
+                transform: scale(1) translate(0, 0) rotate(0deg); 
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            }
         }
 
         .floating-cart i {
@@ -1272,7 +1283,7 @@
     </div>
 
     <!-- Floating Cart -->
-    <div class="floating-cart" id="floatingCart" onclick="openCart()">
+    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
@@ -1531,7 +1542,6 @@
                             cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
                         }
 
-                        // একাধিক ইমেজ হ্যান্ডেল করার জন্য
                         let imgList = [];
                         if(p.imgUrl && p.imgUrl.trim() !== "") {
                             imgList.push(p.imgUrl);
@@ -1564,6 +1574,7 @@
         }
 
         let cartCount = 0;
+        let cartTotalAmount = 145.00; // ডিফল্ট বা ডায়নামিক অ্যামাউন্ট
         let currentShareUrl = '';
         let activeCurrentSeller = '';
 
@@ -1634,6 +1645,8 @@
             countSpan.innerText = currentLikes;
         }
 
+        let selectedActiveProductPrice = 145.00;
+
         function openProductModal(id) {
             let allProds = getAllProducts();
             const product = allProds.find(p => p.id == id);
@@ -1641,6 +1654,10 @@
 
             activeCurrentSeller = product.seller;
             
+            // প্রাইস সংখ্যায় কনভার্ট করে সেভ করা
+            let cleanNum = parseFloat(product.price.replace(/[^0-9.]/g, ''));
+            selectedActiveProductPrice = isNaN(cleanNum) ? 145.00 : cleanNum;
+
             const slider = document.getElementById('modalMediaSlider');
             const thumbStrip = document.getElementById('modalThumbnailsStrip');
             slider.innerHTML = "";
@@ -1648,7 +1665,6 @@
 
             let slideIndex = 0;
 
-            // যদি ভিডিও থাকে তবে প্রথম স্লাইডে ভিডিও থাকবে
             if (product.videoUrl && product.videoUrl.trim() !== "") {
                 const videoSlide = document.createElement('div');
                 videoSlide.className = 'modal-slide-item';
@@ -1670,7 +1686,6 @@
                 `;
                 slider.appendChild(videoSlide);
 
-                // থাম্বনেইল তৈরি (ভিডিওর জন্য)
                 const thumb = document.createElement('div');
                 thumb.className = `thumb-item ${slideIndex === 0 ? 'active' : ''}`;
                 thumb.setAttribute('data-index', slideIndex);
@@ -1684,7 +1699,6 @@
                 slideIndex++;
             }
 
-            // অন্যান্য ছবিগুলোর স্লাইড ও থাম্বনেইল তৈরি
             product.images.forEach((imgSrc, idx) => {
                 const imgSlide = document.createElement('div');
                 imgSlide.className = 'modal-slide-item';
@@ -1855,6 +1869,7 @@
         function addToCartWithAnimation(event) {
             closeProductModal();
             cartCount++;
+            cartTotalAmount += selectedActiveProductPrice;
             document.getElementById('cartCount').innerText = cartCount;
 
             try {
@@ -1867,6 +1882,7 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
+            // ফ্লায়িং কয়েন এনিমেশন
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
@@ -1888,10 +1904,23 @@
                 }, i * 70);
             }
 
+            // ঝুড়ি সেন্টারে স্মুথলি ট্রাভেল করে বাউন্স করার ইফেক্ট
             setTimeout(() => {
-                cartElement.classList.add('local-bounce');
-                setTimeout(() => { cartElement.classList.remove('local-bounce'); }, 600);
+                cartElement.classList.add('smooth-center-bounce');
+                setTimeout(() => { 
+                    cartElement.classList.remove('smooth-center-bounce'); 
+                }, 800);
             }, 350);
+        }
+
+        // চেকআউট এবং পে-ডোমেইনে রিডাইরেক্ট ফাংশন
+        function handleCartCheckout() {
+            if(cartCount === 0) {
+                alert("Your shopping cart is currently empty. Please add items first.");
+            } else {
+                localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
+                window.location.href = `https://pay.mrmasudar.com/?total=${cartTotalAmount.toFixed(2)}`;
+            }
         }
 
         function openShareModal(title, id) {
@@ -1969,23 +1998,6 @@
                 }
             }
         }
-
-        function openCart() {
-            if(cartCount === 0) {
-                alert("Your shopping cart is currently empty.");
-            } else {
-                alert("Proceeding to Checkout with " + cartCount + " luxury items.");
-            }
-        }
     </script>
 </body>
 </html>
-function handleCartCheckout() {
-    let cartTotal = 145.00; // আপনার কার্টের ডায়নামিক টোটাল অ্যামাউন্ট এখানে বসবে
-    
-    // লোকালস্টোরেজে সেভ করা
-    localStorage.setItem('mme_cart_total', cartTotal);
-    
-    // সাবডোমেইনে রিডাইরেক্ট করা
-    window.location.href = `https://pay.mrmasudar.com/?total=${cartTotal}`;
-}
