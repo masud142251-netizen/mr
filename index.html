@@ -306,7 +306,6 @@
             box-shadow: 0 0 10px rgba(212,175,55,0.4);
         }
 
-        /* Password with Eye Toggle */
         .password-field-wrapper {
             position: relative;
             width: 100%;
@@ -327,7 +326,7 @@
         }
 
         .phone-group { display: flex; gap: 6px; }
-        .phone-group select { width: 110px; flex-shrink: 0; }
+        .phone-group select { width: 125px; flex-shrink: 0; }
 
         .auth-submit-btn {
             width: 100%;
@@ -903,7 +902,7 @@
         </div>
     </header>
 
-    <!-- Category Filter Bar (Connected with Item Tab / Categories) -->
+    <!-- Category Filter Bar -->
     <div class="category-filter-bar" id="categoryFilterBar">
         <div class="cat-chip active" onclick="filterByCategory('All')">✨ All Products</div>
         <div class="cat-chip" onclick="filterByCategory('👔 FASHION (MEN)')">👔 Men Fashion</div>
@@ -914,7 +913,7 @@
         <div class="cat-chip" onclick="filterByCategory('🎨 ART & CRAFT')">🎨 Art & Craft</div>
     </div>
 
-    <!-- Luxury Sign In / Sign Up Modal -->
+    <!-- Luxury Auth Modal -->
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal-box">
             <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -943,7 +942,7 @@
                 </form>
             </div>
 
-            <!-- Sign Up Form (With 200+ Countries, Dial Code, WhatsApp & Address) -->
+            <!-- Sign Up Form (Clean, Fast & Essential Fields Only) -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
                     <div class="auth-form-group">
@@ -952,24 +951,24 @@
                     </div>
                     <div class="auth-form-group">
                         <label>Email Address *</label>
-                        <input type="email" id="regEmail" placeholder="Enter active email" required>
+                        <input type="email" id="regEmail" placeholder="customer@gmail.com" required>
                     </div>
                     <div class="auth-form-group">
-                        <label>Select Your Country *</label>
+                        <label>Select Your Country (200+ Nations) *</label>
                         <select id="regCountrySelect" required>
                             <option value="">-- Choose Country --</option>
                         </select>
                     </div>
                     <div class="auth-form-group">
-                        <label>WhatsApp Number *</label>
+                        <label>WhatsApp Number (Global Dial Codes) *</label>
                         <div class="phone-group">
                             <select id="regDialCodeSelect"></select>
                             <input type="tel" id="regWhatsApp" placeholder="17XXXXXXXX" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
                     </div>
                     <div class="auth-form-group">
-                        <label>Residential Address *</label>
-                        <textarea id="regAddress" rows="2" placeholder="House, Road, City..." required></textarea>
+                        <label>Residential Address (For Delivery) *</label>
+                        <textarea id="regAddress" rows="2" placeholder="House, Road, City, Zip Code..." required></textarea>
                     </div>
                     <div class="auth-form-group">
                         <label>Password *</label>
@@ -1007,7 +1006,7 @@
 
     <!-- Product Feed -->
     <main class="feed-container" id="productFeed">
-        <!-- Dynamically Loaded Products (Default + Vendor Uploads) -->
+        <!-- Dynamically Loaded Products -->
     </main>
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
@@ -1102,18 +1101,42 @@
     <!-- JavaScript Logic -->
     <script>
         const allCountries = [
-            {name: "Afghanistan", flag: "🇦🇫", dial: "+93"}, {name: "Albania", flag: "🇦🇱", dial: "+355"}, {name: "Algeria", flag: "🇩🇿", dial: "+213"},
-            {name: "Andorra", flag: "🇦🇩", dial: "+376"}, {name: "Argentina", flag: "🇦🇷", dial: "+54"}, {name: "Australia", flag: "🇦🇺", dial: "+61"},
-            {name: "Austria", flag: "🇦🇹", dial: "+43"}, {name: "Bangladesh", flag: "🇧🇩", dial: "+880"}, {name: "Belgium", flag: "🇧🇪", dial: "+32"},
-            {name: "Brazil", flag: "🇧🇷", dial: "+55"}, {name: "Canada", flag: "🇨🇦", dial: "+1"}, {name: "China", flag: "🇨🇳", dial: "+86"},
-            {name: "Denmark", flag: "🇩🇰", dial: "+45"}, {name: "Egypt", flag: "🇪🇬", dial: "+20"}, {name: "France", flag: "🇫🇷", dial: "+33"},
-            {name: "Germany", flag: "🇩🇪", dial: "+49"}, {name: "India", flag: "🇮🇳", dial: "+91"}, {name: "Indonesia", flag: "🇮🇩", dial: "+62"},
-            {name: "Italy", flag: "🇮🇹", dial: "+39"}, {name: "Japan", flag: "🇯🇵", dial: "+81"}, {name: "Malaysia", flag: "🇲🇾", dial: "+60"},
-            {name: "Netherlands", flag: "🇳🇱", dial: "+31"}, {name: "Pakistan", flag: "🇵🇰", dial: "+92"}, {name: "Russia", flag: "🇷🇺", dial: "+7"},
-            {name: "Saudi Arabia", flag: "🇸🇦", dial: "+966"}, {name: "Singapore", flag: "🇸🇬", dial: "+65"}, {name: "South Korea", flag: "🇰🇷", dial: "+82"},
-            {name: "Spain", flag: "🇪🇸", dial: "+34"}, {name: "Sweden", flag: "🇸🇪", dial: "+46"}, {name: "Switzerland", flag: "🇨🇭", dial: "+41"},
-            {name: "Turkey", flag: "🇹🇷", dial: "+90"}, {name: "United Arab Emirates", flag: "🇦🇪", dial: "+971"}, {name: "United Kingdom", flag: "🇬🇧", dial: "+44"},
-            {name: "United States", flag: "🇺🇸", dial: "+1"}
+            {name: "Afghanistan", flag: "🇦🇫", dial: "+93"}, {name: "Albania", flag: "🇦🇱", dial: "+355"}, {name: "Algeria", flag: "🇩🇿", dial: "+213"}, {name: "Andorra", flag: "🇦🇩", dial: "+376"},
+            {name: "Angola", flag: "🇦🇴", dial: "+244"}, {name: "Argentina", flag: "🇦🇷", dial: "+54"}, {name: "Armenia", flag: "🇦🇲", dial: "+374"}, {name: "Australia", flag: "🇦🇺", dial: "+61"},
+            {name: "Austria", flag: "🇦🇹", dial: "+43"}, {name: "Azerbaijan", flag: "🇦🇿", dial: "+994"}, {name: "Bahrain", flag: "🇧🇭", dial: "+973"}, {name: "Bangladesh", flag: "🇧🇩", dial: "+880"},
+            {name: "Belarus", flag: "🇧🇾", dial: "+375"}, {name: "Belgium", flag: "🇧🇪", dial: "+32"}, {name: "Belize", flag: "🇧🇿", dial: "+501"}, {name: "Benin", flag: "🇧🇯", dial: "+229"},
+            {name: "Bhutan", flag: "🇧🇹", dial: "+975"}, {name: "Bolivia", flag: "🇧🇴", dial: "+591"}, {name: "Bosnia and Herzegovina", flag: "🇧🇦", dial: "+387"}, {name: "Botswana", flag: "🇧🇼", dial: "+267"},
+            {name: "Brazil", flag: "🇧🇷", dial: "+55"}, {name: "Brunei", flag: "🇧🇳", dial: "+673"}, {name: "Bulgaria", flag: "🇧🇬", dial: "+359"}, {name: "Burkina Faso", flag: "🇧🇫", dial: "+226"},
+            {name: "Cambodia", flag: "🇰🇭", dial: "+855"}, {name: "Cameroon", flag: "🇨🇲", dial: "+237"}, {name: "Canada", flag: "🇨🇦", dial: "+1"}, {name: "Chile", flag: "🇨🇱", dial: "+56"},
+            {name: "China", flag: "🇨🇳", dial: "+86"}, {name: "Colombia", flag: "🇨🇴", dial: "+57"}, {name: "Congo", flag: "🇨🇬", dial: "+242"}, {name: "Costa Rica", flag: "🇨🇷", dial: "+506"},
+            {name: "Croatia", flag: "🇭🇷", dial: "+385"}, {name: "Cuba", flag: "🇨🇺", dial: "+53"}, {name: "Cyprus", flag: "🇨🇾", dial: "+357"}, {name: "Czech Republic", flag: "🇨🇿", dial: "+420"},
+            {name: "Denmark", flag: "🇩🇰", dial: "+45"}, {name: "Djibouti", flag: "🇩🇯", dial: "+253"}, {name: "Dominican Republic", flag: "🇩🇴", dial: "+1809"}, {name: "Ecuador", flag: "🇪🇨", dial: "+593"},
+            {name: "Egypt", flag: "🇪🇬", dial: "+20"}, {name: "El Salvador", flag: "🇸🇻", dial: "+503"}, {name: "Estonia", flag: "🇪🇪", dial: "+372"}, {name: "Ethiopia", flag: "🇪🇹", dial: "+251"},
+            {name: "Fiji", flag: "🇫🇯", dial: "+679"}, {name: "Finland", flag: "🇫🇮", dial: "+358"}, {name: "France", flag: "🇫🇷", dial: "+33"}, {name: "Gabon", flag: "🇬🇦", dial: "+241"},
+            {name: "Georgia", flag: "🇬🇪", dial: "+995"}, {name: "Germany", flag: "🇩🇪", dial: "+49"}, {name: "Ghana", flag: "🇬🇭", dial: "+233"}, {name: "Greece", flag: "🇬🇷", dial: "+30"},
+            {name: "Guatemala", flag: "🇬🇹", dial: "+502"}, {name: "Honduras", flag: "🇭🇳", dial: "+504"}, {name: "Hong Kong", flag: "🇭🇰", dial: "+852"}, {name: "Hungary", flag: "🇭🇺", dial: "+36"},
+            {name: "Iceland", flag: "🇮🇸", dial: "+354"}, {name: "India", flag: "🇮🇳", dial: "+91"}, {name: "Indonesia", flag: "🇮🇩", dial: "+62"}, {name: "Iran", flag: "🇮🇷", dial: "+98"},
+            {name: "Iraq", flag: "🇮🇶", dial: "+964"}, {name: "Ireland", flag: "🇮🇪", dial: "+353"}, {name: "Israel", flag: "🇮🇱", dial: "+972"}, {name: "Italy", flag: "🇮🇹", dial: "+39"},
+            {name: "Jamaica", flag: "🇯🇲", dial: "+1876"}, {name: "Japan", flag: "🇯🇵", dial: "+81"}, {name: "Jordan", flag: "🇯🇴", dial: "+962"}, {name: "Kazakhstan", flag: "🇰🇿", dial: "+7"},
+            {name: "Kenya", flag: "🇰🇪", dial: "+254"}, {name: "Kuwait", flag: "🇰🇼", dial: "+965"}, {name: "Kyrgyzstan", flag: "🇰🇬", dial: "+996"}, {name: "Laos", flag: "🇱🇦", dial: "+856"},
+            {name: "Latvia", flag: "🇱🇻", dial: "+371"}, {name: "Lebanon", flag: "🇱🇧", dial: "+961"}, {name: "Libya", flag: "🇱🇾", dial: "+218"}, {name: "Lithuania", flag: "🇱🇹", dial: "+370"},
+            {name: "Luxembourg", flag: "🇱🇺", dial: "+352"}, {name: "Macau", flag: "🇲🇴", dial: "+853"}, {name: "Malaysia", flag: "🇲🇾", dial: "+60"}, {name: "Maldives", flag: "🇲🇻", dial: "+960"},
+            {name: "Malta", flag: "🇲🇹", dial: "+356"}, {name: "Mexico", flag: "🇲🇽", dial: "+52"}, {name: "Moldova", flag: "🇲🇩", dial: "+373"}, {name: "Monaco", flag: "🇲🇨", dial: "+377"},
+            {name: "Mongolia", flag: "🇲🇳", dial: "+976"}, {name: "Montenegro", flag: "🇲🇪", dial: "+382"}, {name: "Morocco", flag: "🇲🇦", dial: "+212"}, {name: "Mozambique", flag: "🇲🇿", dial: "+258"},
+            {name: "Myanmar", flag: "🇲🇲", dial: "+95"}, {name: "Nepal", flag: "🇳🇵", dial: "+977"}, {name: "Netherlands", flag: "🇳🇱", dial: "+31"}, {name: "New Zealand", flag: "🇳🇿", dial: "+64"},
+            {name: "Nicaragua", flag: "🇳🇮", dial: "+505"}, {name: "Nigeria", flag: "🇳🇬", dial: "+234"}, {name: "North Korea", flag: "🇰🇵", dial: "+850"}, {name: "Norway", flag: "🇳🇴", dial: "+47"},
+            {name: "Oman", flag: "🇴🇲", dial: "+968"}, {name: "Pakistan", flag: "🇵🇰", dial: "+92"}, {name: "Palestine", flag: "🇵🇸", dial: "+970"}, {name: "Panama", flag: "🇵🇦", dial: "+507"},
+            {name: "Paraguay", flag: "🇵🇾", dial: "+595"}, {name: "Peru", flag: "🇵🇪", dial: "+51"}, {name: "Philippines", flag: "🇵🇭", dial: "+63"}, {name: "Poland", flag: "🇵🇱", dial: "+48"},
+            {name: "Portugal", flag: "🇵🇹", dial: "+351"}, {name: "Qatar", flag: "🇶🇦", dial: "+974"}, {name: "Romania", flag: "🇷🇴", dial: "+40"}, {name: "Russia", flag: "🇷🇺", dial: "+7"},
+            {name: "Rwanda", flag: "🇷🇼", dial: "+250"}, {name: "Saudi Arabia", flag: "🇸🇦", dial: "+966"}, {name: "Senegal", flag: "🇸🇳", dial: "+221"}, {name: "Serbia", flag: "🇷🇸", dial: "+381"},
+            {name: "Singapore", flag: "🇸🇬", dial: "+65"}, {name: "Slovakia", flag: "🇸🇰", dial: "+421"}, {name: "Slovenia", flag: "🇸🇮", dial: "+386"}, {name: "Somalia", flag: "🇸🇴", dial: "+252"},
+            {name: "South Africa", flag: "🇿🇦", dial: "+27"}, {name: "South Korea", flag: "🇰🇷", dial: "+82"}, {name: "Spain", flag: "🇪🇸", dial: "+34"}, {name: "Sri Lanka", flag: "🇱🇰", dial: "+94"},
+            {name: "Sudan", flag: "🇸🇩", dial: "+249"}, {name: "Sweden", flag: "🇸🇪", dial: "+46"}, {name: "Switzerland", flag: "🇨🇭", dial: "+41"}, {name: "Syria", flag: "🇸🇾", dial: "+963"},
+            {name: "Taiwan", flag: "🇹🇼", dial: "+886"}, {name: "Tajikistan", flag: "🇹🇯", dial: "+992"}, {name: "Tanzania", flag: "🇹🇿", dial: "+255"}, {name: "Thailand", flag: "🇹🇭", dial: "+66"},
+            {name: "Tunisia", flag: "🇹🇳", dial: "+216"}, {name: "Turkey", flag: "🇹🇷", dial: "+90"}, {name: "Turkmenistan", flag: "🇹🇲", dial: "+993"}, {name: "Uganda", flag: "🇺🇬", dial: "+256"},
+            {name: "Ukraine", flag: "🇺🇦", dial: "+380"}, {name: "United Arab Emirates", flag: "🇦🇪", dial: "+971"}, {name: "United Kingdom", flag: "🇬🇧", dial: "+44"}, {name: "United States", flag: "🇺🇸", dial: "+1"},
+            {name: "Uruguay", flag: "🇺🇾", dial: "+598"}, {name: "Uzbekistan", flag: "🇺🇿", dial: "+998"}, {name: "Venezuela", flag: "🇻🇪", dial: "+58"}, {name: "Vietnam", flag: "🇻🇳", dial: "+84"},
+            {name: "Yemen", flag: "🇾🇪", dial: "+967"}, {name: "Zambia", flag: "🇿🇲", dial: "+260"}, {name: "Zimbabwe", flag: "🇿🇼", dial: "+263"}
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1150,7 +1173,6 @@
             }
         }
 
-        // Default + Vendor Uploads Integration
         let defaultProducts = [
             { 
                 id: 1, 
@@ -1355,7 +1377,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Auth Modal Logic
         function openAuthModal(mode) {
             document.getElementById('authModal').style.display = 'flex';
             switchAuthTab(mode);
@@ -1403,7 +1424,9 @@
             e.preventDefault();
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value;
+            const country = document.getElementById('regCountrySelect').value;
             const phone = document.getElementById('regDialCodeSelect').value + document.getElementById('regWhatsApp').value;
+            const address = document.getElementById('regAddress').value;
             const pass = document.getElementById('regPassword').value;
 
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
@@ -1413,10 +1436,10 @@
             }
 
             let users = JSON.parse(localStorage.getItem('mme_customers') || '[]');
-            users.push({name, email, phone, pass});
+            users.push({name, email, country, phone, address, pass});
             localStorage.setItem('mme_customers', JSON.stringify(users));
 
-            alert("Account registered successfully! Your WhatsApp & details are saved permanently.");
+            alert("Account registered successfully! You are all set.");
             closeAuthModal();
         }
 
