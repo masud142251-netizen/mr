@@ -748,7 +748,7 @@
             display: flex;
             scroll-snap-type: x mandatory;
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             border: 1px solid rgba(212, 175, 55, 0.4);
             background: #000;
             scrollbar-width: none;
@@ -762,7 +762,7 @@
         .modal-slide-item {
             flex: 0 0 100%;
             width: 100%;
-            height: 320px;
+            height: 300px;
             scroll-snap-align: center;
             position: relative;
             background: #000;
@@ -777,6 +777,64 @@
             height: 100%;
             object-fit: contain;
             display: block;
+        }
+
+        /* Thumbnails Strip Under Slider */
+        .modal-thumbnails-strip {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-solid) #1a1a1a;
+        }
+
+        .modal-thumbnails-strip::-webkit-scrollbar {
+            height: 4px;
+        }
+        .modal-thumbnails-strip::-webkit-scrollbar-thumb {
+            background: var(--gold-solid);
+            border-radius: 4px;
+        }
+
+        .thumb-item {
+            flex: 0 0 55px;
+            height: 55px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            cursor: pointer;
+            background: #000;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .thumb-item.active {
+            border-color: var(--gold-solid);
+            box-shadow: 0 0 10px rgba(212,175,55,0.6);
+            transform: scale(1.05);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-item .thumb-video-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-solid);
+            font-size: 0.9rem;
         }
 
         /* Custom Sound Toggle Floating Button Inside Modal Video */
@@ -1230,7 +1288,10 @@
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-media-slider" id="modalMediaSlider" onscroll="handleSliderScroll()"></div>
+            <!-- Small Thumbnails Strip -->
+            <div class="modal-thumbnails-strip" id="modalThumbnailsStrip"></div>
+            
             <div class="modal-price-box">
                 <div class="modal-price-group">
                     <span class="modal-price" id="modalPrice">$0.00</span>
@@ -1470,6 +1531,18 @@
                             cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
                         }
 
+                        // একাধিক ইমেজ হ্যান্ডেল করার জন্য
+                        let imgList = [];
+                        if(p.imgUrl && p.imgUrl.trim() !== "") {
+                            imgList.push(p.imgUrl);
+                        }
+                        if(p.extraImages && Array.isArray(p.extraImages)) {
+                            imgList = imgList.concat(p.extraImages);
+                        }
+                        if(imgList.length === 0) {
+                            imgList = ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"];
+                        }
+
                         all.push({
                             id: 'v-' + s.id + '-' + i,
                             name: p.name,
@@ -1479,7 +1552,7 @@
                             seller: s.biz || s.name,
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
-                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            images: imgList,
                             views: Math.floor(200 + Math.random() * 800),
                             likes: Math.floor(50 + Math.random() * 200),
                             desc: p.desc || 'Exclusive elite product uploaded directly from certified vendor inventory.'
@@ -1569,35 +1642,64 @@
             activeCurrentSeller = product.seller;
             
             const slider = document.getElementById('modalMediaSlider');
+            const thumbStrip = document.getElementById('modalThumbnailsStrip');
             slider.innerHTML = "";
+            thumbStrip.innerHTML = "";
 
+            let slideIndex = 0;
+
+            // যদি ভিডিও থাকে তবে প্রথম স্লাইডে ভিডিও থাকবে
             if (product.videoUrl && product.videoUrl.trim() !== "") {
                 const videoSlide = document.createElement('div');
                 videoSlide.className = 'modal-slide-item';
+                videoSlide.id = `modal-slide-${slideIndex}`;
                 
                 let rawBase = product.videoUrl.split('?')[0];
                 let videoIdMatch = rawBase.split('/').pop();
                 
-                // মোডালে প্রথমে মিউট থাকবে (mute=1), কিন্তু কাস্টমার সাউন্ড বাটন দিয়ে অন করতে পারবে
                 let modalVideoUrlMuted = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
                 let modalVideoUrlUnmuted = `${rawBase}?autoplay=1&mute=0&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
 
                 videoSlide.innerHTML = `
                     <div style="position:relative; width:100%; height:100%; background:#000; overflow:hidden;" id="modalVideoContainer">
                         <iframe id="modalYoutubeIframe" src="${modalVideoUrlMuted}" style="position:absolute; top:-15%; left:-15%; width:130%; height:130%; border:none; pointer-events:auto;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        <button class="modal-sound-btn" id="modalSoundToggleBtn" onclick="toggleModalSound('${modalVideoUrlMuted}', '${modalVideoUrlUnmuted}')" title="Toggle Sound">
+                        <button class="modal-sound-btn" onclick="toggleModalSound('${modalVideoUrlMuted}', '${modalVideoUrlUnmuted}')" title="Toggle Sound">
                             <i class="fa-solid fa-volume-xmark" id="modalSoundIcon"></i>
                         </button>
                     </div>
                 `;
                 slider.appendChild(videoSlide);
+
+                // থাম্বনেইল তৈরি (ভিডিওর জন্য)
+                const thumb = document.createElement('div');
+                thumb.className = `thumb-item ${slideIndex === 0 ? 'active' : ''}`;
+                thumb.setAttribute('data-index', slideIndex);
+                thumb.innerHTML = `
+                    <img src="${product.images[0]}" alt="thumb" loading="lazy">
+                    <div class="thumb-video-indicator"><i class="fa-solid fa-play"></i></div>
+                `;
+                thumb.onclick = () => scrollToSlide(thumb.getAttribute('data-index'));
+                thumbStrip.appendChild(thumb);
+
+                slideIndex++;
             }
 
-            product.images.forEach(imgSrc => {
+            // অন্যান্য ছবিগুলোর স্লাইড ও থাম্বনেইল তৈরি
+            product.images.forEach((imgSrc, idx) => {
                 const imgSlide = document.createElement('div');
                 imgSlide.className = 'modal-slide-item';
+                imgSlide.id = `modal-slide-${slideIndex}`;
                 imgSlide.innerHTML = `<img src="${imgSrc}" alt="${product.title}" loading="lazy">`;
                 slider.appendChild(imgSlide);
+
+                const thumb = document.createElement('div');
+                thumb.className = `thumb-item ${slideIndex === 0 ? 'active' : ''}`;
+                thumb.setAttribute('data-index', slideIndex);
+                thumb.innerHTML = `<img src="${imgSrc}" alt="thumb" loading="lazy">`;
+                thumb.onclick = () => scrollToSlide(thumb.getAttribute('data-index'));
+                thumbStrip.appendChild(thumb);
+
+                slideIndex++;
             });
 
             document.getElementById('modalPrice').innerText = product.price;
@@ -1611,6 +1713,39 @@
             document.getElementById('modalDesc').innerText = product.desc;
 
             document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function scrollToSlide(index) {
+            const slider = document.getElementById('modalMediaSlider');
+            const targetSlide = document.getElementById(`modal-slide-${index}`);
+            if(targetSlide) {
+                slider.scrollTo({
+                    left: targetSlide.offsetLeft - slider.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+            updateActiveThumbnail(index);
+        }
+
+        function handleSliderScroll() {
+            const slider = document.getElementById('modalMediaSlider');
+            const slides = slider.getElementsByClassName('modal-slide-item');
+            let scrollLeft = slider.scrollLeft;
+            let slideWidth = slider.clientWidth;
+            let currentIndex = Math.round(scrollLeft / slideWidth);
+            updateActiveThumbnail(currentIndex);
+        }
+
+        function updateActiveThumbnail(index) {
+            const thumbs = document.querySelectorAll('.thumb-item');
+            thumbs.forEach((t, i) => {
+                if(i == index) {
+                    t.classList.add('active');
+                    t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                } else {
+                    t.classList.remove('active');
+                }
+            });
         }
 
         let isModalAudioOn = false;
