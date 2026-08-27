@@ -6,7 +6,6 @@
     <title>MR MASUDAR ENTERPRISE - Luxury Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -1426,6 +1425,14 @@
             {name: "Yemen", flag: "🇾🇪", dial: "+967"}, {name: "Zambia", flag: "🇿🇲", dial: "+260"}, {name: "Zimbabwe", flag: "🇿🇼", dial: "+263"}
         ];
 
+        let cartItems = [];
+        let cartCount = 0;
+        let cartTotalAmount = 0.00;
+        let selectedActiveProductPrice = 145.00;
+        let activeCurrentProduct = null;
+        let activeCurrentSeller = '';
+        let currentShareUrl = '';
+
         window.addEventListener('DOMContentLoaded', () => {
             const countrySelect = document.getElementById('regCountrySelect');
             const dialSelect = document.getElementById('regDialCodeSelect');
@@ -1443,6 +1450,16 @@
                     dialSelect.appendChild(opt2);
                 });
             }
+
+            // লোকালস্টোরেজ থেকে কার্ট রিকভার করা (যাতে পেজ রিফ্রেশ বা সাবডোমেইনে গেলে ডেটা না হারায়)
+            let savedCart = localStorage.getItem('mme_cart_items');
+            if(savedCart) {
+                cartItems = JSON.parse(savedCart);
+                cartCount = cartItems.length;
+                cartTotalAmount = cartItems.reduce((sum, item) => sum + parseFloat(item.price.replace(/[^0-9.]/g, '')), 0);
+                document.getElementById('cartCount').innerText = cartCount;
+            }
+
             loadCombinedProducts();
         });
 
@@ -1573,11 +1590,6 @@
             return all;
         }
 
-        let cartCount = 0;
-        let cartTotalAmount = 145.00; // ডিফল্ট বা ডায়নামিক অ্যামাউন্ট
-        let currentShareUrl = '';
-        let activeCurrentSeller = '';
-
         function shuffleArray(array) {
             let shuffled = [...array];
             let currentIndex = shuffled.length, randomIndex;
@@ -1645,16 +1657,14 @@
             countSpan.innerText = currentLikes;
         }
 
-        let selectedActiveProductPrice = 145.00;
-
         function openProductModal(id) {
             let allProds = getAllProducts();
             const product = allProds.find(p => p.id == id);
             if(!product) return;
 
+            activeCurrentProduct = product;
             activeCurrentSeller = product.seller;
             
-            // প্রাইস সংখ্যায় কনভার্ট করে সেভ করা
             let cleanNum = parseFloat(product.price.replace(/[^0-9.]/g, ''));
             selectedActiveProductPrice = isNaN(cleanNum) ? 145.00 : cleanNum;
 
@@ -1743,7 +1753,6 @@
 
         function handleSliderScroll() {
             const slider = document.getElementById('modalMediaSlider');
-            const slides = slider.getElementsByClassName('modal-slide-item');
             let scrollLeft = slider.scrollLeft;
             let slideWidth = slider.clientWidth;
             let currentIndex = Math.round(scrollLeft / slideWidth);
@@ -1867,10 +1876,24 @@
         }
 
         function addToCartWithAnimation(event) {
+            if(!activeCurrentProduct) activeCurrentProduct = getAllProducts()[0];
             closeProductModal();
-            cartCount++;
+
+            // কার্ট আইটেমে প্রোডাক্টের ইমেজ, টাইটেল ও দাম সেভ করা
+            cartItems.push({
+                id: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                image: activeCurrentProduct.images[0]
+            });
+
+            cartCount = cartItems.length;
             cartTotalAmount += selectedActiveProductPrice;
             document.getElementById('cartCount').innerText = cartCount;
+
+            // লোকালস্টোরেজে কার্ট ডেটা পার্মানেন্টলি সেভ করা
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
 
             try {
                 let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
@@ -1882,7 +1905,7 @@
             const cartElement = document.getElementById('floatingCart');
             const cartRect = cartElement.getBoundingClientRect();
 
-            // ফ্লায়িং কয়েন এনিমেশন
+            // ফ্লাইং কয়েন অ্যানিমেশন
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const coin = document.createElement('div');
@@ -1913,7 +1936,7 @@
             }, 350);
         }
 
-        // চেকআউট এবং পে-ডোমেইনে রিডাইরেক্ট ফাংশন
+        // চেকআউট এবং pay.mrmasudar.com ডোমেইনে রিডাইরেক্ট ফাংশন
         function handleCartCheckout() {
             if(cartCount === 0) {
                 alert("Your shopping cart is currently empty. Please add items first.");
