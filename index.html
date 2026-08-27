@@ -171,7 +171,7 @@
             text-transform: uppercase;
         }
 
-        /* Glassmorphism Floating Category Modal with Soft Animations */
+        /* Glassmorphism Floating Category Modal */
         .category-modal-overlay {
             position: fixed;
             top: 0;
@@ -225,7 +225,6 @@
             letter-spacing: 1.5px;
         }
 
-        /* Modern Grid / Tiles Layout */
         .category-grid-popup {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -266,7 +265,6 @@
             100% { border-color: rgba(212, 175, 55, 0.3); }
         }
 
-        /* Soft Zoom-In & Zoom-Out Animation (No Harsh Lighting) */
         .cat-popup-item i {
             font-size: 1.25rem;
             background: var(--gold-gradient);
@@ -296,7 +294,7 @@
             transform: scale(1.2);
         }
 
-        /* Ecosystem In-Page Viewer Modal (For E-Tech, Seller, Earn) */
+        /* Ecosystem In-Page Viewer Modal */
         .ecosystem-modal-overlay {
             position: fixed;
             top: 0;
@@ -1054,7 +1052,7 @@
         </div>
     </header>
 
-    <!-- Glassmorphism Floating Category Modal with Soft Animations -->
+    <!-- Glassmorphism Floating Category Modal -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -1143,13 +1141,13 @@
                         <input type="email" id="regEmail" placeholder="customer@gmail.com" required>
                     </div>
                     <div class="auth-form-group">
-                        <label>Select Your Country (200+ Nations) *</label>
+                        <label>Select Your Country *</label>
                         <select id="regCountrySelect" required>
                             <option value="">-- Choose Country --</option>
                         </select>
                     </div>
                     <div class="auth-form-group">
-                        <label>WhatsApp Number (Global Dial Codes) *</label>
+                        <label>WhatsApp Number *</label>
                         <div class="phone-group">
                             <select id="regDialCodeSelect"></select>
                             <input type="tel" id="regWhatsApp" placeholder="17XXXXXXXX" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
@@ -1258,6 +1256,10 @@
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Affiliate</span>
+            </div>
             <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>E-Tech</span>
@@ -1266,11 +1268,6 @@
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Seller</span>
             </div>
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)">
-                <i class="fa-solid fa-handshake"></i>
-                <span>Earn</span>
-            </div>
-            <!-- Item Button Triggers Glassmorphism Category Modal -->
             <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <span>Item</span>
