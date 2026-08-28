@@ -114,11 +114,11 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-solid); }
         .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal (Rolling Panel with 10 Colors & Quantity Controls) */
+        /* Product Details Modal (Luxury Rolling Panel) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 20px; padding: 20px; position: relative; max-height: 92vh; overflow-y: auto; }
         
-        .main-display-media { width: 100%; height: 300px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; animation: fadeInMedia 0.4s ease; }
+        .main-display-media { width: 100%; height: 280px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; animation: fadeInMedia 0.4s ease; }
         @keyframes fadeInMedia {
             0% { opacity: 0; transform: scale(0.96) translateY(6px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -140,13 +140,16 @@
         .spec-item { font-size: 0.68rem; color: var(--text-gray); }
         .spec-item strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; font-size: 0.75rem; }
 
+        /* Luxury Color Swatches Styling */
         .dynamic-option-section { margin-bottom: 12px; }
         .option-label { font-size: 0.72rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
         
-        .color-pills-box, .size-pills-box { display: flex; gap: 6px; flex-wrap: wrap; max-height: 95px; overflow-y: auto; padding: 2px; }
-        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 5px 10px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; user-select: none; }
-        .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 10px rgba(212,175,55,0.6); }
+        .color-swatches-box { display: flex; gap: 8px; flex-wrap: wrap; max-height: 110px; overflow-y: auto; padding: 4px; }
+        .color-swatch-item { display: flex; align-items: center; gap: 6px; background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 6px 12px; border-radius: 20px; font-size: 0.72rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; user-select: none; }
+        .color-swatch-item.selected { background: var(--gold-gradient); color: #000; font-weight: 800; border-color: #fff; box-shadow: 0 0 15px rgba(212,175,55,0.8); transform: scale(1.05); }
+        .color-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
+        /* Quantity Control inside Modal */
         .detail-qty-row { display: flex; align-items: center; justify-content: space-between; background: rgba(20,20,20,0.9); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.3); margin-bottom: 12px; }
         .detail-qty-controls { display: flex; align-items: center; gap: 10px; }
         .detail-qty-btn { width: 26px; height: 26px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; cursor: pointer; }
@@ -265,7 +268,7 @@
     <!-- Pinterest Feed Container (3 columns on desktop) -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- Product Details Modal -->
+    <!-- Product Details Modal (Final Luxury Version) -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content" style="position: relative;">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -284,13 +287,14 @@
             
             <div class="specs-grid">
                 <div class="spec-item">In Stock: <strong id="specStock">Available</strong></div>
-                <div class="spec-item">Packaging: <strong id="specPackaging">Standard Box</strong></div>
+                <div class="spec-item">Packaging Size: <strong id="specPackaging">120 x 60 x 45 cm</strong></div>
+                <div class="spec-item">Product Size: <strong id="specSize">Standard Elite</strong></div>
                 <div class="spec-item">SKU Code: <strong id="specSku">MME-PROD-01</strong></div>
             </div>
 
             <!-- Quantity Control -->
             <div class="detail-qty-row">
-                <span style="font-size: 0.72rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Quantity</span>
+                <span style="font-size: 0.72rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Select Quantity</span>
                 <div class="detail-qty-controls">
                     <button type="button" class="detail-qty-btn" onclick="adjustModalQty(-1)">-</button>
                     <span class="detail-qty-value" id="modalQtyDisplay">1</span>
@@ -298,13 +302,13 @@
                 </div>
             </div>
 
-            <!-- 10 Colors Multi-Selection -->
+            <!-- 10 Luxury Color Swatches -->
             <div id="modalColorSection" class="dynamic-option-section">
                 <div class="option-label">
-                    <span>Select Colors (10 Options)</span>
+                    <span>Luxury Color Palette (10 Shades)</span>
                     <span style="font-size: 0.62rem; color: var(--gold-solid);" id="selectedColorCount">1 Selected</span>
                 </div>
-                <div class="color-pills-box" id="modalColorPills"></div>
+                <div class="color-swatches-box" id="modalColorSwatches"></div>
             </div>
 
             <button class="modal-add-btn" onclick="addToCartWithSelection(event)">Add To Cart</button>
@@ -331,13 +335,20 @@
         let selectedColorsList = ["Golden Teak"];
         let currentModalQty = 1;
 
-        const luxuryTenColors = [
-            "Golden Teak", "Royal Black", "Pearl White", "Emerald Green", 
-            "Burgundy Red", "Rose Gold", "Charcoal Grey", "Navy Blue", 
-            "Champagne Gold", "Platinum Silver"
+        // 10 Luxury Colors with exact visual hex codes for color dots
+        const luxuryColorShades = [
+            { name: "Golden Teak", hex: "#d4af37" },
+            { name: "Royal Black", hex: "#1c1c1c" },
+            { name: "Pearl White", hex: "#f5f5f5" },
+            { name: "Emerald Green", hex: "#0f52ba" },
+            { name: "Burgundy Red", hex: "#800020" },
+            { name: "Rose Gold", hex: "#b76e79" },
+            { name: "Charcoal Grey", hex: "#36454f" },
+            { name: "Navy Blue", hex: "#000080" },
+            { name: "Champagne Gold", hex: "#f7e7ce" },
+            { name: "Platinum Silver", hex: "#e5e4e2" }
         ];
 
-        // 🌟 ইউনিক এবং সম্পূর্ণ আলাদা ইউনিক প্রোডাক্ট লিস্ট (এখানে আপনি আপনার ড্রাইভের ছবির লিংকগুলো বসাতে পারবেন)
         function getAllProducts() {
             return [
                 {
@@ -348,7 +359,7 @@
                         "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
                     ],
                     desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
-                    stock: "45 Units", packaging: "Luxury Gift Box", sku: "MME-CLOCK-01"
+                    stock: "45 Units", packaging: "65 x 65 x 12 cm", size: "60cm Diameter", sku: "MME-CLOCK-01"
                 },
                 {
                     id: 2, title: "Elite Executive Tailored Suit", price: "$220.00", bdDiscount: "BD 15% OFF",
@@ -358,7 +369,7 @@
                         "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
                     ],
                     desc: "Premium tailored executive suit designed for unmatched elegance, modern styling, and supreme comfort.",
-                    stock: "30 Units", packaging: "Garment Cover", sku: "MME-SUIT-02"
+                    stock: "30 Units", packaging: "95 x 55 x 10 cm", size: "Custom Tailored", sku: "MME-SUIT-02"
                 },
                 {
                     id: 3, title: "Royal Velvet Evening Gown", price: "$180.00", bdDiscount: "BD 18% OFF",
@@ -367,7 +378,7 @@
                         "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
                     ],
                     desc: "Exquisite royal velvet gown crafted with intricate embroidery and timeless luxury appeal.",
-                    stock: "25 Units", packaging: "Designer Box", sku: "MME-GOWN-03"
+                    stock: "25 Units", packaging: "50 x 40 x 15 cm", size: "Standard Fit", sku: "MME-GOWN-03"
                 },
                 {
                     id: 4, title: "Organic Luxury Baby Stroller", price: "$290.00", bdDiscount: "BD 25% OFF",
@@ -376,7 +387,7 @@
                         "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
                     ],
                     desc: "Ultra-safe, lightweight organic baby stroller featuring ergonomic seating and smooth suspension.",
-                    stock: "15 Units", packaging: "Export Carton", sku: "MME-BABY-04"
+                    stock: "15 Units", packaging: "85 x 50 x 30 cm", size: "Expandable Frame", sku: "MME-BABY-04"
                 },
                 {
                     id: 5, title: "Sparkling Crystal Diamond Set", price: "$350.00", bdDiscount: "BD 30% OFF",
@@ -386,7 +397,7 @@
                         "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
                     ],
                     desc: "Breathtaking crystal diamond jewelry set packaged in an opulent velvet presentation box.",
-                    stock: "10 Units", packaging: "Velvet Gift Box", sku: "MME-GIFT-05"
+                    stock: "10 Units", packaging: "30 x 20 x 10 cm", size: "Adjustable Set", sku: "MME-GIFT-05"
                 },
                 {
                     id: 6, title: "Minimalist Aesthetic Wood Decor", price: "$95.00", bdDiscount: "BD 15% OFF",
@@ -395,7 +406,7 @@
                         "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
                     ],
                     desc: "Minimalist natural wood art piece handcrafted to elevate interior aesthetics with warmth.",
-                    stock: "50 Units", packaging: "Eco-Box", sku: "MME-DECOR-06"
+                    stock: "50 Units", packaging: "40 x 30 x 10 cm", size: "45 x 25 cm", sku: "MME-DECOR-06"
                 }
             ];
         }
@@ -430,17 +441,10 @@
             });
         }
 
-        function handleLikeClick(el) {
-            el.classList.toggle('liked');
-        }
+        function handleLikeClick(el) { el.classList.toggle('liked'); }
 
-        function openCategoryModal(element) {
-            document.getElementById('categoryModalOverlay').style.display = 'flex';
-        }
-
-        function closeCategoryModal(e) {
-            if(e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
-        }
+        function openCategoryModal(element) { document.getElementById('categoryModalOverlay').style.display = 'flex'; }
+        function closeCategoryModal(e) { if(e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none'; }
 
         function selectCategory(cat) {
             document.getElementById('categoryModalOverlay').style.display = 'none';
@@ -453,10 +457,7 @@
             document.getElementById('shareUrlInput').value = window.location.href;
             document.getElementById('shareModalOverlay').style.display = 'flex';
         }
-
-        function closeShareModal(e) {
-            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
-        }
+        function closeShareModal(e) { if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none'; }
 
         function copyShareLink() {
             let copyInput = document.getElementById('shareUrlInput');
@@ -481,14 +482,18 @@
 
             document.getElementById('specStock').innerText = product.stock;
             document.getElementById('specPackaging').innerText = product.packaging;
+            document.getElementById('specSize').innerText = product.size;
             document.getElementById('specSku').innerText = product.sku;
 
             setupModalGallery(product);
 
-            selectedColorsList = [luxuryTenColors[0]];
-            const colorPills = document.getElementById('modalColorPills');
-            colorPills.innerHTML = luxuryTenColors.map((c, idx) => `
-                <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="toggleColorSelection('${c}', this)">${c}</div>
+            selectedColorsList = [luxuryColorShades[0].name];
+            const swatchesBox = document.getElementById('modalColorSwatches');
+            swatchesBox.innerHTML = luxuryColorShades.map((c, idx) => `
+                <div class="color-swatch-item ${idx === 0 ? 'selected' : ''}" onclick="toggleColorSwatch('${c.name}', this)">
+                    <div class="color-dot" style="background:${c.hex};"></div>
+                    <span>${c.name}</span>
+                </div>
             `).join('');
             document.getElementById('selectedColorCount').innerText = `${selectedColorsList.length} Selected`;
 
@@ -513,7 +518,7 @@
             document.getElementById('mainDisplayMedia').innerHTML = `<img src="${src}" alt="Preview">`;
         }
 
-        function toggleColorSelection(colorName, el) {
+        function toggleColorSwatch(colorName, el) {
             let idx = selectedColorsList.indexOf(colorName);
             if(idx > -1) {
                 if(selectedColorsList.length > 1) {
