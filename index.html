@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MR MASUDAR ENTERPRISE - Complete Ecosystem</title>
+    <title>MR MASUDAR ENTERPRISE - Supreme Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -20,165 +20,70 @@
             --pink-heart: #ff2d55;
         }
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%; overflow-x: hidden !important;
-            background-color: var(--bg-black); color: var(--text-white);
-            position: relative;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 60px; padding-bottom: 95px; }
 
+        /* Header */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 12px; background: rgba(11, 11, 11, 0.98);
-            position: fixed; top: 0; left: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
-            backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
+            background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
-
         .brand-container { display: flex; align-items: center; gap: 7px; }
-        .logo {
-            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
-            border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000;
-        }
-
+        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; }
-        .brand-title-main {
-            font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; font-weight: 900;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.1; text-transform: uppercase; white-space: nowrap;
-        }
-        .brand-title-sub {
-            font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px;
-        }
+        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
+        .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .auth-top-btn {
-            background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px;
-            border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px;
-        }
-        .country-square-badge {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95));
-            border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px;
-        }
-        .badge-top-text {
-            font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px;
-        }
+        .auth-top-btn { background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
+        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
         /* Category Modal */
-        .category-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px;
-        }
-        .category-modal-box {
-            background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid);
-            width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative;
-        }
-        .cat-modal-title {
-            font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-align: center; margin-bottom: 16px; text-transform: uppercase;
-        }
+        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; }
+        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .cat-popup-item {
-            background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px;
-        }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* Ecosystem Modal */
-        .ecosystem-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px);
-        }
-        .ecosystem-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid);
-        }
-        .ecosystem-title {
-            font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
-        }
-        .ecosystem-close-btn {
-            background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem;
-        }
+        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); }
+        .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .ecosystem-close-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
         /* Auth Modal */
-        .auth-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px;
-        }
-        .auth-modal-box {
-            background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px;
-            border-radius: 18px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto;
-        }
-        .close-modal {
-            position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none;
-            color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
-        }
+        .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; }
+        .auth-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
         .auth-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.4); }
-        .auth-tab-btn {
-            flex: 1; background: transparent; border: none; color: var(--text-gray); padding: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
-        }
-        .auth-tab-btn.active {
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--gold-solid); font-weight: 700;
-        }
+        .auth-tab-btn { flex: 1; background: transparent; border: none; color: var(--text-gray); padding: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+        .auth-tab-btn.active { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--gold-solid); font-weight: 700; }
         .auth-form-group { margin-bottom: 12px; text-align: left; }
-        .auth-form-group label {
-            display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase;
-        }
-        .auth-form-group input, .auth-form-group select, .auth-form-group textarea {
-            width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none;
-        }
-        .auth-submit-btn {
-            width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px;
-        }
+        .auth-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
+        .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
+        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
 
         /* Floating Cart */
-        .floating-cart {
-            position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid);
-            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .floating-cart.smooth-center-bounce {
-            animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-        }
-        @keyframes smoothCartCenterBounce {
-            0% { transform: scale(1) translate(0, 0) rotate(0deg); }
-            35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); }
-            100% { transform: scale(1) translate(0, 0) rotate(0deg); }
-        }
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
+        @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
-        .cart-badge {
-            position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white;
-            font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;
-        }
+        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* Pinterest Masonry Feed */
+        /* Pinterest Masonry Feed with Video & Images */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
 
-        .product-card {
-            break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 10px; overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column;
-            transition: transform 0.4s ease, border-color 0.4s ease;
-        }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 10px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #111; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
@@ -186,72 +91,46 @@
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
-        .product-bottom-actions {
-            display: flex; justify-content: space-around; align-items: center;
-            background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98));
-            padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem;
-        }
+        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
         .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal (Smart Conditional Fields) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px;
-        }
-        .modal-content {
-            background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px;
-            border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3);
-        }
-        .modal-media-slider {
-            width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative;
-        }
+        /* Product Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
+        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
+        .modal-media-slider { width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .modal-thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 10px; scrollbar-width: thin; }
-        .thumb-item { flex: 0 0 45px; height: 45px; border-radius: 6px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); cursor: pointer; background: #000; position: relative; }
-        .thumb-item.active { border-color: var(--gold-solid); }
-        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
-
         .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
         .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; }
-        
         .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--text-white); }
         .modal-desc { font-size: 0.76rem; color: var(--text-gray); margin-bottom: 10px; }
 
-        /* Conditional Dynamic Sections (Color & Size) */
         .dynamic-option-section { margin-bottom: 10px; }
         .option-label { font-size: 0.7rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
         .color-pills-box, .size-pills-box { display: flex; gap: 6px; flex-wrap: wrap; }
         .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; color: var(--text-white); }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; }
-
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 5px; }
 
-        /* Bottom Nav */
-        nav.bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4);
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px);
-        }
+        /* Bottom Nav with Camera & Voice */
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
-        .bottom-search-wrapper {
-            display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%;
-        }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; }
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; min-width: 0; }
         .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.75rem; }
-        .search-submit-btn {
-            background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer;
-        }
+        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+        #hiddenCameraInput { display: none; }
     </style>
 </head>
 <body>
@@ -344,12 +223,13 @@
     <!-- Product Feed -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- Product Details Modal with Conditional Color & Size -->
+    <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
+
+    <!-- Product Details Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-media-slider" id="modalMediaSlider"></div>
-            <div class="modal-thumbnails-strip" id="modalThumbnailsStrip"></div>
             <div class="modal-price-box">
                 <div style="display:flex; align-items:center; gap:6px;">
                     <span class="modal-price" id="modalPrice">$0.00</span>
@@ -359,7 +239,6 @@
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
             <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
             
-            <!-- Dynamic Color & Size Sections (Auto-hide if empty) -->
             <div id="modalColorSection" class="dynamic-option-section" style="display:none;">
                 <div class="option-label">Select Color</div>
                 <div class="color-pills-box" id="modalColorPills"></div>
@@ -384,6 +263,8 @@
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCamera()"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()"></i>
                 <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
@@ -395,6 +276,15 @@
         let activeCurrentProduct = null;
         let selectedColor = "Standard";
         let selectedSize = "Standard";
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let urlAff = urlParams.get('aff');
+        let urlRef = urlParams.get('ref');
+        if(urlAff) localStorage.setItem('mme_active_aff', urlAff);
+        if(urlRef) localStorage.setItem('mme_active_ref', urlRef);
+
+        let currentAffiliateId = localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+        let currentSellerRef = localStorage.getItem('mme_active_ref') || 'VEN-MASUD';
 
         window.addEventListener('DOMContentLoaded', () => {
             let savedCart = localStorage.getItem('mme_cart_items');
@@ -450,6 +340,7 @@
                 {
                     id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
                     sellerId: "VEN-MASUD", category: "🏡 HOME DECOR",
+                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
                     desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
                     colors: ["Golden Teak", "Black"], sizes: []
@@ -459,6 +350,12 @@
             sellers.forEach(s => {
                 if(s.uploadedProducts) {
                     s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
+                            let videoIdMatch = rawBase.split('/').pop();
+                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                        }
                         defaultProds.push({
                             id: 'v-' + s.id + '-' + i,
                             title: p.title || p.name,
@@ -466,6 +363,7 @@
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
                             sellerId: s.id,
                             category: p.category || '🏡 HOME DECOR',
+                            videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
                             desc: p.desc || 'Exclusive elite vendor product.',
                             colors: p.colors || [],
@@ -484,10 +382,25 @@
                 let stats = getDynamicProductStats(item.id);
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
                 card.innerHTML = `
-                    <div class="product-media-box" onclick="openProductModal('${item.id}')">
-                        <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
-                    </div>
+                    ${mediaContent}
                     <div class="product-bottom-actions">
                         <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
                         <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
@@ -507,11 +420,9 @@
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             document.getElementById('modalDesc').innerText = product.desc;
 
-            // Slider images
             const slider = document.getElementById('modalMediaSlider');
             slider.innerHTML = product.images.map(img => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
 
-            // Conditional Color Section
             const colorSec = document.getElementById('modalColorSection');
             const colorPills = document.getElementById('modalColorPills');
             if(product.colors && product.colors.length > 0) {
@@ -520,12 +431,8 @@
                 colorPills.innerHTML = product.colors.map((c, idx) => `
                     <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectPill('color', '${c}', this)">${c}</div>
                 `).join('');
-            } else {
-                colorSec.style.display = 'none';
-                selectedColor = "Standard";
-            }
+            } else { colorSec.style.display = 'none'; selectedColor = "Standard"; }
 
-            // Conditional Size Section
             const sizeSec = document.getElementById('modalSizeSection');
             const sizePills = document.getElementById('modalSizePills');
             if(product.sizes && product.sizes.length > 0) {
@@ -534,10 +441,7 @@
                 sizePills.innerHTML = product.sizes.map((s, idx) => `
                     <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectPill('size', '${s}', this)">${s}</div>
                 `).join('');
-            } else {
-                sizeSec.style.display = 'none';
-                selectedSize = "Standard";
-            }
+            } else { sizeSec.style.display = 'none'; selectedSize = "Standard"; }
 
             document.getElementById('productModal').style.display = 'flex';
         }
@@ -579,9 +483,9 @@
             if(cartCount === 0) {
                 alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে।");
             } else {
-                // ছোট ও নিরাপদ উপায়ে চেকআউট সাবডোমেইনে (pay.mrmasudar.com) রিডাইরেক্ট 
+                // সুনির্দিষ্ট সাবডোমেইনে (pay.mrmasudar.com) নিরাপদ রিডাইরেক্ট
                 localStorage.setItem('mme_checkout_ready', JSON.stringify(cartItems));
-                window.location.href = `https://pay.mrmasudar.com/checkout?ref=VEN-MASUD&aff=AFF-MASTER`;
+                window.location.href = `https://pay.mrmasudar.com/checkout?ref=${currentSellerRef}&aff=${currentAffiliateId}`;
             }
         }
 
@@ -595,11 +499,22 @@
         }
         function handleSignInSubmit(e) { e.preventDefault(); alert("Successfully signed in!"); closeAuthModal(); }
         function handleSignUpSubmit(e) { e.preventDefault(); alert("Account created successfully!"); closeAuthModal(); }
+
         function performSearchSubmit() {
             let q = document.getElementById('searchInput').value.toLowerCase();
             loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCamera() { document.getElementById('hiddenCameraInput').click(); }
+        function handleGalleryImage(event) {
+            const file = event.target.files[0];
+            if(file) { alert("Camera/Gallery image selected: " + file.name); }
+        }
+        function triggerVoiceSearch() {
+            let text = prompt("প্রোডাক্টের নাম লিখে সার্চ করুন:");
+            if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+        }
     </script>
 </body>
 </html>
