@@ -79,7 +79,7 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* Floating Luxury Slow & Smooth Bouncing Cart */
+        /* Floating Luxury Cart */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s ease; }
         .floating-cart.luxury-smooth-bounce { animation: luxurySlowBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes luxurySlowBounce {
@@ -91,21 +91,33 @@
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* Slow Flying Coin Animation Effect */
+        /* Flying Coin Animation */
         .flying-coin { position: fixed; width: 24px; height: 24px; border-radius: 50%; background: var(--gold-solid); border: 2px solid #fff; z-index: 5000; box-shadow: 0 0 15px var(--gold-solid); pointer-events: none; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* Checkout Modal */
+        /* Golden Luxury Checkout Modal */
         .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 18px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
-        .checkout-modal-title { font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
-        .checkout-item-list { margin-bottom: 15px; max-height: 200px; overflow-y: auto; }
+        .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); }
+        .checkout-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         
-        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 10px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.3); font-size: 0.72rem; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform: scale(1); opacity: 1; }
+        .checkout-item-list { margin-bottom: 15px; max-height: 220px; overflow-y: auto; }
+        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: rgba(25,25,25,0.9); padding: 10px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(212,175,55,0.3); font-size: 0.75rem; transition: all 0.5s ease; }
         .checkout-item-row.smooth-slide-delete { transform: translateX(120px) scale(0.9); opacity: 0; height: 0; margin-bottom: 0; padding: 0; overflow: hidden; border: none; }
-        .checkout-item-row img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; }
-        
+        .checkout-item-row img { width: 45px; height: 45px; object-fit: cover; border-radius: 8px; border: 1px solid var(--gold-solid); }
+
+        /* Quantity Control with Golden Plus-Minus Buttons */
+        .qty-control-box { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+        .qty-btn { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
+        .qty-display { font-size: 0.78rem; font-weight: 700; color: var(--gold-solid); min-width: 16px; text-align: center; }
+
         .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
         .delete-cart-item-btn:hover { background: var(--danger-red); color: white; transform: rotate(90deg) scale(1.1); }
+
+        /* Fixed Checkout Form Group Styles (No Overlap) */
+        .checkout-form-group { margin-bottom: 14px; text-align: left; display: flex; flex-direction: column; width: 100%; }
+        .checkout-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
+        .checkout-form-group input, .checkout-form-group select, .checkout-form-group textarea { width: 100% !important; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 11px 12px; border-radius: 10px; color: var(--text-white); font-size: 0.82rem; outline: none; transition: border-color 0.3s, box-shadow 0.3s; resize: vertical; }
+        .checkout-form-group input:focus, .checkout-form-group textarea:focus { border-color: var(--gold-solid); box-shadow: 0 0 12px rgba(212,175,55,0.4); }
+        .checkout-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 12px; border-radius: 12px; color: #000; font-weight: 800; font-size: 0.95rem; cursor: pointer; margin-top: 8px; box-shadow: 0 0 20px rgba(212,175,55,0.5); text-transform: uppercase; }
 
         /* Pinterest Masonry Feed */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
@@ -130,16 +142,21 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-solid); }
         .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal - Full Width Immersive Video View */
+        /* Product Details Modal - Clean 100% Immersive Full-Size Video Popup */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; }
         
         .main-display-media { width: 100%; height: 320px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
         .main-display-media img { width: 100%; height: 100%; object-fit: contain; }
-        .main-display-media iframe { width: 100%; height: 100%; object-fit: cover; border: none; pointer-events: none; }
         
+        /* Perfectly Clean YouTube Container inside Modal (No Logo, No Titles) */
+        .clean-modal-video-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
+        .clean-modal-video-container iframe { position: absolute; top: -25%; left: -25%; width: 150%; height: 150%; border: none; pointer-events: none; }
+        .clean-video-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; }
+
+        /* Smaller Thumbnails Strip */
         .thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; scrollbar-width: thin; }
-        .thumb-item { flex: 0 0 55px; height: 55px; border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
+        .thumb-item { flex: 0 0 45px; height: 45px; border-radius: 6px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
         .thumb-item.active-thumb { border-color: var(--gold-solid); opacity: 1; transform: scale(1.05); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -177,7 +194,7 @@
 </head>
 <body>
 
-    <!-- Header (Login/Sign-up completely removed as requested) -->
+    <!-- Header -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -196,7 +213,7 @@
         </div>
     </header>
 
-    <!-- Category Modal (Women fashion icon updated to dress/outfit in brand colors) -->
+    <!-- Category Modal -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -214,7 +231,7 @@
         </div>
     </div>
 
-    <!-- Share Modal (Cleaned up: Standard "Share", no ID jargon, multiple social channels) -->
+    <!-- Share Modal -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <button class="close-modal" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -249,7 +266,7 @@
         </div>
     </div>
 
-    <!-- Checkout Modal -->
+    <!-- Golden Luxury Checkout Modal -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -258,19 +275,19 @@
             <div class="checkout-item-list" id="checkoutItemList"></div>
 
             <form onsubmit="handleOrderSubmit(event)">
-                <div class="auth-form-group">
+                <div class="checkout-form-group">
                     <label>Full Name *</label>
                     <input type="text" id="custName" required placeholder="Enter your full name">
                 </div>
-                <div class="auth-form-group">
+                <div class="checkout-form-group">
                     <label>Phone / WhatsApp Number *</label>
                     <input type="tel" id="custPhone" required placeholder="Enter mobile or WhatsApp">
                 </div>
-                <div class="auth-form-group">
+                <div class="checkout-form-group">
                     <label>Delivery Address *</label>
                     <textarea id="custAddress" rows="3" required placeholder="House, Road, Area, City/District"></textarea>
                 </div>
-                <button type="submit" class="auth-submit-btn">Confirm Order</button>
+                <button type="submit" class="checkout-submit-btn">Confirm Order</button>
             </form>
         </div>
     </div>
@@ -348,7 +365,6 @@
         let selectedColor = "Standard";
         let selectedSize = "Standard";
 
-        // URL Affiliate & Seller ID Tracking
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff');
         let urlRef = urlParams.get('ref');
@@ -362,13 +378,12 @@
             let savedCart = localStorage.getItem('mme_cart_items');
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
-                cartCount = cartItems.length;
+                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
                 document.getElementById('cartCount').innerText = cartCount;
             }
             loadCombinedProducts();
         });
 
-        // Premium Cool Sound Effect Generator (Web Audio API)
         function playCoolSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -424,7 +439,6 @@
             else loadCombinedProducts(all.filter(p => p.category === cat));
         }
 
-        // Share Modal with smooth toast notification instead of browser alert
         function openShareModal(productTitle) {
             let baseUrl = window.location.href.split('?')[0];
             let shareableLink = `${baseUrl}?aff=${currentAffiliateId}&ref=${currentSellerRef}`;
@@ -565,9 +579,7 @@
             let currentLikes = parseInt(localStorage.getItem(likesKey)) || 120;
             let likeBox = document.getElementById(`like-box-${id}`);
 
-            if(isAlreadyLiked) {
-                return;
-            }
+            if(isAlreadyLiked) return;
 
             currentLikes++;
             localStorage.setItem(likesKey, currentLikes);
@@ -632,7 +644,7 @@
             });
 
             if(mediaItems[0].type === 'video') {
-                mainDisplay.innerHTML = `<iframe src="${mediaItems[0].src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                mainDisplay.innerHTML = `<div class="clean-modal-video-container"><iframe src="${mediaItems[0].src}" allow="autoplay; encrypted-media"></iframe><div class="clean-video-shield" onclick="openProductModal('${product.id}')"></div></div>`;
             } else {
                 mainDisplay.innerHTML = `<img src="${mediaItems[0].src}" alt="Product Preview">`;
             }
@@ -649,7 +661,7 @@
             el.classList.add('active-thumb');
             const mainDisplay = document.getElementById('mainDisplayMedia');
             if(type === 'video') {
-                mainDisplay.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                mainDisplay.innerHTML = `<div class="clean-modal-video-container"><iframe src="${src}" allow="autoplay; encrypted-media"></iframe></div>`;
             } else {
                 mainDisplay.innerHTML = `<img src="${src}" alt="Product Preview">`;
             }
@@ -668,19 +680,26 @@
 
         function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
-        // Slow Flying Coin Animation & Cool Sound & Luxury Slow Bouncing Cart
         function addToCartWithSelection(event) {
             if(!activeCurrentProduct) return;
-            cartItems.push({
-                cartId: Date.now() + Math.random(),
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                color: selectedColor,
-                size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId,
-                image: activeCurrentProduct.images[0]
-            });
-            cartCount = cartItems.length;
+            
+            let existing = cartItems.find(item => item.title === activeCurrentProduct.title && item.color === selectedColor && item.size === selectedSize);
+            if(existing) {
+                existing.quantity = (existing.quantity || 1) + 1;
+            } else {
+                cartItems.push({
+                    cartId: Date.now() + Math.random(),
+                    title: activeCurrentProduct.title,
+                    price: activeCurrentProduct.price,
+                    color: selectedColor,
+                    size: selectedSize,
+                    quantity: 1,
+                    sellerId: activeCurrentProduct.sellerId,
+                    image: activeCurrentProduct.images[0]
+                });
+            }
+
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').innerText = cartCount;
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             closeProductModal();
@@ -731,6 +750,11 @@
                     <div style="flex:1; margin-left:8px;">
                         <strong>${item.title}</strong><br>
                         <span style="color:var(--gold-solid);">${item.price}</span> | Color: ${item.color} | Size: ${item.size}
+                        <div class="qty-control-box">
+                            <button type="button" class="qty-btn" onclick="updateItemQuantity(${item.cartId}, -1)">-</button>
+                            <span class="qty-display">${item.quantity || 1}</span>
+                            <button type="button" class="qty-btn" onclick="updateItemQuantity(${item.cartId}, 1)">+</button>
+                        </div>
                     </div>
                     <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove item">
                         <i class="fa-solid fa-trash-can"></i>
@@ -739,7 +763,21 @@
             `).join('');
         }
 
-        // Smooth Slide-away Animation on Deleting Cart Item
+        function updateItemQuantity(cartId, change) {
+            let item = cartItems.find(i => i.cartId === cartId);
+            if(item) {
+                item.quantity = (item.quantity || 1) + change;
+                if(item.quantity <= 0) {
+                    removeCartItem(cartId);
+                    return;
+                }
+                cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+                document.getElementById('cartCount').innerText = cartCount;
+                localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+                renderCartItemsList();
+            }
+        }
+
         function removeCartItem(cartId) {
             const rowEl = document.getElementById(`cart-row-${cartId}`);
             if(rowEl) {
@@ -747,7 +785,7 @@
             }
             setTimeout(() => {
                 cartItems = cartItems.filter(item => item.cartId !== cartId);
-                cartCount = cartItems.length;
+                cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
                 document.getElementById('cartCount').innerText = cartCount;
                 localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
 
