@@ -42,6 +42,10 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
+        /* General Modal Close Button (Standardized & High Quality) */
+        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(20, 20, 20, 0.85); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; box-shadow: 0 0 10px rgba(212,175,55,0.4); transition: all 0.3s ease; }
+        .close-modal:hover { background: var(--gold-solid); color: #000; transform: scale(1.1); }
+
         /* Category Modal */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(5px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.85); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
@@ -146,7 +150,13 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; }
         
-        .main-display-media { width: 100%; height: 320px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
+        /* Smooth Fade & Slide Animation for Media Switching */
+        .main-display-media { width: 100%; height: 320px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; animation: fadeInMedia 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        @keyframes fadeInMedia {
+            0% { opacity: 0; transform: scale(0.96) translateY(6px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         .main-display-media img { width: 100%; height: 100%; object-fit: contain; }
         
         .clean-modal-video-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
@@ -156,7 +166,7 @@
         /* Thumbnails Strip */
         .thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; scrollbar-width: thin; }
         .thumb-item { flex: 0 0 45px; height: 45px; border-radius: 6px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
-        .thumb-item.active-thumb { border-color: var(--gold-solid); opacity: 1; transform: scale(1.05); }
+        .thumb-item.active-thumb { border-color: var(--gold-solid); opacity: 1; transform: scale(1.08); box-shadow: 0 0 8px rgba(212,175,55,0.6); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
@@ -304,7 +314,7 @@
 
     <!-- Product Details Modal -->
     <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
+        <div class="modal-content" style="position: relative;">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="main-display-media" id="mainDisplayMedia"></div>
@@ -482,7 +492,6 @@
             document.getElementById('itemNavBtn').classList.add('active');
         }
 
-        // Updated Products List with precise max 25 chars title & max 155 chars description
         function getAllProducts() {
             let defaultProds = [
                 {
@@ -709,6 +718,12 @@
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active-thumb'));
             el.classList.add('active-thumb');
             const mainDisplay = document.getElementById('mainDisplayMedia');
+            
+            // Re-trigger animation on switch
+            mainDisplay.style.animation = 'none';
+            mainDisplay.offsetHeight; // trigger reflow
+            mainDisplay.style.animation = 'fadeInMedia 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+
             if(type === 'video') {
                 mainDisplay.innerHTML = `<div class="clean-modal-video-container"><iframe src="${src}" allow="autoplay; encrypted-media"></iframe></div>`;
             } else {
@@ -729,7 +744,6 @@
 
         function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
-        // Prevent Duplicate Rows: Combines same product, color & size into single row with incrementing quantity
         function addToCartWithSelection(event) {
             if(!activeCurrentProduct) return;
             
