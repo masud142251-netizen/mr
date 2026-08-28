@@ -483,9 +483,9 @@
             if(cartCount === 0) {
                 alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে।");
             } else {
-                // সুনির্দিষ্ট চেকআউট ডোমেইনে (pay.mrmasudar.com বা আপনার বর্তমান out ডোমেইনে যাওয়ার জন্য) নিরাপদ রিডাইরেক্ট
+                // সরাসরি out.mrmasudar.com সাবডোমেইনে রিডাইরেক্ট করে কাস্টমারের কার্ট ডেটা পাস করা হচ্ছে
                 localStorage.setItem('mme_checkout_ready', JSON.stringify(cartItems));
-                window.location.href = `https://pay.mrmasudar.com/checkout?ref=${currentSellerRef}&aff=${currentAffiliateId}`;
+                window.location.href = `https://out.mrmasudar.com/?ref=${currentSellerRef}&aff=${currentAffiliateId}`;
             }
         }
 
