@@ -143,7 +143,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -165,7 +164,6 @@
         </div>
     </header>
 
-    <!-- Category Modal -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -184,7 +182,6 @@
         </div>
     </div>
 
-    <!-- Ecosystem Modal -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -195,7 +192,6 @@
         </div>
     </div>
 
-    <!-- Auth Modal -->
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal-box">
             <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -222,15 +218,13 @@
         </div>
     </div>
 
-    <!-- In-Page Checkout Modal Popup -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
             
             <div class="checkout-item-list" id="checkoutItemList">
-                <!-- কার্ট আইটেম এখানে লোড হবে -->
-            </div>
+                </div>
 
             <form onsubmit="handleOrderSubmit(event)">
                 <div class="auth-form-group">
@@ -250,18 +244,15 @@
         </div>
     </div>
 
-    <!-- Floating Cart -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- Product Feed -->
     <main class="feed-container" id="productFeed"></main>
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Details Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -288,7 +279,6 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -515,10 +505,10 @@
             setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
         }
 
-        // সাইট পরিবর্তন না করে একই পেজে চেকআউট ফর্ম পপআপ ওপেন করার ফাংশন
+        // একই পেজে চেকআউট ফর্ম পপআপ ওপেন করার ফাংশন
         function handleCartCheckout() {
             if(cartItems.length === 0) {
-                alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে। দয়া করে প্রডাক্ট সিলেক্ট করুন।");
+                alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে। দয়া করে প্রডাক্ট সিলেক্ট করুন।");
                 return;
             }
 
@@ -547,11 +537,11 @@
             let address = document.getElementById('custAddress').value;
 
             if(!name || !phone || !address) {
-                alert("দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+                alert("দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।");
                 return;
             }
 
-            alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।");
+            alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।");
             localStorage.removeItem('mme_cart_items');
             cartItems = [];
             cartCount = 0;
