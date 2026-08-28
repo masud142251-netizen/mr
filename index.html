@@ -78,6 +78,14 @@
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
+        /* Checkout Modal Popup */
+        .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
+        .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
+        .checkout-modal-title { font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
+        .checkout-item-list { margin-bottom: 15px; max-height: 180px; overflow-y: auto; }
+        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.75rem; }
+        .checkout-item-row img { width: 38px; height: 38px; object-fit: cover; border-radius: 5px; }
+
         /* Pinterest Masonry Feed with Video & Images */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
@@ -211,6 +219,34 @@
                     <button type="submit" class="auth-submit-btn">Create Account</button>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- In-Page Checkout Modal Popup -->
+    <div class="checkout-modal-overlay" id="checkoutModalOverlay">
+        <div class="checkout-modal-box">
+            <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
+            
+            <div class="checkout-item-list" id="checkoutItemList">
+                <!-- কার্ট আইটেম এখানে লোড হবে -->
+            </div>
+
+            <form onsubmit="handleOrderSubmit(event)">
+                <div class="auth-form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="custName" required placeholder="আপনার পুরো নাম লিখুন">
+                </div>
+                <div class="auth-form-group">
+                    <label>Phone / WhatsApp Number *</label>
+                    <input type="tel" id="custPhone" required placeholder="আপনার মোবাইল নম্বর">
+                </div>
+                <div class="auth-form-group">
+                    <label>Delivery Address *</label>
+                    <textarea id="custAddress" rows="3" required placeholder="সম্পূর্ণ ঠিকানা (বাসা, রোড, এলাকা, জেলা)"></textarea>
+                </div>
+                <button type="submit" class="auth-submit-btn">Confirm Order</button>
+            </form>
         </div>
     </div>
 
@@ -479,14 +515,48 @@
             setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
         }
 
+        // সাইট পরিবর্তন না করে একই পেজে চেকআউট ফর্ম পপআপ ওপেন করার ফাংশন
         function handleCartCheckout() {
-            if(cartCount === 0) {
-                alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে।");
-            } else {
-                // সরাসরি out.mrmasudar.com সাবডোমেইনে রিডাইরেক্ট করে কাস্টমারের কার্ট ডেটা পাস করা হচ্ছে
-                localStorage.setItem('mme_checkout_ready', JSON.stringify(cartItems));
-                window.location.href = `https://out.mrmasudar.com/?ref=${currentSellerRef}&aff=${currentAffiliateId}`;
+            if(cartItems.length === 0) {
+                alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে। দয়া করে প্রডাক্ট সিলেক্ট করুন।");
+                return;
             }
+
+            const container = document.getElementById('checkoutItemList');
+            container.innerHTML = cartItems.map(item => `
+                <div class="checkout-item-row">
+                    <img src="${item.image}" alt="Product">
+                    <div style="flex:1; margin-left:8px;">
+                        <strong>${item.title}</strong><br>
+                        <span style="color:var(--gold-solid);">${item.price}</span> | কালার: ${item.color} | সাইজ: ${item.size}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('checkoutModalOverlay').style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModalOverlay').style.display = 'none';
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            let name = document.getElementById('custName').value;
+            let phone = document.getElementById('custPhone').value;
+            let address = document.getElementById('custAddress').value;
+
+            if(!name || !phone || !address) {
+                alert("দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+                return;
+            }
+
+            alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।");
+            localStorage.removeItem('mme_cart_items');
+            cartItems = [];
+            cartCount = 0;
+            document.getElementById('cartCount').innerText = 0;
+            closeCheckoutModal();
         }
 
         function openAuthModal(mode) { document.getElementById('authModal').style.display = 'flex'; }
