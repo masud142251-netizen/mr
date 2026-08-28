@@ -32,25 +32,44 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
         .brand-container { display: flex; align-items: center; gap: 7px; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
+        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; animation: logoGlow 3s infinite alternate; }
+        @keyframes logoGlow { 0% { box-shadow: 0 0 8px rgba(212,175,55,0.4); } 100% { box-shadow: 0 0 18px rgba(212,175,55,0.9); } }
         .brand-text-box { display: flex; flex-direction: column; }
         .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
         .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .auth-top-btn { background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px; }
+        .auth-top-btn { background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px; transition: transform 0.2s; }
+        .auth-top-btn:active { transform: scale(0.95); }
         .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* Category Modal */
-        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; }
+        /* Category Modal with 6 Zooming Icons */
+        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(5px); padding: 15px; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.85); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 35px rgba(212,175,55,0.3); animation: modalPopupAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPopupAnim { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.7); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
-        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cat-popup-item i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: zoomPulse 2s infinite ease-in-out; }
+        @keyframes zoomPulse { 0% { transform: scale(1); } 50% { transform: scale(1.18); } 100% { transform: scale(1); } }
+
+        /* Social Share Modal Overlay */
+        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 3200; backdrop-filter: blur(8px); padding: 15px; }
+        .share-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 20px; padding: 22px; text-align: center; position: relative; box-shadow: 0 0 35px rgba(212,175,55,0.4); animation: modalPopupAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .share-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .share-option-btn { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 12px; border-radius: 12px; color: var(--text-white); font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; text-decoration: none; }
+        .share-option-btn:hover { background: rgba(212,175,55,0.15); border-color: var(--gold-solid); transform: translateY(-2px); }
+        .share-option-btn i { font-size: 1.2rem; }
+        .share-fb { color: #1877f2; }
+        .share-yt { color: #ff0000; }
+        .share-insta { color: #e4405f; }
+        .share-tiktok { color: #00f2fe; }
+        .share-copy-box { margin-top: 15px; display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; padding: 6px; align-items: center; }
+        .share-copy-box input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.72rem; padding: 4px; }
+        .copy-btn-link { background: var(--gold-gradient); border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; cursor: pointer; color: #000; }
 
         /* Ecosystem Modal */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
@@ -72,24 +91,33 @@
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
 
-        /* Floating Cart */
-        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
-        @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
+        /* Floating Luxury Smooth Bouncing Cart */
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s ease; }
+        .floating-cart.luxury-bounce { animation: luxurySmoothBounce 0.9s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+        @keyframes luxurySmoothBounce {
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+            30% { transform: scale(1.5) translate(-42vw, -35vh) rotate(-15deg); }
+            65% { transform: scale(1.15) translate(-20vw, -15vh) rotate(5deg); }
+            100% { transform: scale(1) translate(0, 0) rotate(0deg); }
+        }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* Checkout Modal Popup with Delete Item Option */
+        /* Flying Coin Animation Effect */
+        .flying-coin { position: fixed; width: 22px; height: 22px; border-radius: 50%; background: var(--gold-solid); border: 2px solid #fff; z-index: 5000; box-shadow: 0 0 15px var(--gold-solid); pointer-events: none; transition: all 0.8s cubic-bezier(0.15, 0.85, 0.35, 1.2); }
+
+        /* Checkout Modal Popup with Smooth Fade & Delete Animation */
         .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
         .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 18px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
         .checkout-modal-title { font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         .checkout-item-list { margin-bottom: 15px; max-height: 200px; overflow-y: auto; }
-        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; }
+        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; transition: all 0.4s ease; }
+        .checkout-item-row.fade-out-delete { transform: translateX(100px); opacity: 0; }
         .checkout-item-row img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; }
         .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: background 0.3s; }
         .delete-cart-item-btn:hover { background: var(--danger-red); color: white; }
 
-        /* Pinterest Masonry Feed with Video & Images */
+        /* Pinterest Masonry Feed */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
@@ -97,24 +125,30 @@
         .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 10px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #111; overflow: hidden; }
-        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.5s ease; }
+        .product-card:hover .product-media-box img { transform: scale(1.04); }
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
         .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
-        .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
+        .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; transition: transform 0.2s; }
+        .action-item:active { transform: scale(1.15); }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
-        .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal with Comprehensive Specifications */
+        /* Product Details Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
-        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
-        .modal-media-slider { width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
-        .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); animation: modalPopupAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        .main-display-media { width: 100%; height: 260px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
+        .main-display-media img, .main-display-media iframe { width: 100%; height: 100%; object-fit: contain; border: none; }
+        
+        .thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; scrollbar-width: thin; }
+        .thumb-item { flex: 0 0 55px; height: 55px; border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
+        .thumb-item.active-thumb { border-color: var(--gold-solid); opacity: 1; transform: scale(1.05); }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
         .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -122,7 +156,6 @@
         .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--text-white); }
         .modal-desc { font-size: 0.76rem; color: var(--text-gray); margin-bottom: 8px; line-height: 1.4; }
 
-        /* Professional Specs Grid (Stock, Packaging, Quantity) */
         .specs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 12px; background: rgba(20,20,20,0.8); padding: 8px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.2); }
         .spec-item { font-size: 0.68rem; color: var(--text-gray); }
         .spec-item strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; font-size: 0.75rem; }
@@ -130,14 +163,14 @@
         .dynamic-option-section { margin-bottom: 10px; }
         .option-label { font-size: 0.7rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
         .color-pills-box, .size-pills-box { display: flex; gap: 6px; flex-wrap: wrap; }
-        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; color: var(--text-white); }
+        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; }
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 5px; }
 
-        /* Bottom Nav with Camera & Voice */
+        /* Bottom Nav */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; transition: color 0.3s; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
@@ -173,21 +206,41 @@
         </div>
     </header>
 
-    <!-- Category Modal -->
+    <!-- Category Modal with 6 Zooming Icons -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="cat-modal-title">✨ Luxury Categories</h3>
             <div class="category-grid-popup">
                 <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
+                    <span><i class="fa-solid fa-wand-magic-sparkles"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Share Modal -->
+    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
+        <div class="share-modal-box">
+            <button class="close-modal" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="cat-modal-title" style="font-size: 1rem; margin-bottom: 4px;">Share & Earn Affiliate</h3>
+            <p style="font-size: 0.7rem; color: var(--text-gray);">Share with your unique Affiliate & Seller ID automatically attached!</p>
+            
+            <div class="share-grid">
+                <a href="#" id="shareFbBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-facebook share-fb"></i> Facebook</a>
+                <a href="#" id="shareYtBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-youtube share-yt"></i> YouTube</a>
+                <a href="#" id="shareInstaBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-instagram share-insta"></i> Instagram</a>
+                <a href="#" id="shareTiktokBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-tiktok share-tiktok"></i> TikTok</a>
+            </div>
+
+            <div class="share-copy-box">
+                <input type="text" id="shareUrlInput" readonly>
+                <button class="copy-btn-link" onclick="copyShareLink()">Copy Link</button>
             </div>
         </div>
     </div>
@@ -230,15 +283,13 @@
         </div>
     </div>
 
-    <!-- In-Page Checkout Modal Popup with Delete Item Option -->
+    <!-- In-Page Checkout Modal Popup -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
             
-            <div class="checkout-item-list" id="checkoutItemList">
-                <!-- Cart items with delete action will load here -->
-            </div>
+            <div class="checkout-item-list" id="checkoutItemList"></div>
 
             <form onsubmit="handleOrderSubmit(event)">
                 <div class="auth-form-group">
@@ -269,11 +320,14 @@
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- Product Details Modal with Full Specifications -->
+    <!-- Product Details Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            
+            <div class="main-display-media" id="mainDisplayMedia"></div>
+            <div class="thumbnails-strip" id="thumbnailsStrip"></div>
+
             <div class="modal-price-box">
                 <div style="display:flex; align-items:center; gap:6px;">
                     <span class="modal-price" id="modalPrice">$0.00</span>
@@ -283,8 +337,7 @@
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
             <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
             
-            <!-- Professional Specs Details Box -->
-            <div class="specs-grid" id="modalSpecsGrid">
+            <div class="specs-grid">
                 <div class="spec-item">In Stock: <strong id="specStock">Available</strong></div>
                 <div class="spec-item">Packaging: <strong id="specPackaging">Standard Box</strong></div>
                 <div class="spec-item">Quantity: <strong id="specQty">1 Unit</strong></div>
@@ -300,7 +353,7 @@
                 <div class="size-pills-box" id="modalSizePills"></div>
             </div>
 
-            <button class="modal-add-btn" onclick="addToCartWithSelection()">Add To Cart</button>
+            <button class="modal-add-btn" onclick="addToCartWithSelection(event)">Add To Cart</button>
         </div>
     </div>
 
@@ -329,13 +382,14 @@
         let selectedColor = "Standard";
         let selectedSize = "Standard";
 
+        // Affiliate & Seller URL Tracking System
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff');
         let urlRef = urlParams.get('ref');
         if(urlAff) localStorage.setItem('mme_active_aff', urlAff);
         if(urlRef) localStorage.setItem('mme_active_ref', urlRef);
 
-        let currentAffiliateId = localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+        let currentAffiliateId = localStorage.getItem('mme_active_aff') || 'AFF-MASUDAR-01';
         let currentSellerRef = localStorage.getItem('mme_active_ref') || 'VEN-MASUD';
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -349,10 +403,21 @@
         });
 
         function getDynamicProductStats(productId) {
-            let storageKeyViews = `mme_views_${productId}`;
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let views = parseInt(localStorage.getItem(storageKeyViews)) || Math.floor(400 + Math.random() * 4500);
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
+            let todayDate = new Date().toISOString().slice(0,10);
+            let storageKeyViews = `mme_views_${productId}_${todayDate}`;
+            let storageKeyLikes = `mme_likes_${productId}_${todayDate}`;
+            
+            let views = parseInt(localStorage.getItem(storageKeyViews));
+            let likes = parseInt(localStorage.getItem(storageKeyLikes));
+
+            if(!views) {
+                views = Math.floor(350 + Math.random() * 650);
+                localStorage.setItem(storageKeyViews, views);
+            }
+            if(!likes) {
+                likes = Math.floor(120 + Math.random() * 280);
+                localStorage.setItem(storageKeyLikes, likes);
+            }
             return { views, likes };
         }
 
@@ -371,6 +436,35 @@
             let all = getAllProducts();
             if(cat === 'All') loadCombinedProducts(all);
             else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        // Professional Social Share Modal Popup with Affiliate Tracking Link
+        function openShareModal(productTitle) {
+            let baseUrl = window.location.href.split('?')[0];
+            let shareableLink = `${baseUrl}?aff=${currentAffiliateId}&ref=${currentSellerRef}`;
+            
+            document.getElementById('shareUrlInput').value = shareableLink;
+            
+            let encodedText = encodeURIComponent(`Check out "${productTitle}" on MR MASUDAR ENTERPRISE Supreme Ecosystem: ${shareableLink}`);
+            
+            document.getElementById('shareFbBtn').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareableLink)}`;
+            document.getElementById('shareYtBtn').href = `https://www.youtube.com`;
+            document.getElementById('shareInstaBtnTgt') = `#`;
+            document.getElementById('shareTiktokBtnTgt') = `#`;
+
+            document.getElementById('shareModalOverlay').style.display = 'flex';
+        }
+
+        function closeShareModal(e) {
+            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function copyShareLink() {
+            let copyInput = document.getElementById('shareUrlInput');
+            copyInput.select();
+            copyInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyInput.value);
+            alert("Affiliate tracking link copied to clipboard successfully!");
         }
 
         function openEcosystemPage(url, title, element) {
@@ -393,7 +487,11 @@
                     id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
                     sellerId: "VEN-MASUD", category: "🏡 HOME DECOR",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                    ],
                     desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
                     stock: "45 Units in Stock", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-CLOCK-01",
                     colors: ["Golden Teak", "Black"], sizes: []
@@ -417,7 +515,7 @@
                             sellerId: s.id,
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
-                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            images: p.images || [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
                             desc: p.desc || 'Exclusive elite vendor crafted product.',
                             stock: p.stock || 'In Stock (Ready)',
                             packaging: p.packaging || 'Secure Export Box',
@@ -459,12 +557,24 @@
                 card.innerHTML = `
                     ${mediaContent}
                     <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
-                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item view-icon" title="Views"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
+                        <div class="action-item like-icon" title="Like" onclick="handleLikeClick(this, '${item.id}')"><i class="fa-solid fa-heart"></i> <span id="like-cnt-${item.id}">${stats.likes}</span></div>
+                        <div class="action-item share-icon" title="Share" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> <span>Share</span></div>
                     </div>
                 `;
                 feed.appendChild(card);
             });
+        }
+
+        function handleLikeClick(el, id) {
+            let todayDate = new Date().toISOString().slice(0,10);
+            let key = `mme_likes_${id}_${todayDate}`;
+            let currentLikes = parseInt(localStorage.getItem(key)) || 120;
+            currentLikes++;
+            localStorage.setItem(key, currentLikes);
+            document.getElementById(`like-cnt-${id}`).innerText = currentLikes;
+            el.style.transform = 'scale(1.25)';
+            setTimeout(() => el.style.transform = 'scale(1)', 250);
         }
 
         function openProductModal(id) {
@@ -477,14 +587,12 @@
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             document.getElementById('modalDesc').innerText = product.desc;
 
-            // Automatically Populate Specifications / Missing Fallback Protection
             document.getElementById('specStock').innerText = product.stock || "Available";
             document.getElementById('specPackaging').innerText = product.packaging || "Standard Packaging";
             document.getElementById('specQty').innerText = product.quantity || "1 Unit";
             document.getElementById('specSku').innerText = product.sku || "MME-GENERAL";
 
-            const slider = document.getElementById('modalMediaSlider');
-            slider.innerHTML = product.images.map(img => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
+            setupModalGallery(product);
 
             const colorSec = document.getElementById('modalColorSection');
             const colorPills = document.getElementById('modalColorPills');
@@ -509,6 +617,42 @@
             document.getElementById('productModal').style.display = 'flex';
         }
 
+        function setupModalGallery(product) {
+            const mainDisplay = document.getElementById('mainDisplayMedia');
+            const strip = document.getElementById('thumbnailsStrip');
+            
+            let mediaItems = [];
+            if(product.videoUrl && product.videoUrl.trim() !== "") {
+                mediaItems.push({ type: 'video', src: product.videoUrl });
+            }
+            product.images.forEach(img => {
+                mediaItems.push({ type: 'image', src: img });
+            });
+
+            if(mediaItems[0].type === 'video') {
+                mainDisplay.innerHTML = `<iframe src="${mediaItems[0].src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            } else {
+                mainDisplay.innerHTML = `<img src="${mediaItems[0].src}" alt="Product Preview">`;
+            }
+
+            strip.innerHTML = mediaItems.map((m, idx) => `
+                <div class="thumb-item ${idx === 0 ? 'active-thumb' : ''}" onclick="switchMainMedia('${m.type}', '${m.src}', this)">
+                    ${m.type === 'video' ? '<div style="background:#222;height:100%;display:flex;align-items:center;justify-content:center;color:#d4af37;"><i class="fa-solid fa-play"></i></div>' : `<img src="${m.src}">`}
+                </div>
+            `).join('');
+        }
+
+        function switchMainMedia(type, src, el) {
+            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active-thumb'));
+            el.classList.add('active-thumb');
+            const mainDisplay = document.getElementById('mainDisplayMedia');
+            if(type === 'video') {
+                mainDisplay.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            } else {
+                mainDisplay.innerHTML = `<img src="${src}" alt="Product Preview">`;
+            }
+        }
+
         function selectPill(type, val, el) {
             if(type === 'color') {
                 selectedColor = val;
@@ -522,10 +666,11 @@
 
         function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
-        function addToCartWithSelection() {
+        // Flying Coin Animation & Smooth Bouncing Cart
+        function addToCartWithSelection(event) {
             if(!activeCurrentProduct) return;
             cartItems.push({
-                cartId: Date.now() + Math.random(), // Unique ID for deletion support
+                cartId: Date.now() + Math.random(),
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
                 color: selectedColor,
@@ -538,12 +683,34 @@
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             closeProductModal();
             
+            triggerFlyingCoin(event);
+
             const cartEl = document.getElementById('floatingCart');
-            cartEl.classList.add('smooth-center-bounce');
-            setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
+            cartEl.classList.add('luxury-bounce');
+            setTimeout(() => cartEl.classList.remove('luxury-bounce'), 900);
         }
 
-        // Handle Cart Checkout & Render List with Delete Option
+        function triggerFlyingCoin(e) {
+            const coin = document.createElement('div');
+            coin.className = 'flying-coin';
+            
+            let startX = e ? e.clientX : window.innerWidth / 2;
+            let startY = e ? e.clientY : window.innerHeight / 2;
+            coin.style.left = `${startX}px`;
+            coin.style.top = `${startY}px`;
+            document.body.appendChild(coin);
+
+            const cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+            setTimeout(() => {
+                coin.style.left = `${cartRect.left + 15}px`;
+                coin.style.top = `${cartRect.top + 15}px`;
+                coin.style.transform = 'scale(0.3)';
+                coin.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => coin.remove(), 850);
+        }
+
         function handleCartCheckout() {
             if(cartItems.length === 0) {
                 alert("Your cart is currently empty. Please select products first.");
@@ -569,19 +736,24 @@
             `).join('');
         }
 
-        // Function to Delete/Remove specific product from Cart
         function removeCartItem(cartId) {
-            cartItems = cartItems.filter(item => item.cartId !== cartId);
-            cartCount = cartItems.length;
-            document.getElementById('cartCount').innerText = cartCount;
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-
-            if(cartItems.length === 0) {
-                closeCheckoutModal();
-                alert("Your cart is now empty.");
-            } else {
-                renderCartItemsList();
+            const rowEl = document.getElementById(`cart-row-${cartId}`);
+            if(rowEl) {
+                rowEl.classList.add('fade-out-delete');
             }
+            setTimeout(() => {
+                cartItems = cartItems.filter(item => item.cartId !== cartId);
+                cartCount = cartItems.length;
+                document.getElementById('cartCount').innerText = cartCount;
+                localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+
+                if(cartItems.length === 0) {
+                    closeCheckoutModal();
+                    alert("Your cart is now empty.");
+                } else {
+                    renderCartItemsList();
+                }
+            }, 350);
         }
 
         function closeCheckoutModal() {
