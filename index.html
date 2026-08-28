@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MR MASUDAR ENTERPRISE - Luxury Ecosystem</title>
+    <title>MR MASUDAR ENTERPRISE - Supersonic Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -270,9 +270,6 @@
             position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white;
             font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;
         }
-        .flying-coin {
-            position: fixed; width: 22px; height: 22px; background: var(--gold-solid); border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 14px var(--gold-solid); z-index: 9999; pointer-events: none; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
 
         /* Pinterest Masonry Layout Feed */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
@@ -332,8 +329,7 @@
         .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 6px; }
         .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; }
-        .modal-seller-btn { font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.5); cursor: pointer; font-weight: 700; }
-
+        
         .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: var(--text-white); }
         .modal-desc { font-size: 0.78rem; color: var(--text-gray); margin-bottom: 15px; }
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; }
@@ -393,7 +389,7 @@
         </div>
     </header>
 
-    <!-- Category Modal -->
+    <!-- Category Modal (Seller & Home Perfect Sync) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -485,9 +481,9 @@
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- Product Feed -->
+    <!-- Supersonic Product Feed with Lazy Infinite Scroll -->
     <main class="feed-container" id="productFeed">
-        <!-- Dynamically Loaded Products with Automatic Dynamic Views & Likes -->
+        <!-- Dynamically Loaded Products (Max 16 initially) -->
     </main>
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
@@ -503,7 +499,6 @@
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <button class="modal-seller-btn" id="modalSellerBtn" onclick="revealSellerName()">Seller</button>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
             <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
@@ -548,7 +543,7 @@
         </div>
     </nav>
 
-    <!-- JavaScript Logic with Dynamic Auto Views & Likes -->
+    <!-- Supersonic JavaScript Logic with Infinite Scroll & Fast Caching -->
     <script>
         const allCountries = [
             {name: "Bangladesh", flag: "🇧🇩", dial: "+880"}, {name: "United States", flag: "🇺🇸", dial: "+1"},
@@ -561,11 +556,13 @@
         let cartTotalAmount = 0.00;
         let selectedActiveProductPrice = 145.00;
         let activeCurrentProduct = null;
-        let activeCurrentSeller = '';
         let activeSellerId = 'VEN-MASUD';
         let currentShareUrl = '';
 
-        // URL থেকে অ্যাফিলিয়েট আইডি ও সেলার রেফারেন্স ক্যাপচার এবং সংরক্ষণ
+        let currentMasterList = [];
+        let displayedItemCount = 0;
+        const ITEMS_PER_BATCH = 16; // প্রথমে সর্বোচ্চ ১৬টি দেখাবে, পরে স্ক্রল করলে অটো আসবে
+
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff');
         let urlRef = urlParams.get('ref');
@@ -604,10 +601,16 @@
                 document.getElementById('cartCount').innerText = cartCount;
             }
 
-            loadCombinedProducts();
+            initSupersonicFeed();
+
+            // সুপারসনিক ইনফিনিট স্ক্রল লিসেনার
+            window.addEventListener('scroll', () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+                    loadMoreFeedBatch();
+                }
+            });
         });
 
-        // অটোমেটিক র্যান্ডম ভিউ এবং লাইক জেনারেটর ফাংশন (প্রতিদিন বা লোডের সময় প্রোডাক্ট অনুযায়ী ভিন্ন ভিন্ন মান দেখাবে)
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
@@ -619,7 +622,6 @@
             let currentViews, currentLikes;
 
             if (savedDate !== todayStr) {
-                // নতুন দিন শুরু হলে নতুন করে র্যান্ডম ভিউ (৩০০ থেকে ৫০০০ এর মধ্যে) এবং লাইক (২৫০ থেকে ১০৫০ এর মধ্যে) অ্যাসাইন হবে
                 currentViews = Math.floor(300 + Math.random() * 4700);
                 currentLikes = Math.floor(250 + Math.random() * 800);
 
@@ -627,7 +629,6 @@
                 localStorage.setItem(storageKeyViews, currentViews);
                 localStorage.setItem(storageKeyLikes, currentLikes);
             } else {
-                // একই দিনে প্রিভিয়াস সেভ করা মান বা সাথে একটু অটো increment যুক্ত করা
                 currentViews = parseInt(localStorage.getItem(storageKeyViews)) || Math.floor(300 + Math.random() * 4700);
                 currentLikes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(250 + Math.random() * 800);
             }
@@ -651,10 +652,10 @@
             document.getElementById('categoryModalOverlay').style.display = 'none';
             let allProds = getAllProducts();
             if(categoryName === 'All') {
-                loadCombinedProducts(allProds);
+                initSupersonicFeed(allProds);
             } else {
                 let filtered = allProds.filter(p => p.category === categoryName);
-                loadCombinedProducts(filtered);
+                initSupersonicFeed(filtered);
             }
         }
 
@@ -672,18 +673,6 @@
             document.getElementById('itemNavBtn').classList.add('active');
         }
 
-        function togglePasswordVisibility(fieldId, btn) {
-            const inputField = document.getElementById(fieldId);
-            const icon = btn.querySelector('i');
-            if (inputField.type === "password") {
-                inputField.type = "text";
-                icon.classList.remove("fa-eye"); icon.classList.add("fa-eye-slash");
-            } else {
-                inputField.type = "password";
-                icon.classList.remove("fa-eye-slash"); icon.classList.add("fa-eye");
-            }
-        }
-
         let defaultProducts = [
             { 
                 id: 1, 
@@ -691,7 +680,6 @@
                 title: "Exquisite Resin & Gold Leaf Wall Clock", 
                 price: "$145.00", 
                 bdDiscount: "BD 20% OFF", 
-                seller: "MR Artisan Hub", 
                 sellerId: "VEN-MASUD",
                 category: "🏡 HOME DECOR",
                 videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
@@ -704,7 +692,6 @@
                 title: "Luxury Gold Crafted Designer Bracelet", 
                 price: "$125.00", 
                 bdDiscount: "BD 15% OFF", 
-                seller: "Masudar Enterprise", 
                 sellerId: "VEN-MASUD",
                 category: "👔 FASHION (MEN)",
                 videoUrl: "", 
@@ -737,7 +724,6 @@
                             title: p.title || p.name,
                             price: p.global || '$25.00',
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
-                            seller: s.biz || s.name,
                             sellerId: s.id,
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
@@ -761,16 +747,24 @@
             return shuffled;
         }
 
-        function loadCombinedProducts(dataToRender = getAllProducts()) {
+        function initSupersonicFeed(dataToRender = getAllProducts()) {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
-            let randomizedList = shuffleArray(dataToRender);
+            currentMasterList = shuffleArray(dataToRender);
+            displayedItemCount = 0;
+            loadMoreFeedBatch();
+        }
 
-            randomizedList.forEach(item => {
+        function loadMoreFeedBatch() {
+            if (displayedItemCount >= currentMasterList.length) return;
+            const feed = document.getElementById('productFeed');
+            
+            let nextBatchEnd = Math.min(displayedItemCount + ITEMS_PER_BATCH, currentMasterList.length);
+            for (let i = displayedItemCount; i < nextBatchEnd; i++) {
+                let item = currentMasterList[i];
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
-                // ডাইনামিক অটো ভিউ এবং লাইক কল করা
                 let stats = getDynamicProductStats(item.id);
 
                 let mediaContent = "";
@@ -802,7 +796,8 @@
                     </div>
                 `;
                 feed.appendChild(card);
-            });
+            }
+            displayedItemCount = nextBatchEnd;
         }
 
         function toggleLike(element, id) {
@@ -820,7 +815,6 @@
             if(!product) return;
 
             activeCurrentProduct = product;
-            activeCurrentSeller = product.seller;
             activeSellerId = product.sellerId || 'VEN-MASUD';
             
             let cleanNum = parseFloat(product.price.replace(/[^0-9.]/g, ''));
@@ -876,7 +870,6 @@
 
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalSellerBtn').innerText = "Seller";
             document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalDesc').innerText = product.desc;
             document.getElementById('productModal').style.display = 'flex';
@@ -922,11 +915,6 @@
             } else {
                 iframe.src = mutedUrl; icon.className = "fa-solid fa-volume-xmark";
             }
-        }
-
-        function revealSellerName() {
-            const sellerBtn = document.getElementById('modalSellerBtn');
-            sellerBtn.innerText = sellerBtn.innerText === "Seller" ? activeCurrentSeller : "Seller";
         }
 
         function closeProductModal() { isModalAudioOn = false; document.getElementById('productModal').style.display = 'none'; }
@@ -1018,7 +1006,8 @@
                 localStorage.setItem('mme_cart_total', cartTotalAmount.toFixed(2));
                 
                 let itemTitles = cartItems.map(i => encodeURIComponent(i.title)).join(',');
-                window.location.href = `https://secure-admin.masudarr.com/checkout?total=${cartTotalAmount.toFixed(2)}&items=${itemTitles}&ref=${activeSellerId}&aff=${currentAffiliateId}&cust=${encodeURIComponent(loggedCust.email || 'guest')}&name=${encodeURIComponent(loggedCust.name || 'Customer')}`;
+                // pay.mrmasudar.com চেকআউট সাবডোমেইনে রিডাইরেক্ট
+                window.location.href = `https://pay.mrmasudar.com/checkout?total=${cartTotalAmount.toFixed(2)}&items=${itemTitles}&ref=${activeSellerId}&aff=${currentAffiliateId}&cust=${encodeURIComponent(loggedCust.email || 'guest')}&name=${encodeURIComponent(loggedCust.name || 'Customer')}`;
             }
         }
 
@@ -1057,9 +1046,9 @@
         function handleSearch(query) {
             const keyword = query.toLowerCase().trim();
             let allProds = getAllProducts();
-            if(keyword === "") { loadCombinedProducts(allProds); return; }
+            if(keyword === "") { initSupersonicFeed(allProds); return; }
             const filtered = allProds.filter(p => p.name.toLowerCase().includes(keyword) || p.title.toLowerCase().includes(keyword));
-            loadCombinedProducts(filtered);
+            initSupersonicFeed(filtered);
         }
 
         function triggerCamera() { document.getElementById('hiddenCameraInput').click(); }
