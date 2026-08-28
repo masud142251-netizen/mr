@@ -112,7 +112,7 @@
         .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
         .delete-cart-item-btn:hover { background: var(--danger-red); color: white; transform: rotate(90deg) scale(1.1); }
 
-        /* Fixed Checkout Form Group Styles (No Overlap) */
+        /* Fixed Checkout Form Group Styles */
         .checkout-form-group { margin-bottom: 14px; text-align: left; display: flex; flex-direction: column; width: 100%; }
         .checkout-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
         .checkout-form-group input, .checkout-form-group select, .checkout-form-group textarea { width: 100% !important; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 11px 12px; border-radius: 10px; color: var(--text-white); font-size: 0.82rem; outline: none; transition: border-color 0.3s, box-shadow 0.3s; resize: vertical; }
@@ -142,19 +142,18 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-solid); }
         .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal - Clean 100% Immersive Full-Size Video Popup */
+        /* Product Details Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; }
         
         .main-display-media { width: 100%; height: 320px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
         .main-display-media img { width: 100%; height: 100%; object-fit: contain; }
         
-        /* Perfectly Clean YouTube Container inside Modal (No Logo, No Titles) */
         .clean-modal-video-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
         .clean-modal-video-container iframe { position: absolute; top: -25%; left: -25%; width: 150%; height: 150%; border: none; pointer-events: none; }
         .clean-video-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; }
 
-        /* Smaller Thumbnails Strip */
+        /* Thumbnails Strip */
         .thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; scrollbar-width: thin; }
         .thumb-item { flex: 0 0 45px; height: 45px; border-radius: 6px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
         .thumb-item.active-thumb { border-color: var(--gold-solid); opacity: 1; transform: scale(1.05); }
@@ -483,10 +482,11 @@
             document.getElementById('itemNavBtn').classList.add('active');
         }
 
+        // Updated Products List with precise max 25 chars title & max 155 chars description
         function getAllProducts() {
             let defaultProds = [
                 {
-                    id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
+                    id: 1, title: "Resin Gold Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
                     sellerId: "VEN-MASUD", category: "🏡 HOME DECOR",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: [
@@ -495,10 +495,59 @@
                         "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
                     ],
                     desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
-                    stock: "45 Units in Stock", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-CLOCK-01",
-                    colors: ["Golden Teak", "Black"], sizes: []
+                    stock: "45 Units", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-CLOCK-01",
+                    colors: ["Golden Teak", "Black"], sizes: ["Standard"]
+                },
+                {
+                    id: 2, title: "Elite Executive Suit", price: "$220.00", bdDiscount: "BD 15% OFF",
+                    sellerId: "VEN-MASUD", category: "👔 FASHION (MEN)",
+                    videoUrl: "",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                    ],
+                    desc: "Premium tailored executive suit designed for unmatched elegance, modern styling, and supreme comfort.",
+                    stock: "30 Units", packaging: "Garment Cover", quantity: "1 Set", sku: "MME-SUIT-02",
+                    colors: ["Navy Blue", "Charcoal"], sizes: ["M", "L", "XL"]
+                },
+                {
+                    id: 3, title: "Royal Velvet Gown", price: "$180.00", bdDiscount: "BD 18% OFF",
+                    sellerId: "VEN-MASUD", category: "👗 FASHION (WOMEN)",
+                    videoUrl: "",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Exquisite royal velvet gown crafted with intricate embroidery and timeless luxury appeal.",
+                    stock: "25 Units", packaging: "Designer Box", quantity: "1 Piece", sku: "MME-GOWN-03",
+                    colors: ["Emerald", "Burgundy"], sizes: ["S", "M", "L"]
+                },
+                {
+                    id: 4, title: "Organic Baby Stroller", price: "$290.00", bdDiscount: "BD 25% OFF",
+                    sellerId: "VEN-MASUD", category: "👶 BABY & KIDS",
+                    videoUrl: "",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"
+                    ],
+                    desc: "Ultra-safe, lightweight organic baby stroller featuring ergonomic seating and smooth suspension.",
+                    stock: "15 Units", packaging: "Export Carton", quantity: "1 Unit", sku: "MME-BABY-04",
+                    colors: ["Beige", "Grey"], sizes: ["Standard"]
+                },
+                {
+                    id: 5, title: "Crystal Diamond Set", price: "$350.00", bdDiscount: "BD 30% OFF",
+                    sellerId: "VEN-MASUD", category: "🎁 LUXURY GIFTS",
+                    videoUrl: "",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Breathtaking crystal diamond jewelry set packaged in an opulent velvet presentation box.",
+                    stock: "10 Units", packaging: "Velvet Gift Box", quantity: "1 Set", sku: "MME-GIFT-05",
+                    colors: ["Diamond Sparkle", "Rose Gold"], sizes: ["Standard"]
                 }
             ];
+
             let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
             sellers.forEach(s => {
                 if(s.uploadedProducts) {
@@ -511,20 +560,20 @@
                         }
                         defaultProds.push({
                             id: 'v-' + s.id + '-' + i,
-                            title: p.title || p.name || "Exclusive Item",
+                            title: (p.title || p.name || "Exclusive Item").substring(0, 25),
                             price: p.global || '$25.00',
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
                             sellerId: s.id,
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
                             images: p.images || [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive elite vendor crafted product.',
-                            stock: p.stock || 'In Stock (Ready)',
+                            desc: (p.desc || 'Exclusive elite vendor crafted product.').substring(0, 155),
+                            stock: p.stock || 'In Stock',
                             packaging: p.packaging || 'Secure Export Box',
                             quantity: p.quantity || '1 Unit',
                             sku: p.sku || `MME-VEN-${s.id}-${i}`,
-                            colors: p.colors || [],
-                            sizes: p.sizes || []
+                            colors: p.colors || ["Standard"],
+                            sizes: p.sizes || ["Standard"]
                         });
                     });
                 }
@@ -680,6 +729,7 @@
 
         function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
+        // Prevent Duplicate Rows: Combines same product, color & size into single row with incrementing quantity
         function addToCartWithSelection(event) {
             if(!activeCurrentProduct) return;
             
