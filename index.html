@@ -38,7 +38,6 @@
         .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .auth-top-btn { background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px; }
         .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
@@ -56,16 +55,21 @@
         /* Share Modal */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 3200; backdrop-filter: blur(8px); padding: 15px; }
         .share-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 20px; padding: 22px; text-align: center; position: relative; box-shadow: 0 0 35px rgba(212,175,55,0.4); }
-        .share-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
-        .share-option-btn { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 12px; border-radius: 12px; color: var(--text-white); font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: 0.3s; }
+        .share-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .share-option-btn { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 10px 6px; border-radius: 12px; color: var(--text-white); font-size: 0.68rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; text-decoration: none; transition: 0.3s; }
         .share-option-btn:hover { background: rgba(212,175,55,0.15); border-color: var(--gold-solid); }
+        .share-option-btn i { font-size: 1.2rem; }
         .share-fb { color: #1877f2; }
         .share-yt { color: #ff0000; }
         .share-insta { color: #e4405f; }
         .share-tiktok { color: #00f2fe; }
+        .share-wa { color: #25d366; }
+        .share-tg { color: #0088cc; }
+        
         .share-copy-box { margin-top: 15px; display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; padding: 6px; align-items: center; }
-        .share-copy-box input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.72rem; padding: 4px; }
+        .share-copy-box input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 4px; }
         .copy-btn-link { background: var(--gold-gradient); border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; cursor: pointer; color: #000; }
+        .copy-success-toast { font-size: 0.7rem; color: var(--gold-solid); margin-top: 6px; display: none; font-weight: 600; }
 
         /* Ecosystem Modal */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
@@ -74,18 +78,6 @@
         .ecosystem-close-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
-
-        /* Auth Modal */
-        .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; }
-        .auth-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
-        .auth-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.4); }
-        .auth-tab-btn { flex: 1; background: transparent; border: none; color: var(--text-gray); padding: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
-        .auth-tab-btn.active { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--gold-solid); font-weight: 700; }
-        .auth-form-group { margin-bottom: 12px; text-align: left; }
-        .auth-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
-        .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
-        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
 
         /* Floating Luxury Slow & Smooth Bouncing Cart */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s ease; }
@@ -107,11 +99,13 @@
         .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 18px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
         .checkout-modal-title { font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         .checkout-item-list { margin-bottom: 15px; max-height: 200px; overflow-y: auto; }
-        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; transition: all 0.4s ease; }
-        .checkout-item-row.fade-out-delete { transform: translateX(100px); opacity: 0; }
+        
+        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 10px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.3); font-size: 0.72rem; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform: scale(1); opacity: 1; }
+        .checkout-item-row.smooth-slide-delete { transform: translateX(120px) scale(0.9); opacity: 0; height: 0; margin-bottom: 0; padding: 0; overflow: hidden; border: none; }
         .checkout-item-row img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; }
-        .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: background 0.3s; }
-        .delete-cart-item-btn:hover { background: var(--danger-red); color: white; }
+        
+        .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .delete-cart-item-btn:hover { background: var(--danger-red); color: white; transform: rotate(90deg) scale(1.1); }
 
         /* Pinterest Masonry Feed */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
@@ -123,7 +117,7 @@
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #111; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        /* Clean YouTube Video Wrapper (No Title, No Logo, No Controls) */
+        /* Clean YouTube Video Wrapper */
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -15%; left: 0; width: 100%; height: 130%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -136,12 +130,13 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-solid); }
         .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Product Details Modal */
+        /* Product Details Modal - Full Width Immersive Video View */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
-        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
+        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 400px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; }
         
-        .main-display-media { width: 100%; height: 260px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
-        .main-display-media img, .main-display-media iframe { width: 100%; height: 100%; object-fit: contain; border: none; }
+        .main-display-media { width: 100%; height: 320px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; position: relative; }
+        .main-display-media img { width: 100%; height: 100%; object-fit: contain; }
+        .main-display-media iframe { width: 100%; height: 100%; object-fit: cover; border: none; pointer-events: none; }
         
         .thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; scrollbar-width: thin; }
         .thumb-item { flex: 0 0 55px; height: 55px; border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); cursor: pointer; background: #000; opacity: 0.7; transition: all 0.3s; }
@@ -182,7 +177,7 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header (Login/Sign-up completely removed as requested) -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -194,9 +189,6 @@
             </div>
         </div>
         <div class="top-right-controls">
-            <button class="auth-top-btn" onclick="openAuthModal('signin')">
-                <i class="fa-solid fa-user"></i> <span id="authBtnTextLabel">Login</span>
-            </button>
             <div class="country-square-badge">
                 <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
                 <span class="badge-bottom-text">Country</span>
@@ -204,7 +196,7 @@
         </div>
     </header>
 
-    <!-- Category Modal -->
+    <!-- Category Modal (Women fashion icon updated to dress/outfit in brand colors) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -214,7 +206,7 @@
                     <span><i class="fa-solid fa-wand-magic-sparkles"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
                 </div>
                 <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress" style="background:var(--gold-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
@@ -222,24 +214,27 @@
         </div>
     </div>
 
-    <!-- Share Modal -->
+    <!-- Share Modal (Cleaned up: Standard "Share", no ID jargon, multiple social channels) -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <button class="close-modal" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="cat-modal-title" style="font-size: 1rem; margin-bottom: 4px;">Share & Earn Affiliate</h3>
-            <p style="font-size: 0.7rem; color: var(--text-gray);">Share with your unique Affiliate & Seller ID attached!</p>
+            <h3 class="cat-modal-title" style="font-size: 1rem; margin-bottom: 4px;">Share Product</h3>
+            <p style="font-size: 0.7rem; color: var(--text-gray);">Share instantly with your tracking network link</p>
             
             <div class="share-grid">
                 <a href="#" id="shareFbBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-facebook share-fb"></i> Facebook</a>
                 <a href="#" id="shareYtBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-youtube share-yt"></i> YouTube</a>
                 <a href="#" id="shareInstaBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-instagram share-insta"></i> Instagram</a>
                 <a href="#" id="shareTiktokBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-tiktok share-tiktok"></i> TikTok</a>
+                <a href="#" id="shareWaBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-whatsapp share-wa"></i> WhatsApp</a>
+                <a href="#" id="shareTgBtn" target="_blank" class="share-option-btn"><i class="fa-brands fa-telegram share-tg"></i> Telegram</a>
             </div>
 
             <div class="share-copy-box">
                 <input type="text" id="shareUrlInput" readonly>
                 <button class="copy-btn-link" onclick="copyShareLink()">Copy Link</button>
             </div>
+            <div class="copy-success-toast" id="copySuccessToast"><i class="fa-solid fa-circle-check"></i> Link copied successfully!</div>
         </div>
     </div>
 
@@ -251,33 +246,6 @@
         </div>
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
-        </div>
-    </div>
-
-    <!-- Auth Modal -->
-    <div class="auth-modal-overlay" id="authModal">
-        <div class="auth-modal-box">
-            <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="auth-tabs">
-                <button class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthTab('signin')">Sign In</button>
-                <button class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthTab('signup')">Sign Up</button>
-            </div>
-            <div id="signInFormContainer">
-                <form onsubmit="handleSignInSubmit(event)">
-                    <div class="auth-form-group"><label>Email or WhatsApp Number</label><input type="text" id="loginEmailOrPhone" required></div>
-                    <div class="auth-form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
-                    <button type="submit" class="auth-submit-btn">Sign In</button>
-                </form>
-            </div>
-            <div id="signUpFormContainer" style="display: none;">
-                <form onsubmit="handleSignUpSubmit(event)">
-                    <div class="auth-form-group"><label>Full Name *</label><input type="text" id="regName" required></div>
-                    <div class="auth-form-group"><label>Email Address *</label><input type="email" id="regEmail" required></div>
-                    <div class="auth-form-group"><label>WhatsApp Number *</label><input type="tel" id="regWhatsApp" required></div>
-                    <div class="auth-form-group"><label>Password *</label><input type="password" id="regPassword" required></div>
-                    <button type="submit" class="auth-submit-btn">Create Account</button>
-                </form>
-            </div>
         </div>
     </div>
 
@@ -407,8 +375,8 @@
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5 note
-                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5 note
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
                 gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                 osc.connect(gain);
@@ -418,7 +386,6 @@
             } catch(e) {}
         }
 
-        // Daily Randomized Views & 24hr Limit Like System
         function getDynamicProductStats(productId) {
             let todayDate = new Date().toISOString().slice(0,10);
             let viewsKey = `mme_views_${productId}_${todayDate}`;
@@ -457,7 +424,7 @@
             else loadCombinedProducts(all.filter(p => p.category === cat));
         }
 
-        // Share Modal with Affiliate URL
+        // Share Modal with smooth toast notification instead of browser alert
         function openShareModal(productTitle) {
             let baseUrl = window.location.href.split('?')[0];
             let shareableLink = `${baseUrl}?aff=${currentAffiliateId}&ref=${currentSellerRef}`;
@@ -465,6 +432,12 @@
             document.getElementById('shareUrlInput').value = shareableLink;
             document.getElementById('shareFbBtn').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareableLink)}`;
             document.getElementById('shareYtBtn').href = `https://www.youtube.com`;
+            document.getElementById('shareInstaBtn').href = `https://instagram.com`;
+            document.getElementById('shareTiktokBtn').href = `https://tiktok.com`;
+            document.getElementById('shareWaBtn').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareableLink)}`;
+            document.getElementById('shareTgBtn').href = `https://t.me/share/url?url=${encodeURIComponent(shareableLink)}`;
+            
+            document.getElementById('copySuccessToast').style.display = 'none';
             document.getElementById('shareModalOverlay').style.display = 'flex';
         }
 
@@ -476,7 +449,10 @@
             let copyInput = document.getElementById('shareUrlInput');
             copyInput.select();
             navigator.clipboard.writeText(copyInput.value);
-            alert("Affiliate tracking link copied successfully!");
+            
+            let toast = document.getElementById('copySuccessToast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
         }
 
         function openEcosystemPage(url, title, element) {
@@ -580,7 +556,6 @@
             });
         }
 
-        // 24-hour Limit Golden Color Changing Like Handler
         function handleLikeClick(id) {
             let todayDate = new Date().toISOString().slice(0,10);
             let likedKey = `mme_liked_status_${id}_${todayDate}`;
@@ -591,7 +566,6 @@
             let likeBox = document.getElementById(`like-box-${id}`);
 
             if(isAlreadyLiked) {
-                alert("You have already liked this product within the last 24 hours!");
                 return;
             }
 
@@ -765,10 +739,11 @@
             `).join('');
         }
 
+        // Smooth Slide-away Animation on Deleting Cart Item
         function removeCartItem(cartId) {
             const rowEl = document.getElementById(`cart-row-${cartId}`);
             if(rowEl) {
-                rowEl.classList.add('fade-out-delete');
+                rowEl.classList.add('smooth-slide-delete');
             }
             setTimeout(() => {
                 cartItems = cartItems.filter(item => item.cartId !== cartId);
@@ -778,11 +753,10 @@
 
                 if(cartItems.length === 0) {
                     closeCheckoutModal();
-                    alert("Your cart is now empty.");
                 } else {
                     renderCartItemsList();
                 }
-            }, 350);
+            }, 500);
         }
 
         function closeCheckoutModal() {
@@ -807,17 +781,6 @@
             document.getElementById('cartCount').innerText = 0;
             closeCheckoutModal();
         }
-
-        function openAuthModal(mode) { document.getElementById('authModal').style.display = 'flex'; }
-        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-        function switchAuthTab(tab) {
-            document.getElementById('signInFormContainer').style.display = tab === 'signin' ? 'block' : 'none';
-            document.getElementById('signUpFormContainer').style.display = tab === 'signup' ? 'block' : 'none';
-            document.getElementById('tabSignInBtn').classList.toggle('active', tab === 'signin');
-            document.getElementById('tabSignUpBtn').classList.toggle('active', tab === 'signup');
-        }
-        function handleSignInSubmit(e) { e.preventDefault(); alert("Successfully signed in!"); closeAuthModal(); }
-        function handleSignUpSubmit(e) { e.preventDefault(); alert("Account created successfully!"); closeAuthModal(); }
 
         function performSearchSubmit() {
             let q = document.getElementById('searchInput').value.toLowerCase();
