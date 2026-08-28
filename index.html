@@ -2,10 +2,13 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - MR MASUDAR ENTERPRISE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MR MASUDAR ENTERPRISE - Supreme Ecosystem</title>
+    
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --bg-black: #080808;
@@ -14,82 +17,503 @@
             --gold-solid: #d4af37;
             --text-white: #ffffff;
             --text-gray: #b3b3b3;
+            --pink-heart: #ff2d55;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-black); color: var(--text-white); padding: 20px; max-width: 600px; margin: 0 auto; }
-        .checkout-container { background: var(--card-bg); border: 2px solid var(--gold-solid); border-radius: 16px; padding: 20px; box-shadow: 0 0 25px rgba(212, 175, 55, 0.2); }
-        h2 { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 20px; text-transform: uppercase; }
-        .cart-item-list { margin-bottom: 20px; max-height: 250px; overflow-y: auto; }
-        .cart-item { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); }
-        .cart-item img { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; }
-        .cart-item-details { flex: 1; margin-left: 10px; font-size: 0.8rem; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 0.75rem; color: var(--gold-solid); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
-        .form-group input, .form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.85rem; outline: none; }
-        .checkout-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 12px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.95rem; cursor: pointer; margin-top: 15px; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
+        body { padding-top: 60px; padding-bottom: 95px; }
+
+        /* Header */
+        header.app-header {
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
+            background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        .brand-container { display: flex; align-items: center; gap: 7px; }
+        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
+        .brand-text-box { display: flex; flex-direction: column; }
+        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
+        .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px; }
+
+        .top-right-controls { display: flex; align-items: center; gap: 6px; }
+        .auth-top-btn { background: var(--gold-gradient); color: #111; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.78rem; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); display: flex; align-items: center; gap: 5px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
+        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
+        .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
+
+        /* Category Modal */
+        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; }
+        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
+        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
+        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Ecosystem Modal */
+        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); }
+        .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .ecosystem-close-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
+        .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
+        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
+
+        /* Auth Modal */
+        .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; }
+        .auth-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
+        .auth-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.4); }
+        .auth-tab-btn { flex: 1; background: transparent; border: none; color: var(--text-gray); padding: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+        .auth-tab-btn.active { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--gold-solid); font-weight: 700; }
+        .auth-form-group { margin-bottom: 12px; text-align: left; }
+        .auth-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
+        .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
+        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
+
+        /* Floating Cart */
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
+        @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
+        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
+        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+        /* Pinterest Masonry Feed with Video & Images */
+        .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
+
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 10px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #111; overflow: hidden; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
+        .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
+
+        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
+        .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
+        .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .action-item.like-icon i { color: var(--pink-heart); }
+        .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Product Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px; }
+        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
+        .modal-media-slider { width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
+        .modal-media-slider::-webkit-scrollbar { display: none; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+        .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+        .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; }
+        .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--text-white); }
+        .modal-desc { font-size: 0.76rem; color: var(--text-gray); margin-bottom: 10px; }
+
+        .dynamic-option-section { margin-bottom: 10px; }
+        .option-label { font-size: 0.7rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
+        .color-pills-box, .size-pills-box { display: flex; gap: 6px; flex-wrap: wrap; }
+        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; color: var(--text-white); }
+        .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 5px; }
+
+        /* Bottom Nav with Camera & Voice */
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
+        .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
+        .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; min-width: 0; }
+        .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.75rem; }
+        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
+        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+        #hiddenCameraInput { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="checkout-container">
-        <h2><i class="fa-solid fa-credit-card"></i> Secure Checkout</h2>
-        
-        <div class="cart-item-list" id="checkoutItemList">
-            <!-- কার্ট আইটেম এখানে ডাইনামিক লোড হবে -->
+    <!-- Header -->
+    <header class="app-header">
+        <div class="brand-container">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
+            <div class="brand-text-box">
+                <span class="brand-title-main">MR MASUDAR</span>
+                <span class="brand-title-sub">
+                    <span>E</span><span>N</span><span>T</span><span>E</span><span>R</span><span>P</span><span>R</span><span>I</span><span>S</span><span>E</span>
+                </span>
+            </div>
         </div>
+        <div class="top-right-controls">
+            <button class="auth-top-btn" onclick="openAuthModal('signin')">
+                <i class="fa-solid fa-user"></i> <span id="authBtnTextLabel">Login</span>
+            </button>
+            <div class="country-square-badge">
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
+                <span class="badge-bottom-text">Country</span>
+            </div>
+        </div>
+    </header>
 
-        <form onsubmit="handleOrderSubmit(event)">
-            <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" id="custName" required placeholder="আপনার পুরো নাম লিখুন">
+    <!-- Category Modal -->
+    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
+        <div class="category-modal-box">
+            <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="cat-modal-title">✨ Luxury Categories</h3>
+            <div class="category-grid-popup">
+                <div class="cat-popup-item" onclick="selectCategory('All')">
+                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
-            <div class="form-group">
-                <label>Phone / WhatsApp Number *</label>
-                <input type="tel" id="custPhone" required placeholder="আপনার মোবাইল নম্বর">
-            </div>
-            <div class="form-group">
-                <label>Delivery Address *</label>
-                <textarea id="custAddress" rows="3" required placeholder="সম্পূর্ণ ঠিকানা (বাসা, রোড, এলাকা, জেলা)"></textarea>
-            </div>
-            <button type="submit" class="checkout-btn">Confirm Order</button>
-        </form>
+        </div>
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            let cartData = JSON.parse(localStorage.getItem('mme_checkout_ready') || '[]');
-            const container = document.getElementById('checkoutItemList');
+    <!-- Ecosystem Modal -->
+    <div class="ecosystem-modal-overlay" id="ecosystemModal">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
+            <button class="ecosystem-close-btn" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i> Close</button>
+        </div>
+        <div class="ecosystem-body">
+            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal-box">
+            <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthTab('signin')">Sign In</button>
+                <button class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+            <div id="signInFormContainer">
+                <form onsubmit="handleSignInSubmit(event)">
+                    <div class="auth-form-group"><label>Email or WhatsApp Number</label><input type="text" id="loginEmailOrPhone" required></div>
+                    <div class="auth-form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
+                    <button type="submit" class="auth-submit-btn">Sign In</button>
+                </form>
+            </div>
+            <div id="signUpFormContainer" style="display: none;">
+                <form onsubmit="handleSignUpSubmit(event)">
+                    <div class="auth-form-group"><label>Full Name *</label><input type="text" id="regName" required></div>
+                    <div class="auth-form-group"><label>Email Address *</label><input type="email" id="regEmail" required></div>
+                    <div class="auth-form-group"><label>WhatsApp Number *</label><input type="tel" id="regWhatsApp" required></div>
+                    <div class="auth-form-group"><label>Password *</label><input type="password" id="regPassword" required></div>
+                    <button type="submit" class="auth-submit-btn">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <!-- Product Feed -->
+    <main class="feed-container" id="productFeed"></main>
+
+    <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
+
+    <!-- Product Details Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-price-box">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Product Title</h3>
+            <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
             
-            if(cartData.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color: #b3b3b3; font-size: 0.85rem;">আপনার কার্ট খালি রয়েছে। দয়া করে হোমপেজ থেকে প্রোডাক্ট সিলেক্ট করুন।</p>`;
-            } else {
-                container.innerHTML = cartData.map(item => `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="Product">
-                        <div class="cart-item-details">
-                            <strong>${item.title}</strong><br>
-                            <span style="color:var(--gold-solid);">${item.price}</span> | কালার: ${item.color} | সাইজ: ${item.size}
-                        </div>
-                    </div>
-                `).join('');
+            <div id="modalColorSection" class="dynamic-option-section" style="display:none;">
+                <div class="option-label">Select Color</div>
+                <div class="color-pills-box" id="modalColorPills"></div>
+            </div>
+            <div id="modalSizeSection" class="dynamic-option-section" style="display:none;">
+                <div class="option-label">Select Size</div>
+                <div class="size-pills-box" id="modalSizePills"></div>
+            </div>
+
+            <button class="modal-add-btn" onclick="addToCartWithSelection()">Add To Cart</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCamera()"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        let cartItems = [];
+        let cartCount = 0;
+        let activeCurrentProduct = null;
+        let selectedColor = "Standard";
+        let selectedSize = "Standard";
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let urlAff = urlParams.get('aff');
+        let urlRef = urlParams.get('ref');
+        if(urlAff) localStorage.setItem('mme_active_aff', urlAff);
+        if(urlRef) localStorage.setItem('mme_active_ref', urlRef);
+
+        let currentAffiliateId = localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+        let currentSellerRef = localStorage.getItem('mme_active_ref') || 'VEN-MASUD';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedCart = localStorage.getItem('mme_cart_items');
+            if(savedCart) {
+                cartItems = JSON.parse(savedCart);
+                cartCount = cartItems.length;
+                document.getElementById('cartCount').innerText = cartCount;
             }
+            loadCombinedProducts();
         });
 
-        function handleOrderSubmit(e) {
-            e.preventDefault();
-            let name = document.getElementById('custName').value;
-            let phone = document.getElementById('custPhone').value;
-            let address = document.getElementById('custAddress').value;
+        function getDynamicProductStats(productId) {
+            let storageKeyViews = `mme_views_${productId}`;
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let views = parseInt(localStorage.getItem(storageKeyViews)) || Math.floor(400 + Math.random() * 4500);
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
+            return { views, likes };
+        }
 
-            if(!name || !phone || !address) {
-                alert("দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।");
-                return;
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+        }
+
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
+        }
+
+        function getAllProducts() {
+            let defaultProds = [
+                {
+                    id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
+                    sellerId: "VEN-MASUD", category: "🏡 HOME DECOR",
+                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
+                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                    desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
+                    colors: ["Golden Teak", "Black"], sizes: []
+                }
+            ];
+            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
+            sellers.forEach(s => {
+                if(s.uploadedProducts) {
+                    s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
+                            let videoIdMatch = rawBase.split('/').pop();
+                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                        }
+                        defaultProds.push({
+                            id: 'v-' + s.id + '-' + i,
+                            title: p.title || p.name,
+                            price: p.global || '$25.00',
+                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
+                            sellerId: s.id,
+                            category: p.category || '🏡 HOME DECOR',
+                            videoUrl: cleanVid,
+                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            desc: p.desc || 'Exclusive elite vendor product.',
+                            colors: p.colors || [],
+                            sizes: p.sizes || []
+                        });
+                    });
+                }
+            });
+            return defaultProds;
+        }
+
+        function loadCombinedProducts(list = getAllProducts()) {
+            const feed = document.getElementById('productFeed');
+            feed.innerHTML = "";
+            list.forEach(item => {
+                let stats = getDynamicProductStats(item.id);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaContent}
+                    <div class="product-bottom-actions">
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
+                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function openProductModal(id) {
+            let product = getAllProducts().find(p => p.id == id);
+            if(!product) return;
+            activeCurrentProduct = product;
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalDesc').innerText = product.desc;
+
+            const slider = document.getElementById('modalMediaSlider');
+            slider.innerHTML = product.images.map(img => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
+
+            const colorSec = document.getElementById('modalColorSection');
+            const colorPills = document.getElementById('modalColorPills');
+            if(product.colors && product.colors.length > 0) {
+                colorSec.style.display = 'block';
+                selectedColor = product.colors[0];
+                colorPills.innerHTML = product.colors.map((c, idx) => `
+                    <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectPill('color', '${c}', this)">${c}</div>
+                `).join('');
+            } else { colorSec.style.display = 'none'; selectedColor = "Standard"; }
+
+            const sizeSec = document.getElementById('modalSizeSection');
+            const sizePills = document.getElementById('modalSizePills');
+            if(product.sizes && product.sizes.length > 0) {
+                sizeSec.style.display = 'block';
+                selectedSize = product.sizes[0];
+                sizePills.innerHTML = product.sizes.map((s, idx) => `
+                    <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectPill('size', '${s}', this)">${s}</div>
+                `).join('');
+            } else { sizeSec.style.display = 'none'; selectedSize = "Standard"; }
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function selectPill(type, val, el) {
+            if(type === 'color') {
+                selectedColor = val;
+                document.querySelectorAll('#modalColorPills .pill-item').forEach(p => p.classList.remove('selected'));
+            } else {
+                selectedSize = val;
+                document.querySelectorAll('#modalSizePills .pill-item').forEach(p => p.classList.remove('selected'));
             }
+            el.classList.add('selected');
+        }
 
-            alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে। আমরা দ্রুত আপনার সাথে যোগাযোগ করব।");
-            localStorage.removeItem('mme_checkout_ready');
-            localStorage.removeItem('mme_cart_items');
-            window.location.href = "https://mrmasudar.com"; // অর্ডারের পর হোমপেজে ফিরিয়ে নেওয়ার জন্য
+        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
+
+        function addToCartWithSelection() {
+            if(!activeCurrentProduct) return;
+            cartItems.push({
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                color: selectedColor,
+                size: selectedSize,
+                sellerId: activeCurrentProduct.sellerId,
+                image: activeCurrentProduct.images[0]
+            });
+            cartCount = cartItems.length;
+            document.getElementById('cartCount').innerText = cartCount;
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            closeProductModal();
+            
+            const cartEl = document.getElementById('floatingCart');
+            cartEl.classList.add('smooth-center-bounce');
+            setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
+        }
+
+        function handleCartCheckout() {
+            if(cartCount === 0) {
+                alert("আপনার ঝুড়িটি বর্তমানে খালি রয়েছে।");
+            } else {
+                // সুনির্দিষ্ট চেকআউট ডোমেইনে (pay.mrmasudar.com বা আপনার বর্তমান out ডোমেইনে যাওয়ার জন্য) নিরাপদ রিডাইরেক্ট
+                localStorage.setItem('mme_checkout_ready', JSON.stringify(cartItems));
+                window.location.href = `https://pay.mrmasudar.com/checkout?ref=${currentSellerRef}&aff=${currentAffiliateId}`;
+            }
+        }
+
+        function openAuthModal(mode) { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+        function switchAuthTab(tab) {
+            document.getElementById('signInFormContainer').style.display = tab === 'signin' ? 'block' : 'none';
+            document.getElementById('signUpFormContainer').style.display = tab === 'signup' ? 'block' : 'none';
+            document.getElementById('tabSignInBtn').classList.toggle('active', tab === 'signin');
+            document.getElementById('tabSignUpBtn').classList.toggle('active', tab === 'signup');
+        }
+        function handleSignInSubmit(e) { e.preventDefault(); alert("Successfully signed in!"); closeAuthModal(); }
+        function handleSignUpSubmit(e) { e.preventDefault(); alert("Account created successfully!"); closeAuthModal(); }
+
+        function performSearchSubmit() {
+            let q = document.getElementById('searchInput').value.toLowerCase();
+            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
+        }
+        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCamera() { document.getElementById('hiddenCameraInput').click(); }
+        function handleGalleryImage(event) {
+            const file = event.target.files[0];
+            if(file) { alert("Camera/Gallery image selected: " + file.name); }
+        }
+        function triggerVoiceSearch() {
+            let text = prompt("প্রোডাক্টের নাম লিখে সার্চ করুন:");
+            if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
         }
     </script>
 </body>
