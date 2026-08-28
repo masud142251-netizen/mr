@@ -130,9 +130,7 @@
             transition: transform 0.2s ease;
         }
 
-        .auth-top-btn:active {
-            transform: scale(0.95);
-        }
+        .auth-top-btn:active { transform: scale(0.95); }
 
         .country-square-badge {
             display: flex;
@@ -159,593 +157,189 @@
             gap: 2px;
         }
 
-        .badge-top-text i {
-            -webkit-text-fill-color: var(--gold-solid);
-            font-size: 0.55rem;
-        }
-
-        .badge-bottom-text {
-            font-size: 6px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-        }
+        .badge-top-text i { -webkit-text-fill-color: var(--gold-solid); font-size: 0.55rem; }
+        .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
         /* Glassmorphism Floating Category Modal */
         .category-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 5, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2500;
-            backdrop-filter: blur(4px);
-            padding: 15px;
-            animation: fadeInOverlay 0.3s ease;
-        }
-
-        @keyframes fadeInOverlay {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px;
         }
 
         .category-modal-box {
-            background: rgba(12, 12, 12, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 2px solid var(--gold-solid);
-            width: 100%;
-            max-width: 420px;
-            border-radius: 22px;
-            padding: 22px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(212,175,55,0.2);
-            transform: scale(0.85);
-            animation: popUpScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes popUpScale {
-            to { transform: scale(1); }
+            background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid);
+            width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.2);
         }
 
         .cat-modal-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1.5px;
         }
 
-        .category-grid-popup {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
         .cat-popup-item {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 14px 10px;
-            border-radius: 14px;
-            color: var(--text-white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 6px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px;
         }
 
-        .cat-popup-item:nth-child(1) {
-            grid-column: span 2;
-            flex-direction: row;
-            justify-content: space-between;
-            padding: 12px 16px;
-            animation: allProductsSoftPulse 3s infinite ease-in-out;
-        }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
+        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        @keyframes allProductsSoftPulse {
-            0% { border-color: rgba(212, 175, 55, 0.3); }
-            50% { border-color: rgba(212, 175, 55, 0.7); }
-            100% { border-color: rgba(212, 175, 55, 0.3); }
+        .cat-popup-item:hover {
+            background: var(--gold-gradient); color: var(--bg-black); border-color: var(--gold-solid);
         }
+        .cat-popup-item:hover i { -webkit-text-fill-color: var(--bg-black); color: var(--bg-black); }
 
-        .cat-popup-item i {
-            font-size: 1.25rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: softZoomPulse 2.5s infinite ease-in-out;
-        }
-
-        @keyframes softZoomPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        .cat-popup-item:hover, .cat-popup-item:active {
-            background: var(--gold-gradient);
-            color: var(--bg-black);
-            border-color: var(--gold-solid);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .cat-popup-item:hover i, .cat-popup-item:active i {
-            -webkit-text-fill-color: var(--bg-black);
-            color: var(--bg-black);
-            animation: none;
-            transform: scale(1.2);
-        }
-
-        /* Ecosystem In-Page Viewer Modal */
+        /* Ecosystem Modal */
         .ecosystem-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.92);
-            display: none;
-            flex-direction: column;
-            z-index: 4000;
-            backdrop-filter: blur(10px);
-            animation: fadeInOverlay 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px);
         }
-
         .ecosystem-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: rgba(15, 15, 15, 0.98);
-            border-bottom: 1px solid var(--gold-solid);
+            display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid);
         }
-
         .ecosystem-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
+            font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
         }
-
         .ecosystem-close-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--gold-solid);
-            color: var(--text-white);
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 600;
         }
+        .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
+        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        .ecosystem-body {
-            flex: 1;
-            width: 100%;
-            background: #000;
-            position: relative;
-        }
-
-        .ecosystem-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Luxury Auth Modal */
+        /* Auth Modal */
         .auth-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.88);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            backdrop-filter: blur(8px);
-            padding: 12px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px;
         }
-
         .auth-modal-box {
-            background: var(--card-bg);
-            border: 2px solid var(--gold-solid);
-            width: 100%;
-            max-width: 380px;
-            border-radius: 18px;
-            padding: 22px;
-            position: relative;
-            box-shadow: 0 0 35px rgba(212,175,55,0.4);
-            max-height: 90vh;
-            overflow-y: auto;
+            background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px;
+            border-radius: 18px; padding: 22px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.4);
         }
-
         .close-modal {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: var(--text-white);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
+            position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none;
+            color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
         }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(212,175,55,0.4);
-        }
-
+        .auth-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.4); }
         .auth-tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-gray);
-            padding: 10px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.3s;
+            flex: 1; background: transparent; border: none; color: var(--text-gray); padding: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
         }
-
         .auth-tab-btn.active {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            border-bottom: 2px solid var(--gold-solid);
-            font-weight: 700;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--gold-solid); font-weight: 700;
         }
-
-        .auth-form-group {
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
+        .auth-form-group { margin-bottom: 12px; text-align: left; }
         .auth-form-group label {
-            display: block;
-            font-size: 0.72rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-            font-weight: 700;
-            text-transform: uppercase;
+            display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase;
         }
-
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea {
-            width: 100%;
-            background: #000;
-            border: 1.5px solid rgba(212,175,55,0.5);
-            padding: 10px;
-            border-radius: 8px;
-            color: var(--text-white);
-            font-size: 0.8rem;
-            outline: none;
+            width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none;
         }
-
-        .auth-form-group input:focus, .auth-form-group select:focus, .auth-form-group textarea:focus {
-            border-color: var(--gold-solid);
-            box-shadow: 0 0 10px rgba(212,175,55,0.4);
-        }
-
-        .password-field-wrapper {
-            position: relative;
-            width: 100%;
-        }
-        .password-field-wrapper input {
-            padding-right: 35px;
-        }
+        .password-field-wrapper { position: relative; width: 100%; }
+        .password-field-wrapper input { padding-right: 35px; }
         .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--gold-solid);
-            cursor: pointer;
-            font-size: 0.85rem;
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gold-solid); cursor: pointer; font-size: 0.85rem;
         }
-
         .phone-group { display: flex; gap: 6px; }
         .phone-group select { width: 125px; flex-shrink: 0; }
-
         .auth-submit-btn {
-            width: 100%;
-            background: var(--gold-gradient);
-            border: none;
-            padding: 11px;
-            border-radius: 10px;
-            color: var(--bg-black);
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
+        .forgot-pass-link { display: block; text-align: right; font-size: 0.7rem; color: var(--text-gray); margin-top: 5px; cursor: pointer; text-decoration: underline; }
 
-        .forgot-pass-link {
-            display: block;
-            text-align: right;
-            font-size: 0.7rem;
-            color: var(--text-gray);
-            margin-top: 5px;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* Floating Cart with Smooth Centralized Bounce & Travel Animation */
+        /* Floating Cart */
         .floating-cart {
-            position: fixed;
-            bottom: 72px;
-            right: 15px;
-            background: var(--card-bg);
-            border: 2px solid var(--gold-solid);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-            z-index: 1050;
+            position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid);
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
         .floating-cart.smooth-center-bounce {
             animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         }
-
         @keyframes smoothCartCenterBounce {
             0% { transform: scale(1) translate(0, 0) rotate(0deg); }
             35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); box-shadow: 0 0 40px var(--gold-solid); }
             65% { transform: scale(1.5) translate(-38vw, -32vh) rotate(15deg); box-shadow: 0 0 50px var(--gold-solid); }
             100% { transform: scale(1) translate(0, 0) rotate(0deg); box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
         }
-
-        .floating-cart i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.25rem;
-        }
-
+        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge {
-            position: absolute;
-            top: -3px;
-            right: -3px;
-            background: var(--pink-heart);
-            color: white;
-            font-size: 0.65rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
+            position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white;
+            font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;
         }
-
         .flying-coin {
-            position: fixed;
-            width: 22px;
-            height: 22px;
-            background: var(--gold-solid);
-            border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0 0 14px var(--gold-solid);
-            z-index: 9999;
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            position: fixed; width: 22px; height: 22px; background: var(--gold-solid); border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 14px var(--gold-solid); z-index: 9999; pointer-events: none; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Pinterest Masonry Layout Feed */
-        .feed-container {
-            padding: 10px 8px;
-            column-count: 2;
-            column-gap: 8px;
-            width: 100%;
-            max-width: 1650px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .feed-container { column-count: 3; padding: 14px; column-gap: 12px; }
-        }
-
-        @media (min-width: 1024px) {
-            .feed-container { column-count: 4; column-gap: 14px; padding: 18px; }
-        }
+        .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
 
         .product-card {
-            break-inside: avoid;
-            background: var(--card-bg);
-            border-radius: 14px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+            break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 10px; overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column;
+            transition: transform 0.4s ease, border-color 0.4s ease;
         }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold-solid);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
-        }
-
-        .product-media-box {
-            position: relative;
-            width: 100%;
-            cursor: pointer;
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .product-media-box img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .product-card:hover .product-media-box img {
-            transform: scale(1.06);
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 145%;
-            background: #000;
-            overflow: hidden;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: -22%;
-            left: -15%;
-            width: 130%;
-            height: 144%;
-            border: none;
-            pointer-events: none;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .video-click-shield {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer;
-        }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #111; overflow: hidden; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
+        .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
         .product-bottom-actions {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+            display: flex; justify-content: space-around; align-items: center;
             background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98));
-            padding: 9px 6px;
-            border-top: 1px solid rgba(212, 175, 55, 0.25);
-            font-size: 0.72rem;
+            padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem;
         }
+        .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
+        .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .action-item.like-icon i { color: var(--pink-heart); }
+        .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .action-item.share-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .action-item {
-            display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500;
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-
-        .action-item:active { transform: scale(0.9); }
-
-        .action-item.view-icon i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .action-item.like-icon i {
-            color: var(--pink-heart);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .action-item.like-icon.active i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .action-item.share-icon i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Product & Share Modals */
+        /* Modals */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 12px;
         }
-
         .modal-content {
             background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px;
             border-radius: 18px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3);
         }
-
         .modal-media-slider {
             width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative;
         }
         .modal-media-slider::-webkit-scrollbar { display: none; }
-
-        .modal-slide-item {
-            flex: 0 0 100%; width: 100%; height: 300px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 300px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .modal-thumbnails-strip {
-            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--gold-solid) #1a1a1a;
-        }
-        .modal-thumbnails-strip::-webkit-scrollbar { height: 4px; }
-        .modal-thumbnails-strip::-webkit-scrollbar-thumb { background: var(--gold-solid); border-radius: 4px; }
-
-        .thumb-item {
-            flex: 0 0 55px; height: 55px; border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); cursor: pointer; background: #000; position: relative; transition: all 0.2s ease;
-        }
-        .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 10px rgba(212,175,55,0.6); transform: scale(1.05); }
+        .modal-thumbnails-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--gold-solid) #1a1a1a; }
+        .thumb-item { flex: 0 0 55px; height: 55px; border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); cursor: pointer; background: #000; position: relative; }
+        .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 10px rgba(212,175,55,0.6); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .thumb-item .thumb-video-indicator {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: var(--gold-solid); font-size: 0.9rem;
-        }
+        .thumb-item .thumb-video-indicator { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: var(--gold-solid); font-size: 0.9rem; }
 
         .modal-sound-btn {
             position: absolute; bottom: 12px; right: 12px; background: rgba(10, 10, 10, 0.75); backdrop-filter: blur(8px);
             border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
         }
-
         .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 6px; }
-        .modal-price-group { display: flex; align-items: center; gap: 6px; min-width: 0; }
-        .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; white-space: nowrap; }
-        .modal-seller-btn { font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.5); cursor: pointer; font-weight: 700; white-space: nowrap; }
+        .modal-price { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; }
+        .modal-seller-btn { font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.5); cursor: pointer; font-weight: 700; }
 
-        .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: var(--text-white); line-height: 1.3; }
-        .modal-desc { font-size: 0.78rem; color: var(--text-gray); margin-bottom: 15px; line-height: 1.4; }
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        .modal-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: var(--text-white); }
+        .modal-desc { font-size: 0.78rem; color: var(--text-gray); margin-bottom: 15px; }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; }
 
         .share-link-box { background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; padding: 8px; margin-bottom: 12px; text-align: center; }
         .share-link-input { width: 100%; background: transparent; border: none; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.75rem; text-align: center; outline: none; user-select: all; font-weight: 600; }
-
         .share-options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .share-option-item { display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.04); padding: 8px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--text-white); font-size: 0.65rem; gap: 4px; text-decoration: none; }
         .share-option-item i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -753,16 +347,16 @@
         /* Bottom Fixed Navigation Bar */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4);
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); box-shadow: 0 -4px 20px rgba(0,0,0,0.8);
+            display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px);
         }
         .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; white-space: nowrap; padding: 3px 4px; border-radius: 6px; transition: 0.3s; cursor: pointer; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-item:hover, .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
+        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
         .nav-item.active span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
 
         .bottom-search-wrapper {
-            display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
+            display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%;
         }
         .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; min-width: 0; }
         .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.75rem; }
@@ -818,7 +412,7 @@
         </div>
     </div>
 
-    <!-- Ecosystem In-Page Viewer Modal -->
+    <!-- Ecosystem Modal -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -829,27 +423,21 @@
         </div>
     </div>
 
-    <!-- Luxury Auth Modal -->
+    <!-- Auth Modal -->
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal-box">
             <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
-            
             <div class="auth-tabs">
                 <button class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthTab('signin')">Sign In</button>
                 <button class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthTab('signup')">Sign Up</button>
             </div>
-
-            <!-- Sign In Form -->
             <div id="signInFormContainer">
                 <form onsubmit="handleSignInSubmit(event)">
-                    <div class="auth-form-group">
-                        <label>Email or WhatsApp Number</label>
-                        <input type="text" id="loginEmailOrPhone" placeholder="Enter your email or WhatsApp" required>
-                    </div>
+                    <div class="auth-form-group"><label>Email or WhatsApp Number</label><input type="text" id="loginEmailOrPhone" required></div>
                     <div class="auth-form-group">
                         <label>Password</label>
                         <div class="password-field-wrapper">
-                            <input type="password" id="loginPassword" placeholder="Enter password" required>
+                            <input type="password" id="loginPassword" required>
                             <button type="button" class="toggle-password" onclick="togglePasswordVisibility('loginPassword', this)"><i class="fa-solid fa-eye"></i></button>
                         </div>
                         <span class="forgot-pass-link" onclick="openForgotPassModal()">Forgot Password?</span>
@@ -857,43 +445,37 @@
                     <button type="submit" class="auth-submit-btn">Sign In</button>
                 </form>
             </div>
-
-            <!-- Sign Up Form -->
             <div id="signUpFormContainer" style="display: none;">
                 <form onsubmit="handleSignUpSubmit(event)">
-                    <div class="auth-form-group"><label>Full Name *</label><input type="text" id="regName" placeholder="Enter your full name" required></div>
-                    <div class="auth-form-group"><label>Email Address *</label><input type="email" id="regEmail" placeholder="customer@gmail.com" required></div>
+                    <div class="auth-form-group"><label>Full Name *</label><input type="text" id="regName" required></div>
+                    <div class="auth-form-group"><label>Email Address *</label><input type="email" id="regEmail" required></div>
                     <div class="auth-form-group"><label>Select Your Country *</label><select id="regCountrySelect" required><option value="">-- Choose Country --</option></select></div>
                     <div class="auth-form-group">
                         <label>WhatsApp Number *</label>
                         <div class="phone-group">
                             <select id="regDialCodeSelect"></select>
-                            <input type="tel" id="regWhatsApp" placeholder="17XXXXXXXX" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                            <input type="tel" id="regWhatsApp" required>
                         </div>
                     </div>
-                    <div class="auth-form-group"><label>Residential Address (For Delivery) *</label><textarea id="regAddress" rows="2" placeholder="House, Road, City, Zip Code..." required></textarea></div>
+                    <div class="auth-form-group"><label>Residential Address *</label><textarea id="regAddress" rows="2" required></textarea></div>
                     <div class="auth-form-group">
                         <label>Password *</label>
                         <div class="password-field-wrapper">
-                            <input type="password" id="regPassword" placeholder="Min 10 chars, Upper, Lower, Symbol" required>
+                            <input type="password" id="regPassword" required>
                             <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regPassword', this)"><i class="fa-solid fa-eye"></i></button>
                         </div>
                     </div>
                     <button type="submit" class="auth-submit-btn">Create Account</button>
                 </form>
             </div>
-
-            <!-- Forgot Password Container -->
             <div id="forgotPassContainer" style="display: none;">
                 <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; font-size: 1rem; text-align: center;">Reset Password</h3>
-                <p style="font-size: 0.75rem; color: var(--text-gray); margin-bottom: 15px; text-align: center;">Enter your registered email to receive a secure password reset link.</p>
                 <form onsubmit="handleForgotPassSubmit(event)">
-                    <div class="auth-form-group"><label>Registered Email</label><input type="email" placeholder="Enter your email" required></div>
+                    <div class="auth-form-group"><label>Registered Email</label><input type="email" required></div>
                     <button type="submit" class="auth-submit-btn">Send Reset Link</button>
                     <span class="forgot-pass-link" style="text-align: center; display: block; margin-top: 10px;" onclick="switchAuthTab('signin')">Back to Sign In</span>
                 </form>
             </div>
-
         </div>
     </div>
 
@@ -905,7 +487,7 @@
 
     <!-- Product Feed -->
     <main class="feed-container" id="productFeed">
-        <!-- Dynamically Loaded Products -->
+        <!-- Dynamically Loaded Products with Automatic Dynamic Views & Likes -->
     </main>
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
@@ -916,16 +498,15 @@
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-media-slider" id="modalMediaSlider" onscroll="handleSliderScroll()"></div>
             <div class="modal-thumbnails-strip" id="modalThumbnailsStrip"></div>
-            
             <div class="modal-price-box">
-                <div class="modal-price-group">
+                <div style="display:flex; align-items:center; gap:6px;">
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
                 <button class="modal-seller-btn" id="modalSellerBtn" onclick="revealSellerName()">Seller</button>
             </div>
             <h3 class="modal-title" id="modalTitle">Product Title</h3>
-            <p class="modal-desc" id="modalDesc">Exquisite luxury craft designed for elite elegance.</p>
+            <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
             <button class="modal-add-btn" onclick="addToCartWithAnimation(event)">Add To Cart</button>
         </div>
     </div>
@@ -934,14 +515,12 @@
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 8px;">Share Luxury Item</h3>
+            <h3 style="font-family: 'Cinzel', serif; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 8px;">Share & Earn Affiliate</h3>
             <div class="share-link-box">
                 <input type="text" id="shareLinkInput" class="share-link-input" readonly onclick="this.select()">
             </div>
             <div class="share-options-grid">
-                <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)">
-                    <i class="fa-solid fa-link"></i><span>Copy Link</span>
-                </a>
+                <a href="#" id="shareCopy" class="share-option-item" onclick="copyAffiliateLink(event)"><i class="fa-solid fa-link"></i><span>Copy Link</span></a>
                 <a href="#" id="shareFacebook" target="_blank" class="share-option-item"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
                 <a href="#" id="shareYoutube" target="_blank" class="share-option-item"><i class="fa-brands fa-youtube"></i><span>YouTube</span></a>
                 <a href="#" id="shareInstagram" target="_blank" class="share-option-item"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
@@ -954,70 +533,27 @@
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)">
-                <i class="fa-solid fa-handshake"></i><span>Affiliate</span>
-            </div>
-            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)">
-                <i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span>
-            </div>
-            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)">
-                <i class="fa-solid fa-chart-line"></i><span>Seller</span>
-            </div>
-            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)">
-                <i class="fa-solid fa-clipboard-list"></i><span>Item</span>
-            </div>
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search by name..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCamera()" title="Upload"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()" title="Voice"></i>
-                <button class="search-submit-btn" onclick="performSearchSubmit()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+                <i class="fa-solid fa-camera" onclick="triggerCamera()"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceSearch()"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic with Dynamic Auto Views & Likes -->
     <script>
         const allCountries = [
-            {name: "Afghanistan", flag: "🇦🇫", dial: "+93"}, {name: "Albania", flag: "🇦🇱", dial: "+355"}, {name: "Algeria", flag: "🇩🇿", dial: "+213"}, {name: "Andorra", flag: "🇦🇩", dial: "+376"},
-            {name: "Angola", flag: "🇦🇴", dial: "+244"}, {name: "Argentina", flag: "🇦🇷", dial: "+54"}, {name: "Armenia", flag: "🇦🇲", dial: "+374"}, {name: "Australia", flag: "🇦🇺", dial: "+61"},
-            {name: "Austria", flag: "🇦🇹", dial: "+43"}, {name: "Azerbaijan", flag: "🇦🇿", dial: "+994"}, {name: "Bahrain", flag: "🇧🇭", dial: "+973"}, {name: "Bangladesh", flag: "🇧🇩", dial: "+880"},
-            {name: "Belarus", flag: "🇧🇾", dial: "+375"}, {name: "Belgium", flag: "🇧🇪", dial: "+32"}, {name: "Belize", flag: "🇧🇿", dial: "+501"}, {name: "Benin", flag: "🇧🇯", dial: "+229"},
-            {name: "Bhutan", flag: "🇧🇹", dial: "+975"}, {name: "Bolivia", flag: "🇧🇴", dial: "+591"}, {name: "Bosnia and Herzegovina", flag: "🇧🇦", dial: "+387"}, {name: "Botswana", flag: "🇧🇼", dial: "+267"},
-            {name: "Brazil", flag: "🇧🇷", dial: "+55"}, {name: "Brunei", flag: "🇧🇳", dial: "+673"}, {name: "Bulgaria", flag: "🇧🇬", dial: "+359"}, {name: "Burkina Faso", flag: "🇧🇫", dial: "+226"},
-            {name: "Cambodia", flag: "🇰🇭", dial: "+855"}, {name: "Cameroon", flag: "🇨🇲", dial: "+237"}, {name: "Canada", flag: "🇨🇦", dial: "+1"}, {name: "Chile", flag: "🇨🇱", dial: "+56"},
-            {name: "China", flag: "🇨🇳", dial: "+86"}, {name: "Colombia", flag: "🇨🇴", dial: "+57"}, {name: "Congo", flag: "🇨🇬", dial: "+242"}, {name: "Costa Rica", flag: "🇨🇷", dial: "+506"},
-            {name: "Croatia", flag: "🇭🇷", dial: "+385"}, {name: "Cuba", flag: "🇨🇺", dial: "+53"}, {name: "Cyprus", flag: "🇨🇾", dial: "+357"}, {name: "Czech Republic", flag: "🇨🇿", dial: "+420"},
-            {name: "Denmark", flag: "🇩🇰", dial: "+45"}, {name: "Djibouti", flag: "🇩🇯", dial: "+253"}, {name: "Dominican Republic", flag: "🇩🇴", dial: "+1809"}, {name: "Ecuador", flag: "🇪🇨", dial: "+593"},
-            {name: "Egypt", flag: "🇪🇬", dial: "+20"}, {name: "El Salvador", flag: "🇸🇻", dial: "+503"}, {name: "Estonia", flag: "🇪🇪", dial: "+372"}, {name: "Ethiopia", flag: "🇪🇹", dial: "+251"},
-            {name: "Fiji", flag: "🇫🇯", dial: "+679"}, {name: "Finland", flag: "🇫🇮", dial: "+358"}, {name: "France", flag: "🇫🇷", dial: "+33"}, {name: "Gabon", flag: "🇬🇦", dial: "+241"},
-            {name: "Georgia", flag: "🇬🇪", dial: "+995"}, {name: "Germany", flag: "🇩🇪", dial: "+49"}, {name: "Ghana", flag: "🇬🇭", dial: "+233"}, {name: "Greece", flag: "🇬🇷", dial: "+30"},
-            {name: "Guatemala", flag: "🇬🇹", dial: "+502"}, {name: "Honduras", flag: "🇭🇳", dial: "+504"}, {name: "Hong Kong", flag: "🇭🇰", dial: "+852"}, {name: "Hungary", flag: "🇭🇺", dial: "+36"},
-            {name: "Iceland", flag: "🇮🇸", dial: "+354"}, {name: "India", flag: "🇮🇳", dial: "+91"}, {name: "Indonesia", flag: "🇮🇩", dial: "+62"}, {name: "Iran", flag: "🇮🇷", dial: "+98"},
-            {name: "Iraq", flag: "🇮🇶", dial: "+964"}, {name: "Ireland", flag: "🇮🇪", dial: "+353"}, {name: "Israel", flag: "🇮🇱", dial: "+972"}, {name: "Italy", flag: "🇮🇹", dial: "+39"},
-            {name: "Jamaica", flag: "🇯🇲", dial: "+1876"}, {name: "Japan", flag: "🇯🇵", dial: "+81"}, {name: "Jordan", flag: "🇯🇴", dial: "+962"}, {name: "Kazakhstan", flag: "🇰🇿", dial: "+7"},
-            {name: "Kenya", flag: "🇰🇪", dial: "+254"}, {name: "Kuwait", flag: "🇰🇼", dial: "+965"}, {name: "Kyrgyzstan", flag: "🇰🇬", dial: "+996"}, {name: "Laos", flag: "🇱🇦", dial: "+856"},
-            {name: "Latvia", flag: "🇱🇻", dial: "+371"}, {name: "Lebanon", flag: "🇱🇧", dial: "+961"}, {name: "Libya", flag: "🇱🇾", dial: "+218"}, {name: "Lithuania", flag: "🇱🇹", dial: "+370"},
-            {name: "Luxembourg", flag: "🇱🇺", dial: "+352"}, {name: "Macau", flag: "🇲🇴", dial: "+853"}, {name: "Malaysia", flag: "🇲🇾", dial: "+60"}, {name: "Maldives", flag: "🇲🇻", dial: "+960"},
-            {name: "Malta", flag: "🇲🇹", dial: "+356"}, {name: "Mexico", flag: "🇲🇽", dial: "+52"}, {name: "Moldova", flag: "🇲🇩", dial: "+373"}, {name: "Monaco", flag: "🇲🇨", dial: "+377"},
-            {name: "Mongolia", flag: "🇲🇳", dial: "+976"}, {name: "Montenegro", flag: "🇲🇪", dial: "+382"}, {name: "Morocco", flag: "🇲🇦", dial: "+212"}, {name: "Mozambique", flag: "🇲🇿", dial: "+258"},
-            {name: "Myanmar", flag: "🇲🇲", dial: "+95"}, {name: "Nepal", flag: "🇳🇵", dial: "+977"}, {name: "Netherlands", flag: "🇳🇱", dial: "+31"}, {name: "New Zealand", flag: "🇳🇿", dial: "+64"},
-            {name: "Nicaragua", flag: "🇳🇮", dial: "+505"}, {name: "Nigeria", flag: "🇳🇬", dial: "+234"}, {name: "North Korea", flag: "🇰🇵", dial: "+850"}, {name: "Norway", flag: "🇳🇴", dial: "+47"},
-            {name: "Oman", flag: "🇴🇲", dial: "+968"}, {name: "Pakistan", flag: "🇵🇰", dial: "+92"}, {name: "Palestine", flag: "🇵🇸", dial: "+970"}, {name: "Panama", flag: "🇵🇦", dial: "+507"},
-            {name: "Paraguay", flag: "🇵🇾", dial: "+595"}, {name: "Peru", flag: "🇵🇪", dial: "+51"}, {name: "Philippines", flag: "🇵🇭", dial: "+63"}, {name: "Poland", flag: "🇵🇱", dial: "+48"},
-            {name: "Portugal", flag: "🇵🇹", dial: "+351"}, {name: "Qatar", flag: "🇶🇦", dial: "+974"}, {name: "Romania", flag: "🇷🇴", dial: "+40"}, {name: "Russia", flag: "🇷🇺", dial: "+7"},
-            {name: "Rwanda", flag: "🇷🇼", dial: "+250"}, {name: "Saudi Arabia", flag: "🇸🇦", dial: "+966"}, {name: "Senegal", flag: "🇸🇳", dial: "+221"}, {name: "Serbia", flag: "🇷🇸", dial: "+381"},
-            {name: "Singapore", flag: "🇸🇬", dial: "+65"}, {name: "Slovakia", flag: "🇸🇰", dial: "+421"}, {name: "Slovenia", flag: "🇸🇮", dial: "+386"}, {name: "Somalia", flag: "🇸🇴", dial: "+252"},
-            {name: "South Africa", flag: "🇿🇦", dial: "+27"}, {name: "South Korea", flag: "🇰🇷", dial: "+82"}, {name: "Spain", flag: "🇪🇸", dial: "+34"}, {name: "Sri Lanka", flag: "🇱🇰", dial: "+94"},
-            {name: "Sudan", flag: "🇸🇩", dial: "+249"}, {name: "Sweden", flag: "🇸🇪", dial: "+46"}, {name: "Switzerland", flag: "🇨🇭", dial: "+41"}, {name: "Syria", flag: "🇸🇾", dial: "+963"},
-            {name: "Taiwan", flag: "🇹🇼", dial: "+886"}, {name: "Tajikistan", flag: "🇹🇯", dial: "+992"}, {name: "Tanzania", flag: "🇹🇿", dial: "+255"}, {name: "Thailand", flag: "🇹🇭", dial: "+66"},
-            {name: "Tunisia", flag: "🇹🇳", dial: "+216"}, {name: "Turkey", flag: "🇹🇷", dial: "+90"}, {name: "Turkmenistan", flag: "🇹🇲", dial: "+993"}, {name: "Uganda", flag: "🇺🇬", dial: "+256"},
-            {name: "Ukraine", flag: "🇺🇦", dial: "+380"}, {name: "United Arab Emirates", flag: "🇦🇪", dial: "+971"}, {name: "United Kingdom", flag: "🇬🇧", dial: "+44"}, {name: "United States", flag: "🇺🇸", dial: "+1"},
-            {name: "Uruguay", flag: "🇺🇾", dial: "+598"}, {name: "Uzbekistan", flag: "🇺🇿", dial: "+998"}, {name: "Venezuela", flag: "🇻🇪", dial: "+58"}, {name: "Vietnam", flag: "🇻🇳", dial: "+84"},
-            {name: "Yemen", flag: "🇾🇪", dial: "+967"}, {name: "Zambia", flag: "🇿🇲", dial: "+260"}, {name: "Zimbabwe", flag: "🇿🇼", dial: "+263"}
+            {name: "Bangladesh", flag: "🇧🇩", dial: "+880"}, {name: "United States", flag: "🇺🇸", dial: "+1"},
+            {name: "United Kingdom", flag: "🇬🇧", dial: "+44"}, {name: "United Arab Emirates", flag: "🇦🇪", dial: "+971"},
+            {name: "Saudi Arabia", flag: "🇸🇦", dial: "+966"}, {name: "India", flag: "🇮🇳", dial: "+91"}
         ];
 
         let cartItems = [];
@@ -1070,6 +606,34 @@
 
             loadCombinedProducts();
         });
+
+        // অটোমেটিক র্যান্ডম ভিউ এবং লাইক জেনারেটর ফাংশন (প্রতিদিন বা লোডের সময় প্রোডাক্ট অনুযায়ী ভিন্ন ভিন্ন মান দেখাবে)
+        function getDynamicProductStats(productId) {
+            let storageKeyViews = `mme_views_${productId}`;
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyDate = `mme_date_${productId}`;
+            
+            let todayStr = new Date().toDateString();
+            let savedDate = localStorage.getItem(storageKeyDate);
+
+            let currentViews, currentLikes;
+
+            if (savedDate !== todayStr) {
+                // নতুন দিন শুরু হলে নতুন করে র্যান্ডম ভিউ (৩০০ থেকে ৫০০০ এর মধ্যে) এবং লাইক (২৫০ থেকে ১০৫০ এর মধ্যে) অ্যাসাইন হবে
+                currentViews = Math.floor(300 + Math.random() * 4700);
+                currentLikes = Math.floor(250 + Math.random() * 800);
+
+                localStorage.setItem(storageKeyDate, todayStr);
+                localStorage.setItem(storageKeyViews, currentViews);
+                localStorage.setItem(storageKeyLikes, currentLikes);
+            } else {
+                // একই দিনে প্রিভিয়াস সেভ করা মান বা সাথে একটু অটো increment যুক্ত করা
+                currentViews = parseInt(localStorage.getItem(storageKeyViews)) || Math.floor(300 + Math.random() * 4700);
+                currentLikes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(250 + Math.random() * 800);
+            }
+
+            return { views: currentViews, likes: currentLikes };
+        }
 
         function openCategoryModal(element) {
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -1132,7 +696,6 @@
                 category: "🏡 HOME DECOR",
                 videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                 images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5", "https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb"], 
-                views: 820, likes: 235, 
                 desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes." 
             },
             { 
@@ -1146,7 +709,6 @@
                 category: "👔 FASHION (MEN)",
                 videoUrl: "", 
                 images: ["https://lh3.googleusercontent.com/d/1-tTiXMrioUbLiRkx2jNRpkUYVVBah5Fb", "https://lh3.googleusercontent.com/d/1Cd9R3HCUOUjWWBrP5dIcyaXKLfX8NTdi"], 
-                views: 640, likes: 198, 
                 desc: "Handcrafted golden luxury ornament designed with precision for exclusive fashion statements." 
             }
         ];
@@ -1180,8 +742,6 @@
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
                             images: imgList,
-                            views: Math.floor(200 + Math.random() * 800),
-                            likes: Math.floor(50 + Math.random() * 200),
                             desc: p.desc || 'Exclusive elite product uploaded directly from certified vendor inventory.'
                         });
                     });
@@ -1210,6 +770,9 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
+                // ডাইনামিক অটো ভিউ এবং লাইক কল করা
+                let stats = getDynamicProductStats(item.id);
+
                 let mediaContent = "";
                 if (item.videoUrl && item.videoUrl.trim() !== "") {
                     mediaContent = `
@@ -1229,9 +792,9 @@
                 card.innerHTML = `
                     ${mediaContent}
                     <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${item.views}</span></div>
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
                         <div class="action-item like-icon" onclick="toggleLike(this, '${item.id}')">
-                            <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${item.likes}</span>
+                            <i class="fa-solid fa-heart"></i> <span id="like-count-${item.id}">${stats.likes}</span>
                         </div>
                         <div class="action-item share-icon" onclick="openShareModal('${item.title.replace(/'/g, "\'")}', '${item.id}', '${item.sellerId || 'VEN-MASUD'}')">
                             <i class="fa-solid fa-share-nodes"></i> <span>Share</span>
@@ -1246,7 +809,9 @@
             element.classList.toggle('active');
             const countSpan = document.getElementById(`like-count-${id}`);
             let currentLikes = parseInt(countSpan.innerText);
-            countSpan.innerText = element.classList.contains('active') ? currentLikes + 1 : currentLikes - 1;
+            let updatedLikes = element.classList.contains('active') ? currentLikes + 1 : currentLikes - 1;
+            countSpan.innerText = updatedLikes;
+            localStorage.setItem(`mme_likes_${id}`, updatedLikes);
         }
 
         function openProductModal(id) {
@@ -1478,9 +1043,9 @@
             const linkInput = document.getElementById('shareLinkInput');
             linkInput.select();
             navigator.clipboard.writeText(linkInput.value);
-            const copyBtnText = e.currentTarget.querySelector('span');
-            copyBtnText.innerText = "Copied!";
-            setTimeout(() => { copyBtnText.innerText = "Copy Link"; }, 1200);
+            const copyBtnTest = e.currentTarget.querySelector('span');
+            copyBtnTest.innerText = "Copied!";
+            setTimeout(() => { copyBtnTest.innerText = "Copy Link"; }, 1200);
         }
 
         function performSearchSubmit() {
