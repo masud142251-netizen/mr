@@ -53,7 +53,7 @@
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; min-width: 50px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; min-width: 50px; cursor: pointer; }
         .badge-top-text { font-size: 0.6rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 5px; color: var(--text-gray); text-transform: uppercase; }
 
@@ -88,6 +88,15 @@
             animation: toastFadeIn 0.3s ease;
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        /* ADMIN SECURE LOGIN MODAL */
+        .admin-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
+        .admin-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 20px; padding: 45px 18px 20px 18px; position: relative; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
+        .admin-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; text-transform: uppercase; }
+        
+        /* ADMIN DASHBOARD UI (HIDDEN UNTIL LOGIN) */
+        .admin-dashboard-box { display: none; text-align: left; max-height: 75vh; overflow-y: auto; }
+        .batch-stat-card { background: #1a1a1a; border: 1px solid var(--gold-solid); padding: 10px; border-radius: 10px; margin-bottom: 10px; font-size: 0.75rem; }
 
         /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
@@ -220,7 +229,7 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* FOOTER NAVIGATION BAR (ADMIN REMOVED & EQUALLY DISTRIBUTED) */
+        /* FOOTER NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
@@ -248,12 +257,44 @@
             </div>
         </div>
         <div class="top-right-controls">
-            <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
-                <span class="badge-bottom-text">Batch 20K Sync</span>
+            <div class="country-square-badge" onclick="openAdminSecureModal()" title="Secure Admin Access">
+                <span class="badge-top-text"><i class="fa-solid fa-shield-halved"></i> ADMIN</span>
+                <span class="badge-bottom-text">Master Login</span>
             </div>
         </div>
     </header>
+
+    <!-- ADMIN SECURE LOGIN & DASHBOARD MODAL -->
+    <div class="admin-modal-overlay" id="adminModalOverlay">
+        <div class="admin-modal-box">
+            <h3 class="admin-title"><i class="fa-solid fa-user-shield"></i> Master Admin Access</h3>
+            
+            <!-- Login Form (Visible before authentication) -->
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                <div class="auth-form-group">
+                    <label>Admin Gmail *</label>
+                    <input type="email" id="adminEmailInput" required placeholder="mrmasudarart@gmail.com">
+                </div>
+                <div class="auth-form-group">
+                    <label>Secure Master Password *</label>
+                    <input type="password" id="adminPassInput" required placeholder="Enter master password">
+                </div>
+                <button type="submit" class="auth-submit-btn">Unlock Admin Panel</button>
+            </form>
+
+            <!-- Admin Dashboard (Visible after successful login with 20K batch pagination) -->
+            <div class="admin-dashboard-box" id="adminDashboardBox">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:0.75rem; color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Batches</span>
+                    <button onclick="logoutAdminSession()" style="background:var(--danger-red); border:none; color:white; padding:3px 8px; border-radius:4px; font-size:0.6rem; cursor:pointer;">Logout</button>
+                </div>
+                <div class="batch-stat-card" id="adminBatchStatsInfo">Loading batches...</div>
+                <div id="adminOrdersListContainer" style="font-size:0.68rem; text-align:left;"></div>
+            </div>
+
+            <button class="golden-cross-btn-top-right" onclick="closeAdminModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
 
     <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
@@ -434,7 +475,7 @@
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR (ADMIN COMPLETELY REMOVED & EQUALLY DISTRIBUTED) -->
+    <!-- FOOTER NAVIGATION BAR (ADMIN COMPLETELY REMOVED FROM HOME) -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -452,11 +493,14 @@
         </div>
     </nav>
 
-    <!-- ENTERPRISE 20K BATCH SYNC LOGIC -->
+    <!-- MASTER ADMIN LOGIN & 20K BATCH SYNC LOGIC -->
     <script>
         const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         
+        const ADMIN_FIXED_EMAIL = 'mrmasudarart@gmail.com';
+        const ADMIN_FIXED_PASS = '14225114606Masudar@@@01767319670';
+
         let supabaseClient = null;
         try {
             if(window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
@@ -489,6 +533,11 @@
                 document.getElementById('cartCount').innerText = cartCount;
             }
             loadCombinedProducts();
+
+            // Check if admin is already logged in session
+            if(sessionStorage.getItem('mme_admin_logged') === 'true') {
+                showAdminDashboardUI();
+            }
         });
 
         function showCustomToast(msg) {
@@ -496,6 +545,62 @@
             toast.innerText = msg;
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+
+        function openAdminSecureModal() {
+            document.getElementById('adminModalOverlay').style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').style.display = 'none';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            let email = document.getElementById('adminEmailInput').value.trim();
+            let pass = document.getElementById('adminPassInput').value.trim();
+
+            if(email === ADMIN_FIXED_EMAIL && pass === ADMIN_FIXED_PASS) {
+                sessionStorage.setItem('mme_admin_logged', 'true');
+                showAdminDashboardUI();
+                showCustomToast("Admin Access Granted Successfully!");
+            } else {
+                showCustomToast("Invalid Admin Credentials!");
+            }
+        }
+
+        function showAdminDashboardUI() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('adminDashboardBox').style.display = 'block';
+            
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let totalOrders = allOrders.length;
+            let totalBatches = Math.ceil(totalOrders / 20000) || 1;
+
+            document.getElementById('adminBatchStatsInfo').innerHTML = `
+                📦 Total Orders: <b>${totalOrders}</b><br>
+                🗂️ Active Batches (20K limit/batch): <b>${totalBatches} Batch(es)</b>
+            `;
+
+            let container = document.getElementById('adminOrdersListContainer');
+            if(totalOrders === 0) {
+                container.innerHTML = `<p style="color:var(--text-gray); text-align:center; padding:10px;">No orders recorded yet.</p>`;
+            } else {
+                container.innerHTML = allOrders.slice(-10).reverse().map(o => `
+                    <div style="background:#000; padding:6px; border-radius:6px; margin-bottom:5px; border:1px solid rgba(212,175,55,0.2);">
+                        <b>${o.trackingId}</b> | ${o.customerName}<br>
+                        <span style="color:var(--gold-solid);">${o.batchNo}</span>
+                    </div>
+                `).join('') + `<div style="text-align:center; font-size:0.6rem; color:var(--text-gray); margin-top:5px;">Showing recent entries (Batch-optimized)</div>`;
+            }
+        }
+
+        function logoutAdminSession() {
+            sessionStorage.removeItem('mme_admin_logged');
+            document.getElementById('adminDashboardBox').style.display = 'none';
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('adminPassInput').value = '';
+            showCustomToast("Logged out from Admin Panel.");
         }
 
         function playCoinSoundAndAnimation(buttonEl) {
