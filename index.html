@@ -545,7 +545,6 @@
     <!-- LUXURY PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
-            <!-- Top-Right Corner Cross Button -->
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="modal-media-slider" id="modalMediaSlider"></div>
@@ -569,7 +568,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- Animated Cycling Box (Complete Full Title & Seller Info) -->
+            <!-- Animated Cycling Box -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -613,12 +612,13 @@
         </div>
     </div>
 
-    <!-- FOOTER & ECOSYSTEM NAVIGATION BAR -->
+    <!-- FOOTER & ECOSYSTEM NAVIGATION BAR WITH SECURE ADMIN SUBDOMAIN -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://secure-admin.mrmasudar.com', 'Secure Admin Dashboard', this)"><i class="fa-solid fa-user-shield"></i><span>Admin</span></div>
             <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
@@ -631,7 +631,7 @@
         </div>
     </nav>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC WITH ADMIN DATA SYNC -->
     <script>
         let cartItems = [];
         let cartCount = 0;
@@ -1017,12 +1017,13 @@
             if(!activeCurrentProduct) return;
             cartItems.push({
                 cartId: Date.now() + Math.random(),
+                productId: activeCurrentProduct.id,
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
                 quantity: currentModalQty,
                 color: selectedColor,
                 size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId,
+                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId
             });
@@ -1098,6 +1099,7 @@
             }
         }
 
+        /* ADMIN PANEL MASTER SHEET & ORDER SYNC */
         function handleOrderSubmit(e) {
             e.preventDefault();
             let email = document.getElementById('custEmail').value;
@@ -1114,12 +1116,40 @@
                 return;
             }
 
+            let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
+            
+            // Sync orders to Admin Panel Master Sheet
+            let adminMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            
+            cartItems.forEach(item => {
+                let orderRecord = {
+                    trackingId: trackingId,
+                    productId: item.productId || '1',
+                    productTitle: item.title,
+                    quantity: item.quantity,
+                    price: item.price,
+                    color: item.color,
+                    size: item.size,
+                    sellerId: item.sellerId || 'VEN-MASUD',
+                    affiliateId: item.affiliateRef || currentAffiliateId,
+                    customerName: name,
+                    customerEmail: email,
+                    customerPhone: phone,
+                    deliveryAddress: `${address}, ${city}, ${country}`,
+                    paymentStatus: 'Pending / Unpaid',
+                    deliveryStatus: 'Processing / Pending Dispatch',
+                    orderDate: new Date().toISOString()
+                };
+                adminMasterOrders.push(orderRecord);
+            });
+
+            localStorage.setItem('mme_admin_orders', JSON.stringify(adminMasterOrders));
+
             let userData = { name, address, city, country, phone };
             sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
             localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
 
-            let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
-            showCustomToast(`Order placed! Tracking ID: ${trackingId}`);
+            showCustomToast(`Order placed successfully! Tracking ID: ${trackingId}`);
             
             sessionStorage.removeItem('mme_cart_items');
             localStorage.removeItem('mme_cart_items');
