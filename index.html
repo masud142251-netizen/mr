@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - Supreme Ecosystem</title>
+    <title>MRMASUDAR.COM - All In One Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
-        body { padding-top: 60px; padding-bottom: 95px; }
+        body { padding-top: 62px; padding-bottom: 95px; }
 
         /* HEADER SECTION */
         header.app-header {
@@ -35,10 +35,9 @@
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         
-        /* Prominent and Large MRMASUDAR.COM styling */
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; 
-            font-size: 1.05rem; 
+            font-size: 1.02rem; 
             font-weight: 900; 
             background: var(--gold-gradient); 
             -webkit-background-clip: text; 
@@ -46,17 +45,24 @@
             line-height: 1.1; 
             text-transform: uppercase; 
             white-space: nowrap; 
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
+        /* Perfectly stretched ALL IN ONE */
         .brand-title-sub { 
             font-family: 'Cinzel', serif; 
-            font-size: 0.5rem; 
+            font-size: 0.46rem; 
             font-weight: 700; 
-            color: var(--text-gray);
-            letter-spacing: 3px; 
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 5.8px; 
             text-transform: uppercase; 
             margin-top: 2px; 
+            width: 100%;
+            display: block;
+            text-align: justify;
+            text-align-last: justify;
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
@@ -102,7 +108,7 @@
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
         .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
 
-        /* PRODUCT FEED & MASONRY GRID */
+        /* PRODUCT FEED & MASONRY GRID (With Share Button Restored) */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
@@ -121,11 +127,11 @@
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
-        .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL */
+        /* LUXURY PRODUCT DETAILS MODAL (Animated Slides & Seller Badge & Golden Qty Counter) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
-        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 18px 18px 80px 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 18px 18px 85px 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
         @keyframes luxuryModalOpen {
             0% { transform: scale(0.85); opacity: 0; }
@@ -137,32 +143,46 @@
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 240px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .modal-price-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-        .modal-price { font-size: 1.3rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.62rem; padding: 3px 6px; border-radius: 5px; font-weight: 700; }
+        /* Top Bar inside Modal: Price + Discount + Seller Badge */
+        .modal-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.7); padding: 6px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.25); }
+        .modal-price-group { display: flex; align-items: center; gap: 6px; }
+        .modal-price { font-size: 1.2rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.58rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
         
-        .modal-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--text-white); font-family: 'Cinzel', serif; }
-        .modal-desc { font-size: 0.74rem; color: var(--text-gray); margin-bottom: 10px; line-height: 1.4; }
+        /* Seller Badge next to Price */
+        .modal-seller-badge { display: flex; align-items: center; gap: 5px; background: #000; padding: 3px 8px; border-radius: 20px; border: 1px solid var(--gold-solid); }
+        .modal-seller-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); }
+        .modal-seller-name { font-size: 0.62rem; font-weight: 600; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .luxury-specs-panel { background: linear-gradient(135deg, rgba(25,25,25,0.9), rgba(15,15,15,0.9)); border: 1.5px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
-        .specs-header-title { font-size: 0.68rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
-        .specs-grid-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-        .spec-box-item { font-size: 0.66rem; color: var(--text-gray); background: rgba(0,0,0,0.5); padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15); }
-        .spec-box-item strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; font-size: 0.72rem; font-weight: 600; margin-top: 1px; }
-
-        .dynamic-option-section { margin-bottom: 10px; }
-        .option-label { font-size: 0.68rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
-        .color-pills-box, .size-pills-box { display: flex; gap: 6px; flex-wrap: wrap; }
-        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
-        .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
-
-        .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
+        /* Animated Specs & Info Box */
+        .animated-specs-showcase { background: linear-gradient(135deg, rgba(22,22,22,0.95), rgba(12,12,12,0.95)); border: 1.5px solid rgba(212,175,55,0.4); border-radius: 12px; padding: 12px; margin-bottom: 10px; position: relative; overflow: hidden; animation: specGlowPulse 3s infinite alternate; }
+        @keyframes specGlowPulse { 0% { border-color: rgba(212,175,55,0.3); } 100% { border-color: rgba(212,175,55,0.8); } }
         
-        .quantity-control-box { display: flex; align-items: center; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; }
-        .qty-btn { background: transparent; border: none; color: var(--gold-solid); width: 30px; height: 34px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .qty-input { width: 35px; background: transparent; border: none; color: white; text-align: center; font-size: 0.85rem; font-weight: 700; outline: none; }
+        .animated-info-slide { animation: textFadeCycle 6s infinite; }
+        @keyframes textFadeCycle { 0% { opacity: 0; transform: translateY(6px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-6px); } }
+
+        .modal-title { font-size: 0.95rem; font-weight: 700; color: var(--text-white); font-family: 'Cinzel', serif; margin-bottom: 2px; }
+        .modal-desc { font-size: 0.72rem; color: var(--text-gray); line-height: 1.35; margin-bottom: 6px; }
         
-        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.88rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .specs-grid-mini { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; font-size: 0.64rem; color: var(--text-gray); }
+        .specs-grid-mini strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Color & Size 10+ Selection Pills */
+        .dynamic-option-section { margin-bottom: 8px; }
+        .option-label { font-size: 0.65rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
+        .color-pills-box, .size-pills-box { display: flex; gap: 5px; flex-wrap: wrap; max-height: 70px; overflow-y: auto; scrollbar-width: none; }
+        .color-pills-box::-webkit-scrollbar, .size-pills-box::-webkit-scrollbar { display: none; }
+        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 9px; border-radius: 6px; font-size: 0.66rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
+        .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 10px rgba(212,175,55,0.6); transform: scale(1.05); }
+
+        /* Golden Round Quantity Control & Add To Cart Bar */
+        .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
+        
+        .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 6px; gap: 4px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .round-qty-btn { width: 26px; height: 26px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+        .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.8rem; font-weight: 700; outline: none; }
+        
+        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
         /* FOOTER & ECOSYSTEM NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -181,13 +201,13 @@
 </head>
 <body>
 
-    <!-- HEADER SECTION (Prominent MRMASUDAR.COM) -->
+    <!-- HEADER SECTION (Stretched ALL IN ONE) -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
-                <span class="brand-title-sub">SUPREME ECOSYSTEM</span>
+                <span class="brand-title-sub">ALL IN ONE</span>
             </div>
         </div>
         <div class="top-right-controls">
@@ -264,35 +284,41 @@
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- LUXURY PRODUCT DETAILS MODAL -->
+    <!-- LUXURY PRODUCT DETAILS MODAL (Animated Specs, 10+ Colors/Sizes, Golden Qty Counter & Seller Info) -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             
-            <div class="modal-price-box">
-                <div style="display:flex; align-items:center; gap:6px;">
+            <!-- Top Bar: Price + Discount + Seller Badge -->
+            <div class="modal-top-bar">
+                <div class="modal-price-group">
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+                <div class="modal-seller-badge" id="modalSellerBadgeBox">
+                    <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
+                    <span id="modalSellerName" class="modal-seller-name">Masudar Vendor</span>
                 </div>
             </div>
 
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             
-            <h3 class="modal-title" id="modalTitle">Product Title</h3>
-            <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
-            
-            <div class="luxury-specs-panel">
-                <div class="specs-header-title"><i class="fa-solid fa-gem"></i> Luxury Specifications</div>
-                <div class="specs-grid-box">
-                    <div class="spec-box-item">Stock Status: <strong id="specStock">Available</strong></div>
-                    <div class="spec-box-item">Packaging: <strong id="specPackaging">Standard Box</strong></div>
-                    <div class="spec-box-item">Unit Qty: <strong id="specQty">1 Unit</strong></div>
-                    <div class="spec-box-item">Item SKU: <strong id="specSku">MME-PROD-01</strong></div>
+            <!-- Animated Showcase Box for Title, Desc, Specs -->
+            <div class="animated-specs-showcase">
+                <div class="animated-info-slide">
+                    <h3 class="modal-title" id="modalTitle">Product Title</h3>
+                    <p class="modal-desc" id="modalDesc">Exquisite luxury craft.</p>
+                    <div class="specs-grid-mini">
+                        <div>Stock: <strong id="specStock">Available</strong></div>
+                        <div>Pkg: <strong id="specPackaging">Standard Box</strong></div>
+                        <div>Qty: <strong id="specQty">1 Unit</strong></div>
+                        <div>SKU: <strong id="specSku">MME-01</strong></div>
+                    </div>
                 </div>
             </div>
 
             <div id="modalColorSection" class="dynamic-option-section" style="display:none;">
-                <div class="option-label">Select Color</div>
+                <div class="option-label">Select Color (10+ Options)</div>
                 <div class="color-pills-box" id="modalColorPills"></div>
             </div>
             <div id="modalSizeSection" class="dynamic-option-section" style="display:none;">
@@ -300,11 +326,12 @@
                 <div class="size-pills-box" id="modalSizePills"></div>
             </div>
 
+            <!-- Fixed Bottom Action Bar with Golden Round Qty Buttons -->
             <div class="modal-footer-action-bar">
-                <div class="quantity-control-box">
-                    <button type="button" class="qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                    <input type="text" id="modalProductQty" class="qty-input" value="1" readonly>
-                    <button type="button" class="qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                <div class="golden-round-qty-box">
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                    <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
                 </div>
                 <button class="modal-add-btn" onclick="addToCartWithSelection()">
                     <i class="fa-solid fa-cart-plus"></i> Add To Cart
@@ -402,12 +429,14 @@
             let defaultProds = [
                 {
                     id: 1, title: "Exquisite Resin & Gold Leaf Wall Clock", price: "$145.00", bdDiscount: "BD 20% OFF",
-                    sellerId: "VEN-MASUD", category: "🏡 HOME DECOR",
+                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise", sellerImg: "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                    category: "🏡 HOME DECOR",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
                     desc: "Handcrafted luxury geometric wooden wall clock embedded with shimmering gold leaf flakes.",
                     stock: "50 Units Available", packaging: "Velvet Wooden Box", quantity: "1 Piece", sku: "MME-CLOCK-01",
-                    colors: ["Golden Teak", "Black"], sizes: ["Standard"]
+                    colors: ["Golden Teak", "Black", "Rose Gold", "Royal Blue", "Emerald Green", "Pure White", "Silver", "Antique Bronze", "Choco Brown", "Ruby Red"], 
+                    sizes: ["Standard", "Medium", "Large", "Executive", "Custom"]
                 }
             ];
             let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
@@ -426,6 +455,8 @@
                             price: p.global || '$25.00',
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
                             sellerId: s.id,
+                            sellerName: s.name || 'Elite Vendor',
+                            sellerImg: s.logoUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
                             category: p.category || '🏡 HOME DECOR',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
@@ -434,8 +465,8 @@
                             packaging: p.packaging || 'Secure Export Box',
                             quantity: p.quantity || '1 Unit',
                             sku: p.sku || `MME-VEN-${s.id}-${i}`,
-                            colors: p.colors || [],
-                            sizes: p.sizes || []
+                            colors: p.colors || ["Gold", "Silver", "Black", "White", "Blue", "Red", "Green", "Bronze", "Teak", "Grey"],
+                            sizes: p.sizes || ["Standard", "Large"]
                         });
                     });
                 }
@@ -472,10 +503,19 @@
                     <div class="product-bottom-actions">
                         <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
                         <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item share-icon" onclick="shareProductCard('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
                     </div>
                 `;
                 feed.appendChild(card);
             });
+        }
+
+        function shareProductCard(title) {
+            if (navigator.share) {
+                navigator.share({ title: title, url: window.location.href }).catch(() => {});
+            } else {
+                alert("Product link copied to clipboard!");
+            }
         }
 
         function openProductModal(id) {
@@ -489,6 +529,10 @@
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             document.getElementById('modalDesc').innerText = product.desc;
+
+            // Seller Info Binding
+            document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Vendor";
+            document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
 
             document.getElementById('specStock').innerText = product.stock || "Available";
             document.getElementById('specPackaging').innerText = product.packaging || "Standard Box";
@@ -504,7 +548,7 @@
                 colorSec.style.display = 'block';
                 selectedColor = product.colors[0];
                 colorPills.innerHTML = product.colors.map((c, idx) => `
-                    <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectPill('color', '${c}', this)">${c}</div>
+                    <div class="pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectColorAndAutoCart('${c}', this)">${c}</div>
                 `).join('');
             } else { colorSec.style.display = 'none'; selectedColor = "Standard"; }
 
@@ -519,6 +563,13 @@
             } else { sizeSec.style.display = 'none'; selectedSize = "Standard"; }
 
             document.getElementById('productModal').style.display = 'flex';
+        }
+
+        // Color selection instantly highlights and updates state for lightning fast experience
+        function selectColorAndAutoCart(colorVal, el) {
+            selectedColor = colorVal;
+            document.querySelectorAll('#modalColorPills .pill-item').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
         }
 
         function updateModalQuantity(change) {
