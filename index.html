@@ -295,10 +295,10 @@
                     <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS WITH SEPARATE SELLER & AFFILIATE COLUMNS -->
+                <!-- TAB 1: ORDERS & TIMESTAMPS WITH BATCH SYSTEM & SEPARATE SELLER/AFFILIATE IDS -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log with Separate Seller & Affiliate IDs</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log (20k Batch System Active)</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -306,6 +306,7 @@
                             <thead>
                                 <tr>
                                     <th>Trk ID</th>
+                                    <th>Batch Info</th>
                                     <th>Date & Time</th>
                                     <th>Customer Info</th>
                                     <th>Product & Qty</th>
@@ -347,7 +348,7 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, and synchronizes the dispatch message directly to the seller dashboard.
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, organizes into 20k batches, and synchronizes the dispatch message directly to the seller dashboard.
                     </div>
                 </div>
 
@@ -1065,12 +1066,13 @@
             let tbody = document.getElementById('adminOrdersTableBody');
             
             if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
             } else {
                 tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
                     <tr>
                         <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
-                        <td style="font-size:0.65rem; color:var(--gold-solid);">${o.formattedDate || 'Just now'}</td>
+                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.batchNo || 'Batch-1'}</span></td>
+                        <td style="font-size:0.65rem; color:var(--text-gray);">${o.formattedDate || 'Just now'}</td>
                         <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
                         <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
                         <td><span style="color:var(--gold-solid); font-weight:bold;">${o.sellerId || 'VEN-MASUD'}</span></td>
@@ -1104,8 +1106,8 @@
             let contentBox = document.getElementById('custDetailContent');
             contentBox.innerHTML = `
                 <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
+                <b>Batch No:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.batchNo || 'Batch-1'}</span><br>
                 <b>Order Date & Time:</b> <span style="color:var(--gold-solid);">${order.formattedDate}</span><br>
-                <b>Batch No:</b> ${order.batchNo || 'Batch-1'}<br>
                 <b>Customer Name:</b> ${order.customerName}<br>
                 <b>Email:</b> ${order.customerEmail}<br>
                 <b>Phone:</b> ${order.customerPhone}<br>
@@ -1606,7 +1608,7 @@
             }
         }
 
-        /* SUPABASE & ORDER SUBMISSION WITH AFFILIATE TRACKING */
+        /* SUPABASE & ORDER SUBMISSION WITH 20K BATCH & AFFILIATE TRACKING */
         const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         let supabaseClient = null;
@@ -1635,7 +1637,13 @@
             });
 
             let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1;
+            
+            // 20K BATCH CALCULATION LOGIC
+            let totalOrderCount = allMasterOrders.length;
+            let currentBatchNumber = Math.floor(totalOrderCount / 20000) + 1;
+            let batchStart = ((currentBatchNumber - 1) * 20000) + 1;
+            let batchEnd = currentBatchNumber * 20000;
+            let batchName = `Batch-${currentBatchNumber} (${batchStart} - ${batchEnd})`;
 
             cartItems.forEach(item => {
                 let orderRecord = {
@@ -1656,7 +1664,7 @@
                     deliveryStatus: 'Processing / Pending Dispatch',
                     orderDate: nowTimestamp.toISOString(),
                     formattedDate: formattedDate,
-                    batchNo: `Batch-${currentBatchNumber} (Orders ${(currentBatchNumber-1)*20000 + 1} - ${currentBatchNumber*20000})`
+                    batchNo: batchName
                 };
                 allMasterOrders.push(orderRecord);
 
@@ -1718,7 +1726,7 @@
                 }
             } else {
                 let text = prompt("Voice Search Keyword:");
-                if(text) { document.getElementById('searchInput').value, performSearchSubmit(); }
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
             }
         }
     </script>
