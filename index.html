@@ -49,28 +49,8 @@
             letter-spacing: 0.5px;
         }
 
-        /* HEADER LUXURY FASHION & BABY ICONS WITH GOLDEN GRADIENT */
-        .header-eco-icons { display: flex; align-items: center; gap: 6px; }
-        .eco-mini-badge { 
-            width: 26px; height: 26px; border-radius: 50%; background: #181818; 
-            border: 1.5px solid var(--gold-solid); display: flex; align-items: center; justify-content: center; 
-            font-size: 0.65rem; box-shadow: 0 0 8px rgba(212,175,55,0.4);
-            animation: logoZoomPulse 3s infinite ease-in-out;
-        }
-        .eco-mini-badge i {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes logoZoomPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-            100% { transform: scale(1); }
-        }
-
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; min-width: 44px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; min-width: 50px; }
         .badge-top-text { font-size: 0.6rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 5px; color: var(--text-gray); text-transform: uppercase; }
 
@@ -126,7 +106,7 @@
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
         .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
-        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: logoZoomPulse 2.5s infinite ease-in-out; }
+        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
@@ -159,10 +139,10 @@
         .auth-form-group label { display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase; }
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none; }
         .phone-input-row { display: flex; gap: 6px; }
-        .phone-input-row select { width: 155px; font-size: 0.65rem; }
+        .phone-input-row select { width: 165px; font-size: 0.65rem; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
 
-        /* PINTEREST MASONRY GRID WITH CONTINUOUS ZOOM */
+        /* PINTEREST MASONRY GRID */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
@@ -188,7 +168,7 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL (MOBILE FRIENDLY & CLEAN) */
+        /* LUXURY PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
         
@@ -200,13 +180,12 @@
         .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; animation: continuousZoom 6s infinite alternate ease-in-out; }
+        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
         .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        /* PRICE, DISCOUNT & SELLER BAR */
         .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; background: rgba(20,20,20,0.9); padding: 7px 9px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); }
         .modal-price-group { display: flex; align-items: center; gap: 5px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -216,10 +195,9 @@
         .modal-seller-avatar { width: 16px; height: 16px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
         .modal-seller-name { font-size: 0.52rem; font-weight: 600; color: var(--text-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* VIEW, LIKE, SHARE BAR INSIDE DETAILS */
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* LUXURY ANIMATED CYCLING BOX (Rolling & Two-Line Details) */
+        /* LUXURY ANIMATED CYCLING BOX */
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -228,11 +206,8 @@
         .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
         .cycling-desc { font-size: 0.68rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
         .cycling-spec { font-size: 0.68rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; line-height: 1.3; }
-
-        /* Two-Line Grid for Stock/Packaging & SKU */
         .spec-two-line-grid { display: flex; flex-direction: column; gap: 3px; align-items: center; justify-content: center; }
 
-        /* Color & Size inside Cycling Box */
         .cycling-colors-inline { display: flex; gap: 6px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
         .modal-circle-item { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; transition: transform 0.2s; }
         .modal-circle-item.selected { transform: scale(1.25); border-color: var(--text-white); box-shadow: 0 0 8px var(--gold-solid); }
@@ -241,14 +216,12 @@
         .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; }
         .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 6px rgba(212,175,55,0.6); }
 
-        /* QUANTITY & ADD TO CART */
         .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
         .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
         
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; transition: transform 0.2s; }
-        .modal-add-btn:active { transform: scale(0.97); }
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
@@ -279,15 +252,11 @@
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
             </div>
-            <div class="header-eco-icons" title="Luxury Fashion & Baby Products Ecosystem">
-                <div class="eco-mini-badge" title="Luxury Fashion"><i class="fa-solid fa-shirt"></i></div>
-                <div class="eco-mini-badge" title="Baby & Kids"><i class="fa-solid fa-child-reaching"></i></div>
-            </div>
         </div>
         <div class="top-right-controls">
             <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> 200+</span>
-                <span class="badge-bottom-text">Country</span>
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
+                <span class="badge-bottom-text">All Country</span>
             </div>
         </div>
     </header>
@@ -345,7 +314,7 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRIES & FLAGS -->
+    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRIES & FULL EXTENDED CODES -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
@@ -361,60 +330,126 @@
                     <label>WhatsApp / Mobile Number *</label>
                     <div class="phone-input-row">
                         <select id="countryPhoneCode">
-                            <option value="+880">🇧🇩 +880 (BD)</option>
-                            <option value="+1">🇺🇸 +1 (US)</option>
-                            <option value="+44">🇬🇧 +44 (UK)</option>
-                            <option value="+91">🇮🇳 +91 (IN)</option>
-                            <option value="+971">🇦🇪 +971 (AE)</option>
-                            <option value="+966">🇸🇦 +966 (SA)</option>
-                            <option value="+65">🇸🇬 +65 (SG)</option>
-                            <option value="+60">🇲🇾 +60 (MY)</option>
-                            <option value="+61">🇦🇺 +61 (AU)</option>
-                            <option value="+33">🇫🇷 +33 (FR)</option>
-                            <option value="+49">🇩🇪 +49 (DE)</option>
-                            <option value="+81">🇯🇵 +81 (JP)</option>
-                            <option value="+86">🇨🇳 +86 (CN)</option>
-                            <option value="+92">🇵🇰 +92 (PK)</option>
-                            <option value="+94">🇱🇰 +94 (LK)</option>
-                            <option value="+93">🇦🇫 +93 (AF)</option>
-                            <option value="+355">🇦🇱 +355 (AL)</option>
-                            <option value="+213">🇩🇿 +213 (DZ)</option>
-                            <option value="+244">🇦🇴 +244 (AO)</option>
-                            <option value="+54">🇦🇷 +54 (AR)</option>
-                            <option value="+43">🇦🇹 +43 (AT)</option>
-                            <option value="+973">🇧🇭 +973 (BH)</option>
-                            <option value="+32">🇧🇪 +32 (BE)</option>
-                            <option value="+55">🇧🇷 +55 (BR)</option>
-                            <option value="+56">🇨🇱 +56 (CL)</option>
-                            <option value="+20">🇪🇬 +20 (EG)</option>
-                            <option value="+30">🇬🇷 +30 (GR)</option>
-                            <option value="+852">🇭🇰 +852 (HK)</option>
-                            <option value="+36">🇭🇺 +36 (HU)</option>
-                            <option value="+62">🇮🇩 +62 (ID)</option>
-                            <option value="+98">🇮🇷 +98 (IR)</option>
-                            <option value="+964">🇮🇶 +964 (IQ)</option>
-                            <option value="+353">🇮🇪 +353 (IE)</option>
-                            <option value="+972">🇮🇱 +972 (IL)</option>
-                            <option value="+39">🇮🇹 +39 (IT)</option>
-                            <option value="+965">🇰🇼 +965 (KW)</option>
-                            <option value="+961">🇱🇧 +961 (LB)</option>
-                            <option value="+31">🇳🇱 +31 (NL)</option>
-                            <option value="+64">🇳🇿 +64 (NZ)</option>
-                            <option value="+47">🇳🇴 +47 (NO)</option>
-                            <option value="+968">🇴🇲 +968 (OM)</option>
-                            <option value="+63">🇵🇭 +63 (PH)</option>
-                            <option value="+48">🇵🇱 +48 (PL)</option>
-                            <option value="+351">🇵🇹 +351 (PT)</option>
-                            <option value="+974">🇶🇦 +974 (QA)</option>
-                            <option value="+7">🇷🇺 +7 (RU)</option>
-                            <option value="+34">🇪🇸 +34 (ES)</option>
-                            <option value="+46">🇸🇪 +46 (SE)</option>
-                            <option value="+41">🇨🇭 +41 (CH)</option>
-                            <option value="+886">🇹🇼 +886 (TW)</option>
-                            <option value="+66">🇹🇭 +66 (TH)</option>
-                            <option value="+90">🇹🇷 +90 (TR)</option>
-                            <option value="+380">🇺🇦 +380 (UA)</option>
-                            <option value="+84">🇻🇳 +84 (VN)</option>
+                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
+                            <option value="+1">🇺🇸 +1 (USA / Canada)</option>
+                            <option value="+44">🇬🇧 +44 (United Kingdom)</option>
+                            <option value="+91">🇮🇳 +91 (India)</option>
+                            <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+                            <option value="+65">🇸🇬 +65 (Singapore)</option>
+                            <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                            <option value="+61">🇦🇺 +61 (Australia)</option>
+                            <option value="+33">🇫🇷 +33 (France)</option>
+                            <option value="+49">🇩🇪 +49 (Germany)</option>
+                            <option value="+81">🇯🇵 +81 (Japan)</option>
+                            <option value="+86">🇨🇳 +86 (China)</option>
+                            <option value="+92">🇵🇰 +92 (Pakistan)</option>
+                            <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
+                            <option value="+93">🇦🇫 +93 (Afghanistan)</option>
+                            <option value="+355">🇦🇱 +355 (Albania)</option>
+                            <option value="+213">🇩🇿 +213 (Algeria)</option>
+                            <option value="+376">🇦🇩 +376 (Andorra)</option>
+                            <option value="+244">🇦🇴 +244 (Angola)</option>
+                            <option value="+54">🇦🇷 +54 (Argentina)</option>
+                            <option value="+374">🇦🇲 +374 (Armenia)</option>
+                            <option value="+43">🇦🇹 +43 (Austria)</option>
+                            <option value="+994">🇦🇿 +994 (Azerbaijan)</option>
+                            <option value="+973">🇧🇭 +973 (Bahrain)</option>
+                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
+                            <option value="+32">🇧🇪 +32 (Belgium)</option>
+                            <option value="+55">🇧🇷 +55 (Brazil)</option>
+                            <option value="+359">🇧🇬 +359 (Bulgaria)</option>
+                            <option value="+855">🇰🇭 +855 (Cambodia)</option>
+                            <option value="+237">🇨🇲 +237 (Cameroon)</option>
+                            <option value="+56">🇨🇱 +56 (Chile)</option>
+                            <option value="+57">🇨🇴 +57 (Colombia)</option>
+                            <option value="+385">🇭🇷 +385 (Croatia)</option>
+                            <option value="+357">🇨🇾 +357 (Cyprus)</option>
+                            <option value="+420">🇨🇿 +420 (Czech Republic)</option>
+                            <option value="+45">🇩🇰 +45 (Denmark)</option>
+                            <option value="+20">🇪🇬 +20 (Egypt)</option>
+                            <option value="+358">🇫🇮 +358 (Finland)</option>
+                            <option value="+995">🇬🇪 +995 (Georgia)</option>
+                            <option value="+30">🇬🇷 +30 (Greece)</option>
+                            <option value="+502">🇬🇹 +502 (Guatemala)</option>
+                            <option value="+509">🇭🇹 +509 (Haiti)</option>
+                            <option value="+504">🇭🇳 +504 (Honduras)</option>
+                            <option value="+852">🇭🇰 +852 (Hong Kong)</option>
+                            <option value="+36">🇭🇺 +36 (Hungary)</option>
+                            <option value="+354">🇮🇸 +354 (Iceland)</option>
+                            <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                            <option value="+98">🇮🇷 +98 (Iran)</option>
+                            <option value="+964">🇮🇶 +964 (Iraq)</option>
+                            <option value="+353">🇮🇪 +353 (Ireland)</option>
+                            <option value="+972">🇮🇱 +972 (Israel)</option>
+                            <option value="+39">🇮🇹 +39 (Italy)</option>
+                            <option value="+965">🇰🇼 +965 (Kuwait)</option>
+                            <option value="+996">🇰🇬 +996 (Kyrgyzstan)</option>
+                            <option value="+856">🇱🇦 +856 (Laos)</option>
+                            <option value="+371">🇱🇻 +371 (Latvia)</option>
+                            <option value="+961">🇱🇧 +961 (Lebanon)</option>
+                            <option value="+218">🇱🇾 +218 (Libya)</option>
+                            <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
+                            <option value="+370">🇱🇹 +370 (Lithuania)</option>
+                            <option value="+352">🇱🇺 +352 (Luxembourg)</option>
+                            <option value="+853">🇲🇴 +853 (Macau)</option>
+                            <option value="+389">🇲🇰 +389 (North Macedonia)</option>
+                            <option value="+261">🇲🇬 +261 (Madagascar)</option>
+                            <option value="+265">🇲🇼 +265 (Malawi)</option>
+                            <option value="+960">🇲🇻 +960 (Maldives)</option>
+                            <option value="+356">🇲🇹 +356 (Malta)</option>
+                            <option value="+230">🇲🇺 +230 (Mauritius)</option>
+                            <option value="+52">🇲🇽 +52 (Mexico)</option>
+                            <option value="+373">🇲🇩 +373 (Moldova)</option>
+                            <option value="+377">🇲🇨 +377 (Monaco)</option>
+                            <option value="+976">🇲🇳 +976 (Mongolia)</option>
+                            <option value="+382">🇲🇪 +382 (Montenegro)</option>
+                            <option value="+212">🇲🇦 +212 (Morocco)</option>
+                            <option value="+258">🇲🇿 +258 (Mozambique)</option>
+                            <option value="+95">🇲🇲 +95 (Myanmar)</option>
+                            <option value="+264">🇳🇦 +264 (Namibia)</option>
+                            <option value="+977">🇳🇵 +977 (Nepal)</option>
+                            <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                            <option value="+64">🇳🇿 +64 (New Zealand)</option>
+                            <option value="+505">🇳🇮 +505 (Nicaragua)</option>
+                            <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                            <option value="+47">🇳🇴 +47 (Norway)</option>
+                            <option value="+968">🇴🇲 +968 (Oman)</option>
+                            <option value="+507">🇵🇦 +507 (Panama)</option>
+                            <option value="+595">🇵🇾 +595 (Paraguay)</option>
+                            <option value="+51">🇵🇪 +51 (Peru)</option>
+                            <option value="+63">🇵🇭 +63 (Philippines)</option>
+                            <option value="+48">🇵🇱 +48 (Poland)</option>
+                            <option value="+351">🇵🇹 +351 (Portugal)</option>
+                            <option value="+974">🇶🇦 +974 (Qatar)</option>
+                            <option value="+40">🇷🇴 +40 (Romania)</option>
+                            <option value="+7">🇷🇺 +7 (Russia)</option>
+                            <option value="+250">🇷🇼 +250 (Rwanda)</option>
+                            <option value="+378">🇸🇲 +378 (San Marino)</option>
+                            <option value="+381">🇷🇸 +381 (Serbia)</option>
+                            <option value="+421">🇸🇰 +421 (Slovakia)</option>
+                            <option value="+386">🇸🇮 +386 (Slovenia)</option>
+                            <option value="+27">🇿🇦 +27 (South Africa)</option>
+                            <option value="+82">🇰🇷 +82 (South Korea)</option>
+                            <option value="+34">🇪🇸 +34 (Spain)</option>
+                            <option value="+46">🇸🇪 +46 (Sweden)</option>
+                            <option value="+41">🇨🇭 +41 (Switzerland)</option>
+                            <option value="+886">🇹🇼 +886 (Taiwan)</option>
+                            <option value="+992">🇹🇯 +992 (Tajikistan)</option>
+                            <option value="+255">🇹🇿 +255 (Tanzania)</option>
+                            <option value="+66">🇹🇭 +66 (Thailand)</option>
+                            <option value="+216">🇹🇳 +216 (Tunisia)</option>
+                            <option value="+90">🇹🇷 +90 (Turkey)</option>
+                            <option value="+993">🇹🇲 +993 (Turkmenistan)</option>
+                            <option value="+256">🇺🇬 +256 (Uganda)</option>
+                            <option value="+380">🇺🇦 +380 (Ukraine)</option>
+                            <option value="+598">🇺🇾 +598 (Uruguay)</option>
+                            <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
+                            <option value="+58">🇻🇪 +58 (Venezuela)</option>
+                            <option value="+84">🇻🇳 +84 (Vietnam)</option>
+                            <option value="+967">🇾🇪 +967 (Yemen)</option>
+                            <option value="+260">🇿🇲 +260 (Zambia)</option>
+                            <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
                         </select>
                         <input type="tel" id="custPhoneNum" required placeholder="1710000000">
                     </div>
@@ -434,6 +469,7 @@
                 <div class="auth-form-group">
                     <label>Country *</label>
                     <select id="custCountry" required>
+                        <option value="Global All Country">🌐 Global (All 200+ Countries Supported)</option>
                         <option value="Bangladesh">🇧🇩 Bangladesh</option>
                         <option value="United States">🇺🇸 United States</option>
                         <option value="United Kingdom">🇬🇧 United Kingdom</option>
@@ -487,7 +523,6 @@
                         <option value="Turkey">🇹🇷 Turkey</option>
                         <option value="Ukraine">🇺🇦 Ukraine</option>
                         <option value="Vietnam">🇻🇳 Vietnam</option>
-                        <option value="Other">🌐 Other International Country</option>
                     </select>
                 </div>
                 <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
@@ -534,7 +569,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- Animated Cycling Box (Rolling Rolling, Two Lines for Specs) -->
+            <!-- Animated Cycling Box (Complete Full Title & Seller Info) -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -553,7 +588,7 @@
                 <div class="cycling-content-item">
                     <div class="spec-two-line-grid">
                         <div class="cycling-spec">📦 Stock: <span id="specStock">Available</span></div>
-                        <div class="cycling-spec">🎁 Pack: <span id="specPackaging">Standard Box</span></div>
+                        <div class="cycling-spec">🎁 Pack: <span id="specPackaging">Luxury Box</span></div>
                     </div>
                 </div>
                 <div class="cycling-content-item">
