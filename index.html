@@ -27,34 +27,37 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
-        body { padding-top: 62px; padding-bottom: 95px; }
+        body { padding-top: 68px; padding-bottom: 95px; }
 
-        /* HEADER SECTION */
+        /* HEADER SECTION - MOBILE OPTIMIZED */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
+            display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
-        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
-        .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
+        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
+        .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; 
-            font-size: 1.05rem; 
+            font-size: 0.92rem; 
             font-weight: 900; 
             background: var(--gold-gradient); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
-            line-height: 1.1; 
+            line-height: 1.15; 
             text-transform: uppercase; 
             white-space: nowrap; 
-            letter-spacing: 0.5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
         }
 
-        .top-right-controls { display: flex; align-items: center; gap: 6px; }
-        .country-square-badge { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 6px 12px; border-radius: 6px; }
-        .badge-top-text { font-size: 0.7rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 4px; letter-spacing: 0.5px; }
+        .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
+        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
+        .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* CROSS BUTTON */
         .golden-cross-btn-top-right { 
@@ -90,11 +93,11 @@
 
         /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 820px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         
-        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.72rem; }
-        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 8px; text-align: left; }
+        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
+        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
         .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
         .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
 
@@ -262,7 +265,8 @@
         </div>
         <div class="top-right-controls">
             <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL ENTERPRISE</span>
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
+                <span class="badge-sub-text">ENTERPRISE</span>
             </div>
         </div>
     </header>
@@ -271,7 +275,7 @@
     <div class="secret-admin-overlay" id="secretAdminOverlay">
         <div class="secret-admin-box">
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="secret-admin-title"><i class="fa-solid fa-shield-halved"></i> Master Secure Enterprise Portal</h3>
+            <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
             
             <!-- BLANK PASSWORD LOGIN FORM -->
             <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
@@ -286,15 +290,15 @@
             <div id="adminDashboardSec" style="display: none;">
                 <!-- ADMIN TABS -->
                 <div class="admin-tab-buttons">
-                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">📦 Live Orders & Timestamps</button>
-                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">⚙️ Edit Views & Likes</button>
-                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">📨 Seller Messages & Affiliates</button>
+                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
+                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
+                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS WITH AFFILIATE TRACKING -->
+                <!-- TAB 1: ORDERS & TIMESTAMPS WITH SEPARATE SELLER & AFFILIATE COLUMNS -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Log with Date, Time & Affiliate ID</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log with Separate Seller & Affiliate IDs</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -305,7 +309,8 @@
                                     <th>Date & Time</th>
                                     <th>Customer Info</th>
                                     <th>Product & Qty</th>
-                                    <th>Seller / Affiliate</th>
+                                    <th>Seller ID</th>
+                                    <th>Affiliate ID</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -317,7 +322,7 @@
                 <!-- TAB 2: EDIT VIEWS & LIKES -->
                 <div id="adminProductsTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">👁️ Video Views & ❤️ Likes Manager</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -337,12 +342,12 @@
                 <!-- TAB 3: SELLER & AFFILIATE DISPATCH -->
                 <div id="adminSellersTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">📨 Automated Seller & Affiliate Dispatch Log</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link (e.g. <code>?aff=ID123</code>), the system automatically captures the Affiliate ID, attributes the commission, and synchronizes the dispatch message directly to the seller dashboard (<span style="color:white;">VEN-MASUD</span>).
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, and synchronizes the dispatch message directly to the seller dashboard.
                     </div>
                 </div>
 
@@ -353,7 +358,7 @@
     <!-- CUSTOMER DETAILS POPUP MODAL -->
     <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
         <div class="category-modal-box" style="text-align: left;">
-            <h3 class="cat-modal-title">📦 Complete Order & Affiliate Info</h3>
+            <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
             <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -386,7 +391,7 @@
     <!-- CATEGORY MODAL -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
-            <h3 class="cat-modal-title">✨ Luxury Categories</h3>
+            <h3 class="cat-modal-title">Luxury Categories</h3>
             <div class="category-grid-popup">
                 <div class="cat-popup-item" onclick="selectCategory('All')">
                     <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
@@ -415,7 +420,7 @@
     <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
-            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Paid Checkout</h3>
+            <h3 class="checkout-modal-title">Secure Paid Checkout</h3>
             
             <div class="checkout-item-list" id="checkoutItemList"></div>
 
@@ -618,14 +623,14 @@
                 </div>
                 <div class="cycling-content-item">
                     <div class="spec-two-line-grid">
-                        <div class="cycling-spec">📦 Stock: <span id="specStock">Available</span></div>
-                        <div class="cycling-spec">🎁 Pack: <span id="specPackaging">Luxury Box</span></div>
+                        <div class="cycling-spec">Stock: <span id="specStock">Available</span></div>
+                        <div class="cycling-spec">Pack: <span id="specPackaging">Luxury Box</span></div>
                     </div>
                 </div>
                 <div class="cycling-content-item">
                     <div class="spec-two-line-grid">
-                        <div class="cycling-spec">🏷️ SKU: <span id="specSku">MME-01</span></div>
-                        <div class="cycling-spec">✨ Elite Edition</div>
+                        <div class="cycling-spec">SKU: <span id="specSku">MME-01</span></div>
+                        <div class="cycling-spec">Elite Edition</div>
                     </div>
                 </div>
             </div>
@@ -661,7 +666,7 @@
         </div>
     </nav>
 
-    <!-- CLIENT & SECRET ADMIN SCRIPT WITH AFFILIATE TRACKING -->
+    <!-- CLIENT & SECRET ADMIN SCRIPT WITH SEPARATE SELLER & AFFILIATE IDs -->
     <script>
         const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
         let logoTapCount = 0;
@@ -743,7 +748,7 @@
             let tbody = document.getElementById('adminOrdersTableBody');
             
             if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
             } else {
                 tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
                     <tr>
@@ -751,7 +756,8 @@
                         <td style="font-size:0.65rem; color:var(--gold-solid);">${o.formattedDate || 'Just now'}</td>
                         <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
                         <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
-                        <td><span style="color:var(--gold-solid);">Seller: ${o.sellerId || 'VEN-MASUD'}</span><br><span style="color:#00e676; font-size:0.62rem;">Aff: ${o.affiliateId || 'AFF-MASTER'}</span></td>
+                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.sellerId || 'VEN-MASUD'}</span></td>
+                        <td><span style="color:#00e676; font-weight:bold;">${o.affiliateId || 'AFF-MASTER'}</span></td>
                         <td>${o.paymentStatus}</td>
                     </tr>
                 `).join('');
@@ -790,7 +796,7 @@
                 <b>Product Title:</b> ${order.productTitle}<br>
                 <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
                 <b>Color & Size:</b> ${order.color} / ${order.size}<br>
-                <b>Seller ID:</b> ${order.sellerId}<br>
+                <b>Seller ID:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.sellerId}</span><br>
                 <b>Affiliate ID:</b> <span style="color:#00e676; font-weight:bold;">${order.affiliateId}</span><br>
                 <b>Payment Status:</b> ${order.paymentStatus}<br>
             `;
