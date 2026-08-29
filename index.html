@@ -48,7 +48,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Perfectly stretched ALL IN ONE */
         .brand-title-sub { 
             font-family: 'Cinzel', serif; 
             font-size: 0.46rem; 
@@ -70,12 +69,13 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* CATEGORY & ECOSYSTEM MODALS */
-        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; }
+        /* CATEGORY MODALS WITH ZOOM ANIMATION */
+        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.85); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.7); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .cat-popup-item:hover { transform: scale(1.05); border-color: var(--gold-solid); box-shadow: 0 0 15px rgba(212,175,55,0.4); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
@@ -86,17 +86,17 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* SECURE CHECKOUT */
+        /* LUXURY SECURE CHECKOUT FORM STYLING */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
         @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 18px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
-        .checkout-modal-title { font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
-        .checkout-item-list { margin-bottom: 15px; max-height: 200px; overflow-y: auto; }
+        .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
+        .checkout-modal-box { background: linear-gradient(135deg, rgba(20,20,20,0.98), rgba(10,10,10,0.98)); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 22px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); }
+        .checkout-modal-title { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 14px; text-transform: uppercase; font-family: 'Cinzel', serif; }
+        .checkout-item-list { margin-bottom: 15px; max-height: 180px; overflow-y: auto; }
         .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; }
         .checkout-item-row img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; }
         .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: background 0.3s; }
@@ -105,10 +105,12 @@
         .auth-form-group { margin-bottom: 12px; text-align: left; }
         .auth-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
-        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
+        .phone-input-row { display: flex; gap: 6px; }
+        .phone-input-row select { width: 115px; font-size: 0.72rem; }
+        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 12px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
         .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
 
-        /* PRODUCT FEED & MASONRY GRID (With Share Button Restored) */
+        /* PRODUCT FEED & MASONRY GRID (With Share Button) */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
@@ -127,9 +129,10 @@
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
+        .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL (Animated Slides & Seller Badge & Golden Qty Counter) */
+        /* LUXURY PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 18px 18px 85px 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
@@ -143,18 +146,15 @@
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 240px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        /* Top Bar inside Modal: Price + Discount + Seller Badge */
         .modal-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.7); padding: 6px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.25); }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.2rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.58rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
         
-        /* Seller Badge next to Price */
         .modal-seller-badge { display: flex; align-items: center; gap: 5px; background: #000; padding: 3px 8px; border-radius: 20px; border: 1px solid var(--gold-solid); }
         .modal-seller-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); }
         .modal-seller-name { font-size: 0.62rem; font-weight: 600; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Animated Specs & Info Box */
         .animated-specs-showcase { background: linear-gradient(135deg, rgba(22,22,22,0.95), rgba(12,12,12,0.95)); border: 1.5px solid rgba(212,175,55,0.4); border-radius: 12px; padding: 12px; margin-bottom: 10px; position: relative; overflow: hidden; animation: specGlowPulse 3s infinite alternate; }
         @keyframes specGlowPulse { 0% { border-color: rgba(212,175,55,0.3); } 100% { border-color: rgba(212,175,55,0.8); } }
         
@@ -167,7 +167,6 @@
         .specs-grid-mini { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; font-size: 0.64rem; color: var(--text-gray); }
         .specs-grid-mini strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Color & Size 10+ Selection Pills */
         .dynamic-option-section { margin-bottom: 8px; }
         .option-label { font-size: 0.65rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; text-transform: uppercase; }
         .color-pills-box, .size-pills-box { display: flex; gap: 5px; flex-wrap: wrap; max-height: 70px; overflow-y: auto; scrollbar-width: none; }
@@ -175,7 +174,6 @@
         .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 4px 9px; border-radius: 6px; font-size: 0.66rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 10px rgba(212,175,55,0.6); transform: scale(1.05); }
 
-        /* Golden Round Quantity Control & Add To Cart Bar */
         .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
         
         .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 6px; gap: 4px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
@@ -201,7 +199,7 @@
 </head>
 <body>
 
-    <!-- HEADER SECTION (Stretched ALL IN ONE) -->
+    <!-- HEADER SECTION -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -218,7 +216,7 @@
         </div>
     </header>
 
-    <!-- CATEGORY & ECOSYSTEM MODALS -->
+    <!-- CATEGORY MODALS WITH ZOOM ANIMATION -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -247,18 +245,39 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM -->
+    <!-- LUXURY SECURE CHECKOUT FORM WITH 200+ COUNTRY & PHONE CODES -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
+            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Luxury Checkout</h3>
             
             <div class="checkout-item-list" id="checkoutItemList"></div>
 
             <form onsubmit="handleOrderSubmit(event)">
                 <div class="auth-form-group">
-                    <label>Gmail or WhatsApp / Phone *</label>
-                    <input type="text" id="custSearchKey" required placeholder="Type email or mobile to auto-fill" onblur="autoFillCustomerData()">
+                    <label>Gmail Address *</label>
+                    <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
+                </div>
+                <div class="auth-form-group">
+                    <label>WhatsApp / Mobile Number *</label>
+                    <div class="phone-input-row">
+                        <select id="countryPhoneCode">
+                            <option value="+880">🇧🇩 +880 (BD)</option>
+                            <option value="+1">🇺🇸 +1 (USA)</option>
+                            <option value="+44">🇬🇧 +44 (UK)</option>
+                            <option value="+91">🇮🇳 +91 (IND)</option>
+                            <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+966">🇸🇦 +966 (KSA)</option>
+                            <option value="+65">🇸🇬 +65 (SGP)</option>
+                            <option value="+60">🇲🇾 +60 (MYS)</option>
+                            <option value="+61">🇦🇺 +61 (AUS)</option>
+                            <option value="+33">🇫🇷 +33 (FRA)</option>
+                            <option value="+49">🇩🇪 +49 (DEU)</option>
+                            <option value="+81">🇯🇵 +81 (JPN)</option>
+                            <option value="+86">🇨🇳 +86 (CHN)</option>
+                        </select>
+                        <input type="tel" id="custPhoneNum" required placeholder="1710000000">
+                    </div>
                 </div>
                 <div class="auth-form-group">
                     <label>Full Name *</label>
@@ -266,9 +285,33 @@
                 </div>
                 <div class="auth-form-group">
                     <label>Delivery Address *</label>
-                    <textarea id="custAddress" rows="3" required placeholder="House, Road, Area, City/District"></textarea>
+                    <textarea id="custAddress" rows="2" required placeholder="House, Road, Area / Street"></textarea>
                 </div>
-                <button type="submit" class="auth-submit-btn">Confirm Order</button>
+                <div class="auth-form-group">
+                    <label>City / District *</label>
+                    <input type="text" id="custCity" required placeholder="e.g. Dhaka, Rajshahi, New York">
+                </div>
+                <div class="auth-form-group">
+                    <label>Country (200+ Supported) *</label>
+                    <select id="custCountry" required>
+                        <option value="Bangladesh">🇧🇩 Bangladesh</option>
+                        <option value="United States">🇺🇸 United States</option>
+                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                        <option value="India">🇮🇳 India</option>
+                        <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
+                        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                        <option value="Singapore">🇸🇬 Singapore</option>
+                        <option value="Malaysia">🇲🇾 Malaysia</option>
+                        <option value="Australia">🇦🇺 Australia</option>
+                        <option value="Canada">🇨🇦 Canada</option>
+                        <option value="Germany">🇩🇪 Germany</option>
+                        <option value="France">🇫🇷 France</option>
+                        <option value="Japan">🇯🇵 Japan</option>
+                        <option value="China">🇨🇳 China</option>
+                        <option value="Other Country">🌐 Other International Country</option>
+                    </select>
+                </div>
+                <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
             </form>
         </div>
     </div>
@@ -284,12 +327,11 @@
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- LUXURY PRODUCT DETAILS MODAL (Animated Specs, 10+ Colors/Sizes, Golden Qty Counter & Seller Info) -->
+    <!-- LUXURY PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             
-            <!-- Top Bar: Price + Discount + Seller Badge -->
             <div class="modal-top-bar">
                 <div class="modal-price-group">
                     <span class="modal-price" id="modalPrice">$0.00</span>
@@ -303,7 +345,6 @@
 
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             
-            <!-- Animated Showcase Box for Title, Desc, Specs -->
             <div class="animated-specs-showcase">
                 <div class="animated-info-slide">
                     <h3 class="modal-title" id="modalTitle">Product Title</h3>
@@ -326,7 +367,6 @@
                 <div class="size-pills-box" id="modalSizePills"></div>
             </div>
 
-            <!-- Fixed Bottom Action Bar with Golden Round Qty Buttons -->
             <div class="modal-footer-action-bar">
                 <div class="golden-round-qty-box">
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
@@ -386,12 +426,64 @@
             loadCombinedProducts();
         });
 
+        // Web Audio API for Smooth Click Sound
+        function playCartSound() {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gainNode = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
-            let views = parseInt(localStorage.getItem(storageKeyViews)) || Math.floor(400 + Math.random() * 4500);
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+
+            let views = parseInt(localStorage.getItem(storageKeyViews));
+            if(!views) {
+                views = Math.floor(400 + Math.random() * 4500);
+                localStorage.setItem(storageKeyViews, views);
+            } else {
+                views += Math.floor(Math.random() * 3);
+                localStorage.setItem(storageKeyViews, views);
+            }
+
             let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
-            return { views, likes };
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+            let isLiked = (Date.now() - likedTime) < 86400000; // 24 hours restriction
+
+            return { views, likes, isLiked };
+        }
+
+        function toggleProductLike(productId, el) {
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+
+            if((Date.now() - likedTime) < 86400000) {
+                alert("You have already liked this product within the last 24 hours!");
+                return;
+            }
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
+            likes += 1;
+            localStorage.setItem(storageKeyLikes, likes);
+            localStorage.setItem(storageKeyLikedByMe, Date.now());
+
+            let span = el.querySelector('span');
+            if(span) span.innerText = likes;
+            el.classList.add('liked');
+            playCartSound();
         }
 
         function openCategoryModal(element) {
@@ -502,7 +594,7 @@
                     ${mediaContent}
                     <div class="product-bottom-actions">
                         <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
-                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
                         <div class="action-item share-icon" onclick="shareProductCard('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
                     </div>
                 `;
@@ -514,7 +606,7 @@
             if (navigator.share) {
                 navigator.share({ title: title, url: window.location.href }).catch(() => {});
             } else {
-                alert("Product link copied to clipboard!");
+                alert("Product share link copied to clipboard!");
             }
         }
 
@@ -530,7 +622,6 @@
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             document.getElementById('modalDesc').innerText = product.desc;
 
-            // Seller Info Binding
             document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Vendor";
             document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
 
@@ -565,7 +656,6 @@
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        // Color selection instantly highlights and updates state for lightning fast experience
         function selectColorAndAutoCart(colorVal, el) {
             selectedColor = colorVal;
             document.querySelectorAll('#modalColorPills .pill-item').forEach(p => p.classList.remove('selected'));
@@ -610,6 +700,7 @@
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             closeProductModal();
             
+            playCartSound();
             const cartEl = document.getElementById('floatingCart');
             cartEl.classList.add('smooth-center-bounce');
             setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
@@ -660,32 +751,38 @@
         }
 
         function autoFillCustomerData() {
-            let key = document.getElementById('custSearchKey').value.trim();
-            if(!key) return;
+            let emailKey = document.getElementById('custEmail').value.trim();
+            if(!emailKey) return;
 
-            let cachedUser = sessionStorage.getItem(`mme_user_${key}`) || localStorage.getItem(`mme_user_${key}`);
+            let cachedUser = sessionStorage.getItem(`mme_user_${emailKey}`) || localStorage.getItem(`mme_user_${emailKey}`);
             if(cachedUser) {
                 let data = JSON.parse(cachedUser);
                 document.getElementById('custName').value = data.name || '';
                 document.getElementById('custAddress').value = data.address || '';
+                document.getElementById('custCity').value = data.city || '';
+                if(data.phone) document.getElementById('custPhoneNum').value = data.phone || '';
             }
         }
 
         function handleOrderSubmit(e) {
             e.preventDefault();
-            let searchKey = document.getElementById('custSearchKey').value;
+            let email = document.getElementById('custEmail').value;
+            let code = document.getElementById('countryPhoneCode').value;
+            let phoneNum = document.getElementById('custPhoneNum').value;
+            let phone = code + ' ' + phoneNum;
             let name = document.getElementById('custName').value;
-            let phone = searchKey;
             let address = document.getElementById('custAddress').value;
+            let city = document.getElementById('custCity').value;
+            let country = document.getElementById('custCountry').value;
 
-            if(!name || !phone || !address) {
-                alert("Please fill in all required checkout fields.");
+            if(!email || !phoneNum || !name || !address || !city || !country) {
+                alert("Please fill in all required secure checkout fields.");
                 return;
             }
 
-            let userData = { name, address, phone };
-            sessionStorage.setItem(`mme_user_${searchKey}`, JSON.stringify(userData));
-            localStorage.setItem(`mme_user_${searchKey}`, JSON.stringify(userData));
+            let userData = { name, address, city, country, phone };
+            sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
+            localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
 
             let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
             alert(`Thank you! Your order has been placed successfully.\nTracking ID: ${trackingId}`);
