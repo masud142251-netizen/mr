@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - Supreme Luxury & Enterprise Hub</title>
+    <title>MRMASUDAR.COM - Supreme Enterprise & Luxury Hub</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -90,7 +90,7 @@
 
         /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 750px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 780px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         
         .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.72rem; }
@@ -98,8 +98,8 @@
         .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
         .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
 
-        .admin-tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; }
-        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 14px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; }
+        .admin-tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; flex-wrap: wrap; }
+        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
         /* SHARE MODAL */
@@ -262,7 +262,7 @@
         </div>
         <div class="top-right-controls">
             <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL ENTERPRISE</span>
             </div>
         </div>
     </header>
@@ -271,7 +271,7 @@
     <div class="secret-admin-overlay" id="secretAdminOverlay">
         <div class="secret-admin-box">
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="secret-admin-title"><i class="fa-solid fa-shield-halved"></i> Master Secure Admin Portal</h3>
+            <h3 class="secret-admin-title"><i class="fa-solid fa-shield-halved"></i> Master Secure Enterprise Portal</h3>
             
             <!-- BLANK PASSWORD LOGIN FORM -->
             <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
@@ -284,16 +284,17 @@
 
             <!-- ADMIN DASHBOARD PANEL -->
             <div id="adminDashboardSec" style="display: none;">
-                <!-- ADMIN TABS (ORDERS vs PRODUCT VIEWS/LIKES MANAGEMENT) -->
+                <!-- ADMIN TABS -->
                 <div class="admin-tab-buttons">
-                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">📦 Live Orders Database</button>
-                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">⚙️ Manage Views & Likes</button>
+                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">📦 Live Orders & Timestamps</button>
+                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">⚙️ Edit Views & Likes</button>
+                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">📨 Seller Messages</button>
                 </div>
 
-                <!-- TAB 1: ORDERS -->
+                <!-- TAB 1: ORDERS & TIMESTAMPS -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">📊 Customer Orders & Form Submissions</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Log with Date & Time</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -301,10 +302,10 @@
                             <thead>
                                 <tr>
                                     <th>Trk ID</th>
+                                    <th>Date & Time</th>
                                     <th>Customer Info</th>
                                     <th>Product & Qty</th>
                                     <th>Seller ID</th>
-                                    <th>Affiliate ID</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -316,20 +317,32 @@
                 <!-- TAB 2: EDIT VIEWS & LIKES -->
                 <div id="adminProductsTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">👁️ Edit Product Views & ❤️ Likes Directly</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">👁️ Video Views & ❤️ Likes Manager</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
                         <table class="admin-data-table">
                             <thead>
                                 <tr>
-                                    <th>Product ID / Title</th>
+                                    <th>Product Title</th>
                                     <th>Views (Editable)</th>
                                     <th>Likes (Editable)</th>
                                 </tr>
                             </thead>
                             <tbody id="adminProductsTableBody"></tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SELLER MESSAGES -->
+                <div id="adminSellersTabContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">📨 Automated Seller Dispatch Messages</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
+                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Seller Notification Channel:</p>
+                        When a customer submits a checkout order, the order details (Product, Qty, Shipping Address) are automatically synchronized to the Seller Dashboard ID (<span style="color:white;">VEN-MASUD</span>) with instant status updates.
                     </div>
                 </div>
 
@@ -340,7 +353,7 @@
     <!-- CUSTOMER DETAILS POPUP MODAL -->
     <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
         <div class="category-modal-box" style="text-align: left;">
-            <h3 class="cat-modal-title">📦 Order & Customer Details</h3>
+            <h3 class="cat-modal-title">📦 Complete Order & Timestamp</h3>
             <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -402,7 +415,7 @@
     <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
-            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
+            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Paid Checkout</h3>
             
             <div class="checkout-item-list" id="checkoutItemList"></div>
 
@@ -548,7 +561,7 @@
                         <option value="Zimbabwe">🇿🇼 Zimbabwe</option>
                     </select>
                 </div>
-                <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
+                <button type="submit" class="auth-submit-btn">Confirm Paid Order</button>
             </form>
             <button class="golden-cross-btn-top-right" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -583,8 +596,8 @@
             </div>
 
             <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount" contenteditable="true" onblur="updateProductViews(activeCurrentProduct.id, this.innerText)">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount" contenteditable="true" onblur="updateProductLikes(activeCurrentProduct.id, this.innerText)">450</span></div>
+                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
@@ -686,7 +699,7 @@
             if(pass === MASTER_ADMIN_PASS) {
                 sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
                 showAdminDashboardContent();
-                showCustomToast("Admin Access Granted Successfully!");
+                showCustomToast("Master Enterprise Access Granted!");
             } else {
                 showCustomToast("Incorrect Master Password!");
             }
@@ -695,21 +708,30 @@
         function switchAdminTab(tabName) {
             let tabOrders = document.getElementById('adminOrdersTabContent');
             let tabProducts = document.getElementById('adminProductsTabContent');
+            let tabSellers = document.getElementById('adminSellersTabContent');
+            
             let btnOrders = document.getElementById('tabBtnOrders');
             let btnProducts = document.getElementById('tabBtnProducts');
+            let btnSellers = document.getElementById('tabBtnSellers');
+
+            tabOrders.style.display = 'none';
+            tabProducts.style.display = 'none';
+            tabSellers.style.display = 'none';
+            btnOrders.classList.remove('active');
+            btnProducts.classList.remove('active');
+            btnSellers.classList.remove('active');
 
             if(tabName === 'orders') {
                 tabOrders.style.display = 'block';
-                tabProducts.style.display = 'none';
                 btnOrders.classList.add('active');
-                btnProducts.classList.remove('active');
                 showAdminDashboardContent();
-            } else {
-                tabOrders.style.display = 'none';
+            } else if(tabName === 'products') {
                 tabProducts.style.display = 'block';
                 btnProducts.classList.add('active');
-                btnOrders.classList.remove('active');
                 loadAdminProductsTable();
+            } else if(tabName === 'sellers') {
+                tabSellers.style.display = 'block';
+                btnSellers.classList.add('active');
             }
         }
 
@@ -721,15 +743,15 @@
             let tbody = document.getElementById('adminOrdersTableBody');
             
             if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or form submissions recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
             } else {
                 tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
                     <tr>
                         <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
+                        <td style="font-size:0.65rem; color:var(--gold-solid);">${o.formattedDate || 'Just now'}</td>
                         <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
                         <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
                         <td><span style="color:var(--gold-solid);">${o.sellerId || 'VEN-MASUD'}</span></td>
-                        <td><span style="color:var(--gold-solid);">${o.affiliateId || 'AFF-MASTER'}</span></td>
                         <td>${o.paymentStatus}</td>
                     </tr>
                 `).join('');
@@ -743,9 +765,9 @@
                 let stats = getDynamicProductStats(p.id);
                 return `
                     <tr>
-                        <td><b>${p.id}</b> - ${p.title}</td>
-                        <td><input type="number" value="${stats.views}" style="width:70px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
-                        <td><input type="number" value="${stats.likes}" style="width:70px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
+                        <td><b>${p.title}</b></td>
+                        <td><input type="number" value="${stats.views}" style="width:80px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
+                        <td><input type="number" value="${stats.likes}" style="width:80px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
                     </tr>
                 `;
             }).join('');
@@ -759,6 +781,7 @@
             let contentBox = document.getElementById('custDetailContent');
             contentBox.innerHTML = `
                 <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
+                <b>Order Date & Time:</b> <span style="color:var(--gold-solid);">${order.formattedDate}</span><br>
                 <b>Batch No:</b> ${order.batchNo || 'Batch-1'}<br>
                 <b>Customer Name:</b> ${order.customerName}<br>
                 <b>Email:</b> ${order.customerEmail}<br>
@@ -770,7 +793,6 @@
                 <b>Seller ID:</b> ${order.sellerId}<br>
                 <b>Affiliate ID:</b> ${order.affiliateId}<br>
                 <b>Payment Status:</b> ${order.paymentStatus}<br>
-                <b>Order Date:</b> ${new Date(order.orderDate).toLocaleString()}
             `;
             document.getElementById('customerDetailModal').style.display = 'flex';
         }
@@ -885,13 +907,13 @@
 
         function updateProductViews(productId, newViews) {
             localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
-            showCustomToast("View count updated!");
+            showCustomToast("Views updated successfully!");
             loadCombinedProducts();
         }
 
         function updateProductLikes(productId, newLikes) {
             localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
-            showCustomToast("Like count updated!");
+            showCustomToast("Likes updated successfully!");
             loadCombinedProducts();
         }
 
@@ -1257,7 +1279,7 @@
             }
         }
 
-        /* ORDER SUBMISSION & AUTOMATIC 20K BATCH ADMIN SYNC */
+        /* ORDER SUBMISSION & TIMESTAMPING */
         const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         let supabaseClient = null;
@@ -1279,6 +1301,12 @@
             let country = document.getElementById('custCountry').value;
 
             let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
+            let nowTimestamp = new Date();
+            let formattedDate = nowTimestamp.toLocaleString('en-GB', { 
+                day: '2-digit', month: 'short', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit', second: '2-digit' 
+            });
+
             let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
             let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1;
 
@@ -1297,9 +1325,10 @@
                     customerEmail: email,
                     customerPhone: phone,
                     deliveryAddress: `${address}, ${city}, ${country}`,
-                    paymentStatus: 'Pending / Unpaid',
+                    paymentStatus: 'Paid / Enterprise Secure',
                     deliveryStatus: 'Processing / Pending Dispatch',
-                    orderDate: new Date().toISOString(),
+                    orderDate: nowTimestamp.toISOString(),
+                    formattedDate: formattedDate,
                     batchNo: `Batch-${currentBatchNumber} (Orders ${(currentBatchNumber-1)*20000 + 1} - ${currentBatchNumber*20000})`
                 };
                 allMasterOrders.push(orderRecord);
@@ -1317,7 +1346,7 @@
             sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
             localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
 
-            showCustomToast(`Order placed successfully! [Batch: ${currentBatchNumber}, Trk: ${trackingId}]`);
+            showCustomToast(`Paid order placed successfully! [Trk: ${trackingId}]`);
             
             sessionStorage.removeItem('mme_cart_items');
             localStorage.removeItem('mme_cart_items');
