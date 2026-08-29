@@ -31,11 +31,33 @@
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
-        .brand-container { display: flex; align-items: center; gap: 7px; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
-        .brand-text-box { display: flex; flex-direction: column; }
-        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
-        .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.48rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px; }
+        .brand-container { display: flex; align-items: center; gap: 9px; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
+        .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
+        
+        /* Prominent and Large MRMASUDAR.COM styling */
+        .brand-title-main { 
+            font-family: 'Cinzel Decorative', serif; 
+            font-size: 1.05rem; 
+            font-weight: 900; 
+            background: var(--gold-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            line-height: 1.1; 
+            text-transform: uppercase; 
+            white-space: nowrap; 
+            letter-spacing: 1px;
+        }
+        
+        .brand-title-sub { 
+            font-family: 'Cinzel', serif; 
+            font-size: 0.5rem; 
+            font-weight: 700; 
+            color: var(--text-gray);
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            margin-top: 2px; 
+        }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
         .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
@@ -80,7 +102,7 @@
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
         .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
 
-        /* PRODUCT FEED & MASONRY GRID (Clean YouTube Embed Wrapper) */
+        /* PRODUCT FEED & MASONRY GRID */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
@@ -91,7 +113,6 @@
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .product-media-box img { width: 100%; height: auto; max-height: 320px; display: block; object-fit: contain; }
         
-        /* YouTube Video Clean Wrapper without Logo/Controls */
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -160,13 +181,13 @@
 </head>
 <body>
 
-    <!-- HEADER SECTION (MRMASUDAR.COM Branding) -->
+    <!-- HEADER SECTION (Prominent MRMASUDAR.COM) -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
-                <span class="brand-title-main">MR MASUDAR</span>
-                <span class="brand-title-sub">MRMASUDAR.COM</span>
+                <span class="brand-title-main">MRMASUDAR.COM</span>
+                <span class="brand-title-sub">SUPREME ECOSYSTEM</span>
             </div>
         </div>
         <div class="top-right-controls">
