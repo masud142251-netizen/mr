@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - All In One Ecosystem</title>
+    <title>MRMASUDAR.COM - Supreme Luxury Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -61,25 +61,28 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* SHARE POPUP MODAL */
-        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 15px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
-        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; padding: 8px 4px; color: white; font-size: 0.58rem; cursor: pointer; transition: transform 0.2s; }
-        .share-icon-btn:hover { transform: scale(1.08); border-color: var(--gold-solid); }
-        .share-icon-btn i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 10px; margin-bottom: 12px; }
-        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 8px; font-size: 0.68rem; outline: none; }
-        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 14px; font-weight: 700; font-size: 0.72rem; cursor: pointer; color: #000; }
-        .modal-bottom-close-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; padding: 6px 22px; border-radius: 20px; cursor: pointer; box-shadow: 0 0 12px rgba(212,175,55,0.5); text-transform: uppercase; }
+        /* SHARE POPUP MODAL (Mobile Responsive & Clean Cross) */
+        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
+        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 18px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
+        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
+        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; transition: transform 0.2s; }
+        .share-icon-btn:hover { transform: scale(1.05); border-color: var(--gold-solid); }
+        .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
+        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
+        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
+        
+        .golden-cross-btn { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; font-weight: bold; transition: background 0.3s, color 0.3s; margin-top: 4px; }
+        .golden-cross-btn:hover { background: var(--gold-solid); color: #000; }
 
         /* CATEGORY MODALS */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.95); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        .category-modal-box { background: rgba(12, 12, 12, 0.95); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
-        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
-        .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
+        .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
@@ -98,9 +101,9 @@
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
         .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 22px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); }
+        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 22px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); text-align: center; }
         .checkout-modal-title { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 14px; text-transform: uppercase; font-family: 'Cinzel', serif; }
-        .checkout-item-list { margin-bottom: 15px; max-height: 180px; overflow-y: auto; }
+        .checkout-item-list { margin-bottom: 15px; max-height: 180px; overflow-y: auto; text-align: left; }
         .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; color: var(--text-white); }
         .checkout-item-row img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; }
         .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: background 0.3s; }
@@ -135,61 +138,61 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL */
+        /* LUXURY PRODUCT DETAILS MODAL (Larger Photo Area & Single Line Seller) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 18px 18px 85px 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 16px 16px 80px 16px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
         
         @keyframes luxuryModalOpen {
             0% { transform: scale(0.85); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .modal-media-slider { width: 100%; border-radius: 14px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 6px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
+        .modal-media-slider { width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 6px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 210px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .modal-thumbs-row { display: flex; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 2px; }
-        .modal-thumb-img { width: 45px; height: 45px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
+        .modal-thumbs-row { display: flex; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
+        .modal-thumb-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.85); padding: 7px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.3); }
+        /* Price & Discount Card + Single Line Seller */
+        .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.9); padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.3); }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
-        .modal-price { font-size: 1.2rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.58rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .modal-price { font-size: 1.15rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.55rem; padding: 2px 5px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
         
-        .modal-seller-box { display: flex; align-items: center; gap: 6px; background: #000; padding: 3px 8px; border-radius: 20px; border: 1px solid var(--gold-solid); cursor: pointer; }
-        .modal-seller-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); }
-        .modal-seller-name { font-size: 0.62rem; font-weight: 600; color: var(--text-white); }
+        .modal-seller-box { display: flex; align-items: center; gap: 5px; background: #000; padding: 4px 8px; border-radius: 20px; border: 1px solid var(--gold-solid); cursor: pointer; max-width: 170px; }
+        .modal-seller-avatar { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
+        .modal-seller-name { font-size: 0.58rem; font-weight: 600; color: var(--text-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .animated-cycling-box { background: linear-gradient(135deg, #1b1b1b, #0e0e0e); border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 10px; margin-bottom: 8px; min-height: 68px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.15); }
+        /* Animated Cycling Box */
+        .animated-cycling-box { background: linear-gradient(135deg, #1b1b1b, #0e0e0e); border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 10px; margin-bottom: 8px; min-height: 65px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.15); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; }
         .cycling-content-item.active { display: block; }
         @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(4px); } 20% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-4px); } }
 
-        .cycling-title { font-size: 0.9rem; font-weight: 700; color: var(--text-white); font-family: 'Cinzel', serif; }
-        .cycling-desc { font-size: 0.72rem; color: var(--text-gray); line-height: 1.35; }
-        .cycling-spec { font-size: 0.72rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; }
+        .cycling-title { font-size: 0.88rem; font-weight: 700; color: var(--text-white); font-family: 'Cinzel', serif; }
+        .cycling-desc { font-size: 0.7rem; color: var(--text-gray); line-height: 1.35; }
+        .cycling-spec { font-size: 0.7rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; }
 
-        .dynamic-option-section { margin-bottom: 8px; }
-        .option-label { font-size: 0.65rem; font-weight: 700; color: var(--gold-solid); margin-bottom: 4px; text-transform: uppercase; }
-        .color-circles-box { display: flex; gap: 8px; flex-wrap: wrap; }
-        .circle-color-item { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, border-color 0.2s; position: relative; }
+        .dynamic-option-section { margin-bottom: 8px; text-align: left; }
+        .option-label { font-size: 0.62rem; font-weight: 700; color: var(--gold-solid); margin-bottom: 4px; text-transform: uppercase; }
+        .color-circles-box { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+        .circle-color-item { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, border-color 0.2s; position: relative; }
         .circle-color-item.selected { border-color: var(--gold-solid); transform: scale(1.15); box-shadow: 0 0 10px rgba(212,175,55,0.8); }
         
-        .size-pills-box { display: flex; gap: 5px; flex-wrap: wrap; }
-        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 3px 9px; border-radius: 6px; font-size: 0.66rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
+        .size-pills-box { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+        .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.64rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
+        .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
         
-        .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 6px; gap: 4px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-        .round-qty-btn { width: 26px; height: 26px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.5); }
-        .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.8rem; font-weight: 700; outline: none; }
+        .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 5px; gap: 3px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 22px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
         
-        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-        .modal-bottom-close-container { text-align: center; margin-top: 8px; margin-bottom: 5px; }
+        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 9px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
 
         /* FOOTER & ECOSYSTEM NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -225,10 +228,10 @@
         </div>
     </header>
 
-    <!-- SHARE POPUP MODAL -->
+    <!-- SHARE POPUP MODAL (Mobile Responsive with Golden Cross) -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
-            <h3 style="font-family:'Cinzel',serif; font-size:1rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Share Ecosystem</h3>
+            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Ecosystem</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToSocial('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToSocial('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
@@ -245,8 +248,8 @@
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
                 <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
             </div>
-            <div class="modal-bottom-close-container">
-                <button class="modal-bottom-close-btn" onclick="document.getElementById('shareModalOverlay').style.display='none'">Close</button>
+            <div style="margin-top:6px;">
+                <button class="golden-cross-btn" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
     </div>
@@ -266,8 +269,8 @@
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
-            <div class="modal-bottom-close-container" style="margin-top:15px;">
-                <button class="modal-bottom-close-btn" onclick="document.getElementById('categoryModalOverlay').style.display='none'">Close</button>
+            <div>
+                <button class="golden-cross-btn" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
     </div>
@@ -282,7 +285,7 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRY CODES & FLAGS -->
+    <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
@@ -295,7 +298,7 @@
                     <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
                 </div>
                 <div class="auth-form-group">
-                    <label>WhatsApp / Mobile Number (200+ Country Codes) *</label>
+                    <label>WhatsApp / Mobile Number *</label>
                     <div class="phone-input-row">
                         <select id="countryPhoneCode">
                             <option value="+880">🇧🇩 +880 (BD)</option>
@@ -311,8 +314,6 @@
                             <option value="+49">🇩🇪 +49 (DEU)</option>
                             <option value="+81">🇯🇵 +81 (JPN)</option>
                             <option value="+86">🇨🇳 +86 (CHN)</option>
-                            <option value="+92">🇵🇰 +92 (PAK)</option>
-                            <option value="+94">🇱🇰 +94 (LKA)</option>
                         </select>
                         <input type="tel" id="custPhoneNum" required placeholder="1710000000">
                     </div>
@@ -346,13 +347,13 @@
                         <option value="France">🇫🇷 France</option>
                         <option value="Japan">🇯🇵 Japan</option>
                         <option value="China">🇨🇳 China</option>
-                        <option value="Other">🌐 Other International Country</option>
+                        <option value="Other">🌐 Other Country</option>
                     </select>
                 </div>
                 <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
             </form>
-            <div class="modal-bottom-close-container" style="margin-top:12px;">
-                <button class="modal-bottom-close-btn" onclick="closeCheckoutModal()">Close</button>
+            <div style="margin-top:12px;">
+                <button class="golden-cross-btn" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
     </div>
@@ -424,8 +425,8 @@
                 </button>
             </div>
 
-            <div class="modal-bottom-close-container">
-                <button class="modal-bottom-close-btn" onclick="closeProductModal()">Close</button>
+            <div style="margin-top:12px;">
+                <button class="golden-cross-btn" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
     </div>
@@ -457,6 +458,7 @@
         let selectedSize = "Standard";
         let currentModalQty = 1;
         let cyclingInterval = null;
+        let shareTimeout = null;
 
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff');
@@ -520,9 +522,7 @@
             let storageKeyLikedByMe = `mme_liked_time_${productId}`;
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
 
-            if((Date.now() - likedTime) < 86400000) {
-                return; // Silent 24h restriction without annoying alert
-            }
+            if((Date.now() - likedTime) < 86400000) return;
 
             let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
             likes += 1;
@@ -657,6 +657,10 @@
         function openShareModal(title) {
             document.getElementById('shareLinkInput').value = window.location.href;
             document.getElementById('shareModalOverlay').style.display = 'flex';
+            if(shareTimeout) clearTimeout(shareTimeout);
+            shareTimeout = setTimeout(() => {
+                document.getElementById('shareModalOverlay').style.display = 'none';
+            }, 30000); // 30 seconds auto close
         }
 
         function closeShareModal(e) {
@@ -668,7 +672,10 @@
             input.select();
             input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
-            document.getElementById('shareModalOverlay').style.display = 'none';
+            if(shareTimeout) clearTimeout(shareTimeout);
+            shareTimeout = setTimeout(() => {
+                document.getElementById('shareModalOverlay').style.display = 'none';
+            }, 30000);
         }
 
         function shareToSocial(platform) {
