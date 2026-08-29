@@ -35,9 +35,8 @@
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; transition: transform 0.4s ease; }
-        .logo:hover { transform: scale(1.1); }
+        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         
         .brand-title-main { 
@@ -249,9 +248,9 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER (LOGO WITH 3-TAP SECRET ADMIN TRIGGER) -->
+    <!-- HEADER (LOGO & BRAND TITLE WITH 3-TAP SECRET ADMIN TRIGGER) -->
     <header class="app-header">
-        <div class="brand-container" onclick="handleLogoTripleTap(event)">
+        <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
@@ -624,16 +623,22 @@
         let logoTapCount = 0;
         let logoTapTimer = null;
 
-        function handleLogoTripleTap(e) {
-            logoTapCount++;
-            if(logoTapCount === 1) {
-                logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 800);
-            } else if(logoTapCount === 3) {
-                clearTimeout(logoTapTimer);
-                logoTapCount = 0;
-                openSecretAdmin();
+        // Robust 3-tap event listener attached safely to the brand container
+        document.addEventListener('DOMContentLoaded', () => {
+            const triggerZone = document.getElementById('secretAdminTriggerZone');
+            if(triggerZone) {
+                triggerZone.addEventListener('click', (e) => {
+                    logoTapCount++;
+                    if(logoTapCount === 1) {
+                        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
+                    } else if(logoTapCount === 3) {
+                        clearTimeout(logoTapTimer);
+                        logoTapCount = 0;
+                        openSecretAdmin();
+                    }
+                });
             }
-        }
+        });
 
         function openSecretAdmin() {
             document.getElementById('secretAdminOverlay').style.display = 'flex';
