@@ -37,7 +37,7 @@
         
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; 
-            font-size: 1.1rem; 
+            font-size: 1.05rem; 
             font-weight: 900; 
             background: var(--gold-gradient); 
             -webkit-background-clip: text; 
@@ -45,14 +45,14 @@
             line-height: 1.1; 
             text-transform: uppercase; 
             white-space: nowrap; 
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .brand-title-sub { 
             font-family: 'Cinzel', serif; 
-            font-size: 0.52rem; 
+            font-size: 0.5rem; 
             font-weight: 700; 
             color: #ffffff;
-            letter-spacing: 3px; 
+            letter-spacing: 1.5px; 
             text-transform: uppercase; 
             margin-top: 2px; 
         }
@@ -62,7 +62,29 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* EXACT BOTTOM-LEFT CORNER CROSS BUTTON */
+        /* TOP-RIGHT CORNER CROSS BUTTON FOR MODALS */
+        .golden-cross-btn-top-right { 
+            background: transparent; 
+            border: 1.5px solid var(--gold-solid); 
+            color: var(--gold-solid); 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            transition: background 0.3s, color 0.3s; 
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
+
+        /* BOTTOM-LEFT CORNER CROSS BUTTON FOR OTHERS */
         .golden-cross-btn-left { 
             background: transparent; 
             border: 1.5px solid var(--gold-solid); 
@@ -158,7 +180,7 @@
 
         /* LUXURY PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 16px 16px 85px 16px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 20px 16px 20px 16px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
         
         @keyframes luxuryModalOpen {
             0% { transform: scale(0.85); opacity: 0; }
@@ -167,7 +189,7 @@
 
         .modal-media-slider { width: 100%; border-radius: 12px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 6px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 280px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
@@ -203,13 +225,18 @@
         .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.64rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
+        /* Normal flow inside modal footer */
+        .modal-footer-action-wrap { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .modal-footer-controls-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         
-        .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 5px; gap: 3px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-        .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 22px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
+        .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 6px; gap: 4px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .round-qty-btn { width: 26px; height: 26px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.8rem; font-weight: 700; outline: none; }
         
-        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 9px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+        /* Coin fly animation element */
+        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 12px var(--gold-solid); transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         /* FOOTER & ECOSYSTEM NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -234,7 +261,7 @@
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
-                <span class="brand-title-sub">ALL IN ONE</span>
+                <span class="brand-title-sub">Resin, Wood & Leather Luxury Ecosystem</span>
             </div>
         </div>
         <div class="top-right-controls">
@@ -387,6 +414,9 @@
     <!-- LUXURY PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
+            <!-- Top-Right Corner Cross Button -->
+            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-thumbs-row" id="modalThumbsRow"></div>
             
@@ -429,18 +459,19 @@
                 <div class="size-pills-box" id="modalSizePills"></div>
             </div>
 
-            <div class="modal-footer-action-bar">
-                <div class="golden-round-qty-box">
-                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                    <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
-                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+            <!-- Quantity & Add To Cart section placed normally inside flow -->
+            <div class="modal-footer-action-wrap">
+                <div class="modal-footer-controls-row">
+                    <div class="golden-round-qty-box">
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
+                        <i class="fa-solid fa-cart-plus"></i> Add To Cart
+                    </button>
                 </div>
-                <button class="modal-add-btn" onclick="addToCartWithSelection()">
-                    <i class="fa-solid fa-cart-plus"></i> Add To Cart
-                </button>
             </div>
-
-            <button class="golden-cross-btn-left" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -492,7 +523,7 @@
             loadCombinedProducts();
         });
 
-        function playCoinSoundAndAnimation() {
+        function playCoinSoundAndAnimation(buttonEl) {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = audioCtx.createOscillator();
@@ -506,6 +537,29 @@
                 gainNode.connect(audioCtx.destination);
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.3);
+            } catch(e) {}
+
+            // Flying coin animation towards floating cart
+            try {
+                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.transform = 'scale(0.4) rotate(360deg)';
+                    coin.style.opacity = '0.3';
+                }, 30);
+
+                setTimeout(() => {
+                    coin.remove();
+                }, 750);
             } catch(e) {}
         }
 
@@ -545,7 +599,7 @@
             let span = el.querySelector('span');
             if(span) span.innerText = likes;
             el.classList.add('liked');
-            playCoinSoundAndAnimation();
+            playCoinSoundAndAnimation(el);
         }
 
         function openCategoryModal(element) {
@@ -814,9 +868,10 @@
             document.getElementById('cartCount').innerText = cartCount;
             sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            closeProductModal();
             
-            playCoinSoundAndAnimation();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
+            closeProductModal();
+
             const cartEl = document.getElementById('floatingCart');
             cartEl.classList.add('smooth-center-bounce');
             setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 800);
