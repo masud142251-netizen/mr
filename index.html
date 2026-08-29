@@ -22,6 +22,7 @@
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
             --danger-red: #ff3b30;
+            --success-green: #28a745;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -34,7 +35,7 @@
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; }
+        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; transition: transform 0.4s ease; }
         .logo:hover { transform: scale(1.1); }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
@@ -88,7 +89,17 @@
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* SHARE MODAL WITH ALL 10 PLATFORMS */
+        /* SECRET IN-PAGE ADMIN MODAL */
+        .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 650px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.72rem; }
+        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 8px; text-align: left; }
+        .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
+        .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
+
+        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -116,7 +127,7 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* CHECKOUT FORM WITH 200+ COUNTRY CODES & COUNTRIES */
+        /* CHECKOUT FORM */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes smoothCartCenterBounce { 
@@ -238,9 +249,9 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER -->
+    <!-- HEADER (LOGO WITH 3-TAP SECRET ADMIN TRIGGER) -->
     <header class="app-header">
-        <div class="brand-container">
+        <div class="brand-container" onclick="handleLogoTripleTap(event)">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
@@ -253,7 +264,59 @@
         </div>
     </header>
 
-    <!-- SHARE MODAL WITH ALL 10 PLATFORMS -->
+    <!-- SECRET IN-PAGE ADMIN MODAL -->
+    <div class="secret-admin-overlay" id="secretAdminOverlay">
+        <div class="secret-admin-box">
+            <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="secret-admin-title"><i class="fa-solid fa-shield-halved"></i> Master Secure Admin Portal</h3>
+            
+            <!-- BLANK PASSWORD LOGIN FORM -->
+            <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
+                <div class="auth-form-group">
+                    <label>Master Password *</label>
+                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off">
+                </div>
+                <button type="button" class="auth-submit-btn" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
+            </div>
+
+            <!-- ADMIN DASHBOARD PANEL -->
+            <div id="adminDashboardSec" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                    <span style="color:var(--gold-solid); font-weight:700;">📊 Live Orders & Customer Database</span>
+                    <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table class="admin-data-table">
+                        <thead>
+                            <tr>
+                                <th>Trk ID</th>
+                                <th>Customer Info</th>
+                                <th>Product & Qty</th>
+                                <th>Seller ID</th>
+                                <th>Affiliate ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminOrdersTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMER DETAILS POPUP MODAL -->
+    <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
+        <div class="category-modal-box" style="text-align: left;">
+            <h3 class="cat-modal-title">📦 Order & Customer Details</h3>
+            <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
@@ -306,7 +369,7 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM WITH FULL 200+ COUNTRY & PHONE CODES -->
+    <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
@@ -490,8 +553,8 @@
             </div>
 
             <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
+                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount" contenteditable="true" onblur="updateProductViews(activeCurrentProduct.id, this.innerText)">1,240</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount" contenteditable="true" onblur="updateProductLikes(activeCurrentProduct.id, this.innerText)">450</span></div>
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
@@ -555,8 +618,106 @@
         </div>
     </nav>
 
-    <!-- CLIENT SCRIPT WITH AUTOMATIC 20K BATCH ADMIN SYNC -->
+    <!-- CLIENT & SECRET ADMIN SCRIPT -->
     <script>
+        const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
+        let logoTapCount = 0;
+        let logoTapTimer = null;
+
+        function handleLogoTripleTap(e) {
+            logoTapCount++;
+            if(logoTapCount === 1) {
+                logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 800);
+            } else if(logoTapCount === 3) {
+                clearTimeout(logoTapTimer);
+                logoTapCount = 0;
+                openSecretAdmin();
+            }
+        }
+
+        function openSecretAdmin() {
+            document.getElementById('secretAdminOverlay').style.display = 'flex';
+            if(sessionStorage.getItem('mme_secret_admin_unlocked') === 'true') {
+                showAdminDashboardContent();
+            } else {
+                document.getElementById('adminLoginFormSec').style.display = 'block';
+                document.getElementById('adminDashboardSec').style.display = 'none';
+                document.getElementById('secretAdminPassInput').value = '';
+            }
+        }
+
+        function verifySecretAdminPass() {
+            let pass = document.getElementById('secretAdminPassInput').value.trim();
+            if(pass === MASTER_ADMIN_PASS) {
+                sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
+                showAdminDashboardContent();
+                showCustomToast("Admin Access Granted Successfully!");
+            } else {
+                showCustomToast("Incorrect Master Password!");
+            }
+        }
+
+        function showAdminDashboardContent() {
+            document.getElementById('adminLoginFormSec').style.display = 'none';
+            document.getElementById('adminDashboardSec').style.display = 'block';
+            
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let tbody = document.getElementById('adminOrdersTableBody');
+            
+            if(allOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or form submissions recorded yet.</td></tr>`;
+            } else {
+                tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
+                    <tr>
+                        <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
+                        <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
+                        <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
+                        <td><span style="color:var(--gold-solid);">${o.sellerId || 'VEN-MASUD'}</span></td>
+                        <td><span style="color:var(--gold-solid);">${o.affiliateId || 'AFF-MASTER'}</span></td>
+                        <td>${o.paymentStatus}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function viewCustomerDetails(trkId) {
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let order = allOrders.find(o => o.trackingId === trkId);
+            if(!order) return;
+
+            let contentBox = document.getElementById('custDetailContent');
+            contentBox.innerHTML = `
+                <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
+                <b>Batch No:</b> ${order.batchNo || 'Batch-1'}<br>
+                <b>Customer Name:</b> ${order.customerName}<br>
+                <b>Email:</b> ${order.customerEmail}<br>
+                <b>Phone:</b> ${order.customerPhone}<br>
+                <b>Delivery Address:</b> ${order.deliveryAddress}<br>
+                <b>Product Title:</b> ${order.productTitle}<br>
+                <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
+                <b>Color & Size:</b> ${order.color} / ${order.size}<br>
+                <b>Seller ID:</b> ${order.sellerId}<br>
+                <b>Affiliate ID:</b> ${order.affiliateId}<br>
+                <b>Payment Status:</b> ${order.paymentStatus}<br>
+                <b>Order Date:</b> ${new Date(order.orderDate).toLocaleString()}
+            `;
+            document.getElementById('customerDetailModal').style.display = 'flex';
+        }
+
+        function lockSecretAdmin() {
+            sessionStorage.removeItem('mme_secret_admin_unlocked');
+            document.getElementById('secretAdminOverlay').style.display = 'none';
+            showCustomToast("Admin Locked Successfully.");
+        }
+
+        function closeSecretAdmin() {
+            document.getElementById('secretAdminOverlay').style.display = 'none';
+        }
+
+        function closeCustModal(e) {
+            if(!e || e.target.id === 'customerDetailModal') document.getElementById('customerDetailModal').style.display = 'none';
+        }
+
         let cartItems = [];
         let cartCount = 0;
         let activeCurrentProduct = null;
@@ -642,9 +803,6 @@
             if(!views) {
                 views = Math.floor(400 + Math.random() * 4500);
                 localStorage.setItem(storageKeyViews, views);
-            } else {
-                views += Math.floor(Math.random() * 3);
-                localStorage.setItem(storageKeyViews, views);
             }
 
             let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
@@ -652,6 +810,16 @@
             let isLiked = (Date.now() - likedTime) < 86400000;
 
             return { views, likes, isLiked };
+        }
+
+        function updateProductViews(productId, newViews) {
+            localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
+            showCustomToast("View count updated!");
+        }
+
+        function updateProductLikes(productId, newLikes) {
+            localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
+            showCustomToast("Like count updated!");
         }
 
         function toggleProductLike(productId, el) {
