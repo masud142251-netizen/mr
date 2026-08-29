@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - Supreme Luxury</title>
+    <title>MRMASUDAR.COM - Supreme Luxury & Multi-Tier Sync</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Supabase Cloud SDK (Secondary Backup & Real-time Sync) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         :root {
             --bg-black: #080808;
@@ -54,7 +57,7 @@
         .badge-top-text { font-size: 0.6rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 5px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* TOP-RIGHT CORNER CROSS BUTTON FOR ALL MODALS */
+        /* CROSS BUTTON */
         .golden-cross-btn-top-right { 
             background: transparent; 
             border: 1.5px solid var(--gold-solid); 
@@ -68,15 +71,15 @@
             cursor: pointer; 
             font-size: 0.95rem; 
             font-weight: bold; 
-            transition: background 0.3s, color 0.3s; 
             position: absolute;
             top: 12px;
             right: 12px;
             z-index: 15;
+            transition: background 0.3s, color 0.3s;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
-        /* CUSTOM TOAST NOTIFICATION */
+        /* TOAST NOTIFICATION */
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
@@ -86,7 +89,7 @@
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* SHARE POPUP MODAL */
+        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -98,7 +101,7 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODALS */
+        /* CATEGORY MODAL */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
@@ -114,7 +117,7 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* SECURE CHECKOUT FORM */
+        /* CHECKOUT FORM */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes smoothCartCenterBounce { 
@@ -142,7 +145,7 @@
         .phone-input-row select { width: 165px; font-size: 0.65rem; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
 
-        /* PINTEREST MASONRY GRID */
+        /* MASONRY GRID */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
@@ -152,10 +155,7 @@
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
-        @keyframes continuousZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
+        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
         
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
@@ -168,15 +168,10 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL */
+        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
-        @keyframes luxuryModalOpen {
-            0% { transform: scale(0.85); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
         .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -197,7 +192,7 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* LUXURY ANIMATED CYCLING BOX */
+        /* CYCLING BOX */
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -221,11 +216,11 @@
         .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
         
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; transition: transform 0.2s; }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* FOOTER & ECOSYSTEM NAVIGATION BAR */
+        /* FOOTER NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
@@ -242,10 +237,9 @@
 </head>
 <body>
 
-    <!-- CUSTOM TOAST NOTIFICATION -->
-    <div class="custom-toast" id="customToast">Product link copied successfully!</div>
+    <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER SECTION -->
+    <!-- HEADER -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -256,25 +250,20 @@
         <div class="top-right-controls">
             <div class="country-square-badge">
                 <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
-                <span class="badge-bottom-text">All Country</span>
+                <span class="badge-bottom-text">Fast Sync</span>
             </div>
         </div>
     </header>
 
-    <!-- SHARE POPUP MODAL -->
+    <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
@@ -285,7 +274,7 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODALS -->
+    <!-- CATEGORY MODAL -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">✨ Luxury Categories</h3>
@@ -314,7 +303,7 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRIES & FULL EXTENDED CODES -->
+    <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
@@ -336,120 +325,6 @@
                             <option value="+91">🇮🇳 +91 (India)</option>
                             <option value="+971">🇦🇪 +971 (UAE)</option>
                             <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
-                            <option value="+65">🇸🇬 +65 (Singapore)</option>
-                            <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                            <option value="+61">🇦🇺 +61 (Australia)</option>
-                            <option value="+33">🇫🇷 +33 (France)</option>
-                            <option value="+49">🇩🇪 +49 (Germany)</option>
-                            <option value="+81">🇯🇵 +81 (Japan)</option>
-                            <option value="+86">🇨🇳 +86 (China)</option>
-                            <option value="+92">🇵🇰 +92 (Pakistan)</option>
-                            <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
-                            <option value="+93">🇦🇫 +93 (Afghanistan)</option>
-                            <option value="+355">🇦🇱 +355 (Albania)</option>
-                            <option value="+213">🇩🇿 +213 (Algeria)</option>
-                            <option value="+376">🇦🇩 +376 (Andorra)</option>
-                            <option value="+244">🇦🇴 +244 (Angola)</option>
-                            <option value="+54">🇦🇷 +54 (Argentina)</option>
-                            <option value="+374">🇦🇲 +374 (Armenia)</option>
-                            <option value="+43">🇦🇹 +43 (Austria)</option>
-                            <option value="+994">🇦🇿 +994 (Azerbaijan)</option>
-                            <option value="+973">🇧🇭 +973 (Bahrain)</option>
-                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
-                            <option value="+32">🇧🇪 +32 (Belgium)</option>
-                            <option value="+55">🇧🇷 +55 (Brazil)</option>
-                            <option value="+359">🇧🇬 +359 (Bulgaria)</option>
-                            <option value="+855">🇰🇭 +855 (Cambodia)</option>
-                            <option value="+237">🇨🇲 +237 (Cameroon)</option>
-                            <option value="+56">🇨🇱 +56 (Chile)</option>
-                            <option value="+57">🇨🇴 +57 (Colombia)</option>
-                            <option value="+385">🇭🇷 +385 (Croatia)</option>
-                            <option value="+357">🇨🇾 +357 (Cyprus)</option>
-                            <option value="+420">🇨🇿 +420 (Czech Republic)</option>
-                            <option value="+45">🇩🇰 +45 (Denmark)</option>
-                            <option value="+20">🇪🇬 +20 (Egypt)</option>
-                            <option value="+358">🇫🇮 +358 (Finland)</option>
-                            <option value="+995">🇬🇪 +995 (Georgia)</option>
-                            <option value="+30">🇬🇷 +30 (Greece)</option>
-                            <option value="+502">🇬🇹 +502 (Guatemala)</option>
-                            <option value="+509">🇭🇹 +509 (Haiti)</option>
-                            <option value="+504">🇭🇳 +504 (Honduras)</option>
-                            <option value="+852">🇭🇰 +852 (Hong Kong)</option>
-                            <option value="+36">🇭🇺 +36 (Hungary)</option>
-                            <option value="+354">🇮🇸 +354 (Iceland)</option>
-                            <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                            <option value="+98">🇮🇷 +98 (Iran)</option>
-                            <option value="+964">🇮🇶 +964 (Iraq)</option>
-                            <option value="+353">🇮🇪 +353 (Ireland)</option>
-                            <option value="+972">🇮🇱 +972 (Israel)</option>
-                            <option value="+39">🇮🇹 +39 (Italy)</option>
-                            <option value="+965">🇰🇼 +965 (Kuwait)</option>
-                            <option value="+996">🇰🇬 +996 (Kyrgyzstan)</option>
-                            <option value="+856">🇱🇦 +856 (Laos)</option>
-                            <option value="+371">🇱🇻 +371 (Latvia)</option>
-                            <option value="+961">🇱🇧 +961 (Lebanon)</option>
-                            <option value="+218">🇱🇾 +218 (Libya)</option>
-                            <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
-                            <option value="+370">🇱🇹 +370 (Lithuania)</option>
-                            <option value="+352">🇱🇺 +352 (Luxembourg)</option>
-                            <option value="+853">🇲🇴 +853 (Macau)</option>
-                            <option value="+389">🇲🇰 +389 (North Macedonia)</option>
-                            <option value="+261">🇲🇬 +261 (Madagascar)</option>
-                            <option value="+265">🇲🇼 +265 (Malawi)</option>
-                            <option value="+960">🇲🇻 +960 (Maldives)</option>
-                            <option value="+356">🇲🇹 +356 (Malta)</option>
-                            <option value="+230">🇲🇺 +230 (Mauritius)</option>
-                            <option value="+52">🇲🇽 +52 (Mexico)</option>
-                            <option value="+373">🇲🇩 +373 (Moldova)</option>
-                            <option value="+377">🇲🇨 +377 (Monaco)</option>
-                            <option value="+976">🇲🇳 +976 (Mongolia)</option>
-                            <option value="+382">🇲🇪 +382 (Montenegro)</option>
-                            <option value="+212">🇲🇦 +212 (Morocco)</option>
-                            <option value="+258">🇲🇿 +258 (Mozambique)</option>
-                            <option value="+95">🇲🇲 +95 (Myanmar)</option>
-                            <option value="+264">🇳🇦 +264 (Namibia)</option>
-                            <option value="+977">🇳🇵 +977 (Nepal)</option>
-                            <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                            <option value="+64">🇳🇿 +64 (New Zealand)</option>
-                            <option value="+505">🇳🇮 +505 (Nicaragua)</option>
-                            <option value="+234">🇳🇬 +234 (Nigeria)</option>
-                            <option value="+47">🇳🇴 +47 (Norway)</option>
-                            <option value="+968">🇴🇲 +968 (Oman)</option>
-                            <option value="+507">🇵🇦 +507 (Panama)</option>
-                            <option value="+595">🇵🇾 +595 (Paraguay)</option>
-                            <option value="+51">🇵🇪 +51 (Peru)</option>
-                            <option value="+63">🇵🇭 +63 (Philippines)</option>
-                            <option value="+48">🇵🇱 +48 (Poland)</option>
-                            <option value="+351">🇵🇹 +351 (Portugal)</option>
-                            <option value="+974">🇶🇦 +974 (Qatar)</option>
-                            <option value="+40">🇷🇴 +40 (Romania)</option>
-                            <option value="+7">🇷🇺 +7 (Russia)</option>
-                            <option value="+250">🇷🇼 +250 (Rwanda)</option>
-                            <option value="+378">🇸🇲 +378 (San Marino)</option>
-                            <option value="+381">🇷🇸 +381 (Serbia)</option>
-                            <option value="+421">🇸🇰 +421 (Slovakia)</option>
-                            <option value="+386">🇸🇮 +386 (Slovenia)</option>
-                            <option value="+27">🇿🇦 +27 (South Africa)</option>
-                            <option value="+82">🇰🇷 +82 (South Korea)</option>
-                            <option value="+34">🇪🇸 +34 (Spain)</option>
-                            <option value="+46">🇸🇪 +46 (Sweden)</option>
-                            <option value="+41">🇨🇭 +41 (Switzerland)</option>
-                            <option value="+886">🇹🇼 +886 (Taiwan)</option>
-                            <option value="+992">🇹🇯 +992 (Tajikistan)</option>
-                            <option value="+255">🇹🇿 +255 (Tanzania)</option>
-                            <option value="+66">🇹🇭 +66 (Thailand)</option>
-                            <option value="+216">🇹🇳 +216 (Tunisia)</option>
-                            <option value="+90">🇹🇷 +90 (Turkey)</option>
-                            <option value="+993">🇹🇲 +993 (Turkmenistan)</option>
-                            <option value="+256">🇺🇬 +256 (Uganda)</option>
-                            <option value="+380">🇺🇦 +380 (Ukraine)</option>
-                            <option value="+598">🇺🇾 +598 (Uruguay)</option>
-                            <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
-                            <option value="+58">🇻🇪 +58 (Venezuela)</option>
-                            <option value="+84">🇻🇳 +84 (Vietnam)</option>
-                            <option value="+967">🇾🇪 +967 (Yemen)</option>
-                            <option value="+260">🇿🇲 +260 (Zambia)</option>
-                            <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
                         </select>
                         <input type="tel" id="custPhoneNum" required placeholder="1710000000">
                     </div>
@@ -469,60 +344,12 @@
                 <div class="auth-form-group">
                     <label>Country *</label>
                     <select id="custCountry" required>
-                        <option value="Global All Country">🌐 Global (All 200+ Countries Supported)</option>
+                        <option value="Global All Country">🌐 Global (All Countries)</option>
                         <option value="Bangladesh">🇧🇩 Bangladesh</option>
                         <option value="United States">🇺🇸 United States</option>
                         <option value="United Kingdom">🇬🇧 United Kingdom</option>
                         <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
                         <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
-                        <option value="India">🇮🇳 India</option>
-                        <option value="Singapore">🇸🇬 Singapore</option>
-                        <option value="Malaysia">🇲🇾 Malaysia</option>
-                        <option value="Australia">🇦🇺 Australia</option>
-                        <option value="Canada">🇨🇦 Canada</option>
-                        <option value="Germany">🇩🇪 Germany</option>
-                        <option value="France">🇫🇷 France</option>
-                        <option value="Japan">🇯🇵 Japan</option>
-                        <option value="China">🇨🇳 China</option>
-                        <option value="Pakistan">🇵🇰 Pakistan</option>
-                        <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
-                        <option value="Afghanistan">🇦🇫 Afghanistan</option>
-                        <option value="Albania">🇦🇱 Albania</option>
-                        <option value="Algeria">🇩🇿 Algeria</option>
-                        <option value="Argentina">🇦🇷 Argentina</option>
-                        <option value="Austria">🇦🇹 Austria</option>
-                        <option value="Bahrain">🇧🇭 Bahrain</option>
-                        <option value="Belgium">🇧🇪 Belgium</option>
-                        <option value="Brazil">🇧🇷 Brazil</option>
-                        <option value="Chile">🇨🇱 Chile</option>
-                        <option value="Egypt">🇪🇬 Egypt</option>
-                        <option value="Greece">🇬🇷 Greece</option>
-                        <option value="Hong Kong">🇭🇰 Hong Kong</option>
-                        <option value="Indonesia">🇮🇩 Indonesia</option>
-                        <option value="Iran">🇮🇷 Iran</option>
-                        <option value="Iraq">🇮🇶 Iraq</option>
-                        <option value="Ireland">🇮🇪 Ireland</option>
-                        <option value="Israel">🇮🇱 Israel</option>
-                        <option value="Italy">🇮🇹 Italy</option>
-                        <option value="Kuwait">🇰🇼 Kuwait</option>
-                        <option value="Lebanon">🇱🇧 Lebanon</option>
-                        <option value="Netherlands">🇳🇱 Netherlands</option>
-                        <option value="New Zealand">🇳🇿 New Zealand</option>
-                        <option value="Norway">🇳🇴 Norway</option>
-                        <option value="Oman">🇴🇲 Oman</option>
-                        <option value="Philippines">🇵🇭 Philippines</option>
-                        <option value="Poland">🇵🇱 Poland</option>
-                        <option value="Portugal">🇵🇹 Portugal</option>
-                        <option value="Qatar">🇶🇦 Qatar</option>
-                        <option value="Russia">🇷🇺 Russia</option>
-                        <option value="Spain">🇪🇸 Spain</option>
-                        <option value="Sweden">🇸🇪 Sweden</option>
-                        <option value="Switzerland">🇨🇭 Switzerland</option>
-                        <option value="Taiwan">🇹🇼 Taiwan</option>
-                        <option value="Thailand">🇹🇭 Thailand</option>
-                        <option value="Turkey">🇹🇷 Turkey</option>
-                        <option value="Ukraine">🇺🇦 Ukraine</option>
-                        <option value="Vietnam">🇻🇳 Vietnam</option>
                     </select>
                 </div>
                 <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
@@ -537,12 +364,10 @@
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- PINTEREST MASONRY PRODUCT FEED -->
+    <!-- MASONRY PRODUCT FEED -->
     <main class="feed-container" id="productFeed"></main>
 
-    <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
-
-    <!-- LUXURY PRODUCT DETAILS MODAL -->
+    <!-- PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -555,20 +380,18 @@
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <div class="modal-seller-box" id="modalSellerBadgeBox" onclick="alert('Masudar Enterprise - Verified Elite Brand & Ecosystem')">
+                <div class="modal-seller-box" id="modalSellerBadgeBox">
                     <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
                     <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
                 </div>
             </div>
 
-            <!-- VIEW, LIKE, SHARE BAR -->
             <div class="modal-actions-bar" id="modalActionsBar">
                 <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem" onclick=""><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- Animated Cycling Box -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -598,7 +421,6 @@
                 </div>
             </div>
 
-            <!-- QUANTITY & ADD TO CART -->
             <div class="modal-footer-action-wrap">
                 <div class="golden-round-qty-box">
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
@@ -612,7 +434,7 @@
         </div>
     </div>
 
-    <!-- FOOTER & ECOSYSTEM NAVIGATION BAR WITH SECURE ADMIN SUBDOMAIN -->
+    <!-- FOOTER NAVIGATION BAR -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -631,8 +453,19 @@
         </div>
     </nav>
 
-    <!-- JAVASCRIPT LOGIC WITH ADMIN DATA SYNC -->
+    <!-- MULTI-TIER STORAGE & CLOUD SYNC LOGIC -->
     <script>
+        // Supabase Cloud Configuration (Optional Secondary Backup)
+        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        
+        let supabaseClient = null;
+        try {
+            if(window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch(e) {}
+
         let cartItems = [];
         let cartCount = 0;
         let activeCurrentProduct = null;
@@ -649,9 +482,9 @@
         if(urlRef) { sessionStorage.setItem('mme_active_ref', urlRef); localStorage.setItem('mme_active_ref', urlRef); }
 
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
-        let currentSellerRef = sessionStorage.getItem('mme_active_ref') || localStorage.getItem('mme_active_ref') || 'VEN-MASUD';
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Tier 1 & Tier 2: Session/Local Storage for Instant Fast Loading
             let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
@@ -665,9 +498,7 @@
             let toast = document.getElementById('customToast');
             toast.innerText = msg;
             toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2500);
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
         }
 
         function playCoinSoundAndAnimation(buttonEl) {
@@ -758,7 +589,7 @@
         }
 
         function closeCategoryModal(e) {
-            if(e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
         }
 
         function selectCategory(cat) {
@@ -820,12 +651,12 @@
                             category: p.category || '👗 FASHION (WOMEN)',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive premium fashion & baby collection.',
+                            desc: p.desc || 'Exclusive premium collection.',
                             stock: p.stock || 'In Stock',
                             packaging: p.packaging || 'Secure Box',
                             quantity: p.quantity || '1 Unit',
                             sku: p.sku || `MME-VEN-${s.id}-${i}`,
-                            colors: p.colors || ["#d4af37", "#111111", "#ffffff", "#b76e79"],
+                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
                             sizes: p.sizes || ["Standard", "Large"]
                         });
                     });
@@ -883,7 +714,6 @@
         function copyShareLink() {
             let input = document.getElementById('shareLinkInput');
             input.select();
-            input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
             showCustomToast("Product link copied successfully!");
             document.getElementById('shareModalOverlay').style.display = 'none';
@@ -892,18 +722,10 @@
         function shareToPlatform(platform) {
             let url = encodeURIComponent(window.location.href);
             let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM 🌟`);
-            let targetUrl = "";
-            
-            if(platform === 'whatsapp') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
             else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
             else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/upload?text=${text}`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/create/story/`;
-            else targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-
             window.open(targetUrl, '_blank');
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
@@ -1029,6 +851,8 @@
             });
             cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').innerText = cartCount;
+            
+            // Fast Tier 1 & 2 Storage Save
             sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
@@ -1088,7 +912,6 @@
         function autoFillCustomerData() {
             let emailKey = document.getElementById('custEmail').value.trim();
             if(!emailKey) return;
-
             let cachedUser = sessionStorage.getItem(`mme_user_${emailKey}`) || localStorage.getItem(`mme_user_${emailKey}`);
             if(cachedUser) {
                 let data = JSON.parse(cachedUser);
@@ -1099,7 +922,7 @@
             }
         }
 
-        /* ADMIN PANEL MASTER SHEET & ORDER SYNC */
+        /* MULTI-TIER SYNC: Session/Local Storage ➔ LocalStorage Admin Hub ➔ Supabase Cloud (Fallback) */
         function handleOrderSubmit(e) {
             e.preventDefault();
             let email = document.getElementById('custEmail').value;
@@ -1118,7 +941,7 @@
 
             let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
             
-            // Sync orders to Admin Panel Master Sheet
+            // Tier 1 & 2: Local Storage Master Sheet Sync for Admin Panel (`secure-admin.mrmasudar.com`)
             let adminMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
             
             cartItems.forEach(item => {
@@ -1141,6 +964,13 @@
                     orderDate: new Date().toISOString()
                 };
                 adminMasterOrders.push(orderRecord);
+
+                // Tier 3: Supabase Cloud Real-time Backup (if active)
+                if(supabaseClient) {
+                    supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
+                        if(error) console.log("Cloud backup sync note:", error);
+                    });
+                }
             });
 
             localStorage.setItem('mme_admin_orders', JSON.stringify(adminMasterOrders));
