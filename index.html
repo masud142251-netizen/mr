@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Supabase Cloud SDK for Billion-Scale Batch Sync -->
+    <!-- Supabase Cloud SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
@@ -90,13 +90,17 @@
 
         /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 650px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 750px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         
         .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.72rem; }
         .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 8px; text-align: left; }
         .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
         .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
+
+        .admin-tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; }
+        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 14px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; }
+        .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
         /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
@@ -280,28 +284,55 @@
 
             <!-- ADMIN DASHBOARD PANEL -->
             <div id="adminDashboardSec" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                    <span style="color:var(--gold-solid); font-weight:700;">📊 Live Orders & Customer Database</span>
-                    <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                <!-- ADMIN TABS (ORDERS vs PRODUCT VIEWS/LIKES MANAGEMENT) -->
+                <div class="admin-tab-buttons">
+                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">📦 Live Orders Database</button>
+                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">⚙️ Manage Views & Likes</button>
                 </div>
-                
-                <div style="overflow-x: auto;">
-                    <table class="admin-data-table">
-                        <thead>
-                            <tr>
-                                <th>Trk ID</th>
-                                <th>Customer Info</th>
-                                <th>Product & Qty</th>
-                                <th>Seller ID</th>
-                                <th>Affiliate ID</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminOrdersTableBody">
-                            <!-- Populated dynamically -->
-                        </tbody>
-                    </table>
+
+                <!-- TAB 1: ORDERS -->
+                <div id="adminOrdersTabContent">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">📊 Customer Orders & Form Submissions</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Trk ID</th>
+                                    <th>Customer Info</th>
+                                    <th>Product & Qty</th>
+                                    <th>Seller ID</th>
+                                    <th>Affiliate ID</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminOrdersTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <!-- TAB 2: EDIT VIEWS & LIKES -->
+                <div id="adminProductsTabContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">👁️ Edit Product Views & ❤️ Likes Directly</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Product ID / Title</th>
+                                    <th>Views (Editable)</th>
+                                    <th>Likes (Editable)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -623,7 +654,6 @@
         let logoTapCount = 0;
         let logoTapTimer = null;
 
-        // Robust 3-tap event listener attached safely to the brand container
         document.addEventListener('DOMContentLoaded', () => {
             const triggerZone = document.getElementById('secretAdminTriggerZone');
             if(triggerZone) {
@@ -662,6 +692,27 @@
             }
         }
 
+        function switchAdminTab(tabName) {
+            let tabOrders = document.getElementById('adminOrdersTabContent');
+            let tabProducts = document.getElementById('adminProductsTabContent');
+            let btnOrders = document.getElementById('tabBtnOrders');
+            let btnProducts = document.getElementById('tabBtnProducts');
+
+            if(tabName === 'orders') {
+                tabOrders.style.display = 'block';
+                tabProducts.style.display = 'none';
+                btnOrders.classList.add('active');
+                btnProducts.classList.remove('active');
+                showAdminDashboardContent();
+            } else {
+                tabOrders.style.display = 'none';
+                tabProducts.style.display = 'block';
+                btnProducts.classList.add('active');
+                btnOrders.classList.remove('active');
+                loadAdminProductsTable();
+            }
+        }
+
         function showAdminDashboardContent() {
             document.getElementById('adminLoginFormSec').style.display = 'none';
             document.getElementById('adminDashboardSec').style.display = 'block';
@@ -683,6 +734,21 @@
                     </tr>
                 `).join('');
             }
+        }
+
+        function loadAdminProductsTable() {
+            let products = getAllProducts();
+            let tbody = document.getElementById('adminProductsTableBody');
+            tbody.innerHTML = products.map(p => {
+                let stats = getDynamicProductStats(p.id);
+                return `
+                    <tr>
+                        <td><b>${p.id}</b> - ${p.title}</td>
+                        <td><input type="number" value="${stats.views}" style="width:70px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
+                        <td><input type="number" value="${stats.likes}" style="width:70px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function viewCustomerDetails(trkId) {
@@ -820,11 +886,13 @@
         function updateProductViews(productId, newViews) {
             localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
             showCustomToast("View count updated!");
+            loadCombinedProducts();
         }
 
         function updateProductLikes(productId, newLikes) {
             localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
             showCustomToast("Like count updated!");
+            loadCombinedProducts();
         }
 
         function toggleProductLike(productId, el) {
