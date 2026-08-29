@@ -90,7 +90,7 @@
 
         /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 780px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 820px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
         
         .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.72rem; }
@@ -288,13 +288,13 @@
                 <div class="admin-tab-buttons">
                     <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">📦 Live Orders & Timestamps</button>
                     <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">⚙️ Edit Views & Likes</button>
-                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">📨 Seller Messages</button>
+                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">📨 Seller Messages & Affiliates</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS -->
+                <!-- TAB 1: ORDERS & TIMESTAMPS WITH AFFILIATE TRACKING -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Log with Date & Time</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Log with Date, Time & Affiliate ID</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -305,7 +305,7 @@
                                     <th>Date & Time</th>
                                     <th>Customer Info</th>
                                     <th>Product & Qty</th>
-                                    <th>Seller ID</th>
+                                    <th>Seller / Affiliate</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -334,15 +334,15 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: SELLER MESSAGES -->
+                <!-- TAB 3: SELLER & AFFILIATE DISPATCH -->
                 <div id="adminSellersTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">📨 Automated Seller Dispatch Messages</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">📨 Automated Seller & Affiliate Dispatch Log</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
-                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Seller Notification Channel:</p>
-                        When a customer submits a checkout order, the order details (Product, Qty, Shipping Address) are automatically synchronized to the Seller Dashboard ID (<span style="color:white;">VEN-MASUD</span>) with instant status updates.
+                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
+                        When a customer places a paid order via any referral link (e.g. <code>?aff=ID123</code>), the system automatically captures the Affiliate ID, attributes the commission, and synchronizes the dispatch message directly to the seller dashboard (<span style="color:white;">VEN-MASUD</span>).
                     </div>
                 </div>
 
@@ -353,7 +353,7 @@
     <!-- CUSTOMER DETAILS POPUP MODAL -->
     <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
         <div class="category-modal-box" style="text-align: left;">
-            <h3 class="cat-modal-title">📦 Complete Order & Timestamp</h3>
+            <h3 class="cat-modal-title">📦 Complete Order & Affiliate Info</h3>
             <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -362,7 +362,7 @@
     <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
-            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
+            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
@@ -377,7 +377,7 @@
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
-                <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
+                <button class="copy-link-btn" onclick="copyShareLink()">Copy Link</button>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -661,7 +661,7 @@
         </div>
     </nav>
 
-    <!-- CLIENT & SECRET ADMIN SCRIPT -->
+    <!-- CLIENT & SECRET ADMIN SCRIPT WITH AFFILIATE TRACKING -->
     <script>
         const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
         let logoTapCount = 0;
@@ -751,7 +751,7 @@
                         <td style="font-size:0.65rem; color:var(--gold-solid);">${o.formattedDate || 'Just now'}</td>
                         <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
                         <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
-                        <td><span style="color:var(--gold-solid);">${o.sellerId || 'VEN-MASUD'}</span></td>
+                        <td><span style="color:var(--gold-solid);">Seller: ${o.sellerId || 'VEN-MASUD'}</span><br><span style="color:#00e676; font-size:0.62rem;">Aff: ${o.affiliateId || 'AFF-MASTER'}</span></td>
                         <td>${o.paymentStatus}</td>
                     </tr>
                 `).join('');
@@ -791,7 +791,7 @@
                 <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
                 <b>Color & Size:</b> ${order.color} / ${order.size}<br>
                 <b>Seller ID:</b> ${order.sellerId}<br>
-                <b>Affiliate ID:</b> ${order.affiliateId}<br>
+                <b>Affiliate ID:</b> <span style="color:#00e676; font-weight:bold;">${order.affiliateId}</span><br>
                 <b>Payment Status:</b> ${order.paymentStatus}<br>
             `;
             document.getElementById('customerDetailModal').style.display = 'flex';
@@ -820,13 +820,14 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
+        // AUTOMATIC AFFILIATE & REF CAPTURE FROM URL
         let urlParams = new URLSearchParams(window.location.search);
-        let urlAff = urlParams.get('aff');
-        let urlRef = urlParams.get('ref');
-        if(urlAff) { sessionStorage.setItem('mme_active_aff', urlAff); localStorage.setItem('mme_active_aff', urlAff); }
-        if(urlRef) { sessionStorage.setItem('mme_active_ref', urlRef); localStorage.setItem('mme_active_ref', urlRef); }
-
-        let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+        let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
+        if(urlAff) { 
+            sessionStorage.setItem('mme_active_aff', urlAff); 
+            localStorage.setItem('mme_active_aff', urlAff); 
+        }
+        let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
             let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
@@ -1056,7 +1057,9 @@
 
         function openShareModal(title) {
             currentShareTitle = title;
-            document.getElementById('shareLinkInput').value = window.location.href;
+            let currentUrl = window.location.href.split('?')[0];
+            let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
+            document.getElementById('shareLinkInput').value = affiliateShareLink;
             document.getElementById('shareModalOverlay').style.display = 'flex';
         }
 
@@ -1068,13 +1071,14 @@
             let input = document.getElementById('shareLinkInput');
             input.select();
             navigator.clipboard.writeText(input.value);
-            showCustomToast("Product link copied successfully!");
+            showCustomToast("Affiliate referral link copied successfully!");
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
         function shareToPlatform(platform) {
-            let url = encodeURIComponent(window.location.href);
-            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM 🌟`);
+            let linkVal = document.getElementById('shareLinkInput').value;
+            let url = encodeURIComponent(linkVal);
+            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
             let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
             if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
             else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
@@ -1279,7 +1283,7 @@
             }
         }
 
-        /* ORDER SUBMISSION & TIMESTAMPING */
+        /* SUPABASE & ORDER SUBMISSION WITH AFFILIATE TRACKING */
         const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         let supabaseClient = null;
@@ -1335,7 +1339,7 @@
 
                 if(supabaseClient) {
                     supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
-                        if(error) console.log("Supabase batch sync note:", error);
+                        if(error) console.log("Supabase sync note:", error);
                     });
                 }
             });
