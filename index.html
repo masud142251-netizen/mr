@@ -196,4 +196,931 @@
         .modal-seller-avatar { width: 16px; height: 16px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
         .modal-seller-name { font-size: 0.52rem; font-weight: 600; color: var(--text-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
+
+        /* CYCLING BOX */
+        .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
+        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
+        .cycling-content-item.active { display: block; }
+        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(5px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
+
+        .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
+        .cycling-desc { font-size: 0.68rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
+        .cycling-spec { font-size: 0.68rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; line-height: 1.3; }
+        .spec-two-line-grid { display: flex; flex-direction: column; gap: 3px; align-items: center; justify-content: center; }
+
+        .cycling-colors-inline { display: flex; gap: 6px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
+        .modal-circle-item { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; transition: transform 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.25); border-color: var(--text-white); box-shadow: 0 0 8px var(--gold-solid); }
+
+        .cycling-sizes-inline { display: flex; gap: 5px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
+        .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; }
+        .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 6px rgba(212,175,55,0.6); }
+
+        .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
+        
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        /* FOOTER NAVIGATION BAR */
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
+        .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
+        .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; min-width: 0; }
+        .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.75rem; }
+        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
+        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+        #hiddenCameraInput { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="custom-toast" id="customToast">Action completed successfully!</div>
+
+    <header class="app-header">
+        <div class="brand-container">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
+            <div class="brand-text-box">
+                <span class="brand-title-main">MRMASUDAR.COM</span>
+            </div>
+        </div>
+        <div class="top-right-controls">
+            <div class="country-square-badge" onclick="openAdminSecureModal()" title="Secure Admin Access">
+                <span class="badge-top-text"><i class="fa-solid fa-shield-halved"></i> ADMIN</span>
+                <span class="badge-bottom-text">Master Login</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-modal-overlay" id="adminModalOverlay">
+        <div class="admin-modal-box">
+            <h3 class="admin-title"><i class="fa-solid fa-user-shield"></i> Master Admin Access</h3>
+            
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                <div class="auth-form-group">
+                    <label>Admin Gmail *</label>
+                    <input type="email" id="adminEmailInput" required placeholder="mrmasudarart@gmail.com">
+                </div>
+                <div class="auth-form-group">
+                    <label>Secure Master Password *</label>
+                    <input type="password" id="adminPassInput" required placeholder="Enter master password">
+                </div>
+                <button type="submit" class="auth-submit-btn">Unlock Admin Panel</button>
+            </form>
+
+            <div class="admin-dashboard-box" id="adminDashboardBox">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:0.75rem; color:var(--gold-solid); font-weight:700;">📊 Enterprise Order Batches</span>
+                    <button onclick="logoutAdminSession()" style="background:var(--danger-red); border:none; color:white; padding:3px 8px; border-radius:4px; font-size:0.6rem; cursor:pointer;">Logout</button>
+                </div>
+                <div class="batch-stat-card" id="adminBatchStatsInfo">Loading batches...</div>
+                <div id="adminOrdersListContainer" style="font-size:0.68rem; text-align:left;"></div>
+            </div>
+
+            <button class="golden-cross-btn-top-right" onclick="closeAdminModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
+        <div class="share-modal-box">
+            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
+            <div class="share-grid">
+                <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
+            </div>
+            <div class="copy-link-box">
+                <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
+                <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
+            </div>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
+        <div class="category-modal-box">
+            <h3 class="cat-modal-title">✨ Luxury Categories</h3>
+            <div class="category-grid-popup">
+                <div class="cat-popup-item" onclick="selectCategory('All')">
+                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
+            </div>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <div class="ecosystem-modal-overlay" id="ecosystemModal">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
+            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ecosystem-body">
+            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div class="checkout-modal-overlay" id="checkoutModalOverlay">
+        <div class="checkout-modal-box">
+            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
+            
+            <div class="checkout-item-list" id="checkoutItemList"></div>
+
+            <form onsubmit="handleOrderSubmit(event)">
+                <div class="auth-form-group">
+                    <label>Gmail Address *</label>
+                    <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
+                </div>
+                <div class="auth-form-group">
+                    <label>WhatsApp / Mobile Number *</label>
+                    <div class="phone-input-row">
+                        <select id="countryPhoneCode">
+                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
+                            <option value="+1">🇺🇸 +1 (USA / Canada)</option>
+                            <option value="+44">🇬🇧 +44 (United Kingdom)</option>
+                            <option value="+91">🇮🇳 +91 (India)</option>
+                            <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+                        </select>
+                        <input type="tel" id="custPhoneNum" required placeholder="1710000000">
+                    </div>
+                </div>
+                <div class="auth-form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="custName" required placeholder="Enter full name">
+                </div>
+                <div class="auth-form-group">
+                    <label>Delivery Address *</label>
+                    <textarea id="custAddress" rows="2" required placeholder="House, Road, Area"></textarea>
+                </div>
+                <div class="auth-form-group">
+                    <label>City / District *</label>
+                    <input type="text" id="custCity" required placeholder="City name">
+                </div>
+                <div class="auth-form-group">
+                    <label>Country *</label>
+                    <select id="custCountry" required>
+                        <option value="Global All Country">🌐 Global (All Countries)</option>
+                        <option value="Bangladesh">🇧🇩 Bangladesh</option>
+                        <option value="United States">🇺🇸 United States</option>
+                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                        <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
+                        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                    </select>
+                </div>
+                <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
+            </form>
+            <button class="golden-cross-btn-top-right" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <main class="feed-container" id="productFeed"></main>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
+            
+            <div class="modal-price-seller-bar">
+                <div class="modal-price-group">
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+                <div class="modal-seller-box" id="modalSellerBadgeBox">
+                    <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
+                    <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
+                </div>
+            </div>
+
+            <div class="modal-actions-bar" id="modalActionsBar">
+                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
+                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
+            </div>
+
+            <div class="animated-cycling-box" id="animatedCyclingBox">
+                <div class="cycling-content-item active">
+                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
+                </div>
+                <div class="cycling-content-item">
+                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
+                </div>
+                <div class="cycling-content-item" id="cyclingColorItemBox">
+                    <div class="cycling-spec" style="margin-bottom:2px;">Select Color:</div>
+                    <div class="cycling-colors-inline" id="modalColorCirclesInline"></div>
+                </div>
+                <div class="cycling-content-item" id="cyclingSizeItemBox">
+                    <div class="cycling-spec" style="margin-bottom:2px;">Select Size:</div>
+                    <div class="cycling-sizes-inline" id="modalSizePillsInline"></div>
+                </div>
+                <div class="cycling-content-item">
+                    <div class="spec-two-line-grid">
+                        <div class="cycling-spec">📦 Stock: <span id="specStock">Available</span></div>
+                        <div class="cycling-spec">🎁 Pack: <span id="specPackaging">Luxury Box</span></div>
+                    </div>
+                </div>
+                <div class="cycling-content-item">
+                    <div class="spec-two-line-grid">
+                        <div class="cycling-spec">🏷️ SKU: <span id="specSku">MME-01</span></div>
+                        <div class="cycling-spec">✨ Elite Edition</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-action-wrap">
+                <div class="golden-round-qty-box">
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                    <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
+                    Add To Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        
+        const ADMIN_FIXED_EMAIL = 'mrmasudarart@gmail.com';
+        const ADMIN_FIXED_PASS = '14225114606Masudar@@@01767319670';
+
+        let supabaseClient = null;
+        try {
+            if(window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch(e) {}
+
+        let cartItems = [];
+        let cartCount = 0;
+        let activeCurrentProduct = null;
+        let selectedColor = "Standard";
+        let selectedSize = "Standard";
+        let currentModalQty = 1;
+        let cyclingInterval = null;
+        let currentShareTitle = "";
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let urlAff = urlParams.get('aff');
+        let urlRef = urlParams.get('ref');
+        if(urlAff) { sessionStorage.setItem('mme_active_aff', urlAff); localStorage.setItem('mme_active_aff', urlAff); }
+        if(urlRef) { sessionStorage.setItem('mme_active_ref', urlRef); localStorage.setItem('mme_active_ref', urlRef); }
+
+        let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
+            if(savedCart) {
+                cartItems = JSON.parse(savedCart);
+                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                document.getElementById('cartCount').innerText = cartCount;
+            }
+            loadCombinedProducts();
+
+            if(sessionStorage.getItem('mme_admin_logged') === 'true') {
+                showAdminDashboardUI();
+            }
+        });
+
+        function showCustomToast(msg) {
+            let toast = document.getElementById('customToast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+
+        function openAdminSecureModal() {
+            document.getElementById('adminModalOverlay').style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').style.display = 'none';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            let email = document.getElementById('adminEmailInput').value.trim();
+            let pass = document.getElementById('adminPassInput').value.trim();
+
+            if(email === ADMIN_FIXED_EMAIL && pass === ADMIN_FIXED_PASS) {
+                sessionStorage.setItem('mme_admin_logged', 'true');
+                showAdminDashboardUI();
+                showCustomToast("Admin Access Granted Successfully!");
+            } else {
+                showCustomToast("Invalid Admin Credentials!");
+            }
+        }
+
+        function showAdminDashboardUI() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('adminDashboardBox').style.display = 'block';
+            
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let totalOrders = allOrders.length;
+            let totalBatches = Math.ceil(totalOrders / 20000) || 1;
+
+            document.getElementById('adminBatchStatsInfo').innerHTML = `
+                📦 Total Orders: <b>${totalOrders}</b><br>
+                🗂️ Active Batches (20K limit/batch): <b>${totalBatches} Batch(es)</b>
+            `;
+
+            let container = document.getElementById('adminOrdersListContainer');
+            if(totalOrders === 0) {
+                container.innerHTML = `<p style="color:var(--text-gray); text-align:center; padding:10px;">No orders recorded yet.</p>`;
+            } else {
+                container.innerHTML = allOrders.slice(-10).reverse().map(o => `
+                    <div style="background:#000; padding:6px; border-radius:6px; margin-bottom:5px; border:1px solid rgba(212,175,55,0.2);">
+                        <b>${o.trackingId}</b> | ${o.customerName}<br>
+                        <span style="color:var(--gold-solid);">${o.batchNo}</span>
+                    </div>
+                `).join('') + `<div style="text-align:center; font-size:0.6rem; color:var(--text-gray); margin-top:5px;">Showing recent entries (Batch-optimized)</div>`;
+            }
+        }
+
+        function logoutAdminSession() {
+            sessionStorage.removeItem('mme_admin_logged');
+            document.getElementById('adminDashboardBox').style.display = 'none';
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('adminPassInput').value = '';
+            showCustomToast("Logged out from Admin Panel.");
+        }
+
+        function playCoinSoundAndAnimation(buttonEl) {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gainNode = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.25);
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch(e) {}
+
+            try {
+                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.transform = 'scale(0.25) rotate(1080deg)';
+                    coin.style.opacity = '0.1';
+                }, 50);
+
+                setTimeout(() => {
+                    coin.remove();
+                    const cartEl = document.getElementById('floatingCart');
+                    cartEl.classList.add('smooth-center-bounce');
+                    setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 1400);
+                }, 1300);
+            } catch(e) {}
+        }
+
+        function getDynamicProductStats(productId) {
+            let storageKeyViews = `mme_views_${productId}`;
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+
+            let views = parseInt(localStorage.getItem(storageKeyViews));
+            if(!views) {
+                views = Math.floor(400 + Math.random() * 4500);
+                localStorage.setItem(storageKeyViews, views);
+            } else {
+                views += Math.floor(Math.random() * 3);
+                localStorage.setItem(storageKeyViews, views);
+            }
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+            let isLiked = (Date.now() - likedTime) < 86400000;
+
+            return { views, likes, isLiked };
+        }
+
+        function toggleProductLike(productId, el) {
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+
+            if((Date.now() - likedTime) < 86400000) return;
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
+            likes += 1;
+            localStorage.setItem(storageKeyLikes, likes);
+            localStorage.setItem(storageKeyLikedByMe, Date.now());
+
+            let span = el.querySelector('span');
+            if(span) span.innerText = likes;
+            el.classList.add('liked');
+            playCoinSoundAndAnimation(el);
+        }
+
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+        }
+
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
+        }
+
+        function getAllProducts() {
+            let defaultProds = [
+                {
+                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
+                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise", sellerImg: "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                    category: "👗 FASHION (WOMEN)",
+                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
+                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
+                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
+                    sizes: ["XS", "S", "M", "L", "XL"]
+                }
+            ];
+            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
+            sellers.forEach(s => {
+                if(s.uploadedProducts) {
+                    s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
+                            let videoIdMatch = rawBase.split('/').pop();
+                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                        }
+                        defaultProds.push({
+                            id: 'v-' + s.id + '-' + i,
+                            title: p.title || p.name || "Exclusive Item",
+                            price: p.global || '$35.00',
+                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
+                            sellerId: s.id,
+                            sellerName: s.name || 'Masudar Enterprise',
+                            sellerImg: s.logoUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                            category: p.category || '👗 FASHION (WOMEN)',
+                            videoUrl: cleanVid,
+                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            desc: p.desc || 'Exclusive premium collection.',
+                            stock: p.stock || 'In Stock',
+                            packaging: p.packaging || 'Secure Box',
+                            quantity: p.quantity || '1 Unit',
+                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
+                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
+                            sizes: p.sizes || ["Standard", "Large"]
+                        });
+                    });
+                }
+            });
+            return defaultProds;
+        }
+
+        function loadCombinedProducts(list = getAllProducts()) {
+            const feed = document.getElementById('productFeed');
+            feed.innerHTML = "";
+            list.forEach(item => {
+                let stats = getDynamicProductStats(item.id);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaContent}
+                    <div class="product-bottom-actions">
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
+                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function openShareModal(title) {
+            currentShareTitle = title;
+            document.getElementById('shareLinkInput').value = window.location.href;
+            document.getElementById('shareModalOverlay').style.display = 'flex';
+        }
+
+        function closeShareModal(e) {
+            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function copyShareLink() {
+            let input = document.getElementById('shareLinkInput');
+            input.select();
+            navigator.clipboard.writeText(input.value);
+            showCustomToast("Product link copied successfully!");
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function shareToPlatform(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM 🌟`);
+            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
+            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            window.open(targetUrl, '_blank');
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function startCyclingAnimation() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            const items = document.querySelectorAll('.cycling-content-item');
+            let currentIndex = 0;
+            cyclingInterval = setInterval(() => {
+                items[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % items.length;
+                items[currentIndex].classList.add('active');
+            }, 3800);
+        }
+
+        function openProductModal(id) {
+            let product = getAllProducts().find(p => p.id == id);
+            if(!product) return;
+            activeCurrentProduct = product;
+            currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+
+            let stats = getDynamicProductStats(product.id);
+            document.getElementById('modalViewCount').innerText = stats.views;
+            document.getElementById('modalLikeCount').innerText = stats.likes;
+            let likeBtnItem = document.getElementById('modalLikeBtnItem');
+            if(stats.isLiked) likeBtnItem.classList.add('liked');
+            else likeBtnItem.classList.remove('liked');
+            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
+
+            document.getElementById('modalShareBtnItem').onclick = () => {
+                document.getElementById('productModal').style.display = 'none';
+                openShareModal(product.title);
+            };
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalDesc').innerText = product.desc;
+
+            document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Enterprise";
+            document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
+
+            document.getElementById('specStock').innerText = product.stock || "Available";
+            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
+            document.getElementById('specSku').innerText = product.sku || "MME-GENERAL";
+
+            const slider = document.getElementById('modalMediaSlider');
+            const thumbs = document.getElementById('modalThumbsRow');
+            
+            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
+
+            const colorBox = document.getElementById('modalColorCirclesInline');
+            const colorItemBox = document.getElementById('cyclingColorItemBox');
+            if(product.colors && product.colors.length > 0) {
+                colorItemBox.style.display = 'block';
+                selectedColor = product.colors[0];
+                colorBox.innerHTML = product.colors.map((c, idx) => `
+                    <div class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></div>
+                `).join('');
+            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
+
+            const sizeBox = document.getElementById('modalSizePillsInline');
+            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
+            if(product.sizes && product.sizes.length > 0) {
+                sizeItemBox.style.display = 'block';
+                selectedSize = product.sizes[0];
+                sizeBox.innerHTML = product.sizes.map((s, idx) => `
+                    <div class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</div>
+                `).join('');
+            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+
+            document.getElementById('productModal').style.display = 'flex';
+            startCyclingAnimation();
+        }
+
+        function switchSlide(idx) {
+            let slideEl = document.getElementById(`slide-${idx}`);
+            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
+                if(i === idx) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+        }
+
+        function selectModalColor(cVal, el) {
+            selectedColor = cVal;
+            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectModalSize(sVal, el) {
+            selectedSize = sVal;
+            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function updateModalQuantity(change) {
+            currentModalQty += change;
+            if(currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+        }
+
+        function closeProductModal() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function addToCartWithSelection() {
+            if(!activeCurrentProduct) return;
+            cartItems.push({
+                cartId: Date.now() + Math.random(),
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId
+            });
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            
+            closeProductModal();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
+        }
+
+        function handleCartCheckout() {
+            if(cartItems.length === 0) {
+                showCustomToast("Your cart is currently empty.");
+                return;
+            }
+            renderCartItemsList();
+            document.getElementById('checkoutModalOverlay').style.display = 'flex';
+        }
+
+        function renderCartItemsList() {
+            const container = document.getElementById('checkoutItemList');
+            let totalAmount = 0;
+            container.innerHTML = cartItems.map(item => {
+                let numericPrice = parseFloat(item.price.replace('$', '')) * item.quantity;
+                totalAmount += numericPrice;
+                return `
+                    <div class="checkout-item-row" id="cart-row-${item.cartId}">
+                        <img src="${item.image}" alt="Product">
+                        <div style="flex:1; margin-left:6px;">
+                            <strong>${item.title}</strong><br>
+                            <span style="color:var(--gold-solid);">${item.price}</span> (Qty: ${item.quantity}) | Size: ${item.size}
+                        </div>
+                        <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('') + `<div style="text-align:right; font-weight:bold; color:var(--gold-solid); margin-top:6px; font-size:0.75rem;">Total Amount: $${totalAmount.toFixed(2)}</div>`;
+        }
+
+        function removeCartItem(cartId) {
+            cartItems = cartItems.filter(item => item.cartId !== cartId);
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+
+            if(cartItems.length === 0) {
+                closeCheckoutModal();
+                showCustomToast("Your cart is now empty.");
+            } else {
+                renderCartItemsList();
+            }
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModalOverlay').style.display = 'none';
+        }
+
+        function autoFillCustomerData() {
+            let emailKey = document.getElementById('custEmail').value.trim();
+            if(!emailKey) return;
+            let cachedUser = sessionStorage.getItem(`mme_user_${emailKey}`) || localStorage.getItem(`mme_user_${emailKey}`);
+            if(cachedUser) {
+                let data = JSON.parse(cachedUser);
+                document.getElementById('custName').value = data.name || '';
+                document.getElementById('custAddress').value = data.address || '';
+                document.getElementById('custCity').value = data.city || '';
+                if(data.phone) document.getElementById('custPhoneNum').value = data.phone || '';
+            }
+        }
+
+        /* 20K BATCH & CHUNKING SYNC */
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            let email = document.getElementById('custEmail').value;
+            let code = document.getElementById('countryPhoneCode').value;
+            let phoneNum = document.getElementById('custPhoneNum').value;
+            let phone = code + ' ' + phoneNum;
+            let name = document.getElementById('custName').value;
+            let address = document.getElementById('custAddress').value;
+            let city = document.getElementById('custCity').value;
+            let country = document.getElementById('custCountry').value;
+
+            if(!email || !phoneNum || !name || !address || !city || !country) {
+                showCustomToast("Please fill in all required fields.");
+                return;
+            }
+
+            let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
+            let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1;
+
+            cartItems.forEach(item => {
+                let orderRecord = {
+                    trackingId: trackingId,
+                    productId: item.productId || '1',
+                    productTitle: item.title,
+                    quantity: item.quantity,
+                    price: item.price,
+                    color: item.color,
+                    size: item.size,
+                    sellerId: item.sellerId || 'VEN-MASUD',
+                    affiliateId: item.affiliateRef || currentAffiliateId,
+                    customerName: name,
+                    customerEmail: email,
+                    customerPhone: phone,
+                    deliveryAddress: `${address}, ${city}, ${country}`,
+                    paymentStatus: 'Pending / Unpaid',
+                    deliveryStatus: 'Processing / Pending Dispatch',
+                    orderDate: new Date().toISOString(),
+                    batchNo: `Batch-${currentBatchNumber} (Orders ${(currentBatchNumber-1)*20000 + 1} - ${currentBatchNumber*20000})`
+                };
+                allMasterOrders.push(orderRecord);
+
+                if(supabaseClient) {
+                    supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
+                        if(error) console.log("Supabase batch sync note:", error);
+                    });
+                }
+            });
+
+            localStorage.setItem('mme_admin_orders', JSON.stringify(allMasterOrders));
+
+            let userData = { name, address, city, country, phone };
+            sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
+            localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
+
+            showCustomToast(`Order placed successfully! [Batch: ${currentBatchNumber}, Trk: ${trackingId}]`);
+            
+            sessionStorage.removeItem('mme_cart_items');
+            localStorage.removeItem('mme_cart_items');
+            cartItems = [];
+            cartCount = 0;
+            document.getElementById('cartCount').innerText = 0;
+            closeCheckoutModal();
+        }
+
+        function performSearchSubmit() {
+            let q = document.getElementById('searchInput').value.toLowerCase();
+            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
+        }
+        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCameraAuto() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                let file = e.target.files[0];
+                if(file) showCustomToast("Image loaded for visual search: " + file.name);
+            };
+            input.click();
+        }
+
+        function triggerVoiceAuto() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                try {
+                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    let recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.start();
+                    recognition.onresult = (event) => {
+                        let query = event.results[0][0].transcript;
+                        document.getElementById('searchInput').value = query;
+                        performSearchSubmit();
+                    };
+                } catch(e) {
+                    let text = prompt("Voice Search Keyword:");
+                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+                }
+            } else {
+                let text = prompt("Voice Search Keyword:");
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+            }
+        }
+    </script>
+</body>
+</html>
