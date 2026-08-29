@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MR MASUDAR ENTERPRISE - Supreme Ecosystem</title>
+    <title>MRMASUDAR.COM - Supreme Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,9 +25,7 @@
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 60px; padding-bottom: 95px; }
 
-        /* ========================================== */
-        /* 1. HEADER & BRAND CONFIGURATION SECTION    */
-        /* ========================================== */
+        /* HEADER SECTION */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -36,17 +34,15 @@
         .brand-container { display: flex; align-items: center; gap: 7px; }
         .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; }
-        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
-        .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4.2px; text-transform: uppercase; display: flex; justify-content: space-between; margin-top: 1px; }
+        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
+        .brand-title-sub { font-family: 'Cinzel', serif; font-size: 0.48rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; }
         .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* ========================================== */
-        /* 2. CATEGORY & ECOSYSTEM MODALS SECTION     */
-        /* ========================================== */
+        /* CATEGORY & ECOSYSTEM MODALS */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.5); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
@@ -62,9 +58,7 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* ========================================== */
-        /* 3. SECURE CHECKOUT & AUTO-FILL FORM SECTION  */
-        /* ========================================== */
+        /* SECURE CHECKOUT */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
         @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
@@ -84,10 +78,9 @@
         .auth-form-group label { display: block; font-size: 0.72rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.5); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; }
+        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
 
-        /* ========================================== */
-        /* 4. PRODUCT FEED & MASONRY GRID SECTION     */
-        /* ========================================== */
+        /* PRODUCT FEED & MASONRY GRID (Clean YouTube Embed Wrapper) */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 18px; } }
@@ -98,8 +91,9 @@
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .product-media-box img { width: 100%; height: auto; max-height: 320px; display: block; object-fit: contain; }
         
-        .video-wrapper { position: relative; width: 100%; padding-bottom: 120%; background: #000; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover; }
+        /* YouTube Video Clean Wrapper without Logo/Controls */
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
         .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
@@ -108,9 +102,7 @@
         .action-item.like-icon i { color: var(--pink-heart); }
         .action-item.like-icon.active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ========================================== */
-        /* 5. LUXURY PRODUCT DETAILS MODAL SECTION    */
-        /* ========================================== */
+        /* LUXURY PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
         .modal-content { background: var(--card-bg); border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 18px 18px 80px 18px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
@@ -119,8 +111,6 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
-        
         .modal-media-slider { width: 100%; border-radius: 14px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; margin-bottom: 10px; border: 1px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; position: relative; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 240px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -153,9 +143,7 @@
         
         .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.88rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* ========================================== */
-        /* 6. FOOTER & ECOSYSTEM NAVIGATION BAR       */
-        /* ========================================== */
+        /* FOOTER & ECOSYSTEM NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
@@ -172,17 +160,13 @@
 </head>
 <body>
 
-    <!-- ========================================== -->
-    /* HEADER SECTION (Customer Login Removed)    */
-    /* ========================================== -->
+    <!-- HEADER SECTION (MRMASUDAR.COM Branding) -->
     <header class="app-header">
         <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MR MASUDAR</span>
-                <span class="brand-title-sub">
-                    <span>E</span><span>N</span><span>T</span><span>E</span><span>R</span><span>P</span><span>R</span><span>I</span><span>S</span><span>E</span>
-                </span>
+                <span class="brand-title-sub">MRMASUDAR.COM</span>
             </div>
         </div>
         <div class="top-right-controls">
@@ -193,9 +177,7 @@
         </div>
     </header>
 
-    <!-- ========================================== -->
-    /* CATEGORY & ECOSYSTEM MODALS SECTION        */
-    /* ========================================== -->
+    <!-- CATEGORY & ECOSYSTEM MODALS -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -224,9 +206,7 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    /* SECURE CHECKOUT & AUTO-FILL FORM SECTION   */
-    /* ========================================== -->
+    <!-- SECURE CHECKOUT FORM -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -258,16 +238,12 @@
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- ========================================== -->
-    /* PRODUCT FEED & MASONRY GRID SECTION        */
-    /* ========================================== -->
+    <!-- PRODUCT FEED & MASONRY GRID -->
     <main class="feed-container" id="productFeed"></main>
 
     <input type="file" id="hiddenCameraInput" accept="image/*" onchange="handleGalleryImage(event)">
 
-    <!-- ========================================== -->
-    /* LUXURY PRODUCT DETAILS MODAL SECTION       */
-    /* ========================================== -->
+    <!-- LUXURY PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -316,9 +292,7 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    /* FOOTER & ECOSYSTEM NAVIGATION BAR          */
-    /* ========================================== -->
+    <!-- FOOTER & ECOSYSTEM NAVIGATION BAR -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -336,9 +310,7 @@
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    /* JAVASCRIPT LOGIC & MULTI-TIER CACHING      */
-    /* ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let cartItems = [];
         let cartCount = 0;
@@ -347,7 +319,6 @@
         let selectedSize = "Standard";
         let currentModalQty = 1;
 
-        // Smart Affiliate & Seller Referral URL Auto-Catching
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff');
         let urlRef = urlParams.get('ref');
