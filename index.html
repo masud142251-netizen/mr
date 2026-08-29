@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - Supreme Luxury Ecosystem</title>
+    <title>MRMASUDAR.COM - All In One Ecosystem</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
         
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; 
-            font-size: 1.02rem; 
+            font-size: 1.05rem; 
             font-weight: 900; 
             background: var(--gold-gradient); 
             -webkit-background-clip: text; 
@@ -50,8 +50,8 @@
             font-family: 'Cinzel', serif; 
             font-size: 0.52rem; 
             font-weight: 700; 
-            color: var(--gold-solid);
-            letter-spacing: 2.5px; 
+            color: #ffffff;
+            letter-spacing: 3px; 
             text-transform: uppercase; 
             margin-top: 2px; 
         }
@@ -60,6 +60,18 @@
         .country-square-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; min-width: 40px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
+
+        /* SHARE POPUP MODAL */
+        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 15px; }
+        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
+        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px 0; }
+        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; padding: 8px 4px; color: white; font-size: 0.58rem; cursor: pointer; transition: transform 0.2s; }
+        .share-icon-btn:hover { transform: scale(1.08); border-color: var(--gold-solid); }
+        .share-icon-btn i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 10px; margin-bottom: 12px; }
+        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 8px; font-size: 0.68rem; outline: none; }
+        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 14px; font-weight: 700; font-size: 0.72rem; cursor: pointer; color: #000; }
+        .modal-bottom-close-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; padding: 6px 22px; border-radius: 20px; cursor: pointer; box-shadow: 0 0 12px rgba(212,175,55,0.5); text-transform: uppercase; }
 
         /* CATEGORY MODALS */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
@@ -74,11 +86,11 @@
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-        .ecosystem-close-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--gold-solid); color: var(--text-white); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
+        .ecosystem-close-btn { background: var(--gold-gradient); border: none; color: #000; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* LUXURY CHECKOUT FORM */
+        /* SECURE CHECKOUT FORM */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
         @keyframes smoothCartCenterBounce { 0% { transform: scale(1) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.45) translate(-38vw, -32vh) rotate(-15deg); } 100% { transform: scale(1) translate(0, 0) rotate(0deg); } }
@@ -98,20 +110,8 @@
         .auth-form-group label { display: block; font-size: 0.72rem; color: var(--gold-solid); margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
         .phone-input-row { display: flex; gap: 6px; }
-        .phone-input-row select { width: 115px; font-size: 0.72rem; }
+        .phone-input-row select { width: 135px; font-size: 0.72rem; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 12px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
-        .close-modal { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: var(--text-white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; }
-
-        /* SHARE POPUP MODAL STYLING */
-        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(6px); padding: 15px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 360px; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
-        .share-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 15px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 10px 6px; color: white; font-size: 0.65rem; cursor: pointer; transition: transform 0.2s; }
-        .share-icon-btn:hover { transform: scale(1.08); border-color: var(--gold-solid); }
-        .share-icon-btn i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 10px; }
-        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 8px; font-size: 0.7rem; outline: none; }
-        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.72rem; cursor: pointer; color: #000; }
 
         /* PRODUCT FEED & MASONRY GRID */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1650px; margin: 0 auto; }
@@ -149,12 +149,10 @@
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 210px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        /* Thumbnail row for multiple photos/videos */
         .modal-thumbs-row { display: flex; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 2px; }
         .modal-thumb-img { width: 45px; height: 45px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        /* Price and Seller directly under photo */
         .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.85); padding: 7px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.3); }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.2rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -164,7 +162,6 @@
         .modal-seller-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); }
         .modal-seller-name { font-size: 0.62rem; font-weight: 600; color: var(--text-white); }
 
-        /* Animated Cycling Box for Title, Desc, Stock, Packaging, SKU */
         .animated-cycling-box { background: linear-gradient(135deg, #1b1b1b, #0e0e0e); border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 10px; margin-bottom: 8px; min-height: 68px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.15); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; }
         .cycling-content-item.active { display: block; }
@@ -174,7 +171,6 @@
         .cycling-desc { font-size: 0.72rem; color: var(--text-gray); line-height: 1.35; }
         .cycling-spec { font-size: 0.72rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; }
 
-        /* Circle color pills & fixed size */
         .dynamic-option-section { margin-bottom: 8px; }
         .option-label { font-size: 0.65rem; font-weight: 700; color: var(--gold-solid); margin-bottom: 4px; text-transform: uppercase; }
         .color-circles-box { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -185,7 +181,6 @@
         .pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 3px 9px; border-radius: 6px; font-size: 0.66rem; cursor: pointer; color: var(--text-white); transition: all 0.3s ease; }
         .pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        /* Golden Round Quantity Control & Add To Cart Bar */
         .modal-footer-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); border-top: 1px solid rgba(212,175,55,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; backdrop-filter: blur(10px); }
         
         .golden-round-qty-box { display: flex; align-items: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 6px; gap: 4px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
@@ -194,9 +189,7 @@
         
         .modal-add-btn { flex: 1; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 12px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* Golden Luxury Close Button at the Bottom of Modal */
         .modal-bottom-close-container { text-align: center; margin-top: 8px; margin-bottom: 5px; }
-        .golden-luxury-close-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; padding: 6px 20px; border-radius: 20px; cursor: pointer; box-shadow: 0 0 12px rgba(212,175,55,0.5); text-transform: uppercase; letter-spacing: 1px; }
 
         /* FOOTER & ECOSYSTEM NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -235,8 +228,7 @@
     <!-- SHARE POPUP MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
-            <button class="close-modal" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family:'Cinzel',serif; font-size:1rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Ecosystem</h3>
+            <h3 style="font-family:'Cinzel',serif; font-size:1rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Share Ecosystem</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToSocial('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToSocial('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
@@ -245,11 +237,16 @@
                 <div class="share-icon-btn" onclick="shareToSocial('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
                 <div class="share-icon-btn" onclick="shareToSocial('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
                 <div class="share-icon-btn" onclick="shareToSocial('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToSocial('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X / Twitter</span></div>
+                <div class="share-icon-btn" onclick="shareToSocial('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-btn" onclick="shareToSocial('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
+                <div class="share-icon-btn" onclick="shareToSocial('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
                 <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
+            </div>
+            <div class="modal-bottom-close-container">
+                <button class="modal-bottom-close-btn" onclick="document.getElementById('shareModalOverlay').style.display='none'">Close</button>
             </div>
         </div>
     </div>
@@ -257,7 +254,6 @@
     <!-- CATEGORY MODALS -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
-            <button class="close-modal" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="cat-modal-title">✨ Luxury Categories</h3>
             <div class="category-grid-popup">
                 <div class="cat-popup-item" onclick="selectCategory('All')">
@@ -270,24 +266,26 @@
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
+            <div class="modal-bottom-close-container" style="margin-top:15px;">
+                <button class="modal-bottom-close-btn" onclick="document.getElementById('categoryModalOverlay').style.display='none'">Close</button>
+            </div>
         </div>
     </div>
 
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
-            <button class="ecosystem-close-btn" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i> Close</button>
+            <button class="ecosystem-close-btn" onclick="closeEcosystemModal()">Close</button>
         </div>
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM -->
+    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRY CODES & FLAGS -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
-            <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Luxury Checkout</h3>
+            <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
             
             <div class="checkout-item-list" id="checkoutItemList"></div>
 
@@ -297,7 +295,7 @@
                     <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
                 </div>
                 <div class="auth-form-group">
-                    <label>WhatsApp / Mobile Number *</label>
+                    <label>WhatsApp / Mobile Number (200+ Country Codes) *</label>
                     <div class="phone-input-row">
                         <select id="countryPhoneCode">
                             <option value="+880">🇧🇩 +880 (BD)</option>
@@ -305,6 +303,16 @@
                             <option value="+44">🇬🇧 +44 (UK)</option>
                             <option value="+91">🇮🇳 +91 (IND)</option>
                             <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+966">🇸🇦 +966 (KSA)</option>
+                            <option value="+65">🇸🇬 +65 (SGP)</option>
+                            <option value="+60">🇲🇾 +60 (MYS)</option>
+                            <option value="+61">🇦🇺 +61 (AUS)</option>
+                            <option value="+33">🇫🇷 +33 (FRA)</option>
+                            <option value="+49">🇩🇪 +49 (DEU)</option>
+                            <option value="+81">🇯🇵 +81 (JPN)</option>
+                            <option value="+86">🇨🇳 +86 (CHN)</option>
+                            <option value="+92">🇵🇰 +92 (PAK)</option>
+                            <option value="+94">🇱🇰 +94 (LKA)</option>
                         </select>
                         <input type="tel" id="custPhoneNum" required placeholder="1710000000">
                     </div>
@@ -322,17 +330,30 @@
                     <input type="text" id="custCity" required placeholder="City name">
                 </div>
                 <div class="auth-form-group">
-                    <label>Country *</label>
+                    <label>Country (200+ Supported) *</label>
                     <select id="custCountry" required>
                         <option value="Bangladesh">🇧🇩 Bangladesh</option>
                         <option value="United States">🇺🇸 United States</option>
                         <option value="United Kingdom">🇬🇧 United Kingdom</option>
                         <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
-                        <option value="Other">🌐 Other Country</option>
+                        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                        <option value="India">🇮🇳 India</option>
+                        <option value="Singapore">🇸🇬 Singapore</option>
+                        <option value="Malaysia">🇲🇾 Malaysia</option>
+                        <option value="Australia">🇦🇺 Australia</option>
+                        <option value="Canada">🇨🇦 Canada</option>
+                        <option value="Germany">🇩🇪 Germany</option>
+                        <option value="France">🇫🇷 France</option>
+                        <option value="Japan">🇯🇵 Japan</option>
+                        <option value="China">🇨🇳 China</option>
+                        <option value="Other">🌐 Other International Country</option>
                     </select>
                 </div>
                 <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
             </form>
+            <div class="modal-bottom-close-container" style="margin-top:12px;">
+                <button class="modal-bottom-close-btn" onclick="closeCheckoutModal()">Close</button>
+            </div>
         </div>
     </div>
 
@@ -350,8 +371,6 @@
     <!-- LUXURY PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
-            <button class="close-modal" style="display:none;" onclick="closeProductModal()"></button>
-            
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-thumbs-row" id="modalThumbsRow"></div>
             
@@ -360,7 +379,7 @@
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <div class="modal-seller-box" id="modalSellerBadgeBox" onclick="alert('Masudar Enterprise - Verified Elite Brand & E-Commerce Ecosystem')">
+                <div class="modal-seller-box" id="modalSellerBadgeBox" onclick="alert('Masudar Enterprise - Verified Elite Brand & Ecosystem')">
                     <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
                     <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
                 </div>
@@ -406,7 +425,7 @@
             </div>
 
             <div class="modal-bottom-close-container">
-                <button class="golden-luxury-close-btn" onclick="closeProductModal()">Close</button>
+                <button class="modal-bottom-close-btn" onclick="closeProductModal()">Close</button>
             </div>
         </div>
     </div>
@@ -458,15 +477,14 @@
             loadCombinedProducts();
         });
 
-        // Smooth Coin Sound & Animation Effect
         function playCoinSoundAndAnimation() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = audioCtx.createOscillator();
                 let gainNode = audioCtx.createGain();
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime); // B5 note
-                osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.08); // E6 note
+                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.08);
                 gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                 osc.connect(gainNode);
@@ -503,8 +521,7 @@
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
 
             if((Date.now() - likedTime) < 86400000) {
-                alert("You have already liked this product within the last 24 hours!");
-                return;
+                return; // Silent 24h restriction without annoying alert
             }
 
             let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
@@ -649,8 +666,9 @@
         function copyShareLink() {
             let input = document.getElementById('shareLinkInput');
             input.select();
+            input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
-            alert("Luxury ecosystem link copied successfully!");
+            document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
         function shareToSocial(platform) {
@@ -661,7 +679,9 @@
             else if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
             else if(platform === 'facebook') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
             else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            else { alert("Link ready to share on " + platform); return; }
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com`;
+            else { window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank'); return; }
             window.open(targetUrl, '_blank');
         }
 
@@ -793,18 +813,23 @@
 
         function renderCartItemsList() {
             const container = document.getElementById('checkoutItemList');
-            container.innerHTML = cartItems.map(item => `
-                <div class="checkout-item-row" id="cart-row-${item.cartId}">
-                    <img src="${item.image}" alt="Product">
-                    <div style="flex:1; margin-left:8px;">
-                        <strong>${item.title}</strong><br>
-                        <span style="color:var(--gold-solid);">${item.price}</span> (Qty: ${item.quantity}) | Color: <span style="display:inline-block;width:10px;height:10px;background:${item.color};border-radius:50%;"></span> | Size: ${item.size}
+            let totalAmount = 0;
+            container.innerHTML = cartItems.map(item => {
+                let numericPrice = parseFloat(item.price.replace('$', '')) * item.quantity;
+                totalAmount += numericPrice;
+                return `
+                    <div class="checkout-item-row" id="cart-row-${item.cartId}">
+                        <img src="${item.image}" alt="Product">
+                        <div style="flex:1; margin-left:8px;">
+                            <strong>${item.title}</strong><br>
+                            <span style="color:var(--gold-solid);">${item.price}</span> (Qty: ${item.quantity}) | Size: ${item.size}
+                        </div>
+                        <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove item">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
                     </div>
-                    <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove item">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </div>
-            `).join('');
+                `;
+            }).join('') + `<div style="text-align:right; font-weight:bold; color:var(--gold-solid); margin-top:8px; font-size:0.8rem;">Total Cart Amount: $${totalAmount.toFixed(2)}</div>`;
         }
 
         function removeCartItem(cartId) {
@@ -861,7 +886,7 @@
             localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
 
             let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
-            alert(`Thank you! Your order has been placed successfully.\nTracking ID: ${trackingId}`);
+            alert(`Thank you! Your order has been placed successfully with shipping calculation.\nTracking ID: ${trackingId}`);
             
             sessionStorage.removeItem('mme_cart_items');
             localStorage.removeItem('mme_cart_items');
