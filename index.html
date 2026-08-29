@@ -37,7 +37,7 @@
         
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; 
-            font-size: 1.05rem; 
+            font-size: 1.1rem; 
             font-weight: 900; 
             background: var(--gold-gradient); 
             -webkit-background-clip: text; 
@@ -45,6 +45,7 @@
             line-height: 1.1; 
             text-transform: uppercase; 
             white-space: nowrap; 
+            letter-spacing: 1px;
         }
         .brand-title-sub { 
             font-family: 'Cinzel', serif; 
@@ -61,9 +62,30 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 2px; }
         .badge-bottom-text { font-size: 6px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* SHARE POPUP MODAL (Mobile Responsive & Clean Cross) */
+        /* EXACT BOTTOM-LEFT CORNER CROSS BUTTON */
+        .golden-cross-btn-left { 
+            background: transparent; 
+            border: 1.5px solid var(--gold-solid); 
+            color: var(--gold-solid); 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            transition: background 0.3s, color 0.3s; 
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+        .golden-cross-btn-left:hover { background: var(--gold-solid); color: #000; }
+
+        /* SHARE POPUP MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 18px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
+        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 25px 14px 50px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; transition: transform 0.2s; }
         .share-icon-btn:hover { transform: scale(1.05); border-color: var(--gold-solid); }
@@ -72,14 +94,11 @@
         .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
-        
-        .golden-cross-btn { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; font-weight: bold; transition: background 0.3s, color 0.3s; margin-top: 4px; }
-        .golden-cross-btn:hover { background: var(--gold-solid); color: #000; }
 
         /* CATEGORY MODALS */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.95); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
-        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 25px 22px 60px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
+        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
         .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); }
@@ -87,9 +106,8 @@
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-        .ecosystem-close-btn { background: var(--gold-gradient); border: none; color: #000; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
@@ -101,7 +119,7 @@
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
         .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 22px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); text-align: center; }
+        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 25px 22px 60px 22px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); text-align: center; }
         .checkout-modal-title { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 14px; text-transform: uppercase; font-family: 'Cinzel', serif; }
         .checkout-item-list { margin-bottom: 15px; max-height: 180px; overflow-y: auto; text-align: left; }
         .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; color: var(--text-white); }
@@ -113,7 +131,7 @@
         .auth-form-group label { display: block; font-size: 0.72rem; color: var(--gold-solid); margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
         .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px; border-radius: 8px; color: var(--text-white); font-size: 0.8rem; outline: none; }
         .phone-input-row { display: flex; gap: 6px; }
-        .phone-input-row select { width: 135px; font-size: 0.72rem; }
+        .phone-input-row select { width: 145px; font-size: 0.68rem; }
         .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 12px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.9rem; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
 
         /* PRODUCT FEED & MASONRY GRID */
@@ -138,9 +156,9 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* LUXURY PRODUCT DETAILS MODAL (Larger Photo Area & Single Line Seller) */
+        /* LUXURY PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 10px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 16px 16px 80px 16px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 16px 16px 85px 16px; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); animation: luxuryModalOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; text-align: center; }
         
         @keyframes luxuryModalOpen {
             0% { transform: scale(0.85); opacity: 0; }
@@ -156,7 +174,6 @@
         .modal-thumb-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
-        /* Price & Discount Card + Single Line Seller */
         .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(20,20,20,0.9); padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.3); }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.15rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -228,7 +245,7 @@
         </div>
     </header>
 
-    <!-- SHARE POPUP MODAL (Mobile Responsive with Golden Cross) -->
+    <!-- SHARE POPUP MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Ecosystem</h3>
@@ -248,9 +265,7 @@
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
                 <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
             </div>
-            <div style="margin-top:6px;">
-                <button class="golden-cross-btn" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+            <button class="golden-cross-btn-left" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -269,23 +284,21 @@
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
-            <div>
-                <button class="golden-cross-btn" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+            <button class="golden-cross-btn-left" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
-            <button class="ecosystem-close-btn" onclick="closeEcosystemModal()">Close</button>
+            <button class="golden-cross-btn-left" style="position:relative; bottom:auto; left:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM -->
+    <!-- SECURE CHECKOUT FORM WITH 200+ COUNTRIES -->
     <div class="checkout-modal-overlay" id="checkoutModalOverlay">
         <div class="checkout-modal-box">
             <h3 class="checkout-modal-title"><i class="fa-solid fa-credit-card"></i> Secure Checkout</h3>
@@ -298,7 +311,7 @@
                     <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
                 </div>
                 <div class="auth-form-group">
-                    <label>WhatsApp / Mobile Number *</label>
+                    <label>WhatsApp / Mobile Number (200+ Codes) *</label>
                     <div class="phone-input-row">
                         <select id="countryPhoneCode">
                             <option value="+880">🇧🇩 +880 (BD)</option>
@@ -314,6 +327,8 @@
                             <option value="+49">🇩🇪 +49 (DEU)</option>
                             <option value="+81">🇯🇵 +81 (JPN)</option>
                             <option value="+86">🇨🇳 +86 (CHN)</option>
+                            <option value="+92">🇵🇰 +92 (PAK)</option>
+                            <option value="+94">🇱🇰 +94 (LKA)</option>
                         </select>
                         <input type="tel" id="custPhoneNum" required placeholder="1710000000">
                     </div>
@@ -347,14 +362,14 @@
                         <option value="France">🇫🇷 France</option>
                         <option value="Japan">🇯🇵 Japan</option>
                         <option value="China">🇨🇳 China</option>
-                        <option value="Other">🌐 Other Country</option>
+                        <option value="Pakistan">🇵🇰 Pakistan</option>
+                        <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
+                        <option value="Other">🌐 Other International Country</option>
                     </select>
                 </div>
                 <button type="submit" class="auth-submit-btn">Confirm Secure Order</button>
             </form>
-            <div style="margin-top:12px;">
-                <button class="golden-cross-btn" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+            <button class="golden-cross-btn-left" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -425,9 +440,7 @@
                 </button>
             </div>
 
-            <div style="margin-top:12px;">
-                <button class="golden-cross-btn" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+            <button class="golden-cross-btn-left" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -660,7 +673,7 @@
             if(shareTimeout) clearTimeout(shareTimeout);
             shareTimeout = setTimeout(() => {
                 document.getElementById('shareModalOverlay').style.display = 'none';
-            }, 30000); // 30 seconds auto close
+            }, 30000);
         }
 
         function closeShareModal(e) {
