@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM - Enterprise Batch-Optimized Hub</title>
+    <title>MRMASUDAR.COM - Supreme Luxury & Enterprise Hub</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -220,10 +220,10 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* FOOTER NAVIGATION BAR */
+        /* FOOTER NAVIGATION BAR (ADMIN REMOVED & EQUALLY DISTRIBUTED) */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
-        .nav-menus-left { display: flex; gap: 2px; flex: 1.1; justify-content: space-around; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
+        .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
@@ -434,13 +434,12 @@
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR -->
+    <!-- FOOTER NAVIGATION BAR (ADMIN COMPLETELY REMOVED & EQUALLY DISTRIBUTED) -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://secure-admin.mrmasudar.com', 'Secure Admin Dashboard', this)"><i class="fa-solid fa-user-shield"></i><span>Admin</span></div>
             <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
@@ -453,7 +452,7 @@
         </div>
     </nav>
 
-    <!-- AUTOMATED 20K BATCH & SUPABASE CHUNKING SYNC LOGIC -->
+    <!-- ENTERPRISE 20K BATCH SYNC LOGIC -->
     <script>
         const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
@@ -919,7 +918,7 @@
             }
         }
 
-        /* ENTERPRISE AUTOMATED 20K BATCH & CHUNKING SYNC SYSTEM */
+        /* 20K BATCH & CHUNKING SYNC */
         function handleOrderSubmit(e) {
             e.preventDefault();
             let email = document.getElementById('custEmail').value;
@@ -937,10 +936,8 @@
             }
 
             let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
-            
-            // টোটাল অর্ডার কত হলো তা হিসাব করে অটোমেটিক ২০,০০০ এর ব্যাচ বা পেজ নির্ধারণ
             let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1; // প্রতি ২০,০০০ অর্ডারে নতুন ব্যাচ
+            let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1;
 
             cartItems.forEach(item => {
                 let orderRecord = {
@@ -964,7 +961,6 @@
                 };
                 allMasterOrders.push(orderRecord);
 
-                // Supabase Cloud Chunking & Batch Sync (For 1M+ Scale)
                 if(supabaseClient) {
                     supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
                         if(error) console.log("Supabase batch sync note:", error);
@@ -972,7 +968,6 @@
                 }
             });
 
-            // লোকাল স্টোরেজে ব্যাচ সহ মাস্টার শিট আপডেট
             localStorage.setItem('mme_admin_orders', JSON.stringify(allMasterOrders));
 
             let userData = { name, address, city, country, phone };
