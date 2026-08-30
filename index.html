@@ -1145,3 +1145,32 @@
     </script>
 </body>
 </html>
+// Add To Cart ফাংশন (কোনো রিডায়রেক্ট ছাড়াই শুধু কার্টে যোগ করবে)
+        function addToCartWithSelection() {
+            if(!activeCurrentProduct) return;
+            cartItems.push({
+                cartId: Date.now() + Math.random(),
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId
+            });
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            
+            closeProductModal();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
+            showCustomToast("Product added to cart successfully!");
+        }
+
+        function handleCartClick() {
+            showCustomToast(`Cart Items Count: ${cartCount}`);
+        }
