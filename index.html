@@ -337,7 +337,7 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID and coordinates with out.mrmasudar.com.
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID.
                     </div>
                 </div>
             </div>
@@ -1046,7 +1046,6 @@
             document.getElementById('cartCount').innerText = totalCount;
             
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
@@ -1055,11 +1054,7 @@
 
         // কাস্টমার ঝুড়িতে ক্লিক করার পরেই কেবল চেকআউট পেজে যাবে
         function handleCartClick() {
-            let currentCart = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
-            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
-            
-            openEcosystemPage(subDomainCartUrl);
+            openEcosystemPage(`https://out.mrmasudar.com?ref=${currentAffiliateId}`);
         }
 
         function performSearchSubmit() {
