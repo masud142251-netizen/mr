@@ -19,6 +19,7 @@
         }
 
         let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+        
         let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
         let badgeEl = document.getElementById('cartCount');
         if(badgeEl) badgeEl.innerText = totalCount;
@@ -80,10 +81,23 @@
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
         .golden-cross-btn-top-right { 
-            background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
-            width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; 
-            justify-content: center; cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute;
-            top: 12px; right: 12px; z-index: 15; transition: background 0.3s, color 0.3s;
+            background: transparent; 
+            border: 1.5px solid var(--gold-solid); 
+            color: var(--gold-solid); 
+            width: 30px; 
+            height: 30px; 
+            border-radius: 50%; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 15;
+            transition: background 0.3s, color 0.3s;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
@@ -95,24 +109,6 @@
             animation: toastFadeIn 0.3s ease;
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
-
-        /* ইন-পেজ কার্ট পপআপ স্টাইল */
-        .cart-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; }
-        .cart-modal-box { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 450px; border-radius: 20px; padding: 45px 16px 20px 16px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); }
-        .cart-modal-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
-        
-        .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: rgba(25,25,25,0.9); border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; padding: 8px; margin-bottom: 8px; gap: 8px; }
-        .cart-item-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
-        .cart-item-details { flex: 1; font-size: 0.72rem; line-height: 1.3; }
-        .cart-item-title { font-weight: 700; color: var(--text-white); margin-bottom: 2px; }
-        .cart-item-meta { color: var(--text-gray); font-size: 0.62rem; }
-        .cart-item-price { color: var(--gold-solid); font-weight: 700; margin-top: 2px; }
-        .cart-item-remove { background: transparent; border: none; color: var(--danger-red); font-size: 0.9rem; cursor: pointer; padding: 5px; }
-
-        .cart-checkout-form { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
-        .checkout-input { width: 100%; background: #000; border: 1px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: white; font-size: 0.75rem; outline: none; }
-        .checkout-input:focus { border-color: var(--gold-solid); }
-        .checkout-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: #000; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 5px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
 
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
         .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
@@ -253,30 +249,6 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- হোমপেজের ইন-পেজ কার্ট ও চেকআউট পপ-আপ মডাল -->
-    <div class="cart-modal-overlay" id="cartModalOverlay" onclick="closeCartModal(event)">
-        <div class="cart-modal-box">
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('cartModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="cart-modal-title">Shopping Cart & Checkout</h3>
-            
-            <div id="cartItemsListContainer" style="max-height: 220px; overflow-y: auto; margin-bottom: 10px;">
-                <!-- কার্ট আইটেমগুলো এখানে ডায়নামিক আসবে -->
-            </div>
-
-            <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700;">
-                <span>Total Amount:</span>
-                <span id="cartTotalPrice" style="color: var(--gold-solid);">$0.00</span>
-            </div>
-
-            <div class="cart-checkout-form">
-                <input type="text" id="checkoutName" class="checkout-input" placeholder="Full Name *">
-                <input type="text" id="checkoutPhone" class="checkout-input" placeholder="Phone Number *">
-                <input type="text" id="checkoutAddress" class="checkout-input" placeholder="Complete Delivery Address *">
-                <button type="button" class="checkout-btn" onclick="submitOrderDirectly()">Confirm Order Now</button>
-            </div>
-        </div>
-    </div>
-
     <header class="app-header">
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -362,7 +334,7 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        Orders placed directly via popup will be logged instantly.
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID and coordinates with out.mrmasudar.com.
                     </div>
                 </div>
             </div>
@@ -1049,7 +1021,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (হোমপেজ পপ-আপে কার্ট আপডেট করবে)
+        // Add To Cart ফাংশন (কার্টে প্রোডাক্ট সেভ করে সাব-ডোমেইনে কার্ট ডাটা সহ পাঠিয়ে দেবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
@@ -1074,117 +1046,19 @@
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-            showCustomToast("Product added to cart successfully!");
+
+            // সাব-ডোমেইনে সম্পূর্ণ কার্ট ডাটা পাস করা
+            let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
+            setTimeout(() => {
+                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            }, 800);
         }
 
-        // কার্ট আইকনে ক্লিক করলে অন্য পেজে না গিয়ে সরাসরি হোমপেজেই পপ-আপ কার্ট খুলবে
+        // কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনে কার্ট ডাটা সহ রিডায়রেক্ট হবে
         function handleCartClick() {
-            renderCartModalList();
-            document.getElementById('cartModalOverlay').style.display = 'flex';
-        }
-
-        function closeCartModal(e) {
-            if(!e || e.target.id === 'cartModalOverlay') {
-                document.getElementById('cartModalOverlay').style.display = 'none';
-            }
-        }
-
-        function renderCartModalList() {
-            let container = document.getElementById('cartItemsListContainer');
             let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            
-            if(currentCart.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-gray); font-size:0.75rem; padding: 20px;">Your cart is currently empty.</p>`;
-                document.getElementById('cartTotalPrice').innerText = '$0.00';
-                return;
-            }
-
-            let totalAmount = 0;
-            container.innerHTML = currentCart.map((item, index) => {
-                let numericPrice = parseFloat(item.price.replace('$', '')) || 0;
-                let itemTotal = numericPrice * (item.quantity || 1);
-                totalAmount += itemTotal;
-
-                return `
-                    <div class="cart-item-row">
-                        <img src="${item.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'}" class="cart-item-img">
-                        <div class="cart-item-details">
-                            <div class="cart-item-title">${item.title}</div>
-                            <div class="cart-item-meta">Qty: ${item.quantity} | Color: ${item.color} | Size: ${item.size}</div>
-                            <div class="cart-item-price">${item.price}</div>
-                        </div>
-                        <button class="cart-item-remove" onclick="removeCartItem(${index})"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('cartTotalPrice').innerText = `$${totalAmount.toFixed(2)}`;
-        }
-
-        function removeCartItem(index) {
-            cartItems.splice(index, 1);
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            renderCartModalList();
-        }
-
-        // হোমপেজ থেকেই সরাসরি অর্ডার কনফার্ম করে অ্যাডমিন প্যানেল ও ডাটাবেজে সেভ করা
-        function submitOrderDirectly() {
-            let name = document.getElementById('checkoutName').value.trim();
-            let phone = document.getElementById('checkoutPhone').value.trim();
-            let address = document.getElementById('checkoutAddress').value.trim();
-            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-
-            if(!name || !phone || !address) {
-                showCustomToast("Please fill in all required customer details!");
-                return;
-            }
-            if(currentCart.length === 0) {
-                showCustomToast("Your cart is empty!");
-                return;
-            }
-
-            let trackingId = 'TRK-' + Math.floor(100000 + Math.random() * 900000);
-            let now = new Date();
-            let formattedDate = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            
-            currentCart.forEach(item => {
-                allOrders.push({
-                    trackingId: trackingId,
-                    batchNo: 'Batch-1',
-                    formattedDate: formattedDate,
-                    customerName: name,
-                    customerPhone: phone,
-                    customerEmail: name.toLowerCase().replace(/\s+/g, '') + '@gmail.com',
-                    deliveryAddress: address,
-                    productTitle: item.title,
-                    quantity: item.quantity,
-                    price: item.price,
-                    color: item.color,
-                    size: item.size,
-                    sellerId: item.sellerId || 'VEN-MASUD',
-                    affiliateId: currentAffiliateId,
-                    paymentStatus: 'Cash On Delivery (Confirmed)'
-                });
-            });
-
-            localStorage.setItem('mme_admin_orders', JSON.stringify(allOrders));
-
-            // কার্ট পরিষ্কার করা
-            cartItems = [];
-            localStorage.removeItem('mme_cart_items');
-            sessionStorage.removeItem('mme_cart_items');
-            document.getElementById('cartCount').innerText = '0';
-
-            document.getElementById('cartModalOverlay').style.display = 'none';
-            showCustomToast("Order placed successfully! Tracking ID: " + trackingId);
-            document.getElementById('checkoutName').value = '';
-            document.getElementById('checkoutPhone').value = '';
-            document.getElementById('checkoutAddress').value = '';
+            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
+            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
         }
 
         function performSearchSubmit() {
