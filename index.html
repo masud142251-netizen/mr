@@ -9,10 +9,8 @@
       const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
       const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-      // পেজ লোড ও Supabase থেকে প্রোডাক্ট ফেচ করার লজিক
       window.addEventListener('DOMContentLoaded', async () => {
         const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('product_id') || urlParams.get('id');
         const affiliateId = urlParams.get('ref') || urlParams.get('aff');
 
         if(affiliateId) {
@@ -22,35 +20,6 @@
 
         let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
         
-        if (productId) {
-            const { data, error } = await _supabase
-                .from('products')
-                .select('*')
-                .eq('id', productId)
-                .single();
-
-            if (data) {
-                let activeAff = affiliateId || sessionStorage.getItem('mme_active_aff') || 'AFF-MASTER';
-                if(!cartItems.some(i => i.productId == data.id)) {
-                    cartItems.push({
-                        cartId: Date.now(),
-                        productId: data.id,
-                        title: data.title || data.name || "Exclusive Enterprise Item",
-                        price: data.price || data.global || "$35.00",
-                        quantity: 1,
-                        color: "Standard",
-                        size: "Standard",
-                        sellerId: data.seller_id || 'VEN-MASUD',
-                        image: data.image_url || data.imgUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
-                        affiliateRef: activeAff
-                    });
-                    localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-                    sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-                }
-            }
-        }
-        
-        // কার্ট কাউন্ট আপডেট করা
         let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
         let badgeEl = document.getElementById('cartCount');
         if(badgeEl) badgeEl.innerText = totalCount;
@@ -82,7 +51,6 @@
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 68px; padding-bottom: 95px; }
 
-        /* HEADER SECTION */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -112,7 +80,6 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* CROSS BUTTON */
         .golden-cross-btn-top-right { 
             background: transparent; 
             border: 1.5px solid var(--gold-solid); 
@@ -134,7 +101,6 @@
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
-        /* TOAST NOTIFICATION */
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
@@ -144,7 +110,6 @@
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
         .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
@@ -158,7 +123,6 @@
         .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
-        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -170,7 +134,6 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODAL */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
@@ -186,7 +149,6 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* FLOATING CART STYLING */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes smoothCartCenterBounce { 
@@ -198,7 +160,6 @@
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* MASONRY GRID */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
@@ -221,7 +182,6 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
@@ -245,7 +205,6 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* CYCLING BOX */
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -273,7 +232,6 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* FOOTER NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
@@ -291,7 +249,6 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER -->
     <header class="app-header">
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -307,7 +264,6 @@
         </div>
     </header>
 
-    <!-- SECRET IN-PAGE ADMIN MODAL -->
     <div class="secret-admin-overlay" id="secretAdminOverlay">
         <div class="secret-admin-box">
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
@@ -385,7 +341,6 @@
         </div>
     </div>
 
-    <!-- CUSTOMER DETAILS POPUP MODAL -->
     <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
         <div class="category-modal-box" style="text-align: left;">
             <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
@@ -394,7 +349,6 @@
         </div>
     </div>
 
-    <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
@@ -418,7 +372,6 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODAL -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
@@ -447,16 +400,13 @@
         </div>
     </div>
 
-    <!-- Floating Cart -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- MASONRY PRODUCT FEED -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -516,7 +466,6 @@
                     <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <!-- বাটন নাম পরিবর্তন করে শুধু Add To Cart করা হলো এবং রিডায়রেক্ট তুলে দেওয়া হলো -->
                 <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
                     Add To Cart
                 </button>
@@ -524,7 +473,6 @@
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -542,7 +490,6 @@
         </div>
     </nav>
 
-    <!-- CLIENT & SCRIPT LOGIC -->
     <script>
         const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
         let logoTapCount = 0;
@@ -1074,7 +1021,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (কোনো রিডায়রেক্ট ছাড়াই শুধু কার্টে যোগ করবে)
+        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সরাসরি সাব-ডোমেইনে পাঠাবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             cartItems.push({
@@ -1097,11 +1044,15 @@
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-            showCustomToast("Product added to cart successfully!");
+
+            setTimeout(() => {
+                window.location.href = `https://out.mrmasudar.com/?product_id=${activeCurrentProduct.id}&ref=${currentAffiliateId}`;
+            }, 800);
         }
 
+        // কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনে রিডায়রেক্ট করবে
         function handleCartClick() {
-            showCustomToast(`Cart Items Count: ${cartCount}`);
+            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
         }
 
         function performSearchSubmit() {
@@ -1145,75 +1096,3 @@
     </script>
 </body>
 </html>
-// Add To Cart ফাংশন (কোনো রিডায়রেক্ট ছাড়াই শুধু কার্টে যোগ করবে)
-        function addToCartWithSelection() {
-            if(!activeCurrentProduct) return;
-            cartItems.push({
-                cartId: Date.now() + Math.random(),
-                productId: activeCurrentProduct.id,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId
-            });
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            
-            closeProductModal();
-            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-            showCustomToast("Product added to cart successfully!");
-        }
-
-        function handleCartClick() {
-            showCustomToast(`Cart Items Count: ${cartCount}`);
-        }
-// Supabase-এ কার্ট ডাটা সেভ করে সাব-ডোমেইনে পাঠানোর ফাংশন
-        async function addToCartWithSelection() {
-            if(!activeCurrentProduct) return;
-            
-            let newItem = {
-                cart_token: localStorage.getItem('mme_cart_token') || ('cart_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9)),
-                productId: activeCurrentProduct.id,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId
-            };
-
-            localStorage.setItem('mme_cart_token', newItem.cart_token);
-            cartItems.push(newItem);
-
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            
-            // Supabase-এর 'carts' টেবিলে সেভ করা
-            try {
-                await _supabase.from('carts').insert([newItem]);
-            } catch(e) {
-                console.log("Cart sync error:", e);
-            }
-            
-            closeProductModal();
-            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-
-            setTimeout(() => {
-                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
-            }, 800);
-        }
-
-        async function handleCartClick() {
-            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
-        }
