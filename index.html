@@ -1174,3 +1174,46 @@
         function handleCartClick() {
             showCustomToast(`Cart Items Count: ${cartCount}`);
         }
+// Supabase-এ কার্ট ডাটা সেভ করে সাব-ডোমেইনে পাঠানোর ফাংশন
+        async function addToCartWithSelection() {
+            if(!activeCurrentProduct) return;
+            
+            let newItem = {
+                cart_token: localStorage.getItem('mme_cart_token') || ('cart_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9)),
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId
+            };
+
+            localStorage.setItem('mme_cart_token', newItem.cart_token);
+            cartItems.push(newItem);
+
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            
+            // Supabase-এর 'carts' টেবিলে সেভ করা
+            try {
+                await _supabase.from('carts').insert([newItem]);
+            } catch(e) {
+                console.log("Cart sync error:", e);
+            }
+            
+            closeProductModal();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
+
+            setTimeout(() => {
+                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
+            }, 800);
+        }
+
+        async function handleCartClick() {
+            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
+        }
