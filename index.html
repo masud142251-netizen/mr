@@ -49,7 +49,6 @@
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
             --danger-red: #ff3b30;
-            --success-green: #28a745;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -71,14 +70,6 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .golden-cross-btn-top-right { 
-            background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
-            width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
-            cursor: pointer; font-size: 1.1rem; font-weight: bold; position: absolute; top: 25px; right: 28px; z-index: 4500;
-            box-shadow: 0 0 20px rgba(212,175,55,0.7); transition: all 0.3s ease;
-        }
-        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; transform: scale(1.12); }
-
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
@@ -87,13 +78,6 @@
         }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
-        @keyframes smoothCartCenterBounce { 
-            0% { transform: scale(1) translate(0, 0) rotate(0deg); } 
-            38% { transform: scale(1.65) translate(-42vw, -36vh) rotate(-15deg); filter: drop-shadow(0 0 35px var(--gold-solid)); } 
-            70% { transform: scale(1.1) translate(0, 0) rotate(5deg); }
-            100% { transform: scale(1) translate(0, 0) rotate(0deg); } 
-        }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
@@ -115,8 +99,16 @@
         .action-item.share-icon i { color: var(--gold-solid); }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 20px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
+        .golden-cross-btn-top-right { 
+            background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
+            width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 1.1rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 4500;
+            box-shadow: 0 0 20px rgba(212,175,55,0.7); transition: all 0.3s ease;
+        }
+        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; transform: scale(1.12); }
+
         .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; position: relative; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -131,18 +123,13 @@
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.5rem; padding: 2px 5px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
 
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
-        .cycling-content-item.active { display: block; }
-        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(5px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
-
         .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
+        
         .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; }
         .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
-
-        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
@@ -185,7 +172,7 @@
 
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto; float:right; margin-bottom:10px;" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-thumbs-row" id="modalThumbsRow"></div>
@@ -218,17 +205,17 @@
 
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com')"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com')"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com')"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
             <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
+            <input type="text" id="searchInput" placeholder="Search product...">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()"></i>
-                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <i class="fa-solid fa-camera"></i>
+                <i class="fa-solid fa-microphone"></i>
+                <button class="search-submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </nav>
@@ -260,41 +247,14 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
         }
 
-        function playCoinSoundAndAnimation(buttonEl) {
-            try {
-                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
-                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
-                
-                let coin = document.createElement('div');
-                coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
-                document.body.appendChild(coin);
-
-                setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
-                    coin.style.transform = 'scale(0.25) rotate(1080deg)';
-                    coin.style.opacity = '0.1';
-                }, 50);
-
-                setTimeout(() => {
-                    coin.remove();
-                    const cartEl = document.getElementById('floatingCart');
-                    cartEl.classList.add('smooth-center-bounce');
-                    setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 1400);
-                }, 1300);
-            } catch(e) {}
-        }
-
         function getAllProducts() {
             return [
                 {
-                    id: 1, title: "Unboxing a RARE Dior Bag", price: "$185.00", bdDiscount: "BD 20% OFF",
+                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
                     sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                    desc: "Exquisite hand-stitched luxury bag."
+                    desc: "Exquisite hand-stitched luxury gown."
                 }
             ];
         }
@@ -367,21 +327,16 @@
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             updateCartBadgeCount();
             closeProductModal();
-            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
             showCustomToast("Product added to cart!");
         }
 
-        // মূল সমাধান: ঝুড়িতে ক্লিক করলে কার্ট ডেটা এনকোড করে সাব-ডোমেইনে পাস করা হবে
+        // হোমপেজের ঝুড়িতে ক্লিক করলে সাব-ডোমেইনে কার্ট ডেটা পাস করা হবে
         function handleCartClick() {
             let cartItems = localStorage.getItem('mme_cart_items') || '[]';
             let encodedData = encodeURIComponent(cartItems);
             window.location.href = `https://out.mrmasudar.com?cart=${encodedData}&ref=${currentAffiliateId}`;
         }
 
-        function performSearchSubmit() {}
-        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-        function triggerCameraAuto() {}
-        function triggerVoiceAuto() {}
         function openEcosystemPage(url) { window.open(url, '_blank'); }
     </script>
 </body>
