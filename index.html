@@ -2,37 +2,61 @@
 <html lang="bn">
 <head>
     <!-- Supabase CDN Script -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  // সুপাবেস কানেকশন ইনিশিয়ালাইজেশন
-  const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
-  const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30'; // আপনার প্রোভাইড করা অ্যানন কি
-  
-  const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    <script>
+      const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
+      const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
+      const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-  // পেজ লোড হওয়ার সাথে সাথে URL থেকে প্রোডাক্ট আইডি ধরে সুপাবেস থেকে ছবি ও তথ্য নিয়ে আসার ফাংশন
-  window.addEventListener('DOMContentLoaded', async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('product_id');
-    const affiliateId = urlParams.get('ref'); // অ্যাফিলিয়েট আইডি ধরা
+      // পেজ লোড ও Supabase থেকে প্রোডাক্ট ফেচ করার লজিক
+      window.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('product_id') || urlParams.get('id');
+        const affiliateId = urlParams.get('ref') || urlParams.get('aff');
 
-    if (productId) {
-      // সুপাবেসের products টেবিল থেকে নির্দিষ্ট প্রোডাক্ট ফেচ করা
-      const { data, error } = await _supabase
-        .from('products')
-        .select('*')
-        .eq('id', productId)
-        .single();
+        if(affiliateId) {
+            sessionStorage.setItem('mme_active_aff', affiliateId);
+            localStorage.setItem('mme_active_aff', affiliateId);
+        }
 
-      if (data) {
-        console.log("Product Loaded:", data);
-      } else {
-        console.error("Product not found:", error);
-      }
-    }
-  });
-</script>
+        let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+        
+        if (productId) {
+            const { data, error } = await _supabase
+                .from('products')
+                .select('*')
+                .eq('id', productId)
+                .single();
+
+            if (data) {
+                let activeAff = affiliateId || sessionStorage.getItem('mme_active_aff') || 'AFF-MASTER';
+                if(!cartItems.some(i => i.productId == data.id)) {
+                    cartItems.push({
+                        cartId: Date.now(),
+                        productId: data.id,
+                        title: data.title || data.name || "Exclusive Enterprise Item",
+                        price: data.price || data.global || "$35.00",
+                        quantity: 1,
+                        color: "Standard",
+                        size: "Standard",
+                        sellerId: data.seller_id || 'VEN-MASUD',
+                        image: data.image_url || data.imgUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                        affiliateRef: activeAff
+                    });
+                    localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+                    sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+                }
+            }
+        }
+        
+        // কার্ট কাউন্ট আপডেট করা
+        let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        let badgeEl = document.getElementById('cartCount');
+        if(badgeEl) badgeEl.innerText = totalCount;
+      });
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MRMASUDAR.COM - Supreme Enterprise & Luxury Hub</title>
@@ -41,9 +65,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Supabase Cloud SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
         :root {
             --bg-black: #080808;
@@ -61,7 +82,7 @@
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 68px; padding-bottom: 95px; }
 
-        /* HEADER SECTION - MOBILE OPTIMIZED */
+        /* HEADER SECTION */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -165,7 +186,7 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* FLOATING CART STYLING (UNCHANGED) */
+        /* FLOATING CART STYLING */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes smoothCartCenterBounce { 
@@ -264,14 +285,13 @@
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
-        #hiddenCameraInput { display: none; }
     </style>
 </head>
 <body>
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER (LOGO & BRAND TITLE WITH 3-TAP SECRET ADMIN TRIGGER) -->
+    <!-- HEADER -->
     <header class="app-header">
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -293,7 +313,6 @@
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
             
-            <!-- BLANK PASSWORD LOGIN FORM -->
             <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
                 <div class="auth-form-group" style="margin-bottom:10px; text-align:left;">
                     <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
@@ -302,19 +321,16 @@
                 <button type="button" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4);" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
             </div>
 
-            <!-- ADMIN DASHBOARD PANEL -->
             <div id="adminDashboardSec" style="display: none;">
-                <!-- ADMIN TABS -->
                 <div class="admin-tab-buttons">
                     <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
                     <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
                     <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS WITH BATCH SYSTEM & SEPARATE SELLER/AFFILIATE IDS -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log (20k Batch System Active)</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -336,7 +352,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: EDIT VIEWS & LIKES -->
                 <div id="adminProductsTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
                         <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
@@ -356,7 +371,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: SELLER & AFFILIATE DISPATCH -->
                 <div id="adminSellersTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
                         <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
@@ -364,10 +378,9 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, organizes into 20k batches, and synchronizes the dispatch message directly to out.mrmasudar.com (Checkout Hub).
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID and coordinates with out.mrmasudar.com.
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -434,8 +447,8 @@
         </div>
     </div>
 
-    <!-- Floating Cart - Unchanged, but clicking redirects directly to out.mrmasudar.com -->
-    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckoutRedirect()">
+    <!-- Floating Cart -->
+    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
@@ -503,8 +516,9 @@
                     <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
                 </div>
+                <!-- বাটন নাম পরিবর্তন করে শুধু Add To Cart করা হলো এবং রিডায়রেক্ট তুলে দেওয়া হলো -->
                 <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
-                    Add To Cart & Checkout
+                    Add To Cart
                 </button>
             </div>
         </div>
@@ -610,7 +624,7 @@
             let tbody = document.getElementById('adminOrdersTableBody');
             
             if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders recorded yet. (Handled via out.mrmasudar.com)</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders recorded yet.</td></tr>`;
             } else {
                 tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
                     <tr>
@@ -689,13 +703,6 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
-        // AUTOMATIC AFFILIATE & REF CAPTURE FROM URL
-        let urlParams = new URLSearchParams(window.location.search);
-        let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
-        if(urlAff) { 
-            sessionStorage.setItem('mme_active_aff', urlAff); 
-            localStorage.setItem('mme_active_aff', urlAff); 
-        }
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -703,7 +710,8 @@
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
                 cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                document.getElementById('cartCount').innerText = cartCount;
+                let badge = document.getElementById('cartCount');
+                if(badge) badge.innerText = cartCount;
             }
             loadCombinedProducts();
         });
@@ -1066,6 +1074,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
+        // Add To Cart ফাংশন (কোনো রিডায়রেক্ট ছাড়াই শুধু কার্টে যোগ করবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             cartItems.push({
@@ -1083,20 +1092,16 @@
             cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').innerText = cartCount;
             
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-
-            // Redirecting to Checkout Sub-domain (out.mrmasudar.com)
-            setTimeout(() => {
-                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&product_id=${activeCurrentProduct.id}`;
-            }, 800);
+            showCustomToast("Product added to cart successfully!");
         }
 
-        function handleCartCheckoutRedirect() {
-            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
+        function handleCartClick() {
+            showCustomToast(`Cart Items Count: ${cartCount}`);
         }
 
         function performSearchSubmit() {
