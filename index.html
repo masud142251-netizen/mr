@@ -19,7 +19,6 @@
         }
 
         let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
-        
         let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
         let badgeEl = document.getElementById('cartCount');
         if(badgeEl) badgeEl.innerText = totalCount;
@@ -143,6 +142,7 @@
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+        /* সাব-ডোমেইন পপআপ আইফ্রেম মডাল (অন্যান্য ইকোসিস্টেম মডিউলের মতো) */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
@@ -390,6 +390,7 @@
         </div>
     </div>
 
+    <!-- সাব-ডোমেইনের কার্ট ও চেকআউট পেজ দেখানোর জন্য পপ-আপ আইফ্রেম মডাল -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -1021,7 +1022,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (কার্টে প্রোডাক্ট সেভ করে সাব-ডোমেইনে কার্ট ডাটা সহ পাঠিয়ে দেবে)
+        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সাব-ডোমেইনের আইফ্রেম পপ-আপে ওপেন করবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
@@ -1047,18 +1048,22 @@
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
 
-            // সাব-ডোমেইনে সম্পূর্ণ কার্ট ডাটা পাস করা
+            // কার্টে প্রোডাক্ট যোগ করার পর সরাসরি হোমপেজের ভেতরেই সাব-ডোমেইনের পেজটি পপ-আপ আইফ্রেম আকারে ওপেন হবে
             let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            
             setTimeout(() => {
-                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+                openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
             }, 800);
         }
 
-        // কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনে কার্ট ডাটা সহ রিডায়রেক্ট হবে
+        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে হোমপেজের পপ-আপ মডালেই সাব-ডোমেইনের কার্ট পেজটি দেখাবে
         function handleCartClick() {
             let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
             let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
-            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            
+            openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
         }
 
         function performSearchSubmit() {
