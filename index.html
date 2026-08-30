@@ -1021,13 +1021,10 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সরাসরি সাব-ডোমেইনে পাঠাবে)
-        function addToCartWithSelection() {
-            // আপডেট করা অ্যাড টু কার্ট ফাংশন (পুরো কার্ট ডাটা সাব-ডোমেইনে পাঠাবে)
+        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সাব-ডোমেইনে সম্পূর্ণ কার্ট ডাটা পাঠাবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
-            // নতুন প্রোডাক্টটি কার্ট অ্যারেতে যোগ করা
             cartItems.push({
                 cartId: Date.now() + Math.random(),
                 productId: activeCurrentProduct.id,
@@ -1044,56 +1041,23 @@
             cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').innerText = cartCount;
             
-            // লোকাল ও সেশন স্টোরেজে সেভ করা
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
 
-            // পুরো কার্ট ডাটা URL-এ এনকোড করে সাব-ডোমেইনে পাঠানো
             let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
             setTimeout(() => {
                 window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             }, 800);
         }
 
-        // কার্ট আইকনে ক্লিক করলে সম্পূর্ণ কার্ট ডাটা সহ সাব-ডোমেইনে রিডায়রেক্ট করা
+        // কার্ট আইকনে ক্লিক করলে সম্পূর্ণ কার্ট ডাটা সহ সাব-ডোমেইনে রিডায়রেক্ট হবে
         function handleCartClick() {
-            let cartDataToPass = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            let encodedCart = encodeURIComponent(JSON.stringify(cartDataToPass));
+            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
             window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
-        }
-            if(!activeCurrentProduct) return;
-            cartItems.push({
-                cartId: Date.now() + Math.random(),
-                productId: activeCurrentProduct.id,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId
-            });
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            
-            closeProductModal();
-            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-
-            setTimeout(() => {
-                window.location.href = `https://out.mrmasudar.com/?product_id=${activeCurrentProduct.id}&ref=${currentAffiliateId}`;
-            }, 800);
-        }
-
-        // কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনে রিডায়রেক্ট করবে
-        function handleCartClick() {
-            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}`;
         }
 
         function performSearchSubmit() {
