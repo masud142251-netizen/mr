@@ -80,25 +80,26 @@
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
         .golden-cross-btn-top-right { 
-            background: transparent; 
+            background: rgba(18,18,18,0.95); 
             border: 1.5px solid var(--gold-solid); 
             color: var(--gold-solid); 
-            width: 30px; 
-            height: 30px; 
+            width: 34px; 
+            height: 34px; 
             border-radius: 50%; 
             display: inline-flex; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
-            font-size: 0.95rem; 
+            font-size: 1rem; 
             font-weight: bold; 
             position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 15;
-            transition: background 0.3s, color 0.3s;
+            top: 14px;
+            right: 14px;
+            z-index: 4100;
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
+            transition: all 0.3s ease;
         }
-        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
+        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; transform: scale(1.1); }
 
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
@@ -142,10 +143,17 @@
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* সাব-ডোমেইন পপআপ আইফ্রেম মডাল (অন্যান্য ইকোসিস্টেম মডিউলের মতো) */
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
-        .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        /* অতি লাক্সারি ও স্মুথ সাব-ডোমেইন পপআপ আইফ্রেম ওভারলে */
+        .ecosystem-modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.94); display: none; flex-direction: column; 
+            z-index: 4000; backdrop-filter: blur(14px); 
+            animation: modalFadeZoom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalFadeZoom {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
@@ -390,12 +398,9 @@
         </div>
     </div>
 
-    <!-- সাব-ডোমেইনের কার্ট ও চেকআউট পেজ দেখানোর জন্য পপ-আপ আইফ্রেম মডাল -->
+    <!-- সাব-ডোমেইনের কার্ট ও চেকআউট পেজ দেখানোর জন্য লাক্সারি সিঙ্গেল হেডারে পপ-আপ আইফ্রেম মডাল -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <div class="ecosystem-header">
-            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+        <button class="golden-cross-btn-top-right" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
@@ -781,7 +786,6 @@
         function openEcosystemPage(url, title, element) {
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             if(element) element.classList.add('active');
-            document.getElementById('ecosystemModalTitle').innerText = title;
             document.getElementById('ecosystemIframe').src = url;
             document.getElementById('ecosystemModal').style.display = 'flex';
         }
@@ -1022,7 +1026,7 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সাব-ডোমেইনের আইফ্রেম পপ-আপে ওপেন করবে)
+        // Add To Cart ফাংশন (লোকালস্টোরেজে সেভ করে সাব-ডোমেইনের কার্ট পেজটি পপআপে ওপেন করবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
@@ -1048,22 +1052,21 @@
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
 
-            // কার্টে প্রোডাক্ট যোগ করার পর সরাসরি হোমপেজের ভেতরেই সাব-ডোমেইনের পেজটি পপ-আপ আইফ্রেম আকারে ওপেন হবে
             let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
             let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             
             setTimeout(() => {
-                openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
+                openEcosystemPage(subDomainCartUrl);
             }, 800);
         }
 
-        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে হোমপেজের পপ-আপ মডালেই সাব-ডোমেইনের কার্ট পেজটি দেখাবে
+        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনের কার্ট পপ-আপ ওপেন হবে
         function handleCartClick() {
             let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
             let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
             let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             
-            openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
+            openEcosystemPage(subDomainCartUrl);
         }
 
         function performSearchSubmit() {
