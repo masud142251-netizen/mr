@@ -2,43 +2,29 @@
 <html lang="bn">
 <head>
     <!-- Supabase CDN Script -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  // সুপাবেস কানেকশন ইনিশিয়ালাইজেশন
-  const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
-  const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30'; // আপনার প্রোভাইড করা অ্যানন কি
-  
-  const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    <script>
+      const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
+      const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
+      const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-  // পেজ লোড হওয়ার সাথে সাথে URL থেকে প্রোডাক্ট আইডি ধরে সুপাবেস থেকে ছবি ও তথ্য নিয়ে আসার ফাংশন
-  window.addEventListener('DOMContentLoaded', async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('product_id');
-    const affiliateId = urlParams.get('ref'); // অ্যাফিলিয়েট আইডি ধরা
+      window.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const affiliateId = urlParams.get('ref') || urlParams.get('aff');
 
-    if (productId) {
-      // সুপাবেসের products টেবিল থেকে নির্দিষ্ট প্রোডাক্ট ফেচ করা
-      const { data, error } = await _supabase
-        .from('products')
-        .select('*')
-        .eq('id', productId)
-        .single();
+        if(affiliateId) {
+            sessionStorage.setItem('mme_active_aff', affiliateId);
+            localStorage.setItem('mme_active_aff', affiliateId);
+        }
 
-      if (data) {
-        // চেকআউট পেজে প্রোডাক্টের ছবি, নাম ও দাম অটো বসিয়ে দেওয়া
-        console.log("Product Loaded:", data);
-        
-        // উদাহরণস্বরূপ আপনার চেকআউট পেজের এলিমেন্টগুলোতে ডেটা বসানোর কোড:
-        // document.getElementById('product-image').src = data.product_image_url;
-        // document.getElementById('product-name').innerText = data.product_name;
-        // document.getElementById('product-price').innerText = '$' + data.global_price;
-      } else {
-        console.error("Product not found:", error);
-      }
-    }
-  });
-</script>
+        let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+        let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        let badgeEl = document.getElementById('cartCount');
+        if(badgeEl) badgeEl.innerText = totalCount;
+      });
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MRMASUDAR.COM - Supreme Enterprise & Luxury Hub</title>
@@ -47,9 +33,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Supabase Cloud SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
         :root {
             --bg-black: #080808;
@@ -67,7 +50,6 @@
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 68px; padding-bottom: 95px; }
 
-        /* HEADER SECTION - MOBILE OPTIMIZED */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -97,7 +79,6 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* CROSS BUTTON */
         .golden-cross-btn-top-right { 
             background: transparent; 
             border: 1.5px solid var(--gold-solid); 
@@ -119,7 +100,6 @@
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
-        /* TOAST NOTIFICATION */
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
@@ -129,7 +109,6 @@
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
         .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
@@ -143,7 +122,6 @@
         .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
-        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -155,7 +133,6 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODAL */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
@@ -165,13 +142,13 @@
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+        /* সাব-ডোমেইন পপআপ আইফ্রেম মডাল (অন্যান্য ইকোসিস্টেম মডিউলের মতো) */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* CHECKOUT FORM */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         @keyframes smoothCartCenterBounce { 
@@ -183,23 +160,6 @@
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 440px; border-radius: 20px; padding: 45px 16px 20px 16px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); text-align: center; }
-        .checkout-modal-title { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 14px; text-transform: uppercase; font-family: 'Cinzel', serif; }
-        .checkout-item-list { margin-bottom: 15px; max-height: 160px; overflow-y: auto; text-align: left; }
-        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; color: var(--text-white); }
-        .checkout-item-row img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
-        .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem; transition: background 0.3s; }
-        .delete-cart-item-btn:hover { background: var(--danger-red); color: white; }
-
-        .auth-form-group { margin-bottom: 10px; text-align: left; }
-        .auth-form-group label { display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase; }
-        .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none; }
-        .phone-input-row { display: flex; gap: 6px; }
-        .phone-input-row select { width: 175px; font-size: 0.62rem; }
-        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
-
-        /* MASONRY GRID */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
@@ -222,7 +182,6 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
@@ -246,7 +205,6 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* CYCLING BOX */
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -274,7 +232,6 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* FOOTER NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
@@ -286,14 +243,12 @@
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
-        #hiddenCameraInput { display: none; }
     </style>
 </head>
 <body>
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER (LOGO & BRAND TITLE WITH 3-TAP SECRET ADMIN TRIGGER) -->
     <header class="app-header">
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -309,34 +264,29 @@
         </div>
     </header>
 
-    <!-- SECRET IN-PAGE ADMIN MODAL -->
     <div class="secret-admin-overlay" id="secretAdminOverlay">
         <div class="secret-admin-box">
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
             
-            <!-- BLANK PASSWORD LOGIN FORM -->
             <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
-                <div class="auth-form-group">
-                    <label>Master Password *</label>
-                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off">
+                <div class="auth-form-group" style="margin-bottom:10px; text-align:left;">
+                    <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
+                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off" style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none;">
                 </div>
-                <button type="button" class="auth-submit-btn" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
+                <button type="button" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4);" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
             </div>
 
-            <!-- ADMIN DASHBOARD PANEL -->
             <div id="adminDashboardSec" style="display: none;">
-                <!-- ADMIN TABS -->
                 <div class="admin-tab-buttons">
                     <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
                     <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
                     <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS WITH BATCH SYSTEM & SEPARATE SELLER/AFFILIATE IDS -->
                 <div id="adminOrdersTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log (20k Batch System Active)</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="overflow-x: auto;">
@@ -358,7 +308,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: EDIT VIEWS & LIKES -->
                 <div id="adminProductsTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
                         <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
@@ -378,7 +327,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: SELLER & AFFILIATE DISPATCH -->
                 <div id="adminSellersTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
                         <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
@@ -386,15 +334,13 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, organizes into 20k batches, and synchronizes the dispatch message directly to the seller dashboard.
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID and coordinates with out.mrmasudar.com.
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- CUSTOMER DETAILS POPUP MODAL -->
     <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
         <div class="category-modal-box" style="text-align: left;">
             <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
@@ -403,7 +349,6 @@
         </div>
     </div>
 
-    <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
@@ -427,7 +372,6 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODAL -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
@@ -446,6 +390,7 @@
         </div>
     </div>
 
+    <!-- সাব-ডোমেইনের কার্ট ও চেকআউট পেজ দেখানোর জন্য পপ-আপ আইফ্রেম মডাল -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -456,407 +401,13 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM -->
-    <div class="checkout-modal-overlay" id="checkoutModalOverlay">
-        <div class="checkout-modal-box">
-            <h3 class="checkout-modal-title">Secure Paid Checkout</h3>
-            
-            <div class="checkout-item-list" id="checkoutItemList"></div>
-
-            <form onsubmit="handleOrderSubmit(event)">
-                <div class="auth-form-group">
-                    <label>Gmail Address *</label>
-                    <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
-                </div>
-                <div class="auth-form-group">
-                    <label>WhatsApp / Mobile Number *</label>
-                    <div class="phone-input-row">
-                        <select id="countryPhoneCode">
-                            <option value="+93">🇦🇫 +93 (Afghanistan)</option>
-                            <option value="+355">🇦🇱 +355 (Albania)</option>
-                            <option value="+213">🇩🇿 +213 (Algeria)</option>
-                            <option value="+376">🇦🇩 +376 (Andorra)</option>
-                            <option value="+244">🇦🇴 +244 (Angola)</option>
-                            <option value="+54">🇦🇷 +54 (Argentina)</option>
-                            <option value="+374">🇦🇲 +374 (Armenia)</option>
-                            <option value="+61">🇦🇺 +61 (Australia)</option>
-                            <option value="+43">🇦🇹 +43 (Austria)</option>
-                            <option value="+994">🇦🇿 +994 (Azerbaijan)</option>
-                            <option value="+973">🇧🇭 +973 (Bahrain)</option>
-                            <option value="+880" selected>🇧🇩 +880 (Bangladesh)</option>
-                            <option value="+375">🇧🇾 +375 (Belarus)</option>
-                            <option value="+32">🇧🇪 +32 (Belgium)</option>
-                            <option value="+501">🇧🇿 +501 (Belize)</option>
-                            <option value="+229">🇧🇯 +229 (Benin)</option>
-                            <option value="+975">🇧🇹 +975 (Bhutan)</option>
-                            <option value="+591">🇧🇴 +591 (Bolivia)</option>
-                            <option value="+387">🇧🇦 +387 (Bosnia)</option>
-                            <option value="+267">🇧🇼 +267 (Botswana)</option>
-                            <option value="+55">🇧🇷 +55 (Brazil)</option>
-                            <option value="+673">🇧🇳 +673 (Brunei)</option>
-                            <option value="+359">🇧🇬 +359 (Bulgaria)</option>
-                            <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
-                            <option value="+257">🇧🇮 +257 (Burundi)</option>
-                            <option value="+855">🇰🇭 +855 (Cambodia)</option>
-                            <option value="+237">🇨🇲 +237 (Cameroon)</option>
-                            <option value="+1">🇨🇦 +1 (Canada)</option>
-                            <option value="+238">🇨🇻 +238 (Cape Verde)</option>
-                            <option value="+236">🇨🇫 +236 (Central African Rep)</option>
-                            <option value="+235">🇹🇩 +235 (Chad)</option>
-                            <option value="+56">🇨🇱 +56 (Chile)</option>
-                            <option value="+86">🇨🇳 +86 (China)</option>
-                            <option value="+57">🇨🇴 +57 (Colombia)</option>
-                            <option value="+269">🇰🇲 +269 (Comoros)</option>
-                            <option value="+242">🇨🇬 +242 (Congo)</option>
-                            <option value="+506">🇨🇷 +506 (Costa Rica)</option>
-                            <option value="+385">🇭🇷 +385 (Croatia)</option>
-                            <option value="+53">🇨🇺 +53 (Cuba)</option>
-                            <option value="+357">🇨🇾 +357 (Cyprus)</option>
-                            <option value="+420">🇨🇿 +420 (Czech Republic)</option>
-                            <option value="+45">🇩🇰 +45 (Denmark)</option>
-                            <option value="+253">🇩🇯 +253 (Djibouti)</option>
-                            <option value="+1767">🇩🇲 +1767 (Dominica)</option>
-                            <option value="+1809">🇩🇴 +1809 (Dominican Republic)</option>
-                            <option value="+593">🇪🇨 +593 (Ecuador)</option>
-                            <option value="+20">🇪🇬 +20 (Egypt)</option>
-                            <option value="+503">🇸🇻 +503 (El Salvador)</option>
-                            <option value="+240">🇬🇶 +240 (Equatorial Guinea)</option>
-                            <option value="+291">🇪🇷 +291 (Eritrea)</option>
-                            <option value="+372">🇪🇪 +372 (Estonia)</option>
-                            <option value="+251">🇪🇹 +251 (Ethiopia)</option>
-                            <option value="+679">🇫🇯 +679 (Fiji)</option>
-                            <option value="+358">🇫🇮 +358 (Finland)</option>
-                            <option value="+33">🇫🇷 +33 (France)</option>
-                            <option value="+241">🇬🇦 +241 (Gabon)</option>
-                            <option value="+220">🇬🇲 +220 (Gambia)</option>
-                            <option value="+995">🇬🇪 +995 (Georgia)</option>
-                            <option value="+49">🇩🇪 +49 (Germany)</option>
-                            <option value="+233">🇬🇭 +233 (Ghana)</option>
-                            <option value="+30">🇬🇷 +30 (Greece)</option>
-                            <option value="+299">🇬🇱 +299 (Greenland)</option>
-                            <option value="+502">🇬🇹 +502 (Guatemala)</option>
-                            <option value="+224">🇬🇳 +224 (Guinea)</option>
-                            <option value="+245">🇬🇼 +245 (Guinea-Bissau)</option>
-                            <option value="+592">🇬🇾 +592 (Guyana)</option>
-                            <option value="+509">🇭🇹 +509 (Haiti)</option>
-                            <option value="+504">🇭🇳 +504 (Honduras)</option>
-                            <option value="+852">🇭🇰 +852 (Hong Kong)</option>
-                            <option value="+36">🇭🇺 +36 (Hungary)</option>
-                            <option value="+354">🇮🇸 +354 (Iceland)</option>
-                            <option value="+91">🇮🇳 +91 (India)</option>
-                            <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                            <option value="+98">🇮🇷 +98 (Iran)</option>
-                            <option value="+964">🇮🇶 +964 (Iraq)</option>
-                            <option value="+353">🇮🇪 +353 (Ireland)</option>
-                            <option value="+972">🇮🇱 +972 (Israel)</option>
-                            <option value="+39">🇮🇹 +39 (Italy)</option>
-                            <option value="+1876">🇯🇲 +1876 (Jamaica)</option>
-                            <option value="+81">🇯🇵 +81 (Japan)</option>
-                            <option value="+962">🇯🇴 +962 (Jordan)</option>
-                            <option value="+7">🇰🇿 +7 (Kazakhstan)</option>
-                            <option value="+254">🇰🇪 +254 (Kenya)</option>
-                            <option value="+965">🇰🇼 +965 (Kuwait)</option>
-                            <option value="+996">🇰🇬 +996 (Kyrgyzstan)</option>
-                            <option value="+856">🇱🇦 +856 (Laos)</option>
-                            <option value="+371">🇱🇻 +371 (Latvia)</option>
-                            <option value="+961">🇱🇧 +961 (Lebanon)</option>
-                            <option value="+266">🇱🇸 +266 (Lesotho)</option>
-                            <option value="+231">🇱🇷 +231 (Liberia)</option>
-                            <option value="+218">🇱🇾 +218 (Libya)</option>
-                            <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
-                            <option value="+370">🇱🇹 +370 (Lithuania)</option>
-                            <option value="+352">🇱🇺 +352 (Luxembourg)</option>
-                            <option value="+853">🇲🇴 +853 (Macau)</option>
-                            <option value="+389">🇲🇰 +389 (Macedonia)</option>
-                            <option value="+261">🇲🇬 +261 (Madagascar)</option>
-                            <option value="+265">🇲🇼 +265 (Malawi)</option>
-                            <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                            <option value="+960">🇲🇻 +960 (Maldives)</option>
-                            <option value="+223">🇲🇱 +223 (Mali)</option>
-                            <option value="+356">🇲🇹 +356 (Malta)</option>
-                            <option value="+222">🇲🇷 +222 (Mauritania)</option>
-                            <option value="+230">🇲🇺 +230 (Mauritius)</option>
-                            <option value="+52">🇲🇽 +52 (Mexico)</option>
-                            <option value="+373">🇲🇩 +373 (Moldova)</option>
-                            <option value="+377">🇲🇨 +377 (Monaco)</option>
-                            <option value="+976">🇲🇳 +976 (Mongolia)</option>
-                            <option value="+382">🇲🇪 +382 (Montenegro)</option>
-                            <option value="+212">🇲🇦 +212 (Morocco)</option>
-                            <option value="+258">🇲🇿 +258 (Mozambique)</option>
-                            <option value="+95">🇲🇲 +95 (Myanmar)</option>
-                            <option value="+264">🇳🇦 +264 (Namibia)</option>
-                            <option value="+977">🇳🇵 +977 (Nepal)</option>
-                            <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                            <option value="+64">🇳🇿 +64 (New Zealand)</option>
-                            <option value="+505">🇳🇮 +505 (Nicaragua)</option>
-                            <option value="+227">🇳🇪 +227 (Niger)</option>
-                            <option value="+234">🇳🇬 +234 (Nigeria)</option>
-                            <option value="+850">🇰🇵 +850 (North Korea)</option>
-                            <option value="+47">🇳🇴 +47 (Norway)</option>
-                            <option value="+968">🇴🇲 +968 (Oman)</option>
-                            <option value="+92">🇵🇰 +92 (Pakistan)</option>
-                            <option value="+970">🇵🇸 +970 (Palestine)</option>
-                            <option value="+507">🇵🇦 +507 (Panama)</option>
-                            <option value="+675">🇵🇬 +675 (Papua New Guinea)</option>
-                            <option value="+595">🇵🇾 +595 (Paraguay)</option>
-                            <option value="+51">🇵🇪 +51 (Peru)</option>
-                            <option value="+63">🇵🇭 +63 (Philippines)</option>
-                            <option value="+48">🇵🇱 +48 (Poland)</option>
-                            <option value="+351">🇵🇹 +351 (Portugal)</option>
-                            <option value="+974">🇶🇦 +974 (Qatar)</option>
-                            <option value="+40">🇷🇴 +40 (Romania)</option>
-                            <option value="+7">🇷🇺 +7 (Russia)</option>
-                            <option value="+250">🇷🇼 +250 (Rwanda)</option>
-                            <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
-                            <option value="+221">🇸🇳 +221 (Senegal)</option>
-                            <option value="+381">🇷🇸 +381 (Serbia)</option>
-                            <option value="+248">🇸🇨 +248 (Seychelles)</option>
-                            <option value="+232">🇸🇱 +232 (Sierra Leone)</option>
-                            <option value="+65">🇸🇬 +65 (Singapore)</option>
-                            <option value="+421">🇸🇰 +421 (Slovakia)</option>
-                            <option value="+386">🇸🇮 +386 (Slovenia)</option>
-                            <option value="+252">🇸🇴 +252 (Somalia)</option>
-                            <option value="+27">🇿🇦 +27 (South Africa)</option>
-                            <option value="+82">🇰🇷 +82 (South Korea)</option>
-                            <option value="+34">🇪🇸 +34 (Spain)</option>
-                            <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
-                            <option value="+249">🇸🇩 +249 (Sudan)</option>
-                            <option value="+597">🇸🇷 +597 (Suriname)</option>
-                            <option value="+46">🇸🇪 +46 (Sweden)</option>
-                            <option value="+41">🇨🇭 +41 (Switzerland)</option>
-                            <option value="+963">🇸🇾 +963 (Syria)</option>
-                            <option value="+886">🇹🇼 +886 (Taiwan)</option>
-                            <option value="+992">🇹🇯 +992 (Tajikistan)</option>
-                            <option value="+255">🇹🇿 +255 (Tanzania)</option>
-                            <option value="+66">🇹🇭 +66 (Thailand)</option>
-                            <option value="+228">🇹🇬 +228 (Togo)</option>
-                            <option value="+676">🇹🇴 +676 (Tonga)</option>
-                            <option value="+216">🇹🇳 +216 (Tunisia)</option>
-                            <option value="+90">🇹🇷 +90 (Turkey)</option>
-                            <option value="+993">🇹🇲 +993 (Turkmenistan)</option>
-                            <option value="+256">🇺🇬 +256 (Uganda)</option>
-                            <option value="+380">🇺🇦 +380 (Ukraine)</option>
-                            <option value="+971">🇦🇪 +971 (United Arab Emirates)</option>
-                            <option value="+44">🇬🇧 +44 (United Kingdom)</option>
-                            <option value="+1">🇺🇸 +1 (United States)</option>
-                            <option value="+598">🇺🇾 +598 (Uruguay)</option>
-                            <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
-                            <option value="+58">🇻🇪 +58 (Venezuela)</option>
-                            <option value="+84">🇻🇳 +84 (Vietnam)</option>
-                            <option value="+967">🇾🇪 +967 (Yemen)</option>
-                            <option value="+260">🇿🇲 +260 (Zambia)</option>
-                            <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
-                        </select>
-                        <input type="tel" id="custPhoneNum" required placeholder="1710000000">
-                    </div>
-                </div>
-                <div class="auth-form-group">
-                    <label>Full Name *</label>
-                    <input type="text" id="custName" required placeholder="Enter full name">
-                </div>
-                <div class="auth-form-group">
-                    <label>Delivery Address *</label>
-                    <textarea id="custAddress" rows="2" required placeholder="House, Road, Area"></textarea>
-                </div>
-                <div class="auth-form-group">
-                    <label>City / District *</label>
-                    <input type="text" id="custCity" required placeholder="City name">
-                </div>
-                <div class="auth-form-group">
-                    <label>Country *</label>
-                    <select id="custCountry" required onchange="syncCountryCodeWithDropdown(this.value)">
-                        <option value="Afghanistan">🇦🇫 Afghanistan</option>
-                        <option value="Albania">🇦🇱 Albania</option>
-                        <option value="Algeria">🇩🇿 Algeria</option>
-                        <option value="Andorra">🇦🇩 Andorra</option>
-                        <option value="Angola">🇦🇴 Angola</option>
-                        <option value="Argentina">🇦🇷 Argentina</option>
-                        <option value="Armenia">🇦🇲 Armenia</option>
-                        <option value="Australia">🇦🇺 Australia</option>
-                        <option value="Austria">🇦🇹 Austria</option>
-                        <option value="Azerbaijan">🇦🇿 Azerbaijan</option>
-                        <option value="Bahrain">🇧🇭 Bahrain</option>
-                        <option value="Bangladesh" selected>🇧🇩 Bangladesh</option>
-                        <option value="Belarus">🇧🇾 Belarus</option>
-                        <option value="Belgium">🇧🇪 Belgium</option>
-                        <option value="Belize">🇧🇿 Belize</option>
-                        <option value="Benin">🇧🇯 Benin</option>
-                        <option value="Bhutan">🇧🇹 Bhutan</option>
-                        <option value="Bolivia">🇧🇴 Bolivia</option>
-                        <option value="Bosnia and Herzegovina">🇧🇦 Bosnia and Herzegovina</option>
-                        <option value="Botswana">🇧🇼 Botswana</option>
-                        <option value="Brazil">🇧🇷 Brazil</option>
-                        <option value="Brunei">🇧🇳 Brunei</option>
-                        <option value="Bulgaria">🇧🇬 Bulgaria</option>
-                        <option value="Burkina Faso">🇧🇫 Burkina Faso</option>
-                        <option value="Burundi">🇧🇮 Burundi</option>
-                        <option value="Cambodia">🇰🇭 Cambodia</option>
-                        <option value="Cameroon">🇨🇲 Cameroon</option>
-                        <option value="Canada">🇨🇦 Canada</option>
-                        <option value="Cape Verde">🇨🇻 Cape Verde</option>
-                        <option value="Central African Republic">🇨🇫 Central African Republic</option>
-                        <option value="Chad">🇹🇩 Chad</option>
-                        <option value="Chile">🇨🇱 Chile</option>
-                        <option value="China">🇨🇳 China</option>
-                        <option value="Colombia">🇨🇴 Colombia</option>
-                        <option value="Comoros">🇰🇲 Comoros</option>
-                        <option value="Congo">🇨🇬 Congo</option>
-                        <option value="Costa Rica">🇨🇷 Costa Rica</option>
-                        <option value="Croatia">🇭🇷 Croatia</option>
-                        <option value="Cuba">🇨🇺 Cuba</option>
-                        <option value="Cyprus">🇨🇾 Cyprus</option>
-                        <option value="Czech Republic">🇨🇿 Czech Republic</option>
-                        <option value="Denmark">🇩🇰 Denmark</option>
-                        <option value="Djibouti">🇩🇯 Djibouti</option>
-                        <option value="Dominica">🇩🇲 Dominica</option>
-                        <option value="Dominican Republic">🇩🇴 Dominican Republic</option>
-                        <option value="Ecuador">🇪🇨 Ecuador</option>
-                        <option value="Egypt">🇪🇬 Egypt</option>
-                        <option value="El Salvador">🇸🇻 El Salvador</option>
-                        <option value="Equatorial Guinea">🇬🇶 Equatorial Guinea</option>
-                        <option value="Eritrea">🇪🇷 Eritrea</option>
-                        <option value="Estonia">🇪🇪 Estonia</option>
-                        <option value="Ethiopia">🇪🇹 Ethiopia</option>
-                        <option value="Fiji">🇫🇯 Fiji</option>
-                        <option value="Finland">🇫🇮 Finland</option>
-                        <option value="France">🇫🇷 France</option>
-                        <option value="Gabon">🇬🇦 Gabon</option>
-                        <option value="Gambia">🇬🇲 Gambia</option>
-                        <option value="Georgia">🇬🇪 Georgia</option>
-                        <option value="Germany">🇩🇪 Germany</option>
-                        <option value="Ghana">🇬🇭 Ghana</option>
-                        <option value="Greece">🇬🇷 Greece</option>
-                        <option value="Greenland">🇬🇱 Greenland</option>
-                        <option value="Guatemala">🇬🇹 Guatemala</option>
-                        <option value="Guinea">🇬🇳 Guinea</option>
-                        <option value="Guinea-Bissau">🇬🇼 Guinea-Bissau</option>
-                        <option value="Guyana">🇬🇾 Guyana</option>
-                        <option value="Haiti">🇭🇹 Haiti</option>
-                        <option value="Honduras">🇭🇳 Honduras</option>
-                        <option value="Hong Kong">🇭🇰 Hong Kong</option>
-                        <option value="Hungary">🇭🇺 Hungary</option>
-                        <option value="Iceland">🇮🇸 Iceland</option>
-                        <option value="India">🇮🇳 India</option>
-                        <option value="Indonesia">🇮🇩 Indonesia</option>
-                        <option value="Iran">🇮🇷 Iran</option>
-                        <option value="Iraq">🇮🇶 Iraq</option>
-                        <option value="Ireland">🇮🇪 Ireland</option>
-                        <option value="Israel">🇮🇱 Israel</option>
-                        <option value="Italy">🇮🇹 Italy</option>
-                        <option value="Jamaica">🇯🇲 Jamaica</option>
-                        <option value="Japan">🇯🇵 Japan</option>
-                        <option value="Jordan">🇯🇴 Jordan</option>
-                        <option value="Kazakhstan">🇰🇿 Kazakhstan</option>
-                        <option value="Kenya">🇰🇪 Kenya</option>
-                        <option value="Kuwait">🇰🇼 Kuwait</option>
-                        <option value="Kyrgyzstan">🇰🇬 Kyrgyzstan</option>
-                        <option value="Laos">🇱🇦 Laos</option>
-                        <option value="Latvia">🇱🇻 Latvia</option>
-                        <option value="Lebanon">🇱🇧 Lebanon</option>
-                        <option value="Lesotho">🇱🇸 Lesotho</option>
-                        <option value="Liberia">🇱🇷 Liberia</option>
-                        <option value="Libya">🇱🇾 Libya</option>
-                        <option value="Liechtenstein">🇱🇮 Liechtenstein</option>
-                        <option value="Lithuania">🇱🇹 Lithuania</option>
-                        <option value="Luxembourg">🇱🇺 Luxembourg</option>
-                        <option value="Macau">🇲🇴 Macau</option>
-                        <option value="Macedonia">🇲🇰 Macedonia</option>
-                        <option value="Madagascar">🇲🇬 Madagascar</option>
-                        <option value="Malawi">🇲🇼 Malawi</option>
-                        <option value="Malaysia">🇲🇾 Malaysia</option>
-                        <option value="Maldives">🇲🇻 Maldives</option>
-                        <option value="Mali">🇲🇱 Mali</option>
-                        <option value="Malta">🇲🇹 Malta</option>
-                        <option value="Mauritania">🇲🇷 Mauritania</option>
-                        <option value="Mauritius">🇲🇺 Mauritius</option>
-                        <option value="Mexico">🇲🇽 Mexico</option>
-                        <option value="Moldova">🇲🇩 Moldova</option>
-                        <option value="Monaco">🇲🇨 Monaco</option>
-                        <option value="Mongolia">🇲🇳 Mongolia</option>
-                        <option value="Montenegro">🇲🇪 Montenegro</option>
-                        <option value="Morocco">🇲🇦 Morocco</option>
-                        <option value="Mozambique">🇲🇿 Mozambique</option>
-                        <option value="Myanmar">🇲🇲 Myanmar</option>
-                        <option value="Namibia">🇳🇦 Namibia</option>
-                        <option value="Nepal">🇳🇵 Nepal</option>
-                        <option value="Netherlands">🇳🇱 Netherlands</option>
-                        <option value="New Zealand">🇳🇿 New Zealand</option>
-                        <option value="Nicaragua">🇳🇮 Nicaragua</option>
-                        <option value="Niger">🇳🇪 Niger</option>
-                        <option value="Nigeria">🇳🇬 Nigeria</option>
-                        <option value="North Korea">🇰🇵 North Korea</option>
-                        <option value="Norway">🇳🇴 Norway</option>
-                        <option value="Oman">🇴🇲 Oman</option>
-                        <option value="Pakistan">🇵🇰 Pakistan</option>
-                        <option value="Palestine">🇵🇸 Palestine</option>
-                        <option value="Panama">🇵🇦 Panama</option>
-                        <option value="Papua New Guinea">🇵🇬 Papua New Guinea</option>
-                        <option value="Paraguay">🇵🇾 Paraguay</option>
-                        <option value="Peru">🇵🇪 Peru</option>
-                        <option value="Philippines">🇵🇭 Philippines</option>
-                        <option value="Poland">🇵🇱 Poland</option>
-                        <option value="Portugal">🇵🇹 Portugal</option>
-                        <option value="Qatar">🇶🇦 Qatar</option>
-                        <option value="Romania">🇷🇴 Romania</option>
-                        <option value="Russia">🇷🇺 Russia</option>
-                        <option value="Rwanda">🇷🇼 Rwanda</option>
-                        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
-                        <option value="Senegal">🇸🇳 Senegal</option>
-                        <option value="Serbia">🇷🇸 Serbia</option>
-                        <option value="Seychelles">🇸🇨 Seychelles</option>
-                        <option value="Sierra Leone">🇸🇱 Sierra Leone</option>
-                        <option value="Singapore">🇸🇬 Singapore</option>
-                        <option value="Slovakia">🇸🇰 Slovakia</option>
-                        <option value="Slovenia">🇸🇮 Slovenia</option>
-                        <option value="Somalia">🇸🇴 Somalia</option>
-                        <option value="South Africa">🇿🇦 South Africa</option>
-                        <option value="South Korea">🇰🇷 South Korea</option>
-                        <option value="Spain">🇪🇸 Spain</option>
-                        <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
-                        <option value="Sudan">🇸🇩 Sudan</option>
-                        <option value="Suriname">🇸🇷 Suriname</option>
-                        <option value="Sweden">🇸🇪 Sweden</option>
-                        <option value="Switzerland">🇨🇭 Switzerland</option>
-                        <option value="Syria">🇸🇾 Syria</option>
-                        <option value="Taiwan">🇹🇼 Taiwan</option>
-                        <option value="Tajikistan">🇹🇯 Tajikistan</option>
-                        <option value="Tanzania">🇹🇿 Tanzania</option>
-                        <option value="Thailand">🇹🇭 Thailand</option>
-                        <option value="Togo">🇹🇬 Togo</option>
-                        <option value="Tonga">🇹🇴 Tonga</option>
-                        <option value="Tunisia">🇹🇳 Tunisia</option>
-                        <option value="Turkey">🇹🇷 Turkey</option>
-                        <option value="Turkmenistan">🇹🇲 Turkmenistan</option>
-                        <option value="Uganda">🇺🇬 Uganda</option>
-                        <option value="Ukraine">🇺🇦 Ukraine</option>
-                        <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
-                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
-                        <option value="United States">🇺🇸 United States</option>
-                        <option value="Uruguay">🇺🇾 Uruguay</option>
-                        <option value="Uzbekistan">🇺🇿 Uzbekistan</option>
-                        <option value="Venezuela">🇻🇪 Venezuela</option>
-                        <option value="Vietnam">🇻🇳 Vietnam</option>
-                        <option value="Yemen">🇾🇪 Yemen</option>
-                        <option value="Zambia">🇿🇲 Zambia</option>
-                        <option value="Zimbabwe">🇿🇼 Zimbabwe</option>
-                    </select>
-                </div>
-                <button type="submit" class="auth-submit-btn">Confirm Paid Order</button>
-            </form>
-            <button class="golden-cross-btn-top-right" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <!-- Floating Cart -->
-    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
+    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- MASONRY PRODUCT FEED -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- PRODUCT DETAILS MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -923,7 +474,6 @@
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -941,7 +491,6 @@
         </div>
     </nav>
 
-    <!-- CLIENT & GEOIP AUTO-DETECTION SCRIPT -->
     <script>
         const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
         let logoTapCount = 0;
@@ -961,88 +510,7 @@
                     }
                 });
             }
-            detectVisitorCountryAndCode();
         });
-
-        // AUTO GEOIP DETECTION FOR GLOBAL CUSTOMERS
-        function detectVisitorCountryAndCode() {
-            fetch('https://ipapi.co/json/')
-                .then(res => res.json())
-                .then(data => {
-                    if(data && data.country_name && data.country_calling_code) {
-                        let cName = data.country_name;
-                        let cCode = data.country_calling_code; // e.g. +880
-                        
-                        let countrySelect = document.getElementById('custCountry');
-                        for(let i = 0; i < countrySelect.options.length; i++) {
-                            if(countrySelect.options[i].value.toLowerCase() === cName.toLowerCase()) {
-                                countrySelect.selectedIndex = i;
-                                break;
-                            }
-                        }
-
-                        let phoneCodeSelect = document.getElementById('countryPhoneCode');
-                        for(let i = 0; i < phoneCodeSelect.options.length; i++) {
-                            if(phoneCodeSelect.options[i].value === cCode) {
-                                phoneCodeSelect.selectedIndex = i;
-                                break;
-                            }
-                        }
-                    }
-                })
-                .catch(err => console.log("GeoIP Auto-detection fallback active."));
-        }
-
-        function syncCountryCodeWithDropdown(selectedCountryName) {
-            let countryToDialCode = {
-                "Afghanistan": "+93", "Albania": "+355", "Algeria": "+213", "Andorra": "+376", "Angola": "+244",
-                "Argentina": "+54", "Armenia": "+374", "Australia": "+61", "Austria": "+43", "Azerbaijan": "+994",
-                "Bahrain": "+973", "Bangladesh": "+880", "Belarus": "+375", "Belgium": "+32", "Belize": "+501",
-                "Benin": "+229", "Bhutan": "+975", "Bolivia": "+591", "Bosnia and Herzegovina": "+387", "Botswana": "+267",
-                "Brazil": "+55", "Brunei": "+673", "Bulgaria": "+359", "Burkina Faso": "+226", "Burundi": "+257",
-                "Cambodia": "+855", "Cameroon": "+237", "Canada": "+1", "Cape Verde": "+238", "Central African Republic": "+236",
-                "Chad": "+235", "Chile": "+56", "China": "+86", "Colombia": "+57", "Comoros": "+269",
-                "Congo": "+242", "Costa Rica": "+506", "Croatia": "+385", "Cuba": "+53", "Cyprus": "+357",
-                "Czech Republic": "+420", "Denmark": "+45", "Djibouti": "+253", "Dominica": "+1767", "Dominican Republic": "+1809",
-                "Ecuador": "+593", "Egypt": "+20", "El Salvador": "+503", "Equatorial Guinea": "+240", "Eritrea": "+291",
-                "Estonia": "+372", "Ethiopia": "+251", "Fiji": "+679", "Finland": "+358", "France": "+33",
-                "Gabon": "+241", "Gambia": "+220", "Georgia": "+995", "Germany": "+49", "Ghana": "+233",
-                "Greece": "+30", "Greenland": "+299", "Guatemala": "+502", "Guinea": "+224", "Guinea-Bissau": "+245",
-                "Guyana": "+592", "Haiti": "+509", "Honduras": "+504", "Hong Kong": "+852", "Hungary": "+36",
-                "Iceland": "+354", "India": "+91", "Indonesia": "+62", "Iran": "+98", "Iraq": "+964",
-                "Ireland": "+353", "Israel": "+972", "Italy": "+39", "Jamaica": "+1876", "Japan": "+81",
-                "Jordan": "+962", "Kazakhstan": "+7", "Kenya": "+254", "Kuwait": "+965", "Kyrgyzstan": "+996",
-                "Laos": "+856", "Latvia": "+371", "Lebanon": "+961", "Lesotho": "+266", "Liberia": "+231",
-                "Libya": "+218", "Liechtenstein": "+423", "Lithuania": "+370", "Luxembourg": "+352", "Macau": "+853",
-                "Macedonia": "+389", "Madagascar": "+261", "Malawi": "+265", "Malaysia": "+60", "Maldives": "+960",
-                "Mali": "+223", "Malta": "+356", "Mauritania": "+222", "Mauritius": "+230", "Mexico": "+52",
-                "Moldova": "+373", "Monaco": "+377", "Mongolia": "+976", "Montenegro": "+382", "Morocco": "+212",
-                "Mozambique": "+258", "Myanmar": "+95", "Namibia": "+264", "Nepal": "+977", "Netherlands": "+31",
-                "New Zealand": "+64", "Nicaragua": "+505", "Niger": "+227", "Nigeria": "+234", "North Korea": "+850",
-                "Norway": "+47", "Oman": "+968", "Pakistan": "+92", "Palestine": "+970", "Panama": "+507",
-                "Papua New Guinea": "+675", "Paraguay": "+595", "Peru": "+51", "Philippines": "+63", "Poland": "+48",
-                "Portugal": "+351", "Qatar": "+974", "Romania": "+40", "Russia": "+7", "Rwanda": "+250",
-                "Saudi Arabia": "+966", "Senegal": "+221", "Serbia": "+381", "Seychelles": "+248", "Sierra Leone": "+232",
-                "Singapore": "+65", "Slovakia": "+421", "Slovenia": "+386", "Somalia": "+252", "South Africa": "+27",
-                "South Korea": "+82", "Spain": "+34", "Sri Lanka": "+94", "Sudan": "+249", "Suriname": "+597",
-                "Sweden": "+46", "Switzerland": "+41", "Syria": "+963", "Taiwan": "+886", "Tajikistan": "+992",
-                "Tanzania": "+255", "Thailand": "+66", "Togo": "+228", "Tonga": "+676", "Tunisia": "+216",
-                "Turkey": "+90", "Turkmenistan": "+993", "Uganda": "+256", "Ukraine": "+380", "United Arab Emirates": "+971",
-                "United Kingdom": "+44", "United States": "+1", "Uruguay": "+598", "Uzbekistan": "+998", "Venezuela": "+58",
-                "Vietnam": "+84", "Yemen": "+967", "Zambia": "+260", "Zimbabwe": "+263"
-            };
-
-            let matchingDialCode = countryToDialCode[selectedCountryName];
-            if(matchingDialCode) {
-                let phoneCodeSelect = document.getElementById('countryPhoneCode');
-                for(let i = 0; i < phoneCodeSelect.options.length; i++) {
-                    if(phoneCodeSelect.options[i].value === matchingDialCode) {
-                        phoneCodeSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
-        }
 
         function openSecretAdmin() {
             document.getElementById('secretAdminOverlay').style.display = 'flex';
@@ -1104,7 +572,7 @@
             let tbody = document.getElementById('adminOrdersTableBody');
             
             if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders recorded yet.</td></tr>`;
             } else {
                 tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
                     <tr>
@@ -1183,13 +651,6 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
-        // AUTOMATIC AFFILIATE & REF CAPTURE FROM URL
-        let urlParams = new URLSearchParams(window.location.search);
-        let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
-        if(urlAff) { 
-            sessionStorage.setItem('mme_active_aff', urlAff); 
-            localStorage.setItem('mme_active_aff', urlAff); 
-        }
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1197,7 +658,8 @@
             if(savedCart) {
                 cartItems = JSON.parse(savedCart);
                 cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                document.getElementById('cartCount').innerText = cartCount;
+                let badge = document.getElementById('cartCount');
+                if(badge) badge.innerText = cartCount;
             }
             loadCombinedProducts();
         });
@@ -1560,8 +1022,10 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
+        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সাব-ডোমেইনের আইফ্রেম পপ-আপে ওপেন করবে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
+            
             cartItems.push({
                 cartId: Date.now() + Math.random(),
                 productId: activeCurrentProduct.id,
@@ -1574,159 +1038,32 @@
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId
             });
+
             cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').innerText = cartCount;
             
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-        }
 
-        function handleCartCheckout() {
-            if(cartItems.length === 0) {
-                showCustomToast("Your cart is currently empty.");
-                return;
-            }
-            renderCartItemsList();
-            document.getElementById('checkoutModalOverlay').style.display = 'flex';
-        }
-
-        function renderCartItemsList() {
-            const container = document.getElementById('checkoutItemList');
-            let totalAmount = 0;
-            container.innerHTML = cartItems.map(item => {
-                let numericPrice = parseFloat(item.price.replace('$', '')) * item.quantity;
-                totalAmount += numericPrice;
-                return `
-                    <div class="checkout-item-row" id="cart-row-${item.cartId}">
-                        <img src="${item.image}" alt="Product">
-                        <div style="flex:1; margin-left:6px;">
-                            <strong>${item.title}</strong><br>
-                            <span style="color:var(--gold-solid);">${item.price}</span> (Qty: ${item.quantity}) | Size: ${item.size}
-                        </div>
-                        <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-            }).join('') + `<div style="text-align:right; font-weight:bold; color:var(--gold-solid); margin-top:6px; font-size:0.75rem;">Total Amount: $${totalAmount.toFixed(2)}</div>`;
-        }
-
-        function removeCartItem(cartId) {
-            cartItems = cartItems.filter(item => item.cartId !== cartId);
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-
-            if(cartItems.length === 0) {
-                closeCheckoutModal();
-                showCustomToast("Your cart is now empty.");
-            } else {
-                renderCartItemsList();
-            }
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkoutModalOverlay').style.display = 'none';
-        }
-
-        function autoFillCustomerData() {
-            let emailKey = document.getElementById('custEmail').value.trim();
-            if(!emailKey) return;
-            let cachedUser = sessionStorage.getItem(`mme_user_${emailKey}`) || localStorage.getItem(`mme_user_${emailKey}`);
-            if(cachedUser) {
-                let data = JSON.parse(cachedUser);
-                document.getElementById('custName').value = data.name || '';
-                document.getElementById('custAddress').value = data.address || '';
-                document.getElementById('custCity').value = data.city || '';
-                if(data.phone) document.getElementById('custPhoneNum').value = data.phone || '';
-            }
-        }
-
-        /* SUPABASE & ORDER SUBMISSION WITH 20K BATCH & AFFILIATE TRACKING */
-        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        let supabaseClient = null;
-        try {
-            if(window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            }
-        } catch(e) {}
-
-        function handleOrderSubmit(e) {
-            e.preventDefault();
-            let email = document.getElementById('custEmail').value;
-            let code = document.getElementById('countryPhoneCode').value;
-            let phoneNum = document.getElementById('custPhoneNum').value;
-            let phone = code + ' ' + phoneNum;
-            let name = document.getElementById('custName').value;
-            let address = document.getElementById('custAddress').value;
-            let city = document.getElementById('custCity').value;
-            let country = document.getElementById('custCountry').value;
-
-            let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
-            let nowTimestamp = new Date();
-            let formattedDate = nowTimestamp.toLocaleString('en-GB', { 
-                day: '2-digit', month: 'short', year: 'numeric', 
-                hour: '2-digit', minute: '2-digit', second: '2-digit' 
-            });
-
-            let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            // কার্টে প্রোডাক্ট যোগ করার পর সরাসরি হোমপেজের ভেতরেই সাব-ডোমেইনের পেজটি পপ-আপ আইফ্রেম আকারে ওপেন হবে
+            let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             
-            // 20K BATCH CALCULATION LOGIC
-            let totalOrderCount = allMasterOrders.length;
-            let currentBatchNumber = Math.floor(totalOrderCount / 20000) + 1;
-            let batchStart = ((currentBatchNumber - 1) * 20000) + 1;
-            let batchEnd = currentBatchNumber * 20000;
-            let batchName = `Batch-${currentBatchNumber} (${batchStart} - ${batchEnd})`;
+            setTimeout(() => {
+                openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
+            }, 800);
+        }
 
-            cartItems.forEach(item => {
-                let orderRecord = {
-                    trackingId: trackingId,
-                    productId: item.productId || '1',
-                    productTitle: item.title,
-                    quantity: item.quantity,
-                    price: item.price,
-                    color: item.color,
-                    size: item.size,
-                    sellerId: item.sellerId || 'VEN-MASUD',
-                    affiliateId: item.affiliateRef || currentAffiliateId,
-                    customerName: name,
-                    customerEmail: email,
-                    customerPhone: phone,
-                    deliveryAddress: `${address}, ${city}, ${country}`,
-                    paymentStatus: 'Paid / Enterprise Secure',
-                    deliveryStatus: 'Processing / Pending Dispatch',
-                    orderDate: nowTimestamp.toISOString(),
-                    formattedDate: formattedDate,
-                    batchNo: batchName
-                };
-                allMasterOrders.push(orderRecord);
-
-                if(supabaseClient) {
-                    supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
-                        if(error) console.log("Supabase sync note:", error);
-                    });
-                }
-            });
-
-            localStorage.setItem('mme_admin_orders', JSON.stringify(allMasterOrders));
-
-            let userData = { name, address, city, country, phone };
-            sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
-            localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
-
-            showCustomToast(`Paid order placed successfully! [Trk: ${trackingId}]`);
+        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে হোমপেজের পপ-আপ মডালেই সাব-ডোমেইনের কার্ট পেজটি দেখাবে
+        function handleCartClick() {
+            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             
-            sessionStorage.removeItem('mme_cart_items');
-            localStorage.removeItem('mme_cart_items');
-            cartItems = [];
-            cartCount = 0;
-            document.getElementById('cartCount').innerText = 0;
-            closeCheckoutModal();
+            openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
         }
 
         function performSearchSubmit() {
