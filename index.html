@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <!-- Supabase CDN Script -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -79,7 +79,7 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* সোনালী ক্রস বাটনটি এখন ঠিক সাব-ডোমেইনের লাল ক্রসের পজিশনে (ওপরে ডানে সুনির্দিষ্ট দূরত্বে) ফিক্স করা হয়েছে */
+        /* প্রিমিয়াম একক গোল্ডেন ক্রস বাটন (সাব-ডোমেইন মডালের জন্য) */
         .golden-cross-btn-top-right { 
             background: rgba(18,18,18,0.95); 
             border: 1.5px solid var(--gold-solid); 
@@ -144,16 +144,11 @@
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* সাব-ডোমেইন পপআপ আইফ্রেম মডাল এবং পজিশনিং ফিক্স */
+        /* সাব-ডোমেইনের আইফ্রেম মডাল এবং পজিশনিং */
         .ecosystem-modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             background: rgba(0,0,0,0.96); display: none; flex-direction: column; 
             z-index: 4000; backdrop-filter: blur(16px); 
-            animation: modalFadeZoom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes modalFadeZoom {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
         }
         .ecosystem-body { flex: 1; width: 100%; height: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; display: block; }
@@ -399,7 +394,7 @@
         </div>
     </div>
 
-    <!-- সাব-ডোমেইনের আইফ্রেম মডাল এবং একদম লাল ক্রসের ওপর নিখুঁতলি প্লেস করা গোল্ডেন ক্রস বাটন -->
+    <!-- সাব-ডোমেইনের আইফ্রেম মডাল এবং একক গোল্ডেন ক্রস বাটন -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <button class="golden-cross-btn-top-right" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
         <div class="ecosystem-body">
@@ -665,7 +660,7 @@
                 cartItems = JSON.parse(savedCart);
                 cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
                 let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = totalCount;
+                if(badge) badge.innerText = cartCount;
             }
             loadCombinedProducts();
         });
@@ -795,6 +790,12 @@
             document.getElementById('ecosystemModal').style.display = 'none';
             document.getElementById('ecosystemIframe').src = '';
             document.getElementById('itemNavBtn').classList.add('active');
+            
+            // হোমপেজে কার্ট ব্যাজ আপডেট করা
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            let badgeEl = document.getElementById('cartCount');
+            if(badgeEl) badgeEl.innerText = totalCount;
         }
 
         function getAllProducts() {
@@ -1027,10 +1028,10 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
             cartItems.push({
                 cartId: Date.now() + Math.random(),
                 productId: activeCurrentProduct.id,
@@ -1044,8 +1045,8 @@
                 affiliateRef: currentAffiliateId
             });
 
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
+            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.getElementById('cartCount').innerText = totalCount;
             
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
@@ -1061,9 +1062,8 @@
             }, 800);
         }
 
-        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনের কার্ট পপ-আপ ওপেন হবে
         function handleCartClick() {
-            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let currentCart = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
             let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
             let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
             
