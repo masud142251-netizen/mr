@@ -24,7 +24,10 @@
         let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
         let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
         let badgeEl = document.getElementById('cartCount');
-        if(badgeEl) badgeEl.innerText = totalCount;
+        if(badgeEl) {
+            badgeEl.innerText = totalCount;
+            badgeEl.style.display = totalCount > 0 ? 'flex' : 'none';
+        }
       }
     </script>
 
@@ -61,21 +64,7 @@
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        
-        .brand-title-main { 
-            font-family: 'Cinzel Decorative', serif; 
-            font-size: 0.92rem; 
-            font-weight: 900; 
-            background: var(--gold-gradient); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            line-height: 1.15; 
-            text-transform: uppercase; 
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            letter-spacing: 0.3px;
-        }
+        .brand-title-main { font-family: 'Cinzel Decorative', serif; font-size: 0.92rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.3px; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
@@ -83,24 +72,10 @@
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
         .golden-cross-btn-top-right { 
-            background: rgba(18,18,18,0.95); 
-            border: 1.5px solid var(--gold-solid); 
-            color: var(--gold-solid); 
-            width: 36px; 
-            height: 36px; 
-            border-radius: 50%; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            position: absolute;
-            top: 25px;
-            right: 28px;
-            z-index: 4500;
-            box-shadow: 0 0 20px rgba(212,175,55,0.7);
-            transition: all 0.3s ease;
+            background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
+            width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 1.1rem; font-weight: bold; position: absolute; top: 25px; right: 28px; z-index: 4500;
+            box-shadow: 0 0 20px rgba(212,175,55,0.7); transition: all 0.3s ease;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; transform: scale(1.12); }
 
@@ -110,47 +85,6 @@
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
         }
-
-        .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
-        .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
-        
-        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
-        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
-        .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
-        .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
-
-        .admin-tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; flex-wrap: wrap; }
-        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
-        .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
-
-        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
-        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; transition: transform 0.2s; }
-        .share-icon-btn:hover { transform: scale(1.05); border-color: var(--gold-solid); }
-        .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
-        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
-        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
-
-        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
-        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
-        .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
-        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .ecosystem-modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: rgba(0,0,0,0.96); display: none; flex-direction: column; 
-            z-index: 4000; backdrop-filter: blur(16px); 
-        }
-        .ecosystem-body { flex: 1; width: 100%; height: 100%; background: #000; position: relative; }
-        .ecosystem-body iframe { width: 100%; height: 100%; border: none; display: block; }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
@@ -170,10 +104,6 @@
         .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
-        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
-        
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -182,58 +112,37 @@
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
-        .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
         .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; position: relative; }
-        .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
+        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
 
         .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; background: rgba(20,20,20,0.9); padding: 7px 9px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); }
         .modal-price-group { display: flex; align-items: center; gap: 5px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.5rem; padding: 2px 5px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
-        
-        .modal-seller-box { display: flex; align-items: center; gap: 4px; background: #000; padding: 3px 7px; border-radius: 16px; border: 1px solid var(--gold-solid); cursor: pointer; max-width: 150px; }
-        .modal-seller-avatar { width: 16px; height: 16px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
-        .modal-seller-name { font-size: 0.52rem; font-weight: 600; color: var(--text-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
-
-        .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
+        .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
         @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(5px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
 
         .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
-        .cycling-desc { font-size: 0.68rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
-        .cycling-spec { font-size: 0.68rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; line-height: 1.3; }
-        .spec-two-line-grid { display: flex; flex-direction: column; gap: 3px; align-items: center; justify-content: center; }
-
-        .cycling-colors-inline { display: flex; gap: 6px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-circle-item { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.25); border-color: var(--text-white); box-shadow: 0 0 8px var(--gold-solid); }
-
-        .cycling-sizes-inline { display: flex; gap: 5px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; }
-        .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 6px rgba(212,175,55,0.6); }
-
         .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; }
         .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
-        
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
+        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
@@ -253,8 +162,8 @@
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
     <header class="app-header">
-        <div class="brand-container" id="secretAdminTriggerZone">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
+        <div class="brand-container">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
             </div>
@@ -267,142 +176,9 @@
         </div>
     </header>
 
-    <div class="secret-admin-overlay" id="secretAdminOverlay">
-        <div class="secret-admin-box">
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto; float:right; margin-bottom:10px;" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
-            
-            <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
-                <div class="auth-form-group" style="margin-bottom:10px; text-align:left;">
-                    <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
-                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off" style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none;">
-                </div>
-                <button type="button" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4);" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
-            </div>
-
-            <div id="adminDashboardSec" style="display: none;">
-                <div class="admin-tab-buttons">
-                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
-                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
-                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
-                </div>
-
-                <div id="adminOrdersTabContent">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="admin-data-table">
-                            <thead>
-                                <tr>
-                                    <th>Trk ID</th>
-                                    <th>Batch Info</th>
-                                    <th>Date & Time</th>
-                                    <th>Customer Info</th>
-                                    <th>Product & Qty</th>
-                                    <th>Seller ID</th>
-                                    <th>Affiliate ID</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminOrdersTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="adminProductsTabContent" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="admin-data-table">
-                            <thead>
-                                <tr>
-                                    <th>Product Title</th>
-                                    <th>Views (Editable)</th>
-                                    <th>Likes (Editable)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminProductsTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="adminSellersTabContent" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
-                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
-        <div class="category-modal-box" style="text-align: left;">
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto; float:right; margin-bottom:10px;" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
-            <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
-        </div>
-    </div>
-
-    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
-        <div class="share-modal-box">
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto; float:right; margin-bottom:10px;" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
-            <div class="share-grid">
-                <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
-            </div>
-            <div class="copy-link-box">
-                <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
-                <button class="copy-link-btn" onclick="copyShareLink()">Copy Link</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
-        <div class="category-modal-box">
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto; float:right; margin-bottom:10px;" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="cat-modal-title">Luxury Categories</h3>
-            <div class="category-grid-popup">
-                <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <button class="golden-cross-btn-top-right" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
-        <div class="ecosystem-body">
-            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
-        </div>
-    </div>
-
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-badge" id="cartCount">0</span>
+        <span class="cart-badge" id="cartCount" style="display:none;">0</span>
     </div>
 
     <main class="feed-container" id="productFeed"></main>
@@ -419,44 +195,11 @@
                     <span class="modal-price" id="modalPrice">$0.00</span>
                     <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
                 </div>
-                <div class="modal-seller-box" id="modalSellerBadgeBox">
-                    <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
-                    <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
-                </div>
             </div>
 
-            <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
-                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
-            </div>
-
-            <div class="animated-cycling-box" id="animatedCyclingBox">
+            <div class="animated-cycling-box">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
-                </div>
-                <div class="cycling-content-item">
-                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
-                </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox">
-                    <div class="cycling-spec" style="margin-bottom:2px;">Select Color:</div>
-                    <div class="cycling-colors-inline" id="modalColorCirclesInline"></div>
-                </div>
-                <div class="cycling-content-item" id="cyclingSizeItemBox">
-                    <div class="cycling-spec" style="margin-bottom:2px;">Select Size:</div>
-                    <div class="cycling-sizes-inline" id="modalSizePillsInline"></div>
-                </div>
-                <div class="cycling-content-item">
-                    <div class="spec-two-line-grid">
-                        <div class="cycling-spec">Stock: <span id="specStock">Available</span></div>
-                        <div class="cycling-spec">Pack: <span id="specPackaging">Luxury Box</span></div>
-                    </div>
-                </div>
-                <div class="cycling-content-item">
-                    <div class="spec-two-line-grid">
-                        <div class="cycling-spec">SKU: <span id="specSku">MME-01</span></div>
-                        <div class="cycling-spec">Elite Edition</div>
-                    </div>
                 </div>
             </div>
 
@@ -475,10 +218,10 @@
 
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
@@ -491,177 +234,24 @@
     </nav>
 
     <script>
-        const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
-        let logoTapCount = 0;
-        let logoTapTimer = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const triggerZone = document.getElementById('secretAdminTriggerZone');
-            if(triggerZone) {
-                triggerZone.addEventListener('click', (e) => {
-                    logoTapCount++;
-                    if(logoTapCount === 1) {
-                        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
-                    } else if(logoTapCount === 3) {
-                        clearTimeout(logoTapTimer);
-                        logoTapCount = 0;
-                        openSecretAdmin();
-                    }
-                });
-            }
-        });
-
-        function openSecretAdmin() {
-            document.getElementById('secretAdminOverlay').style.display = 'flex';
-            if(sessionStorage.getItem('mme_secret_admin_unlocked') === 'true') {
-                showAdminDashboardContent();
-            } else {
-                document.getElementById('adminLoginFormSec').style.display = 'block';
-                document.getElementById('adminDashboardSec').style.display = 'none';
-                document.getElementById('secretAdminPassInput').value = '';
-            }
-        }
-
-        function verifySecretAdminPass() {
-            let pass = document.getElementById('secretAdminPassInput').value.trim();
-            if(pass === MASTER_ADMIN_PASS) {
-                sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
-                showAdminDashboardContent();
-                showCustomToast("Master Enterprise Access Granted!");
-            } else {
-                showCustomToast("Incorrect Master Password!");
-            }
-        }
-
-        function switchAdminTab(tabName) {
-            let tabOrders = document.getElementById('adminOrdersTabContent');
-            let tabProducts = document.getElementById('adminProductsTabContent');
-            let tabSellers = document.getElementById('adminSellersTabContent');
-            
-            let btnOrders = document.getElementById('tabBtnOrders');
-            let btnProducts = document.getElementById('tabBtnProducts');
-            let btnSellers = document.getElementById('tabBtnSellers');
-
-            tabOrders.style.display = 'none';
-            tabProducts.style.display = 'none';
-            tabSellers.style.display = 'none';
-            btnOrders.classList.remove('active');
-            btnProducts.classList.remove('active');
-            btnSellers.classList.remove('active');
-
-            if(tabName === 'orders') {
-                tabOrders.style.display = 'block';
-                btnOrders.classList.add('active');
-                showAdminDashboardContent();
-            } else if(tabName === 'products') {
-                tabProducts.style.display = 'block';
-                btnProducts.classList.add('active');
-                loadAdminProductsTable();
-            } else if(tabName === 'sellers') {
-                tabSellers.style.display = 'block';
-                btnSellers.classList.add('active');
-            }
-        }
-
-        function showAdminDashboardContent() {
-            document.getElementById('adminLoginFormSec').style.display = 'none';
-            document.getElementById('adminDashboardSec').style.display = 'block';
-            
-            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let tbody = document.getElementById('adminOrdersTableBody');
-            
-            if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders recorded yet.</td></tr>`;
-            } else {
-                tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
-                    <tr>
-                        <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
-                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.batchNo || 'Batch-1'}</span></td>
-                        <td style="font-size:0.65rem; color:var(--text-gray);">${o.formattedDate || 'Just now'}</td>
-                        <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
-                        <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
-                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.sellerId || 'VEN-MASUD'}</span></td>
-                        <td><span style="color:#00e676; font-weight:bold;">${o.affiliateId || 'AFF-MASTER'}</span></td>
-                        <td>${o.paymentStatus}</td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        function loadAdminProductsTable() {
-            let products = getAllProducts();
-            let tbody = document.getElementById('adminProductsTableBody');
-            tbody.innerHTML = products.map(p => {
-                let stats = getDynamicProductStats(p.id);
-                return `
-                    <tr>
-                        <td><b>${p.title}</b></td>
-                        <td><input type="number" value="${stats.views}" style="width:80px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
-                        <td><input type="number" value="${stats.likes}" style="width:80px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function viewCustomerDetails(trkId) {
-            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let order = allOrders.find(o => o.trackingId === trkId);
-            if(!order) return;
-
-            let contentBox = document.getElementById('custDetailContent');
-            contentBox.innerHTML = `
-                <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
-                <b>Batch No:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.batchNo || 'Batch-1'}</span><br>
-                <b>Order Date & Time:</b> <span style="color:var(--gold-solid);">${order.formattedDate}</span><br>
-                <b>Customer Name:</b> ${order.customerName}<br>
-                <b>Email:</b> ${order.customerEmail}<br>
-                <b>Phone:</b> ${order.customerPhone}<br>
-                <b>Delivery Address:</b> ${order.deliveryAddress}<br>
-                <b>Product Title:</b> ${order.productTitle}<br>
-                <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
-                <b>Color & Size:</b> ${order.color} / ${order.size}<br>
-                <b>Seller ID:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.sellerId}</span><br>
-                <b>Affiliate ID:</b> <span style="color:#00e676; font-weight:bold;">${order.affiliateId}</span><br>
-                <b>Payment Status:</b> ${order.paymentStatus}<br>
-            `;
-            document.getElementById('customerDetailModal').style.display = 'flex';
-        }
-
-        function lockSecretAdmin() {
-            sessionStorage.removeItem('mme_secret_admin_unlocked');
-            document.getElementById('secretAdminOverlay').style.display = 'none';
-            showCustomToast("Admin Locked Successfully.");
-        }
-
-        function closeSecretAdmin() {
-            document.getElementById('secretAdminOverlay').style.display = 'none';
-        }
-
-        function closeCustModal(e) {
-            if(!e || e.target.id === 'customerDetailModal') document.getElementById('customerDetailModal').style.display = 'none';
-        }
-
-        let cartItems = [];
-        let cartCount = 0;
         let activeCurrentProduct = null;
-        let selectedColor = "Standard";
-        let selectedSize = "Standard";
         let currentModalQty = 1;
-        let cyclingInterval = null;
-        let currentShareTitle = "";
-
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
-            let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
-            if(savedCart) {
-                cartItems = JSON.parse(savedCart);
-                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = cartCount;
-            }
+            updateCartBadgeCount();
             loadCombinedProducts();
         });
+
+        function updateCartBadgeCount() {
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            let badgeEl = document.getElementById('cartCount');
+            if(badgeEl) {
+                badgeEl.innerText = totalCount;
+                badgeEl.style.display = totalCount > 0 ? 'flex' : 'none';
+            }
+        }
 
         function showCustomToast(msg) {
             let toast = document.getElementById('customToast');
@@ -671,21 +261,6 @@
         }
 
         function playCoinSoundAndAnimation(buttonEl) {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.25);
-                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.4);
-            } catch(e) {}
-
             try {
                 let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
                 let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
@@ -712,223 +287,37 @@
             } catch(e) {}
         }
 
-        function getDynamicProductStats(productId) {
-            let storageKeyViews = `mme_views_${productId}`;
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-
-            let views = parseInt(localStorage.getItem(storageKeyViews));
-            if(!views) {
-                views = Math.floor(400 + Math.random() * 4500);
-                localStorage.setItem(storageKeyViews, views);
-            }
-
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-            let isLiked = (Date.now() - likedTime) < 86400000;
-
-            return { views, likes, isLiked };
-        }
-
-        function updateProductViews(productId, newViews) {
-            localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
-            showCustomToast("Views updated successfully!");
-            loadCombinedProducts();
-        }
-
-        function updateProductLikes(productId, newLikes) {
-            localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
-            showCustomToast("Likes updated successfully!");
-            loadCombinedProducts();
-        }
-
-        function toggleProductLike(productId, el) {
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-
-            if((Date.now() - likedTime) < 86400000) return;
-
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
-            likes += 1;
-            localStorage.setItem(storageKeyLikes, likes);
-            localStorage.setItem(storageKeyLikedByMe, Date.now());
-
-            let span = el.querySelector('span');
-            if(span) span.innerText = likes;
-            el.classList.add('liked');
-            playCoinSoundAndAnimation(el);
-        }
-
-        function openCategoryModal(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('categoryModalOverlay').style.display = 'flex';
-        }
-
-        function closeCategoryModal(e) {
-            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
-        }
-
-        function selectCategory(cat) {
-            document.getElementById('categoryModalOverlay').style.display = 'none';
-            let all = getAllProducts();
-            if(cat === 'All') loadCombinedProducts(all);
-            else loadCombinedProducts(all.filter(p => p.category === cat));
-        }
-
-        function openEcosystemPage(url, title, element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            if(element) element.classList.add('active');
-            document.getElementById('ecosystemIframe').src = url;
-            document.getElementById('ecosystemModal').style.display = 'flex';
-        }
-
-        function closeEcosystemModal() {
-            document.getElementById('ecosystemModal').style.display = 'none';
-            document.getElementById('ecosystemIframe').src = '';
-            document.getElementById('itemNavBtn').classList.add('active');
-            
-            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            let badgeEl = document.getElementById('cartCount');
-            if(badgeEl) badgeEl.innerText = totalCount;
-        }
-
         function getAllProducts() {
-            let defaultProds = [
+            return [
                 {
-                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
-                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise", sellerImg: "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
-                    category: "👗 FASHION (WOMEN)",
+                    id: 1, title: "Unboxing a RARE Dior Bag", price: "$185.00", bdDiscount: "BD 20% OFF",
+                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: [
-                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
-                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
-                    ],
-                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
-                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
-                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
-                    sizes: ["XS", "S", "M", "L", "XL"]
+                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                    desc: "Exquisite hand-stitched luxury bag."
                 }
             ];
-            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
-            sellers.forEach(s => {
-                if(s.uploadedProducts) {
-                    s.uploadedProducts.forEach((p, i) => {
-                        let cleanVid = "";
-                        if(p.videoUrl && p.videoUrl.trim() !== "") {
-                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
-                            let videoIdMatch = rawBase.split('/').pop();
-                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
-                        }
-                        defaultProds.push({
-                            id: 'v-' + s.id + '-' + i,
-                            title: p.title || p.name || "Exclusive Item",
-                            price: p.global || '$35.00',
-                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
-                            sellerId: s.id,
-                            sellerName: s.name || 'Masudar Enterprise',
-                            sellerImg: s.logoUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
-                            category: p.category || '👗 FASHION (WOMEN)',
-                            videoUrl: cleanVid,
-                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive premium collection.',
-                            stock: p.stock || 'In Stock',
-                            packaging: p.packaging || 'Secure Box',
-                            quantity: p.quantity || '1 Unit',
-                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
-                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
-                            sizes: p.sizes || ["Standard", "Large"]
-                        });
-                    });
-                }
-            });
-            return defaultProds;
         }
 
-        function loadCombinedProducts(list = getAllProducts()) {
+        function loadCombinedProducts() {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
-            list.forEach(item => {
-                let stats = getDynamicProductStats(item.id);
+            getAllProducts().forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                
-                let mediaContent = "";
-                if (item.videoUrl && item.videoUrl.trim() !== "") {
-                    mediaContent = `
-                        <div class="video-wrapper">
-                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
-                        </div>
-                    `;
-                } else {
-                    mediaContent = `
-                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
-                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
-                        </div>
-                    `;
-                }
-
                 card.innerHTML = `
-                    ${mediaContent}
+                    <div class="video-wrapper">
+                        <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                        <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                    </div>
                     <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
-                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
-                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>4,563</span></div>
+                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>922</span></div>
+                        <div class="action-item share-icon"><i class="fa-solid fa-share-nodes"></i> Share</div>
                     </div>
                 `;
                 feed.appendChild(card);
             });
-        }
-
-        function openShareModal(title) {
-            currentShareTitle = title;
-            let currentUrl = window.location.href.split('?')[0];
-            let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
-            document.getElementById('shareLinkInput').value = affiliateShareLink;
-            document.getElementById('shareModalOverlay').style.display = 'flex';
-        }
-
-        function closeShareModal(e) {
-            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function copyShareLink() {
-            let input = document.getElementById('shareLinkInput');
-            input.select();
-            navigator.clipboard.writeText(input.value);
-            showCustomToast("Affiliate referral link copied successfully!");
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function shareToPlatform(platform) {
-            let linkVal = document.getElementById('shareLinkInput').value;
-            let url = encodeURIComponent(linkVal);
-            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
-            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
-            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            window.open(targetUrl, '_blank');
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function startCyclingAnimation() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            const items = document.querySelectorAll('.cycling-content-item');
-            let currentIndex = 0;
-            cyclingInterval = setInterval(() => {
-                items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add('active');
-            }, 3800);
         }
 
         function openProductModal(id) {
@@ -938,80 +327,16 @@
             currentModalQty = 1;
             document.getElementById('modalProductQty').value = currentModalQty;
 
-            let stats = getDynamicProductStats(product.id);
-            document.getElementById('modalViewCount').innerText = stats.views;
-            document.getElementById('modalLikeCount').innerText = stats.likes;
-            let likeBtnItem = document.getElementById('modalLikeBtnItem');
-            if(stats.isLiked) likeBtnItem.classList.add('liked');
-            else likeBtnItem.classList.remove('liked');
-            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
-
-            document.getElementById('modalShareBtnItem').onclick = () => {
-                document.getElementById('productModal').style.display = 'none';
-                openShareModal(product.title);
-            };
-
             document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalDesc').innerText = product.desc;
-
-            document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Enterprise";
-            document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
-
-            document.getElementById('specStock').innerText = product.stock || "Available";
-            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
-            document.getElementById('specSku').innerText = product.sku || "MME-GENERAL";
 
             const slider = document.getElementById('modalMediaSlider');
             const thumbs = document.getElementById('modalThumbsRow');
-            
             slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
-
-            const colorBox = document.getElementById('modalColorCirclesInline');
-            const colorItemBox = document.getElementById('cyclingColorItemBox');
-            if(product.colors && product.colors.length > 0) {
-                colorItemBox.style.display = 'block';
-                selectedColor = product.colors[0];
-                colorBox.innerHTML = product.colors.map((c, idx) => `
-                    <div class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></div>
-                `).join('');
-            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
-
-            const sizeBox = document.getElementById('modalSizePillsInline');
-            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
-            if(product.sizes && product.sizes.length > 0) {
-                sizeItemBox.style.display = 'block';
-                selectedSize = product.sizes[0];
-                sizeBox.innerHTML = product.sizes.map((s, idx) => `
-                    <div class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</div>
-                `).join('');
-            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}">`).join('');
 
             document.getElementById('productModal').style.display = 'flex';
-            startCyclingAnimation();
-        }
-
-        function switchSlide(idx) {
-            let slideEl = document.getElementById(`slide-${idx}`);
-            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
-                if(i === idx) t.classList.add('active');
-                else t.classList.remove('active');
-            });
-        }
-
-        function selectModalColor(cVal, el) {
-            selectedColor = cVal;
-            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function selectModalSize(sVal, el) {
-            selectedSize = sVal;
-            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
         }
 
         function updateModalQuantity(change) {
@@ -1021,7 +346,6 @@
         }
 
         function closeProductModal() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
             document.getElementById('productModal').style.display = 'none';
         }
 
@@ -1035,66 +359,30 @@
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
                 quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
                 sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId
             });
 
-            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.getElementById('cartCount').innerText = totalCount;
-            
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            
+            updateCartBadgeCount();
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
             showCustomToast("Product added to cart!");
         }
 
-        // কাস্টমার ঝুড়িতে ক্লিক করার পরেই কেবল চেকআউট পেজে যাবে
+        // মূল সমাধান: ঝুড়িতে ক্লিক করলে কার্ট ডেটা এনকোড করে সাব-ডোমেইনে পাস করা হবে
         function handleCartClick() {
-            openEcosystemPage(`https://out.mrmasudar.com?ref=${currentAffiliateId}`);
+            let cartItems = localStorage.getItem('mme_cart_items') || '[]';
+            let encodedData = encodeURIComponent(cartItems);
+            window.location.href = `https://out.mrmasudar.com?cart=${encodedData}&ref=${currentAffiliateId}`;
         }
 
-        function performSearchSubmit() {
-            let q = document.getElementById('searchInput').value.toLowerCase();
-            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
-        }
+        function performSearchSubmit() {}
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-
-        function triggerCameraAuto() {
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                let file = e.target.files[0];
-                if(file) showCustomToast("Image loaded for visual search: " + file.name);
-            };
-            input.click();
-        }
-
-        function triggerVoiceAuto() {
-            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                try {
-                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    let recognition = new SpeechRecognition();
-                    recognition.lang = 'en-US';
-                    recognition.start();
-                    recognition.onresult = (event) => {
-                        let query = event.results[0][0].transcript;
-                        document.getElementById('searchInput').value = query;
-                        performSearchSubmit();
-                    };
-                } catch(e) {
-                    let text = prompt("Voice Search Keyword:");
-                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-                }
-            } else {
-                let text = prompt("Voice Search Keyword:");
-                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-            }
-        }
+        function triggerCameraAuto() {}
+        function triggerVoiceAuto() {}
+        function openEcosystemPage(url) { window.open(url, '_blank'); }
     </script>
 </body>
 </html>
