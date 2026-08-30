@@ -1,6 +1,44 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+    <!-- Supabase CDN Script -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // সুপাবেস কানেকশন ইনিশিয়ালাইজেশন
+  const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
+  const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30'; // আপনার প্রোভাইড করা অ্যানন কি
+  
+  const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  // পেজ লোড হওয়ার সাথে সাথে URL থেকে প্রোডাক্ট আইডি ধরে সুপাবেস থেকে ছবি ও তথ্য নিয়ে আসার ফাংশন
+  window.addEventListener('DOMContentLoaded', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('product_id');
+    const affiliateId = urlParams.get('ref'); // অ্যাফিলিয়েট আইডি ধরা
+
+    if (productId) {
+      // সুপাবেসের products টেবিল থেকে নির্দিষ্ট প্রোডাক্ট ফেচ করা
+      const { data, error } = await _supabase
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .single();
+
+      if (data) {
+        // চেকআউট পেজে প্রোডাক্টের ছবি, নাম ও দাম অটো বসিয়ে দেওয়া
+        console.log("Product Loaded:", data);
+        
+        // উদাহরণস্বরূপ আপনার চেকআউট পেজের এলিমেন্টগুলোতে ডেটা বসানোর কোড:
+        // document.getElementById('product-image').src = data.product_image_url;
+        // document.getElementById('product-name').innerText = data.product_name;
+        // document.getElementById('product-price').innerText = '$' + data.global_price;
+      } else {
+        console.error("Product not found:", error);
+      }
+    }
+  });
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MRMASUDAR.COM - Supreme Enterprise & Luxury Hub</title>
