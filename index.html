@@ -70,6 +70,7 @@
             --text-white: #ffffff;
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
+            --danger-red: #ff3b30;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -83,11 +84,18 @@
         }
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
+        .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+        
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; font-size: 0.92rem; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.3px;
         }
+
+        .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
+        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; }
+        .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; }
 
         .golden-cross-btn-top-right { 
             background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
@@ -118,6 +126,14 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
+        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.96); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
+        .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; }
+        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
+        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
@@ -135,6 +151,7 @@
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
+        .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
@@ -168,6 +185,10 @@
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 2px 5px; width: 38%; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.68rem; padding: 2px; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -178,6 +199,12 @@
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
             <div class="brand-text-box"><span class="brand-title-main">MRMASUDAR.COM</span></div>
+        </div>
+        <div class="top-right-controls">
+            <div class="country-square-badge">
+                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
+                <span class="badge-sub-text">ENTERPRISE</span>
+            </div>
         </div>
     </header>
 
@@ -211,6 +238,20 @@
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly>
                 <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
             </div>
+        </div>
+    </div>
+
+    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="if(event.target.id==='categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display='none'">
+        <div class="category-modal-box">
+            <h3 class="cat-modal-title">Luxury Categories</h3>
+            <div class="category-grid-popup">
+                <div class="cat-popup-item" onclick="selectCategory('All')"><span><i class="fa-solid fa-wand-magic-sparkles"></i> All Products</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Gifts</span></div>
+            </div>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -253,6 +294,11 @@
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate')"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech')"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
             <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller')"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="document.getElementById('categoryModalOverlay').style.display='flex'"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search..." onkeypress="if(event.key==='Enter')performSearchSubmit()">
+            <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </nav>
 
@@ -366,10 +412,10 @@
             return defaultProds;
         }
 
-        function loadCombinedProducts() {
+        function loadCombinedProducts(list = getAllProducts()) {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
-            getAllProducts().forEach(item => {
+            list.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -413,6 +459,13 @@
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
         function openProductModal(id) {
             let product = getAllProducts().find(p => p.id == id);
             if(!product) return;
@@ -424,7 +477,7 @@
             document.getElementById('modalDesc').innerText = product.desc;
             
             const slider = document.getElementById('modalMediaSlider');
-            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
+            slider.innerHTML = product.images.map((img) => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
             document.getElementById('productModal').style.display = 'flex';
         }
 
@@ -455,16 +508,23 @@
             closeProductModal();
             showCustomToast("Added to cart & synced!");
 
+            let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
             setTimeout(() => {
-                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}`;
+                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}&cart=${encodedCart}`;
             }, 600);
         }
 
         function handleCartClick() {
-            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}`;
+            let currentCart = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
+            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}&cart=${encodedCart}`;
         }
 
         function openEcosystemPage(url, title) { window.location.href = url; }
+        function performSearchSubmit() {
+            let q = document.getElementById('searchInput').value.toLowerCase();
+            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
+        }
     </script>
 </body>
 </html>
