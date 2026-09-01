@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+    <!-- Supabase CDN Script -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
       const supabaseUrl = 'https://eyfecqehygiivjtbhniy.supabase.co';
-      const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobniyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobniyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
+      const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
       const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
       window.addEventListener('DOMContentLoaded', async () => {
@@ -17,20 +18,11 @@
             localStorage.setItem('mme_active_aff', affiliateId);
         }
 
-        updateSupabaseCartBadge();
+        let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+        let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        let badgeEl = document.getElementById('cartCount');
+        if(badgeEl) badgeEl.innerText = totalCount;
       });
-
-      async function updateSupabaseCartBadge() {
-        let currentAff = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASTER';
-        try {
-            let { data, error } = await _supabase.from('cart_items').select('*').eq('affiliate_ref', currentAff);
-            if(data) {
-                let totalCount = data.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                let badgeEl = document.getElementById('cartCount');
-                if(badgeEl) badgeEl.innerText = totalCount;
-            }
-        } catch(e) {}
-      }
     </script>
 
     <meta charset="UTF-8">
@@ -113,7 +105,22 @@
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
+            animation: toastFadeIn 0.3s ease;
         }
+        @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
+        .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
+        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
+        .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
+        .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
+
+        .admin-tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; flex-wrap: wrap; }
+        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
+        .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
@@ -135,6 +142,7 @@
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+        /* সাব-ডোমেইন পপআপ আইফ্রেম মডাল (অন্যান্য ইকোসিস্টেম মডিউলের মতো) */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
@@ -160,7 +168,8 @@
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; }
+        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
+        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
         
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
@@ -241,7 +250,7 @@
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
     <header class="app-header">
-        <div class="brand-container">
+        <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
@@ -254,6 +263,91 @@
             </div>
         </div>
     </header>
+
+    <div class="secret-admin-overlay" id="secretAdminOverlay">
+        <div class="secret-admin-box">
+            <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
+            
+            <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
+                <div class="auth-form-group" style="margin-bottom:10px; text-align:left;">
+                    <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
+                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off" style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none;">
+                </div>
+                <button type="button" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4);" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
+            </div>
+
+            <div id="adminDashboardSec" style="display: none;">
+                <div class="admin-tab-buttons">
+                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
+                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
+                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
+                </div>
+
+                <div id="adminOrdersTabContent">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Trk ID</th>
+                                    <th>Batch Info</th>
+                                    <th>Date & Time</th>
+                                    <th>Customer Info</th>
+                                    <th>Product & Qty</th>
+                                    <th>Seller ID</th>
+                                    <th>Affiliate ID</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminOrdersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="adminProductsTabContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Product Title</th>
+                                    <th>Views (Editable)</th>
+                                    <th>Likes (Editable)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="adminSellersTabContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
+                        <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
+                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
+                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
+                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID and coordinates with out.mrmasudar.com.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
+        <div class="category-modal-box" style="text-align: left;">
+            <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
+            <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
 
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
@@ -294,3 +388,722 @@
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
+    </div>
+
+    <!-- সাব-ডোমেইনের কার্ট ও চেকআউট পেজ দেখানোর জন্য পপ-আপ আইফ্রেম মডাল -->
+    <div class="ecosystem-modal-overlay" id="ecosystemModal">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
+            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ecosystem-body">
+            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <main class="feed-container" id="productFeed"></main>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
+            
+            <div class="modal-price-seller-bar">
+                <div class="modal-price-group">
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+                </div>
+                <div class="modal-seller-box" id="modalSellerBadgeBox">
+                    <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
+                    <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
+                </div>
+            </div>
+
+            <div class="modal-actions-bar" id="modalActionsBar">
+                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
+                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
+            </div>
+
+            <div class="animated-cycling-box" id="animatedCyclingBox">
+                <div class="cycling-content-item active">
+                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
+                </div>
+                <div class="cycling-content-item">
+                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
+                </div>
+                <div class="cycling-content-item" id="cyclingColorItemBox">
+                    <div class="cycling-spec" style="margin-bottom:2px;">Select Color:</div>
+                    <div class="cycling-colors-inline" id="modalColorCirclesInline"></div>
+                </div>
+                <div class="cycling-content-item" id="cyclingSizeItemBox">
+                    <div class="cycling-spec" style="margin-bottom:2px;">Select Size:</div>
+                    <div class="cycling-sizes-inline" id="modalSizePillsInline"></div>
+                </div>
+                <div class="cycling-content-item">
+                    <div class="spec-two-line-grid">
+                        <div class="cycling-spec">Stock: <span id="specStock">Available</span></div>
+                        <div class="cycling-spec">Pack: <span id="specPackaging">Luxury Box</span></div>
+                    </div>
+                </div>
+                <div class="cycling-content-item">
+                    <div class="spec-two-line-grid">
+                        <div class="cycling-spec">SKU: <span id="specSku">MME-01</span></div>
+                        <div class="cycling-spec">Elite Edition</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-action-wrap">
+                <div class="golden-round-qty-box">
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                    <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
+                    Add To Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
+        let logoTapCount = 0;
+        let logoTapTimer = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const triggerZone = document.getElementById('secretAdminTriggerZone');
+            if(triggerZone) {
+                triggerZone.addEventListener('click', (e) => {
+                    logoTapCount++;
+                    if(logoTapCount === 1) {
+                        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
+                    } else if(logoTapCount === 3) {
+                        clearTimeout(logoTapTimer);
+                        logoTapCount = 0;
+                        openSecretAdmin();
+                    }
+                });
+            }
+        });
+
+        function openSecretAdmin() {
+            document.getElementById('secretAdminOverlay').style.display = 'flex';
+            if(sessionStorage.getItem('mme_secret_admin_unlocked') === 'true') {
+                showAdminDashboardContent();
+            } else {
+                document.getElementById('adminLoginFormSec').style.display = 'block';
+                document.getElementById('adminDashboardSec').style.display = 'none';
+                document.getElementById('secretAdminPassInput').value = '';
+            }
+        }
+
+        function verifySecretAdminPass() {
+            let pass = document.getElementById('secretAdminPassInput').value.trim();
+            if(pass === MASTER_ADMIN_PASS) {
+                sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
+                showAdminDashboardContent();
+                showCustomToast("Master Enterprise Access Granted!");
+            } else {
+                showCustomToast("Incorrect Master Password!");
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            let tabOrders = document.getElementById('adminOrdersTabContent');
+            let tabProducts = document.getElementById('adminProductsTabContent');
+            let tabSellers = document.getElementById('adminSellersTabContent');
+            
+            let btnOrders = document.getElementById('tabBtnOrders');
+            let btnProducts = document.getElementById('tabBtnProducts');
+            let btnSellers = document.getElementById('tabBtnSellers');
+
+            tabOrders.style.display = 'none';
+            tabProducts.style.display = 'none';
+            tabSellers.style.display = 'none';
+            btnOrders.classList.remove('active');
+            btnProducts.classList.remove('active');
+            btnSellers.classList.remove('active');
+
+            if(tabName === 'orders') {
+                tabOrders.style.display = 'block';
+                btnOrders.classList.add('active');
+                showAdminDashboardContent();
+            } else if(tabName === 'products') {
+                tabProducts.style.display = 'block';
+                btnProducts.classList.add('active');
+                loadAdminProductsTable();
+            } else if(tabName === 'sellers') {
+                tabSellers.style.display = 'block';
+                btnSellers.classList.add('active');
+            }
+        }
+
+        function showAdminDashboardContent() {
+            document.getElementById('adminLoginFormSec').style.display = 'none';
+            document.getElementById('adminDashboardSec').style.display = 'block';
+            
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let tbody = document.getElementById('adminOrdersTableBody');
+            
+            if(allOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-gray);">No orders recorded yet.</td></tr>`;
+            } else {
+                tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
+                    <tr>
+                        <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
+                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.batchNo || 'Batch-1'}</span></td>
+                        <td style="font-size:0.65rem; color:var(--text-gray);">${o.formattedDate || 'Just now'}</td>
+                        <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
+                        <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
+                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.sellerId || 'VEN-MASUD'}</span></td>
+                        <td><span style="color:#00e676; font-weight:bold;">${o.affiliateId || 'AFF-MASTER'}</span></td>
+                        <td>${o.paymentStatus}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function loadAdminProductsTable() {
+            let products = getAllProducts();
+            let tbody = document.getElementById('adminProductsTableBody');
+            tbody.innerHTML = products.map(p => {
+                let stats = getDynamicProductStats(p.id);
+                return `
+                    <tr>
+                        <td><b>${p.title}</b></td>
+                        <td><input type="number" value="${stats.views}" style="width:80px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
+                        <td><input type="number" value="${stats.likes}" style="width:80px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function viewCustomerDetails(trkId) {
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let order = allOrders.find(o => o.trackingId === trkId);
+            if(!order) return;
+
+            let contentBox = document.getElementById('custDetailContent');
+            contentBox.innerHTML = `
+                <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
+                <b>Batch No:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.batchNo || 'Batch-1'}</span><br>
+                <b>Order Date & Time:</b> <span style="color:var(--gold-solid);">${order.formattedDate}</span><br>
+                <b>Customer Name:</b> ${order.customerName}<br>
+                <b>Email:</b> ${order.customerEmail}<br>
+                <b>Phone:</b> ${order.customerPhone}<br>
+                <b>Delivery Address:</b> ${order.deliveryAddress}<br>
+                <b>Product Title:</b> ${order.productTitle}<br>
+                <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
+                <b>Color & Size:</b> ${order.color} / ${order.size}<br>
+                <b>Seller ID:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.sellerId}</span><br>
+                <b>Affiliate ID:</b> <span style="color:#00e676; font-weight:bold;">${order.affiliateId}</span><br>
+                <b>Payment Status:</b> ${order.paymentStatus}<br>
+            `;
+            document.getElementById('customerDetailModal').style.display = 'flex';
+        }
+
+        function lockSecretAdmin() {
+            sessionStorage.removeItem('mme_secret_admin_unlocked');
+            document.getElementById('secretAdminOverlay').style.display = 'none';
+            showCustomToast("Admin Locked Successfully.");
+        }
+
+        function closeSecretAdmin() {
+            document.getElementById('secretAdminOverlay').style.display = 'none';
+        }
+
+        function closeCustModal(e) {
+            if(!e || e.target.id === 'customerDetailModal') document.getElementById('customerDetailModal').style.display = 'none';
+        }
+
+        let cartItems = [];
+        let cartCount = 0;
+        let activeCurrentProduct = null;
+        let selectedColor = "Standard";
+        let selectedSize = "Standard";
+        let currentModalQty = 1;
+        let cyclingInterval = null;
+        let currentShareTitle = "";
+
+        let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
+            if(savedCart) {
+                cartItems = JSON.parse(savedCart);
+                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                let badge = document.getElementById('cartCount');
+                if(badge) badge.innerText = cartCount;
+            }
+            loadCombinedProducts();
+        });
+
+        function showCustomToast(msg) {
+            let toast = document.getElementById('customToast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+
+        function playCoinSoundAndAnimation(buttonEl) {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gainNode = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.25);
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch(e) {}
+
+            try {
+                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.transform = 'scale(0.25) rotate(1080deg)';
+                    coin.style.opacity = '0.1';
+                }, 50);
+
+                setTimeout(() => {
+                    coin.remove();
+                    const cartEl = document.getElementById('floatingCart');
+                    cartEl.classList.add('smooth-center-bounce');
+                    setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 1400);
+                }, 1300);
+            } catch(e) {}
+        }
+
+        function getDynamicProductStats(productId) {
+            let storageKeyViews = `mme_views_${productId}`;
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+
+            let views = parseInt(localStorage.getItem(storageKeyViews));
+            if(!views) {
+                views = Math.floor(400 + Math.random() * 4500);
+                localStorage.setItem(storageKeyViews, views);
+            }
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+            let isLiked = (Date.now() - likedTime) < 86400000;
+
+            return { views, likes, isLiked };
+        }
+
+        function updateProductViews(productId, newViews) {
+            localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
+            showCustomToast("Views updated successfully!");
+            loadCombinedProducts();
+        }
+
+        function updateProductLikes(productId, newLikes) {
+            localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
+            showCustomToast("Likes updated successfully!");
+            loadCombinedProducts();
+        }
+
+        function toggleProductLike(productId, el) {
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+
+            if((Date.now() - likedTime) < 86400000) return;
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
+            likes += 1;
+            localStorage.setItem(storageKeyLikes, likes);
+            localStorage.setItem(storageKeyLikedByMe, Date.now());
+
+            let span = el.querySelector('span');
+            if(span) span.innerText = likes;
+            el.classList.add('liked');
+            playCoinSoundAndAnimation(el);
+        }
+
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+        }
+
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
+        }
+
+        function getAllProducts() {
+            let defaultProds = [
+                {
+                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
+                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise", sellerImg: "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                    category: "👗 FASHION (WOMEN)",
+                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
+                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
+                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
+                    sizes: ["XS", "S", "M", "L", "XL"]
+                }
+            ];
+            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
+            sellers.forEach(s => {
+                if(s.uploadedProducts) {
+                    s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
+                            let videoIdMatch = rawBase.split('/').pop();
+                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                        }
+                        defaultProds.push({
+                            id: 'v-' + s.id + '-' + i,
+                            title: p.title || p.name || "Exclusive Item",
+                            price: p.global || '$35.00',
+                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
+                            sellerId: s.id,
+                            sellerName: s.name || 'Masudar Enterprise',
+                            sellerImg: s.logoUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
+                            category: p.category || '👗 FASHION (WOMEN)',
+                            videoUrl: cleanVid,
+                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            desc: p.desc || 'Exclusive premium collection.',
+                            stock: p.stock || 'In Stock',
+                            packaging: p.packaging || 'Secure Box',
+                            quantity: p.quantity || '1 Unit',
+                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
+                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
+                            sizes: p.sizes || ["Standard", "Large"]
+                        });
+                    });
+                }
+            });
+            return defaultProds;
+        }
+
+        function loadCombinedProducts(list = getAllProducts()) {
+            const feed = document.getElementById('productFeed');
+            feed.innerHTML = "";
+            list.forEach(item => {
+                let stats = getDynamicProductStats(item.id);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaContent}
+                    <div class="product-bottom-actions">
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
+                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function openShareModal(title) {
+            currentShareTitle = title;
+            let currentUrl = window.location.href.split('?')[0];
+            let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
+            document.getElementById('shareLinkInput').value = affiliateShareLink;
+            document.getElementById('shareModalOverlay').style.display = 'flex';
+        }
+
+        function closeShareModal(e) {
+            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function copyShareLink() {
+            let input = document.getElementById('shareLinkInput');
+            input.select();
+            navigator.clipboard.writeText(input.value);
+            showCustomToast("Affiliate referral link copied successfully!");
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function shareToPlatform(platform) {
+            let linkVal = document.getElementById('shareLinkInput').value;
+            let url = encodeURIComponent(linkVal);
+            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
+            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
+            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            window.open(targetUrl, '_blank');
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function startCyclingAnimation() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            const items = document.querySelectorAll('.cycling-content-item');
+            let currentIndex = 0;
+            cyclingInterval = setInterval(() => {
+                items[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % items.length;
+                items[currentIndex].classList.add('active');
+            }, 3800);
+        }
+
+        function openProductModal(id) {
+            let product = getAllProducts().find(p => p.id == id);
+            if(!product) return;
+            activeCurrentProduct = product;
+            currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+
+            let stats = getDynamicProductStats(product.id);
+            document.getElementById('modalViewCount').innerText = stats.views;
+            document.getElementById('modalLikeCount').innerText = stats.likes;
+            let likeBtnItem = document.getElementById('modalLikeBtnItem');
+            if(stats.isLiked) likeBtnItem.classList.add('liked');
+            else likeBtnItem.classList.remove('liked');
+            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
+
+            document.getElementById('modalShareBtnItem').onclick = () => {
+                document.getElementById('productModal').style.display = 'none';
+                openShareModal(product.title);
+            };
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalDesc').innerText = product.desc;
+
+            document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Enterprise";
+            document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
+
+            document.getElementById('specStock').innerText = product.stock || "Available";
+            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
+            document.getElementById('specSku').innerText = product.sku || "MME-GENERAL";
+
+            const slider = document.getElementById('modalMediaSlider');
+            const thumbs = document.getElementById('modalThumbsRow');
+            
+            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
+
+            const colorBox = document.getElementById('modalColorCirclesInline');
+            const colorItemBox = document.getElementById('cyclingColorItemBox');
+            if(product.colors && product.colors.length > 0) {
+                colorItemBox.style.display = 'block';
+                selectedColor = product.colors[0];
+                colorBox.innerHTML = product.colors.map((c, idx) => `
+                    <div class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></div>
+                `).join('');
+            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
+
+            const sizeBox = document.getElementById('modalSizePillsInline');
+            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
+            if(product.sizes && product.sizes.length > 0) {
+                sizeItemBox.style.display = 'block';
+                selectedSize = product.sizes[0];
+                sizeBox.innerHTML = product.sizes.map((s, idx) => `
+                    <div class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</div>
+                `).join('');
+            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+
+            document.getElementById('productModal').style.display = 'flex';
+            startCyclingAnimation();
+        }
+
+        function switchSlide(idx) {
+            let slideEl = document.getElementById(`slide-${idx}`);
+            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
+                if(i === idx) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+        }
+
+        function selectModalColor(cVal, el) {
+            selectedColor = cVal;
+            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectModalSize(sVal, el) {
+            selectedSize = sVal;
+            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function updateModalQuantity(change) {
+            currentModalQty += change;
+            if(currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+        }
+
+        function closeProductModal() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Add To Cart ফাংশন (প্রোডাক্ট কার্টে সেভ করে সাব-ডোমেইনের আইফ্রেম পপ-আপে ওপেন করবে)
+        function addToCartWithSelection() {
+            if(!activeCurrentProduct) return;
+            
+            cartItems.push({
+                cartId: Date.now() + Math.random(),
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId
+            });
+
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            
+            closeProductModal();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
+
+            // কার্টে প্রোডাক্ট যোগ করার পর সরাসরি হোমপেজের ভেতরেই সাব-ডোমেইনের পেজটি পপ-আপ আইফ্রেম আকারে ওপেন হবে
+            let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            
+            setTimeout(() => {
+                openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
+            }, 800);
+        }
+
+        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে হোমপেজের পপ-আপ মডালেই সাব-ডোমেইনের কার্ট পেজটি দেখাবে
+        function handleCartClick() {
+            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
+            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart_data=${encodedCart}`;
+            
+            openEcosystemPage(subDomainCartUrl, 'Shopping Cart & Checkout');
+        }
+
+        function performSearchSubmit() {
+            let q = document.getElementById('searchInput').value.toLowerCase();
+            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
+        }
+        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCameraAuto() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                let file = e.target.files[0];
+                if(file) showCustomToast("Image loaded for visual search: " + file.name);
+            };
+            input.click();
+        }
+
+        function triggerVoiceAuto() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                try {
+                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    let recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.start();
+                    recognition.onresult = (event) => {
+                        let query = event.results[0][0].transcript;
+                        document.getElementById('searchInput').value = query;
+                        performSearchSubmit();
+                    };
+                } catch(e) {
+                    let text = prompt("Voice Search Keyword:");
+                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+                }
+            } else {
+                let text = prompt("Voice Search Keyword:");
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+            }
+        }
+    </script>
+</body>
+</html>
