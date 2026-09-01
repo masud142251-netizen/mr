@@ -8,6 +8,15 @@
       const supabaseKey = 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobniyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5ZmVjcWVoeWdpaXZqdGJobniyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2NjQ0NDcsImV4cCI6MjA4NjI0MDQ0N30';
       const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+      function getSessionId() {
+          let sid = localStorage.getItem('mme_user_session_id');
+          if(!sid) {
+              sid = 'MME-SID-' + Math.random().toString(36).substring(2) + Date.now();
+              localStorage.setItem('mme_user_session_id', sid);
+          }
+          return sid;
+      }
+
       window.addEventListener('DOMContentLoaded', async () => {
         const urlParams = new URLSearchParams(window.location.search);
         const affiliateId = urlParams.get('ref') || urlParams.get('aff');
@@ -17,18 +26,27 @@
             localStorage.setItem('mme_active_aff', affiliateId);
         }
 
-        updateHomeCartBadge();
+        await updateHomeCartBadge();
       });
 
-      // সাব-ডোমেইন থেকে কার্ট পরিবর্তন হলে হোমপেজে রিয়েল-টাইম আপডেট করার জন্য
-      window.addEventListener('storage', (event) => {
-          if (event.key === 'mme_cart_items') {
-              updateHomeCartBadge();
-          }
-      });
+      async function saveCartToSupabase(cartItems) {
+          try {
+              let sid = getSessionId();
+              await _supabase.from('carts').upsert([
+                  { user_session_id: sid, cart_items: cartItems, updated_at: new Date() }
+              ], { onConflict: 'user_session_id' });
+          } catch(e) {}
+      }
 
-      function updateHomeCartBadge() {
-          let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+      async function updateHomeCartBadge() {
+          let sid = getSessionId();
+          try {
+              let { data } = await _supabase.from('carts').select('cart_items').eq('user_session_id', sid).single();
+              if(data && data.cart_items) {
+                  localStorage.setItem('mme_cart_items', JSON.stringify(data.cart_items));
+              }
+          } catch(e) {}
+          let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
           let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
           let badgeEl = document.getElementById('cartCount');
           if(badgeEl) badgeEl.innerText = totalCount;
@@ -52,8 +70,6 @@
             --text-white: #ffffff;
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
-            --danger-red: #ff3b30;
-            --success-green: #28a745;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -67,18 +83,11 @@
         }
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
-        .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        
         .brand-title-main { 
             font-family: 'Cinzel Decorative', serif; font-size: 0.92rem; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.3px;
         }
-
-        .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
-        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
-        .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
         .golden-cross-btn-top-right { 
             background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
@@ -92,6 +101,22 @@
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
         }
+
+        .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
+        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
+        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
+        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
+        .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
+
+        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
+        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
+        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
+        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
+        .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
+        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
+        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
@@ -143,7 +168,6 @@
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.1); }
     </style>
 </head>
 <body>
@@ -156,6 +180,39 @@
             <div class="brand-text-box"><span class="brand-title-main">MRMASUDAR.COM</span></div>
         </div>
     </header>
+
+    <div class="secret-admin-overlay" id="secretAdminOverlay">
+        <div class="secret-admin-box">
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('secretAdminOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="secret-admin-title">Master Enterprise Portal</h3>
+            <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
+                <input type="password" id="secretAdminPassInput" placeholder="Master Password..." style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: #fff; margin-bottom: 8px;">
+                <button onclick="verifySecretAdminPass()" style="width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">Unlock</button>
+            </div>
+            <div id="adminDashboardSec" style="display: none;">
+                <table class="admin-data-table">
+                    <thead><tr><th>Trk ID</th><th>Customer</th><th>Product</th><th>Status</th></tr></thead>
+                    <tbody id="adminOrdersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="share-modal-overlay" id="shareModalOverlay" onclick="if(event.target.id==='shareModalOverlay') document.getElementById('shareModalOverlay').style.display='none'">
+        <div class="share-modal-box">
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share & Earn</h3>
+            <div class="share-grid">
+                <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+            </div>
+            <div class="copy-link-box">
+                <input type="text" class="copy-link-input" id="shareLinkInput" readonly>
+                <button class="copy-link-btn" onclick="copyShareLink()">Copy</button>
+            </div>
+        </div>
+    </div>
 
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -191,18 +248,82 @@
         </div>
     </div>
 
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate')"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech')"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller')"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+        </div>
+    </nav>
+
     <script>
+        const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
+        let logoTapCount = 0, logoTapTimer = null;
         let activeCurrentProduct = null;
         let currentModalQty = 1;
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
-        window.addEventListener('DOMContentLoaded', () => { loadCombinedProducts(); });
+        document.addEventListener('DOMContentLoaded', () => {
+            const triggerZone = document.getElementById('secretAdminTriggerZone');
+            if(triggerZone) {
+                triggerZone.addEventListener('click', () => {
+                    logoTapCount++;
+                    if(logoTapCount === 1) logoTapTimer = setTimeout(() => logoTapCount = 0, 1000);
+                    else if(logoTapCount === 3) { clearTimeout(logoTapTimer); logoTapCount = 0; openSecretAdmin(); }
+                });
+            }
+            loadCombinedProducts();
+        });
+
+        function openSecretAdmin() {
+            document.getElementById('secretAdminOverlay').style.display = 'flex';
+            if(sessionStorage.getItem('mme_secret_admin_unlocked') === 'true') {
+                showAdminDashboardContent();
+            } else {
+                document.getElementById('adminLoginFormSec').style.display = 'block';
+                document.getElementById('adminDashboardSec').style.display = 'none';
+            }
+        }
+
+        function verifySecretAdminPass() {
+            let pass = document.getElementById('secretAdminPassInput').value.trim();
+            if(pass === MASTER_ADMIN_PASS) {
+                sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
+                showAdminDashboardContent();
+            } else { showCustomToast("Incorrect Password!"); }
+        }
+
+        function showAdminDashboardContent() {
+            document.getElementById('adminLoginFormSec').style.display = 'none';
+            document.getElementById('adminDashboardSec').style.display = 'block';
+            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
+            let tbody = document.getElementById('adminOrdersTableBody');
+            tbody.innerHTML = allOrders.length === 0 ? `<tr><td colspan="4" style="text-align:center;">No orders yet.</td></tr>` :
+                allOrders.reverse().map(o => `<tr><td>${o.trackingId}</td><td>${o.customerName}</td><td>${o.productTitle}</td><td>${o.paymentStatus}</td></tr>`).join('');
+        }
 
         function showCustomToast(msg) {
             let toast = document.getElementById('customToast');
-            toast.innerText = msg;
-            toast.style.display = 'block';
+            toast.innerText = msg; toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }
+
+        function getSessionId() {
+            let sid = localStorage.getItem('mme_user_session_id');
+            if(!sid) {
+                sid = 'MME-SID-' + Math.random().toString(36).substring(2) + Date.now();
+                localStorage.setItem('mme_user_session_id', sid);
+            }
+            return sid;
+        }
+
+        async function saveCartToSupabase(cartItems) {
+            try {
+                let sid = getSessionId();
+                await _supabase.from('carts').upsert([
+                    { user_session_id: sid, cart_items: cartItems, updated_at: new Date() }
+                ], { onConflict: 'user_session_id' });
+            } catch(e) {}
         }
 
         function getAllProducts() {
@@ -213,8 +334,7 @@
                     category: "👗 FASHION (WOMEN)",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                    desc: "Exquisite hand-stitched silk evening gown.", stock: "45 Units", packaging: "Gift Box", sku: "MME-01",
-                    colors: ["#d4af37", "#111111"], sizes: ["S", "M", "L"]
+                    desc: "Exquisite hand-stitched silk evening gown."
                 }
             ];
             let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
@@ -238,8 +358,7 @@
                             category: p.category || '👗 FASHION (WOMEN)',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive collection.', stock: 'In Stock', packaging: 'Box', sku: `MME-${s.id}-${i}`,
-                            colors: ["#d4af37", "#111111"], sizes: ["Standard"]
+                            desc: p.desc || 'Exclusive collection.'
                         });
                     });
                 }
@@ -258,9 +377,40 @@
                         <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media"></iframe>
                         <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
                     </div>
+                    <div class="product-bottom-actions">
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>1,240</span></div>
+                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>450</span></div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                    </div>
                 `;
                 feed.appendChild(card);
             });
+            updateHomeCartBadge();
+        }
+
+        async function updateHomeCartBadge() {
+            let sid = getSessionId();
+            try {
+                let { data } = await _supabase.from('carts').select('cart_items').eq('user_session_id', sid).single();
+                if(data && data.cart_items) {
+                    localStorage.setItem('mme_cart_items', JSON.stringify(data.cart_items));
+                }
+            } catch(e) {}
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.getElementById('cartCount').innerText = totalCount;
+        }
+
+        function openShareModal(title) {
+            let link = `${window.location.href.split('?')[0]}?aff=${currentAffiliateId}`;
+            document.getElementById('shareLinkInput').value = link;
+            document.getElementById('shareModalOverlay').style.display = 'flex';
+        }
+        function copyShareLink() {
+            let inp = document.getElementById('shareLinkInput');
+            inp.select(); navigator.clipboard.writeText(inp.value);
+            showCustomToast("Link copied!");
+            document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
         function openProductModal(id) {
@@ -272,6 +422,9 @@
             document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalDesc').innerText = product.desc;
+            
+            const slider = document.getElementById('modalMediaSlider');
+            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item"><img src="${img}"></div>`).join('');
             document.getElementById('productModal').style.display = 'flex';
         }
 
@@ -281,10 +434,8 @@
             document.getElementById('modalProductQty').value = currentModalQty;
         }
 
-        // কার্টে প্রোডাক্ট যোগ করার সঠিক এবং নির্ভুল পদ্ধতি (ডাবল বা সংখ্যা এলোমেলো হবে না)
-        function addToCartWithSelection() {
+        async function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
-            
             let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
             
             cartItems.push({
@@ -293,33 +444,27 @@
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
                 quantity: currentModalQty,
-                color: "Standard",
-                size: "Standard",
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId
             });
 
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+            await saveCartToSupabase(cartItems);
 
-            let totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = totalCount;
-            
+            updateHomeCartBadge();
             closeProductModal();
-            showCustomToast("Product added to cart!");
+            showCustomToast("Added to cart & synced!");
 
-            let encodedCart = encodeURIComponent(JSON.stringify(cartItems));
-            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart=${encodedCart}`;
-            
-            setTimeout(() => { window.location.href = subDomainCartUrl; }, 600);
+            setTimeout(() => {
+                window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}`;
+            }, 600);
         }
 
         function handleCartClick() {
-            let currentCart = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
-            let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart=${encodedCart}`;
-            window.location.href = subDomainCartUrl;
+            window.location.href = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&sid=${getSessionId()}`;
         }
+
+        function openEcosystemPage(url, title) { window.location.href = url; }
     </script>
 </body>
 </html>
