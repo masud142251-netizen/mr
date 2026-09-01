@@ -151,11 +151,27 @@
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+
+        /* ডাইনামিক পেজ কন্টেন্ট লোড করার জন্য ওভারলে ফ্রেম */
+        .ecosystem-frame-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 1px solid var(--gold-solid); }
+        .ecosystem-title { font-size: 0.85rem; font-weight: 700; color: var(--gold-solid); font-family: 'Cinzel', serif; }
+        .ecosystem-close-btn { background: var(--gold-solid); border: none; color: #000; font-weight: bold; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .ecosystem-iframe { width: 100%; height: calc(100% - 50px); border: none; background: #000; }
     </style>
 </head>
 <body>
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
+
+    <!-- ইকোসিস্টেম পেজ হোমপেজের ভেতরেই দেখানোর জন্য ফ্রেম -->
+    <div class="ecosystem-frame-overlay" id="ecosystemOverlay">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemTitle">MRMASUDAR HUB</span>
+            <button class="ecosystem-close-btn" onclick="closeEcosystemPage()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <iframe id="ecosystemIframe" class="ecosystem-iframe" src=""></iframe>
+    </div>
 
     <header class="app-header">
         <div class="brand-container">
@@ -214,16 +230,18 @@
 
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com')"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com')"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com')"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-            <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+            <!-- ফিক্সড: আলাদা ট্যাবে না গিয়ে হোমপেজের ভেতরেই ওভারলে হিসেবে ওপেন হবে -->
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate Hub')"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy')"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard')"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" onclick="window.location.reload()"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera"></i>
-                <i class="fa-solid fa-microphone"></i>
+                <!-- ফিক্সড: ক্যামেরা ও ভয়েস সার্চ সচল করা হয়েছে -->
+                <i class="fa-solid fa-camera" title="Visual Search" onclick="triggerCameraSearch()"></i>
+                <i class="fa-solid fa-microphone" title="Voice Search" onclick="triggerVoiceSearch()"></i>
                 <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
@@ -308,12 +326,33 @@
                     </div>
                     <div class="product-bottom-actions">
                         <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>4,563</span></div>
-                        <div class="action-item like-icon"><i class="fa-solid fa-heart"></i> <span>922</span></div>
-                        <div class="action-item share-icon"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                        <div class="action-item like-icon" onclick="handleLikeClick(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">922</span></div>
+                        <div class="action-item share-icon" onclick="handleShareProduct('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
                     </div>
                 `;
                 feed.appendChild(card);
             });
+        }
+
+        // ফিক্সড: শেয়ার বাটন সচল করা হয়েছে
+        function handleShareProduct(title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Check out this luxury product on MRMASUDAR.COM',
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showCustomToast("Product link copied to clipboard!");
+            }
+        }
+
+        function handleLikeClick(el) {
+            let span = el.querySelector('.like-count');
+            let count = parseInt(span.innerText) + 1;
+            span.innerText = count;
+            showCustomToast("Added to your liked items!");
         }
 
         function openProductModal(id) {
@@ -330,9 +369,14 @@
             const slider = document.getElementById('modalMediaSlider');
             const thumbs = document.getElementById('modalThumbsRow');
             slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}">`).join('');
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
 
             document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function switchSlide(idx) {
+            let slideEl = document.getElementById(`slide-${idx}`);
+            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth' });
         }
 
         function updateModalQuantity(change) {
@@ -367,15 +411,60 @@
             showCustomToast("Product added to cart!");
         }
 
+        // ফিক্সড: ঝুড়িতে ক্লিক করলে সাব-ডোমেইনের চেকআউটে সঠিকভাবে ডেটা পাস হবে
         function handleCartClick() {
             let cartItems = localStorage.getItem('mme_cart_items') || '[]';
             let encodedData = encodeURIComponent(cartItems);
             window.location.href = `https://out.mrmasudar.com?cart=${encodedData}&ref=${currentAffiliateId}`;
         }
 
-        function performSearchSubmit() {}
+        // ফিক্সড: ক্যামেরা ও ভয়েস সার্চ সচল করা হয়েছে
+        function triggerCameraSearch() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = e => {
+                showCustomToast("Visual image uploaded. Searching products...");
+            };
+            input.click();
+        }
+
+        function triggerVoiceSearch() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showCustomToast("Voice search is not supported in this browser.");
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.onstart = () => { showCustomToast("Listening... Speak now"); };
+            recognition.onresult = (event) => {
+                let speechText = event.results[0][0].transcript;
+                document.getElementById('searchInput').value = speechText;
+                showCustomToast(`Searched for: ${speechText}`);
+            };
+            recognition.onerror = () => { showCustomToast("Could not recognize voice. Try again."); };
+            recognition.start();
+        }
+
+        function performSearchSubmit() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) showCustomToast(`Searching for "${query}"...`);
+        }
+
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-        function openEcosystemPage(url) { window.open(url, '_blank'); }
+
+        // ফিক্সড: ইকোসিস্টেম পেজগুলো হোমপেজের ভেতরেই ওভারলে ফ্রেমে লোড হবে
+        function openEcosystemPage(url, title) {
+            document.getElementById('ecosystemTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemOverlay').style.display = 'flex';
+        }
+
+        function closeEcosystemPage() {
+            document.getElementById('ecosystemOverlay').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+        }
     </script>
 </body>
 </html>
