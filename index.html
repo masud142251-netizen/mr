@@ -140,15 +140,15 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল */
-        .social-share-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px; }
-        .social-share-box { background: linear-gradient(135deg, #161616, #0a0a0a); border: 2px solid var(--gold-solid); border-radius: 20px; width: 100%; max-width: 360px; padding: 20px; text-align: center; position: relative; box-shadow: 0 0 40px rgba(212,175,55,0.4); }
-        .social-share-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; text-transform: uppercase; }
-        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; }
-        .social-item { display: flex; flex-direction: column; align-items: center; gap: 5px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.2); padding: 10px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: #fff; font-size: 0.68rem; }
-        .social-item:hover { border-color: var(--gold-solid); background: rgba(212,175,55,0.1); transform: translateY(-3px); }
-        .social-item i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .copy-link-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: #000; font-weight: 800; font-size: 0.78rem; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
+        /* মোবাইল ফ্রেন্ডলি প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (শুধুমাত্র লোগো) */
+        .social-share-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 12px; }
+        .social-share-box { background: linear-gradient(135deg, #161616, #0a0a0a); border: 2px solid var(--gold-solid); border-radius: 20px; width: 100%; max-width: 340px; padding: 20px 15px 15px 15px; text-align: center; position: relative; box-shadow: 0 0 40px rgba(212,175,55,0.4); }
+        .social-share-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .social-item { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(212,175,55,0.3); padding: 12px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: #fff; }
+        .social-item:hover { border-color: var(--gold-solid); background: rgba(212,175,55,0.15); transform: translateY(-3px); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
+        .social-item i { font-size: 1.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .copy-link-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 12px; color: #000; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
@@ -162,7 +162,7 @@
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
 
-        /* হেডার ও দাগ রিমুভ করা ইকোসিস্টেম ওভারলে ফ্রেম */
+        /* ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ রিমুভ করে শুধু গোল ক্রস বাটন রাখা হয়েছে) */
         .ecosystem-frame-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 3000; display: none; flex-direction: column; }
         .ecosystem-header { display: flex; justify-content: flex-end; align-items: center; padding: 12px 16px; background: transparent; position: absolute; top: 0; right: 0; width: 100%; z-index: 3100; pointer-events: none; }
         .ecosystem-close-btn { background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 20px rgba(212,175,55,0.7); pointer-events: auto; transition: all 0.3s ease; }
@@ -174,27 +174,27 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- সোশ্যাল শেয়ার পপআপ মডাল -->
+    <!-- প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (শুধু লোগো সম্বলিত, মোবাইল ফ্রেন্ডলি) -->
     <div class="social-share-overlay" id="socialShareModal">
         <div class="social-share-box">
             <button class="golden-cross-btn-top-right" onclick="closeSocialShareModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="social-share-title">Share Product</h3>
             <div class="social-grid">
-                <a href="#" id="shareFb" target="_blank" class="social-item"><i class="fa-brands fa-facebook"><span>Facebook</span></i></a>
-                <a href="#" id="shareWa" target="_blank" class="social-item"><i class="fa-brands fa-whatsapp"><span>WhatsApp</span></i></a>
-                <a href="#" id="shareTg" target="_blank" class="social-item"><i class="fa-brands fa-telegram"><span>Telegram</span></i></a>
-                <a href="#" id="shareIg" target="_blank" class="social-item"><i class="fa-brands fa-instagram"><span>Instagram</span></i></a>
-                <a href="#" id="shareYt" target="_blank" class="social-item"><i class="fa-brands fa-youtube"><span>YouTube</span></i></a>
-                <a href="#" id="shareTt" target="_blank" class="social-item"><i class="fa-brands fa-tiktok"><span>TikTok</span></i></a>
-                <a href="#" id="shareX" target="_blank" class="social-item"><i class="fa-brands fa-x-twitter"><span>X (Twitter)</span></i></a>
-                <a href="#" id="shareLi" target="_blank" class="social-item"><i class="fa-brands fa-linkedin"><span>LinkedIn</span></i></a>
-                <a href="#" id="shareImo" target="_blank" class="social-item"><i class="fa-solid fa-comment-dots"><span>IMO</span></i></a>
+                <a href="#" id="shareFb" target="_blank" class="social-item" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" id="shareWa" target="_blank" class="social-item" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" id="shareTg" target="_blank" class="social-item" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" id="shareIg" target="_blank" class="social-item" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" id="shareYt" target="_blank" class="social-item" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" id="shareTt" target="_blank" class="social-item" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" id="shareX" target="_blank" class="social-item" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" id="shareLi" target="_blank" class="social-item" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" id="shareImo" target="_blank" class="social-item" title="IMO"><i class="fa-solid fa-comment-dots"></i></a>
             </div>
             <button class="copy-link-btn" onclick="copyProductLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>
         </div>
     </div>
 
-    <!-- ইকোসিস্টেম পেজ ওভারলে (কোনো বড় হেডার বা টেক্সট নেই, শুধু গোল ক্রস বাটন) -->
+    <!-- ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন) -->
     <div class="ecosystem-frame-overlay" id="ecosystemOverlay">
         <div class="ecosystem-header">
             <button class="ecosystem-close-btn" onclick="closeEcosystemPage()"><i class="fa-solid fa-xmark"></i></button>
@@ -361,7 +361,7 @@
             });
         }
 
-        // প্রিমিয়াম সোশ্যাল শেয়ার পপআপ ওপেন ও লিঙ্ক সেটআপ
+        // সোশ্যাল শেয়ার পপআপ ওপেন (শুধু লোগো সম্বলিত মোবাইল ফ্রেন্ডলি ডিজাইন)
         function openSocialShareModal(title) {
             let currentUrl = encodeURIComponent(window.location.href);
             let encodedTitle = encodeURIComponent(title);
@@ -493,7 +493,7 @@
 
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
 
-        // ইকোসিস্টেম পেজ লোডার (হেডার ও টেক্সট রিমুভ করে শুধু গোল ক্রস বাটন রাখা হয়েছে)
+        // ইকোসিস্টেম পেজ লোডার (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন)
         function openEcosystemPage(url) {
             document.getElementById('ecosystemIframe').src = url;
             document.getElementById('ecosystemOverlay').style.display = 'flex';
