@@ -53,7 +53,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
-        body { padding-top: 68px; padding-bottom: 95px; }
+        body { padding-top: 112px; padding-bottom: 95px; }
 
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
@@ -70,8 +70,13 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* ৬টি ক্যাটাগরি ফিল্টার বার (হোমপেজের ওপরের অংশে) */
+        .categories-bar { position: fixed; top: 53px; left: 0; width: 100%; background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(212,175,55,0.25); display: flex; gap: 8px; padding: 8px 12px; overflow-x: auto; z-index: 990; scrollbar-width: none; backdrop-filter: blur(10px); }
+        .category-chip { background: rgba(20,20,20,0.9); border: 1.5px solid rgba(212,175,55,0.35); color: var(--text-gray); padding: 4px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: all 0.3s ease; }
+        .category-chip.active, .category-chip:hover { background: var(--gold-gradient); color: #000; border-color: var(--gold-solid); box-shadow: 0 0 12px rgba(212,175,55,0.4); font-weight: 700; }
+
         .custom-toast {
-            position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
+            position: fixed; top: 115px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
@@ -95,8 +100,6 @@
         .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; position: relative; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         
-        .product-category-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); border: 1px solid var(--gold-solid); color: var(--gold-solid); font-size: 0.52rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(4px); }
-
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -142,18 +145,19 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* মোবাইল ফ্রেন্ডলি প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (X লোগো ফিক্সড এবং লিংক প্রিভিউ বক্সসহ) */
+        /* মোবাইল ফ্রেন্ডলি প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (SVG লোগো ও পারফেক্ট গোল্ডেন স্টাইল) */
         .social-share-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 12px; }
         .social-share-box { background: linear-gradient(135deg, #161616, #0a0a0a); border: 2px solid var(--gold-solid); border-radius: 20px; width: 100%; max-width: 340px; padding: 20px 15px 15px 15px; text-align: center; position: relative; box-shadow: 0 0 40px rgba(212,175,55,0.4); }
         .social-share-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .share-link-preview-box { background: #000; border: 1px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 10px; margin-bottom: 12px; font-size: 0.62rem; color: var(--gold-solid); word-break: break-all; text-align: left; max-height: 45px; overflow-y: auto; }
-        .share-link-preview-box span { display: block; font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; margin-bottom: 2px; font-weight: 700; }
+        .share-link-preview-box { background: #000; border: 1px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 10px; margin-bottom: 12px; font-size: 0.62rem; color: var(--text-white); word-break: break-all; text-align: left; max-height: 45px; overflow-y: auto; user-select: all; }
+        .share-link-preview-box span { display: block; font-size: 0.50rem; color: var(--gold-solid); text-transform: uppercase; margin-bottom: 2px; font-weight: 700; }
 
         .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
-        .social-item { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(212,175,55,0.3); padding: 11px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: #fff; }
+        .social-item { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(212,175,55,0.3); padding: 11px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: var(--gold-solid); }
         .social-item:hover { border-color: var(--gold-solid); background: rgba(212,175,55,0.15); transform: translateY(-3px); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
-        .social-item i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .social-item svg { width: 22px; height: 22px; fill: url(#goldGradient); }
+        
         .copy-link-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 12px; color: #000; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -168,7 +172,7 @@
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
 
-        /* ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন) */
+        /* ইকোসিস্টেম পেজ ওভারলে */
         .ecosystem-frame-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 3000; display: none; flex-direction: column; }
         .ecosystem-header { display: flex; justify-content: flex-end; align-items: center; padding: 12px 16px; background: transparent; position: absolute; top: 0; right: 0; width: 100%; z-index: 3100; pointer-events: none; }
         .ecosystem-close-btn { background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 20px rgba(212,175,55,0.7); pointer-events: auto; transition: all 0.3s ease; }
@@ -178,29 +182,49 @@
 </head>
 <body>
 
+    <!-- গ্রিডিয়েন্ট ডেফিনেশন যাতে SVG লোগোগুলো পারফেক্ট গোল্ডেন কালার নেয় -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+      <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#bf953f" />
+        <stop offset="25%" stop-color="#fcf6ba" />
+        <stop offset="50%" stop-color="#b38728" />
+        <stop offset="75%" stop-color="#fbf5b7" />
+        <stop offset="100%" stop-color="#aa771c" />
+      </linearGradient>
+    </svg>
+
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (লিংক প্রিভিউ এবং X লোগো সহ) -->
+    <!-- সোশ্যাল শেয়ার পপআপ মডাল -->
     <div class="social-share-overlay" id="socialShareModal">
         <div class="social-share-box">
             <button class="golden-cross-btn-top-right" onclick="closeSocialShareModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="social-share-title">Share Product</h3>
             
             <div class="share-link-preview-box">
-                <span id="shareLinkTypeLabel">Product Link</span>
-                <div id="shareLinkTextDisplay">https://mrmasudar.com</div>
+                <span>Product Share Link</span>
+                <div id="shareLinkTextDisplay" onclick="document.execCommand('selectAll',false,null)">https://mrmasudar.com</div>
             </div>
 
             <div class="social-grid">
-                <a href="#" id="shareFb" target="_blank" class="social-item" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" id="shareWa" target="_blank" class="social-item" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" id="shareTg" target="_blank" class="social-item" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" id="shareIg" target="_blank" class="social-item" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" id="shareYt" target="_blank" class="social-item" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" id="shareTt" target="_blank" class="social-item" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" id="shareX" target="_blank" class="social-item" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" id="shareLi" target="_blank" class="social-item" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" id="shareImo" target="_blank" class="social-item" title="IMO"><i class="fa-solid fa-comment-dots"></i></a>
+                <!-- Facebook -->
+                <a href="#" id="shareFb" target="_blank" class="social-item" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <!-- WhatsApp -->
+                <a href="#" id="shareWa" target="_blank" class="social-item" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></a>
+                <!-- Telegram -->
+                <a href="#" id="shareTg" target="_blank" class="social-item" title="Telegram"><svg viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.195 1.006.131.832.943z"/></svg></a>
+                <!-- Instagram -->
+                <a href="#" id="shareIg" target="_blank" class="social-item" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <!-- YouTube -->
+                <a href="#" id="shareYt" target="_blank" class="social-item" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                <!-- TikTok -->
+                <a href="#" id="shareTt" target="_blank" class="social-item" title="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.5.18-1.92 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.5-.15 1.07-.12 1.59.3 1.54 1.58 2.8 3.13 3.12.98.2 2.01.1 2.91-.32 1.07-.49 1.83-1.5 1.9-2.68.08-3.08.02-6.17.04-9.25 0-2.09-.01-4.18.01-6.27z"/></svg></a>
+                <!-- X (Twitter) -->
+                <a href="#" id="shareX" target="_blank" class="social-item" title="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <!-- LinkedIn -->
+                <a href="#" id="shareLi" target="_blank" class="social-item" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                <!-- IMO -->
+                <a href="#" id="shareImo" target="_blank" class="social-item" title="IMO"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.17.7 4.19 1.9 5.84L2.3 21.7l4.03-1.06C7.92 21.5 9.89 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.56-.55-5-1.5l-.35-.23-2.61.69.7-2.53-.23-.37C3.58 14.88 3 13.49 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/></svg></a>
             </div>
             <button class="copy-link-btn" onclick="copyProductLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>
         </div>
@@ -228,6 +252,16 @@
             </div>
         </div>
     </header>
+
+    <!-- ৬টি ক্যাটাগরি ফিল্টার বার -->
+    <div class="categories-bar" id="categoriesBar">
+        <div class="category-chip active" onclick="filterByCategory('All', this)">All Items</div>
+        <div class="category-chip" onclick="filterByCategory('Gown & Apparel', this)">Gown & Apparel</div>
+        <div class="category-chip" onclick="filterByCategory('Electronics', this)">Electronics</div>
+        <div class="category-chip" onclick="filterByCategory('Furniture', this)">Furniture</div>
+        <div class="category-chip" onclick="filterByCategory('Baby Products', this)">Baby Products</div>
+        <div class="category-chip" onclick="filterByCategory('Agriculture', this)">Agriculture</div>
+    </div>
 
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -291,6 +325,7 @@
         let currentModalQty = 1;
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
         let activeShareUrl = window.location.href;
+        let masterProductsList = [];
 
         window.addEventListener('DOMContentLoaded', async () => {
             updateCartBadgeCount();
@@ -341,7 +376,6 @@
             } catch(e) {}
         }
 
-        // Supabase থেকে প্রোডাক্ট, ক্যাটাগরি, লাইক এবং ভিউ ফেচ করা
         async function loadCombinedProductsFromSupabase() {
             const feed = document.getElementById('productFeed');
             feed.innerHTML = `<div style="text-align:center; color:var(--gold-solid); padding:20px; font-size:0.75rem; grid-column: span 2;">Loading Supreme Products...</div>`;
@@ -354,7 +388,6 @@
                 }
             } catch(e) {}
 
-            // যদি Supabase-এ কোনো প্রোডাক্ট না থাকে তবে ফলব্যাক ডিফল্ট প্রোডাক্ট দেখানো হবে
             if(products.length === 0) {
                 products = [
                     {
@@ -367,22 +400,30 @@
                 ];
             }
 
+            masterProductsList = products;
+            renderProductFeed(masterProductsList);
+        }
+
+        function renderProductFeed(products) {
+            const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
+
+            if(products.length === 0) {
+                feed.innerHTML = `<div style="text-align:center; color:var(--text-gray); padding:20px; font-size:0.75rem; grid-column: span 2;">No products found in this category.</div>`;
+                return;
+            }
+
             products.forEach(item => {
                 let pId = item.id || 1;
                 let title = item.title || item.product_title || 'Luxury Product';
-                let category = item.category || 'Exclusive Item';
                 let price = item.price || '$185.00';
-                let bdDiscount = item.bd_discount || item.bdDiscount || 'BD 15% OFF';
                 let videoUrl = item.video_url || item.videoUrl || '';
-                let images = item.images || [item.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'];
                 let likes = item.likes || 922;
                 let views = item.views || 4563;
 
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-category-badge">${category}</div>
                     <div class="video-wrapper">
                         <iframe src="${videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
                         <div class="video-click-shield" onclick="openProductModal('${pId}')"></div>
@@ -394,11 +435,22 @@
                     </div>
                 `;
                 feed.appendChild(card);
-                window.allLoadedProducts = products;
             });
+            window.allLoadedProducts = masterProductsList;
         }
 
-        // Supabase-এ লাইক আপডেট করা
+        function filterByCategory(catName, el) {
+            document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+
+            if(catName === 'All') {
+                renderProductFeed(masterProductsList);
+            } else {
+                let filtered = masterProductsList.filter(p => (p.category || '').toLowerCase() === catName.toLowerCase());
+                renderProductFeed(filtered);
+            }
+        }
+
         async function handleSupabaseLike(pId, el) {
             let span = el.querySelector('.like-count');
             let currentLikes = parseInt(span.innerText) + 1;
@@ -410,12 +462,10 @@
             } catch(err) {}
         }
 
-        // প্রিমিয়াম সোশ্যাল শেয়ার পপআপ এবং লিংক প্রিভিউ জেনারেটর
+        // সোশ্যাল শেয়ার পপআপ এবং সাধারণ ক্লিন প্রোডাক্ট লিংক
         function openSocialShareModal(title, pId) {
-            let userRoleType = currentAffiliateId.includes('AFF') ? 'Affiliate Link' : (currentAffiliateId.includes('VEN') ? 'Seller Link' : 'Product Link');
-            activeShareUrl = `${window.location.origin}${window.location.pathname}?prod=${pId}&ref=${currentAffiliateId}`;
+            activeShareUrl = `${window.location.origin}${window.location.pathname}?prod=${pId}`;
 
-            document.getElementById('shareLinkTypeLabel').innerText = userRoleType;
             document.getElementById('shareLinkTextDisplay').innerText = activeShareUrl;
 
             let encodedUrl = encodeURIComponent(activeShareUrl);
@@ -439,11 +489,27 @@
         }
 
         function copyProductLink() {
+            let linkEl = document.getElementById('shareLinkTextDisplay');
+            
+            // টেক্সট সিলেক্ট ও কপি করা
+            if (document.body.createTextRange) {
+                let range = document.body.createTextRange();
+                range.moveToElementText(linkEl);
+                range.select();
+            } else if (window.getSelection) {
+                let selection = window.getSelection();
+                let range = document.createRange();
+                range.selectNodeContents(linkEl);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+
             navigator.clipboard.writeText(activeShareUrl);
             showCustomToast("Link copied to clipboard!");
+            
             setTimeout(() => {
                 closeSocialShareModal();
-            }, 1000);
+            }, 1200);
         }
 
         function openProductModal(id) {
@@ -482,7 +548,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // অ্যাড টু কার্ট করার পর সাব-ডোমেইনে (out.mrmasudar.com) রিডাইরেক্ট করা
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
