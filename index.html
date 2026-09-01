@@ -78,6 +78,13 @@
         }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+        @keyframes smoothCartCenterBounce { 
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); } 
+            38% { transform: scale(1.65) translate(-42vw, -36vh) rotate(-15deg); filter: drop-shadow(0 0 35px var(--gold-solid)); } 
+            70% { transform: scale(1.1) translate(0, 0) rotate(5deg); }
+            100% { transform: scale(1) translate(0, 0) rotate(0deg); } 
+        }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
@@ -130,6 +137,8 @@
         .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
@@ -211,11 +220,11 @@
             <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search product...">
+            <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
                 <i class="fa-solid fa-camera"></i>
                 <i class="fa-solid fa-microphone"></i>
-                <button class="search-submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </nav>
@@ -245,6 +254,33 @@
             toast.innerText = msg;
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+
+        function playCoinSoundAndAnimation(buttonEl) {
+            try {
+                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.transform = 'scale(0.25) rotate(1080deg)';
+                    coin.style.opacity = '0.1';
+                }, 50);
+
+                setTimeout(() => {
+                    coin.remove();
+                    const cartEl = document.getElementById('floatingCart');
+                    cartEl.classList.add('smooth-center-bounce');
+                    setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 1400);
+                }, 1300);
+            } catch(e) {}
         }
 
         function getAllProducts() {
@@ -327,16 +363,18 @@
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             updateCartBadgeCount();
             closeProductModal();
+            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
             showCustomToast("Product added to cart!");
         }
 
-        // হোমপেজের ঝুড়িতে ক্লিক করলে সাব-ডোমেইনে কার্ট ডেটা পাস করা হবে
         function handleCartClick() {
             let cartItems = localStorage.getItem('mme_cart_items') || '[]';
             let encodedData = encodeURIComponent(cartItems);
             window.location.href = `https://out.mrmasudar.com?cart=${encodedData}&ref=${currentAffiliateId}`;
         }
 
+        function performSearchSubmit() {}
+        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
         function openEcosystemPage(url) { window.open(url, '_blank'); }
     </script>
 </body>
