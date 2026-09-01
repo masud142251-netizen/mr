@@ -18,11 +18,22 @@
             localStorage.setItem('mme_active_aff', affiliateId);
         }
 
-        let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
-        let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        let badgeEl = document.getElementById('cartCount');
-        if(badgeEl) badgeEl.innerText = totalCount;
+        updateHomeCartBadge();
       });
+
+      // সাব-ডোমেইন থেকে কার্ট পরিবর্তন বা ডিলিট হলে হোমপেজের ব্যাজ অটো আপডেট করার লিসেনার
+      window.addEventListener('storage', (event) => {
+          if (event.key === 'mme_cart_items') {
+              updateHomeCartBadge();
+          }
+      });
+
+      function updateHomeCartBadge() {
+          let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+          let totalCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+          let badgeEl = document.getElementById('cartCount');
+          if(badgeEl) badgeEl.innerText = totalCount;
+      }
     </script>
 
     <meta charset="UTF-8">
@@ -641,7 +652,6 @@
         }
 
         let cartItems = [];
-        let cartCount = 0;
         let activeCurrentProduct = null;
         let selectedColor = "Standard";
         let selectedSize = "Standard";
@@ -652,13 +662,6 @@
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
-            let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
-            if(savedCart) {
-                cartItems = JSON.parse(savedCart);
-                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = cartCount;
-            }
             loadCombinedProducts();
         });
 
@@ -1020,10 +1023,11 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Add To Cart ফাংশন (সঠিকভাবে 'cart' এবং 'cart_data' প্যারামিটার পাস করা হয়েছে)
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
+
             cartItems.push({
                 cartId: Date.now() + Math.random(),
                 productId: activeCurrentProduct.id,
@@ -1037,12 +1041,10 @@
                 affiliateRef: currentAffiliateId
             });
 
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             
+            updateHomeCartBadge();
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
 
@@ -1054,9 +1056,8 @@
             }, 800);
         }
 
-        // ঝুড়ি বা কার্ট আইকনে ক্লিক করলে সাব-ডোমেইনের কার্ট পেজটি দেখাবে
         function handleCartClick() {
-            let currentCart = cartItems.length > 0 ? cartItems : JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            let currentCart = JSON.parse(localStorage.getItem('mme_cart_items') || sessionStorage.getItem('mme_cart_items') || '[]');
             let encodedCart = encodeURIComponent(JSON.stringify(currentCart));
             let subDomainCartUrl = `https://out.mrmasudar.com/?ref=${currentAffiliateId}&cart=${encodedCart}&cart_data=${encodedCart}`;
             
