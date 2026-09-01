@@ -92,9 +92,11 @@
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; position: relative; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
         
+        .product-category-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); border: 1px solid var(--gold-solid); color: var(--gold-solid); font-size: 0.52rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(4px); }
+
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -140,14 +142,18 @@
 
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* মোবাইল ফ্রেন্ডলি প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (শুধুমাত্র লোগো) */
+        /* মোবাইল ফ্রেন্ডলি প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (X লোগো ফিক্সড এবং লিংক প্রিভিউ বক্সসহ) */
         .social-share-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 12px; }
         .social-share-box { background: linear-gradient(135deg, #161616, #0a0a0a); border: 2px solid var(--gold-solid); border-radius: 20px; width: 100%; max-width: 340px; padding: 20px 15px 15px 15px; text-align: center; position: relative; box-shadow: 0 0 40px rgba(212,175,55,0.4); }
-        .social-share-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .social-item { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(212,175,55,0.3); padding: 12px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: #fff; }
+        .social-share-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .share-link-preview-box { background: #000; border: 1px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 10px; margin-bottom: 12px; font-size: 0.62rem; color: var(--gold-solid); word-break: break-all; text-align: left; max-height: 45px; overflow-y: auto; }
+        .share-link-preview-box span { display: block; font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; margin-bottom: 2px; font-weight: 700; }
+
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+        .social-item { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(212,175,55,0.3); padding: 11px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: #fff; }
         .social-item:hover { border-color: var(--gold-solid); background: rgba(212,175,55,0.15); transform: translateY(-3px); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
-        .social-item i { font-size: 1.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .social-item i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .copy-link-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 12px; color: #000; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
 
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
@@ -162,7 +168,7 @@
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
 
-        /* ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ রিমুভ করে শুধু গোল ক্রস বাটন রাখা হয়েছে) */
+        /* ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন) */
         .ecosystem-frame-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 3000; display: none; flex-direction: column; }
         .ecosystem-header { display: flex; justify-content: flex-end; align-items: center; padding: 12px 16px; background: transparent; position: absolute; top: 0; right: 0; width: 100%; z-index: 3100; pointer-events: none; }
         .ecosystem-close-btn { background: rgba(18,18,18,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 20px rgba(212,175,55,0.7); pointer-events: auto; transition: all 0.3s ease; }
@@ -174,11 +180,17 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (শুধু লোগো সম্বলিত, মোবাইল ফ্রেন্ডলি) -->
+    <!-- প্রিমিয়াম সোশ্যাল শেয়ার পপআপ মডাল (লিংক প্রিভিউ এবং X লোগো সহ) -->
     <div class="social-share-overlay" id="socialShareModal">
         <div class="social-share-box">
             <button class="golden-cross-btn-top-right" onclick="closeSocialShareModal()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="social-share-title">Share Product</h3>
+            
+            <div class="share-link-preview-box">
+                <span id="shareLinkTypeLabel">Product Link</span>
+                <div id="shareLinkTextDisplay">https://mrmasudar.com</div>
+            </div>
+
             <div class="social-grid">
                 <a href="#" id="shareFb" target="_blank" class="social-item" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" id="shareWa" target="_blank" class="social-item" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
@@ -194,7 +206,7 @@
         </div>
     </div>
 
-    <!-- ইকোসিস্টেম পেজ ওভারলে (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন) -->
+    <!-- ইকোসিস্টেম পেজ ওভারলে -->
     <div class="ecosystem-frame-overlay" id="ecosystemOverlay">
         <div class="ecosystem-header">
             <button class="ecosystem-close-btn" onclick="closeEcosystemPage()"><i class="fa-solid fa-xmark"></i></button>
@@ -278,10 +290,11 @@
         let activeCurrentProduct = null;
         let currentModalQty = 1;
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
+        let activeShareUrl = window.location.href;
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             updateCartBadgeCount();
-            loadCombinedProducts();
+            await loadCombinedProductsFromSupabase();
         });
 
         function updateCartBadgeCount() {
@@ -328,52 +341,94 @@
             } catch(e) {}
         }
 
-        function getAllProducts() {
-            return [
-                {
-                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
-                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise",
-                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                    desc: "Exquisite hand-stitched luxury gown."
-                }
-            ];
-        }
-
-        function loadCombinedProducts() {
+        // Supabase থেকে প্রোডাক্ট, ক্যাটাগরি, লাইক এবং ভিউ ফেচ করা
+        async function loadCombinedProductsFromSupabase() {
             const feed = document.getElementById('productFeed');
+            feed.innerHTML = `<div style="text-align:center; color:var(--gold-solid); padding:20px; font-size:0.75rem; grid-column: span 2;">Loading Supreme Products...</div>`;
+
+            let products = [];
+            try {
+                let { data, error } = await _supabase.from('products').select('*');
+                if(data && data.length > 0) {
+                    products = data;
+                }
+            } catch(e) {}
+
+            // যদি Supabase-এ কোনো প্রোডাক্ট না থাকে তবে ফলব্যাক ডিফল্ট প্রোডাক্ট দেখানো হবে
+            if(products.length === 0) {
+                products = [
+                    {
+                        id: 1, title: "Luxury Silk Designer Evening Gown", category: "Gown & Apparel", price: "$185.00", bd_discount: "BD 20% OFF",
+                        seller_id: "VEN-MASUD", likes: 922, views: 4563,
+                        video_url: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
+                        images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                        desc: "Exquisite hand-stitched luxury gown."
+                    }
+                ];
+            }
+
             feed.innerHTML = "";
-            getAllProducts().forEach(item => {
+            products.forEach(item => {
+                let pId = item.id || 1;
+                let title = item.title || item.product_title || 'Luxury Product';
+                let category = item.category || 'Exclusive Item';
+                let price = item.price || '$185.00';
+                let bdDiscount = item.bd_discount || item.bdDiscount || 'BD 15% OFF';
+                let videoUrl = item.video_url || item.videoUrl || '';
+                let images = item.images || [item.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'];
+                let likes = item.likes || 922;
+                let views = item.views || 4563;
+
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
+                    <div class="product-category-badge">${category}</div>
                     <div class="video-wrapper">
-                        <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                        <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        <iframe src="${videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                        <div class="video-click-shield" onclick="openProductModal('${pId}')"></div>
                     </div>
                     <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>4,563</span></div>
-                        <div class="action-item like-icon" onclick="handleLikeClick(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">922</span></div>
-                        <div class="action-item share-icon" onclick="openSocialShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="view-cnt-${pId}">${views}</span></div>
+                        <div class="action-item like-icon" onclick="handleSupabaseLike('${pId}', this)"><i class="fa-solid fa-heart"></i> <span class="like-count" id="like-cnt-${pId}">${likes}</span></div>
+                        <div class="action-item share-icon" onclick="openSocialShareModal('${title}', '${pId}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
                     </div>
                 `;
                 feed.appendChild(card);
+                window.allLoadedProducts = products;
             });
         }
 
-        // সোশ্যাল শেয়ার পপআপ ওপেন (শুধু লোগো সম্বলিত মোবাইল ফ্রেন্ডলি ডিজাইন)
-        function openSocialShareModal(title) {
-            let currentUrl = encodeURIComponent(window.location.href);
+        // Supabase-এ লাইক আপডেট করা
+        async function handleSupabaseLike(pId, el) {
+            let span = el.querySelector('.like-count');
+            let currentLikes = parseInt(span.innerText) + 1;
+            span.innerText = currentLikes;
+            showCustomToast("Liked successfully!");
+
+            try {
+                await _supabase.from('products').update({ likes: currentLikes }).eq('id', pId);
+            } catch(err) {}
+        }
+
+        // প্রিমিয়াম সোশ্যাল শেয়ার পপআপ এবং লিংক প্রিভিউ জেনারেটর
+        function openSocialShareModal(title, pId) {
+            let userRoleType = currentAffiliateId.includes('AFF') ? 'Affiliate Link' : (currentAffiliateId.includes('VEN') ? 'Seller Link' : 'Product Link');
+            activeShareUrl = `${window.location.origin}${window.location.pathname}?prod=${pId}&ref=${currentAffiliateId}`;
+
+            document.getElementById('shareLinkTypeLabel').innerText = userRoleType;
+            document.getElementById('shareLinkTextDisplay').innerText = activeShareUrl;
+
+            let encodedUrl = encodeURIComponent(activeShareUrl);
             let encodedTitle = encodeURIComponent(title);
 
-            document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
-            document.getElementById('shareWa').href = `https://api.whatsapp.com/send?text=${encodedTitle}%20-%20${currentUrl}`;
-            document.getElementById('shareTg').href = `https://t.me/share/url?url=${currentUrl}&text=${encodedTitle}`;
+            document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+            document.getElementById('shareWa').href = `https://api.whatsapp.com/send?text=${encodedTitle}%20-%20${encodedUrl}`;
+            document.getElementById('shareTg').href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
             document.getElementById('shareIg').href = `https://www.instagram.com/`;
             document.getElementById('shareYt').href = `https://www.youtube.com/`;
             document.getElementById('shareTt').href = `https://www.tiktok.com/`;
-            document.getElementById('shareX').href = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${encodedTitle}`;
-            document.getElementById('shareLi').href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
+            document.getElementById('shareX').href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+            document.getElementById('shareLi').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
             document.getElementById('shareImo').href = `https://imo.im/`;
 
             document.getElementById('socialShareModal').style.display = 'flex';
@@ -384,33 +439,30 @@
         }
 
         function copyProductLink() {
-            navigator.clipboard.writeText(window.location.href);
+            navigator.clipboard.writeText(activeShareUrl);
             showCustomToast("Link copied to clipboard!");
-            closeSocialShareModal();
-        }
-
-        function handleLikeClick(el) {
-            let span = el.querySelector('.like-count');
-            let count = parseInt(span.innerText) + 1;
-            span.innerText = count;
-            showCustomToast("Added to your liked items!");
+            setTimeout(() => {
+                closeSocialShareModal();
+            }, 1000);
         }
 
         function openProductModal(id) {
-            let product = getAllProducts().find(p => p.id == id);
+            let products = window.allLoadedProducts || [];
+            let product = products.find(p => p.id == id || p.id == String(id));
             if(!product) return;
             activeCurrentProduct = product;
             currentModalQty = 1;
             document.getElementById('modalProductQty').value = currentModalQty;
 
-            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalTitle').innerText = product.title || product.product_title;
             document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalBdDiscount').innerText = product.bd_discount || product.bdDiscount || 'BD 15% OFF';
 
+            let imagesArr = product.images || [product.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'];
             const slider = document.getElementById('modalMediaSlider');
             const thumbs = document.getElementById('modalThumbsRow');
-            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
+            slider.innerHTML = imagesArr.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
+            thumbs.innerHTML = imagesArr.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
 
             document.getElementById('productModal').style.display = 'flex';
         }
@@ -430,26 +482,35 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
+        // অ্যাড টু কার্ট করার পর সাব-ডোমেইনে (out.mrmasudar.com) রিডাইরেক্ট করা
         function addToCartWithSelection() {
             if(!activeCurrentProduct) return;
             
-            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
-            cartItems.push({
+            let imagesArr = activeCurrentProduct.images || [activeCurrentProduct.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'];
+            let cartItem = {
                 cartId: Date.now() + Math.random(),
                 productId: activeCurrentProduct.id,
-                title: activeCurrentProduct.title,
+                title: activeCurrentProduct.title || activeCurrentProduct.product_title,
                 price: activeCurrentProduct.price,
                 quantity: currentModalQty,
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
-                image: activeCurrentProduct.images[0],
+                sellerId: activeCurrentProduct.seller_id || activeCurrentProduct.sellerId || 'VEN-MASUD',
+                image: imagesArr[0],
                 affiliateRef: currentAffiliateId
-            });
+            };
+
+            let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+            cartItems.push(cartItem);
 
             localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
             updateCartBadgeCount();
             closeProductModal();
             playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-            showCustomToast("Product added to cart!");
+            showCustomToast("Product added! Redirecting to Checkout...");
+
+            setTimeout(() => {
+                let encodedData = encodeURIComponent(JSON.stringify(cartItems));
+                window.location.href = `https://out.mrmasudar.com?cart=${encodedData}&ref=${currentAffiliateId}`;
+            }, 1200);
         }
 
         function handleCartClick() {
@@ -462,9 +523,7 @@
             let input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
-            input.onchange = e => {
-                showCustomToast("Visual image uploaded. Searching products...");
-            };
+            input.onchange = e => { showCustomToast("Visual image uploaded. Searching products..."); };
             input.click();
         }
 
@@ -493,7 +552,6 @@
 
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
 
-        // ইকোসিস্টেম পেজ লোডার (হেডার ও দাগ নেই, শুধু গোল ক্রস বাটন)
         function openEcosystemPage(url) {
             document.getElementById('ecosystemIframe').src = url;
             document.getElementById('ecosystemOverlay').style.display = 'flex';
