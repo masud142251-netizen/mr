@@ -87,7 +87,6 @@
 
         .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none; }
 
-        /* শেয়ার ও ক্যাটাগরি মোডাল */
         .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .home-auth-modal, .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box, .category-modal-box, .home-auth-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 20px; padding: 45px 16px 20px 16px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
         
@@ -99,18 +98,26 @@
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; }
 
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 12px 8px; border-radius: 12px; color: var(--text-white); font-size: 0.68rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px; }
         .cat-popup-item:hover { border-color: var(--gold-solid); }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
-        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 10px 14px; }
+        .cat-popup-item i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ফিড ও প্রোডাক্ট কার্ড */
+        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
+        .ecosystem-title { font-size: 1rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
+        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
+
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
         .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; flex-direction: column; transition: 0.3s; }
         .product-card:hover { border-color: var(--gold-solid); }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; }
+        
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -123,15 +130,47 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* মোডাল ইলিমেন্টস */
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; }
+        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
+        .modal-media-slider::-webkit-scrollbar { display: none; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+        .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
+        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
+        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
         .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(18,18,18,0.95); padding: 8px 10px; border-radius: 8px; text-align: left; }
-        .modal-price-row { display: flex; align-items: center; justify-content: space-width; width: 100%; }
+        .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-numeric); }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.52rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.52rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-family: var(--font-numeric); }
+        
+        .free-shipping-tax-text { font-size: 0.65rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
+        .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; margin-bottom: 8px; font-size: 0.7rem; color: #ffffff; font-weight: 700; }
+        .modal-actions-bar span { font-family: var(--font-numeric); }
+
+        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 6px; position: absolute; top: 0; left: 0; padding: 10px 14px; }
+        .cycling-content-item.active { display: flex; opacity: 1; }
+
+        .cycling-title { font-size: 0.92rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.35; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .cycling-desc { font-size: 0.72rem; color: #ffffff; line-height: 1.4; width: 100%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; }
+        .cycling-section-title { font-size: 0.68rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 2px; }
+        
+        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
+
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; color: #fff; font-weight: 700; display: inline-block; }
+        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 900; border-color: #fff; }
+
+        .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        .qty-label-top { font-size: 0.58rem; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; }
+        .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.7rem; font-weight: 800; outline: none; font-family: var(--font-numeric); }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 9px; border-radius: 10px; color: var(--bg-black); font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
         .auth-input-group { margin-bottom: 12px; text-align: left; }
         .auth-input-group label { font-size: 0.62rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 4px; display: block; }
@@ -139,7 +178,7 @@
         .auth-input:focus { border-color: var(--gold-solid); }
 
         .phone-input-row { display: flex; gap: 8px; }
-        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 6px; border-radius: 8px; color: #fff; font-size: 0.75rem; font-weight: 700; outline: none; width: 140px; }
+        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 6px; border-radius: 8px; color: #fff; font-size: 0.75rem; font-weight: 700; outline: none; width: 155px; }
         .country-code-select option { background: #121212; color: #fff; }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: 0.3s; }
@@ -157,7 +196,10 @@
         
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 4px 8px; width: 40%; flex-shrink: 0; margin-left: 4px; }
         .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.65rem; padding: 2px; font-weight: 700; }
+        .bottom-search-actions { display: flex; align-items: center; gap: 5px; color: var(--gold-solid); font-size: 0.72rem; }
+        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
+        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
     </style>
 </head>
 <body>
@@ -180,14 +222,21 @@
         </div>
     </header>
 
-    <!-- শেয়ার মোডাল -->
+    <!-- শেয়ার মোডাল -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
@@ -209,16 +258,29 @@
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
-    <!-- হোমপেজ সাইন-ইন/চেকআউট মোডাল -->
+    <!-- ইকোসিস্টেম মোডাল -->
+    <div class="ecosystem-modal-overlay" id="ecosystemModal">
+        <div class="ecosystem-header">
+            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
+            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ecosystem-body">
+            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- হোমপেজ সাইন-ইন ও চেকআউট মোডাল (বিশ্বের সব দেশের ফ্ল্যাগ ও কোড সহ) -->
     <div class="home-auth-modal" id="homeAuthModal">
         <div class="home-auth-box">
             <h3 style="font-size:1.05rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; text-transform:uppercase;">Luxury Member Verification</h3>
-            <p style="font-size:0.62rem; color:var(--text-gray); margin-bottom:14px;">Verify to open Dashboard & Checkout.</p>
+            <p style="font-size:0.62rem; color:var(--text-gray); margin-bottom:14px;">Verify to proceed directly to Dashboard.</p>
             
             <div class="auth-input-group">
                 <label>Full Name</label>
@@ -229,15 +291,183 @@
                 <input type="email" class="auth-input" id="homeEmailInput" placeholder="yourname@gmail.com">
             </div>
             <div class="auth-input-group">
-                <label>WhatsApp Number (Auto-Detected Code)</label>
+                <label>WhatsApp Number (Global Country Codes)</label>
                 <div class="phone-input-row">
                     <select class="country-code-select" id="homeCountryCode">
-                        <option value="+880">🇧🇩 +880 (BD)</option>
-                        <option value="+1">🇺🇸 +1 (US)</option>
-                        <option value="+44">🇬🇧 +44 (UK)</option>
-                        <option value="+91">🇮🇳 +91 (IN)</option>
-                        <option value="+971">🇦🇪 +971 (UAE)</option>
-                        <option value="+966">🇸🇦 +966 (KSA)</option>
+                        <option value="+93">🇦🇫 +93 (Afghanistan)</option>
+                        <option value="+355">🇦🇱 +355 (Albania)</option>
+                        <option value="+213">🇩🇿 +213 (Algeria)</option>
+                        <option value="+376">🇦🇩 +376 (Andorra)</option>
+                        <option value="+244">🇦🇴 +244 (Angola)</option>
+                        <option value="+54">🇦🇷 +54 (Argentina)</option>
+                        <option value="+374">🇦🇲 +374 (Armenia)</option>
+                        <option value="+61">🇦🇺 +61 (Australia)</option>
+                        <option value="+43">🇦🇹 +43 (Austria)</option>
+                        <option value="+994">🇦🇿 +994 (Azerbaijan)</option>
+                        <option value="+973">🇧🇭 +973 (Bahrain)</option>
+                        <option value="+880" selected>🇧🇩 +880 (Bangladesh)</option>
+                        <option value="+375">🇧🇾 +375 (Belarus)</option>
+                        <option value="+32">🇧🇪 +32 (Belgium)</option>
+                        <option value="+501">🇧🇿 +501 (Belize)</option>
+                        <option value="+229">🇧🇯 +229 (Benin)</option>
+                        <option value="+975">🇧🇹 +975 (Bhutan)</option>
+                        <option value="+591">🇧🇴 +591 (Bolivia)</option>
+                        <option value="+387">🇧🇦 +387 (Bosnia)</option>
+                        <option value="+267">🇧🇼 +267 (Botswana)</option>
+                        <option value="+55">🇧🇷 +55 (Brazil)</option>
+                        <option value="+673">🇧🇳 +673 (Brunei)</option>
+                        <option value="+359">🇧🇬 +359 (Bulgaria)</option>
+                        <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
+                        <option value="+257">🇧🇮 +257 (Burundi)</option>
+                        <option value="+855">🇰🇭 +855 (Cambodia)</option>
+                        <option value="+237">🇨🇲 +237 (Cameroon)</option>
+                        <option value="+1">🇨🇦 +1 (Canada)</option>
+                        <option value="+238">🇨🇻 +238 (Cape Verde)</option>
+                        <option value="+236">🇨🇫 +236 (Central African Rep)</option>
+                        <option value="+235">🇹🇩 +235 (Chad)</option>
+                        <option value="+56">🇨🇱 +56 (Chile)</option>
+                        <option value="+86">🇨🇳 +86 (China)</option>
+                        <option value="+57">🇨🇴 +57 (Colombia)</option>
+                        <option value="+269">🇰🇲 +269 (Comoros)</option>
+                        <option value="+242">🇨🇬 +242 (Congo)</option>
+                        <option value="+506">🇨🇷 +506 (Costa Rica)</option>
+                        <option value="+385">🇭🇷 +385 (Croatia)</option>
+                        <option value="+53">🇨🇺 +53 (Cuba)</option>
+                        <option value="+357">🇨🇾 +357 (Cyprus)</option>
+                        <option value="+420">🇨🇿 +420 (Czech Republic)</option>
+                        <option value="+45">🇩🇰 +45 (Denmark)</option>
+                        <option value="+253">🇩🇯 +253 (Djibouti)</option>
+                        <option value="+1767">🇩🇲 +1767 (Dominica)</option>
+                        <option value="+1809">🇩🇴 +1809 (Dominican Republic)</option>
+                        <option value="+593">🇪🇨 +593 (Ecuador)</option>
+                        <option value="+20">🇪🇬 +20 (Egypt)</option>
+                        <option value="+503">🇸🇻 +503 (El Salvador)</option>
+                        <option value="+240">🇬🇶 +240 (Equatorial Guinea)</option>
+                        <option value="+291">🇪🇷 +291 (Eritrea)</option>
+                        <option value="+372">🇪🇪 +372 (Estonia)</option>
+                        <option value="+251">🇪🇹 +251 (Ethiopia)</option>
+                        <option value="+679">🇫🇯 +679 (Fiji)</option>
+                        <option value="+358">🇫🇮 +358 (Finland)</option>
+                        <option value="+33">🇫🇷 +33 (France)</option>
+                        <option value="+241">🇬🇦 +241 (Gabon)</option>
+                        <option value="+220">🇬🇲 +220 (Gambia)</option>
+                        <option value="+995">🇬🇪 +995 (Georgia)</option>
+                        <option value="+49">🇩🇪 +49 (Germany)</option>
+                        <option value="+233">🇬🇭 +233 (Ghana)</option>
+                        <option value="+30">🇬🇷 +30 (Greece)</option>
+                        <option value="+502">🇬🇹 +502 (Guatemala)</option>
+                        <option value="+224">🇬🇳 +224 (Guinea)</option>
+                        <option value="+245">🇬🇼 +245 (Guinea-Bissau)</option>
+                        <option value="+509">🇭🇹 +509 (Haiti)</option>
+                        <option value="+504">🇭🇳 +504 (Honduras)</option>
+                        <option value="+852">🇭🇰 +852 (Hong Kong)</option>
+                        <option value="+36">🇭🇺 +36 (Hungary)</option>
+                        <option value="+354">🇮🇸 +354 (Iceland)</option>
+                        <option value="+91">🇮🇳 +91 (India)</option>
+                        <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                        <option value="+98">🇮🇷 +98 (Iran)</option>
+                        <option value="+964">🇮🇶 +964 (Iraq)</option>
+                        <option value="+353">🇮🇪 +353 (Ireland)</option>
+                        <option value="+972">🇮🇱 +972 (Israel)</option>
+                        <option value="+39">🇮🇹 +39 (Italy)</option>
+                        <option value="+1876">🇯🇲 +1876 (Jamaica)</option>
+                        <option value="+81">🇯🇵 +81 (Japan)</option>
+                        <option value="+962">🇯🇴 +962 (Jordan)</option>
+                        <option value="+7">🇰🇿 +7 (Kazakhstan)</option>
+                        <option value="+254">🇰🇪 +254 (Kenya)</option>
+                        <option value="+965">🇰🇼 +965 (Kuwait)</option>
+                        <option value="+996">🇰🇬 +996 (Kyrgyzstan)</option>
+                        <option value="+856">🇱🇦 +856 (Laos)</option>
+                        <option value="+371">🇱🇻 +371 (Latvia)</option>
+                        <option value="+961">🇱🇧 +961 (Lebanon)</option>
+                        <option value="+266">🇱🇸 +266 (Lesotho)</option>
+                        <option value="+231">🇱🇷 +231 (Liberia)</option>
+                        <option value="+218">🇱🇾 +218 (Libya)</option>
+                        <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
+                        <option value="+370">🇱🇹 +370 (Lithuania)</option>
+                        <option value="+352">🇱🇺 +352 (Luxembourg)</option>
+                        <option value="+853">🇲🇴 +853 (Macau)</option>
+                        <option value="+389">🇲🇰 +389 (Macedonia)</option>
+                        <option value="+261">🇲🇬 +261 (Madagascar)</option>
+                        <option value="+265">🇲🇼 +265 (Malawi)</option>
+                        <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                        <option value="+960">🇲🇻 +960 (Maldives)</option>
+                        <option value="+223">🇲🇱 +223 (Mali)</option>
+                        <option value="+356">🇲🇹 +356 (Malta)</option>
+                        <option value="+692">🇲🇭 +692 (Marshall Islands)</option>
+                        <option value="+222">🇲🇷 +222 (Mauritania)</option>
+                        <option value="+230">🇲🇺 +230 (Mauritius)</option>
+                        <option value="+52">🇲🇽 +52 (Mexico)</option>
+                        <option value="+373">🇲🇩 +373 (Moldova)</option>
+                        <option value="+377">🇲🇨 +377 (Monaco)</option>
+                        <option value="+976">🇲🇳 +976 (Mongolia)</option>
+                        <option value="+382">🇲🇪 +382 (Montenegro)</option>
+                        <option value="+212">🇲🇦 +212 (Morocco)</option>
+                        <option value="+258">🇲🇿 +258 (Mozambique)</option>
+                        <option value="+95">🇲🇲 +95 (Myanmar)</option>
+                        <option value="+264">🇳🇦 +264 (Namibia)</option>
+                        <option value="+977">🇳🇵 +977 (Nepal)</option>
+                        <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                        <option value="+64">🇳🇿 +64 (New Zealand)</option>
+                        <option value="+505">🇳🇮 +505 (Nicaragua)</option>
+                        <option value="+227">🇳🇪 +227 (Niger)</option>
+                        <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                        <option value="+47">🇳🇴 +47 (Norway)</option>
+                        <option value="+968">🇴🇲 +968 (Oman)</option>
+                        <option value="+92">🇵🇰 +92 (Pakistan)</option>
+                        <option value="+680">🇵🇼 +680 (Palau)</option>
+                        <option value="+970">🇵🇸 +970 (Palestine)</option>
+                        <option value="+507">🇵🇦 +507 (Panama)</option>
+                        <option value="+675">🇵🇬 +675 (Papua New Guinea)</option>
+                        <option value="+595">🇵🇾 +595 (Paraguay)</option>
+                        <option value="+51">🇵🇪 +51 (Peru)</option>
+                        <option value="+63">🇵🇭 +63 (Philippines)</option>
+                        <option value="+48">🇵🇱 +48 (Poland)</option>
+                        <option value="+351">🇵🇹 +351 (Portugal)</option>
+                        <option value="+974">🇶🇦 +974 (Qatar)</option>
+                        <option value="+40">🇷🇴 +40 (Romania)</option>
+                        <option value="+7">🇷🇺 +7 (Russia)</option>
+                        <option value="+250">🇷🇼 +250 (Rwanda)</option>
+                        <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+                        <option value="+221">🇸🇳 +221 (Senegal)</option>
+                        <option value="+381">🇷🇸 +381 (Serbia)</option>
+                        <option value="+248">🇸🇨 +248 (Seychelles)</option>
+                        <option value="+232">🇸🇱 +232 (Sierra Leone)</option>
+                        <option value="+65">🇸🇬 +65 (Singapore)</option>
+                        <option value="+421">🇸🇰 +421 (Slovakia)</option>
+                        <option value="+386">🇸🇮 +386 (Slovenia)</option>
+                        <option value="+252">🇸🇴 +252 (Somalia)</option>
+                        <option value="+27">🇿🇦 +27 (South Africa)</option>
+                        <option value="+82">🇰🇷 +82 (South Korea)</option>
+                        <option value="+34">🇪🇸 +34 (Spain)</option>
+                        <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
+                        <option value="+249">🇸🇩 +249 (Sudan)</option>
+                        <option value="+597">🇸🇷 +597 (Suriname)</option>
+                        <option value="+46">🇸🇪 +46 (Sweden)</option>
+                        <option value="+41">🇨🇭 +41 (Switzerland)</option>
+                        <option value="+963">🇸🇾 +963 (Syria)</option>
+                        <option value="+886">🇹🇼 +886 (Taiwan)</option>
+                        <option value="+992">🇹🇯 +992 (Tajikistan)</option>
+                        <option value="+255">🇹🇿 +255 (Tanzania)</option>
+                        <option value="+66">🇹🇭 +66 (Thailand)</option>
+                        <option value="+228">🇹🇬 +228 (Togo)</option>
+                        <option value="+676">🇹🇴 +676 (Tonga)</option>
+                        <option value="+216">🇹🇳 +216 (Tunisia)</option>
+                        <option value="+90">🇹🇷 +90 (Turkey)</option>
+                        <option value="+993">🇹🇲 +993 (Turkmenistan)</option>
+                        <option value="+256">🇺🇬 +256 (Uganda)</option>
+                        <option value="+380">🇺🇦 +380 (Ukraine)</option>
+                        <option value="+971">🇦🇪 +971 (United Arab Emirates)</option>
+                        <option value="+44">🇬🇧 +44 (United Kingdom)</option>
+                        <option value="+1">🇺🇸 +1 (United States)</option>
+                        <option value="+598">🇺🇾 +598 (Uruguay)</option>
+                        <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
+                        <option value="+678">🇻🇺 +678 (Vanuatu)</option>
+                        <option value="+58">🇻🇪 +58 (Venezuela)</option>
+                        <option value="+84">🇻🇳 +84 (Vietnam)</option>
+                        <option value="+967">🇾🇪 +967 (Yemen)</option>
+                        <option value="+260">🇿🇲 +260 (Zambia)</option>
+                        <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
                     </select>
                     <input type="text" class="auth-input" id="homeWhatsapp" placeholder="1712345678">
                 </div>
@@ -267,32 +497,93 @@
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+
             <div class="modal-media-slider" id="modalMediaSlider"></div>
+            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
+            
             <div class="modal-price-shipping-bar">
                 <div class="modal-price-row">
-                    <span class="modal-price" id="modalPrice">$0.00</span>
-                    <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
+                    <div class="modal-price-group">
+                        <span class="modal-price" id="modalPrice">$0.00</span>
+                        <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
+                    </div>
+                </div>
+                <div class="free-shipping-tax-text">
+                    <i class="fa-solid fa-circle-check"></i> Free Shipping | Tax & VAT Included
                 </div>
             </div>
-            <button style="width:100%; background:var(--gold-gradient); border:none; padding:10px; border-radius:8px; color:#000; font-weight:900; cursor:pointer; margin-top:10px;" onclick="addToCartWithFirebase(this)">Add To Cart</button>
+
+            <div class="modal-actions-bar" id="modalActionsBar">
+                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
+                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
+                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
+            </div>
+
+            <div class="animated-cycling-box" id="animatedCyclingBox">
+                <div class="cycling-content-item active">
+                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
+                </div>
+                <div class="cycling-content-item" id="cyclingColorItemBox">
+                    <span class="cycling-section-title">COLOR</span>
+                    <div id="modalColorCirclesInline" style="display:flex; gap:10px; align-items:center; justify-content:center;"></div>
+                </div>
+                <div class="cycling-content-item" id="cyclingSizeItemBox">
+                    <span class="cycling-section-title">SIZE</span>
+                    <div id="modalSizePillsInline" style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
+                </div>
+                <div class="cycling-content-item">
+                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
+                </div>
+                <div class="cycling-content-item">
+                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-action-wrap">
+                <div style="text-align: center;">
+                    <span class="qty-label-top">Quantity</span>
+                    <div class="golden-round-qty-box">
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithFirebase(this)">
+                    Add To Cart
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- বটম ন্যাভ -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
-            <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Image Search"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()" title="Voice Search"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
         </div>
     </nav>
 
     <script>
         let activeCurrentProduct = null;
+        let selectedColor = "Standard";
+        let selectedSize = "Standard";
+        let currentModalQty = 1;
+        let cyclingInterval = null;
+        let currentShareTitle = "";
 
-        // অ্যাফিলিয়েট আইডি হ্যান্ডলিং
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
         if(urlAff) { 
@@ -312,14 +603,14 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2200);
         }
 
-        // অটো কান্ট্রি কোড ডিটেকশন
+        // অটো কান্ট্রি ও ডায়ালিং কোড ডিটেক্টর
         async function detectUserCountryCode() {
             try {
                 let res = await fetch('https://ipapi.co/json/');
                 let data = await res.json();
                 if(data && data.country_calling_code) {
                     let select = document.getElementById('homeCountryCode');
-                    let code = data.country_calling_code;
+                    let code = data.country_calling_code.startsWith('+') ? data.country_calling_code : '+' + data.country_calling_code;
                     for(let option of select.options) {
                         if(option.value === code || option.value === "+" + code.replace("+","")) {
                             select.value = option.value;
@@ -330,7 +621,6 @@
             } catch(e) {}
         }
 
-        // অটো ইউজার লগইন চেক
         function checkAutoUserLogin() {
             let savedUser = JSON.parse(localStorage.getItem('mme_logged_user') || 'null');
             if(savedUser) {
@@ -341,7 +631,6 @@
             }
         }
 
-        // ডাইনামিক ভিউজ ও লাইকস ইঞ্জিন (প্রতিবার বাড়ার ব্যবস্থা)
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
@@ -349,7 +638,7 @@
 
             let views = parseInt(localStorage.getItem(storageKeyViews));
             if(!views) {
-                views = Math.floor(2000 + Math.random() * 1500); // ২০০০ থেকে ৩৫০০ এর মধ্যে শুরু
+                views = Math.floor(2000 + Math.random() * 1500);
                 localStorage.setItem(storageKeyViews, views);
             } else {
                 if(Math.random() > 0.5) {
@@ -358,7 +647,7 @@
                 }
             }
 
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(300 + Math.random() * 200); // ৩০০ থেকে ৫০০ এর মধ্যে
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(300 + Math.random() * 200);
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
             let isLiked = (Date.now() - likedTime) < 86400000;
 
@@ -382,15 +671,35 @@
             showCustomToast("Product liked successfully!");
         }
 
-        // প্রোডাক্ট শাফলিং ইঞ্জিন (প্রতিবার এলোমেলো বা আপ-ডাউন করার জন্য)
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-            return array;
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+        }
+
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
         }
 
         function getAllProducts() {
@@ -399,12 +708,17 @@
                     id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
                     category: "👗 FASHION (WOMEN)",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                    desc: "Exquisite hand-stitched silk evening gown."
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
+                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
+                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
+                    sizes: ["XS", "S", "M", "L", "XL"]
                 }
             ];
 
-            // সেলার প্যানেল ও ক্যাটাগরি থেকে আপলোড করা প্রোডাক্ট ফেচ করা
             let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
             sellers.forEach(s => {
                 if(s.uploadedProducts) {
@@ -424,7 +738,13 @@
                             category: p.category || '👗 FASHION (WOMEN)',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive collection.'
+                            desc: p.desc || 'Exclusive premium collection.',
+                            stock: p.stock || 'In Stock',
+                            packaging: p.packaging || 'Secure Box',
+                            quantity: p.quantity || '1 Unit',
+                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
+                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
+                            sizes: p.sizes || ["Standard", "Large"]
                         });
                     });
                 }
@@ -432,8 +752,18 @@
             return defaultProds;
         }
 
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
         function loadCombinedProducts(list = getAllProducts()) {
-            let randomizedList = shuffleArray([...list]); // প্রতিবার রেন্ডম পজিশনে দেখানোর জন্য শাফেল
+            let randomizedList = shuffleArray([...list]);
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
 
@@ -442,9 +772,21 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
-                let mediaContent = item.videoUrl ? 
-                    `<div class="video-wrapper"><iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe><div class="video-click-shield" onclick="openProductModal('${item.id}')"></div></div>` :
-                    `<div class="product-media-box" onclick="openProductModal('${item.id}')"><img src="${item.images[0]}" loading="lazy"></div>`;
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
 
                 card.innerHTML = `
                     ${mediaContent}
@@ -459,12 +801,17 @@
         }
 
         function openShareModal(title) {
+            currentShareTitle = title;
             let currentUrl = window.location.href.split('?')[0];
             let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
             document.getElementById('shareLinkInput').value = affiliateShareLink;
             document.getElementById('shareModalOverlay').style.display = 'flex';
         }
-        function closeShareModal(e) { if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none'; }
+
+        function closeShareModal(e) {
+            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
         function copyShareLink() {
             let input = document.getElementById('shareLinkInput');
             input.select();
@@ -473,33 +820,159 @@
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
-        function openCategoryModal(el) { document.getElementById('categoryModalOverlay').style.display = 'flex'; }
-        function closeCategoryModal(e) { if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none'; }
-        function selectCategory(cat) {
-            document.getElementById('categoryModalOverlay').style.display = 'none';
-            let all = getAllProducts();
-            if(cat === 'All') loadCombinedProducts(all);
-            else loadCombinedProducts(all.filter(p => p.category === cat));
+        function shareToPlatform(platform) {
+            let linkVal = document.getElementById('shareLinkInput').value;
+            let url = encodeURIComponent(linkVal);
+            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
+            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
+            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            window.open(targetUrl, '_blank');
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function startSequentialAnimation() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            const items = document.querySelectorAll('.cycling-content-item');
+            let currentIndex = 0;
+            
+            items.forEach(el => el.classList.remove('active'));
+            items[0].classList.add('active');
+
+            cyclingInterval = setInterval(() => {
+                items[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % items.length;
+                items[currentIndex].classList.add('active');
+            }, 4400);
         }
 
         function openProductModal(id) {
             let product = getAllProducts().find(p => p.id == id);
             if(!product) return;
             activeCurrentProduct = product;
+            currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+
+            let stats = getDynamicProductStats(product.id);
+            document.getElementById('modalViewCount').innerText = stats.views;
+            document.getElementById('modalLikeCount').innerText = stats.likes;
+            let likeBtnItem = document.getElementById('modalLikeBtnItem');
+            if(stats.isLiked) likeBtnItem.classList.add('liked');
+            else likeBtnItem.classList.remove('liked');
+            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
+
+            document.getElementById('modalShareBtnItem').onclick = () => {
+                document.getElementById('productModal').style.display = 'none';
+                openShareModal(product.title);
+            };
+
+            document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalMediaSlider').innerHTML = `<div class="modal-slide-item"><img src="${product.images[0]}"></div>`;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalDesc').innerText = product.desc;
+            document.getElementById('specStock').innerText = product.stock || "Available";
+            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
+
+            const slider = document.getElementById('modalMediaSlider');
+            const thumbs = document.getElementById('modalThumbsRow');
+            
+            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
+
+            const colorBox = document.getElementById('modalColorCirclesInline');
+            const colorItemBox = document.getElementById('cyclingColorItemBox');
+            if(product.colors && product.colors.length > 0) {
+                colorItemBox.style.display = 'flex';
+                selectedColor = product.colors[0];
+                colorBox.innerHTML = product.colors.map((c, idx) => `
+                    <span class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></span>
+                `).join('');
+            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
+
+            const sizeBox = document.getElementById('modalSizePillsInline');
+            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
+            if(product.sizes && product.sizes.length > 0) {
+                sizeItemBox.style.display = 'flex';
+                selectedSize = product.sizes[0];
+                sizeBox.innerHTML = product.sizes.map((s, idx) => `
+                    <span class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</span>
+                `).join('');
+            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+
             document.getElementById('productModal').style.display = 'flex';
+            startSequentialAnimation();
         }
-        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
+
+        function switchSlide(idx) {
+            let slideEl = document.getElementById(`slide-${idx}`);
+            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
+                if(i === idx) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+        }
+
+        function selectModalColor(cVal, el) {
+            selectedColor = cVal;
+            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectModalSize(sVal, el) {
+            selectedSize = sVal;
+            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function updateModalQuantity(change) {
+            currentModalQty += change;
+            if(currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+        }
+
+        function closeProductModal() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function playLuxuryCoinSound() {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gainNode = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1318.51, audioCtx.currentTime + 0.12);
+                
+                gainNode.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.45);
+            } catch(e) {}
+        }
 
         async function addToCartWithFirebase(buttonEl) {
             if(!activeCurrentProduct) return;
+            
             let cartItem = {
                 productId: activeCurrentProduct.id,
                 sellerId: activeCurrentProduct.sellerId || 'admin-masud',
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
-                quantity: 1,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId,
                 timestamp: new Date().toISOString()
@@ -513,7 +986,36 @@
             } catch(e) {}
 
             closeProductModal();
+            playFlyingCoinAnimation(buttonEl);
             showCustomToast("Product added to cloud cart successfully!");
+        }
+
+        function playFlyingCoinAnimation(buttonEl) {
+            try {
+                let btnRect = buttonEl.getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
+                    coin.style.transform = 'scale(0.3) rotate(720deg)';
+                    coin.style.opacity = '0.2';
+                }, 40);
+
+                setTimeout(() => {
+                    coin.remove();
+                    playLuxuryCoinSound();
+                    let cartEl = document.getElementById('floatingCart');
+                    cartEl.classList.add('cart-zoom-anim');
+                    setTimeout(() => cartEl.classList.remove('cart-zoom-anim'), 450);
+                }, 1100);
+            } catch(e) {}
         }
 
         function handleCartClick() {
@@ -553,6 +1055,39 @@
             loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCameraAuto() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                let file = e.target.files[0];
+                if(file) showCustomToast("Visual image loaded: " + file.name);
+            };
+            input.click();
+        }
+
+        function triggerVoiceAuto() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                try {
+                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    let recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.start();
+                    recognition.onresult = (event) => {
+                        let query = event.results[0][0].transcript;
+                        document.getElementById('searchInput').value = query;
+                        performSearchSubmit();
+                    };
+                } catch(e) {
+                    let text = prompt("Voice Search Keyword:");
+                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+                }
+            } else {
+                let text = prompt("Voice Search Keyword:");
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+            }
+        }
     </script>
 </body>
 </html>
