@@ -83,18 +83,16 @@
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: 100%; }
         .brand-title-main { font-size: 0.96rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
         
-        /* হ্যান্ডক্রাফটেড আর্ট ফিক্সড লেটার স্পেসিং ও দৈর্ঘ্য */
+        /* হ্যান্ডক্রাফটেড আর্ট পারফেক্ট লেটার স্পেসিং ফিক্স */
         .brand-subtitle-craft { 
             font-size: 0.45rem; 
             color: var(--text-gray); 
             font-weight: 600; 
             white-space: nowrap; 
-            letter-spacing: 4.3px; 
+            letter-spacing: 1.5px; 
             text-transform: uppercase; 
             display: block; 
             width: 100%; 
-            text-align: justify; 
-            text-align-last: justify;
             font-family: var(--font-body);
         }
 
@@ -103,19 +101,36 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; font-family: var(--font-luxury); }
         .badge-sub-text { font-size: 0.48rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; font-family: var(--font-body); }
 
-        .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15; transition: 0.3s; }
+        .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 15; transition: 0.3s; }
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
         .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none; font-family: var(--font-body); }
 
-        /* ফাস্টার মোডাল অ্যানিমেশন */
         .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 10px; 
             animation: fastModalFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes fastModalFade { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
 
-        .share-modal-box, .category-modal-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 45px 18px 20px 18px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); font-family: var(--font-body); }
+        .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 40px 18px 20px 18px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); font-family: var(--font-body); }
+
+        /* মোবাইল স্ক্রিনে প্রোডাক্ট ডিটেইলস মোডাল কাটা পড়া রোধ করার জন্য পারফেক্ট হাইট ও প্যাডিং ফিক্স */
+        .modal-content { 
+            background: #141414; 
+            border: 1.5px solid var(--gold-solid); 
+            width: 100%; 
+            max-width: 390px; 
+            max-height: 88vh; 
+            border-radius: 18px; 
+            padding: 36px 14px 14px 14px; 
+            text-align: center; 
+            position: relative; 
+            overflow-y: auto; 
+            box-shadow: 0 0 25px rgba(212,175,55,0.25); 
+            font-family: var(--font-body); 
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-solid) #121212;
+        }
 
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; font-weight: 600; transition: 0.2s; }
@@ -127,21 +142,19 @@
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; font-family: var(--font-luxury); transition: 0.2s; }
         .copy-link-btn:hover { background: var(--gold-solid); }
 
-        /* ক্যাটাগরি পপআপ ও লাক্সারি জুম ইফেক্ট */
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 12px 8px; border-radius: 12px; color: var(--text-white); font-size: 0.68rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); font-family: var(--font-body); }
         .cat-popup-item:hover { border-color: var(--gold-solid); transform: scale(1.04); background: rgba(212, 175, 55, 0.08); color: #fff; }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 10px 14px; }
         
-        /* ইমোজি/আইকন কালারফুল ও লাক্সারি লুক */
-        .cat-popup-item i { font-size: 1.25rem; transition: transform 0.3s ease; }
+        .cat-popup-item i { font-size: 1.2rem; transition: transform 0.3s ease; }
         .cat-popup-item:hover i { transform: scale(1.2); }
-        .cat-popup-item:nth-child(2) i { color: #3b82f6; background: none; -webkit-text-fill-color: #3b82f6; } /* Men - Blue */
-        .cat-popup-item:nth-child(3) i { color: #ec4899; background: none; -webkit-text-fill-color: #ec4899; } /* Women - Pink */
-        .cat-popup-item:nth-child(4) i { color: #10b981; background: none; -webkit-text-fill-color: #10b981; } /* Kids - Emerald */
-        .cat-popup-item:nth-child(5) i { color: #f59e0b; background: none; -webkit-text-fill-color: #f59e0b; } /* Gifts - Amber */
-        .cat-popup-item:nth-child(6) i { color: #8b5cf6; background: none; -webkit-text-fill-color: #8b5cf6; } /* Home Decor - Purple */
-        .cat-popup-item:nth-child(7) i { color: #06b6d4; background: none; -webkit-text-fill-color: #06b6d4; } /* Art & Craft - Cyan */
+        .cat-popup-item:nth-child(2) i { color: #3b82f6; background: none; -webkit-text-fill-color: #3b82f6; }
+        .cat-popup-item:nth-child(3) i { color: #ec4899; background: none; -webkit-text-fill-color: #ec4899; }
+        .cat-popup-item:nth-child(4) i { color: #10b981; background: none; -webkit-text-fill-color: #10b981; }
+        .cat-popup-item:nth-child(5) i { color: #f59e0b; background: none; -webkit-text-fill-color: #f59e0b; }
+        .cat-popup-item:nth-child(6) i { color: #8b5cf6; background: none; -webkit-text-fill-color: #8b5cf6; }
+        .cat-popup-item:nth-child(7) i { color: #06b6d4; background: none; -webkit-text-fill-color: #06b6d4; }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
@@ -170,52 +183,50 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
+        .modal-media-slider { width: 100%; border-radius: 8px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 6px; margin-bottom: 4px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 200px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: 0.2s; }
-        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); transform: scale(1.1); }
+        .modal-thumbs-row { display: flex; gap: 4px; margin-bottom: 5px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
+        .modal-thumb-img { width: 32px; height: 32px; border-radius: 4px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: 0.2s; }
+        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); transform: scale(1.08); }
 
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(18,18,18,0.95); padding: 8px 10px; border-radius: 8px; text-align: left; }
+        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; background: rgba(18,18,18,0.95); padding: 6px 8px; border-radius: 6px; text-align: left; }
         .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
-        .modal-price { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-body); }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.52rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-family: var(--font-body); }
+        .modal-price { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-body); }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.48rem; padding: 2px 5px; border-radius: 4px; font-weight: 800; font-family: var(--font-body); }
         
-        .free-shipping-tax-text { font-size: 0.65rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; font-family: var(--font-body); }
+        .free-shipping-tax-text { font-size: 0.6rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; display: flex; align-items: center; gap: 4px; font-family: var(--font-body); }
         .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; margin-bottom: 8px; font-size: 0.7rem; color: #ffffff; font-weight: 600; font-family: var(--font-body); }
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 5px; border-radius: 6px; margin-bottom: 6px; font-size: 0.65rem; color: #ffffff; font-weight: 600; font-family: var(--font-body); }
         .modal-actions-bar span { font-family: var(--font-body); }
 
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 6px; position: absolute; top: 0; left: 0; padding: 10px 14px; }
+        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; height: 75px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: absolute; top: 0; left: 0; padding: 6px 10px; }
         .cycling-content-item.active { display: flex; opacity: 1; }
 
-        .cycling-title { font-size: 0.92rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.35; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-luxury); }
-        .cycling-desc { font-size: 0.72rem; color: #ffffff; line-height: 1.4; width: 100%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-weight: 400; font-family: var(--font-body); }
-        .cycling-section-title { font-size: 0.68rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 2px; font-family: var(--font-luxury); }
+        .cycling-title { font-size: 0.85rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.3; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-luxury); }
+        .cycling-desc { font-size: 0.65rem; color: #ffffff; line-height: 1.35; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 400; font-family: var(--font-body); }
+        .cycling-section-title { font-size: 0.62rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1px; font-family: var(--font-luxury); }
         
-        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
+        .modal-circle-item { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 8px var(--gold-solid); }
 
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; font-family: var(--font-body); transition: 0.2s; }
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 2px 8px; border-radius: 5px; font-size: 0.65rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; font-family: var(--font-body); transition: 0.2s; }
         .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 800; border-color: #fff; }
 
-        .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
-        .qty-label-top { font-size: 0.58rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; font-family: var(--font-body); }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; }
-        .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.7rem; font-weight: 600; outline: none; font-family: var(--font-body); }
+        .modal-footer-action-wrap { margin-top: 4px; display: flex; flex-direction: column; gap: 5px; width: 100%; }
+        .qty-label-top { font-size: 0.55rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1px; font-family: var(--font-body); }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 18px; padding: 1px 4px; gap: 6px; margin: 0 auto; width: 95px; }
+        .round-qty-btn { width: 16px; height: 16px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.5rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 16px; background: transparent; border: none; color: white; text-align: center; font-size: 0.65rem; font-weight: 600; outline: none; font-family: var(--font-body); }
         
-        /* বাটন ক্লিকের সময় ব্যাকগ্রাউন্ড কালার পরিবর্তন ও টেক্সট হোয়াইট থেকে ব্ল্যাক/গোল্ড */
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: 1.5px solid var(--gold-solid); padding: 9px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--font-luxury); transition: all 0.25s ease; }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: 1.5px solid var(--gold-solid); padding: 8px; border-radius: 8px; color: var(--bg-black); font-weight: 800; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--font-luxury); transition: all 0.25s ease; }
         .modal-add-btn:hover { background: #000; color: var(--gold-solid); border-color: var(--gold-solid); }
 
-        /* বাউন্সিং ও হেভিয়ার জুম অ্যানিমেটেড কার্ট আইকন */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); animation: cartGentleBounce 3s infinite ease-in-out; }
         @keyframes cartGentleBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08) translateY(-3px); } }
         .floating-cart.cart-zoom-anim { transform: scale(1.35) rotate(12deg); }
@@ -224,14 +235,12 @@
         
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 12px var(--gold-solid); }
 
-        /* বটম ন্যাভ ও মোবাইল লেআউট পারফেক্ট ফিক্স */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; gap: 4px; }
         .nav-menus-left { display: flex; gap: 4px; flex: 1; justify-content: space-between; align-items: center; min-width: 0; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.48rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); }
         .nav-item i { font-size: 0.88rem; margin-bottom: 2px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
         
-        /* মোবাইল স্ক্রিনে সার্চ বক্স, ক্যামেরা ও মাইক পারফেক্ট ফিটিং */
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 3px 6px; width: 38%; flex-shrink: 0; gap: 3px; }
         .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
         .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.65rem; flex-shrink: 0; }
@@ -260,7 +269,7 @@
         </div>
     </header>
 
-    <!-- শেয়ার মোডাল (লগইন/অ্যাফিলিয়েট আইডি ডায়নামিক হ্যান্ডলিং) -->
+    <!-- শেয়ার মোডাল -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
@@ -284,7 +293,7 @@
         </div>
     </div>
 
-    <!-- ক্যাটাগরি মোডাল (কালারফুল লাক্সারি ইমোজি ও জুম ইফেক্টসহ) -->
+    <!-- ক্যাটাগরি মোডাল -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title" style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Luxury Categories</h3>
@@ -323,7 +332,7 @@
     <!-- প্রোডাক্ট ফিড কন্টেইনার -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- প্রোডাক্ট ডিটেইলস মোডাল (ফাস্টার অ্যানিমেশন) -->
+    <!-- প্রোডাক্ট ডিটেইলস মোডাল (মোবাইল ক্লিপিং ফিক্সড) -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -355,19 +364,19 @@
                 </div>
                 <div class="cycling-content-item" id="cyclingColorItemBox">
                     <span class="cycling-section-title">COLOR</span>
-                    <div id="modalColorCirclesInline" style="display:flex; gap:10px; align-items:center; justify-content:center;"></div>
+                    <div id="modalColorCirclesInline" style="display:flex; gap:8px; align-items:center; justify-content:center;"></div>
                 </div>
                 <div class="cycling-content-item" id="cyclingSizeItemBox">
                     <span class="cycling-section-title">SIZE</span>
-                    <div id="modalSizePillsInline" style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
+                    <div id="modalSizePillsInline" style="display:flex; gap:5px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
                 </div>
                 <div class="cycling-content-item">
                     <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
                 </div>
                 <div class="cycling-content-item">
-                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
-                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
-                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:600;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
+                    <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
+                        <span style="font-size:0.62rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
+                        <span style="font-size:0.62rem; color:var(--text-white); font-weight:600;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
                     </div>
                 </div>
             </div>
@@ -388,7 +397,7 @@
         </div>
     </div>
 
-    <!-- বটম ন্যাভ ও মোবাইল সার্চ লেআউট ফুল ফিক্সড -->
+    <!-- বটম ন্যাভ -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -414,7 +423,6 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
-        // ডায়নামিক অ্যাফিলিয়েট আইডি হ্যান্ডলিং (লগইন বা সাইন আপ ছাড়া ডিফল্ট আইডি দেখাবে না)
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
         if(urlAff) { 
@@ -643,7 +651,6 @@
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
-        // ফাস্টার এনিমেশন সাইক্লিং (স্পিড বৃদ্ধি করা হয়েছে)
         function startSequentialAnimation() {
             if(cyclingInterval) clearInterval(cyclingInterval);
             const items = document.querySelectorAll('.cycling-content-item');
@@ -748,7 +755,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // ঝুড়ির লাক্সারি রিয়েলিস্টিক কয়েন সাউন্ড ও বাউন্সিং এফেক্ট
         function playHeavyLuxuryCoinSound() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -756,8 +762,8 @@
                 let gainNode = audioCtx.createGain();
                 
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-                osc.frequency.exponentialRampToValueAtTime(880.00, audioCtx.currentTime + 0.15); // A5
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880.00, audioCtx.currentTime + 0.15);
                 
                 gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.55);
