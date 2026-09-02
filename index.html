@@ -83,72 +83,75 @@
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none;
         }
 
-        /* 3D ROLLING CATEGORY WHEEL MODAL (TIKTOK STYLE) */
+        /* 3D PERSPECTIVE TIKTOK STYLE ROLLING WHEEL OVERLAY */
         .category-modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(5, 5, 5, 0.85); display: none; justify-content: center; align-items: center; 
-            z-index: 3000; backdrop-filter: blur(10px); padding: 15px; 
+            background: rgba(4, 4, 4, 0.9); display: none; justify-content: center; align-items: center; 
+            z-index: 3000; backdrop-filter: blur(12px); padding: 10px; 
         }
         .category-modal-box { 
-            background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(20px); 
-            border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; 
-            border-radius: 25px; padding: 45px 15px 25px 15px; position: relative; text-align: center; 
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3);
+            background: rgba(12, 12, 12, 0.98); 
+            border: 1.5px solid var(--gold-solid); width: 100%; max-width: 360px; 
+            border-radius: 24px; padding: 45px 12px 20px 12px; position: relative; text-align: center; 
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
         }
         .cat-modal-title { 
-            font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); 
+            font-size: 1.05rem; font-weight: 900; background: var(--gold-gradient); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            text-align: center; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px; 
+            text-align: center; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1.5px; 
         }
 
-        /* ROLLING CONTAINER CONTAINER */
-        .rolling-wheel-container {
-            height: 300px;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scrollbar-width: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 100px 0;
+        /* 3D CYLINDER STAGE */
+        .wheel-3d-stage {
+            perspective: 900px;
+            height: 280px;
             position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
         }
-        .rolling-wheel-container::-webkit-scrollbar { display: none; }
+        .wheel-3d-drum {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            cursor: grab;
+        }
+        .wheel-3d-drum:active { cursor: grabbing; }
 
-        .rolling-item {
-            scroll-snap-align: center;
-            background: linear-gradient(135deg, #181818, #111111);
-            border: 1.5px solid rgba(212, 175, 55, 0.4);
-            color: var(--text-white);
+        .wheel-card {
+            position: absolute;
+            left: 5%;
             width: 90%;
-            padding: 14px 20px;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            height: 52px;
+            background: linear-gradient(135deg, #181818, #101010);
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 16px;
+            color: var(--text-white);
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backface-visibility: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transition: border-color 0.3s ease, background 0.3s ease;
         }
-        .rolling-item:hover, .rolling-item.active-wheel {
+        .wheel-card span { display: flex; align-items: center; gap: 8px; }
+        .wheel-card i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .wheel-card.active-center {
             border-color: var(--gold-solid);
             background: var(--gold-gradient);
             color: #000;
-            transform: scale(1.06);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
         }
-        .rolling-item i {
-            font-size: 1rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .rolling-item:hover i, .rolling-item.active-wheel i {
+        .wheel-card.active-center i {
             -webkit-text-fill-color: #000 !important;
             background: none !important;
             color: #000 !important;
@@ -345,31 +348,13 @@
         </div>
     </div>
 
-    <!-- 3D ROLLING CATEGORY WHEEL MODAL (TIKTOK STYLE) -->
+    <!-- 3D PERSPECTIVE ROLLING WHEEL MODAL (TIKTOK STYLE) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
-            <div class="rolling-wheel-container" id="rollingWheelContainer">
-                <div class="rolling-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles"></i> All Products</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('👔 FASHION (MEN)')">
-                    <span><i class="fa-solid fa-shirt"></i> Men Fashion</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('👗 FASHION (WOMEN)')">
-                    <span><i class="fa-solid fa-person-dress"></i> Women Fashion</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('👶 BABY & KIDS')">
-                    <span><i class="fa-solid fa-child"></i> Baby & Kids</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('🎁 LUXURY GIFTS')">
-                    <span><i class="fa-solid fa-gift"></i> Luxury Gifts</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('🏡 HOME DECOR')">
-                    <span><i class="fa-solid fa-house-chimney"></i> Home Decor</span> <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="rolling-item" onclick="selectCategory('🎨 ART & CRAFT')">
-                    <span><i class="fa-solid fa-palette"></i> Art & Craft</span> <i class="fa-solid fa-chevron-right"></i>
+            <div class="wheel-3d-stage" id="wheelStage">
+                <div class="wheel-3d-drum" id="wheelDrum">
+                    <!-- Cards will be populated by JS -->
                 </div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -491,6 +476,90 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
+        const categoriesData = [
+            { name: "All Products", catKey: "All", icon: "fa-wand-magic-sparkles" },
+            { name: "Men Fashion", catKey: "👔 FASHION (MEN)", icon: "fa-shirt" },
+            { name: "Women Fashion", catKey: "👗 FASHION (WOMEN)", icon: "fa-person-dress" },
+            { name: "Baby & Kids", catKey: "👶 BABY & KIDS", icon: "fa-child" },
+            { name: "Luxury Gifts", catKey: "🎁 LUXURY GIFTS", icon: "fa-gift" },
+            { name: "Home Decor", catKey: "🏡 HOME DECOR", icon: "fa-house-chimney" },
+            { name: "Art & Craft", catKey: "🎨 ART & CRAFT", icon: "fa-palette" }
+        ];
+
+        let currentRotationAngle = 0;
+        let isDraggingWheel = false;
+        let startTouchY = 0;
+
+        function init3DRollingWheel() {
+            const drum = document.getElementById('wheelDrum');
+            drum.innerHTML = "";
+            let cardHeight = 62;
+            let radius = 140;
+
+            categoriesData.forEach((cat, idx) => {
+                let angle = idx * (360 / categoriesData.length);
+                let card = document.createElement('div');
+                card.className = 'wheel-card';
+                card.innerHTML = `<span><i class="fa-solid ${cat.icon}"></i> ${cat.name}</span> <i class="fa-solid fa-chevron-right"></i>`;
+                card.onclick = () => selectCategory(cat.catKey);
+                
+                card.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+                drum.appendChild(card);
+            });
+
+            updateWheelTransform();
+        }
+
+        function updateWheelTransform() {
+            const drum = document.getElementById('wheelDrum');
+            drum.style.transform = `translateZ(-140px) rotateX(${currentRotationAngle}deg)`;
+            
+            // Highlight active center card
+            let cards = drum.querySelectorAll('.wheel-card');
+            let normalizedAngle = (currentRotationAngle % 360 + 360) % 360;
+            let activeIndex = Math.round(normalizedAngle / (360 / categoriesData.length)) % categoriesData.length;
+            
+            cards.forEach((c, idx) => {
+                if(idx === activeIndex) c.classList.add('active-center');
+                else c.classList.remove('active-center');
+            });
+        }
+
+        // Touch & Drag events for 3D drum wheel
+        const stage = document.getElementById('wheelStage');
+        stage.addEventListener('touchstart', (e) => {
+            isDraggingWheel = true;
+            startTouchY = e.touches[0].clientY;
+        });
+        stage.addEventListener('touchmove', (e) => {
+            if(!isDraggingWheel) return;
+            let deltaY = e.touches[0].clientY - startTouchY;
+            startTouchY = e.touches[0].clientY;
+            currentRotationAngle -= deltaY * 0.6;
+            updateWheelTransform();
+        });
+        stage.addEventListener('touchend', () => { isDraggingWheel = false; snapToNearestCategory(); });
+
+        stage.addEventListener('mousedown', (e) => {
+            isDraggingWheel = true;
+            startTouchY = e.clientY;
+        });
+        window.addEventListener('mousemove', (e) => {
+            if(!isDraggingWheel) return;
+            let deltaY = e.clientY - startTouchY;
+            startTouchY = e.clientY;
+            currentRotationAngle -= deltaY * 0.6;
+            updateWheelTransform();
+        });
+        window.addEventListener('mouseup', () => { if(isDraggingWheel) { isDraggingWheel = false; snapToNearestCategory(); } });
+
+        function snapToNearestCategory() {
+            let sliceAngle = 360 / categoriesData.length;
+            let nearestIndex = Math.round(currentRotationAngle / sliceAngle);
+            currentRotationAngle = nearestIndex * sliceAngle;
+            updateWheelTransform();
+        }
+
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
         if(urlAff) { 
@@ -501,6 +570,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadCombinedProducts();
+            init3DRollingWheel();
         });
 
         function showCustomToast(msg) {
