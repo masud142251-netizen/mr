@@ -8,9 +8,26 @@
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Supabase Cloud SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Firebase SDK (Modular Core & Firestore) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        // আপনার সেন্ট্রাল ফায়ারবেস কনফিগারেশন (যা দিয়ে সব সাব-ডোমেইন ও মেইন সাইট অটোমেটিক কানেক্ট থাকবে)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvUftOHiXFCuAzivaBut1XvNLpGE-LQ-w",
+            authDomain: "mr-masudar.firebaseapp.com",
+            projectId: "mr-masudar",
+            storageBucket: "mr-masudar.firebasestorage.app",
+            messagingSenderId: "644110210393",
+            appId: "1:644110210393:web:dc756217266f0af039e848",
+            measurementId: "G-BZBCMZQ87M"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        window.db = getFirestore(app);
+    </script>
 
     <style>
         :root {
@@ -29,7 +46,6 @@
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; }
         body { padding-top: 68px; padding-bottom: 95px; }
 
-        /* HEADER SECTION - MOBILE OPTIMIZED */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -59,39 +75,21 @@
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* CROSS BUTTON */
         .golden-cross-btn-top-right { 
-            background: transparent; 
-            border: 1.5px solid var(--gold-solid); 
-            color: var(--gold-solid); 
-            width: 30px; 
-            height: 30px; 
-            border-radius: 50%; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            font-size: 0.95rem; 
-            font-weight: bold; 
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 15;
+            background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
+            width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15;
             transition: background 0.3s, color 0.3s;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
-        /* TOAST NOTIFICATION */
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
             padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
-            animation: toastFadeIn 0.3s ease;
         }
-        @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* SECRET IN-PAGE ADMIN MODAL */
         .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
         .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
         .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
@@ -99,13 +97,11 @@
         .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
         .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
         .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
-        .clickable-trk { color: var(--gold-solid); cursor: pointer; text-decoration: underline; font-weight: bold; }
 
         .admin-tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; flex-wrap: wrap; }
         .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
-        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -117,7 +113,6 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODAL */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
@@ -133,35 +128,6 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* CHECKOUT FORM */
-        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); z-index: 1050; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .floating-cart.smooth-center-bounce { animation: smoothCartCenterBounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
-        @keyframes smoothCartCenterBounce { 
-            0% { transform: scale(1) translate(0, 0) rotate(0deg); } 
-            38% { transform: scale(1.65) translate(-42vw, -36vh) rotate(-15deg); filter: drop-shadow(0 0 35px var(--gold-solid)); } 
-            70% { transform: scale(1.1) translate(0, 0) rotate(5deg); }
-            100% { transform: scale(1) translate(0, 0) rotate(0deg); } 
-        }
-        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
-        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-
-        .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 3500; backdrop-filter: blur(8px); padding: 12px; }
-        .checkout-modal-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 20px; padding: 45px 16px 20px 16px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.35); text-align: center; }
-        .checkout-modal-title { font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 14px; text-transform: uppercase; font-family: 'Cinzel', serif; }
-        .checkout-item-list { margin-bottom: 15px; max-height: 160px; overflow-y: auto; text-align: left; }
-        .checkout-item-row { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.72rem; color: var(--text-white); }
-        .checkout-item-row img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
-        .delete-cart-item-btn { background: rgba(255,59,48,0.15); border: 1px solid var(--danger-red); color: var(--danger-red); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem; transition: background 0.3s; }
-        .delete-cart-item-btn:hover { background: var(--danger-red); color: white; }
-
-        .auth-form-group { margin-bottom: 10px; text-align: left; }
-        .auth-form-group label { display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase; }
-        .auth-form-group input, .auth-form-group select, .auth-form-group textarea { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none; }
-        .phone-input-row { display: flex; gap: 6px; }
-        .phone-input-row select { width: 165px; font-size: 0.62rem; }
-        .auth-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
-
-        /* MASONRY GRID */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
@@ -184,7 +150,6 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
         
@@ -208,7 +173,6 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* CYCLING BOX */
         .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -234,9 +198,6 @@
         
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; box-shadow: 0 0 18px var(--gold-solid); transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1); }
-
-        /* FOOTER NAVIGATION BAR */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
@@ -248,14 +209,13 @@
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
-        #hiddenCameraInput { display: none; }
     </style>
 </head>
 <body>
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER (LOGO & BRAND TITLE WITH 3-TAP SECRET ADMIN TRIGGER) -->
+    <!-- HEADER -->
     <header class="app-header">
         <div class="brand-container" id="secretAdminTriggerZone">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -271,56 +231,27 @@
         </div>
     </header>
 
-    <!-- SECRET IN-PAGE ADMIN MODAL -->
+    <!-- SECRET ADMIN MODAL -->
     <div class="secret-admin-overlay" id="secretAdminOverlay">
         <div class="secret-admin-box">
             <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
             
-            <!-- BLANK PASSWORD LOGIN FORM -->
             <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
-                <div class="auth-form-group">
-                    <label>Master Password *</label>
-                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off">
+                <div style="text-align: left; margin-bottom: 10px;">
+                    <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
+                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off" style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none;">
                 </div>
-                <button type="button" class="auth-submit-btn" onclick="verifySecretAdminPass()">Unlock Dashboard</button>
+                <button type="button" onclick="verifySecretAdminPass()" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px;">Unlock Dashboard</button>
             </div>
 
-            <!-- ADMIN DASHBOARD PANEL -->
             <div id="adminDashboardSec" style="display: none;">
-                <!-- ADMIN TABS -->
                 <div class="admin-tab-buttons">
-                    <button class="admin-tab-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">Live Orders & Timestamps</button>
-                    <button class="admin-tab-btn" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
-                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Seller & Affiliates</button>
+                    <button class="admin-tab-btn active" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
+                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Firebase Integration</button>
                 </div>
 
-                <!-- TAB 1: ORDERS & TIMESTAMPS WITH SEPARATE SELLER & AFFILIATE COLUMNS -->
-                <div id="adminOrdersTabContent">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Enterprise Order Log with Separate Seller & Affiliate IDs</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="admin-data-table">
-                            <thead>
-                                <tr>
-                                    <th>Trk ID</th>
-                                    <th>Date & Time</th>
-                                    <th>Customer Info</th>
-                                    <th>Product & Qty</th>
-                                    <th>Seller ID</th>
-                                    <th>Affiliate ID</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminOrdersTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- TAB 2: EDIT VIEWS & LIKES -->
-                <div id="adminProductsTabContent" style="display: none;">
+                <div id="adminProductsTabContent">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
                         <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
@@ -339,28 +270,17 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: SELLER & AFFILIATE DISPATCH -->
                 <div id="adminSellersTabContent" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Automated Seller & Affiliate Dispatch Log</span>
+                        <span style="color:var(--gold-solid); font-weight:700;">Firebase Realtime Sync Active</span>
                         <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
-                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Active Affiliate & Seller Integration:</p>
-                        When a customer places a paid order via any referral link, the system automatically captures the Affiliate ID, attributes the commission, and synchronizes the dispatch message directly to the seller dashboard.
+                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Centralized Connection:</p>
+                        All storefront activities, analytics, and inventories are connected to your main Firebase backend project (`mr-masudar`).
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
-
-    <!-- CUSTOMER DETAILS POPUP MODAL -->
-    <div class="category-modal-overlay" id="customerDetailModal" onclick="closeCustModal(event)">
-        <div class="category-modal-box" style="text-align: left;">
-            <h3 class="cat-modal-title">Complete Order & Affiliate Info</h3>
-            <div id="custDetailContent" style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);"></div>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('customerDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -371,14 +291,9 @@
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
@@ -399,9 +314,7 @@
                 <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -417,168 +330,7 @@
         </div>
     </div>
 
-    <!-- SECURE CHECKOUT FORM -->
-    <div class="checkout-modal-overlay" id="checkoutModalOverlay">
-        <div class="checkout-modal-box">
-            <h3 class="checkout-modal-title">Secure Paid Checkout</h3>
-            
-            <div class="checkout-item-list" id="checkoutItemList"></div>
-
-            <form onsubmit="handleOrderSubmit(event)">
-                <div class="auth-form-group">
-                    <label>Gmail Address *</label>
-                    <input type="email" id="custEmail" required placeholder="name@gmail.com" onblur="autoFillCustomerData()">
-                </div>
-                <div class="auth-form-group">
-                    <label>WhatsApp / Mobile Number *</label>
-                    <div class="phone-input-row">
-                        <select id="countryPhoneCode">
-                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
-                            <option value="+93">🇦🇫 +93 (Afghanistan)</option>
-                            <option value="+355">🇦🇱 +355 (Albania)</option>
-                            <option value="+213">🇩🇿 +213 (Algeria)</option>
-                            <option value="+376">🇦🇩 +376 (Andorra)</option>
-                            <option value="+244">🇦🇴 +244 (Angola)</option>
-                            <option value="+54">🇦🇷 +54 (Argentina)</option>
-                            <option value="+61">🇦🇺 +61 (Australia)</option>
-                            <option value="+43">🇦🇹 +43 (Austria)</option>
-                            <option value="+973">🇧🇭 +973 (Bahrain)</option>
-                            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
-                            <option value="+32">🇧🇪 +32 (Belgium)</option>
-                            <option value="+55">🇧🇷 +55 (Brazil)</option>
-                            <option value="+1">🇨🇦 +1 (Canada)</option>
-                            <option value="+86">🇨🇳 +86 (China)</option>
-                            <option value="+20">🇪🇬 +20 (Egypt)</option>
-                            <option value="+33">🇫🇷 +33 (France)</option>
-                            <option value="+49">🇩🇪 +49 (Germany)</option>
-                            <option value="+91">🇮🇳 +91 (India)</option>
-                            <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                            <option value="+964">🇮🇶 +964 (Iraq)</option>
-                            <option value="+353">🇮🇪 +353 (Ireland)</option>
-                            <option value="+39">🇮🇹 +39 (Italy)</option>
-                            <option value="+81">🇯🇵 +81 (Japan)</option>
-                            <option value="+962">🇯🇴 +962 (Jordan)</option>
-                            <option value="+254">🇰🇪 +254 (Kenya)</option>
-                            <option value="+965">🇰🇼 +965 (Kuwait)</option>
-                            <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                            <option value="+52">🇲🇽 +52 (Mexico)</option>
-                            <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                            <option value="+64">🇳🇿 +64 (New Zealand)</option>
-                            <option value="+234">🇳🇬 +234 (Nigeria)</option>
-                            <option value="+47">🇳🇴 +47 (Norway)</option>
-                            <option value="+968">🇴🇲 +968 (Oman)</option>
-                            <option value="+92">🇵🇰 +92 (Pakistan)</option>
-                            <option value="+63">🇵🇭 +63 (Philippines)</option>
-                            <option value="+48">🇵🇱 +48 (Poland)</option>
-                            <option value="+351">🇵🇹 +351 (Portugal)</option>
-                            <option value="+974">🇶🇦 +974 (Qatar)</option>
-                            <option value="+7">🇷🇺 +7 (Russia)</option>
-                            <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
-                            <option value="+65">🇸🇬 +65 (Singapore)</option>
-                            <option value="+27">🇿🇦 +27 (South Africa)</option>
-                            <option value="+82">🇰🇷 +82 (South Korea)</option>
-                            <option value="+34">🇪🇸 +34 (Spain)</option>
-                            <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
-                            <option value="+46">🇸🇪 +46 (Sweden)</option>
-                            <option value="+41">🇨🇭 +41 (Switzerland)</option>
-                            <option value="+886">🇹🇼 +886 (Taiwan)</option>
-                            <option value="+66">🇹🇭 +66 (Thailand)</option>
-                            <option value="+90">🇹🇷 +90 (Turkey)</option>
-                            <option value="+971">🇦🇪 +971 (United Arab Emirates)</option>
-                            <option value="+44">🇬🇧 +44 (United Kingdom)</option>
-                            <option value="+1">🇺🇸 +1 (United States)</option>
-                            <option value="+84">🇻🇳 +84 (Vietnam)</option>
-                            <option value="+967">🇾🇪 +967 (Yemen)</option>
-                            <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
-                        </select>
-                        <input type="tel" id="custPhoneNum" required placeholder="1710000000">
-                    </div>
-                </div>
-                <div class="auth-form-group">
-                    <label>Full Name *</label>
-                    <input type="text" id="custName" required placeholder="Enter full name">
-                </div>
-                <div class="auth-form-group">
-                    <label>Delivery Address *</label>
-                    <textarea id="custAddress" rows="2" required placeholder="House, Road, Area"></textarea>
-                </div>
-                <div class="auth-form-group">
-                    <label>City / District *</label>
-                    <input type="text" id="custCity" required placeholder="City name">
-                </div>
-                <div class="auth-form-group">
-                    <label>Country *</label>
-                    <select id="custCountry" required>
-                        <option value="Global All Country">🌐 Global (All Countries)</option>
-                        <option value="Bangladesh">🇧🇩 Bangladesh</option>
-                        <option value="Afghanistan">🇦🇫 Afghanistan</option>
-                        <option value="Albania">🇦🇱 Albania</option>
-                        <option value="Algeria">🇩🇿 Algeria</option>
-                        <option value="Argentina">🇦🇷 Argentina</option>
-                        <option value="Australia">🇦🇺 Australia</option>
-                        <option value="Austria">🇦🇹 Austria</option>
-                        <option value="Bahrain">🇧🇭 Bahrain</option>
-                        <option value="Belgium">🇧🇪 Belgium</option>
-                        <option value="Brazil">🇧🇷 Brazil</option>
-                        <option value="Canada">🇨🇦 Canada</option>
-                        <option value="China">🇨🇳 China</option>
-                        <option value="Egypt">🇪🇬 Egypt</option>
-                        <option value="France">🇫🇷 France</option>
-                        <option value="Germany">🇩🇪 Germany</option>
-                        <option value="India">🇮🇳 India</option>
-                        <option value="Indonesia">🇮🇩 Indonesia</option>
-                        <option value="Iraq">🇮🇶 Iraq</option>
-                        <option value="Ireland">🇮🇪 Ireland</option>
-                        <option value="Italy">🇮🇹 Italy</option>
-                        <option value="Japan">🇯🇵 Japan</option>
-                        <option value="Jordan">🇯🇴 Jordan</option>
-                        <option value="Kenya">🇰🇪 Kenya</option>
-                        <option value="Kuwait">🇰🇼 Kuwait</option>
-                        <option value="Malaysia">🇲🇾 Malaysia</option>
-                        <option value="Mexico">🇲🇽 Mexico</option>
-                        <option value="Netherlands">🇳🇱 Netherlands</option>
-                        <option value="New Zealand">🇳🇿 New Zealand</option>
-                        <option value="Nigeria">🇳🇬 Nigeria</option>
-                        <option value="Norway">🇳🇴 Norway</option>
-                        <option value="Oman">🇴🇲 Oman</option>
-                        <option value="Pakistan">🇵🇰 Pakistan</option>
-                        <option value="Philippines">🇵🇭 Philippines</option>
-                        <option value="Poland">🇵🇱 Poland</option>
-                        <option value="Portugal">🇵🇹 Portugal</option>
-                        <option value="Qatar">🇶🇦 Qatar</option>
-                        <option value="Russia">🇷🇺 Russia</option>
-                        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
-                        <option value="Singapore">🇸🇬 Singapore</option>
-                        <option value="South Africa">🇿🇦 South Africa</option>
-                        <option value="South Korea">🇰🇷 South Korea</option>
-                        <option value="Spain">🇪🇸 Spain</option>
-                        <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
-                        <option value="Sweden">🇸🇪 Sweden</option>
-                        <option value="Switzerland">🇨🇭 Switzerland</option>
-                        <option value="Taiwan">🇹🇼 Taiwan</option>
-                        <option value="Thailand">🇹🇭 Thailand</option>
-                        <option value="Turkey">🇹🇷 Turkey</option>
-                        <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
-                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
-                        <option value="United States">🇺🇸 United States</option>
-                        <option value="Vietnam">🇻🇳 Vietnam</option>
-                        <option value="Yemen">🇾🇪 Yemen</option>
-                        <option value="Zimbabwe">🇿🇼 Zimbabwe</option>
-                    </select>
-                </div>
-                <button type="submit" class="auth-submit-btn">Confirm Paid Order</button>
-            </form>
-            <button class="golden-cross-btn-top-right" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <!-- Floating Cart -->
-    <div class="floating-cart" id="floatingCart" onclick="handleCartCheckout()">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-badge" id="cartCount">0</span>
-    </div>
-
-    <!-- MASONRY PRODUCT FEED -->
+    <!-- PRODUCT FEED -->
     <main class="feed-container" id="productFeed"></main>
 
     <!-- PRODUCT DETAILS MODAL -->
@@ -627,12 +379,6 @@
                         <div class="cycling-spec">Pack: <span id="specPackaging">Luxury Box</span></div>
                     </div>
                 </div>
-                <div class="cycling-content-item">
-                    <div class="spec-two-line-grid">
-                        <div class="cycling-spec">SKU: <span id="specSku">MME-01</span></div>
-                        <div class="cycling-spec">Elite Edition</div>
-                    </div>
-                </div>
             </div>
 
             <div class="modal-footer-action-wrap">
@@ -641,8 +387,8 @@
                     <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithSelection()">
-                    Add To Cart
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="redirectToCheckoutPage()">
+                    Proceed to Checkout Subdomain
                 </button>
             </div>
         </div>
@@ -659,14 +405,11 @@
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()"></i>
                 <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- CLIENT & SECRET ADMIN SCRIPT WITH SEPARATE SELLER & AFFILIATE IDs -->
     <script>
         const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
         let logoTapCount = 0;
@@ -675,7 +418,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const triggerZone = document.getElementById('secretAdminTriggerZone');
             if(triggerZone) {
-                triggerZone.addEventListener('click', (e) => {
+                triggerZone.addEventListener('click', () => {
                     logoTapCount++;
                     if(logoTapCount === 1) {
                         logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
@@ -711,26 +454,17 @@
         }
 
         function switchAdminTab(tabName) {
-            let tabOrders = document.getElementById('adminOrdersTabContent');
             let tabProducts = document.getElementById('adminProductsTabContent');
             let tabSellers = document.getElementById('adminSellersTabContent');
-            
-            let btnOrders = document.getElementById('tabBtnOrders');
             let btnProducts = document.getElementById('tabBtnProducts');
             let btnSellers = document.getElementById('tabBtnSellers');
 
-            tabOrders.style.display = 'none';
             tabProducts.style.display = 'none';
             tabSellers.style.display = 'none';
-            btnOrders.classList.remove('active');
             btnProducts.classList.remove('active');
             btnSellers.classList.remove('active');
 
-            if(tabName === 'orders') {
-                tabOrders.style.display = 'block';
-                btnOrders.classList.add('active');
-                showAdminDashboardContent();
-            } else if(tabName === 'products') {
+            if(tabName === 'products') {
                 tabProducts.style.display = 'block';
                 btnProducts.classList.add('active');
                 loadAdminProductsTable();
@@ -743,25 +477,7 @@
         function showAdminDashboardContent() {
             document.getElementById('adminLoginFormSec').style.display = 'none';
             document.getElementById('adminDashboardSec').style.display = 'block';
-            
-            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let tbody = document.getElementById('adminOrdersTableBody');
-            
-            if(allOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-gray);">No orders or timestamped submissions recorded yet.</td></tr>`;
-            } else {
-                tbody.innerHTML = allOrders.slice(-50).reverse().map(o => `
-                    <tr>
-                        <td><span class="clickable-trk" onclick="viewCustomerDetails('${o.trackingId}')">${o.trackingId}</span></td>
-                        <td style="font-size:0.65rem; color:var(--gold-solid);">${o.formattedDate || 'Just now'}</td>
-                        <td><b>${o.customerName}</b><br>${o.customerPhone}</td>
-                        <td>${o.productTitle} (x${o.quantity})<br><b style="color:var(--gold-solid);">${o.price}</b></td>
-                        <td><span style="color:var(--gold-solid); font-weight:bold;">${o.sellerId || 'VEN-MASUD'}</span></td>
-                        <td><span style="color:#00e676; font-weight:bold;">${o.affiliateId || 'AFF-MASTER'}</span></td>
-                        <td>${o.paymentStatus}</td>
-                    </tr>
-                `).join('');
-            }
+            loadAdminProductsTable();
         }
 
         function loadAdminProductsTable() {
@@ -779,30 +495,6 @@
             }).join('');
         }
 
-        function viewCustomerDetails(trkId) {
-            let allOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let order = allOrders.find(o => o.trackingId === trkId);
-            if(!order) return;
-
-            let contentBox = document.getElementById('custDetailContent');
-            contentBox.innerHTML = `
-                <b>Tracking ID:</b> <span style="color:var(--gold-solid);">${order.trackingId}</span><br>
-                <b>Order Date & Time:</b> <span style="color:var(--gold-solid);">${order.formattedDate}</span><br>
-                <b>Batch No:</b> ${order.batchNo || 'Batch-1'}<br>
-                <b>Customer Name:</b> ${order.customerName}<br>
-                <b>Email:</b> ${order.customerEmail}<br>
-                <b>Phone:</b> ${order.customerPhone}<br>
-                <b>Delivery Address:</b> ${order.deliveryAddress}<br>
-                <b>Product Title:</b> ${order.productTitle}<br>
-                <b>Quantity & Price:</b> ${order.quantity} Pcs | ${order.price}<br>
-                <b>Color & Size:</b> ${order.color} / ${order.size}<br>
-                <b>Seller ID:</b> <span style="color:var(--gold-solid); font-weight:bold;">${order.sellerId}</span><br>
-                <b>Affiliate ID:</b> <span style="color:#00e676; font-weight:bold;">${order.affiliateId}</span><br>
-                <b>Payment Status:</b> ${order.paymentStatus}<br>
-            `;
-            document.getElementById('customerDetailModal').style.display = 'flex';
-        }
-
         function lockSecretAdmin() {
             sessionStorage.removeItem('mme_secret_admin_unlocked');
             document.getElementById('secretAdminOverlay').style.display = 'none';
@@ -813,12 +505,6 @@
             document.getElementById('secretAdminOverlay').style.display = 'none';
         }
 
-        function closeCustModal(e) {
-            if(!e || e.target.id === 'customerDetailModal') document.getElementById('customerDetailModal').style.display = 'none';
-        }
-
-        let cartItems = [];
-        let cartCount = 0;
         let activeCurrentProduct = null;
         let selectedColor = "Standard";
         let selectedSize = "Standard";
@@ -826,7 +512,6 @@
         let cyclingInterval = null;
         let currentShareTitle = "";
 
-        // AUTOMATIC AFFILIATE & REF CAPTURE FROM URL
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
         if(urlAff) { 
@@ -836,12 +521,6 @@
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
-            let savedCart = sessionStorage.getItem('mme_cart_items') || localStorage.getItem('mme_cart_items');
-            if(savedCart) {
-                cartItems = JSON.parse(savedCart);
-                cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                document.getElementById('cartCount').innerText = cartCount;
-            }
             loadCombinedProducts();
         });
 
@@ -850,48 +529,6 @@
             toast.innerText = msg;
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
-        }
-
-        function playCoinSoundAndAnimation(buttonEl) {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.25);
-                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.4);
-            } catch(e) {}
-
-            try {
-                let btnRect = (buttonEl || document.getElementById('addToCartBtnElement')).getBoundingClientRect();
-                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
-                
-                let coin = document.createElement('div');
-                coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
-                document.body.appendChild(coin);
-
-                setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
-                    coin.style.transform = 'scale(0.25) rotate(1080deg)';
-                    coin.style.opacity = '0.1';
-                }, 50);
-
-                setTimeout(() => {
-                    coin.remove();
-                    const cartEl = document.getElementById('floatingCart');
-                    cartEl.classList.add('smooth-center-bounce');
-                    setTimeout(() => cartEl.classList.remove('smooth-center-bounce'), 1400);
-                }, 1300);
-            } catch(e) {}
         }
 
         function getDynamicProductStats(productId) {
@@ -939,7 +576,6 @@
             let span = el.querySelector('span');
             if(span) span.innerText = likes;
             el.classList.add('liked');
-            playCoinSoundAndAnimation(el);
         }
 
         function openCategoryModal(element) {
@@ -1087,13 +723,7 @@
             let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
             let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
             if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
-            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            else if(platform === 'facebook') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
             window.open(targetUrl, '_blank');
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
@@ -1139,7 +769,6 @@
 
             document.getElementById('specStock').innerText = product.stock || "Available";
             document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
-            document.getElementById('specSku').innerText = product.sku || "MME-GENERAL";
 
             const slider = document.getElementById('modalMediaSlider');
             const thumbs = document.getElementById('modalThumbsRow');
@@ -1203,167 +832,10 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        function addToCartWithSelection() {
+        function redirectToCheckoutPage() {
             if(!activeCurrentProduct) return;
-            cartItems.push({
-                cartId: Date.now() + Math.random(),
-                productId: activeCurrentProduct.id,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                sellerId: activeCurrentProduct.sellerId || 'VEN-MASUD',
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId
-            });
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            
+            showCustomToast("Redirecting to checkout subdomain...");
             closeProductModal();
-            playCoinSoundAndAnimation(document.getElementById('addToCartBtnElement'));
-        }
-
-        function handleCartCheckout() {
-            if(cartItems.length === 0) {
-                showCustomToast("Your cart is currently empty.");
-                return;
-            }
-            renderCartItemsList();
-            document.getElementById('checkoutModalOverlay').style.display = 'flex';
-        }
-
-        function renderCartItemsList() {
-            const container = document.getElementById('checkoutItemList');
-            let totalAmount = 0;
-            container.innerHTML = cartItems.map(item => {
-                let numericPrice = parseFloat(item.price.replace('$', '')) * item.quantity;
-                totalAmount += numericPrice;
-                return `
-                    <div class="checkout-item-row" id="cart-row-${item.cartId}">
-                        <img src="${item.image}" alt="Product">
-                        <div style="flex:1; margin-left:6px;">
-                            <strong>${item.title}</strong><br>
-                            <span style="color:var(--gold-solid);">${item.price}</span> (Qty: ${item.quantity}) | Size: ${item.size}
-                        </div>
-                        <button type="button" class="delete-cart-item-btn" onclick="removeCartItem(${item.cartId})" title="Remove">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-            }).join('') + `<div style="text-align:right; font-weight:bold; color:var(--gold-solid); margin-top:6px; font-size:0.75rem;">Total Amount: $${totalAmount.toFixed(2)}</div>`;
-        }
-
-        function removeCartItem(cartId) {
-            cartItems = cartItems.filter(item => item.cartId !== cartId);
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = cartCount;
-            sessionStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
-
-            if(cartItems.length === 0) {
-                closeCheckoutModal();
-                showCustomToast("Your cart is now empty.");
-            } else {
-                renderCartItemsList();
-            }
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkoutModalOverlay').style.display = 'none';
-        }
-
-        function autoFillCustomerData() {
-            let emailKey = document.getElementById('custEmail').value.trim();
-            if(!emailKey) return;
-            let cachedUser = sessionStorage.getItem(`mme_user_${emailKey}`) || localStorage.getItem(`mme_user_${emailKey}`);
-            if(cachedUser) {
-                let data = JSON.parse(cachedUser);
-                document.getElementById('custName').value = data.name || '';
-                document.getElementById('custAddress').value = data.address || '';
-                document.getElementById('custCity').value = data.city || '';
-                if(data.phone) document.getElementById('custPhoneNum').value = data.phone || '';
-            }
-        }
-
-        /* SUPABASE & ORDER SUBMISSION WITH AFFILIATE TRACKING */
-        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        let supabaseClient = null;
-        try {
-            if(window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            }
-        } catch(e) {}
-
-        function handleOrderSubmit(e) {
-            e.preventDefault();
-            let email = document.getElementById('custEmail').value;
-            let code = document.getElementById('countryPhoneCode').value;
-            let phoneNum = document.getElementById('custPhoneNum').value;
-            let phone = code + ' ' + phoneNum;
-            let name = document.getElementById('custName').value;
-            let address = document.getElementById('custAddress').value;
-            let city = document.getElementById('custCity').value;
-            let country = document.getElementById('custCountry').value;
-
-            let trackingId = 'MME-TRK-' + Math.floor(100000 + Math.random() * 900000);
-            let nowTimestamp = new Date();
-            let formattedDate = nowTimestamp.toLocaleString('en-GB', { 
-                day: '2-digit', month: 'short', year: 'numeric', 
-                hour: '2-digit', minute: '2-digit', second: '2-digit' 
-            });
-
-            let allMasterOrders = JSON.parse(localStorage.getItem('mme_admin_orders') || '[]');
-            let currentBatchNumber = Math.floor(allMasterOrders.length / 20000) + 1;
-
-            cartItems.forEach(item => {
-                let orderRecord = {
-                    trackingId: trackingId,
-                    productId: item.productId || '1',
-                    productTitle: item.title,
-                    quantity: item.quantity,
-                    price: item.price,
-                    color: item.color,
-                    size: item.size,
-                    sellerId: item.sellerId || 'VEN-MASUD',
-                    affiliateId: item.affiliateRef || currentAffiliateId,
-                    customerName: name,
-                    customerEmail: email,
-                    customerPhone: phone,
-                    deliveryAddress: `${address}, ${city}, ${country}`,
-                    paymentStatus: 'Paid / Enterprise Secure',
-                    deliveryStatus: 'Processing / Pending Dispatch',
-                    orderDate: nowTimestamp.toISOString(),
-                    formattedDate: formattedDate,
-                    batchNo: `Batch-${currentBatchNumber} (Orders ${(currentBatchNumber-1)*20000 + 1} - ${currentBatchNumber*20000})`
-                };
-                allMasterOrders.push(orderRecord);
-
-                if(supabaseClient) {
-                    supabaseClient.from('orders').insert([orderRecord]).then(({ error }) => {
-                        if(error) console.log("Supabase sync note:", error);
-                    });
-                }
-            });
-
-            localStorage.setItem('mme_admin_orders', JSON.stringify(allMasterOrders));
-
-            let userData = { name, address, city, country, phone };
-            sessionStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
-            localStorage.setItem(`mme_user_${email}`, JSON.stringify(userData));
-
-            showCustomToast(`Paid order placed successfully! [Trk: ${trackingId}]`);
-            
-            sessionStorage.removeItem('mme_cart_items');
-            localStorage.removeItem('mme_cart_items');
-            cartItems = [];
-            cartCount = 0;
-            document.getElementById('cartCount').innerText = 0;
-            closeCheckoutModal();
         }
 
         function performSearchSubmit() {
@@ -1371,39 +843,6 @@
             loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-
-        function triggerCameraAuto() {
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                let file = e.target.files[0];
-                if(file) showCustomToast("Image loaded for visual search: " + file.name);
-            };
-            input.click();
-        }
-
-        function triggerVoiceAuto() {
-            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                try {
-                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    let recognition = new SpeechRecognition();
-                    recognition.lang = 'en-US';
-                    recognition.start();
-                    recognition.onresult = (event) => {
-                        let query = event.results[0][0].transcript;
-                        document.getElementById('searchInput').value = query;
-                        performSearchSubmit();
-                    };
-                } catch(e) {
-                    let text = prompt("Voice Search Keyword:");
-                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-                }
-            } else {
-                let text = prompt("Voice Search Keyword:");
-                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-            }
-        }
     </script>
 </body>
 </html>
