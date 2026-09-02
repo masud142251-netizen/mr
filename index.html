@@ -60,8 +60,9 @@
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px;
         }
+        /* PERFECT MATCHING LENGTH WITH LETTER SPACING */
         .brand-subtitle-craft {
-            font-size: 0.44rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 3.2px; text-transform: uppercase; display: block; width: 100%; text-align: justify;
+            font-size: 0.44rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 4.8px; text-transform: uppercase; display: block; width: 100%; text-align: justify;
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -94,7 +95,7 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; font-weight: 600; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODAL */
+        /* CATEGORY MODAL WITH ZOOM ANIMATION ICONS */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 1.5px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
         .cat-modal-title { font-size: 1.15rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
@@ -102,7 +103,14 @@
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .cat-popup-item:hover { border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
-        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* LUXURY ZOOM IN ZOOM OUT ICON ANIMATION */
+        .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: zoomIconPulse 2s infinite ease-in-out; }
+        @keyframes zoomIconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.22); }
+            100% { transform: scale(1); }
+        }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
@@ -205,7 +213,8 @@
 
         .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         
-        .qty-label-top { font-size: 0.58rem; color: var(--gold-solid); font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+        /* PURE WHITE QUANTITY LABEL */
+        .qty-label-top { font-size: 0.58rem; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; box-shadow: 0 0 8px rgba(212,175,55,0.15); }
         .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.7rem; font-weight: 800; outline: none; font-family: var(--font-numeric); }
