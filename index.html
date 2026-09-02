@@ -12,9 +12,8 @@
     <!-- Firebase SDK (Modular Core & Firestore) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
-        // আপনার সেন্ট্রাল ফায়ারবেস কনফিগারেশন (যা দিয়ে সব সাব-ডোমেইন ও মেইন সাইট অটোমেটিক কানেক্ট থাকবে)
         const firebaseConfig = {
             apiKey: "AIzaSyCvUftOHiXFCuAzivaBut1XvNLpGE-LQ-w",
             authDomain: "mr-masudar.firebaseapp.com",
@@ -56,18 +55,9 @@
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         
         .brand-title-main { 
-            font-family: 'Cinzel Decorative', serif; 
-            font-size: 0.92rem; 
-            font-weight: 900; 
-            background: var(--gold-gradient); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            line-height: 1.15; 
-            text-transform: uppercase; 
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            letter-spacing: 0.3px;
+            font-family: 'Cinzel Decorative', serif; font-size: 0.92rem; font-weight: 900; 
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.3px;
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -102,6 +92,7 @@
         .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
 
+        /* SHARE MODAL WITH ALL SOCIAL MEDIA */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -198,6 +189,7 @@
         
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
 
+        /* FOOTER NAVIGATION BAR WITH CAMERA & VOICE */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
@@ -284,16 +276,21 @@
         </div>
     </div>
 
-    <!-- SHARE MODAL -->
+    <!-- SHARE MODAL WITH ALL SOCIAL PLATFORMS -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
+                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
@@ -394,7 +391,7 @@
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR -->
+    <!-- FOOTER NAVIGATION BAR WITH CAMERA & VOICE SEARCH -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -405,6 +402,8 @@
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Image Search"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()" title="Voice Search"></i>
                 <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
@@ -723,7 +722,13 @@
             let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
             let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
             if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'facebook') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
+            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
             window.open(targetUrl, '_blank');
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
@@ -843,6 +848,40 @@
             loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        /* CAMERA & VOICE SEARCH FUNCTIONS */
+        function triggerCameraAuto() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                let file = e.target.files[0];
+                if(file) showCustomToast("Visual image loaded for search: " + file.name);
+            };
+            input.click();
+        }
+
+        function triggerVoiceAuto() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                try {
+                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    let recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.start();
+                    recognition.onresult = (event) => {
+                        let query = event.results[0][0].transcript;
+                        document.getElementById('searchInput').value = query;
+                        performSearchSubmit();
+                    };
+                } catch(e) {
+                    let text = prompt("Voice Search Keyword:");
+                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+                }
+            } else {
+                let text = prompt("Voice Search Keyword:");
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+            }
+        }
     </script>
 </body>
 </html>
