@@ -82,19 +82,7 @@
         
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: 100%; }
         .brand-title-main { font-size: 0.96rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
-        
-        /* হ্যান্ডক্রাফটেড আর্ট টাইটেলের দৈর্ঘ্য অনুযায়ী নিখুঁত লেটার স্পেসিং */
-        .brand-subtitle-craft { 
-            font-size: 0.42rem; 
-            color: var(--text-gray); 
-            font-weight: 600; 
-            white-space: nowrap; 
-            letter-spacing: 3.2px; 
-            text-transform: uppercase; 
-            display: block; 
-            width: 100%; 
-            font-family: var(--font-body);
-        }
+        .brand-subtitle-craft { font-size: 0.42rem; color: var(--text-gray); font-weight: 600; white-space: nowrap; letter-spacing: 3.2px; text-transform: uppercase; display: block; width: 100%; font-family: var(--font-body); }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1.5px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
@@ -114,22 +102,9 @@
 
         .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 40px 18px 20px 18px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); font-family: var(--font-body); }
 
-        /* মোবাইল স্ক্রিনে প্রোডাক্ট ডিটেইলস মোডাল (৯/১৬ ইমেজ/ভিডিও সহ সম্পূর্ণ নিরাপদ ও সুন্দর দেখানোর জন্য) */
         .modal-content { 
-            background: #141414; 
-            border: 1.5px solid var(--gold-solid); 
-            width: 100%; 
-            max-width: 410px; 
-            max-height: 92vh; 
-            border-radius: 18px; 
-            padding: 38px 14px 16px 14px; 
-            text-align: center; 
-            position: relative; 
-            overflow-y: auto; 
-            box-shadow: 0 0 30px rgba(212,175,55,0.3); 
-            font-family: var(--font-body); 
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold-solid) #121212;
+            background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; max-height: 92vh; border-radius: 18px; padding: 38px 14px 16px 14px; text-align: center; position: relative; overflow-y: auto; box-shadow: 0 0 30px rgba(212,175,55,0.3); font-family: var(--font-body); 
+            scrollbar-width: thin; scrollbar-color: var(--gold-solid) #121212;
         }
 
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
@@ -142,19 +117,56 @@
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; font-family: var(--font-luxury); transition: 0.2s; }
         .copy-link-btn:hover { background: var(--gold-solid); }
 
+        /* থ্রিডি, চকচকে রিয়েল কালারফুল ও জুম-ইন জুম-আউট লাক্সারি ক্যাটাগরি গ্রিড */
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 12px 8px; border-radius: 12px; color: var(--text-white); font-size: 0.68rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); font-family: var(--font-body); }
-        .cat-popup-item:hover { border-color: var(--gold-solid); transform: scale(1.04); background: rgba(212, 175, 55, 0.08); color: #fff; }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 10px 14px; }
+        .cat-popup-item { 
+            background: linear-gradient(145deg, #161616, #0e0e0e); 
+            border: 1.5px solid rgba(212, 175, 55, 0.4); 
+            padding: 14px 8px; 
+            border-radius: 14px; 
+            color: var(--text-white); 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            gap: 7px; 
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            font-family: var(--font-body); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .cat-popup-item:hover { 
+            border-color: var(--gold-solid); 
+            transform: scale(1.06) translateY(-3px); 
+            background: linear-gradient(145deg, #222222, #141414);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35); 
+            color: var(--gold-solid); 
+        }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 11px 16px; }
         
-        .cat-popup-item i { font-size: 1.2rem; transition: transform 0.3s ease; }
-        .cat-popup-item:hover i { transform: scale(1.2); }
-        .cat-popup-item:nth-child(2) i { color: #3b82f6; background: none; -webkit-text-fill-color: #3b82f6; }
-        .cat-popup-item:nth-child(3) i { color: #ec4899; background: none; -webkit-text-fill-color: #ec4899; }
-        .cat-popup-item:nth-child(4) i { color: #10b981; background: none; -webkit-text-fill-color: #10b981; }
-        .cat-popup-item:nth-child(5) i { color: #f59e0b; background: none; -webkit-text-fill-color: #f59e0b; }
-        .cat-popup-item:nth-child(6) i { color: #8b5cf6; background: none; -webkit-text-fill-color: #8b5cf6; }
-        .cat-popup-item:nth-child(7) i { color: #06b6d4; background: none; -webkit-text-fill-color: #06b6d4; }
+        /* থ্রিডি চকচকে কালারফুল গ্লোয়িং আইকন ও জুম অ্যানিমেশন */
+        .cat-popup-item i { 
+            font-size: 1.45rem; 
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease; 
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.6));
+            animation: luxuryFloatIcon 3s infinite ease-in-out;
+        }
+        @keyframes luxuryFloatIcon { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.12); } 
+        }
+        .cat-popup-item:hover i { transform: scale(1.25) rotate(5deg); filter: drop-shadow(0 0 12px currentColor); }
+
+        /* ৬টি ক্যাটাগরির জন্য একদম রিয়েল চকচকে থ্রিডি লাক্সারি কালার */
+        .cat-popup-item:nth-child(2) i { color: #3b82f6; text-shadow: 0 0 10px rgba(59,130,246,0.6); } /* Men - Royal Blue */
+        .cat-popup-item:nth-child(3) i { color: #ec4899; text-shadow: 0 0 10px rgba(236,72,153,0.6); } /* Women - Vibrant Pink/Magenta */
+        .cat-popup-item:nth-child(4) i { color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.6); } /* Kids - Emerald Green */
+        .cat-popup-item:nth-child(5) i { color: #f59e0b; text-shadow: 0 0 12px rgba(245,158,11,0.8); } /* Gifts - 3D Gold Ribbon Gift Box */
+        .cat-popup-item:nth-child(6) i { color: #8b5cf6; text-shadow: 0 0 10px rgba(139,92,246,0.6); } /* Home Decor - Royal Purple */
+        .cat-popup-item:nth-child(7) i { color: #06b6d4; text-shadow: 0 0 10px rgba(6,182,212,0.6); } /* Art & Craft - Neon Cyan/Palette */
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
@@ -183,7 +195,6 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* ৯/১৬ পোর্ট্রেট ফরম্যাট সাপোর্ট করার জন্য মোডাল মিডিয়া স্লাইডার অপ্টিমাইজড */
         .modal-media-slider { width: 100%; border-radius: 8px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 6px; margin-bottom: 4px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -294,7 +305,7 @@
         </div>
     </div>
 
-    <!-- ক্যাটাগরি মোডাল -->
+    <!-- ক্যাটাগরি মোডাল (থ্রিডি চকচকে লাক্সারি কালারফুল আইকন ও জুম অ্যানিমেশনসহ) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title" style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Luxury Categories</h3>
@@ -302,11 +313,11 @@
                 <div class="cat-popup-item" onclick="selectCategory('All')">
                     <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; color:#d4af37;"></i> All Products</span> <i class="fa-solid fa-arrow-right" style="color:#d4af37;"></i>
                 </div>
-                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-user-tie"></i><span>Men Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child-reaching"></i><span>Baby & Kids</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney-window"></i><span>Home Decor</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
