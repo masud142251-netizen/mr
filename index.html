@@ -149,21 +149,21 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); margin-bottom: 8px; font-size: 0.68rem; color: #ffffff; }
 
-        /* ABSOLUTE OVERLAP FIXED: CLEAN FADE-IN SEQUENCE BOX */
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 12px; margin-bottom: 10px; height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; width: 100%; }
-        .cycling-content-item { display: none; width: 100%; opacity: 0; transition: opacity 0.5s ease-in-out; text-align: center; }
+        /* PERFECT NON-OVERLAPPING SEQUENTIAL LUXURY BOX */
+        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; min-height: 64px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; width: 100%; }
+        .cycling-content-item { display: none; width: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; text-align: center; }
         .cycling-content-item.active { display: flex; align-items: center; justify-content: center; opacity: 1; }
 
-        .cycling-title { font-size: 0.82rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Cinzel', serif; line-height: 1.35; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .cycling-desc { font-size: 0.65rem; color: #ffffff; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0 4px; }
+        .cycling-title { font-size: 0.85rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Cinzel', serif; line-height: 1.4; width: 100%; word-break: break-word; }
+        .cycling-desc { font-size: 0.68rem; color: #ffffff; line-height: 1.45; width: 100%; word-break: break-word; }
         
-        .cycling-inline-group { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; flex-wrap: wrap; }
-        .cycling-label-tag { font-size: 0.65rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-family: 'Cinzel', serif; text-transform: uppercase; }
+        .cycling-inline-group { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap; }
+        .cycling-label-tag { font-size: 0.68rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; display: inline-block; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.25); border-color: #fff; box-shadow: 0 0 8px var(--gold-solid); }
+        .modal-circle-item { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; display: inline-block; transition: transform 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.25); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
 
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 2px 8px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.65rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
         .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; border-color: #fff; }
 
         .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
@@ -317,14 +317,14 @@
                 <div class="cycling-content-item" id="cyclingColorItemBox">
                     <div class="cycling-inline-group">
                         <span class="cycling-label-tag">COLOR:</span>
-                        <div id="modalColorCirclesInline" style="display:inline-flex; gap:6px; align-items:center;"></div>
+                        <div id="modalColorCirclesInline" style="display:inline-flex; gap:8px; align-items:center;"></div>
                     </div>
                 </div>
                 <!-- Step 3: Size Selection -->
                 <div class="cycling-content-item" id="cyclingSizeItemBox">
                     <div class="cycling-inline-group">
                         <span class="cycling-label-tag">SIZE:</span>
-                        <div id="modalSizePillsInline" style="display:inline-flex; gap:5px; align-items:center;"></div>
+                        <div id="modalSizePillsInline" style="display:inline-flex; gap:6px; align-items:center;"></div>
                     </div>
                 </div>
                 <!-- Step 4: Description -->
@@ -333,7 +333,12 @@
                 </div>
                 <!-- Step 5: Stock & Packaging -->
                 <div class="cycling-content-item">
-                    <div class="cycling-spec" style="font-size:0.68rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span> | Pack: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></div>
+                    <div class="cycling-inline-group">
+                        <span class="cycling-label-tag">STOCK:</span>
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:600;" id="specStock">Available</span>
+                        <span class="cycling-label-tag" style="margin-left:8px;">PACK:</span>
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:600;" id="specPackaging">Luxury Box</span>
+                    </div>
                 </div>
             </div>
 
@@ -606,7 +611,7 @@
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 3200);
+            }, 3500);
         }
 
         function openProductModal(id) {
