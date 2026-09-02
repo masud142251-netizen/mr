@@ -149,10 +149,10 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); margin-bottom: 8px; font-size: 0.68rem; color: #ffffff; }
 
-        /* STRICTLY FIXED HEIGHT & WIDTH ANIMATED BOX (NO RESIZING) */
+        /* FIXED SIZE ANIMATED BOX WITH WHITE BORDER */
         .animated-cycling-box { 
             background: #141414; 
-            border: 1.5px solid var(--gold-solid); 
+            border: 1.5px solid #ffffff; 
             border-radius: 12px; 
             padding: 12px 16px; 
             margin-bottom: 10px; 
@@ -164,6 +164,7 @@
             text-align: center; 
             position: relative; 
             overflow: hidden; 
+            box-shadow: 0 0 10px rgba(255,255,255,0.15);
         }
         .cycling-content-item { 
             display: none; 
@@ -187,17 +188,17 @@
         
         .cycling-section-title { font-size: 0.65rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         
-        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.6); cursor: pointer; display: inline-block; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
+        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7); cursor: pointer; display: inline-block; transition: transform 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px #ffffff; }
 
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.68rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(255,255,255,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.68rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
         .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; border-color: #fff; }
 
         .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         
-        /* QUANTITY BOX & ADD TO CART */
+        /* QUANTITY BOX WITH WHITE BORDER & ADD TO CART */
         .qty-label-top { font-size: 0.54rem; color: var(--gold-solid); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-family: 'Cinzel', serif; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid #ffffff; border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; box-shadow: 0 0 8px rgba(255,255,255,0.12); }
         .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.65rem; font-weight: 700; outline: none; }
         
@@ -334,7 +335,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- FIXED SIZE NON-RESIZING CYCLING BOX -->
+            <!-- FIXED SIZE CYCLING BOX WITH WHITE BORDER -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <!-- Step 1: Title -->
                 <div class="cycling-content-item active">
