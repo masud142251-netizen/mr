@@ -45,6 +45,7 @@
             fetchCartCountFromFirebase();
             checkAutoUserLogin();
             detectUserCountryCode();
+            if(typeof window.loadCombinedProducts === 'function') window.loadCombinedProducts();
         });
         window.fetchCartCountFromFirebase = fetchCartCountFromFirebase;
     </script>
@@ -56,7 +57,7 @@
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
-            --text-gray: #cfcfcf;
+            --text-gray: #dfdfdf;
             --pink-heart: #ff2d55;
             --font-luxury: 'Cinzel', serif;
             --font-numeric: 'Poppins', sans-serif;
@@ -88,7 +89,7 @@
         .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none; }
 
         .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .home-auth-modal, .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box, .category-modal-box, .home-auth-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 20px; padding: 45px 16px 20px 16px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
+        .share-modal-box, .category-modal-box, .home-auth-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 45px 18px 20px 18px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
         
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; font-weight: 600; }
@@ -108,6 +109,16 @@
         .ecosystem-title { font-size: 1rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
+
+        /* ফর্মের লেখাগুলো এখন আরো স্পষ্ট ও বড় করা হয়েছে */
+        .auth-input-group { margin-bottom: 14px; text-align: left; }
+        .auth-input-group label { font-size: 0.72rem; font-weight: 800; color: #fcf6ba; text-transform: uppercase; margin-bottom: 5px; display: block; letter-spacing: 0.8px; font-family: var(--font-numeric); }
+        .auth-input { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.6); padding: 11px 14px; border-radius: 8px; color: #ffffff; font-size: 0.85rem; font-weight: 700; outline: none; font-family: var(--font-numeric); }
+        .auth-input:focus { border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.3); }
+
+        .phone-input-row { display: flex; gap: 8px; }
+        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.6); padding: 11px 8px; border-radius: 8px; color: #fff; font-size: 0.8rem; font-weight: 700; outline: none; width: 170px; font-family: var(--font-numeric); }
+        .country-code-select option { background: #121212; color: #fff; font-size: 0.85rem; }
 
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
@@ -171,15 +182,6 @@
         .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.7rem; font-weight: 800; outline: none; font-family: var(--font-numeric); }
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 9px; border-radius: 10px; color: var(--bg-black); font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-        .auth-input-group { margin-bottom: 12px; text-align: left; }
-        .auth-input-group label { font-size: 0.62rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 4px; display: block; }
-        .auth-input { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 12px; border-radius: 8px; color: #fff; font-size: 0.8rem; font-weight: 700; outline: none; }
-        .auth-input:focus { border-color: var(--gold-solid); }
-
-        .phone-input-row { display: flex; gap: 8px; }
-        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 6px; border-radius: 8px; color: #fff; font-size: 0.75rem; font-weight: 700; outline: none; width: 155px; }
-        .country-code-select option { background: #121212; color: #fff; }
 
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: 0.3s; }
         .floating-cart.cart-zoom-anim { transform: scale(1.4) rotate(15deg); }
@@ -276,11 +278,11 @@
         </div>
     </div>
 
-    <!-- হোমপেজ সাইন-ইন ও চেকআউট মোডাল (বিশ্বের সব দেশের ফ্ল্যাগ ও কোড সহ) -->
+    <!-- হোমপেজ সাইন-ইন ও চেকআউট মোডাল (অত্যন্ত স্পষ্ট ও বড় টেক্সট সহ) -->
     <div class="home-auth-modal" id="homeAuthModal">
         <div class="home-auth-box">
-            <h3 style="font-size:1.05rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; text-transform:uppercase;">Luxury Member Verification</h3>
-            <p style="font-size:0.62rem; color:var(--text-gray); margin-bottom:14px;">Verify to proceed directly to Dashboard.</p>
+            <h3 style="font-size:1.15rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; text-transform:uppercase; letter-spacing: 0.5px;">Luxury Member Verification</h3>
+            <p style="font-size:0.68rem; color:var(--text-gray); margin-bottom:14px; font-weight:600;">Verify credentials to proceed directly to Dashboard.</p>
             
             <div class="auth-input-group">
                 <label>Full Name</label>
@@ -477,7 +479,7 @@
                 <input type="password" class="auth-input" id="homePassword" placeholder="Enter secure password">
             </div>
 
-            <button style="width:100%; background:var(--gold-gradient); border:none; padding:11px; border-radius:8px; color:#000; font-weight:900; font-size:0.8rem; cursor:pointer; text-transform:uppercase; margin-top:10px;" onclick="proceedToDashboardSubdomain()">
+            <button style="width:100%; background:var(--gold-gradient); border:none; padding:12px; border-radius:8px; color:#000; font-weight:900; font-size:0.85srem; cursor:pointer; text-transform:uppercase; margin-top:10px;" onclick="proceedToDashboardSubdomain()">
                 Confirm & Open Dashboard
             </button>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('homeAuthModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
@@ -603,7 +605,6 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2200);
         }
 
-        // অটো কান্ট্রি ও ডায়ালিং কোড ডিটেক্টর
         async function detectUserCountryCode() {
             try {
                 let res = await fetch('https://ipapi.co/json/');
@@ -702,6 +703,7 @@
             document.getElementById('itemNavBtn').classList.add('active');
         }
 
+        // সেলার ও অ্যাডমিন প্যানেল থেকে আপলোড করা প্রোডাক্টগুলো রিয়েল-টাইমে হোমে যোগ করার ইঞ্জিন
         function getAllProducts() {
             let defaultProds = [
                 {
@@ -765,6 +767,7 @@
         function loadCombinedProducts(list = getAllProducts()) {
             let randomizedList = shuffleArray([...list]);
             const feed = document.getElementById('productFeed');
+            if(!feed) return;
             feed.innerHTML = "";
 
             randomizedList.forEach(item => {
@@ -799,6 +802,7 @@
                 feed.appendChild(card);
             });
         }
+        window.loadCombinedProducts = loadCombinedProducts;
 
         function openShareModal(title) {
             currentShareTitle = title;
