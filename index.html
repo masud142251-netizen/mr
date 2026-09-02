@@ -67,29 +67,29 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; font-family: var(--font-body); }
-        body { padding-top: 74px; padding-bottom: 95px; }
+        body { padding-top: 76px; padding-bottom: 95px; }
 
         h1, h2, h3, h4, h5, h6, .brand-title-main, .category-modal-box h3 { font-family: var(--font-luxury); }
 
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(12px); width: 100%;
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 68%; min-width: 0; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); transition: transform 0.4s ease; }
+        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 70%; min-width: 0; }
+        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); transition: transform 0.4s ease; }
         .logo:hover { transform: scale(1.12); }
         
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: 100%; }
         .brand-title-main { font-size: 0.96rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
         
-        /* হ্যান্ডক্রাফটেড আর্ট পারফেক্ট লেটার স্পেসিং ফিক্স */
+        /* হ্যান্ডক্রাফটেড আর্ট টাইটেলের দৈর্ঘ্য অনুযায়ী নিখুঁত লেটার স্পেসিং */
         .brand-subtitle-craft { 
-            font-size: 0.45rem; 
+            font-size: 0.42rem; 
             color: var(--text-gray); 
             font-weight: 600; 
             white-space: nowrap; 
-            letter-spacing: 1.5px; 
+            letter-spacing: 3.2px; 
             text-transform: uppercase; 
             display: block; 
             width: 100%; 
@@ -114,19 +114,19 @@
 
         .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 40px 18px 20px 18px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); font-family: var(--font-body); }
 
-        /* মোবাইল স্ক্রিনে প্রোডাক্ট ডিটেইলস মোডাল কাটা পড়া রোধ করার জন্য পারফেক্ট হাইট ও প্যাডিং ফিক্স */
+        /* মোবাইল স্ক্রিনে প্রোডাক্ট ডিটেইলস মোডাল (৯/১৬ ইমেজ/ভিডিও সহ সম্পূর্ণ নিরাপদ ও সুন্দর দেখানোর জন্য) */
         .modal-content { 
             background: #141414; 
             border: 1.5px solid var(--gold-solid); 
             width: 100%; 
-            max-width: 390px; 
-            max-height: 88vh; 
+            max-width: 410px; 
+            max-height: 92vh; 
             border-radius: 18px; 
-            padding: 36px 14px 14px 14px; 
+            padding: 38px 14px 16px 14px; 
             text-align: center; 
             position: relative; 
             overflow-y: auto; 
-            box-shadow: 0 0 25px rgba(212,175,55,0.25); 
+            box-shadow: 0 0 30px rgba(212,175,55,0.3); 
             font-family: var(--font-body); 
             scrollbar-width: thin;
             scrollbar-color: var(--gold-solid) #121212;
@@ -183,9 +183,10 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
+        /* ৯/১৬ পোর্ট্রেট ফরম্যাট সাপোর্ট করার জন্য মোডাল মিডিয়া স্লাইডার অপ্টিমাইজড */
         .modal-media-slider { width: 100%; border-radius: 8px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 6px; margin-bottom: 4px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 200px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 260px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 4px; margin-bottom: 5px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
@@ -332,7 +333,7 @@
     <!-- প্রোডাক্ট ফিড কন্টেইনার -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- প্রোডাক্ট ডিটেইলস মোডাল (মোবাইল ক্লিপিং ফিক্সড) -->
+    <!-- প্রোডাক্ট ডিটেইলস মোডাল -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
