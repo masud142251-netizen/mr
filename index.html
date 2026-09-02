@@ -328,4 +328,511 @@
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
                 </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox
+                <div class="cycling-content-item" id="cyclingColorItemBox">
+                    <span class="cycling-section-title">COLOR</span>
+                    <div id="modalColorCirclesInline" style="display:flex; gap:10px; align-items:center; justify-content:center;"></div>
+                </div>
+                <div class="cycling-content-item" id="cyclingSizeItemBox">
+                    <span class="cycling-section-title">SIZE</span>
+                    <div id="modalSizePillsInline" style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
+                </div>
+                <div class="cycling-content-item">
+                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
+                </div>
+                <div class="cycling-content-item">
+                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
+                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-action-wrap">
+                <div style="text-align: center;">
+                    <span class="qty-label-top">Quantity</span>
+                    <div class="golden-round-qty-box">
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithFirebase(this)">
+                    Add To Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-menus-left">
+            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        </div>
+        <div class="bottom-search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
+            <div class="bottom-search-actions">
+                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Image Search"></i>
+                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()" title="Voice Search"></i>
+                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        let activeCurrentProduct = null;
+        let selectedColor = "Standard";
+        let selectedSize = "Standard";
+        let currentModalQty = 1;
+        let cyclingInterval = null;
+        let currentShareTitle = "";
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
+        if(urlAff) { 
+            sessionStorage.setItem('mme_active_aff', urlAff); 
+            localStorage.setItem('mme_active_aff', urlAff); 
+        }
+        let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCombinedProducts();
+        });
+
+        function showCustomToast(msg) {
+            let toast = document.getElementById('customToast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2200);
+        }
+
+        function getDynamicProductStats(productId) {
+            let storageKeyViews = `mme_views_${productId}`;
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+
+            let views = parseInt(localStorage.getItem(storageKeyViews));
+            if(!views) {
+                views = Math.floor(600 + Math.random() * 3800);
+                localStorage.setItem(storageKeyViews, views);
+            } else {
+                if(Math.random() > 0.6) {
+                    views += Math.floor(1 + Math.random() * 4);
+                    localStorage.setItem(storageKeyViews, views);
+                }
+            }
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(150 + Math.random() * 750);
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+            let isLiked = (Date.now() - likedTime) < 86400000;
+
+            return { views, likes, isLiked };
+        }
+
+        function toggleProductLike(productId, el) {
+            let storageKeyLikes = `mme_likes_${productId}`;
+            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
+            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
+            if((Date.now() - likedTime) < 86400000) return;
+
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
+            likes += 1;
+            localStorage.setItem(storageKeyLikes, likes);
+            localStorage.setItem(storageKeyLikedByMe, Date.now());
+
+            let span = el.querySelector('span');
+            if(span) span.innerText = likes;
+            el.classList.add('liked');
+        }
+
+        function openCategoryModal(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('categoryModalOverlay').style.display = 'flex';
+        }
+
+        function closeCategoryModal(e) {
+            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
+        }
+
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
+        }
+
+        function openEcosystemPage(url, title, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            if(element) element.classList.add('active');
+            document.getElementById('ecosystemModalTitle').innerText = title;
+            document.getElementById('ecosystemIframe').src = url;
+            document.getElementById('ecosystemModal').style.display = 'flex';
+        }
+
+        function closeEcosystemModal() {
+            document.getElementById('ecosystemModal').style.display = 'none';
+            document.getElementById('ecosystemIframe').src = '';
+            document.getElementById('itemNavBtn').classList.add('active');
+        }
+
+        function getAllProducts() {
+            let defaultProds = [
+                {
+                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
+                    category: "👗 FASHION (WOMEN)",
+                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
+                    images: [
+                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
+                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
+                    ],
+                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
+                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
+                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
+                    sizes: ["XS", "S", "M", "L", "XL"]
+                }
+            ];
+            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
+            sellers.forEach(s => {
+                if(s.uploadedProducts) {
+                    s.uploadedProducts.forEach((p, i) => {
+                        let cleanVid = "";
+                        if(p.videoUrl && p.videoUrl.trim() !== "") {
+                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
+                            let videoIdMatch = rawBase.split('/').pop();
+                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+                        }
+                        defaultProds.push({
+                            id: 'v-' + s.id + '-' + i,
+                            title: p.title || p.name || "Exclusive Item",
+                            price: p.global || '$35.00',
+                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
+                            category: p.category || '👗 FASHION (WOMEN)',
+                            videoUrl: cleanVid,
+                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                            desc: p.desc || 'Exclusive premium collection.',
+                            stock: p.stock || 'In Stock',
+                            packaging: p.packaging || 'Secure Box',
+                            quantity: p.quantity || '1 Unit',
+                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
+                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
+                            sizes: p.sizes || ["Standard", "Large"]
+                        });
+                    });
+                }
+            });
+            return defaultProds;
+        }
+
+        function loadCombinedProducts(list = getAllProducts()) {
+            const feed = document.getElementById('productFeed');
+            feed.innerHTML = "";
+            list.forEach(item => {
+                let stats = getDynamicProductStats(item.id);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let mediaContent = "";
+                if (item.videoUrl && item.videoUrl.trim() !== "") {
+                    mediaContent = `
+                        <div class="video-wrapper">
+                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `
+                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
+                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaContent}
+                    <div class="product-bottom-actions">
+                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
+                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
+                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function openShareModal(title) {
+            currentShareTitle = title;
+            let currentUrl = window.location.href.split('?')[0];
+            let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
+            document.getElementById('shareLinkInput').value = affiliateShareLink;
+            document.getElementById('shareModalOverlay').style.display = 'flex';
+        }
+
+        function closeShareModal(e) {
+            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function copyShareLink() {
+            let input = document.getElementById('shareLinkInput');
+            input.select();
+            navigator.clipboard.writeText(input.value);
+            showCustomToast("Affiliate referral link copied successfully!");
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function shareToPlatform(platform) {
+            let linkVal = document.getElementById('shareLinkInput').value;
+            let url = encodeURIComponent(linkVal);
+            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
+            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
+            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
+            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
+            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            window.open(targetUrl, '_blank');
+            document.getElementById('shareModalOverlay').style.display = 'none';
+        }
+
+        function startSequentialAnimation() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            const items = document.querySelectorAll('.cycling-content-item');
+            let currentIndex = 0;
+            
+            items.forEach(el => el.classList.remove('active'));
+            items[0].classList.add('active');
+
+            cyclingInterval = setInterval(() => {
+                items[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % items.length;
+                items[currentIndex].classList.add('active');
+            }, 4400);
+        }
+
+        function openProductModal(id) {
+            let product = getAllProducts().find(p => p.id == id);
+            if(!product) return;
+            activeCurrentProduct = product;
+            currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+
+            let stats = getDynamicProductStats(product.id);
+            document.getElementById('modalViewCount').innerText = stats.views;
+            document.getElementById('modalLikeCount').innerText = stats.likes;
+            let likeBtnItem = document.getElementById('modalLikeBtnItem');
+            if(stats.isLiked) likeBtnItem.classList.add('liked');
+            else likeBtnItem.classList.remove('liked');
+            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
+
+            document.getElementById('modalShareBtnItem').onclick = () => {
+                document.getElementById('productModal').style.display = 'none';
+                openShareModal(product.title);
+            };
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = product.price;
+            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
+            document.getElementById('modalDesc').innerText = product.desc;
+            document.getElementById('specStock').innerText = product.stock || "Available";
+            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
+
+            const slider = document.getElementById('modalMediaSlider');
+            const thumbs = document.getElementById('modalThumbsRow');
+            
+            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
+            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
+
+            const colorBox = document.getElementById('modalColorCirclesInline');
+            const colorItemBox = document.getElementById('cyclingColorItemBox');
+            if(product.colors && product.colors.length > 0) {
+                colorItemBox.style.display = 'flex';
+                selectedColor = product.colors[0];
+                colorBox.innerHTML = product.colors.map((c, idx) => `
+                    <span class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></span>
+                `).join('');
+            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
+
+            const sizeBox = document.getElementById('modalSizePillsInline');
+            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
+            if(product.sizes && product.sizes.length > 0) {
+                sizeItemBox.style.display = 'flex';
+                selectedSize = product.sizes[0];
+                sizeBox.innerHTML = product.sizes.map((s, idx) => `
+                    <span class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</span>
+                `).join('');
+            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+
+            document.getElementById('productModal').style.display = 'flex';
+            startSequentialAnimation();
+        }
+
+        function switchSlide(idx) {
+            let slideEl = document.getElementById(`slide-${idx}`);
+            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
+                if(i === idx) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+        }
+
+        function selectModalColor(cVal, el) {
+            selectedColor = cVal;
+            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectModalSize(sVal, el) {
+            selectedSize = sVal;
+            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function updateModalQuantity(change) {
+            currentModalQty += change;
+            if(currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modalProductQty').value = currentModalQty;
+        }
+
+        function closeProductModal() {
+            if(cyclingInterval) clearInterval(cyclingInterval);
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function playLuxuryCoinSound() {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gainNode = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1318.51, audioCtx.currentTime + 0.12);
+                
+                gainNode.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.45);
+            } catch(e) {}
+        }
+
+        // লোকাল স্টোরেজ বাদ দিয়ে শুধু ফায়ারবেসে প্রোডাক্ট পাঠানোর ফাংশন
+        async function addToCartWithFirebase(buttonEl) {
+            if(!activeCurrentProduct) return;
+            
+            let cartItem = {
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
+                    await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
+                }
+                
+                // ফায়ারবেস থেকে কাউন্ট আপডেট করে নেব
+                const querySnapshot = await getDocs(collection(window.db, "global_carts"));
+                let totalCount = 0;
+                querySnapshot.forEach((doc) => {
+                    let item = doc.data();
+                    totalCount += (item.quantity || 1);
+                });
+                document.getElementById('cartCount').innerText = totalCount;
+            } catch(e) {}
+
+            closeProductModal();
+            playFlyingCoinAnimation(buttonEl);
+            showCustomToast("Product added to cloud cart successfully!");
+        }
+
+        function playFlyingCoinAnimation(buttonEl) {
+            try {
+                let btnRect = buttonEl.getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
+                    coin.style.transform = 'scale(0.3) rotate(720deg)';
+                    coin.style.opacity = '0.2';
+                }, 40);
+
+                setTimeout(() => {
+                    coin.remove();
+                    playLuxuryCoinSound();
+                    let cartEl = document.getElementById('floatingCart');
+                    cartEl.classList.add('cart-zoom-anim');
+                    setTimeout(() => cartEl.classList.remove('cart-zoom-anim'), 450);
+                }, 1100);
+            } catch(e) {}
+        }
+
+        function redirectToCheckoutSubdomain() {
+            let cartEl = document.getElementById('floatingCart');
+            cartEl.classList.add('cart-zoom-anim');
+            setTimeout(() => {
+                window.location.href = "https://out.mrmasudar.com";
+            }, 320);
+        }
+
+        function performSearchSubmit() {
+            let q = document.getElementById('searchInput').value.toLowerCase();
+            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
+        }
+        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+
+        function triggerCameraAuto() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                let file = e.target.files[0];
+                if(file) showCustomToast("Visual image loaded: " + file.name);
+            };
+            input.click();
+        }
+
+        function triggerVoiceAuto() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                try {
+                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    let recognition = new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.start();
+                    recognition.onresult = (event) => {
+                        let query = event.results[0][0].transcript;
+                        document.getElementById('searchInput').value = query;
+                        performSearchSubmit();
+                    };
+                } catch(e) {
+                    let text = prompt("Voice Search Keyword:");
+                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+                }
+            } else {
+                let text = prompt("Voice Search Keyword:");
+                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
+            }
+        }
+    </script>
+</body>
+</html>
