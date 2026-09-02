@@ -117,13 +117,13 @@
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; font-family: var(--font-luxury); transition: 0.2s; }
         .copy-link-btn:hover { background: var(--gold-solid); }
 
-        /* ক্যাটাগরি গ্রিড ও লাক্সারি থ্রিডি আইকন স্টাইল */
+        /* ক্যাটাগরি গ্রিড ও গোল্ডেন স্ট্যাটিক আইকন স্টাইল (কোনো জুম/ইফেক্ট ছাড়া) */
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
         .cat-popup-item { 
-            background: linear-gradient(145deg, #181818, #0a0a0a); 
-            border: 1.5px solid rgba(212, 175, 55, 0.45); 
+            background: rgba(20, 20, 20, 0.95); 
+            border: 1.5px solid rgba(212, 175, 55, 0.4); 
             padding: 12px 8px; 
-            border-radius: 14px; 
+            border-radius: 12px; 
             color: var(--text-white); 
             font-size: 0.68rem; 
             font-weight: 700; 
@@ -133,34 +133,22 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; 
-            gap: 6px; 
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            gap: 5px; 
             font-family: var(--font-body); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
         .cat-popup-item:hover { 
             border-color: var(--gold-solid); 
-            transform: scale(1.06) translateY(-3px); 
-            background: linear-gradient(145deg, #242424, #121212);
-            box-shadow: 0 0 22px rgba(212, 175, 55, 0.4); 
-            color: var(--gold-solid); 
+            background: rgba(212, 175, 55, 0.08); 
         }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 11px 16px; }
+        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 10px 14px; }
         
-        /* কালো ব্যাকগ্রাউন্ডে পারফেক্ট ও চকচকে লাক্সারি থ্রিডি আইকন */
-        .cat-3d-icon { 
-            width: 46px; 
-            height: 46px; 
-            object-fit: contain; 
-            filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.35)) brightness(1.1); 
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: luxuryFloat3D 3s infinite ease-in-out;
+        /* গোল্ডেন কালারড ও পরিষ্কার ফন্ট-অ্যাসাম আইকন (কোনো অ্যানিমেশন ছাড়া) */
+        .cat-popup-item i { 
+            font-size: 1.2rem; 
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        @keyframes luxuryFloat3D { 
-            0%, 100% { transform: scale(1) translateY(0); } 
-            50% { transform: scale(1.12) translateY(-2px); } 
-        }
-        .cat-popup-item:hover .cat-3d-icon { transform: scale(1.25) rotate(4deg); }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
         .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
@@ -275,6 +263,7 @@
         </div>
     </header>
 
+    <!-- শেয়ার মোডাল -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
@@ -298,42 +287,26 @@
         </div>
     </div>
 
+    <!-- ক্যাটাগরি মোডাল (মূল গোল্ডেন লাক্সারি স্ট্যাটিক আইকনসহ) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title" style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Luxury Categories</h3>
             <div class="category-grid-popup">
                 <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; color:#d4af37;"></i> All Products</span> <i class="fa-solid fa-arrow-right" style="color:#d4af37;"></i>
+                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
                 </div>
-                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050414.png" alt="Men Fashion" class="cat-3d-icon">
-                    <span>Men Fashion</span>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2922/2922506.png" alt="Women Fashion" class="cat-3d-icon">
-                    <span>Women Fashion</span>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png" alt="Baby & Kids" class="cat-3d-icon">
-                    <span>Baby & Kids</span>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="Luxury Gifts" class="cat-3d-icon">
-                    <span>Luxury Gifts</span>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050587.png" alt="Home Decor" class="cat-3d-icon">
-                    <span>Home Decor</span>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050462.png" alt="Art & Craft" class="cat-3d-icon">
-                    <span>Art & Craft</span>
-                </div>
+                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
+    <!-- ইকোসিস্টেম মোডাল -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -344,13 +317,16 @@
         </div>
     </div>
 
+    <!-- ফ্লোটিং কার্ট -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Dashboard">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
+    <!-- প্রোডাক্ট ফিড কন্টেইনার -->
     <main class="feed-container" id="productFeed"></main>
 
+    <!-- প্রোডাক্ট ডিটেইলস মোডাল -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -415,6 +391,7 @@
         </div>
     </div>
 
+    <!-- বটম ন্যাভ -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
