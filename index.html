@@ -28,23 +28,32 @@
         window.firebaseAddDoc = addDoc;
         window.firebaseCollection = collection;
 
+        // ইনস্ট্যান্ট কার্ট কাউন্ট আপডেট করার ফাংশন (ফায়ারবেস ও লোকাল স্টোরেজ সিংক)
         async function fetchCartCountFromFirebase() {
             try {
+                let localCount = parseInt(localStorage.getItem('mme_cart_count') || '0');
+                let badge = document.getElementById('cartCount');
+                if(badge) badge.innerText = localCount;
+
                 const querySnapshot = await getDocs(collection(window.db, "global_carts"));
                 let totalCount = 0;
                 querySnapshot.forEach((doc) => {
                     let item = doc.data();
                     totalCount += (item.quantity || 1);
                 });
+                if(totalCount > 0) {
+                    localStorage.setItem('mme_cart_count', totalCount);
+                    if(badge) badge.innerText = totalCount;
+                }
+            } catch(e) {
+                let localCount = parseInt(localStorage.getItem('mme_cart_count') || '0');
                 let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = totalCount;
-            } catch(e) {}
+                if(badge) badge.innerText = localCount;
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             fetchCartCountFromFirebase();
-            checkAutoUserLogin();
-            detectUserCountryCode();
             if(typeof window.loadCombinedProducts === 'function') window.loadCombinedProducts();
         });
         window.fetchCartCountFromFirebase = fetchCartCountFromFirebase;
@@ -87,29 +96,6 @@
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
         .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none; }
-
-        /* স্ক্রিনশটের হুবহু চার্ট ও সাইন-আপ ফর্ম মোডাল ডিজাইন */
-        .cart-sheet-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(10px); padding: 10px; overflow-y: auto; }
-        .cart-sheet-box { background: #121212; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 650px; border-radius: 20px; padding: 35px 20px 25px 20px; text-align: center; position: relative; max-height: 95vh; overflow-y: auto; box-shadow: 0 0 35px rgba(212,175,55,0.3); }
-
-        .sheet-section-title { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; text-align: left; }
-        
-        .luxury-sheet-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; background: #0c0c0c; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; overflow: hidden; }
-        .luxury-sheet-table th { background: #161616; color: var(--gold-solid); font-size: 0.65rem; font-weight: 900; text-transform: uppercase; padding: 10px 8px; border-bottom: 1.5px solid var(--gold-solid); text-align: center; font-family: var(--font-numeric); }
-        .luxury-sheet-table td { padding: 10px 8px; border-bottom: 1px solid rgba(212,175,55,0.2); font-size: 0.7rem; color: #fff; text-align: center; vertical-align: middle; font-family: var(--font-numeric); }
-        .sheet-prod-img { width: 38px; height: 38px; border-radius: 6px; object-fit: cover; border: 1px solid var(--gold-solid); margin: 0 auto; display: block; }
-        .sheet-del-btn { background: transparent; border: none; color: var(--pink-heart); cursor: pointer; font-size: 0.95rem; }
-
-        .sheet-total-row { display: flex; justify-content: space-between; align-items: center; background: #161616; border: 1.5px solid var(--gold-solid); padding: 10px 14px; border-radius: 8px; margin-bottom: 20px; font-weight: 900; font-size: 0.85rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-numeric); text-transform: uppercase; }
-
-        .auth-input-group { margin-bottom: 14px; text-align: left; }
-        .auth-input-group label { font-size: 0.72rem; font-weight: 800; color: #fcf6ba; text-transform: uppercase; margin-bottom: 5px; display: block; font-family: var(--font-numeric); letter-spacing: 0.8px; }
-        .auth-input { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.6); padding: 11px 14px; border-radius: 8px; color: #ffffff; font-size: 0.85rem; font-weight: 700; outline: none; font-family: var(--font-numeric); }
-        .auth-input:focus { border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.3); }
-
-        .phone-input-row { display: flex; gap: 8px; }
-        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.6); padding: 11px 8px; border-radius: 8px; color: #fff; font-size: 0.8rem; font-weight: 700; outline: none; width: 180px; font-family: var(--font-numeric); }
-        .country-code-select option { background: #121212; color: #fff; font-size: 0.85rem; }
 
         .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box, .category-modal-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 410px; border-radius: 20px; padding: 45px 18px 20px 18px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
@@ -291,241 +277,7 @@
         </div>
     </div>
 
-    <!-- স্ক্রিনশটের হুবহু চার্ট + সাইন-আপ ফর্ম মোডাল (কার্টে ক্লিক করলে ওপেন হবে) -->
-    <div class="cart-sheet-modal-overlay" id="cartSheetModalOverlay">
-        <div class="cart-sheet-box">
-            
-            <div class="sheet-section-title">My Luxury Product Sheet</div>
-            
-            <!-- লাক্সারি প্রোডাক্ট চার্ট টেবিল -->
-            <table class="luxury-sheet-table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Product Name</th>
-                        <th>Details (Color/Size)</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="cartSheetTableBody">
-                    <!-- ডাইনামিক প্রোডাক্ট লিস্ট এখানে যুক্ত হবে -->
-                </tbody>
-            </table>
-
-            <!-- মোট হিসাব রো -->
-            <div class="sheet-total-row">
-                <span>Total Payable Sheet Amount:</span>
-                <span id="cartTotalSheetAmount">$0.00</span>
-            </div>
-
-            <!-- কাস্টমার সাইন আপ / সাইন ইন ফর্ম -->
-            <div class="sheet-section-title" style="margin-top: 15px;">Customer Sign Up</div>
-            
-            <div class="auth-input-group">
-                <label>Full Name</label>
-                <input type="text" class="auth-input" id="homeFullName" placeholder="Masudar Rahman">
-            </div>
-            <div class="auth-input-group">
-                <label>Gmail / Email</label>
-                <input type="email" class="auth-input" id="homeEmailInput" placeholder="yourname@gmail.com">
-            </div>
-            <div class="auth-input-group">
-                <label>WhatsApp Number (Global Country Codes)</label>
-                <div class="phone-input-row">
-                    <select class="country-code-select" id="homeCountryCode">
-                        <option value="+93">🇦🇫 +93 (Afghanistan)</option>
-                        <option value="+355">🇦🇱 +355 (Albania)</option>
-                        <option value="+213">🇩🇿 +213 (Algeria)</option>
-                        <option value="+376">🇦🇩 +376 (Andorra)</option>
-                        <option value="+244">🇦🇴 +244 (Angola)</option>
-                        <option value="+54">🇦🇷 +54 (Argentina)</option>
-                        <option value="+374">🇦🇲 +374 (Armenia)</option>
-                        <option value="+61">🇦🇺 +61 (Australia)</option>
-                        <option value="+43">🇦🇹 +43 (Austria)</option>
-                        <option value="+994">🇦🇿 +994 (Azerbaijan)</option>
-                        <option value="+973">🇧🇭 +973 (Bahrain)</option>
-                        <option value="+880" selected>🇧🇩 +880 (Bangladesh)</option>
-                        <option value="+375">🇧🇾 +375 (Belarus)</option>
-                        <option value="+32">🇧🇪 +32 (Belgium)</option>
-                        <option value="+501">🇧🇿 +501 (Belize)</option>
-                        <option value="+229">🇧🇯 +229 (Benin)</option>
-                        <option value="+975">🇧🇹 +975 (Bhutan)</option>
-                        <option value="+591">🇧🇴 +591 (Bolivia)</option>
-                        <option value="+387">🇧🇦 +387 (Bosnia)</option>
-                        <option value="+267">🇧🇼 +267 (Botswana)</option>
-                        <option value="+55">🇧🇷 +55 (Brazil)</option>
-                        <option value="+673">🇧🇳 +673 (Brunei)</option>
-                        <option value="+359">🇧🇬 +359 (Bulgaria)</option>
-                        <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
-                        <option value="+257">🇧🇮 +257 (Burundi)</option>
-                        <option value="+855">🇰🇭 +855 (Cambodia)</option>
-                        <option value="+237">🇨🇲 +237 (Cameroon)</option>
-                        <option value="+1">🇨🇦 +1 (Canada)</option>
-                        <option value="+238">🇨🇻 +238 (Cape Verde)</option>
-                        <option value="+236">🇨🇫 +236 (Central African Rep)</option>
-                        <option value="+235">🇹🇩 +235 (Chad)</option>
-                        <option value="+56">🇨🇱 +56 (Chile)</option>
-                        <option value="+86">🇨🇳 +86 (China)</option>
-                        <option value="+57">🇨🇴 +57 (Colombia)</option>
-                        <option value="+269">🇰🇲 +269 (Comoros)</option>
-                        <option value="+242">🇨🇬 +242 (Congo)</option>
-                        <option value="+506">🇨🇷 +506 (Costa Rica)</option>
-                        <option value="+385">🇭🇷 +385 (Croatia)</option>
-                        <option value="+53">🇨🇺 +53 (Cuba)</option>
-                        <option value="+357">🇨🇾 +357 (Cyprus)</option>
-                        <option value="+420">🇨🇿 +420 (Czech Republic)</option>
-                        <option value="+45">🇩🇰 +45 (Denmark)</option>
-                        <option value="+253">🇩🇯 +253 (Djibouti)</option>
-                        <option value="+1767">🇩🇲 +1767 (Dominica)</option>
-                        <option value="+1809">🇩🇴 +1809 (Dominican Republic)</option>
-                        <option value="+593">🇪🇨 +593 (Ecuador)</option>
-                        <option value="+20">🇪🇬 +20 (Egypt)</option>
-                        <option value="+503">🇸🇻 +503 (El Salvador)</option>
-                        <option value="+240">🇬🇶 +240 (Equatorial Guinea)</option>
-                        <option value="+291">🇪🇷 +291 (Eritrea)</option>
-                        <option value="+372">🇪🇪 +372 (Estonia)</option>
-                        <option value="+251">🇪🇹 +251 (Ethiopia)</option>
-                        <option value="+679">🇫🇯 +679 (Fiji)</option>
-                        <option value="+358">🇫🇮 +358 (Finland)</option>
-                        <option value="+33">🇫🇷 +33 (France)</option>
-                        <option value="+241">🇬🇦 +241 (Gabon)</option>
-                        <option value="+220">🇬🇲 +220 (Gambia)</option>
-                        <option value="+995">🇬🇪 +995 (Georgia)</option>
-                        <option value="+49">🇩🇪 +49 (Germany)</option>
-                        <option value="+233">🇬🇭 +233 (Ghana)</option>
-                        <option value="+30">🇬🇷 +30 (Greece)</option>
-                        <option value="+502">🇬🇹 +502 (Guatemala)</option>
-                        <option value="+224">🇬🇳 +224 (Guinea)</option>
-                        <option value="+245">🇬🇼 +245 (Guinea-Bissau)</option>
-                        <option value="+509">🇭🇹 +509 (Haiti)</option>
-                        <option value="+504">🇭🇳 +504 (Honduras)</option>
-                        <option value="+852">🇭🇰 +852 (Hong Kong)</option>
-                        <option value="+36">🇭🇺 +36 (Hungary)</option>
-                        <option value="+354">🇮🇸 +354 (Iceland)</option>
-                        <option value="+91">🇮🇳 +91 (India)</option>
-                        <option value="+62">🇮🇩 +62 (Indonesia)</option>
-                        <option value="+98">🇮🇷 +98 (Iran)</option>
-                        <option value="+964">🇮🇶 +964 (Iraq)</option>
-                        <option value="+353">🇮🇪 +353 (Ireland)</option>
-                        <option value="+972">🇮🇱 +972 (Israel)</option>
-                        <option value="+39">🇮🇹 +39 (Italy)</option>
-                        <option value="+1876">🇯🇲 +1876 (Jamaica)</option>
-                        <option value="+81">🇯🇵 +81 (Japan)</option>
-                        <option value="+962">🇯🇴 +962 (Jordan)</option>
-                        <option value="+7">🇰🇿 +7 (Kazakhstan)</option>
-                        <option value="+254">🇰🇪 +254 (Kenya)</option>
-                        <option value="+965">🇰🇼 +965 (Kuwait)</option>
-                        <option value="+996">🇰🇬 +996 (Kyrgyzstan)</option>
-                        <option value="+856">🇱🇦 +856 (Laos)</option>
-                        <option value="+371">🇱🇻 +371 (Latvia)</option>
-                        <option value="+961">🇱🇧 +961 (Lebanon)</option>
-                        <option value="+266">🇱🇸 +266 (Lesotho)</option>
-                        <option value="+231">🇱🇷 +231 (Liberia)</option>
-                        <option value="+218">🇱🇾 +218 (Libya)</option>
-                        <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
-                        <option value="+370">🇱🇹 +370 (Lithuania)</option>
-                        <option value="+352">🇱🇺 +352 (Luxembourg)</option>
-                        <option value="+853">🇲🇴 +853 (Macau)</option>
-                        <option value="+389">🇲🇰 +389 (Macedonia)</option>
-                        <option value="+261">🇲🇬 +261 (Madagascar)</option>
-                        <option value="+265">🇲🇼 +265 (Malawi)</option>
-                        <option value="+60">🇲🇾 +60 (Malaysia)</option>
-                        <option value="+960">🇲🇻 +960 (Maldives)</option>
-                        <option value="+223">🇲🇱 +223 (Mali)</option>
-                        <option value="+356">🇲🇹 +356 (Malta)</option>
-                        <option value="+692">🇲🇭 +692 (Marshall Islands)</option>
-                        <option value="+222">🇲🇷 +222 (Mauritania)</option>
-                        <option value="+230">🇲🇺 +230 (Mauritius)</option>
-                        <option value="+52">🇲🇽 +52 (Mexico)</option>
-                        <option value="+373">🇲🇩 +373 (Moldova)</option>
-                        <option value="+377">🇲🇨 +377 (Monaco)</option>
-                        <option value="+976">🇲🇳 +976 (Mongolia)</option>
-                        <option value="+382">🇲🇪 +382 (Montenegro)</option>
-                        <option value="+212">🇲🇦 +212 (Morocco)</option>
-                        <option value="+258">🇲🇿 +258 (Mozambique)</option>
-                        <option value="+95">🇲🇲 +95 (Myanmar)</option>
-                        <option value="+264">🇳🇦 +264 (Namibia)</option>
-                        <option value="+977">🇳🇵 +977 (Nepal)</option>
-                        <option value="+31">🇳🇱 +31 (Netherlands)</option>
-                        <option value="+64">🇳🇿 +64 (New Zealand)</option>
-                        <option value="+505">🇳🇮 +505 (Nicaragua)</option>
-                        <option value="+227">🇳🇪 +227 (Niger)</option>
-                        <option value="+234">🇳🇬 +234 (Nigeria)</option>
-                        <option value="+47">🇳🇴 +47 (Norway)</option>
-                        <option value="+968">🇴🇲 +968 (Oman)</option>
-                        <option value="+92">🇵🇰 +92 (Pakistan)</option>
-                        <option value="+680">🇵🇼 +680 (Palau)</option>
-                        <option value="+970">🇵🇸 +970 (Palestine)</option>
-                        <option value="+507">🇵🇦 +507 (Panama)</option>
-                        <option value="+675">🇵🇬 +675 (Papua New Guinea)</option>
-                        <option value="+595">🇵🇾 +595 (Paraguay)</option>
-                        <option value="+51">🇵🇪 +51 (Peru)</option>
-                        <option value="+63">🇵🇭 +63 (Philippines)</option>
-                        <option value="+48">🇵🇱 +48 (Poland)</option>
-                        <option value="+351">🇵🇹 +351 (Portugal)</option>
-                        <option value="+974">🇶🇦 +974 (Qatar)</option>
-                        <option value="+40">🇷🇴 +40 (Romania)</option>
-                        <option value="+7">🇷🇺 +7 (Russia)</option>
-                        <option value="+250">🇷🇼 +250 (Rwanda)</option>
-                        <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
-                        <option value="+221">🇸🇳 +221 (Senegal)</option>
-                        <option value="+381">🇷🇸 +381 (Serbia)</option>
-                        <option value="+248">🇸🇨 +248 (Seychelles)</option>
-                        <option value="+232">🇸🇱 +232 (Sierra Leone)</option>
-                        <option value="+65">🇸🇬 +65 (Singapore)</option>
-                        <option value="+421">🇸🇰 +421 (Slovakia)</option>
-                        <option value="+386">🇸🇮 +386 (Slovenia)</option>
-                        <option value="+252">🇸🇴 +252 (Somalia)</option>
-                        <option value="+27">🇿🇦 +27 (South Africa)</option>
-                        <option value="+82">🇰🇷 +82 (South Korea)</option>
-                        <option value="+34">🇪🇸 +34 (Spain)</option>
-                        <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
-                        <option value="+249">🇸🇩 +249 (Sudan)</option>
-                        <option value="+597">🇸🇷 +597 (Suriname)</option>
-                        <option value="+46">🇸🇪 +46 (Sweden)</option>
-                        <option value="+41">🇨🇭 +41 (Switzerland)</option>
-                        <option value="+963">🇸🇾 +963 (Syria)</option>
-                        <option value="+886">🇹🇼 +886 (Taiwan)</option>
-                        <option value="+992">🇹🇯 +992 (Tajikistan)</option>
-                        <option value="+255">🇹🇿 +255 (Tanzania)</option>
-                        <option value="+66">🇹🇭 +66 (Thailand)</option>
-                        <option value="+228">🇹🇬 +228 (Togo)</option>
-                        <option value="+676">🇹🇴 +676 (Tonga)</option>
-                        <option value="+216">🇹🇳 +216 (Tunisia)</option>
-                        <option value="+90">🇹🇷 +90 (Turkey)</option>
-                        <option value="+993">🇹🇲 +993 (Turkmenistan)</option>
-                        <option value="+256">🇺🇬 +256 (Uganda)</option>
-                        <option value="+380">🇺🇦 +380 (Ukraine)</option>
-                        <option value="+971">🇦🇪 +971 (United Arab Emirates)</option>
-                        <option value="+44">🇬🇧 +44 (United Kingdom)</option>
-                        <option value="+1">🇺🇸 +1 (United States)</option>
-                        <option value="+598">🇺🇾 +598 (Uruguay)</option>
-                        <option value="+998">🇺🇿 +998 (Uzbekistan)</option>
-                        <option value="+678">🇻🇺 +678 (Vanuatu)</option>
-                        <option value="+58">🇻🇪 +58 (Venezuela)</option>
-                        <option value="+84">🇻🇳 +84 (Vietnam)</option>
-                        <option value="+967">🇾🇪 +967 (Yemen)</option>
-                        <option value="+260">🇿🇲 +260 (Zambia)</option>
-                        <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
-                    </select>
-                    <input type="text" class="auth-input" id="homeWhatsapp" placeholder="1712345678">
-                </div>
-            </div>
-            <div class="auth-input-group">
-                <label>Password (Manual Entry)</label>
-                <input type="password" class="auth-input" id="homePassword" placeholder="Enter secure password">
-            </div>
-
-            <button style="width:100%; background:var(--gold-gradient); border:none; padding:13px; border-radius:8px; color:#000; font-weight:900; font-size:0.9rem; cursor:pointer; text-transform:uppercase; margin-top:10px;" onclick="proceedToDashboardSubdomain()">
-                Create Account & Enter Dashboard
-            </button>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('cartSheetModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <!-- ফ্লোটিং কার্ট -->
+    <!-- ফ্লোটিং কার্ট (এতে ক্লিক করলেই সরাসরি সাবডোমেইনের ড্যাশবোর্ডে যাবে) -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Dashboard">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
@@ -642,33 +394,6 @@
             toast.innerText = msg;
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2200);
-        }
-
-        async function detectUserCountryCode() {
-            try {
-                let res = await fetch('https://ipapi.co/json/');
-                let data = await res.json();
-                if(data && data.country_calling_code) {
-                    let select = document.getElementById('homeCountryCode');
-                    let code = data.country_calling_code.startsWith('+') ? data.country_calling_code : '+' + data.country_calling_code;
-                    for(let option of select.options) {
-                        if(option.value === code || option.value === "+" + code.replace("+","")) {
-                            select.value = option.value;
-                            break;
-                        }
-                    }
-                }
-            } catch(e) {}
-        }
-
-        function checkAutoUserLogin() {
-            let savedUser = JSON.parse(localStorage.getItem('mme_logged_user') || 'null');
-            if(savedUser) {
-                if(savedUser.email) document.getElementById('homeEmailInput').value = savedUser.email;
-                if(savedUser.name) document.getElementById('homeFullName').value = savedUser.name;
-                if(savedUser.whatsapp) document.getElementById('homeWhatsapp').value = savedUser.whatsapp;
-                if(savedUser.code) document.getElementById('homeCountryCode').value = savedUser.code;
-            }
         }
 
         function getDynamicProductStats(productId) {
@@ -1004,6 +729,7 @@
             } catch(e) {}
         }
 
+        // অ্যাড টু কার্ট করলে ইনস্ট্যান্ট কাউন্ট আপডেট এবং ফায়ারবেসে ডেটা সেভ হওয়া
         async function addToCartWithFirebase(buttonEl) {
             if(!activeCurrentProduct) return;
             
@@ -1020,16 +746,21 @@
                 timestamp: new Date().toISOString()
             };
 
+            // ইনস্ট্যান্ট ব্যাজ কাউন্ট আপডেট
+            let badge = document.getElementById('cartCount');
+            let currentCount = parseInt(badge.innerText || '0') + currentModalQty;
+            badge.innerText = currentCount;
+            localStorage.setItem('mme_cart_count', currentCount);
+
             try {
                 if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
                     await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
                 }
-                if(typeof window.fetchCartCountFromFirebase === 'function') window.fetchCartCountFromFirebase();
             } catch(e) {}
 
             closeProductModal();
             playFlyingCoinAnimation(buttonEl);
-            showCustomToast("Product added to cloud cart successfully!");
+            showCustomToast("Product added to cart successfully!");
         }
 
         function playFlyingCoinAnimation(buttonEl) {
@@ -1060,85 +791,8 @@
             } catch(e) {}
         }
 
-        // ফ্লোটিং কার্টে ক্লিক করলে আপনার দেওয়া স্ক্রিনশটের হুবহু চার্ট ও সাইন-আপ ফর্ম ওপেন হবে
-        async function handleCartClick() {
-            let tbody = document.getElementById('cartSheetTableBody');
-            tbody.innerHTML = `<tr><td colspan="6" style="padding:15px; color:var(--gold-solid);">Loading product sheet...</td></tr>`;
-            document.getElementById('cartSheetModalOverlay').style.display = 'flex';
-
-            try {
-                if(window.db && window.firebaseCollection && window.getDocs) {
-                    const querySnapshot = await getDocs(collection(window.db, "global_carts"));
-                    let rowsHtml = "";
-                    let totalAmount = 0;
-                    let count = 0;
-
-                    querySnapshot.forEach((docSnap) => {
-                        let item = docSnap.data();
-                        count++;
-                        let priceNum = parseFloat((item.price || "$0").replace('$', '')) || 0;
-                        let qty = item.quantity || 1;
-                        let lineTotal = priceNum * qty;
-                        totalAmount += lineTotal;
-
-                        rowsHtml += `
-                            <tr>
-                                <td><img src="${item.image || 'https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'}" class="sheet-prod-img"></td>
-                                <td style="font-weight:800; text-align:left;">${item.title}</td>
-                                <td>Color: ${item.color || 'Std'} | Size: ${item.size || 'Std'}</td>
-                                <td>${qty}</td>
-                                <td>$${lineTotal.toFixed(2)}</td>
-                                <td><button class="sheet-del-btn" onclick="removeCartItem('${docSnap.id}')"><i class="fa-solid fa-trash-can"></i></button></td>
-                            </tr>
-                        `;
-                    });
-
-                    if(count === 0) {
-                        tbody.innerHTML = `<tr><td colspan="6" style="padding:20px; color:#888;">Your luxury sheet is empty. Add products first.</td></tr>`;
-                        document.getElementById('cartTotalSheetAmount').innerText = "$0.00";
-                    } else {
-                        tbody.innerHTML = rowsHtml;
-                        document.getElementById('cartTotalSheetAmount').innerText = `$${totalAmount.toFixed(2)}`;
-                    }
-                }
-            } catch(e) {
-                tbody.innerHTML = `<tr><td colspan="6" style="padding:15px; color:#ff2d55;">Failed to load sheet.</td></tr>`;
-            }
-        }
-
-        async function removeCartItem(docId) {
-            try {
-                import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js").then(async ({ doc, deleteDoc }) => {
-                    await deleteDoc(doc(window.db, "global_carts", docId));
-                    showCustomToast("Product removed from sheet");
-                    handleCartClick();
-                    if(typeof window.fetchCartCountFromFirebase === 'function') window.fetchCartCountFromFirebase();
-                });
-            } catch(e) {}
-        }
-
-        async function proceedToDashboardSubdomain() {
-            let email = document.getElementById('homeEmailInput').value.trim();
-            let name = document.getElementById('homeFullName').value.trim() || "Valued Customer";
-            let whatsapp = document.getElementById('homeWhatsapp').value.trim();
-            let code = document.getElementById('homeCountryCode').value;
-            let password = document.getElementById('homePassword').value.trim();
-
-            if(!email || !whatsapp) {
-                showCustomToast("Please enter your Gmail and WhatsApp number!");
-                return;
-            }
-
-            let userData = { email, name, whatsapp, code, password, affiliateRef: currentAffiliateId, timestamp: new Date().toISOString() };
-            localStorage.setItem('mme_logged_user', JSON.stringify(userData));
-
-            try {
-                if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
-                    await window.firebaseAddDoc(window.firebaseCollection(window.db, "customers"), userData);
-                }
-            } catch(e) {}
-
-            // সমস্ত ডেটা ও ইনফরমেশন সহ সাবডোমেইনের ড্যাশবোর্ডে রিডাইরেক্ট হবে
+        // কার্ট আইকনে ক্লিক করলেই সরাসরি সাবডোমেইনের ড্যাশবোর্ডে রিডাইরেক্ট হবে
+        function handleCartClick() {
             window.location.href = "https://out.mrmasudar.com";
         }
 
