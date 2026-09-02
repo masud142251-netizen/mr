@@ -82,7 +82,6 @@
         
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         .brand-title-main { font-size: 0.96rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
-        /* সাবটাইটেল লেটার স্পেসিং বাড়িয়ে মূল টাইটেলের দৈর্ঘ্যের সাথে সমান করা হয়েছে */
         .brand-subtitle-craft { font-size: 0.39rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; letter-spacing: 4.8px; text-transform: uppercase; display: block; width: 100%; font-family: var(--font-body); }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -118,7 +117,7 @@
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; font-family: var(--font-luxury); transition: 0.2s; }
         .copy-link-btn:hover { background: var(--gold-solid); }
 
-        /* ক্যাটাগরি গ্রিড ও গোল্ডেন স্ট্যাটিক আইকন স্টাইল */
+        /* ক্যাটাগরি গ্রিড ও স্মুথ জুম-ইন/জুম-আউট ট্রানজিশন স্টাইল */
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
         .cat-popup-item { 
             background: rgba(20, 20, 20, 0.95); 
@@ -136,18 +135,26 @@
             text-align: center; 
             gap: 5px; 
             font-family: var(--font-body); 
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .cat-popup-item:hover { 
             border-color: var(--gold-solid); 
-            background: rgba(212, 175, 55, 0.08); 
+            background: rgba(212, 175, 55, 0.1); 
+            transform: scale(1.04); 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 10px 14px; }
         
+        /* আইকনগুলোর স্মুথ জুম-ইন ও জুম-আউট ট্রানজিশন */
         .cat-popup-item i { 
             font-size: 1.2rem; 
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .cat-popup-item:hover i {
+            transform: scale(1.22);
         }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
@@ -229,18 +236,16 @@
         
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 12px var(--gold-solid); }
 
-        /* বটম ন্যাভবার এবং সার্চ বারের সমান স্পেসিং লেআউট */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; z-index: 1000; gap: 8px; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.48rem; font-weight: 600; padding: 3px 4px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; text-align: center; }
-        .nav-item i { font-size: 0.88rem; margin-bottom: 2px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; gap: 5px; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.45rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 0.8; text-align: center; }
+        .nav-item i { font-size: 0.85rem; margin-bottom: 2px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
         
-        /* সার্চ বারকে অন্যান্য মেনুর মতো সমান ফ্লেক্স স্পেসিং দেওয়া হয়েছে */
-        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 3px 6px; flex: 1; gap: 3px; min-width: 0; }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
-        .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.65rem; flex-shrink: 0; }
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 3px 6px; flex: 1.6; gap: 3px; min-width: 0; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.55rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
+        .bottom-search-actions { display: flex; align-items: center; gap: 3px; color: var(--gold-solid); font-size: 0.62rem; flex-shrink: 0; }
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; padding: 2px; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.55rem; cursor: pointer; flex-shrink: 0; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.52rem; cursor: pointer; flex-shrink: 0; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
     </style>
 </head>
@@ -288,7 +293,7 @@
         </div>
     </div>
 
-    <!-- ক্যাটাগরি মোডাল -->
+    <!-- ক্যাটাগরি মোডাল (স্মুথ জুম ইন ও জুম আউট ইফেক্টসহ) -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title" style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">Luxury Categories</h3>
@@ -392,7 +397,7 @@
         </div>
     </div>
 
-    <!-- বটম ন্যাভবার এবং সার্চ বারের সমান স্পেসিং -->
+    <!-- বটম ন্যাভবার এবং সার্চ বার -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
