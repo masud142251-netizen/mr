@@ -28,7 +28,6 @@
         window.firebaseAddDoc = addDoc;
         window.firebaseCollection = collection;
 
-        // পেজ লোড হলে সরাসরি ফায়ারবেস থেকে কার্ট কাউন্ট ফেচ করবে (লোকাল স্টোরেজ ছাড়া)
         async function fetchCartCountFromFirebase() {
             try {
                 const querySnapshot = await getDocs(collection(window.db, "global_carts"));
@@ -525,10 +524,24 @@
             return defaultProds;
         }
 
+        // প্রোডাক্টগুলোকে রিয়েল টাইমে ন্যানো সেকেন্ডে র‍্যান্ডমলি এলোমেলো করার ইঞ্জিন (Fisher-Yates Shuffle Algorithm)
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
         function loadCombinedProducts(list = getAllProducts()) {
+            // ক্যাটাগরি বা সেলার থেকে আসা প্রোডাক্টগুলোকে প্রতিবার রেন্ডমলি শাফেল করে দেওয়া হবে
+            let randomizedList = shuffleArray([...list]);
+            
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
-            list.forEach(item => {
+            randomizedList.forEach(item => {
                 let stats = getDynamicProductStats(item.id);
                 const card = document.createElement('div');
                 card.className = 'product-card';
@@ -723,7 +736,6 @@
             } catch(e) {}
         }
 
-        // লোকাল স্টোরেজ বাদ দিয়ে শুধু ফায়ারবেসে প্রোডাক্ট পাঠানোর ফাংশন
         async function addToCartWithFirebase(buttonEl) {
             if(!activeCurrentProduct) return;
             
@@ -744,7 +756,6 @@
                     await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
                 }
                 
-                // ফায়ারবেস থেকে কাউন্ট আপডেট করে নেব
                 const querySnapshot = await getDocs(collection(window.db, "global_carts"));
                 let totalCount = 0;
                 querySnapshot.forEach((doc) => {
