@@ -71,11 +71,17 @@
         }
         .golden-cross-btn-top-right:hover { background: #ffffff; color: #000; }
 
+        .custom-toast {
+            position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
+            background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
+            padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999; display: none;
+        }
+
         /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
         .share-modal-box { background: #141414; border: 1.5px solid #ffffff; width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
+        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
         .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .copy-link-box { display: flex; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
@@ -87,7 +93,7 @@
         .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 1.5px solid #ffffff; width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .cat-popup-item:hover { border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -102,38 +108,38 @@
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
         .product-card:hover { border-color: var(--gold-solid); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
-        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.07); } }
+        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
         
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
-        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
+        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 9px 6px; border-top: 1.5px solid rgba(212, 175, 55, 0.3); font-size: 0.72rem; }
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL - WHITE BORDER */
+        /* PRODUCT DETAILS MODAL - WHITE BORDER & UNIFIED COLOR */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 1.5px solid #ffffff; width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; }
         
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
+        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
+        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1.5px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); text-align: left; }
+        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.4); text-align: left; }
         .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -141,19 +147,19 @@
         .free-shipping-tax-text { font-size: 0.62rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; display: flex; align-items: center; gap: 5px; }
         .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.25); margin-bottom: 8px; font-size: 0.68rem; }
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); margin-bottom: 8px; font-size: 0.68rem; color: #ffffff; }
 
-        /* STRICTLY SINGLE ITEM ROTATING ANIMATION BOX */
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 10px; margin-bottom: 10px; min-height: 52px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 3.2s infinite; word-break: break-word; }
+        /* FAST & SMOOTH SINGLE COLUMN STEP-BY-STEP ANIMATION BOX */
+        .animated-cycling-box { background: #141414; border: 1.5px solid #ffffff; border-radius: 10px; padding: 10px; margin-bottom: 10px; min-height: 52px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .cycling-content-item { display: none; width: 100%; animation: fadeInOutFast 2.8s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
-        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(4px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-4px); } }
+        @keyframes fadeInOutFast { 0% { opacity: 0; transform: translateY(6px); } 12% { opacity: 1; transform: translateY(0); } 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-6px); } }
 
-        .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
-        .cycling-desc { font-size: 0.64rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
+        .cycling-title { font-size: 0.8rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Cinzel', serif; line-height: 1.3; }
+        .cycling-desc { font-size: 0.64rem; color: #ffffff; line-height: 1.35; padding: 0 4px; }
         
         .cycling-inline-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .cycling-label-tag { font-size: 0.64rem; color: var(--gold-solid); font-weight: 700; font-family: 'Cinzel', serif; text-transform: uppercase; }
+        .cycling-label-tag { font-size: 0.64rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-family: 'Cinzel', serif; text-transform: uppercase; }
         
         .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; display: inline-block; transition: transform 0.2s; }
         .modal-circle-item.selected { transform: scale(1.25); border-color: #fff; box-shadow: 0 0 8px var(--gold-solid); }
@@ -162,6 +168,9 @@
         .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; border-color: #fff; }
 
         .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        
+        /* QUANTITY LABEL & BOX */
+        .qty-label-top { font-size: 0.58rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-family: 'Cinzel', serif; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 135px; }
         .round-qty-btn { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.65rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 22px; background: transparent; border: none; color: white; text-align: center; font-size: 0.72rem; font-weight: 700; outline: none; }
@@ -169,8 +178,8 @@
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
         /* FLOATING CART WITH BUBBLE ANIMATION */
-        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: transform 0.3s ease; }
-        .floating-cart.bubble-anim { transform: scale(1.3) rotate(15deg); }
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .floating-cart.bubble-anim { transform: scale(1.35) rotate(10deg); }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.15rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.62rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
@@ -262,7 +271,7 @@
         </div>
     </div>
 
-    <!-- FLOATING CART WITH BUBBLE CLICK -->
+    <!-- FLOATING CART WITH BUBBLE ANIMATION -->
     <div class="floating-cart" id="floatingCart" onclick="redirectToCheckoutSubdomain()" title="View Cart & Checkout">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
@@ -297,7 +306,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- STRICTLY ONE-BY-ONE ROTATING ANIMATION BOX -->
+            <!-- FAST & SMOOTH SINGLE COLUMN STEP-BY-STEP ANIMATION BOX -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <!-- 1. Title -->
                 <div class="cycling-content-item active">
@@ -323,16 +332,20 @@
                 </div>
                 <!-- 5. Stock & Packaging -->
                 <div class="cycling-content-item">
-                    <div class="cycling-spec" style="font-size:0.68rem; color:var(--gold-solid); font-weight:600;">Stock: <span id="specStock" style="color:#fff;">Available</span> | <span id="specPackaging">Luxury Box</span></div>
+                    <div class="cycling-spec" style="font-size:0.68rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span> | Pack: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></div>
                 </div>
             </div>
 
             <div class="modal-footer-action-wrap">
-                <div class="golden-round-qty-box">
-                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                    <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
-                    <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                <div style="text-align: center;">
+                    <span class="qty-label-top">Quantity</span>
+                    <div class="golden-round-qty-box">
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
+                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
+                <!-- ADD TO CART BUTTON WITHOUT BLACK LOGO -->
                 <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartSilent(this)">
                     <i class="fa-solid fa-cart-plus"></i> Add To Cart
                 </button>
@@ -588,7 +601,7 @@
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 3000);
+            }, 2800);
         }
 
         function openProductModal(id) {
@@ -706,8 +719,8 @@
             let cartEl = document.getElementById('floatingCart');
             cartEl.classList.add('bubble-anim');
             setTimeout(() => {
-                window.location.href = "https://out.mrmasudar.com/checkout.html";
-            }, 350);
+                window.location.href = "https://out.mrmasuda.com/checkout.html";
+            }, 320);
         }
 
         function performSearchSubmit() {
