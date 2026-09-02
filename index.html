@@ -37,7 +37,6 @@
             --text-white: #ffffff;
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
-            --danger-red: #ff3b30;
             --success-green: #28a745;
         }
 
@@ -48,10 +47,10 @@
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(12px); width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(12px); width: 100%;
         }
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); background: #000; flex-shrink: 0; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         
         .brand-title-main { 
@@ -61,60 +60,46 @@
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(35,35,35,0.95)); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
-        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; letter-spacing: 0.3px; line-height: 1.1; white-space: nowrap; }
-        .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
+        .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; }
+        .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; }
 
         .golden-cross-btn-top-right { 
             background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
             width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
             cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15;
-            transition: background 0.3s, color 0.3s;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
 
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
             background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
-            padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: none; backdrop-filter: blur(8px);
+            padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; z-index: 9999; display: none;
         }
 
-        .secret-admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); padding: 12px; }
-        .secret-admin-box { background: linear-gradient(135deg, #161616, #0c0c0c); border: 2px solid var(--gold-solid); width: 100%; max-width: 900px; border-radius: 20px; padding: 45px 20px 20px 20px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(212,175,55,0.5); }
-        .secret-admin-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 15px; text-transform: uppercase; }
-        
-        .admin-data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.70rem; }
-        .admin-data-table th, .admin-data-table td { border: 1px solid rgba(212,175,55,0.3); padding: 7px; text-align: left; }
-        .admin-data-table th { background: rgba(212,175,55,0.15); color: var(--gold-solid); }
-
-        .admin-tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 8px; flex-wrap: wrap; }
-        .admin-tab-btn { background: rgba(20,20,20,0.8); border: 1px solid var(--gold-solid); color: var(--gold-solid); padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
-        .admin-tab-btn.active { background: var(--gold-gradient); color: #000; }
-
-        /* SHARE MODAL WITH ALL SOCIAL MEDIA */
+        /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; box-shadow: 0 0 35px rgba(212,175,55,0.4); position: relative; }
+        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; transition: transform 0.2s; }
-        .share-icon-btn:hover { transform: scale(1.05); border-color: var(--gold-solid); }
+        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
         .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
+        /* CATEGORY MODAL WITH ALL ITEMS RESTORED */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; box-shadow: 0 0 30px rgba(212,175,55,0.3); text-align: center; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
-        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; transition: transform 0.3s ease; }
-        .cat-popup-item:hover { transform: scale(1.03); border-color: var(--gold-solid); }
+        .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .cat-popup-item:hover { border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; backdrop-filter: blur(10px); }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid var(--gold-solid); position: relative; }
+        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1px solid var(--gold-solid); }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
@@ -123,74 +108,79 @@
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: transform 0.4s ease, border-color 0.4s ease; }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--gold-solid); }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
-        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; }
         
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
-        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: linear-gradient(135deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
+        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.2); font-size: 0.72rem; }
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
+        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 40px rgba(212,175,55,0.4); text-align: center; }
+        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; }
         
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; position: relative; }
+        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
-        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); box-shadow: 0 0 8px rgba(212,175,55,0.5); }
+        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
+        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
-        .modal-price-seller-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; background: rgba(20,20,20,0.9); padding: 7px 9px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); }
-        .modal-price-group { display: flex; align-items: center; gap: 5px; }
+        /* REFINED PRICE, DISCOUNT & FREE SHIPPING BAR */
+        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); text-align: left; }
+        .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.5rem; padding: 2px 5px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
-        
-        .modal-seller-box { display: flex; align-items: center; gap: 4px; background: #000; padding: 3px 7px; border-radius: 16px; border: 1px solid var(--gold-solid); cursor: pointer; max-width: 150px; }
-        .modal-seller-avatar { width: 16px; height: 16px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); flex-shrink: 0; }
-        .modal-seller-name { font-size: 0.52rem; font-weight: 600; color: var(--text-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.5rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+        .free-shipping-tax-text { font-size: 0.62rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; gap: 4px; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: rgba(18,18,18,0.95); padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        .animated-cycling-box { background: linear-gradient(135deg, #141414, #090909); border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(212,175,55,0.12); }
-        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
+        /* SMOOTH UNIFIED ANIMATED BOX */
+        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 55px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 5s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
-        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(5px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
+        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(4px); } 12% { opacity: 1; transform: translateY(0); } 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-4px); } }
 
-        .cycling-title { font-size: 0.8rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
-        .cycling-desc { font-size: 0.68rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
-        .cycling-spec { font-size: 0.68rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; line-height: 1.3; }
-        .spec-two-line-grid { display: flex; flex-direction: column; gap: 3px; align-items: center; justify-content: center; }
+        .cycling-title { font-size: 0.78rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
+        .cycling-desc { font-size: 0.66rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
+        .cycling-spec { font-size: 0.66rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; }
+        .spec-two-line-grid { display: flex; flex-direction: column; gap: 2px; align-items: center; justify-content: center; }
 
         .cycling-colors-inline { display: flex; gap: 6px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-circle-item { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.25); border-color: var(--text-white); box-shadow: 0 0 8px var(--gold-solid); }
+        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; }
+        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; }
 
         .cycling-sizes-inline { display: flex; gap: 5px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: var(--text-white); transition: all 0.2s; }
-        .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; box-shadow: 0 0 6px rgba(212,175,55,0.6); }
+        .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: #fff; }
+        .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; }
 
         .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 140px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-        .round-qty-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 24px; background: transparent; border: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 700; outline: none; }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 135px; }
+        .round-qty-btn { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.65rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .round-qty-input { width: 22px; background: transparent; border: none; color: white; text-align: center; font-size: 0.72rem; font-weight: 700; outline: none; }
         
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* FOOTER NAVIGATION BAR WITH CAMERA & VOICE */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.4); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; backdrop-filter: blur(15px); }
+        /* FLOATING CART & COIN ANIMATION */
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); z-index: 1050; }
+        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
+        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        /* FOOTER NAVIGATION BAR */
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.3); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -207,9 +197,9 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- HEADER -->
+    <!-- CLEAN HEADER -->
     <header class="app-header">
-        <div class="brand-container" id="secretAdminTriggerZone">
+        <div class="brand-container">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
@@ -223,60 +213,7 @@
         </div>
     </header>
 
-    <!-- SECRET ADMIN MODAL -->
-    <div class="secret-admin-overlay" id="secretAdminOverlay">
-        <div class="secret-admin-box">
-            <button class="golden-cross-btn-top-right" onclick="closeSecretAdmin()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="secret-admin-title">Master Secure Enterprise Portal</h3>
-            
-            <div id="adminLoginFormSec" style="max-width: 320px; margin: 20px auto; text-align: center;">
-                <div style="text-align: left; margin-bottom: 10px;">
-                    <label style="display: block; font-size: 0.7rem; color: var(--gold-solid); margin-bottom: 3px; font-weight: 700; text-transform: uppercase;">Master Password *</label>
-                    <input type="password" id="secretAdminPassInput" placeholder="Enter master password..." autocomplete="off" style="width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 9px; border-radius: 8px; color: var(--text-white); font-size: 0.78rem; outline: none;">
-                </div>
-                <button type="button" onclick="verifySecretAdminPass()" style="width: 100%; background: var(--gold-gradient); border: none; padding: 11px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-top: 8px;">Unlock Dashboard</button>
-            </div>
-
-            <div id="adminDashboardSec" style="display: none;">
-                <div class="admin-tab-buttons">
-                    <button class="admin-tab-btn active" id="tabBtnProducts" onclick="switchAdminTab('products')">Edit Views & Likes</button>
-                    <button class="admin-tab-btn" id="tabBtnSellers" onclick="switchAdminTab('sellers')">Firebase Integration</button>
-                </div>
-
-                <div id="adminProductsTabContent">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Video Views & Likes Manager</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="admin-data-table">
-                            <thead>
-                                <tr>
-                                    <th>Product Title</th>
-                                    <th>Views (Editable)</th>
-                                    <th>Likes (Editable)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminProductsTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="adminSellersTabContent" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem;">
-                        <span style="color:var(--gold-solid); font-weight:700;">Firebase Realtime Sync Active</span>
-                        <button onclick="lockSecretAdmin()" style="background:var(--danger-red); border:none; color:white; padding:4px 10px; border-radius:5px; font-size:0.65rem; cursor:pointer;">Lock Admin</button>
-                    </div>
-                    <div style="font-size: 0.75rem; color: var(--text-gray); line-height: 1.6; background: #000; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
-                        <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 5px;">Centralized Connection:</p>
-                        All storefront activities, analytics, and inventories are connected to your main Firebase backend project (`mr-masudar`).
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SHARE MODAL WITH ALL SOCIAL PLATFORMS -->
+    <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
@@ -300,7 +237,7 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODAL -->
+    <!-- CATEGORY MODAL WITH ALL ITEMS RESTORED -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
@@ -311,12 +248,15 @@
                 <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
+                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
+    <!-- ECOSYSTEM MODALS (WITHOUT ANNOYING TOP BORDER BANNERS) -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -325,6 +265,12 @@
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
+    </div>
+
+    <!-- FLOATING CART (REDIRECTION TO OUT SUBDOMAIN) -->
+    <div class="floating-cart" id="floatingCart" onclick="redirectToCheckoutSubdomain()" title="View Cart & Checkout">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
     </div>
 
     <!-- PRODUCT FEED -->
@@ -338,14 +284,16 @@
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-thumbs-row" id="modalThumbsRow"></div>
             
-            <div class="modal-price-seller-bar">
-                <div class="modal-price-group">
-                    <span class="modal-price" id="modalPrice">$0.00</span>
-                    <span class="modal-bd-discount" id="modalBdDiscount">BD 15% OFF</span>
+            <!-- REFINED PRICE, DISCOUNT & FREE SHIPPING BAR -->
+            <div class="modal-price-shipping-bar">
+                <div class="modal-price-row">
+                    <div class="modal-price-group">
+                        <span class="modal-price" id="modalPrice">$0.00</span>
+                        <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
+                    </div>
                 </div>
-                <div class="modal-seller-box" id="modalSellerBadgeBox">
-                    <img id="modalSellerImg" src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" class="modal-seller-avatar">
-                    <span id="modalSellerName" class="modal-seller-name">Masudar Enterprise</span>
+                <div class="free-shipping-tax-text">
+                    <i class="fa-solid fa-circle-check"></i> Free Shipping | Tax & VAT Included
                 </div>
             </div>
 
@@ -355,6 +303,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
+            <!-- UNIFIED SLOW ANIMATED BOX -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -384,14 +333,14 @@
                     <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
                     <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <button class="modal-add-btn" id="addToCartBtnElement" onclick="redirectToCheckoutPage()">
-                    Proceed to Checkout Subdomain
+                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithAnimation(this)">
+                    <i class="fa-solid fa-cart-plus"></i> Add To Cart
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER NAVIGATION BAR WITH CAMERA & VOICE SEARCH -->
+    <!-- FOOTER NAVIGATION BAR -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
             <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -410,99 +359,9 @@
     </nav>
 
     <script>
-        const MASTER_ADMIN_PASS = '14225114606Masudar@@@01767319670';
-        let logoTapCount = 0;
-        let logoTapTimer = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const triggerZone = document.getElementById('secretAdminTriggerZone');
-            if(triggerZone) {
-                triggerZone.addEventListener('click', () => {
-                    logoTapCount++;
-                    if(logoTapCount === 1) {
-                        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
-                    } else if(logoTapCount === 3) {
-                        clearTimeout(logoTapTimer);
-                        logoTapCount = 0;
-                        openSecretAdmin();
-                    }
-                });
-            }
-        });
-
-        function openSecretAdmin() {
-            document.getElementById('secretAdminOverlay').style.display = 'flex';
-            if(sessionStorage.getItem('mme_secret_admin_unlocked') === 'true') {
-                showAdminDashboardContent();
-            } else {
-                document.getElementById('adminLoginFormSec').style.display = 'block';
-                document.getElementById('adminDashboardSec').style.display = 'none';
-                document.getElementById('secretAdminPassInput').value = '';
-            }
-        }
-
-        function verifySecretAdminPass() {
-            let pass = document.getElementById('secretAdminPassInput').value.trim();
-            if(pass === MASTER_ADMIN_PASS) {
-                sessionStorage.setItem('mme_secret_admin_unlocked', 'true');
-                showAdminDashboardContent();
-                showCustomToast("Master Enterprise Access Granted!");
-            } else {
-                showCustomToast("Incorrect Master Password!");
-            }
-        }
-
-        function switchAdminTab(tabName) {
-            let tabProducts = document.getElementById('adminProductsTabContent');
-            let tabSellers = document.getElementById('adminSellersTabContent');
-            let btnProducts = document.getElementById('tabBtnProducts');
-            let btnSellers = document.getElementById('tabBtnSellers');
-
-            tabProducts.style.display = 'none';
-            tabSellers.style.display = 'none';
-            btnProducts.classList.remove('active');
-            btnSellers.classList.remove('active');
-
-            if(tabName === 'products') {
-                tabProducts.style.display = 'block';
-                btnProducts.classList.add('active');
-                loadAdminProductsTable();
-            } else if(tabName === 'sellers') {
-                tabSellers.style.display = 'block';
-                btnSellers.classList.add('active');
-            }
-        }
-
-        function showAdminDashboardContent() {
-            document.getElementById('adminLoginFormSec').style.display = 'none';
-            document.getElementById('adminDashboardSec').style.display = 'block';
-            loadAdminProductsTable();
-        }
-
-        function loadAdminProductsTable() {
-            let products = getAllProducts();
-            let tbody = document.getElementById('adminProductsTableBody');
-            tbody.innerHTML = products.map(p => {
-                let stats = getDynamicProductStats(p.id);
-                return `
-                    <tr>
-                        <td><b>${p.title}</b></td>
-                        <td><input type="number" value="${stats.views}" style="width:80px; background:#000; color:var(--gold-solid); border:1px solid var(--gold-solid); padding:4px; border-radius:4px;" onchange="updateProductViews('${p.id}', this.value)"></td>
-                        <td><input type="number" value="${stats.likes}" style="width:80px; background:#000; color:var(--pink-heart); border:1px solid var(--pink-heart); padding:4px; border-radius:4px;" onchange="updateProductLikes('${p.id}', this.value)"></td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function lockSecretAdmin() {
-            sessionStorage.removeItem('mme_secret_admin_unlocked');
-            document.getElementById('secretAdminOverlay').style.display = 'none';
-            showCustomToast("Admin Locked Successfully.");
-        }
-
-        function closeSecretAdmin() {
-            document.getElementById('secretAdminOverlay').style.display = 'none';
-        }
+        let cartItems = JSON.parse(localStorage.getItem('mme_cart_items') || '[]');
+        let cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.getElementById('cartCount').innerText = cartCount;
 
         let activeCurrentProduct = null;
         let selectedColor = "Standard";
@@ -527,9 +386,10 @@
             let toast = document.getElementById('customToast');
             toast.innerText = msg;
             toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+            setTimeout(() => { toast.style.display = 'none'; }, 2200);
         }
 
+        /* DYNAMIC VIEWS & LIKES AUTO GENERATOR */
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
@@ -537,34 +397,27 @@
 
             let views = parseInt(localStorage.getItem(storageKeyViews));
             if(!views) {
-                views = Math.floor(400 + Math.random() * 4500);
+                views = Math.floor(600 + Math.random() * 3800);
                 localStorage.setItem(storageKeyViews, views);
+            } else {
+                // Subtle organic auto-increment simulation
+                if(Math.random() > 0.6) {
+                    views += Math.floor(1 + Math.random() * 4);
+                    localStorage.setItem(storageKeyViews, views);
+                }
             }
 
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(200 + Math.random() * 900);
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(150 + Math.random() * 750);
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
             let isLiked = (Date.now() - likedTime) < 86400000;
 
             return { views, likes, isLiked };
         }
 
-        function updateProductViews(productId, newViews) {
-            localStorage.setItem(`mme_views_${productId}`, parseInt(newViews) || 1000);
-            showCustomToast("Views updated successfully!");
-            loadCombinedProducts();
-        }
-
-        function updateProductLikes(productId, newLikes) {
-            localStorage.setItem(`mme_likes_${productId}`, parseInt(newLikes) || 100);
-            showCustomToast("Likes updated successfully!");
-            loadCombinedProducts();
-        }
-
         function toggleProductLike(productId, el) {
             let storageKeyLikes = `mme_likes_${productId}`;
             let storageKeyLikedByMe = `mme_liked_time_${productId}`;
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-
             if((Date.now() - likedTime) < 86400000) return;
 
             let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
@@ -612,7 +465,6 @@
             let defaultProds = [
                 {
                     id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
-                    sellerId: "VEN-MASUD", sellerName: "Masudar Enterprise", sellerImg: "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
                     category: "👗 FASHION (WOMEN)",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
                     images: [
@@ -640,9 +492,6 @@
                             title: p.title || p.name || "Exclusive Item",
                             price: p.global || '$35.00',
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
-                            sellerId: s.id,
-                            sellerName: s.name || 'Masudar Enterprise',
-                            sellerImg: s.logoUrl || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc",
                             category: p.category || '👗 FASHION (WOMEN)',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
@@ -741,7 +590,7 @@
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 3800);
+            }, 5000); // Slow and smooth rotation
         }
 
         function openProductModal(id) {
@@ -768,9 +617,6 @@
             document.getElementById('modalPrice').innerText = product.price;
             document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
             document.getElementById('modalDesc').innerText = product.desc;
-
-            document.getElementById('modalSellerName').innerText = product.sellerName || "Masudar Enterprise";
-            document.getElementById('modalSellerImg').src = product.sellerImg || "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc";
 
             document.getElementById('specStock').innerText = product.stock || "Available";
             document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
@@ -837,10 +683,64 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        function redirectToCheckoutPage() {
+        /* ADD TO CART WITH COIN FLYING ANIMATION */
+        function addToCartWithAnimation(buttonEl) {
             if(!activeCurrentProduct) return;
-            showCustomToast("Redirecting to checkout subdomain...");
+            
+            cartItems.push({
+                cartId: Date.now() + Math.random(),
+                productId: activeCurrentProduct.id,
+                title: activeCurrentProduct.title,
+                price: activeCurrentProduct.price,
+                quantity: currentModalQty,
+                color: selectedColor,
+                size: selectedSize,
+                image: activeCurrentProduct.images[0],
+                affiliateRef: currentAffiliateId
+            });
+
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = cartCount;
+            localStorage.setItem('mme_cart_items', JSON.stringify(cartItems));
+
             closeProductModal();
+            playCoinFlyingEffect(buttonEl);
+        }
+
+        function playCoinFlyingEffect(buttonEl) {
+            try {
+                let btnRect = buttonEl.getBoundingClientRect();
+                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
+                
+                let coin = document.createElement('div');
+                coin.className = 'flying-coin';
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                document.body.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.transform = 'scale(0.3) rotate(720deg)';
+                    coin.style.opacity = '0.2';
+                }, 40);
+
+                setTimeout(() => {
+                    coin.remove();
+                    showCustomToast("Product added to cart!");
+                }, 1200);
+            } catch(e) {
+                showCustomToast("Product added to cart!");
+            }
+        }
+
+        /* REDIRECT TO CHECKOUT SUBDOMAIN */
+        function redirectToCheckoutSubdomain() {
+            if(cartItems.length === 0) {
+                showCustomToast("Your cart is currently empty.");
+                return;
+            }
+            window.location.href = "https://out.mrmasudar.com";
         }
 
         function performSearchSubmit() {
@@ -849,14 +749,13 @@
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
 
-        /* CAMERA & VOICE SEARCH FUNCTIONS */
         function triggerCameraAuto() {
             let input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
             input.onchange = (e) => {
                 let file = e.target.files[0];
-                if(file) showCustomToast("Visual image loaded for search: " + file.name);
+                if(file) showCustomToast("Visual image loaded: " + file.name);
             };
             input.click();
         }
