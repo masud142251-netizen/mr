@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Firebase SDK (Modular Core & Firestore) -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -46,10 +46,10 @@
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            border-bottom: 1px solid var(--gold-solid); backdrop-filter: blur(12px); width: 100%;
+            border-bottom: 1.5px solid var(--gold-solid); backdrop-filter: blur(12px); width: 100%;
         }
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         
         .brand-title-main { 
@@ -59,7 +59,7 @@
         }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
+        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1.5px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; }
         .badge-sub-text { font-size: 0.50rem; color: var(--text-gray); text-transform: uppercase; }
 
@@ -67,7 +67,7 @@
             background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
             width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
             cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15;
-            transition: background 0.3s, color 0.3s;
+            transition: all 0.3s ease;
         }
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
@@ -84,7 +84,7 @@
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
         .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .copy-link-box { display: flex; background: #000; border: 1px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
+        .copy-link-box { display: flex; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
@@ -99,7 +99,7 @@
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1px solid var(--gold-solid); }
+        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
         .ecosystem-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
@@ -108,11 +108,10 @@
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
         .product-card:hover { border-color: var(--gold-solid); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        /* CONTINUOUS ZOOM EFFECT RESTORED */
         .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
         @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.07); } }
         
@@ -120,68 +119,76 @@
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
 
-        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.2); font-size: 0.72rem; }
+        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 9px 6px; border-top: 1px solid rgba(212, 175, 55, 0.25); font-size: 0.72rem; }
         .action-item { display: flex; align-items: center; gap: 4px; color: var(--text-white); cursor: pointer; font-weight: 500; }
         .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.like-icon i { color: var(--pink-heart); }
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL - CLEAN GOLD & BLACK */
+        /* PRODUCT DETAILS MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
         .modal-content { background: #121212; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; }
         
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
+        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
         .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
+        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1.5px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); text-align: left; }
+        /* REFINED PRICE & FREE SHIPPING BAR */
+        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); text-align: left; }
         .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.5rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
-        .free-shipping-tax-text { font-size: 0.62rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; gap: 4px; }
+        .free-shipping-tax-text { font-size: 0.62rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; display: flex; align-items: center; gap: 5px; }
+        .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 55px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 5s infinite; word-break: break-word; }
+        /* FIXED STABLE ANIMATED BOX (NO JUMPING HEIGHT) */
+        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 10px; margin-bottom: 8px; height: 52px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 4s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
-        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(4px); } 12% { opacity: 1; transform: translateY(0); } 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-4px); } }
+        @keyframes fadeInOutText { 0% { opacity: 0; transform: translateY(3px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-3px); } }
 
         .cycling-title { font-size: 0.78rem; font-weight: 700; color: #fceea7; font-family: 'Cinzel', serif; line-height: 1.3; }
-        .cycling-desc { font-size: 0.66rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
-        .cycling-spec { font-size: 0.66rem; color: var(--gold-solid); font-weight: 600; text-transform: uppercase; }
-        .spec-two-line-grid { display: flex; flex-direction: column; gap: 2px; align-items: center; justify-content: center; }
+        .cycling-desc { font-size: 0.64rem; color: var(--text-gray); line-height: 1.35; padding: 0 4px; }
+        .cycling-spec { font-size: 0.64rem; color: var(--text-white); font-weight: 600; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .cycling-spec span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
 
-        .cycling-colors-inline { display: flex; gap: 6px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; }
-        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; }
+        /* PERMANENT CLEAN COLOR & SIZE SELECTORS */
+        .modal-options-panel { background: rgba(18,18,18,0.95); border: 1.5px solid rgba(212,175,55,0.3); border-radius: 10px; padding: 8px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; }
+        .option-row-inline { display: flex; align-items: center; justify-content: space-between; font-size: 0.68rem; }
+        .option-row-label { color: var(--gold-solid); font-weight: 700; text-transform: uppercase; font-size: 0.64rem; font-family: 'Cinzel', serif; }
 
-        .cycling-sizes-inline { display: flex; gap: 5px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
-        .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: #fff; }
-        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; }
+        .modal-colors-flex { display: flex; gap: 6px; align-items: center; }
+        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(212,175,55,0.6); cursor: pointer; transition: transform 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.25); border-color: #fff; box-shadow: 0 0 8px var(--gold-solid); }
 
-        .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        .modal-sizes-flex { display: flex; gap: 4px; align-items: center; }
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 2px 8px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: #fff; transition: all 0.2s; }
+        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; border-color: #fff; }
+
+        .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 135px; }
         .round-qty-btn { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.65rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 22px; background: transparent; border: none; color: white; text-align: center; font-size: 0.72rem; font-weight: 700; outline: none; }
         
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* FLOATING CART (REFINED CLEAN SHADOW) */
+        /* FLOATING CART */
         .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.15rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.62rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
         .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 1.5px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
 
         /* FOOTER NAVIGATION BAR */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid var(--gold-solid); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; }
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1.5px solid var(--gold-solid); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -198,7 +205,7 @@
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <!-- CLEAN HEADER -->
+    <!-- HEADER -->
     <header class="app-header">
         <div class="brand-container" onclick="showCustomToast('MRMASUDAR.COM - Supreme Enterprise')">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
@@ -217,7 +224,7 @@
     <!-- SHARE MODAL -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
-            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product & Earn</h3>
+            <h3 style="font-family:'Cinzel',serif; font-size:0.95rem; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
@@ -303,6 +310,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
+            <!-- FIXED STABLE ANIMATION BOX (NO HEIGHT JUMPING) -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -310,19 +318,23 @@
                 <div class="cycling-content-item">
                     <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
                 </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox">
-                    <div class="cycling-spec" style="margin-bottom:2px;">Select Color:</div>
-                    <div class="cycling-colors-inline" id="modalColorCirclesInline"></div>
-                </div>
-                <div class="cycling-content-item" id="cyclingSizeItemBox">
-                    <div class="cycling-spec" style="margin-bottom:2px;">Select Size:</div>
-                    <div class="cycling-sizes-inline" id="modalSizePillsInline"></div>
+                <div class="cycling-content-item">
+                    <div class="cycling-spec">Stock: <span id="specStock">Available</span></div>
                 </div>
                 <div class="cycling-content-item">
-                    <div class="spec-two-line-grid">
-                        <div class="cycling-spec">Stock: <span id="specStock">Available</span></div>
-                        <div class="cycling-spec">Pack: <span id="specPackaging">Luxury Box</span></div>
-                    </div>
+                    <div class="cycling-spec">Packaging: <span id="specPackaging">Luxury Box</span></div>
+                </div>
+            </div>
+
+            <!-- PERMANENT COLOR & SIZE SELECTOR PANEL -->
+            <div class="modal-options-panel">
+                <div class="option-row-inline" id="modalColorRow">
+                    <span class="option-row-label">Color:</span>
+                    <div class="modal-colors-flex" id="modalColorCirclesInline"></div>
+                </div>
+                <div class="option-row-inline" id="modalSizeRow">
+                    <span class="option-row-label">Size:</span>
+                    <div class="modal-sizes-flex" id="modalSizePillsInline"></div>
                 </div>
             </div>
 
@@ -587,7 +599,7 @@
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 5000);
+            }, 4000);
         }
 
         function openProductModal(id) {
@@ -625,24 +637,24 @@
             thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
 
             const colorBox = document.getElementById('modalColorCirclesInline');
-            const colorItemBox = document.getElementById('cyclingColorItemBox');
+            const colorRow = document.getElementById('modalColorRow');
             if(product.colors && product.colors.length > 0) {
-                colorItemBox.style.display = 'block';
+                colorRow.style.display = 'flex';
                 selectedColor = product.colors[0];
                 colorBox.innerHTML = product.colors.map((c, idx) => `
                     <div class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></div>
                 `).join('');
-            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
+            } else { colorRow.style.display = 'none'; selectedColor = "Standard"; }
 
             const sizeBox = document.getElementById('modalSizePillsInline');
-            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
+            const sizeRow = document.getElementById('modalSizeRow');
             if(product.sizes && product.sizes.length > 0) {
-                sizeItemBox.style.display = 'block';
+                sizeRow.style.display = 'flex';
                 selectedSize = product.sizes[0];
                 sizeBox.innerHTML = product.sizes.map((s, idx) => `
                     <div class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</div>
                 `).join('');
-            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
+            } else { sizeRow.style.display = 'none'; selectedSize = "Standard"; }
 
             document.getElementById('productModal').style.display = 'flex';
             startCyclingAnimation();
