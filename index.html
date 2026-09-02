@@ -37,7 +37,6 @@
             --text-white: #ffffff;
             --text-gray: #cfcfcf;
             --pink-heart: #ff2d55;
-            --success-green: #28a745;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -47,7 +46,7 @@
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
             background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(12px); width: 100%;
+            border-bottom: 1px solid var(--gold-solid); backdrop-filter: blur(12px); width: 100%;
         }
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 65%; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; }
@@ -68,8 +67,9 @@
             background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
             width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
             cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15;
+            transition: background 0.3s, color 0.3s;
         }
-        .golden-cross-btn-top-right:hover { background: var(--gold-solid); color: #000; }
+        .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
         .custom-toast {
             position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
@@ -79,7 +79,7 @@
 
         /* SHARE MODAL */
         .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box { background: #141414; border: 2px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
+        .share-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; }
         .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -88,9 +88,9 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 700; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        /* CATEGORY MODAL WITH ALL ITEMS RESTORED */
+        /* CATEGORY MODAL */
         .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 2px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
+        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 1.5px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
         .cat-modal-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
@@ -108,10 +108,13 @@
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
+        .product-card:hover { border-color: var(--gold-solid); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; }
+        /* CONTINUOUS ZOOM EFFECT RESTORED */
+        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; animation: continuousZoom 8s infinite alternate ease-in-out; }
+        @keyframes continuousZoom { 0% { transform: scale(1); } 100% { transform: scale(1.07); } }
         
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
@@ -124,9 +127,9 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        /* PRODUCT DETAILS MODAL */
+        /* PRODUCT DETAILS MODAL - CLEAN GOLD & BLACK */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
-        .modal-content { background: #121212; border: 2px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; }
+        .modal-content { background: #121212; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; }
         
         .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
         .modal-media-slider::-webkit-scrollbar { display: none; }
@@ -137,7 +140,6 @@
         .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
-        /* REFINED PRICE, DISCOUNT & FREE SHIPPING BAR */
         .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); text-align: left; }
         .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
@@ -147,7 +149,6 @@
 
         .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); margin-bottom: 6px; font-size: 0.68rem; }
 
-        /* SMOOTH UNIFIED ANIMATED BOX */
         .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; min-height: 55px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
         .cycling-content-item { display: none; width: 100%; animation: fadeInOutText 5s infinite; word-break: break-word; }
         .cycling-content-item.active { display: block; }
@@ -164,7 +165,7 @@
 
         .cycling-sizes-inline { display: flex; gap: 5px; justify-content: center; align-items: center; margin-top: 3px; flex-wrap: wrap; }
         .modal-pill-item { background: #1a1a1a; border: 1px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 5px; font-size: 0.6rem; cursor: pointer; color: #fff; }
-        .modal-pill-item.selected { background: var(--gold-solid); color: #000; font-weight: 700; }
+        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; }
 
         .modal-footer-action-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 2px 10px; gap: 10px; margin: 0 auto; width: 135px; }
@@ -173,14 +174,14 @@
         
         .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 10px; border-radius: 10px; color: var(--bg-black); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* FLOATING CART & COIN ANIMATION */
-        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold-solid); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); z-index: 1050; }
-        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.25rem; }
-        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-        .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        /* FLOATING CART (REFINED CLEAN SHADOW) */
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; }
+        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.15rem; }
+        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.62rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 1.5px solid #fff; z-index: 9999; pointer-events: none; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
 
         /* FOOTER NAVIGATION BAR */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid rgba(212, 175, 55, 0.3); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; }
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); border-top: 1px solid var(--gold-solid); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; }
         .nav-menus-left { display: flex; gap: 4px; flex: 1.1; justify-content: space-around; }
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-gray); font-size: 0.55rem; font-weight: 500; padding: 3px 6px; border-radius: 6px; cursor: pointer; }
         .nav-item i { font-size: 0.9rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -199,7 +200,7 @@
 
     <!-- CLEAN HEADER -->
     <header class="app-header">
-        <div class="brand-container">
+        <div class="brand-container" onclick="showCustomToast('MRMASUDAR.COM - Supreme Enterprise')">
             <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
             <div class="brand-text-box">
                 <span class="brand-title-main">MRMASUDAR.COM</span>
@@ -237,7 +238,7 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODAL WITH ALL ITEMS RESTORED -->
+    <!-- CATEGORY MODAL -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
@@ -256,7 +257,7 @@
         </div>
     </div>
 
-    <!-- ECOSYSTEM MODALS (WITHOUT ANNOYING TOP BORDER BANNERS) -->
+    <!-- ECOSYSTEM MODAL -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-header">
             <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
@@ -267,7 +268,7 @@
         </div>
     </div>
 
-    <!-- FLOATING CART (REDIRECTION TO OUT SUBDOMAIN) -->
+    <!-- FLOATING CART -->
     <div class="floating-cart" id="floatingCart" onclick="redirectToCheckoutSubdomain()" title="View Cart & Checkout">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
@@ -284,7 +285,6 @@
             <div class="modal-media-slider" id="modalMediaSlider"></div>
             <div class="modal-thumbs-row" id="modalThumbsRow"></div>
             
-            <!-- REFINED PRICE, DISCOUNT & FREE SHIPPING BAR -->
             <div class="modal-price-shipping-bar">
                 <div class="modal-price-row">
                     <div class="modal-price-group">
@@ -303,7 +303,6 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- UNIFIED SLOW ANIMATED BOX -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <div class="cycling-content-item active">
                     <h3 class="cycling-title" id="modalTitle">Product Title</h3>
@@ -389,7 +388,6 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2200);
         }
 
-        /* DYNAMIC VIEWS & LIKES AUTO GENERATOR */
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
@@ -400,7 +398,6 @@
                 views = Math.floor(600 + Math.random() * 3800);
                 localStorage.setItem(storageKeyViews, views);
             } else {
-                // Subtle organic auto-increment simulation
                 if(Math.random() > 0.6) {
                     views += Math.floor(1 + Math.random() * 4);
                     localStorage.setItem(storageKeyViews, views);
@@ -590,7 +587,7 @@
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 5000); // Slow and smooth rotation
+            }, 5000);
         }
 
         function openProductModal(id) {
@@ -683,7 +680,6 @@
             document.getElementById('productModal').style.display = 'none';
         }
 
-        /* ADD TO CART WITH COIN FLYING ANIMATION */
         function addToCartWithAnimation(buttonEl) {
             if(!activeCurrentProduct) return;
             
@@ -714,33 +710,32 @@
                 
                 let coin = document.createElement('div');
                 coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 11}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 11}px`;
+                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
+                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
                 document.body.appendChild(coin);
 
                 setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 11}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 11}px`;
+                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
+                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
                     coin.style.transform = 'scale(0.3) rotate(720deg)';
                     coin.style.opacity = '0.2';
                 }, 40);
 
                 setTimeout(() => {
                     coin.remove();
-                    showCustomToast("Product added to cart!");
+                    showCustomToast("Added to Cart Successfully!");
                 }, 1200);
             } catch(e) {
-                showCustomToast("Product added to cart!");
+                showCustomToast("Added to Cart Successfully!");
             }
         }
 
-        /* REDIRECT TO CHECKOUT SUBDOMAIN */
         function redirectToCheckoutSubdomain() {
             if(cartItems.length === 0) {
                 showCustomToast("Your cart is currently empty.");
                 return;
             }
-            window.location.href = "https://out.mrmasudar.com";
+            window.location.href = "https://out.mrmasudar.com/checkout.html";
         }
 
         function performSearchSubmit() {
