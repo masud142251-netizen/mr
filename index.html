@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MRMASUDAR.COM</title>
+    <title>MRMASUDAR.COM - Luxury Enterprise</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -43,7 +43,10 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             fetchCartCountFromFirebase();
+            checkAutoUserLogin();
+            detectUserCountryCode();
         });
+        window.fetchCartCountFromFirebase = fetchCartCountFromFirebase;
     </script>
 
     <style>
@@ -71,70 +74,43 @@
         .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 68%; min-width: 0; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: 100%; }
-        
-        .brand-title-main { 
-            font-size: 0.96rem; font-weight: 900; 
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px;
-        }
-        .brand-subtitle-craft {
-            font-size: 0.44rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 4.8px; text-transform: uppercase; display: block; width: 100%; text-align: justify;
-        }
+        .brand-title-main { font-size: 0.96rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; }
+        .brand-subtitle-craft { font-size: 0.44rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 4.8px; text-transform: uppercase; display: block; width: 100%; text-align: justify; }
 
         .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1.5px solid var(--gold-solid); padding: 4px 8px; border-radius: 6px; }
         .badge-top-text { font-size: 0.58rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; }
         .badge-sub-text { font-size: 0.48rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
 
-        .golden-cross-btn-top-right { 
-            background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); 
-            width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
-            cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15;
-            transition: all 0.3s ease;
-        }
+        .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.95rem; font-weight: bold; position: absolute; top: 12px; right: 12px; z-index: 15; transition: 0.3s; }
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
-        .custom-toast {
-            position: fixed; top: 78px; left: 50%; transform: translateX(-50%);
-            background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid);
-            padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none;
-        }
+        .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 8px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; z-index: 9999; display: none; }
 
-        .share-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 4500; backdrop-filter: blur(8px); padding: 10px; }
-        .share-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 350px; border-radius: 20px; padding: 45px 14px 20px 14px; text-align: center; position: relative; }
+        /* শেয়ার ও ক্যাটাগরি মোডাল */
+        .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .home-auth-modal, .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 10px; }
+        .share-modal-box, .category-modal-box, .home-auth-box, .modal-content { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 20px; padding: 45px 16px 20px 16px; text-align: center; position: relative; max-height: 94vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
+        
         .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
         .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.52rem; cursor: pointer; font-weight: 600; }
         .share-icon-btn i { font-size: 1.05rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
         .copy-link-box { display: flex; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 8px; }
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 7px; font-size: 0.62rem; outline: none; font-weight: 600; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 12px; font-weight: 800; font-size: 0.68rem; cursor: pointer; color: #000; }
 
-        .category-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); display: none; justify-content: center; align-items: center; z-index: 2500; backdrop-filter: blur(4px); padding: 15px; }
-        .category-modal-box { background: rgba(12, 12, 12, 0.96); backdrop-filter: blur(16px); border: 1.5px solid var(--gold-solid); width: 100%; max-width: 420px; border-radius: 22px; padding: 45px 22px 22px 22px; position: relative; text-align: center; }
-        .cat-modal-title { font-size: 1.15rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 5px; }
         .cat-popup-item { background: rgba(20, 20, 20, 0.85); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 14px 10px; border-radius: 14px; color: var(--text-white); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .cat-popup-item:hover { border-color: var(--gold-solid); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
         .cat-popup-item i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
-        .ecosystem-title { font-size: 1rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-        .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
-        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
-
+        /* ফিড ও প্রোডাক্ট কার্ড */
         .feed-container { padding: 12px 10px; column-count: 2; column-gap: 10px; width: 100%; max-width: 1650px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 16px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 14px; padding: 20px; } }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; flex-direction: column; transition: border-color 0.3s ease; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 14px; margin-bottom: 12px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; flex-direction: column; transition: 0.3s; }
         .product-card:hover { border-color: var(--gold-solid); }
-        
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 380px; display: block; object-fit: cover; }
-        
         .video-wrapper { position: relative; width: 100%; padding-bottom: 145%; background: #000; overflow: hidden; }
         .video-wrapper iframe { position: absolute; top: -22%; left: -15%; width: 130%; height: 144%; border: none; pointer-events: none; }
         .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
@@ -147,59 +123,26 @@
         .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .action-item.share-icon i { color: var(--gold-solid); }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); padding: 8px; }
-        .modal-content { background: #121212; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 390px; border-radius: 18px; padding: 42px 14px 14px 14px; position: relative; max-height: 94vh; overflow-y: auto; text-align: center; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
-        
-        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; scrollbar-width: none; }
-        .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
-
-        .modal-thumbs-row { display: flex; gap: 5px; margin-bottom: 6px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
-        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
+        /* মোডাল ইলিমেন্টস */
+        .modal-media-slider { width: 100%; border-radius: 10px; overflow-x: auto; display: flex; gap: 8px; margin-bottom: 5px; border: 1.5px solid rgba(212, 175, 55, 0.4); background: #000; }
+        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
+        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; }
 
         .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(18,18,18,0.95); padding: 8px 10px; border-radius: 8px; text-align: left; }
-        .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .modal-price-group { display: flex; align-items: center; gap: 6px; }
+        .modal-price-row { display: flex; align-items: center; justify-content: space-width; width: 100%; }
         .modal-price { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-numeric); }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.52rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; white-space: nowrap; font-family: var(--font-numeric); }
-        
-        .free-shipping-tax-text { font-size: 0.65rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
-        .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.52rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; margin-bottom: 8px; font-size: 0.7rem; color: #ffffff; font-weight: 700; }
-        .modal-actions-bar span { font-family: var(--font-numeric); }
+        .auth-input-group { margin-bottom: 12px; text-align: left; }
+        .auth-input-group label { font-size: 0.62rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .auth-input { width: 100%; background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 12px; border-radius: 8px; color: #fff; font-size: 0.8rem; font-weight: 700; outline: none; }
+        .auth-input:focus { border-color: var(--gold-solid); }
 
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 6px; position: absolute; top: 0; left: 0; padding: 10px 14px; }
-        .cycling-content-item.active { display: flex; opacity: 1; }
+        .phone-input-row { display: flex; gap: 8px; }
+        .country-code-select { background: #000; border: 1.5px solid rgba(212,175,55,0.4); padding: 10px 6px; border-radius: 8px; color: #fff; font-size: 0.75rem; font-weight: 700; outline: none; width: 140px; }
+        .country-code-select option { background: #121212; color: #fff; }
 
-        .cycling-title { font-size: 0.92rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.35; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .cycling-desc { font-size: 0.72rem; color: #ffffff; line-height: 1.4; width: 100%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; }
-        
-        .cycling-section-title { font-size: 0.68rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 2px; }
-        
-        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
-
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; color: #fff; font-weight: 700; display: inline-block; }
-        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 900; border-color: #fff; }
-
-        .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
-        
-        .qty-label-top { font-size: 0.58rem; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; }
-        .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.7rem; font-weight: 800; outline: none; font-family: var(--font-numeric); }
-        
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 9px; border-radius: 10px; color: var(--bg-black); font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-        .floating-cart { 
-            position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); 
-            width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; z-index: 1050; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .floating-cart { position: fixed; bottom: 72px; right: 15px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: 0.3s; }
         .floating-cart.cart-zoom-anim { transform: scale(1.4) rotate(15deg); }
         .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.15rem; }
         .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.62rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: var(--font-numeric); }
@@ -213,11 +156,8 @@
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
         
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 4px 8px; width: 40%; flex-shrink: 0; margin-left: 4px; }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.65rem; padding: 2px; min-width: 0; font-weight: 700; }
-        .bottom-search-actions { display: flex; align-items: center; gap: 5px; color: var(--gold-solid); font-size: 0.72rem; }
-        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.65rem; padding: 2px; font-weight: 700; }
         .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.6rem; cursor: pointer; }
-        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
     </style>
 </head>
 <body>
@@ -240,20 +180,14 @@
         </div>
     </header>
 
+    <!-- শেয়ার মোডাল -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-size:1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Share Product</h3>
             <div class="share-grid">
                 <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
                 <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
             </div>
             <div class="copy-link-box">
                 <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
@@ -263,6 +197,7 @@
         </div>
     </div>
 
+    <!-- ক্যাটাগরি মোডাল -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title">Luxury Categories</h3>
@@ -274,119 +209,90 @@
                 <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
                 <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
             </div>
             <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
-    <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <div class="ecosystem-header">
-            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="ecosystem-body">
-            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
+    <!-- হোমপেজ সাইন-ইন/চেকআউট মোডাল -->
+    <div class="home-auth-modal" id="homeAuthModal">
+        <div class="home-auth-box">
+            <h3 style="font-size:1.05rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; text-transform:uppercase;">Luxury Member Verification</h3>
+            <p style="font-size:0.62rem; color:var(--text-gray); margin-bottom:14px;">Verify to open Dashboard & Checkout.</p>
+            
+            <div class="auth-input-group">
+                <label>Full Name</label>
+                <input type="text" class="auth-input" id="homeFullName" placeholder="Masudar Rahman">
+            </div>
+            <div class="auth-input-group">
+                <label>Gmail / Email</label>
+                <input type="email" class="auth-input" id="homeEmailInput" placeholder="yourname@gmail.com">
+            </div>
+            <div class="auth-input-group">
+                <label>WhatsApp Number (Auto-Detected Code)</label>
+                <div class="phone-input-row">
+                    <select class="country-code-select" id="homeCountryCode">
+                        <option value="+880">🇧🇩 +880 (BD)</option>
+                        <option value="+1">🇺🇸 +1 (US)</option>
+                        <option value="+44">🇬🇧 +44 (UK)</option>
+                        <option value="+91">🇮🇳 +91 (IN)</option>
+                        <option value="+971">🇦🇪 +971 (UAE)</option>
+                        <option value="+966">🇸🇦 +966 (KSA)</option>
+                    </select>
+                    <input type="text" class="auth-input" id="homeWhatsapp" placeholder="1712345678">
+                </div>
+            </div>
+            <div class="auth-input-group">
+                <label>Password</label>
+                <input type="password" class="auth-input" id="homePassword" placeholder="Enter secure password">
+            </div>
+
+            <button style="width:100%; background:var(--gold-gradient); border:none; padding:11px; border-radius:8px; color:#000; font-weight:900; font-size:0.8rem; cursor:pointer; text-transform:uppercase; margin-top:10px;" onclick="proceedToDashboardSubdomain()">
+                Confirm & Open Dashboard
+            </button>
+            <button class="golden-cross-btn-top-right" onclick="document.getElementById('homeAuthModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
-    <div class="floating-cart" id="floatingCart" onclick="redirectToCheckoutSubdomain()" title="View Cart & Checkout">
+    <!-- ফ্লোটিং কার্ট -->
+    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Dashboard">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
+    <!-- প্রোডাক্ট ফিড কন্টেইনার -->
     <main class="feed-container" id="productFeed"></main>
 
+    <!-- প্রোডাক্ট ডিটেইলস মোডাল -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-
             <div class="modal-media-slider" id="modalMediaSlider"></div>
-            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
-            
             <div class="modal-price-shipping-bar">
                 <div class="modal-price-row">
-                    <div class="modal-price-group">
-                        <span class="modal-price" id="modalPrice">$0.00</span>
-                        <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
-                    </div>
-                </div>
-                <div class="free-shipping-tax-text">
-                    <i class="fa-solid fa-circle-check"></i> Free Shipping | Tax & VAT Included
+                    <span class="modal-price" id="modalPrice">$0.00</span>
+                    <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
                 </div>
             </div>
-
-            <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
-                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
-            </div>
-
-            <div class="animated-cycling-box" id="animatedCyclingBox">
-                <div class="cycling-content-item active">
-                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
-                </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox">
-                    <span class="cycling-section-title">COLOR</span>
-                    <div id="modalColorCirclesInline" style="display:flex; gap:10px; align-items:center; justify-content:center;"></div>
-                </div>
-                <div class="cycling-content-item" id="cyclingSizeItemBox">
-                    <span class="cycling-section-title">SIZE</span>
-                    <div id="modalSizePillsInline" style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
-                </div>
-                <div class="cycling-content-item">
-                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
-                </div>
-                <div class="cycling-content-item">
-                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
-                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
-                        <span style="font-size:0.68rem; color:var(--text-white); font-weight:700;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer-action-wrap">
-                <div style="text-align: center;">
-                    <span class="qty-label-top">Quantity</span>
-                    <div class="golden-round-qty-box">
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                </div>
-                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithFirebase(this)">
-                    Add To Cart
-                </button>
-            </div>
+            <button style="width:100%; background:var(--gold-gradient); border:none; padding:10px; border-radius:8px; color:#000; font-weight:900; cursor:pointer; margin-top:10px;" onclick="addToCartWithFirebase(this)">Add To Cart</button>
         </div>
     </div>
 
+    <!-- বটম ন্যাভ -->
     <nav class="bottom-nav">
         <div class="nav-menus-left">
-            <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-            <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-            <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+            <div class="nav-item" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         </div>
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
-            <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Image Search"></i>
-                <i class="fa-solid fa-microphone" onclick="triggerVoiceAuto()" title="Voice Search"></i>
-                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </nav>
 
     <script>
         let activeCurrentProduct = null;
-        let selectedColor = "Standard";
-        let selectedSize = "Standard";
-        let currentModalQty = 1;
-        let cyclingInterval = null;
-        let currentShareTitle = "";
 
+        // অ্যাফিলিয়েট আইডি হ্যান্ডলিং
         let urlParams = new URLSearchParams(window.location.search);
         let urlAff = urlParams.get('aff') || urlParams.get('ref') || urlParams.get('partner');
         if(urlAff) { 
@@ -406,6 +312,36 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2200);
         }
 
+        // অটো কান্ট্রি কোড ডিটেকশন
+        async function detectUserCountryCode() {
+            try {
+                let res = await fetch('https://ipapi.co/json/');
+                let data = await res.json();
+                if(data && data.country_calling_code) {
+                    let select = document.getElementById('homeCountryCode');
+                    let code = data.country_calling_code;
+                    for(let option of select.options) {
+                        if(option.value === code || option.value === "+" + code.replace("+","")) {
+                            select.value = option.value;
+                            break;
+                        }
+                    }
+                }
+            } catch(e) {}
+        }
+
+        // অটো ইউজার লগইন চেক
+        function checkAutoUserLogin() {
+            let savedUser = JSON.parse(localStorage.getItem('mme_logged_user') || 'null');
+            if(savedUser) {
+                if(savedUser.email) document.getElementById('homeEmailInput').value = savedUser.email;
+                if(savedUser.name) document.getElementById('homeFullName').value = savedUser.name;
+                if(savedUser.whatsapp) document.getElementById('homeWhatsapp').value = savedUser.whatsapp;
+                if(savedUser.code) document.getElementById('homeCountryCode').value = savedUser.code;
+            }
+        }
+
+        // ডাইনামিক ভিউজ ও লাইকস ইঞ্জিন (প্রতিবার বাড়ার ব্যবস্থা)
         function getDynamicProductStats(productId) {
             let storageKeyViews = `mme_views_${productId}`;
             let storageKeyLikes = `mme_likes_${productId}`;
@@ -413,16 +349,16 @@
 
             let views = parseInt(localStorage.getItem(storageKeyViews));
             if(!views) {
-                views = Math.floor(600 + Math.random() * 3800);
+                views = Math.floor(2000 + Math.random() * 1500); // ২০০০ থেকে ৩৫০০ এর মধ্যে শুরু
                 localStorage.setItem(storageKeyViews, views);
             } else {
-                if(Math.random() > 0.6) {
-                    views += Math.floor(1 + Math.random() * 4);
+                if(Math.random() > 0.5) {
+                    views += Math.floor(1 + Math.random() * 5);
                     localStorage.setItem(storageKeyViews, views);
                 }
             }
 
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(150 + Math.random() * 750);
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(300 + Math.random() * 200); // ৩০০ থেকে ৫০০ এর মধ্যে
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
             let isLiked = (Date.now() - likedTime) < 86400000;
 
@@ -435,7 +371,7 @@
             let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
             if((Date.now() - likedTime) < 86400000) return;
 
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 250;
+            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 300;
             likes += 1;
             localStorage.setItem(storageKeyLikes, likes);
             localStorage.setItem(storageKeyLikedByMe, Date.now());
@@ -443,37 +379,18 @@
             let span = el.querySelector('span');
             if(span) span.innerText = likes;
             el.classList.add('liked');
+            showCustomToast("Product liked successfully!");
         }
 
-        function openCategoryModal(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('categoryModalOverlay').style.display = 'flex';
-        }
-
-        function closeCategoryModal(e) {
-            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
-        }
-
-        function selectCategory(cat) {
-            document.getElementById('categoryModalOverlay').style.display = 'none';
-            let all = getAllProducts();
-            if(cat === 'All') loadCombinedProducts(all);
-            else loadCombinedProducts(all.filter(p => p.category === cat));
-        }
-
-        function openEcosystemPage(url, title, element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            if(element) element.classList.add('active');
-            document.getElementById('ecosystemModalTitle').innerText = title;
-            document.getElementById('ecosystemIframe').src = url;
-            document.getElementById('ecosystemModal').style.display = 'flex';
-        }
-
-        function closeEcosystemModal() {
-            document.getElementById('ecosystemModal').style.display = 'none';
-            document.getElementById('ecosystemIframe').src = '';
-            document.getElementById('itemNavBtn').classList.add('active');
+        // প্রোডাক্ট শাফলিং ইঞ্জিন (প্রতিবার এলোমেলো বা আপ-ডাউন করার জন্য)
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
         }
 
         function getAllProducts() {
@@ -482,16 +399,12 @@
                     id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
                     category: "👗 FASHION (WOMEN)",
                     videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: [
-                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
-                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
-                    ],
-                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
-                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "MME-FASHION-01",
-                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
-                    sizes: ["XS", "S", "M", "L", "XL"]
+                    images: ["https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
+                    desc: "Exquisite hand-stitched silk evening gown."
                 }
             ];
+
+            // সেলার প্যানেল ও ক্যাটাগরি থেকে আপলোড করা প্রোডাক্ট ফেচ করা
             let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
             sellers.forEach(s => {
                 if(s.uploadedProducts) {
@@ -504,19 +417,14 @@
                         }
                         defaultProds.push({
                             id: 'v-' + s.id + '-' + i,
+                            sellerId: s.id,
                             title: p.title || p.name || "Exclusive Item",
                             price: p.global || '$35.00',
                             bdDiscount: p.countryDiscount || 'BD 15% OFF',
                             category: p.category || '👗 FASHION (WOMEN)',
                             videoUrl: cleanVid,
                             images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive premium collection.',
-                            stock: p.stock || 'In Stock',
-                            packaging: p.packaging || 'Secure Box',
-                            quantity: p.quantity || '1 Unit',
-                            sku: p.sku || `MME-VEN-${s.id}-${i}`,
-                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
-                            sizes: p.sizes || ["Standard", "Large"]
+                            desc: p.desc || 'Exclusive collection.'
                         });
                     });
                 }
@@ -524,43 +432,19 @@
             return defaultProds;
         }
 
-        // প্রোডাক্টগুলোকে রিয়েল টাইমে ন্যানো সেকেন্ডে র‍্যান্ডমলি এলোমেলো করার ইঞ্জিন (Fisher-Yates Shuffle Algorithm)
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-            return array;
-        }
-
         function loadCombinedProducts(list = getAllProducts()) {
-            // ক্যাটাগরি বা সেলার থেকে আসা প্রোডাক্টগুলোকে প্রতিবার রেন্ডমলি শাফেল করে দেওয়া হবে
-            let randomizedList = shuffleArray([...list]);
-            
+            let randomizedList = shuffleArray([...list]); // প্রতিবার রেন্ডম পজিশনে দেখানোর জন্য শাফেল
             const feed = document.getElementById('productFeed');
             feed.innerHTML = "";
+
             randomizedList.forEach(item => {
                 let stats = getDynamicProductStats(item.id);
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
-                let mediaContent = "";
-                if (item.videoUrl && item.videoUrl.trim() !== "") {
-                    mediaContent = `
-                        <div class="video-wrapper">
-                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
-                        </div>
-                    `;
-                } else {
-                    mediaContent = `
-                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
-                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
-                        </div>
-                    `;
-                }
+                let mediaContent = item.videoUrl ? 
+                    `<div class="video-wrapper"><iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe><div class="video-click-shield" onclick="openProductModal('${item.id}')"></div></div>` :
+                    `<div class="product-media-box" onclick="openProductModal('${item.id}')"><img src="${item.images[0]}" loading="lazy"></div>`;
 
                 card.innerHTML = `
                     ${mediaContent}
@@ -575,17 +459,12 @@
         }
 
         function openShareModal(title) {
-            currentShareTitle = title;
             let currentUrl = window.location.href.split('?')[0];
             let affiliateShareLink = `${currentUrl}?aff=${currentAffiliateId}`;
             document.getElementById('shareLinkInput').value = affiliateShareLink;
             document.getElementById('shareModalOverlay').style.display = 'flex';
         }
-
-        function closeShareModal(e) {
-            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
+        function closeShareModal(e) { if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none'; }
         function copyShareLink() {
             let input = document.getElementById('shareLinkInput');
             input.select();
@@ -594,158 +473,33 @@
             document.getElementById('shareModalOverlay').style.display = 'none';
         }
 
-        function shareToPlatform(platform) {
-            let linkVal = document.getElementById('shareLinkInput').value;
-            let url = encodeURIComponent(linkVal);
-            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on MRMASUDAR.COM (Affiliate ID: ${currentAffiliateId}) 🌟`);
-            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
-            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            window.open(targetUrl, '_blank');
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function startSequentialAnimation() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            const items = document.querySelectorAll('.cycling-content-item');
-            let currentIndex = 0;
-            
-            items.forEach(el => el.classList.remove('active'));
-            items[0].classList.add('active');
-
-            cyclingInterval = setInterval(() => {
-                items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add('active');
-            }, 4400);
+        function openCategoryModal(el) { document.getElementById('categoryModalOverlay').style.display = 'flex'; }
+        function closeCategoryModal(e) { if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none'; }
+        function selectCategory(cat) {
+            document.getElementById('categoryModalOverlay').style.display = 'none';
+            let all = getAllProducts();
+            if(cat === 'All') loadCombinedProducts(all);
+            else loadCombinedProducts(all.filter(p => p.category === cat));
         }
 
         function openProductModal(id) {
             let product = getAllProducts().find(p => p.id == id);
             if(!product) return;
             activeCurrentProduct = product;
-            currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
-
-            let stats = getDynamicProductStats(product.id);
-            document.getElementById('modalViewCount').innerText = stats.views;
-            document.getElementById('modalLikeCount').innerText = stats.likes;
-            let likeBtnItem = document.getElementById('modalLikeBtnItem');
-            if(stats.isLiked) likeBtnItem.classList.add('liked');
-            else likeBtnItem.classList.remove('liked');
-            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
-
-            document.getElementById('modalShareBtnItem').onclick = () => {
-                document.getElementById('productModal').style.display = 'none';
-                openShareModal(product.title);
-            };
-
-            document.getElementById('modalTitle').innerText = product.title;
             document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalDesc').innerText = product.desc;
-            document.getElementById('specStock').innerText = product.stock || "Available";
-            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
-
-            const slider = document.getElementById('modalMediaSlider');
-            const thumbs = document.getElementById('modalThumbsRow');
-            
-            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
-
-            const colorBox = document.getElementById('modalColorCirclesInline');
-            const colorItemBox = document.getElementById('cyclingColorItemBox');
-            if(product.colors && product.colors.length > 0) {
-                colorItemBox.style.display = 'flex';
-                selectedColor = product.colors[0];
-                colorBox.innerHTML = product.colors.map((c, idx) => `
-                    <span class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></span>
-                `).join('');
-            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
-
-            const sizeBox = document.getElementById('modalSizePillsInline');
-            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
-            if(product.sizes && product.sizes.length > 0) {
-                sizeItemBox.style.display = 'flex';
-                selectedSize = product.sizes[0];
-                sizeBox.innerHTML = product.sizes.map((s, idx) => `
-                    <span class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</span>
-                `).join('');
-            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
-
+            document.getElementById('modalMediaSlider').innerHTML = `<div class="modal-slide-item"><img src="${product.images[0]}"></div>`;
             document.getElementById('productModal').style.display = 'flex';
-            startSequentialAnimation();
         }
-
-        function switchSlide(idx) {
-            let slideEl = document.getElementById(`slide-${idx}`);
-            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
-                if(i === idx) t.classList.add('active');
-                else t.classList.remove('active');
-            });
-        }
-
-        function selectModalColor(cVal, el) {
-            selectedColor = cVal;
-            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function selectModalSize(sVal, el) {
-            selectedSize = sVal;
-            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function updateModalQuantity(change) {
-            currentModalQty += change;
-            if(currentModalQty < 1) currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
-        }
-
-        function closeProductModal() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            document.getElementById('productModal').style.display = 'none';
-        }
-
-        function playLuxuryCoinSound() {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1318.51, audioCtx.currentTime + 0.12);
-                
-                gainNode.gain.setValueAtTime(0.18, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.45);
-            } catch(e) {}
-        }
+        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
         async function addToCartWithFirebase(buttonEl) {
             if(!activeCurrentProduct) return;
-            
             let cartItem = {
                 productId: activeCurrentProduct.id,
+                sellerId: activeCurrentProduct.sellerId || 'admin-masud',
                 title: activeCurrentProduct.title,
                 price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
+                quantity: 1,
                 image: activeCurrentProduct.images[0],
                 affiliateRef: currentAffiliateId,
                 timestamp: new Date().toISOString()
@@ -755,55 +509,43 @@
                 if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
                     await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
                 }
-                
-                const querySnapshot = await getDocs(collection(window.db, "global_carts"));
-                let totalCount = 0;
-                querySnapshot.forEach((doc) => {
-                    let item = doc.data();
-                    totalCount += (item.quantity || 1);
-                });
-                document.getElementById('cartCount').innerText = totalCount;
+                if(typeof window.fetchCartCountFromFirebase === 'function') window.fetchCartCountFromFirebase();
             } catch(e) {}
 
             closeProductModal();
-            playFlyingCoinAnimation(buttonEl);
             showCustomToast("Product added to cloud cart successfully!");
         }
 
-        function playFlyingCoinAnimation(buttonEl) {
-            try {
-                let btnRect = buttonEl.getBoundingClientRect();
-                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
-                
-                let coin = document.createElement('div');
-                coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
-                document.body.appendChild(coin);
-
-                setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
-                    coin.style.transform = 'scale(0.3) rotate(720deg)';
-                    coin.style.opacity = '0.2';
-                }, 40);
-
-                setTimeout(() => {
-                    coin.remove();
-                    playLuxuryCoinSound();
-                    let cartEl = document.getElementById('floatingCart');
-                    cartEl.classList.add('cart-zoom-anim');
-                    setTimeout(() => cartEl.classList.remove('cart-zoom-anim'), 450);
-                }, 1100);
-            } catch(e) {}
+        function handleCartClick() {
+            let savedUser = JSON.parse(localStorage.getItem('mme_logged_user') || 'null');
+            if(savedUser && savedUser.email) {
+                window.location.href = "https://out.mrmasudar.com";
+            } else {
+                document.getElementById('homeAuthModal').style.display = 'flex';
+            }
         }
 
-        function redirectToCheckoutSubdomain() {
-            let cartEl = document.getElementById('floatingCart');
-            cartEl.classList.add('cart-zoom-anim');
-            setTimeout(() => {
-                window.location.href = "https://out.mrmasudar.com";
-            }, 320);
+        async function proceedToDashboardSubdomain() {
+            let email = document.getElementById('homeEmailInput').value.trim();
+            let name = document.getElementById('homeFullName').value.trim() || "Valued Customer";
+            let whatsapp = document.getElementById('homeWhatsapp').value.trim();
+            let code = document.getElementById('homeCountryCode').value;
+
+            if(!email || !whatsapp) {
+                showCustomToast("Please enter your Gmail and WhatsApp number!");
+                return;
+            }
+
+            let userData = { email, name, whatsapp, code, timestamp: new Date().toISOString() };
+            localStorage.setItem('mme_logged_user', JSON.stringify(userData));
+
+            try {
+                if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
+                    await window.firebaseAddDoc(window.firebaseCollection(window.db, "customers"), userData);
+                }
+            } catch(e) {}
+
+            window.location.href = "https://out.mrmasudar.com";
         }
 
         function performSearchSubmit() {
@@ -811,39 +553,6 @@
             loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
         }
         function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-
-        function triggerCameraAuto() {
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                let file = e.target.files[0];
-                if(file) showCustomToast("Visual image loaded: " + file.name);
-            };
-            input.click();
-        }
-
-        function triggerVoiceAuto() {
-            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                try {
-                    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    let recognition = new SpeechRecognition();
-                    recognition.lang = 'en-US';
-                    recognition.start();
-                    recognition.onresult = (event) => {
-                        let query = event.results[0][0].transcript;
-                        document.getElementById('searchInput').value = query;
-                        performSearchSubmit();
-                    };
-                } catch(e) {
-                    let text = prompt("Voice Search Keyword:");
-                    if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-                }
-            } else {
-                let text = prompt("Voice Search Keyword:");
-                if(text) { document.getElementById('searchInput').value = text; performSearchSubmit(); }
-            }
-        }
     </script>
 </body>
 </html>
