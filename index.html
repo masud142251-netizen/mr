@@ -28,27 +28,25 @@
         window.firebaseAddDoc = addDoc;
         window.firebaseCollection = collection;
 
-        // ইনস্ট্যান্ট কার্ট কাউন্ট আপডেট করার ফাংশন (ফায়ারবেস ও লোকাল স্টোরেজ সিংক)
+        // সঠিক ও রিয়েল-টাইম সিংক ফাংশন (সাবডোমেইনে ডিলিট হলে এখানেও সঠিক সংখ্যা দেখাবে)
         async function fetchCartCountFromFirebase() {
+            let badge = document.getElementById('cartCount');
+            
             try {
-                let localCount = parseInt(localStorage.getItem('mme_cart_count') || '0');
-                let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = localCount;
-
                 const querySnapshot = await getDocs(collection(window.db, "global_carts"));
                 let totalCount = 0;
                 querySnapshot.forEach((doc) => {
                     let item = doc.data();
                     totalCount += (item.quantity || 1);
                 });
-                if(totalCount > 0) {
-                    localStorage.setItem('mme_cart_count', totalCount);
-                    if(badge) badge.innerText = totalCount;
-                }
+                
+                // ফায়ারবেসের রিয়েল-টাইম সঠিক ডেটা লোকালস্টোরেজে আপডেট করে দেওয়া
+                localStorage.setItem('mme_cart_count', totalCount);
+                if(badge) badge.innerText = totalCount;
             } catch(e) {
-                let localCount = parseInt(localStorage.getItem('mme_cart_count') || '0');
-                let badge = document.getElementById('cartCount');
-                if(badge) badge.innerText = localCount;
+                // নেটওয়ার্ক ইস্যু থাকলে ক্যাশ দেখাবে যেন জিরো না হয়ে যায়
+                let cachedCount = localStorage.getItem('mme_cart_count') || '0';
+                if(badge) badge.innerText = cachedCount;
             }
         }
 
@@ -277,7 +275,7 @@
         </div>
     </div>
 
-    <!-- ফ্লোটিং কার্ট (এতে ক্লিক করলেই সরাসরি সাবডোমেইনের ড্যাশবোর্ডে যাবে) -->
+    <!-- ফ্লোটিং কার্ট (ক্লিক করলে ডাইরেক্ট সাবডোমেইনে যাবে) -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Dashboard">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
@@ -386,6 +384,7 @@
         let currentAffiliateId = sessionStorage.getItem('mme_active_aff') || localStorage.getItem('mme_active_aff') || 'AFF-MASUD-99';
 
         window.addEventListener('DOMContentLoaded', () => {
+            fetchCartCountFromFirebase();
             loadCombinedProducts();
         });
 
@@ -729,7 +728,7 @@
             } catch(e) {}
         }
 
-        // অ্যাড টু কার্ট করলে ইনস্ট্যান্ট কাউন্ট আপডেট এবং ফায়ারবেসে ডেটা সেভ হওয়া
+        // ইনস্ট্যান্ট লোকাল আপডেট এবং ফায়ারবেস সিংক
         async function addToCartWithFirebase(buttonEl) {
             if(!activeCurrentProduct) return;
             
@@ -746,15 +745,20 @@
                 timestamp: new Date().toISOString()
             };
 
-            // ইনস্ট্যান্ট ব্যাজ কাউন্ট আপডেট
+            // ১. ইনস্ট্যান্ট লোকাল ব্যাজ আপডেট (ইউজারের জন্য সুপার ফাস্ট রেসপন্স)
             let badge = document.getElementById('cartCount');
-            let currentCount = parseInt(badge.innerText || '0') + currentModalQty;
-            badge.innerText = currentCount;
+            let currentCount = parseInt(localStorage.getItem('mme_cart_count') || badge.innerText || '0') + currentModalQty;
             localStorage.setItem('mme_cart_count', currentCount);
+            if(badge) badge.innerText = currentCount;
 
+            // ২. ফায়ারবেসে ডেটা পুশ করে সার্ভারের সঠিক কাউন্ট রি-সিংক করা
             try {
                 if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
                     await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
+                    // সার্ভার থেকে সঠিক সিংক নিশ্চিত করতে ফেচ কল করা হবে
+                    if(typeof window.fetchCartCountFromFirebase === 'function') {
+                        window.fetchCartCountFromFirebase();
+                    }
                 }
             } catch(e) {}
 
@@ -791,8 +795,11 @@
             } catch(e) {}
         }
 
-        // কার্ট আইকনে ক্লিক করলেই সরাসরি সাবডোমেইনের ড্যাশবোর্ডে রিডাইরেক্ট হবে
-        function handleCartClick() {
+        // ফ্লোটিং কার্টে ক্লিক করলে ডাইরেক্ট সাবডোমেইনে যাওয়ার আগে ফায়ারবেস চেক করে রিডাইরেক্ট হবে
+        async function handleCartClick() {
+            if(typeof window.fetchCartCountFromFirebase === 'function') {
+                await window.fetchCartCountFromFirebase();
+            }
             window.location.href = "https://out.mrmasudar.com";
         }
 
