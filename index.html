@@ -239,18 +239,18 @@
         
         .flying-coin { position: fixed; width: 22px; height: 22px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 12px var(--gold-solid); }
 
-        /* বটম ন্যাভবার এবং অপ্টিমাইজড বড় সার্চ বার লেআউট */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 6px 6px; z-index: 1000; gap: 4px; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.42rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 0.48; text-align: center; }
-        .nav-item i { font-size: 0.8rem; margin-bottom: 2px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* বটম ন্যাভবার এবং নিখুঁত ব্যালেন্সড লেআউট (আইটেম একদম মাঝে) */
+        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; z-index: 1000; gap: 5px; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.5rem; font-weight: 600; padding: 4px 3px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; text-align: center; }
+        .nav-item i { font-size: 0.92rem; margin-bottom: 2px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
         
-        /* সার্চ বারকে আরও বড় ও স্পষ্ট করা হয়েছে */
-        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 3px 8px; flex: 2.8; gap: 4px; min-width: 0; }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.6rem; padding: 3px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
-        .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.68rem; flex-shrink: 0; }
+        /* সার্চ বার এবং অন্যান্য আইটেমের সঠিক বিন্যাস */
+        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 3px 8px; flex: 1.9; gap: 4px; min-width: 0; }
+        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.65rem; padding: 3px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
+        .bottom-search-actions { display: flex; align-items: center; gap: 4px; color: var(--gold-solid); font-size: 0.7rem; flex-shrink: 0; }
         .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; padding: 2px; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.55rem; cursor: pointer; flex-shrink: 0; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; width: 21px; height: 21px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.58rem; cursor: pointer; flex-shrink: 0; }
         .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
     </style>
 </head>
@@ -402,12 +402,17 @@
         </div>
     </div>
 
-    <!-- বটম ন্যাভবার এবং বড় সার্চ বার -->
+    <!-- বটম ন্যাভবার (আইটেম একদম মাঝে এবং সার্চ বার ডানপাশে সুষমভাবে বিন্যস্ত) -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+        
+        <!-- আইটেম ক্যাটাগরি একদম মাঝে -->
         <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        
+        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+        
+        <!-- সার্চ বার -->
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search product..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
