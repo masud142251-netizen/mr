@@ -139,7 +139,8 @@
         .modal-thumb-img { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
         .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); }
 
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(20,20,20,0.95); padding: 8px 10px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.4); text-align: left; }
+        /* PRICE BAR - BORDER REMOVED */
+        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; background: rgba(18,18,18,0.95); padding: 8px 10px; border-radius: 8px; border: none; text-align: left; }
         .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .modal-price-group { display: flex; align-items: center; gap: 6px; }
         .modal-price { font-size: 1.05rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -147,12 +148,13 @@
         .free-shipping-tax-text { font-size: 0.62rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; display: flex; align-items: center; gap: 5px; }
         .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: 1.5px solid rgba(212,175,55,0.3); margin-bottom: 8px; font-size: 0.68rem; color: #ffffff; }
+        /* ACTIONS BAR - BORDER REMOVED */
+        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 6px; border-radius: 8px; border: none; margin-bottom: 8px; font-size: 0.68rem; color: #ffffff; }
 
-        /* FIXED SIZE ANIMATED BOX WITH WHITE BORDER */
+        /* FIXED SIZE CYCLING BOX WITH GOLDEN BORDER */
         .animated-cycling-box { 
             background: #141414; 
-            border: 1.5px solid #ffffff; 
+            border: 1.5px solid var(--gold-solid); 
             border-radius: 12px; 
             padding: 12px 16px; 
             margin-bottom: 10px; 
@@ -164,14 +166,14 @@
             text-align: center; 
             position: relative; 
             overflow: hidden; 
-            box-shadow: 0 0 10px rgba(255,255,255,0.15);
+            box-shadow: 0 0 12px rgba(212,175,55,0.2);
         }
         .cycling-content-item { 
             display: none; 
             width: 100%; 
             height: 100%;
             opacity: 0; 
-            transition: opacity 0.5s ease-in-out; 
+            transition: opacity 0.6s ease-in-out; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
@@ -188,17 +190,17 @@
         
         .cycling-section-title { font-size: 0.65rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         
-        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7); cursor: pointer; display: inline-block; transition: transform 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px #ffffff; }
+        .modal-circle-item { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: transform 0.2s; }
+        .modal-circle-item.selected { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 10px var(--gold-solid); }
 
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(255,255,255,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.68rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
+        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 3px 10px; border-radius: 6px; font-size: 0.68rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; }
         .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 700; border-color: #fff; }
 
         .modal-footer-action-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; width: 100%; }
         
-        /* QUANTITY BOX WITH WHITE BORDER & ADD TO CART */
+        /* QUANTITY BOX WITH GOLDEN BORDER & ADD TO CART */
         .qty-label-top { font-size: 0.54rem; color: var(--gold-solid); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-family: 'Cinzel', serif; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid #ffffff; border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; box-shadow: 0 0 8px rgba(255,255,255,0.12); }
+        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 20px; padding: 1px 6px; gap: 8px; margin: 0 auto; width: 105px; box-shadow: 0 0 8px rgba(212,175,55,0.15); }
         .round-qty-btn { width: 18px; height: 18px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.55rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .round-qty-input { width: 18px; background: transparent; border: none; color: white; text-align: center; font-size: 0.65rem; font-weight: 700; outline: none; }
         
@@ -335,7 +337,7 @@
                 <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
             </div>
 
-            <!-- FIXED SIZE CYCLING BOX WITH WHITE BORDER -->
+            <!-- FIXED SIZE CYCLING BOX WITH GOLDEN BORDER -->
             <div class="animated-cycling-box" id="animatedCyclingBox">
                 <!-- Step 1: Title -->
                 <div class="cycling-content-item active">
@@ -629,11 +631,12 @@
             items.forEach(el => el.classList.remove('active'));
             items[0].classList.add('active');
 
+            // Slightly slower interval for smooth reading (4.4 seconds)
             cyclingInterval = setInterval(() => {
                 items[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % items.length;
                 items[currentIndex].classList.add('active');
-            }, 3600);
+            }, 4400);
         }
 
         function openProductModal(id) {
