@@ -139,7 +139,6 @@
         .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
-        /* প্রোডাক্ট ফিড - মোবাইল ফ্রেন্ডলি ও ফিক্সড কলাম */
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 10px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 12px; padding: 18px; } }
@@ -211,7 +210,7 @@
         
         .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 10px var(--gold-solid); }
 
-        /* মোবাইল ফ্রেন্ডলি বটম ন্যাভবার (সব মেনু আইটেম এবং সার্চ বার সঠিকভাবে ফিট করা) */
+        /* বটম ন্যাভবার (ক্রম: E-Tech, Affiliate, Seller, Track, Item ও সার্চ বার) */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 5px 6px; z-index: 1000; gap: 3px; border-top: 1px solid rgba(212,175,55,0.25); }
         
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; }
@@ -374,16 +373,16 @@
         </div>
     </div>
 
-    <!-- সম্পূর্ণ ফিক্সড এবং মোবাইল-অপ্টিমাইজড বটম ন্যাভবার -->
+    <!-- বটম ন্যাভবার (E-Tech আগে, Affiliate পরে) -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://track.mrmasudar.com', 'Parcel Tracking', this)"><i class="fa-solid fa-truck-fast"></i><span>Track</span></div>
         
         <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         
-        <!-- সার্চ বার (ক্যামেরা ও সার্চ বাটনসহ) -->
+        <!-- সার্চ বার -->
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
