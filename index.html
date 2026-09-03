@@ -101,12 +101,17 @@
         .badge-top-text { font-size: 0.52rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; font-family: var(--font-luxury); }
         .badge-sub-text { font-size: 0.42rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; font-family: var(--font-body); }
 
+        /* ক্রস বাটন: একদম বামদিকের নিচের অংশে ফিক্সড */
+        .golden-cross-btn-bottom-left { background: rgba(10,10,10,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; font-weight: bold; position: fixed; bottom: 20px; left: 20px; z-index: 5000; box-shadow: 0 0 15px rgba(212,175,55,0.4); transition: 0.3s; }
+        .golden-cross-btn-bottom-left:hover { background: var(--gold-gradient); color: #000; transform: scale(1.1); }
+
+        /* মোডালের সাধারণ ক্রস বাটন */
         .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 15; transition: 0.3s; }
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
         .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 7px 16px; border-radius: 30px; font-size: 0.72rem; font-weight: 700; z-index: 9999; display: none; font-family: var(--font-body); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
-        .share-modal-overlay, .category-modal-overlay, .ecosystem-modal-overlay, .modal-overlay { 
+        .share-modal-overlay, .category-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; 
         }
         .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 35px 16px 18px 16px; text-align: center; position: relative; max-height: 88vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
@@ -133,10 +138,9 @@
         .cat-popup-item i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cat-popup-item:hover i, .cat-popup-item:active i { -webkit-text-fill-color: var(--bg-black) !important; background: none !important; color: var(--bg-black) !important; }
 
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; flex-direction: column; z-index: 4000; }
-        .ecosystem-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #0f0f0f; border-bottom: 1.5px solid var(--gold-solid); }
-        .ecosystem-title { font-size: 0.9rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; font-family: var(--font-luxury); }
-        .ecosystem-body { flex: 1; width: 100%; background: #000; position: relative; }
+        /* ফুল-স্ক্রিন সাবডোমেইন ইকোসিস্টেম মোডাল (উপরে কোনো টেক্সট বা হেডার ছাড়া একদম পরিষ্কার ফুল ভিউ) */
+        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: none; flex-direction: column; z-index: 4000; }
+        .ecosystem-body { flex: 1; width: 100%; height: 100%; background: #000; position: relative; }
         .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
 
         .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
@@ -213,10 +217,18 @@
         /* বটম ন্যাভবার (ক্রম: E-Tech, Affiliate, Seller, Track, Item ও সার্চ বার) */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 5px 6px; z-index: 1000; gap: 3px; border-top: 1px solid rgba(212,175,55,0.25); }
         
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; }
-        .nav-item i { font-size: 0.8rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .nav-item i { font-size: 0.8rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: transform 0.25s ease; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
         
+        /* আইটেম মেনুতে স্মুথ জুম-ইন জুম-আউট এফেক্ট */
+        .nav-item.zoom-pulse { animation: navZoomPulse 0.45s ease-in-out; }
+        @keyframes navZoomPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.35); color: var(--gold-solid); }
+            100% { transform: scale(1); }
+        }
+
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 14px; padding: 2px 5px; flex: 2.2; min-width: 100px; gap: 3px; }
         .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
         .bottom-search-actions { display: flex; align-items: center; gap: 3px; color: var(--gold-solid); font-size: 0.65rem; flex-shrink: 0; }
@@ -288,15 +300,12 @@
         </div>
     </div>
 
-    <!-- ইকোসিস্টেম মোডাল -->
+    <!-- ফুল-স্ক্রিন সাবডোমেইন ইকোসিস্টেম মোডাল (উপরে কোনো টেক্সট বা হেডার ছাড়া, ক্রস বাটন বামদিকের নিচে) -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <div class="ecosystem-header">
-            <span class="ecosystem-title" id="ecosystemModalTitle">Ecosystem Module</span>
-            <button class="golden-cross-btn-top-right" style="position:relative; top:auto; right:auto;" onclick="closeEcosystemModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
         </div>
+        <button class="golden-cross-btn-bottom-left" onclick="closeEcosystemModal()" title="Back to Home"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
     <!-- ফ্লোটিং কার্ট -->
@@ -373,14 +382,14 @@
         </div>
     </div>
 
-    <!-- বটম ন্যাভবার (E-Tech আগে, Affiliate পরে) -->
+    <!-- বটম ন্যাভবার (E-Tech, Affiliate, Seller, Track, Item ও সার্চ বার) -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', 'E-Tech Academy', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', 'Affiliate & Earn', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', 'Seller Dashboard', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://track.mrmasudar.com', 'Parcel Tracking', this)"><i class="fa-solid fa-truck-fast"></i><span>Track</span></div>
+        <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
+        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
+        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
+        <div class="nav-item" onclick="openEcosystemPage('https://track.mrmasudar.com', this)"><i class="fa-solid fa-truck-fast"></i><span>Track</span></div>
         
-        <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
+        <div class="nav-item active zoom-pulse" id="itemNavBtn" onclick="openCategoryModalWithZoom(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         
         <!-- সার্চ বার -->
         <div class="bottom-search-wrapper">
@@ -455,9 +464,11 @@
             showCustomToast("Product liked successfully!");
         }
 
-        function openCategoryModal(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
+        // আইটেম বাটনে ক্লিক করলে স্মুথ জুম-ইন জুম-আউট অ্যানিমেশন সহ ক্যাটাগরি মোডাল ওপেন হবে
+        function openCategoryModalWithZoom(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active', 'zoom-pulse'));
+            element.classList.add('active', 'zoom-pulse');
+            setTimeout(() => element.classList.remove('zoom-pulse'), 500);
             document.getElementById('categoryModalOverlay').style.display = 'flex';
         }
 
@@ -472,10 +483,10 @@
             else loadCombinedProducts(all.filter(p => p.category === cat));
         }
 
-        function openEcosystemPage(url, title, element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        // সাবডোমেইন ফুল স্ক্রিনে ওপেন হবে (উপরে কোনো টেক্সট বা হেডার থাকবে না)
+        function openEcosystemPage(url, element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active', 'zoom-pulse'));
             if(element) element.classList.add('active');
-            document.getElementById('ecosystemModalTitle').innerText = title;
             document.getElementById('ecosystemIframe').src = url;
             document.getElementById('ecosystemModal').style.display = 'flex';
         }
