@@ -101,11 +101,10 @@
         .badge-top-text { font-size: 0.52rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; font-family: var(--font-luxury); }
         .badge-sub-text { font-size: 0.42rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; font-family: var(--font-body); }
 
-        /* ক্রস বাটন: একদম ডানদিকের নিচের অংশে ফিক্সড */
+        /* ক্রস বাটন: ডানদিকের নিচে */
         .golden-cross-btn-bottom-right { background: rgba(10,10,10,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; font-weight: bold; position: fixed; bottom: 20px; right: 20px; z-index: 5000; box-shadow: 0 0 15px rgba(212,175,55,0.4); transition: 0.3s; }
         .golden-cross-btn-bottom-right:hover { background: var(--gold-gradient); color: #000; transform: scale(1.1); }
 
-        /* মোডালের সাধারণ ক্রস বাটন */
         .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 15; transition: 0.3s; }
         .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
 
@@ -129,14 +128,25 @@
         .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 6px; font-size: 0.6rem; outline: none; font-weight: 600; }
         .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 10px; font-weight: 800; font-size: 0.65rem; cursor: pointer; color: #000; font-family: var(--font-luxury); }
 
+        /* ক্যাটাগরি পপআপ গ্রিড এবং লোগোগুলোতে কন্টিনিউয়াস জুম-ইন ও জুম-আউট এফেক্ট */
         .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 4px; }
         .cat-popup-item { 
             background: rgba(20, 20, 20, 0.95); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 10px 6px; border-radius: 10px; color: var(--text-white); font-size: 0.65rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; transition: 0.25s;
         }
         .cat-popup-item:hover, .cat-popup-item:active { border-color: var(--gold-solid); background: var(--gold-gradient); color: var(--bg-black); }
         .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 8px 12px; }
-        .cat-popup-item i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .cat-popup-item:hover i, .cat-popup-item:active i { -webkit-text-fill-color: var(--bg-black) !important; background: none !important; color: var(--bg-black) !important; }
+        
+        /* ক্যাটাগরি লোগো বা আইকনগুলোতে কন্টিনিউয়াস জুম এফেক্ট */
+        .cat-popup-item i { 
+            font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: continuousCategoryZoom 2s infinite ease-in-out;
+        }
+        @keyframes continuousCategoryZoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.22); }
+        }
+
+        .cat-popup-item:hover i, .cat-popup-item:active i { -webkit-text-fill-color: var(--bg-black) !important; background: none !important; color: var(--bg-black) !important; animation: none !important; }
 
         /* ফুল-স্ক্রিন সাবডোমেইন ইকোসিস্টেম মোডাল */
         .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: none; flex-direction: column; z-index: 4000; }
@@ -214,21 +224,12 @@
         
         .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 10px var(--gold-solid); }
 
-        /* বটম ন্যাভবার */
+        /* সাধারণ বটম ন্যাভবার (স্বাভাবিক ও স্থির) */
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 5px 6px; z-index: 1000; gap: 3px; border-top: 1px solid rgba(212,175,55,0.25); }
         
         .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; }
         .nav-item i { font-size: 0.8rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
-        
-        /* ন্যাভবারের লোগো ও আইকনগুলোতে কন্টিনিউয়াস জুম-ইন ও জুম-আউট অ্যানিমেশন */
-        .nav-item i, .nav-item span {
-            animation: continuousZoomPulse 2s infinite ease-in-out;
-        }
-        @keyframes continuousZoomPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.18); }
-        }
 
         .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 14px; padding: 2px 5px; flex: 2.2; min-width: 100px; gap: 3px; }
         .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
@@ -258,7 +259,6 @@
         </div>
     </header>
 
-    <!-- শেয়ার মোডাল -->
     <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
         <div class="share-modal-box">
             <h3 style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">Share Product</h3>
@@ -282,7 +282,6 @@
         </div>
     </div>
 
-    <!-- ক্যাটাগরি মোডাল -->
     <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
         <div class="category-modal-box">
             <h3 class="cat-modal-title" style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Luxury Categories</h3>
@@ -301,7 +300,6 @@
         </div>
     </div>
 
-    <!-- ফুল-স্ক্রিন সাবডোমেইন ইকোসিস্টেম মোডাল (ক্রস বাটন ডানদিকের নিচে) -->
     <div class="ecosystem-modal-overlay" id="ecosystemModal">
         <div class="ecosystem-body">
             <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
@@ -309,16 +307,13 @@
         <button class="golden-cross-btn-bottom-right" onclick="closeEcosystemModal()" title="Back to Home"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- ফ্লোটিং কার্ট -->
     <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Checkout">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-badge" id="cartCount">0</span>
     </div>
 
-    <!-- প্রোডাক্ট ফিড কন্টেইনার -->
     <main class="feed-container" id="productFeed"></main>
 
-    <!-- প্রোডাক্ট ডিটেইলস মোডাল -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -383,7 +378,6 @@
         </div>
     </div>
 
-    <!-- বটম ন্যাভবার -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
         <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
@@ -392,7 +386,6 @@
         
         <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
         
-        <!-- সার্চ বার -->
         <div class="bottom-search-wrapper">
             <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
             <div class="bottom-search-actions">
