@@ -1,851 +1,952 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>mrmasudar.com - Luxury Enterprise</title>
+    <title>MR MASUDAR ENTERPRISE | Global Elite Ecosystem & Admin Hub</title>
     
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCvUftOHiXFCuAzivaBut1XvNLpGE-LQ-w",
-            authDomain: "mr-masudar.firebaseapp.com",
-            projectId: "mr-masudar",
-            storageBucket: "mr-masudar.firebasestorage.app",
-            messagingSenderId: "644110210393",
-            appId: "1:644110210393:web:dc756217266f0af039e848",
-            measurementId: "G-BZBCMZQ87M"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        window.db = getFirestore(app);
-        window.firebaseAddDoc = addDoc;
-        window.firebaseCollection = collection;
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const refSeller = urlParams.get('seller');
-        const refAffiliate = urlParams.get('ref') || urlParams.get('affiliate') || urlParams.get('aff') || urlParams.get('partner');
-
-        if(refSeller) {
-            localStorage.setItem('mrmasudar_seller_id', refSeller);
-            sessionStorage.setItem('mrmasudar_seller_id', refSeller);
-        }
-        if(refAffiliate) {
-            localStorage.setItem('mrmasudar_affiliate_id', refAffiliate.toLowerCase());
-            sessionStorage.setItem('mrmasudar_affiliate_id', refAffiliate.toLowerCase());
-        }
-
-        async function fetchCartCountFromFirebase() {
-            let badge = document.getElementById('cartCount');
-            try {
-                const querySnapshot = await getDocs(collection(window.db, "global_carts"));
-                let totalCount = 0;
-                querySnapshot.forEach((doc) => {
-                    let item = doc.data();
-                    totalCount += (item.quantity || 1);
-                });
-                localStorage.setItem('mme_cart_count', totalCount);
-                if(badge) badge.innerText = totalCount;
-            } catch(e) {
-                let cachedCount = localStorage.getItem('mme_cart_count') || '0';
-                if(badge) badge.innerText = cachedCount;
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchCartCountFromFirebase();
-            if(typeof window.loadCombinedProducts === 'function') window.loadCombinedProducts();
-        });
-        window.fetchCartCountFromFirebase = fetchCartCountFromFirebase;
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-black: #080808;
-            --card-bg: #121212;
+            --bg-color: #030303;
+            --surface-card: #080808;
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
-            --text-gray: #dfdfdf;
-            --pink-heart: #ff2d55;
+            --text-gray: #b0b0b0;
             --font-luxury: 'Cinzel', serif;
             --font-body: 'Poppins', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; font-family: var(--font-body); }
-        body { padding-top: 70px; padding-bottom: 85px; }
-
-        h1, h2, h3, h4, h5, h6, .brand-title-main, .category-modal-box h3 { font-family: var(--font-luxury); }
-
-        header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
-            background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(12px); width: 100%; border-bottom: 1px solid rgba(212,175,55,0.2);
-        }
-        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 70%; min-width: 0; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); }
-        
-        .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
-        .brand-subtitle-craft { font-size: 0.36rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; letter-spacing: 4px; text-transform: uppercase; display: block; width: 100%; font-family: var(--font-body); }
-
-        .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1.5px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; }
-        .badge-top-text { font-size: 0.52rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; font-family: var(--font-luxury); }
-        .badge-sub-text { font-size: 0.42rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; font-family: var(--font-body); }
-
-        /* ক্রস বাটন: ডানদিকের নিচে */
-        .golden-cross-btn-bottom-right { background: rgba(10,10,10,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; font-weight: bold; position: fixed; bottom: 20px; right: 20px; z-index: 5000; box-shadow: 0 0 15px rgba(212,175,55,0.4); transition: 0.3s; }
-        .golden-cross-btn-bottom-right:hover { background: var(--gold-gradient); color: #000; transform: scale(1.1); }
-
-        .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 15; transition: 0.3s; }
-        .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
-
-        .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 7px 16px; border-radius: 30px; font-size: 0.72rem; font-weight: 700; z-index: 9999; display: none; font-family: var(--font-body); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-
-        .share-modal-overlay, .category-modal-overlay, .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; 
-        }
-        .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 35px 16px 18px 16px; text-align: center; position: relative; max-height: 88vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
-
-        .modal-content { 
-            background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; max-height: 90vh; border-radius: 16px; padding: 35px 12px 14px 12px; text-align: center; position: relative; overflow-y: auto; box-shadow: 0 0 30px rgba(212,175,55,0.3); 
-            scrollbar-width: thin; scrollbar-color: var(--gold-solid) #121212;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.5rem; cursor: pointer; font-weight: 600; }
-        .share-icon-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .copy-link-box { display: flex; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 6px; }
-        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 6px; font-size: 0.6rem; outline: none; font-weight: 600; }
-        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 10px; font-weight: 800; font-size: 0.65rem; cursor: pointer; color: #000; font-family: var(--font-luxury); }
-
-        /* ক্যাটাগরি পপআপ গ্রিড এবং লোগোগুলোতে কন্টিনিউয়াস জুম-ইন ও জুম-আউট এফেক্ট */
-        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 4px; }
-        .cat-popup-item { 
-            background: rgba(20, 20, 20, 0.95); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 10px 6px; border-radius: 10px; color: var(--text-white); font-size: 0.65rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; transition: 0.25s;
-        }
-        .cat-popup-item:hover, .cat-popup-item:active { border-color: var(--gold-solid); background: var(--gold-gradient); color: var(--bg-black); }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 8px 12px; }
-        
-        /* ক্যাটাগরি লোগো বা আইকনগুলোতে কন্টিনিউয়াস জুম এফেক্ট */
-        .cat-popup-item i { 
-            font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            animation: continuousCategoryZoom 2s infinite ease-in-out;
-        }
-        @keyframes continuousCategoryZoom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.22); }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 12px 10px;
         }
 
-        .cat-popup-item:hover i, .cat-popup-item:active i { -webkit-text-fill-color: var(--bg-black) !important; background: none !important; color: var(--bg-black) !important; animation: none !important; }
+        body.dashboard-active {
+            align-items: flex-start !important;
+            padding-top: 10px;
+        }
 
-        /* ফুল-স্ক্রিন সাবডোমেইন ইকোসিস্টেম মোডাল */
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: none; flex-direction: column; z-index: 4000; }
-        .ecosystem-body { flex: 1; width: 100%; height: 100%; background: #000; position: relative; }
-        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
+        .portal-wrapper {
+            width: 100%;
+            max-width: 580px;
+        }
 
-        .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 10px; } }
-        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 12px; padding: 18px; } }
+        .custom-toast { 
+            position: fixed; top: 10px; left: 50%; transform: translateX(-50%); 
+            background: #080808; border: 1px solid var(--gold-solid); 
+            color: var(--gold-solid); padding: 6px 14px; border-radius: 20px; 
+            font-size: 0.65rem; font-weight: 700; z-index: 999999; display: none; 
+            box-shadow: 0 0 15px rgba(212,175,55,0.3); 
+        }
 
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); display: flex; flex-direction: column; }
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 340px; display: block; object-fit: cover; }
+        .luxury-card {
+            background: var(--surface-card);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 14px;
+            padding: 16px 14px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.95);
+            width: 100%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .brand-logo {
+            width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold-solid);
+            object-fit: cover; margin-bottom: 6px; box-shadow: 0 0 12px rgba(212,175,55,0.4); background: #000;
+        }
+
+        .brand-title-main {
+            font-family: var(--font-luxury); font-size: 1.05rem; font-weight: 900;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; margin-bottom: 2px;
+        }
+
+        .brand-subtitle {
+            color: var(--text-gray); font-size: 0.52rem; letter-spacing: 1.5px; text-transform: uppercase;
+            margin-bottom: 12px; font-weight: 600; font-family: var(--font-luxury);
+        }
+
+        .google-auth-btn {
+            width: 100%; background: #ffffff; color: #111;
+            border: 1.5px solid var(--gold-solid); padding: 11px 16px; border-radius: 25px; font-weight: 700;
+            font-size: 0.7rem; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: all 0.3s ease; text-transform: uppercase; font-family: var(--font-luxury);
+            margin-bottom: 8px;
+        }
+        .google-auth-btn:hover { background: var(--gold-gradient); color: #050505; }
+
+        .admin-trigger-btn {
+            background: transparent; border: 1px dashed var(--gold-solid); color: var(--gold-solid);
+            padding: 6px 12px; border-radius: 15px; font-size: 0.55rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; font-family: var(--font-luxury); margin-top: 6px;
+        }
+
+        .apply-btn {
+            display: inline-block; background: var(--gold-gradient); color: #050505; padding: 8px 18px;
+            border-radius: 18px; font-weight: 800; text-transform: uppercase; font-size: 0.62rem;
+            letter-spacing: 1px; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(212,175,55,0.3);
+            font-family: var(--font-luxury);
+        }
+
+        .form-section, .dashboard-section { display: none; text-align: left; }
         
-        .video-wrapper { position: relative; width: 100%; padding-bottom: 140%; background: #000; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: -20%; left: -15%; width: 130%; height: 140%; border: none; pointer-events: none; }
-        .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
-
-        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 7px 4px; border-top: 1.5px solid rgba(212, 175, 55, 0.25); font-size: 0.68rem; }
-        .action-item { display: flex; align-items: center; gap: 3px; color: var(--text-white); cursor: pointer; font-weight: 700; }
-        .action-item span { font-weight: 600; }
-        .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .action-item.like-icon i { color: var(--pink-heart); }
-        .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .action-item.share-icon i { color: var(--gold-solid); }
-
-        .modal-media-slider { width: 100%; border-radius: 6px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 4px; margin-bottom: 4px; border: 1.5px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
-        .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 220px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
-
-        .modal-thumbs-row { display: flex; gap: 4px; margin-bottom: 4px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
-        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); transform: scale(1.06); }
-
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 2px; margin-bottom: 5px; background: rgba(18,18,18,0.95); padding: 5px 7px; border-radius: 6px; text-align: left; }
-        .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .modal-price-group { display: flex; align-items: center; gap: 5px; }
-        .modal-price { font-size: 0.92rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.44rem; padding: 2px 4px; border-radius: 3px; font-weight: 800; }
+        .form-grid { display: flex; flex-direction: column; gap: 8px; }
         
-        .free-shipping-tax-text { font-size: 0.55rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; gap: 3px; }
-        .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .input-group label {
+            display: block; font-size: 0.55rem; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 2px; font-weight: 700; font-family: var(--font-luxury);
+        }
+        .input-group input, .input-group select {
+            width: 100%; background: #000; border: 1px solid rgba(212,175,55,0.3); padding: 8px 10px;
+            color: #fff; border-radius: 6px; font-size: 0.68rem; outline: none;
+        }
 
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 4px; border-radius: 5px; margin-bottom: 5px; font-size: 0.6rem; color: #ffffff; font-weight: 600; }
+        .phone-group { display: flex; gap: 6px; }
+        .phone-group select { width: 105px; flex-shrink: 0; }
 
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 8px; padding: 6px 10px; margin-bottom: 6px; height: 68px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.35s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 3px; position: absolute; top: 0; left: 0; padding: 4px 8px; }
-        .cycling-content-item.active { display: flex; opacity: 1; }
+        .dash-top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(212,175,55,0.15); padding-bottom: 6px; margin-bottom: 8px;
+        }
+        .settings-gear-icon {
+            background: var(--gold-gradient); border: none; color: #000;
+            width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            font-size: 0.85rem; box-shadow: 0 0 10px rgba(212,175,55,0.4); transition: 0.3s;
+        }
 
-        .cycling-title { font-size: 0.78rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.25; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-luxury); }
-        .cycling-desc { font-size: 0.6rem; color: #ffffff; line-height: 1.3; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 400; }
-        .cycling-section-title { font-size: 0.58rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1px; font-family: var(--font-luxury); }
+        .dash-stats-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin: 6px 0;
+        }
+        @media(min-width: 480px) {
+            .dash-stats-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .dash-stat-box {
+            background: rgba(12, 12, 12, 0.9); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 6px; padding: 7px; text-align: center;
+        }
+        .dash-stat-box span { font-size: 0.48rem; color: var(--text-gray); text-transform: uppercase; font-weight: 600; }
+        .dash-stat-box .number { font-size: 0.88rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: 2px; display: block; font-family: var(--font-luxury); }
+
+        .animated-graph-box {
+            background: rgba(8, 8, 8, 0.95); border: 1px solid rgba(212,175,55,0.2); border-radius: 6px; padding: 7px; margin: 6px 0;
+        }
+        .graph-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+        .graph-filter-select {
+            background: #000; border: 1px solid rgba(212,175,55,0.3); color: var(--gold-solid);
+            padding: 2px 5px; font-size: 0.52rem; border-radius: 4px; outline: none; font-family: var(--font-luxury);
+        }
+        .graph-bars { display: flex; align-items: flex-end; justify-content: space-around; height: 70px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-top: 4px; }
+        .bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 12%; }
+        .bar { width: 10px; background: var(--gold-gradient); border-radius: 2px 2px 0 0; }
+        .bar-label { font-size: 0.45rem; color: var(--text-gray); text-transform: uppercase; }
+
+        .sheet-table-wrapper {
+            max-height: 160px; overflow-y: auto; margin: 6px 0; background: rgba(10,10,10,0.8);
+            border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
+        }
+        .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.62rem; }
+        .sheet-table th, .sheet-table td { padding: 6px 6px; border-bottom: 1px solid rgba(212,175,55,0.1); }
+        .sheet-table th {
+            background: #080808; position: sticky; top: 0; z-index: 2;
+            background-image: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: 800; text-transform: uppercase; font-family: var(--font-luxury);
+        }
+        .product-link-anchor { color: var(--gold-solid); text-decoration: underline; cursor: pointer; font-weight: 500; word-break: break-all; }
         
-        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.15); border-color: #fff; box-shadow: 0 0 6px var(--gold-solid); }
+        .text-center { text-align: center !important; }
+        .badge-pending { color: #f39c12; font-size: 0.85rem; display: inline-block; font-weight: 700; }
+        .badge-confirmed { color: #2ecc71; font-size: 0.85rem; display: inline-block; font-weight: 700; }
+        .badge-cancelled { color: #e74c3c; font-size: 0.85rem; display: inline-block; font-weight: 700; }
 
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 4px; font-size: 0.6rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; transition: 0.2s; }
-        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 800; border-color: #fff; }
+        .withdraw-flex {
+            display: flex; flex-direction: column; gap: 6px; margin-top: 6px; background: rgba(12,12,12,0.9); padding: 7px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        @media(min-width: 400px) {
+            .withdraw-flex { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
 
-        .modal-footer-action-wrap { margin-top: 3px; display: flex; flex-direction: column; gap: 4px; width: 100%; }
-        .qty-label-top { font-size: 0.52rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 1px 4px; gap: 6px; margin: 0 auto; width: 90px; }
-        .round-qty-btn { width: 15px; height: 15px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.45rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 15px; background: transparent; border: none; color: white; text-align: center; font-size: 0.62rem; font-weight: 600; outline: none; }
+        .settings-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 10px;
+        }
+        .settings-modal-card {
+            background: var(--surface-card); border: 1px solid var(--gold-solid); border-radius: 12px;
+            width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; padding: 16px; text-align: left; position: relative;
+        }
+        .modal-close-btn {
+            position: absolute; top: 10px; right: 12px; background: transparent; border: 1px solid var(--gold-solid);
+            color: var(--gold-solid); width: 26px; height: 26px; border-radius: 50%; font-size: 0.75rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
         
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: 1.5px solid var(--gold-solid); padding: 7px; border-radius: 6px; color: var(--bg-black); font-weight: 800; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-family: var(--font-luxury); transition: 0.2s; }
-        .modal-add-btn:hover { background: #000; color: var(--gold-solid); }
+        .settings-tab-nav {
+            display: flex; gap: 6px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 8px; margin-bottom: 10px;
+        }
+        .tab-btn {
+            background: transparent; border: 1px solid rgba(212,175,55,0.3); color: var(--text-gray);
+            padding: 6px 12px; border-radius: 8px; font-size: 0.62rem; font-weight: 700; cursor: pointer; text-transform: uppercase; flex: 1; text-align: center;
+        }
+        .tab-btn.active { background: var(--gold-gradient); color: #000; border-color: transparent; }
 
-        .floating-cart { position: fixed; bottom: 68px; right: 12px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); animation: cartGentleBounce 3s infinite ease-in-out; }
-        @keyframes cartGentleBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08) translateY(-3px); } }
-        .floating-cart.cart-zoom-anim { transform: scale(1.3) rotate(12deg); }
-        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.05rem; }
-        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.58rem; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-        
-        .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 10px var(--gold-solid); }
-
-        /* সাধারণ বটম ন্যাভবার (স্বাভাবিক ও স্থির) */
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 5px 6px; z-index: 1000; gap: 3px; border-top: 1px solid rgba(212,175,55,0.25); }
-        
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; }
-        .nav-item i { font-size: 0.8rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
-
-        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 14px; padding: 2px 5px; flex: 2.2; min-width: 100px; gap: 3px; }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
-        .bottom-search-actions { display: flex; align-items: center; gap: 3px; color: var(--gold-solid); font-size: 0.65rem; flex-shrink: 0; }
-        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; padding: 2px; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.48rem; cursor: pointer; flex-shrink: 0; }
-        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+        .admin-action-btn {
+            padding: 3px 6px; border-radius: 4px; font-size: 0.5rem; font-weight: 700; cursor: pointer; border: none; text-transform: uppercase; margin: 1px;
+        }
+        .btn-approve { background: #2ecc71; color: #000; }
+        .btn-cancel { background: #e74c3c; color: #fff; }
+        .btn-pay { background: var(--gold-solid); color: #000; }
     </style>
 </head>
 <body>
 
     <div class="custom-toast" id="customToast">Action completed successfully!</div>
 
-    <header class="app-header">
-        <div class="brand-container" onclick="showCustomToast('mrmasudar.com - Supreme Enterprise')">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
-            <div class="brand-text-box">
-                <span class="brand-title-main">mrmasudar.com</span>
-                <span class="brand-subtitle-craft">HANDCRAFTED ART</span>
-            </div>
-        </div>
-        <div class="top-right-controls">
-            <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
-                <span class="badge-sub-text">ENTERPRISE</span>
-            </div>
-        </div>
-    </header>
+    <div class="portal-wrapper">
+        
+        <!-- 1. Google Verification Entrance Card -->
+        <div class="luxury-card" id="entranceCard">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="brand-logo">
+            <h1 class="brand-title-main">MR MASUDAR ENTERPRISE</h1>
+            <p class="brand-subtitle">Global Elite Affiliate Ecosystem</p>
 
-    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
-        <div class="share-modal-box">
-            <h3 style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">Share Product</h3>
-            <div class="share-grid">
-                <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
-            </div>
-            <div class="copy-link-box">
-                <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
-                <button class="copy-link-btn" onclick="copyShareLink()">Copy Link</button>
-            </div>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
-        <div class="category-modal-box">
-            <h3 class="cat-modal-title" style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Luxury Categories</h3>
-            <div class="category-grid-popup">
-                <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 4px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
-            </div>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <div class="ecosystem-body">
-            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
-        </div>
-        <button class="golden-cross-btn-bottom-right" onclick="closeEcosystemModal()" title="Back to Home"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-
-    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Checkout">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-badge" id="cartCount">0</span>
-    </div>
-
-    <main class="feed-container" id="productFeed"></main>
-
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
-            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-
-            <div class="modal-media-slider" id="modalMediaSlider"></div>
-            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
+            <button class="google-auth-btn" id="googleVerifyBtn" type="button">
+                <i class="fa-brands fa-google" style="color:#ea4335; font-size:0.9rem;"></i> Continue with Google Verify
+            </button>
             
-            <div class="modal-price-shipping-bar">
-                <div class="modal-price-row">
-                    <div class="modal-price-group">
-                        <span class="modal-price" id="modalPrice">$0.00</span>
-                        <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
-                    </div>
-                </div>
-                <div class="free-shipping-tax-text">
-                    <i class="fa-solid fa-circle-check"></i> Free Shipping | Tax & VAT Included
-                </div>
-            </div>
+            <button class="admin-trigger-btn" onclick="openAdminLoginModal()" type="button">
+                <i class="fa-solid fa-shield-halved"></i> Admin Management Portal
+            </button>
+        </div>
 
-            <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
-                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
-            </div>
-
-            <div class="animated-cycling-box" id="animatedCyclingBox">
-                <div class="cycling-content-item active">
-                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
+        <!-- 2. Affiliate Profile Form -->
+        <div class="luxury-card form-section" id="formSection">
+            <button class="modal-close-btn" id="closeFormBtn" type="button" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="font-family:var(--font-luxury); background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align:center; margin-bottom:10px; font-size:0.95rem; text-transform:uppercase;">Affiliate Registration</h2>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Full Legal Name *</label>
+                    <input type="text" id="fullName" placeholder="MD MASUDAR RAHMAN" required>
                 </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox">
-                    <span class="cycling-section-title">COLOR</span>
-                    <div id="modalColorCirclesInline" style="display:flex; gap:6px; align-items:center; justify-content:center;"></div>
+                <div class="input-group">
+                    <label>Gmail Address *</label>
+                    <input type="email" id="email" placeholder="masudar142251@gmail.com" required>
                 </div>
-                <div class="cycling-content-item" id="cyclingSizeItemBox">
-                    <span class="cycling-section-title">SIZE</span>
-                    <div id="modalSizePillsInline" style="display:flex; gap:4px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
+                <div class="input-group">
+                    <label>Country *</label>
+                    <select id="regCountrySelect" required></select>
                 </div>
-                <div class="cycling-content-item">
-                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
-                </div>
-                <div class="cycling-content-item">
-                    <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
-                        <span style="font-size:0.58rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
-                        <span style="font-size:0.58rem; color:var(--text-white); font-weight:600;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
+                <div class="input-group">
+                    <label>WhatsApp Number *</label>
+                    <div class="phone-group">
+                        <select id="regDialCodeSelect"></select>
+                        <input type="tel" id="whatsapp" placeholder="1767319670" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-footer-action-wrap">
-                <div style="text-align: center;">
-                    <span class="qty-label-top">Quantity</span>
-                    <div class="golden-round-qty-box">
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                </div>
-                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithFirebase(this)">
-                    Add To Cart
-                </button>
+            <div style="text-align: center; margin-top: 12px;">
+                <button class="apply-btn" id="completeRegBtn" type="button">Complete & Enter Dashboard</button>
             </div>
+        </div>
+
+        <!-- 3. Luxury Elite Affiliate Dashboard -->
+        <div class="luxury-card dashboard-section" id="dashboardSection">
+            <div id="partnerWelcomeBox"></div>
+        </div>
+
+    </div>
+
+    <!-- 4. Settings Hub Modal -->
+    <div class="settings-modal-overlay" id="settingsModalOverlay">
+        <div class="settings-modal-card">
+            <button class="modal-close-btn" id="closeSettingsModalBtn" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family:var(--font-luxury); background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-gear"></i> Partner Settings Hub</h3>
+            
+            <div class="settings-tab-nav">
+                <button class="tab-btn active" onclick="switchSettingsTab('profile', this)" type="button">Profile</button>
+                <button class="tab-btn" onclick="switchSettingsTab('payment', this)" type="button">Payment</button>
+                <button class="tab-btn" onclick="switchSettingsTab('security', this)" type="button">2FA Security</button>
+            </div>
+
+            <div id="settingsTabContent"></div>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://track.mrmasudar.com', this)"><i class="fa-solid fa-truck-fast"></i><span>Track</span></div>
-        
-        <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
-        
-        <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
-            <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Inquiry Search"></i>
-                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+    <!-- 5. Admin Login & Dashboard Modal -->
+    <div class="settings-modal-overlay" id="adminModalOverlay">
+        <div class="settings-modal-card">
+            <button class="modal-close-btn" onclick="closeAdminModal()" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div id="adminModalContent"></div>
         </div>
-    </nav>
+    </div>
+
+    <!-- 6. Product Preview Modal -->
+    <div class="settings-modal-overlay" id="productModalOverlay">
+        <div class="settings-modal-card" style="max-width: 360px; text-align: center;">
+            <button class="modal-close-btn" onclick="closeProductModal()" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family:var(--font-luxury); background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:0.9rem; margin-bottom:8px;">Product Details</h3>
+            <div id="productModalBody"></div>
+        </div>
+    </div>
 
     <script>
-        let activeCurrentProduct = null;
-        let selectedColor = "Standard";
-        let selectedSize = "Standard";
-        let currentModalQty = 1;
-        let cyclingInterval = null;
-        let currentShareTitle = "";
+        const allCountriesAndCodes = [
+            {name: "Bangladesh", dial: "+880", flag: "🇧🇩"}, {name: "United States", dial: "+1", flag: "🇺🇸"},
+            {name: "United Kingdom", dial: "+44", flag: "🇬🇧"}, {name: "Canada", dial: "+1", flag: "🇨🇦"},
+            {name: "United Arab Emirates", dial: "+971", flag: "🇦🇪"}, {name: "India", dial: "+91", flag: "🇮🇳"},
+            {name: "Australia", dial: "+61", flag: "🇦🇺"}, {name: "Saudi Arabia", dial: "+966", flag: "🇸🇦"},
+            {name: "Germany", dial: "+49", flag: "🇩🇪"}, {name: "Malaysia", dial: "+60", flag: "🇲🇾"},
+            {name: "Afghanistan", dial: "+93", flag: "🇦🇫"}, {name: "Albania", dial: "+355", flag: "🇦🇱"}, {name: "Algeria", dial: "+213", flag: "🇩🇿"}, {name: "Andorra", dial: "+376", flag: "🇦🇩"},
+            {name: "Angola", dial: "+244", flag: "🇦🇴"}, {name: "Argentina", dial: "+54", flag: "🇦🇷"}, {name: "Armenia", dial: "+374", flag: "🇦🇲"}, {name: "Austria", dial: "+43", flag: "🇦🇹"},
+            {name: "Azerbaijan", dial: "+994", flag: "🇦🇿"}, {name: "Bahrain", dial: "+973", flag: "🇧🇭"}, {name: "Belarus", dial: "+375", flag: "🇧🇾"}, {name: "Belgium", dial: "+32", flag: "🇧🇪"},
+            {name: "Belize", dial: "+501", flag: "🇧🇿"}, {name: "Benin", dial: "+229", flag: "🇧🇯"}, {name: "Bhutan", dial: "+975", flag: "🇧🇹"}, {name: "Bolivia", dial: "+591", flag: "🇧🇴"},
+            {name: "Bosnia and Herzegovina", dial: "+387", flag: "🇧🇦"}, {name: "Botswana", dial: "+267", flag: "🇧🇼"}, {name: "Brazil", dial: "+55", flag: "🇧🇷"}, {name: "Brunei", dial: "+673", flag: "🇧🇳"},
+            {name: "Bulgaria", dial: "+359", flag: "🇧🇬"}, {name: "Burkina Faso", dial: "+226", flag: "🇧🇫"}, {name: "Burundi", dial: "+257", flag: "🇧🇮"}, {name: "Cambodia", dial: "+855", flag: "🇰🇭"},
+            {name: "Cameroon", dial: "+237", flag: "🇨🇲"}, {name: "Cape Verde", dial: "+238", flag: "🇨🇻"}, {name: "Central African Republic", dial: "+236", flag: "🇨🇫"}, {name: "Chad", dial: "+235", flag: "🇹🇩"},
+            {name: "Chile", dial: "+56", flag: "🇨🇱"}, {name: "China", dial: "+86", flag: "🇨🇳"}, {name: "Colombia", dial: "+57", flag: "🇨🇴"}, {name: "Comoros", dial: "+269", flag: "🇰🇲"},
+            {name: "Congo", dial: "+242", flag: "🇨🇬"}, {name: "Costa Rica", dial: "+506", flag: "🇨🇷"}, {name: "Croatia", dial: "+385", flag: "🇭🇷"}, {name: "Cuba", dial: "+53", flag: "🇨🇺"},
+            {name: "Cyprus", dial: "+357", flag: "🇨🇾"}, {name: "Czech Republic", dial: "+420", flag: "🇨🇿"}, {name: "Denmark", dial: "+45", flag: "🇩🇰"}, {name: "Djibouti", dial: "+253", flag: "🇩🇯"},
+            {name: "Dominican Republic", dial: "+1809", flag: "🇩🇴"}, {name: "Ecuador", dial: "+593", flag: "🇪🇨"}, {name: "Egypt", dial: "+20", flag: "🇪🇬"}, {name: "El Salvador", dial: "+503", flag: "🇸🇻"},
+            {name: "Equatorial Guinea", dial: "+240", flag: "🇬🇶"}, {name: "Eritrea", dial: "+291", flag: "🇪🇷"}, {name: "Estonia", dial: "+372", flag: "🇪🇪"}, {name: "Eswatini", dial: "+268", flag: "🇸🇿"},
+            {name: "Ethiopia", dial: "+251", flag: "🇪🇹"}, {name: "Fiji", dial: "+679", flag: "🇫🇯"}, {name: "Finland", dial: "+358", flag: "🇫🇮"}, {name: "France", dial: "+33", flag: "🇫🇷"},
+            {name: "Gabon", dial: "+241", flag: "🇬🇦"}, {name: "Gambia", dial: "+220", flag: "🇬🇲"}, {name: "Georgia", dial: "+995", flag: "🇬🇪"}, {name: "Ghana", dial: "+233", flag: "🇬🇭"},
+            {name: "Greece", dial: "+30", flag: "🇬🇷"}, {name: "Guatemala", dial: "+502", flag: "🇬🇹"}, {name: "Guinea", dial: "+224", flag: "🇬🇳"}, {name: "Guyana", dial: "+592", flag: "🇬🇾"},
+            {name: "Haiti", dial: "+509", flag: "🇭🇹"}, {name: "Honduras", dial: "+504", flag: "🇭🇳"}, {name: "Hungary", dial: "+36", flag: "🇭🇺"}, {name: "Iceland", dial: "+354", flag: "🇮🇸"},
+            {name: "Indonesia", dial: "+62", flag: "🇮🇩"}, {name: "Iran", dial: "+98", flag: "🇮🇷"}, {name: "Iraq", dial: "+964", flag: "🇮🇶"}, {name: "Ireland", dial: "+353", flag: "🇮🇪"},
+            {name: "Israel", dial: "+972", flag: "🇮🇱"}, {name: "Italy", dial: "+39", flag: "🇮🇹"}, {name: "Jamaica", dial: "+1876", flag: "🇯🇲"}, {name: "Japan", dial: "+81", flag: "🇯🇵"},
+            {name: "Jordan", dial: "+962", flag: "🇯🇴"}, {name: "Kazakhstan", dial: "+7", flag: "🇰🇿"}, {name: "Kenya", dial: "+254", flag: "🇰🇪"}, {name: "Kuwait", dial: "+965", flag: "🇰🇼"},
+            {name: "Kyrgyzstan", dial: "+996", flag: "🇰🇬"}, {name: "Laos", dial: "+856", flag: "🇱🇦"}, {name: "Latvia", dial: "+371", flag: "🇱🇻"}, {name: "Lebanon", dial: "+961", flag: "🇱🇧"},
+            {name: "Lesotho", dial: "+266", flag: "🇱🇸"}, {name: "Liberia", dial: "+231", flag: "🇱🇷"}, {name: "Libya", dial: "+218", flag: "🇱🇾"}, {name: "Lithuania", dial: "+370", flag: "🇱🇹"},
+            {name: "Luxembourg", dial: "+352", flag: "🇱🇺"}, {name: "Madagascar", dial: "+261", flag: "🇲🇬"}, {name: "Malawi", dial: "+265", flag: "🇲🇼"}, {name: "Malaysia", dial: "+60", flag: "🇲🇾"},
+            {name: "Maldives", dial: "+960", flag: "🇲🇻"}, {name: "Mali", dial: "+223", flag: "🇲🇱"}, {name: "Malta", dial: "+356", flag: "🇲🇹"}, {name: "Mauritania", dial: "+222", flag: "🇲🇷"},
+            {name: "Mauritius", dial: "+230", flag: "🇲🇺"}, {name: "Mexico", dial: "+52", flag: "🇲🇽"}, {name: "Moldova", dial: "+373", flag: "🇲🇩"}, {name: "Monaco", dial: "+377", flag: "🇲🇨"},
+            {name: "Mongolia", dial: "+976", flag: "🇲🇳"}, {name: "Montenegro", dial: "+382", flag: "🇲🇪"}, {name: "Morocco", dial: "+212", flag: "🇲🇦"}, {name: "Mozambique", dial: "+258", flag: "🇲🇿"},
+            {name: "Myanmar", dial: "+95", flag: "🇲🇲"}, {name: "Namibia", dial: "+264", flag: "🇳🇦"}, {name: "Nepal", dial: "+977", flag: "🇳🇵"}, {name: "Netherlands", dial: "+31", flag: "🇳🇱"},
+            {name: "New Zealand", dial: "+64", flag: "🇳🇿"}, {name: "Nicaragua", dial: "+505", flag: "🇳🇮"}, {name: "Niger", dial: "+227", flag: "🇳🇪"}, {name: "Nigeria", dial: "+234", flag: "🇳🇬"},
+            {name: "North Korea", dial: "+850", flag: "🇰🇵"}, {name: "Norway", dial: "+47", flag: "🇳🇴"}, {name: "Oman", dial: "+968", flag: "🇴🇲"}, {name: "Pakistan", dial: "+92", flag: "🇵🇰"},
+            {name: "Palestine", dial: "+970", flag: "🇵🇸"}, {name: "Panama", dial: "+507", flag: "🇵🇦"}, {name: "Papua New Guinea", dial: "+675", flag: "🇵🇬"}, {name: "Paraguay", dial: "+595", flag: "🇵🇾"},
+            {name: "Peru", dial: "+51", flag: "🇵🇪"}, {name: "Philippines", dial: "+63", flag: "🇵🇭"}, {name: "Poland", dial: "+48", flag: "🇵🇱"}, {name: "Portugal", dial: "+351", flag: "🇵🇹"},
+            {name: "Qatar", dial: "+974", flag: "🇶🇦"}, {name: "Romania", dial: "+40", flag: "🇷🇴"}, {name: "Russia", dial: "+7", flag: "🇷🇺"}, {name: "Rwanda", dial: "+250", flag: "🇷🇼"},
+            {name: "Senegal", dial: "+221", flag: "🇸🇳"}, {name: "Serbia", dial: "+381", flag: "🇷🇸"}, {name: "Singapore", dial: "+65", flag: "🇸🇬"}, {name: "Slovakia", dial: "+421", flag: "🇸🇰"},
+            {name: "Slovenia", dial: "+386", flag: "🇸🇮"}, {name: "Somalia", dial: "+252", flag: "🇸🇴"}, {name: "South Africa", dial: "+27", flag: "🇿🇦"}, {name: "South Korea", dial: "+82", flag: "🇰🇷"},
+            {name: "Spain", dial: "+34", flag: "🇪🇸"}, {name: "Sri Lanka", dial: "+94", flag: "🇱🇰"}, {name: "Sudan", dial: "+249", flag: "🇸🇩"}, {name: "Sweden", dial: "+46", flag: "🇸🇪"},
+            {name: "Switzerland", dial: "+41", flag: "🇨🇭"}, {name: "Syria", dial: "+963", flag: "🇸🇾"}, {name: "Taiwan", dial: "+886", flag: "🇹🇼"}, {name: "Tajikistan", dial: "+992", flag: "🇹🇯"},
+            {name: "Tanzania", dial: "+255", flag: "🇹🇿"}, {name: "Thailand", dial: "+66", flag: "🇹🇭"}, {name: "Togo", dial: "+228", flag: "🇹🇬"}, {name: "Tunisia", dial: "+216", flag: "🇹🇳"}, {name: "Turkey", dial: "+90", flag: "🇹🇷"},
+            {name: "Turkmenistan", dial: "+993", flag: "🇹🇲"}, {name: "Uganda", dial: "+256", flag: "🇺🇬"}, {name: "Ukraine", dial: "+380", flag: "🇺🇦"}, {name: "Uruguay", dial: "+598", flag: "🇺🇾"},
+            {name: "Uzbekistan", dial: "+998", flag: "🇺🇿"}, {name: "Venezuela", dial: "+58", flag: "🇻🇪"}, {name: "Vietnam", dial: "+84", flag: "🇻🇳"}, {name: "Yemen", dial: "+967", flag: "🇾🇪"},
+            {name: "Zambia", dial: "+260", flag: "🇿🇲"}, {name: "Zimbabwe", dial: "+263", flag: "🇿🇼"}
+        ];
 
-        let currentAffiliateId = sessionStorage.getItem('mrmasudar_affiliate_id') || localStorage.getItem('mrmasudar_affiliate_id') || '';
-        let currentSellerId = sessionStorage.getItem('mrmasudar_seller_id') || localStorage.getItem('mrmasudar_seller_id') || 'SELLER-MR-DEFAULT';
+        if(!localStorage.getItem('mme_products_db')) {
+            localStorage.setItem('mme_products_db', JSON.stringify([
+                { id: '101', name: 'Product 101', status: 'Pending' },
+                { id: '102', name: 'Product 102', status: 'Confirmed' }
+            ]));
+        }
+        if(!localStorage.getItem('mme_withdrawals_db')) {
+            localStorage.setItem('mme_withdrawals_db', JSON.stringify([]));
+        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchCartCountFromFirebase();
-            loadCombinedProducts();
+        document.addEventListener("DOMContentLoaded", function() {
+            const countrySelect = document.getElementById('regCountrySelect');
+            const dialSelect = document.getElementById('regDialCodeSelect');
+            if(countrySelect && dialSelect) {
+                allCountriesAndCodes.forEach(c => {
+                    let opt1 = document.createElement('option');
+                    opt1.value = c.name; opt1.textContent = c.flag + " " + c.name;
+                    countrySelect.appendChild(opt1);
+
+                    let opt2 = document.createElement('option');
+                    opt2.value = c.dial; opt2.textContent = c.flag + " " + c.dial;
+                    if(c.name === "Bangladesh") opt2.selected = true;
+                    dialSelect.appendChild(opt2);
+                });
+            }
+
+            document.getElementById('googleVerifyBtn').addEventListener('click', googleVerifyAndOpenForm);
+            document.getElementById('closeFormBtn').addEventListener('click', skipFormToDashboard);
+            document.getElementById('completeRegBtn').addEventListener('click', completeAffiliateRegistration);
+            document.getElementById('closeSettingsModalBtn').addEventListener('click', closeSettingsModal);
+
+            let savedUserJson = localStorage.getItem('mme_active_user_data');
+            if(savedUserJson) {
+                try {
+                    window.currentUserData = JSON.parse(savedUserJson);
+                    renderDashboard(window.currentUserData);
+                } catch(e) {}
+            }
         });
 
-        function showCustomToast(msg) {
-            let toast = document.getElementById('customToast');
-            toast.innerText = msg;
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2200);
+        function showToast(msg) {
+            let t = document.getElementById('customToast');
+            if(!t) return;
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 2000);
         }
 
-        function getDynamicProductStats(productId) {
-            let storageKeyViews = `mme_views_${productId}`;
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-
-            let views = parseInt(localStorage.getItem(storageKeyViews));
-            if(!views) {
-                views = Math.floor(2000 + Math.random() * 1500);
-                localStorage.setItem(storageKeyViews, views);
-            } else {
-                if(Math.random() > 0.5) {
-                    views += Math.floor(1 + Math.random() * 5);
-                    localStorage.setItem(storageKeyViews, views);
+        function googleVerifyAndOpenForm() {
+            let savedUserJson = localStorage.getItem('mme_active_user_data');
+            if(savedUserJson) {
+                try {
+                    window.currentUserData = JSON.parse(savedUserJson);
+                    renderDashboard(window.currentUserData);
+                    showToast("Verified Successfully!");
+                    return;
+                } catch(e) {
+                    localStorage.removeItem('mme_active_user_data');
                 }
             }
 
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(300 + Math.random() * 200);
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-            let isLiked = (Date.now() - likedTime) < 86400000;
-
-            return { views, likes, isLiked };
+            document.getElementById('entranceCard').style.display = 'none';
+            document.getElementById('formSection').style.display = 'block';
+            document.getElementById('email').value = "masudar142251@gmail.com";
+            document.getElementById('fullName').value = "MD MASUDAR RAHMAN";
+            showToast("Google Verified! Complete registration.");
         }
 
-        function toggleProductLike(productId, el) {
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-            if((Date.now() - likedTime) < 86400000) return;
-
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 300;
-            likes += 1;
-            localStorage.setItem(storageKeyLikes, likes);
-            localStorage.setItem(storageKeyLikedByMe, Date.now());
-
-            let span = el.querySelector('span');
-            if(span) span.innerText = likes;
-            el.classList.add('liked');
-            showCustomToast("Product liked successfully!");
-        }
-
-        function openCategoryModal(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('categoryModalOverlay').style.display = 'flex';
-        }
-
-        function closeCategoryModal(e) {
-            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
-        }
-
-        function selectCategory(cat) {
-            document.getElementById('categoryModalOverlay').style.display = 'none';
-            let all = getAllProducts();
-            if(cat === 'All') loadCombinedProducts(all);
-            else loadCombinedProducts(all.filter(p => p.category === cat));
-        }
-
-        function openEcosystemPage(url, element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            if(element) element.classList.add('active');
-            document.getElementById('ecosystemIframe').src = url;
-            document.getElementById('ecosystemModal').style.display = 'flex';
-        }
-
-        function closeEcosystemModal() {
-            document.getElementById('ecosystemModal').style.display = 'none';
-            document.getElementById('ecosystemIframe').src = '';
-            document.getElementById('itemNavBtn').classList.add('active');
-        }
-
-        function getAllProducts() {
-            let defaultProds = [
-                {
-                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
-                    category: "👗 FASHION (WOMEN)",
-                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: [
-                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
-                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
-                    ],
-                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
-                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "mme-fashion-01",
-                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
-                    sizes: ["XS", "S", "M", "L", "XL"]
-                }
-            ];
-
-            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
-            sellers.forEach(s => {
-                if(s.uploadedProducts) {
-                    s.uploadedProducts.forEach((p, i) => {
-                        let cleanVid = "";
-                        if(p.videoUrl && p.videoUrl.trim() !== "") {
-                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
-                            let videoIdMatch = rawBase.split('/').pop();
-                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
-                        }
-                        defaultProds.push({
-                            id: 'v-' + s.id + '-' + i,
-                            sellerId: s.id,
-                            title: p.title || p.name || "Exclusive Item",
-                            price: p.global || '$35.00',
-                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
-                            category: p.category || '👗 FASHION (WOMEN)',
-                            videoUrl: cleanVid,
-                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive premium collection.',
-                            stock: p.stock || 'In Stock',
-                            packaging: p.packaging || 'Secure Box',
-                            quantity: p.quantity || '1 Unit',
-                            sku: (p.sku || `mme-ven-${s.id}-${i}`).toLowerCase(),
-                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
-                            sizes: p.sizes || ["Standard", "Large"]
-                        });
-                    });
-                }
-            });
-            return defaultProds;
-        }
-
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        function skipFormToDashboard() {
+            let savedUserJson = localStorage.getItem('mme_active_user_data');
+            if(savedUserJson) {
+                try {
+                    window.currentUserData = JSON.parse(savedUserJson);
+                    renderDashboard(window.currentUserData);
+                    return;
+                } catch(e) {}
             }
-            return array;
+
+            let defaultPartner = {
+                id: "135121", name: "MD MASUDAR RAHMAN", email: "masudar142251@gmail.com", 
+                country: "🇧🇩 Bangladesh", whatsapp: "+8801767319670",
+                clicks: 142, totalProductsSold: 8, availableBalance: 45.00, 
+                payoutType: 'bKash', payoutAccount: '01767319670', tfaEnabled: true
+            };
+            localStorage.setItem('mme_active_user_data', JSON.stringify(defaultPartner));
+            renderDashboard(defaultPartner);
+            showToast("Entered Dashboard Successfully!");
         }
 
-        function loadCombinedProducts(list = getAllProducts()) {
-            let randomizedList = shuffleArray([...list]);
-            const feed = document.getElementById('productFeed');
-            if(!feed) return;
-            feed.innerHTML = "";
+        function completeAffiliateRegistration() {
+            let name = document.getElementById('fullName').value.trim();
+            let email = document.getElementById('email').value.trim();
+            let countryName = document.getElementById('regCountrySelect').value;
+            let waCode = document.getElementById('regDialCodeSelect').value;
+            let waNum = document.getElementById('whatsapp').value.trim();
 
-            randomizedList.forEach(item => {
-                let stats = getDynamicProductStats(item.id);
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                
-                let mediaContent = "";
-                if (item.videoUrl && item.videoUrl.trim() !== "") {
-                    mediaContent = `
-                        <div class="video-wrapper">
-                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
-                        </div>
-                    `;
-                } else {
-                    mediaContent = `
-                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
-                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    ${mediaContent}
-                    <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
-                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
-                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
-                    </div>
-                `;
-                feed.appendChild(card);
-            });
-        }
-        window.loadCombinedProducts = loadCombinedProducts;
-
-        function openShareModal(title) {
-            currentShareTitle = title;
-            let currentUrl = window.location.href.split('?')[0];
-            let refQuery = currentAffiliateId ? `?ref=${currentAffiliateId}` : '';
-            if(currentSellerId && currentSellerId !== 'SELLER-MR-DEFAULT') {
-                refQuery += refQuery ? `&seller=${currentSellerId}` : `?seller=${currentSellerId}`;
+            if(!name || !email || !waNum) {
+                alert("Please fill in all mandatory fields.");
+                return;
             }
-            document.getElementById('shareLinkInput').value = currentUrl + refQuery;
-            document.getElementById('shareModalOverlay').style.display = 'flex';
-        }
 
-        function closeShareModal(e) {
-            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
-        }
+            let matchObj = allCountriesAndCodes.find(c => c.name === countryName);
+            let flagIcon = matchObj ? matchObj.flag : '🇧🇩';
 
-        function copyShareLink() {
-            let input = document.getElementById('shareLinkInput');
-            input.select();
-            navigator.clipboard.writeText(input.value);
-            showCustomToast("Affiliate referral link copied successfully!");
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function shareToPlatform(platform) {
-            let linkVal = document.getElementById('shareLinkInput').value;
-            let url = encodeURIComponent(linkVal);
-            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on mrmasudar.com 🌟`);
-            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
-            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            window.open(targetUrl, '_blank');
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function startSequentialAnimation() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            const items = document.querySelectorAll('.cycling-content-item');
-            let currentIndex = 0;
-            
-            items.forEach(el => el.classList.remove('active'));
-            items[0].classList.add('active');
-
-            cyclingInterval = setInterval(() => {
-                items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add('active');
-            }, 2200);
-        }
-
-        function openProductModal(id) {
-            let product = getAllProducts().find(p => p.id == id);
-            if(!product) return;
-            activeCurrentProduct = product;
-            currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
-
-            let stats = getDynamicProductStats(product.id);
-            document.getElementById('modalViewCount').innerText = stats.views;
-            document.getElementById('modalLikeCount').innerText = stats.likes;
-            let likeBtnItem = document.getElementById('modalLikeBtnItem');
-            if(stats.isLiked) likeBtnItem.classList.add('liked');
-            else likeBtnItem.classList.remove('liked');
-            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
-
-            document.getElementById('modalShareBtnItem').onclick = () => {
-                document.getElementById('productModal').style.display = 'none';
-                openShareModal(product.title);
+            let affiliateId = Math.floor(100000 + Math.random() * 900000).toString();
+            let partner = {
+                id: affiliateId, name, email, country: `${flagIcon} ${countryName}`, whatsapp: waCode + waNum,
+                clicks: 0, totalProductsSold: 0, availableBalance: 0.00, 
+                payoutType: 'bKash', payoutAccount: '', tfaEnabled: false
             };
 
-            document.getElementById('modalTitle').innerText = product.title;
-            document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalDesc').innerText = product.desc;
-            document.getElementById('specStock').innerText = product.stock || "Available";
-            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
+            localStorage.setItem('mme_active_session', affiliateId);
+            localStorage.setItem('mme_active_user_data', JSON.stringify(partner));
 
-            const slider = document.getElementById('modalMediaSlider');
-            const thumbs = document.getElementById('modalThumbsRow');
-            
-            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
-
-            const colorBox = document.getElementById('modalColorCirclesInline');
-            const colorItemBox = document.getElementById('cyclingColorItemBox');
-            if(product.colors && product.colors.length > 0) {
-                colorItemBox.style.display = 'flex';
-                selectedColor = product.colors[0];
-                colorBox.innerHTML = product.colors.map((c, idx) => `
-                    <span class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></span>
-                `).join('');
-            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
-
-            const sizeBox = document.getElementById('modalSizePillsInline');
-            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
-            if(product.sizes && product.sizes.length > 0) {
-                sizeItemBox.style.display = 'flex';
-                selectedSize = product.sizes[0];
-                sizeBox.innerHTML = product.sizes.map((s, idx) => `
-                    <span class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</span>
-                `).join('');
-            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
-
-            document.getElementById('productModal').style.display = 'flex';
-            startSequentialAnimation();
+            renderDashboard(partner);
+            showToast("Registration Complete!");
         }
 
-        function switchSlide(idx) {
-            let slideEl = document.getElementById(`slide-${idx}`);
-            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
-                if(i === idx) t.classList.add('active');
-                else t.classList.remove('active');
+        function renderDashboard(user) {
+            window.currentUserData = user;
+            document.body.classList.add('dashboard-active');
+            document.getElementById('entranceCard').style.display = 'none';
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+
+            let currentBalance = user.availableBalance !== undefined ? user.availableBalance : 0.00;
+            let productsDb = JSON.parse(localStorage.getItem('mme_products_db')) || [];
+
+            let tableRowsHtml = '';
+            productsDb.forEach(prod => {
+                let iconHtml = prod.status === 'Confirmed' ? '<i class="fa-solid fa-circle-check"></i>' : (prod.status === 'Cancelled' ? '<i class="fa-solid fa-circle-xmark"></i>' : '<i class="fa-solid fa-clock"></i>');
+                
+                let pendingCol = prod.status === 'Pending' ? `<span class="badge-pending">${iconHtml}</span>` : '-';
+                let confirmedCol = prod.status === 'Confirmed' ? `<span class="badge-confirmed">${iconHtml}</span>` : '-';
+                if(prod.status === 'Cancelled') {
+                    pendingCol = `<span class="badge-cancelled">${iconHtml}</span>`;
+                }
+
+                tableRowsHtml += `
+                    <tr>
+                        <td><span class="product-link-anchor" onclick="openProductPreview('${prod.id}', '${prod.status}')">mrmasudar.com/product/${prod.id}?ref=${user.id}</span></td>
+                        <td class="text-center">${pendingCol}</td>
+                        <td class="text-center">${confirmedCol}</td>
+                    </tr>
+                `;
             });
+
+            let dashHtml = `
+                <div class="dash-top-bar">
+                    <div>
+                        <h3 style="background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin:0; font-family:var(--font-luxury); font-size:0.92rem;">${user.name}</h3>
+                        <span style="font-size:0.52rem; color:var(--text-gray);">ID: ${user.id} | ${user.country} | 10% Commission</span>
+                    </div>
+                    <div style="display:flex; gap:6px; align-items:center;">
+                        <button class="settings-gear-icon" onclick="openSettingsModal('profile')" title="Settings Hub" type="button"><i class="fa-solid fa-gear"></i></button>
+                        <button onclick="logoutSession()" type="button" style="background:none; border:none; color:var(--text-gray); cursor:pointer; font-size:0.58rem; text-decoration:underline;">Sign Out</button>
+                    </div>
+                </div>
+
+                <div class="dash-stats-grid">
+                    <div class="dash-stat-box">
+                        <span>Total Revenue</span>
+                        <span class="number">$${currentBalance.toFixed(2)}</span>
+                    </div>
+                    <div class="dash-stat-box">
+                        <span>Products Sold</span>
+                        <span class="number">${user.totalProductsSold || 0}</span>
+                    </div>
+                    <div class="dash-stat-box">
+                        <span>Active Clicks</span>
+                        <span class="number">${user.clicks || 0}</span>
+                    </div>
+                    <div class="dash-stat-box">
+                        <span>Available Payout</span>
+                        <span class="number" id="availableBalanceDisplay">$${currentBalance.toFixed(2)}</span>
+                    </div>
+                </div>
+
+                <div class="animated-graph-box">
+                    <div class="graph-header-flex">
+                        <span style="font-size:0.6rem; color:var(--gold-solid); text-transform:uppercase; font-weight:700; font-family:var(--font-luxury);"><i class="fa-solid fa-chart-line"></i> Analytics</span>
+                        <select class="graph-filter-select" onchange="updateGraphData(this.value)">
+                            <option value="7d">Last 7 Days</option>
+                            <option value="1m">Last 1 Month</option>
+                            <option value="1y">Last 1 Year</option>
+                        </select>
+                    </div>
+                    <div class="graph-bars" id="graphContainerBars">
+                        <div class="bar-col"><div class="bar" style="height: 14px;"></div><span class="bar-label">Mon</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 25px;"></div><span class="bar-label">Tue</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 18px;"></div><span class="bar-label">Wed</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 32px;"></div><span class="bar-label">Thu</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 45px;"></div><span class="bar-label">Fri</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 28px;"></div><span class="bar-label">Sat</span></div>
+                        <div class="bar-col"><div class="bar" style="height: 38px;"></div><span class="bar-label">Sun</span></div>
+                    </div>
+                </div>
+
+                <div class="sheet-table-wrapper">
+                    <table class="sheet-table">
+                        <thead>
+                            <tr>
+                                <th>Product Link</th>
+                                <th class="text-center">Pending</th>
+                                <th class="text-center">Confirmed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRowsHtml}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="withdraw-flex">
+                    <div style="display:flex; gap:6px; align-items:center; width:100%;">
+                        <input type="number" id="withdrawAmountInput" placeholder="Amount ($)" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:6px 8px; color:#fff; border-radius:5px; font-size:0.65rem; width:110px; outline:none;">
+                        <button class="apply-btn" type="button" style="padding:6px 14px; font-size:0.6rem;" onclick="requestWithdrawal()">Withdraw</button>
+                    </div>
+                    <span style="font-size:0.55rem; color:var(--text-gray);">Method: <b style="color:var(--gold-solid);">${user.payoutType || 'bKash'}</b></span>
+                </div>
+            `;
+            document.getElementById('partnerWelcomeBox').innerHTML = dashHtml;
         }
 
-        function selectModalColor(cVal, el) {
-            selectedColor = cVal;
-            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
+        function openAdminLoginModal() {
+            let content = `
+                <h3 style="font-family:var(--font-luxury); background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:0.95rem; margin-bottom:10px; text-align:center;"><i class="fa-solid fa-shield-halved"></i> Admin Secure Login</h3>
+                <div style="margin-bottom:8px;">
+                    <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;">Admin Passcode:</label>
+                    <input type="password" id="adminPassInput" placeholder="Enter security passcode" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem;">
+                </div>
+                <div style="text-align:center; margin-top:12px;">
+                    <button onclick="verifyAdminLogin()" type="button" class="apply-btn" style="padding:6px 18px; font-size:0.65rem;">Access Admin Hub</button>
+                </div>
+            `;
+            document.getElementById('adminModalContent').innerHTML = content;
+            document.getElementById('adminModalOverlay').style.display = 'flex';
         }
 
-        function selectModalSize(sVal, el) {
-            selectedSize = sVal;
-            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
+        function verifyAdminLogin() {
+            let pass = document.getElementById('adminPassInput').value.trim();
+            if(pass === "admin123" || pass === "masudar123") {
+                renderAdminDashboard();
+                showToast("Admin Verified Successfully!");
+            } else {
+                alert("Incorrect Passcode! (Try: admin123)");
+            }
         }
 
-        function updateModalQuantity(change) {
-            currentModalQty += change;
-            if(currentModalQty < 1) currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
+        function renderAdminDashboard() {
+            let products = JSON.parse(localStorage.getItem('mme_products_db')) || [];
+            let withdrawals = JSON.parse(localStorage.getItem('mme_withdrawals_db')) || [];
+            let currentUser = window.currentUserData || {name: "MD Masudar Rahman", id: "135121", availableBalance: 45.00, payoutType: "bKash", payoutAccount: "01767319670"};
+
+            let prodTableRows = '';
+            products.forEach((p, idx) => {
+                prodTableRows += `
+                    <tr>
+                        <td>#${p.id} (${p.name})</td>
+                        <td class="text-center"><b>${p.status}</b></td>
+                        <td class="text-center">
+                            <button class="admin-action-btn btn-approve" onclick="adminChangeStatus(${idx}, 'Confirmed')">Approve</button>
+                            <button class="admin-action-btn btn-cancel" onclick="adminChangeStatus(${idx}, 'Cancelled')">Cancel</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            let withdrawRows = '';
+            if(withdrawals.length === 0) {
+                withdrawals = [{id: currentUser.id, name: currentUser.name, amount: 45.00, method: currentUser.payoutType || 'bKash', account: currentUser.payoutAccount || '01767319670', status: 'Pending'}];
+                localStorage.setItem('mme_withdrawals_db', JSON.stringify(withdrawals));
+            }
+
+            withdrawals.forEach((w, idx) => {
+                let statusColor = w.status === 'Paid' ? '#2ecc71' : '#f39c12';
+                withdrawRows += `
+                    <tr>
+                        <td><b>${w.name}</b> (ID: ${w.id})</td>
+                        <td>$${w.amount.toFixed(2)} (${w.method}: ${w.account})</td>
+                        <td class="text-center" style="color:${statusColor}; font-weight:700;">${w.status}</td>
+                        <td class="text-center">
+                            ${w.status === 'Pending' ? `<button class="admin-action-btn btn-pay" onclick="adminMarkPaid(${idx})">Mark Paid</button>` : 'Completed'}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            let adminHtml = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid rgba(212,175,55,0.2); padding-bottom:6px;">
+                    <h3 style="font-family:var(--font-luxury); background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:0.9rem;"><i class="fa-solid fa-user-shield"></i> Master Admin Control</h3>
+                    <button onclick="closeAdminModal()" type="button" style="background:none; border:none; color:var(--text-gray); font-size:0.6rem; cursor:pointer;">Close</button>
+                </div>
+
+                <p style="font-size:0.6rem; color:var(--gold-solid); margin-bottom:6px; font-weight:700;">1. Product Status & Approvals</p>
+                <div class="sheet-table-wrapper" style="max-height:110px; margin-bottom:10px;">
+                    <table class="sheet-table">
+                        <thead><tr><th>Product</th><th class="text-center">Status</th><th class="text-center">Action</th></tr></thead>
+                        <tbody>${prodTableRows}</tbody>
+                    </table>
+                </div>
+
+                <p style="font-size:0.6rem; color:var(--gold-solid); margin-bottom:6px; font-weight:700;">2. Affiliate Withdrawal Requests & Payouts</p>
+                <div class="sheet-table-wrapper" style="max-height:130px;">
+                    <table class="sheet-table">
+                        <thead><tr><th>Affiliate</th><th>Details</th><th class="text-center">Status</th><th class="text-center">Action</th></tr></thead>
+                        <tbody>${withdrawRows}</tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('adminModalContent').innerHTML = adminHtml;
+            document.getElementById('adminModalOverlay').style.display = 'flex';
+        }
+
+        function adminChangeStatus(index, newStatus) {
+            let products = JSON.parse(localStorage.getItem('mme_products_db')) || [];
+            if(products[index]) {
+                products[index].status = newStatus;
+                localStorage.setItem('mme_products_db', JSON.stringify(products));
+                renderAdminDashboard();
+                if(window.currentUserData) renderDashboard(window.currentUserData);
+                showToast(`Product status updated to ${newStatus}`);
+            }
+        }
+
+        function adminMarkPaid(index) {
+            let withdrawals = JSON.parse(localStorage.getItem('mme_withdrawals_db')) || [];
+            if(withdrawals[index]) {
+                withdrawals[index].status = 'Paid';
+                localStorage.setItem('mme_withdrawals_db', JSON.stringify(withdrawals));
+                
+                if(window.currentUserData) {
+                    window.currentUserData.availableBalance = Math.max(0, window.currentUserData.availableBalance - withdrawals[index].amount);
+                    localStorage.setItem('mme_active_user_data', JSON.stringify(window.currentUserData));
+                    renderDashboard(window.currentUserData);
+                }
+
+                renderAdminDashboard();
+                showToast("Payout Marked as Paid & Synced!");
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').style.display = 'none';
+        }
+
+        function openProductPreview(productId, status) {
+            let modalBody = document.getElementById('productModalBody');
+            let statusBadge = status === 'Confirmed' ? '<span class="badge-confirmed"><i class="fa-solid fa-circle-check"></i> Confirmed</span>' : (status === 'Cancelled' ? '<span class="badge-cancelled"><i class="fa-solid fa-circle-xmark"></i> Cancelled</span>' : '<span class="badge-pending"><i class="fa-solid fa-clock"></i> Pending</span>');
+            
+            modalBody.innerHTML = `
+                <div style="padding: 8px 0;">
+                    <p style="font-size: 0.68rem; color: var(--text-gray); margin-bottom: 5px;">Product ID: <b>#${productId}</b></p>
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #fff; margin-bottom: 10px;">MR Masudar Enterprise Product</p>
+                    <div style="margin-bottom: 10px;">Status: ${statusBadge}</div>
+                    <p style="font-size: 0.6rem; color: var(--gold-solid);">Link: https://mrmasudar.com/product/${productId}</p>
+                </div>
+            `;
+            document.getElementById('productModalOverlay').style.display = 'flex';
         }
 
         function closeProductModal() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            document.getElementById('productModal').style.display = 'none';
+            document.getElementById('productModalOverlay').style.display = 'none';
         }
 
-        function playHeavyLuxuryCoinSound() {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880.00, audioCtx.currentTime + 0.15);
-                
-                gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.55);
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.55);
-            } catch(e) {}
+        function openSettingsModal(tabName = 'profile') {
+            switchSettingsTab(tabName);
+            document.getElementById('settingsModalOverlay').style.display = 'flex';
         }
 
-        async function addToCartWithFirebase(buttonEl) {
-            if(!activeCurrentProduct) return;
-            
-            let cartItem = {
-                productId: activeCurrentProduct.id,
-                sellerId: activeCurrentProduct.sellerId || currentSellerId,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId || 'direct',
-                timestamp: new Date().toISOString()
-            };
+        function closeSettingsModal() {
+            document.getElementById('settingsModalOverlay').style.display = 'none';
+        }
 
-            let badge = document.getElementById('cartCount');
-            let currentCount = parseInt(localStorage.getItem('mme_cart_count') || badge.innerText || '0') + currentModalQty;
-            localStorage.setItem('mme_cart_count', currentCount);
-            if(badge) badge.innerText = currentCount;
-
-            try {
-                if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
-                    await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
-                    if(typeof window.fetchCartCountFromFirebase === 'function') {
-                        window.fetchCartCountFromFirebase();
-                    }
+        function switchSettingsTab(tab, btnElem) {
+            if(btnElem) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btnElem.classList.add('active');
+            } else {
+                let btns = document.querySelectorAll('.tab-btn');
+                if(btns.length >= 3) {
+                    if(tab === 'profile') btns[0].classList.add('active');
+                    if(tab === 'payment') btns[1].classList.add('active');
+                    if(tab === 'security') btns[2].classList.add('active');
                 }
-            } catch(e) {}
-
-            closeProductModal();
-            playFlyingCoinAnimation(buttonEl);
-            showCustomToast("Product added to cart successfully!");
-        }
-
-        function playFlyingCoinAnimation(buttonEl) {
-            try {
-                let btnRect = buttonEl.getBoundingClientRect();
-                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
-                
-                let coin = document.createElement('div');
-                coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
-                document.body.appendChild(coin);
-
-                setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
-                    coin.style.transform = 'scale(0.35) rotate(1080deg)';
-                    coin.style.opacity = '0.3';
-                }, 40);
-
-                setTimeout(() => {
-                    coin.remove();
-                    playHeavyLuxuryCoinSound();
-                    let cartEl = document.getElementById('floatingCart');
-                    cartEl.classList.add('cart-zoom-anim');
-                    setTimeout(() => cartEl.classList.remove('cart-zoom-anim'), 500);
-                }, 950);
-            } catch(e) {}
-        }
-
-        async function handleCartClick() {
-            if(typeof window.fetchCartCountFromFirebase === 'function') {
-                await window.fetchCartCountFromFirebase();
             }
-            let checkoutUrl = "https://out.mrmasudar.com";
-            let params = [];
-            if(currentSellerId) params.push(`seller=${currentSellerId}`);
-            if(currentAffiliateId) params.push(`ref=${currentAffiliateId}`);
-            if(params.length > 0) checkoutUrl += `?${params.join('&')}`;
 
-            window.location.href = checkoutUrl;
-        }
+            let user = window.currentUserData;
+            let contentHtml = '';
 
-        function performSearchSubmit() {
-            let q = document.getElementById('searchInput').value.toLowerCase();
-            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
-        }
-        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
+            if(tab === 'profile') {
+                contentHtml = `
+                    <div style="margin-bottom:8px;">
+                        <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;">Full Legal Name:</label>
+                        <input type="text" id="editName" value="${user.name}" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem;">
+                    </div>
+                    <div style="margin-bottom:8px;">
+                        <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;">Gmail Address:</label>
+                        <input type="email" id="editEmail" value="${user.email}" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem;">
+                    </div>
+                    <div style="margin-bottom:8px;">
+                        <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;">WhatsApp Number:</label>
+                        <input type="text" id="editWhatsapp" value="${user.whatsapp || ''}" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem;">
+                    </div>
+                    <div style="text-align:right; margin-top:10px;">
+                        <button onclick="saveProfileChanges()" type="button" class="apply-btn" style="padding:6px 16px; font-size:0.65rem;">Save Profile</button>
+                    </div>
+                `;
+            } else if(tab === 'payment') {
+                let currentMethod = user.payoutType || 'bKash';
+                let isPayoneer = currentMethod === 'Payoneer';
+                let labelText = isPayoneer ? 'Payoneer Email Address:' : 'bKash Account Number:';
+                let placeholderText = isPayoneer ? 'Enter Payoneer email' : 'Enter 11-digit bKash';
 
-        function triggerCameraAuto() {
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                let file = e.target.files[0];
-                if(file) {
-                    showCustomToast("Visual image uploaded for product source inquiry!");
+                contentHtml = `
+                    <div style="margin-bottom:8px;">
+                        <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;">Payment Method:</label>
+                        <select id="editPayoutType" onchange="onPaymentMethodChange(this.value)" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem; margin-bottom:6px;">
+                            <option value="bKash" ${!isPayoneer ? 'selected' : ''}>bKash</option>
+                            <option value="Payoneer" ${isPayoneer ? 'selected' : ''}>Payoneer</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label style="font-size:0.58rem; color:var(--gold-solid); display:block; margin-bottom:3px;" id="payoutInputLabel">${labelText}</label>
+                        <input type="text" id="editPayoutAccount" value="${user.payoutAccount || ''}" placeholder="${placeholderText}" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:7px; color:#fff; width:100%; border-radius:6px; font-size:0.7rem;">
+                    </div>
+                    <div style="text-align:right; margin-top:10px;">
+                        <button onclick="savePaymentChanges()" type="button" class="apply-btn" style="padding:6px 16px; font-size:0.65rem;">Save Payment</button>
+                    </div>
+                `;
+            } else if(tab === 'security') {
+                if (user.tfaEnabled) {
+                    contentHtml = `
+                        <div style="text-align:center; padding:15px 0;">
+                            <div style="font-size: 2rem; color: #2ecc71; margin-bottom: 6px;"><i class="fa-solid fa-circle-check"></i></div>
+                            <p style="font-size:0.75rem; color:var(--text-white); font-weight:700; margin-bottom:4px;">2FA Secured & Verified</p>
+                            <p style="font-size:0.6rem; color:var(--text-gray);">Account protected with Google Authenticator.</p>
+                        </div>
+                    `;
+                } else {
+                    contentHtml = `
+                        <div style="text-align:center; padding:4px 0;">
+                            <p style="font-size:0.62rem; color:#f39c12; font-weight:700; margin-bottom:6px;">Status: Disabled (Required for Payouts)</p>
+                            <div style="background:#fff; padding:6px; width:110px; height:110px; margin:0 auto 6px auto; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=otpauth://totp/MRMASUDAR:${user.email}?secret=JBSWY3DPEHPK3PXP&issuer=MRMASUDAR" alt="2FA QR" style="width:100px; height:100px;">
+                            </div>
+                            <div style="font-size:0.58rem; color:var(--gold-solid); margin-bottom:8px;">Key: <b>JBSWY3DPEHPK3PXP</b></div>
+                            <div style="max-width:220px; margin:0 auto 8px auto;">
+                                <input type="text" id="tfaCodeInput" placeholder="Enter 6-digit Code" style="background:#000; border:1px solid rgba(212,175,55,0.3); padding:6px; color:#fff; width:100%; text-align:center; border-radius:5px; font-size:0.7rem; letter-spacing:2px;">
+                            </div>
+                            <button onclick="verifyAndEnable2FA()" type="button" class="apply-btn" style="padding:6px 16px; font-size:0.62rem;">Verify & Enable</button>
+                        </div>
+                    `;
                 }
-            };
-            input.click();
+            }
+
+            document.getElementById('settingsTabContent').innerHTML = contentHtml;
+        }
+
+        function onPaymentMethodChange(val) {
+            let labelElem = document.getElementById('payoutInputLabel');
+            let inputElem = document.getElementById('editPayoutAccount');
+            if(val === 'Payoneer') {
+                labelElem.innerText = 'Payoneer Email Address:';
+                inputElem.placeholder = 'Enter Payoneer email';
+            } else {
+                labelElem.innerText = 'bKash Account Number:';
+                inputElem.placeholder = 'Enter 11-digit bKash';
+            }
+        }
+
+        function saveProfileChanges() {
+            if(window.currentUserData) {
+                window.currentUserData.name = document.getElementById('editName').value;
+                window.currentUserData.email = document.getElementById('editEmail').value;
+                window.currentUserData.whatsapp = document.getElementById('editWhatsapp').value;
+
+                localStorage.setItem('mme_active_user_data', JSON.stringify(window.currentUserData));
+                renderDashboard(window.currentUserData);
+                showToast("Profile Updated");
+            }
+        }
+
+        function savePaymentChanges() {
+            let type = document.getElementById('editPayoutType').value;
+            let account = document.getElementById('editPayoutAccount').value.trim();
+
+            if(!account) {
+                alert("Please enter a valid payout account.");
+                return;
+            }
+
+            if(window.currentUserData) {
+                window.currentUserData.payoutType = type;
+                window.currentUserData.payoutAccount = account;
+
+                localStorage.setItem('mme_active_user_data', JSON.stringify(window.currentUserData));
+                renderDashboard(window.currentUserData);
+                document.getElementById('settingsModalOverlay').style.display = 'none';
+                showToast("Payment Saved");
+            }
+        }
+
+        function verifyAndEnable2FA() {
+            let code = document.getElementById('tfaCodeInput').value.trim();
+            if(code.length !== 6) {
+                alert("Please enter valid 6-digit code.");
+                return;
+            }
+            if(window.currentUserData) {
+                window.currentUserData.tfaEnabled = true;
+                localStorage.setItem('mme_active_user_data', JSON.stringify(window.currentUserData));
+                showToast("2FA Enabled Successfully");
+                switchSettingsTab('security');
+            }
+        }
+
+        function updateGraphData(period) {
+            let container = document.getElementById('graphContainerBars');
+            if(period === '7d') {
+                container.innerHTML = `
+                    <div class="bar-col"><div class="bar" style="height: 14px;"></div><span class="bar-label">Mon</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 25px;"></div><span class="bar-label">Tue</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 18px;"></div><span class="bar-label">Wed</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 32px;"></div><span class="bar-label">Thu</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 45px;"></div><span class="bar-label">Fri</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 28px;"></div><span class="bar-label">Sat</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 38px;"></div><span class="bar-label">Sun</span></div>
+                `;
+            } else if(period === '1m') {
+                container.innerHTML = `
+                    <div class="bar-col"><div class="bar" style="height: 22px;"></div><span class="bar-label">W1</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 40px;"></div><span class="bar-label">W2</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 30px;"></div><span class="bar-label">W3</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 50px;"></div><span class="bar-label">W4</span></div>
+                `;
+            } else if(period === '1y') {
+                container.innerHTML = `
+                    <div class="bar-col"><div class="bar" style="height: 30px;"></div><span class="bar-label">Q1</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 42px;"></div><span class="bar-label">Q2</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 55px;"></div><span class="bar-label">Q3</span></div>
+                    <div class="bar-col"><div class="bar" style="height: 48px;"></div><span class="bar-label">Q4</span></div>
+                `;
+            }
+            showToast("Analytics updated");
+        }
+
+        function requestWithdrawal() {
+            let user = window.currentUserData;
+            let amt = parseFloat(document.getElementById('withdrawAmountInput').value);
+
+            if(!user.payoutType || !user.payoutAccount) {
+                alert("Please complete Payment Setup in Settings.");
+                openSettingsModal('payment');
+                return;
+            }
+            if(!user.tfaEnabled) {
+                alert("Please enable 2FA Security in Settings.");
+                openSettingsModal('security');
+                return;
+            }
+            if(isNaN(amt) || amt <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+            if(amt > user.availableBalance) {
+                alert("Insufficient balance for withdrawal.");
+                return;
+            }
+
+            let withdrawals = JSON.parse(localStorage.getItem('mme_withdrawals_db')) || [];
+            withdrawals.push({
+                id: user.id,
+                name: user.name,
+                amount: amt,
+                method: user.payoutType,
+                account: user.payoutAccount,
+                status: 'Pending'
+            });
+            localStorage.setItem('mme_withdrawals_db', JSON.stringify(withdrawals));
+
+            showToast(`Withdrawal request of $${amt.toFixed(2)} sent to Admin!`);
+            document.getElementById('withdrawAmountInput').value = '';
+        }
+
+        function logoutSession() {
+            localStorage.removeItem('mme_active_session');
+            localStorage.removeItem('mme_active_user_data');
+            location.reload();
         }
     </script>
 </body>
