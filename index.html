@@ -38,8 +38,6 @@
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         .brand-title-main { font-size: 1.15rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; }
-        
-        /* ব্র্যান্ডের নামের নিচে ফাঁক ফাঁক করে অল ইন ওয়ান */
         .brand-all-in-one { font-size: 0.48rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 3.5px; margin-top: 2px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
@@ -51,87 +49,64 @@
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
         /* নিউ কালেকশন সেকশন হেডার */
-        .new-collection-header {
-            text-align: center;
-            padding: 12px 10px 6px 10px;
-        }
+        .new-collection-header { text-align: center; padding: 12px 10px 6px 10px; }
         .new-collection-title {
-            font-size: 0.95rem;
-            font-weight: 900;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
         }
 
         /* Pinterest Style Masonry Feed */
         .feed-container {
-            padding: 8px;
-            column-count: 2;
-            column-gap: 8px;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 768px) {
-            .feed-container { column-count: 3; padding: 15px; column-gap: 12px; }
-        }
-        @media (min-width: 1024px) {
-            .feed-container { column-count: 4; column-gap: 15px; }
-        }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 15px; } }
 
         .product-card {
-            break-inside: avoid;
-            background: var(--card-bg);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.9), 0 0 10px rgba(212, 175, 55, 0.15);
-            display: flex;
-            flex-direction: column;
-            transition: 0.3s;
+            break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 6px 18px rgba(0,0,0,0.9), 0 0 10px rgba(212, 175, 55, 0.15);
+            display: flex; flex-direction: column; transition: 0.3s;
         }
         .product-card:hover { border-color: var(--gold-solid); transform: translateY(-2px); }
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        /* কার্ড ফুটার: লাভ ও শেয়ার একসাথে গোছালোভাবে */
-        .card-footer-actions {
-            display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0c0c0c;
-        }
+        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0c0c0c; }
         .love-share-group { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: space-between; }
         .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
-        
         .share-action-box { display: flex; gap: 6px; align-items: center; }
         .share-btn { background: none; border: none; color: var(--text-gray); font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
         .share-btn:hover { color: var(--gold-solid); }
 
-        /* পপ-আপ ওভারলে কমন স্টাইল */
-        .custom-modal {
+        /* ফুল-স্ক্রিন ক্লিন ওভারলে (কোনো সাব-হেডার, ক্রস বা এক্সট্রা লাইন ছাড়া) */
+        .custom-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.96); z-index: 2000; overflow-y: auto; padding-bottom: 90px;
-            backdrop-filter: blur(20px);
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 15px 100px 15px;
         }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
-            border-bottom: 1.5px solid rgba(212, 175, 55, 0.3); background: #080808; position: sticky; top: 0; z-index: 10;
-        }
-        .modal-title { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
-        .close-modal-btn { background: none; border: none; color: var(--gold-solid); font-size: 1.4rem; cursor: pointer; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ গোছালো লেআউট */
+        /* সার্চ পপ-আপ (ঠিক নিচে সুন্দর সার্চ বার ও ব্র্যান্ড নেম) */
+        .search-fullscreen-view {
+            display: none; position: fixed; top: 85px; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.96); z-index: 2000; padding: 20px; border-bottom: 1.5px solid rgba(212,175,55,0.3);
+            backdrop-filter: blur(15px);
+        }
+        .search-box-wrap { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+        .search-input-field-box {
+            display: flex; align-items: center; background: #181818; border: 1.5px solid var(--gold-solid);
+            border-radius: 30px; padding: 10px 18px; gap: 10px;
+        }
+        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.9rem; width: 100%; }
+        .simulated-gallery-btn { background: none; border: none; color: var(--gold-solid); font-size: 1.1rem; cursor: pointer; }
+
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ */
         .product-details-content { padding: 15px; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
         .detail-img-box { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212,175,55,0.4); background: #000; }
         .detail-img-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        /* প্রাইস, পিংক লাভ ও চ্যাট উইথ সেলার এক লাইনে */
         .price-love-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #141414; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); }
         .price-and-offer { display: flex; flex-direction: column; gap: 2px; }
         .detail-price { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .offer-flag-box { font-size: 0.55rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 4px; }
-        
         .modal-love-box { display: flex; align-items: center; gap: 4px; color: var(--pink-love); font-size: 0.8rem; font-weight: 700; cursor: pointer; }
         
         .seller-chat-inline-btn {
@@ -141,7 +116,7 @@
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        /* অ্যাকর্ডিয়ন বাটন স্টাইল (প্রোডাক্ট ডেসক্রিপশন, কালার, সাইজ) */
+        /* ড্রপডাউন */
         .dropdown-section { background: #111; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; }
         .dropdown-header {
             display: flex; justify-content: space-between; align-items: center; padding: 10px 12px;
@@ -163,16 +138,10 @@
         .add-to-cart-btn {
             background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.8rem; padding: 12px;
             border-radius: 8px; border: none; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 5px;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3); transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
-        /* সার্চ পপ-আপ স্টাইল */
-        .search-box-container { padding: 20px; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        .search-input-wrapper { display: flex; align-items: center; background: #181818; border: 1.5px solid var(--gold-solid); border-radius: 30px; padding: 8px 15px; gap: 10px; }
-        .search-input-wrapper input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
-        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1.1rem; cursor: pointer; }
-
-        /* ক্যাটাগরি কার্ড স্টাইল */
+        /* ক্যাটাগরি কার্ড স্টাইল (৭টি সম্পূর্ণ ক্যাটাগরি) */
         .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
         .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 4px; }
         .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -191,7 +160,7 @@
         .app-card-icon i { font-size: 1.6rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.52rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
-        /* বটম ন্যাভবার (টগল সিস্টেম সহ ৫টি মেনু) */
+        /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
@@ -255,21 +224,19 @@
     </main>
 
     <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ -->
-    <div id="productDetailModal" class="custom-modal">
-        <div class="modal-header">
-            <span class="modal-title" id="modalProductTitle">Product Details</span>
-            <button class="close-modal-btn" onclick="toggleModal('productDetailModal')"><i class="fa-solid fa-xmark"></i></button>
+    <div id="productDetailModal" class="custom-fullscreen-view" style="z-index: 4000;">
+        <div style="display:flex; justify-content:flex-end; padding-bottom:10px;">
+            <button class="close-modal-btn" onclick="toggleView('productDetailModal')"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="product-details-content">
             <div class="detail-img-box"><img id="modalProductImg" src="" alt="Detail"></div>
             
-            <!-- প্রাইস, পিংক লাভ ও চ্যাট উইথ সেলার এক লাইনে -->
             <div class="price-love-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$185.00</span>
                     <span class="offer-flag-box">🇧🇩 5% OFF (Bangladesh Deal)</span>
                 </div>
-                <div class="modal-love-box" onclick="toggleModalLove(this)">
+                <div class="modal-love-box" onclick="toggleLoveModal(this)">
                     <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
                 </div>
                 <button class="seller-chat-inline-btn" onclick="openSellerChat()">
@@ -277,7 +244,6 @@
                 </button>
             </div>
 
-            <!-- প্রোডাক্ট ডেসক্রিপশন ড্রপডাউন -->
             <div class="dropdown-section">
                 <div class="dropdown-header" onclick="toggleDropdown(this)">
                     <span>Product Description</span> <i class="fa-solid fa-chevron-down"></i>
@@ -287,7 +253,6 @@
                 </div>
             </div>
 
-            <!-- কালার ড্রপডাউন (ছবিসহ) -->
             <div class="dropdown-section">
                 <div class="dropdown-header" onclick="toggleDropdown(this)">
                     <span>Select Color (Photo Preview)</span> <i class="fa-solid fa-chevron-down"></i>
@@ -306,7 +271,6 @@
                 </div>
             </div>
 
-            <!-- সাইজ ড্রপডাউন (আদার অপশনসহ) -->
             <div class="dropdown-section">
                 <div class="dropdown-header" onclick="toggleDropdown(this)">
                     <span>Select Size & Custom Option</span> <i class="fa-solid fa-chevron-down"></i>
@@ -325,12 +289,14 @@
         </div>
     </div>
 
-    <!-- ২. ক্যাটাগরি পপ-আপ -->
-    <div id="categoryModal" class="custom-modal">
-        <div class="modal-header">
-            <span class="modal-title">All Categories</span>
-            <button class="close-modal-btn" onclick="toggleModal('categoryModal')"><i class="fa-solid fa-xmark"></i></button>
+    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ভিউ (৭টি সম্পূর্ণ ক্যাটাগরি সহ) -->
+    <div id="categoryView" class="custom-fullscreen-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding: 10px 15px; border-bottom: 1px solid rgba(212,175,55,0.3); margin-bottom: 15px;">
+            <span style="font-size:0.9rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">All Categories</span>
+            <button class="close-modal-btn" onclick="toggleView('categoryView')"><i class="fa-solid fa-xmark"></i></button>
         </div>
+
+        <!-- ১. WOMEN'S FASHION -->
         <section class="category-section">
             <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
             <div class="app-store-grid">
@@ -339,67 +305,158 @@
                 <div class="app-card" onclick="location.href='shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
                 <div class="app-card" onclick="location.href='jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
                 <div class="app-card" onclick="location.href='watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                <div class="app-card" onclick="location.href='lingerie.html'"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
+                <div class="app-card" onclick="location.href='beauty.html'"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
+                <div class="app-card" onclick="location.href='activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
+                <div class="app-card" onclick="location.href='traditional.html'"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
+                <div class="app-card" onclick="location.href='accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
+            </div>
+        </section>
+
+        <!-- ২. BOYS' FASHION -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='boys-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Clothing</span></div>
+                <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Shoes</span></div>
+                <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Watches</span></div>
+                <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Bags</span></div>
+                <div class="app-card" onclick="location.href='boys-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
+            </div>
+        </section>
+
+        <!-- ৩. MATCHING SETS -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='couplematchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
+                <div class="app-card" onclick="location.href='familymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
+                <div class="app-card" onclick="location.href='mommesets.html'"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
+                <div class="app-card" onclick="location.href='dadmesets.html'"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
+                <div class="app-card" onclick="location.href='siblingmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
+                <div class="app-card" onclick="location.href='teammatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
+                <div class="app-card" onclick="location.href='bffmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
+                <div class="app-card" onclick="location.href='petownerents.html'"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
+                <div class="app-card" onclick="location.href='holidaymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
+                <div class="app-card" onclick="location.href='valuebundles.html'"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
+            </div>
+        </section>
+
+        <!-- ৪. LUXURY GIFTS -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='corporategifts.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
+                <div class="app-card" onclick="location.href='luxurygiftitems.html'"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
+                <div class="app-card" onclick="location.href='premiumhandicrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
+                <div class="app-card" onclick="location.href='woodresincrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
+                <div class="app-card" onclick="location.href='giftsetsandhampers.html'"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
+            </div>
+        </section>
+
+        <!-- ৫. GIRLS' FASHION -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='girls-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Clothing</span></div>
+                <div class="app-card" onclick="location.href='girls-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+                <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Bags</span></div>
+                <div class="app-card" onclick="location.href='girls-jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Jewelry</span></div>
+                <div class="app-card" onclick="location.href='girls-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="app-card-name">Hair Acc.</span></div>
+                <div class="app-card" onclick="location.href='girls-activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
+                <div class="app-card" onclick="location.href='girls-sleepwear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
+                <div class="app-card" onclick="location.href='girls-party-dresses.html'"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
+                <div class="app-card" onclick="location.href='girls-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
+            </div>
+        </section>
+
+        <!-- ৬. MEN'S FASHION -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='men-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
+                <div class="app-card" onclick="location.href='men-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+                <div class="app-card" onclick="location.href='men-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                <div class="app-card" onclick="location.href='men-grooming.html'"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span></div>
+                <div class="app-card" onclick="location.href='men-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span></div>
+            </div>
+        </section>
+
+        <!-- ৭. MOTHER & BABY -->
+        <section class="category-section">
+            <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
+            <div class="app-store-grid">
+                <div class="app-card" onclick="location.href='m2bclothing.html'"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">Clothing</span></div>
+                <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
+                <div class="app-card" onclick="location.href='m2bbabycare.html'"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
+                <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-baby-carriage"></i></div><span class="app-card-name">Nursery Gear</span></div>
+                <div class="app-card" onclick="location.href='m2baccessories.html'"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
             </div>
         </section>
     </div>
 
-    <!-- ৩. সার্চ পপ-আপ (ক্যামেরা সহ) -->
-    <div id="searchModal" class="custom-modal">
-        <div class="modal-header">
-            <span class="modal-title">Live Search</span>
-            <button class="close-modal-btn" onclick="toggleModal('searchModal')"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="search-box-container">
-            <div class="search-input-wrapper">
-                <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
-                <input type="text" placeholder="Search products, brands, collections...">
-                <button class="camera-search-btn" onclick="triggerCameraSearch()" title="Search with Gallery/Camera"><i class="fa-solid fa-camera"></i></button>
+    <!-- ৩. সার্চ ফুল-স্ক্রিন ড্রপডাউন ভিউ (ক্যামেরা পারমিশন ছাড়া সিম্পল সার্চ ও ব্র্যান্ড নেম) -->
+    <div id="searchView" class="search-fullscreen-view">
+        <div class="search-box-wrap">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.75rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">RORRAXY LIVE SEARCH</span>
+                <button class="close-modal-btn" onclick="toggleView('searchView')" style="font-size:1.1rem;"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p style="font-size:0.6rem; color:var(--text-gray); text-align:center;">Type keywords or upload product photo via camera/gallery to search instantly.</p>
+            <div class="search-input-field-box">
+                <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
+                <input type="text" placeholder="Search rorraxy collections, products...">
+                <button class="simulated-gallery-btn" title="Gallery Upload"><i class="fa-solid fa-camera"></i></button>
+            </div>
         </div>
     </div>
 
-    <!-- ৪. একাউন্ট পপ-আপ -->
-    <div id="accountModal" class="custom-modal">
-        <div class="modal-header">
-            <span class="modal-title">My Account</span>
-            <button class="close-modal-btn" onclick="toggleModal('accountModal')"><i class="fa-solid fa-xmark"></i></button>
+    <!-- ৪. একাউন্ট ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ -->
+    <div id="accountView" class="custom-fullscreen-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">My Account</span>
+            <button class="close-modal-btn" onclick="toggleView('accountView')"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div style="padding: 20px; text-align: center;">
-            <p style="font-size: 0.75rem; color: var(--text-gray);">Manage your customer profile, order history, and automatic user ID session.</p>
+        <div style="text-align:center; padding:40px 20px;">
+            <p style="font-size:0.75rem; color:var(--text-gray);">Customer Profile & Automatic User Session Management.</p>
         </div>
     </div>
 
-    <!-- ৫. সেলার পপ-আপ -->
-    <div id="sellerModal" class="custom-modal">
-        <div class="modal-header">
-            <span class="modal-title">Seller Portal</span>
-            <button class="close-modal-btn" onclick="toggleModal('sellerModal')"><i class="fa-solid fa-xmark"></i></button>
+    <!-- ৫. সেলার ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ -->
+    <div id="sellerView" class="custom-fullscreen-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Seller Portal</span>
+            <button class="close-modal-btn" onclick="toggleView('sellerView')"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div style="padding: 20px; text-align: center;">
-            <p style="font-size: 0.75rem; color: var(--text-gray);">Seller dashboard, product listing management, and unique seller ID tracking.</p>
+        <div style="text-align:center; padding:40px 20px;">
+            <p style="font-size:0.75rem; color:var(--text-gray);">Seller Dashboard & Product Upload Panel.</p>
         </div>
     </div>
 
     <!-- বটম ন্যাভবার (৫টি মেনু টগল সিস্টেম সহ) -->
     <nav class="bottom-nav">
+        <!-- এফিলিয়েট: ক্লিক করলে সরাসরি সাবডোমেনে যাবে, আবার ক্লিক করলে বা ব্যাক করলে হোম -->
         <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
             <i class="fa-solid fa-handshake"></i>
             <span>Affiliate</span>
         </div>
-        <div class="nav-item" onclick="toggleModal('sellerModal')">
+        <!-- সেলার -->
+        <div class="nav-item" onclick="toggleView('sellerView')">
             <i class="fa-solid fa-chart-line"></i>
             <span>Seller</span>
         </div>
-        <div class="nav-item" onclick="toggleModal('accountModal')">
+        <!-- একাউন্ট -->
+        <div class="nav-item" onclick="toggleView('accountView')">
             <i class="fa-solid fa-user-shield"></i>
             <span>Account</span>
         </div>
-        <div class="nav-item" onclick="toggleModal('categoryModal')">
+        <!-- ক্যাটাগরি -->
+        <div class="nav-item" onclick="toggleView('categoryView')">
             <i class="fa-solid fa-border-all"></i>
             <span>Category</span>
         </div>
-        <div class="nav-item" onclick="toggleModal('searchModal')">
+        <!-- সার্চ -->
+        <div class="nav-item" onclick="toggleView('searchView')">
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Search</span>
         </div>
@@ -411,22 +468,21 @@
             window.location.href = `https://${sub}.${domain}`;
         }
 
-        /* টগল পপ-আপ সিস্টেম: ক্লিক করলে খুলবে, আবার ক্লিক করলে বন্ধ হবে */
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal.style.display === 'block') {
-                modal.style.display = 'none';
+        /* পারফেক্ট টগল সিস্টেম: ক্লিক করলে ভিউ ওপেন হবে, পুনরায় ক্লিক করলে বা ক্রস চাপলে বন্ধ হবে */
+        function toggleView(viewId) {
+            const view = document.getElementById(viewId);
+            if (view.style.display === 'block') {
+                view.style.display = 'none';
             } else {
-                document.querySelectorAll('.custom-modal').forEach(m => m.style.display = 'none');
-                modal.style.display = 'block';
+                document.querySelectorAll('.custom-fullscreen-view, .search-fullscreen-view').forEach(v => v.style.display = 'none');
+                view.style.display = 'block';
             }
         }
 
         function openProductDetails(title, price, img) {
-            document.getElementById('modalProductTitle').innerText = title;
-            document.getElementById('modalProductPrice').innerText = price;
             document.getElementById('modalProductImg').src = img;
-            toggleModal('productDetailModal');
+            document.getElementById('modalProductPrice').innerText = price;
+            toggleView('productDetailModal');
         }
 
         function toggleLove(element) {
@@ -465,8 +521,6 @@
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`, '_blank');
             } else if(platform === 'telegram') {
                 window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item!')}`, '_blank');
-            } else if(platform === 'imo') {
-                alert("Opening Imo direct share...");
             } else {
                 navigator.clipboard.writeText(currentUrl);
                 alert("Product link copied successfully!");
@@ -492,13 +546,9 @@
             alert("Connecting to live AI/Seller chat bot...");
         }
 
-        function triggerCameraSearch() {
-            alert("Opening camera & gallery for visual product search...");
-        }
-
         function addToCart() {
             alert("Product successfully added to cart!");
-            toggleModal('productDetailModal');
+            toggleView('productDetailModal');
         }
     </script>
 </body>
