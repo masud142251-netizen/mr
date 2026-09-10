@@ -30,29 +30,29 @@
 
         /* লাক্সারি হেডার */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 4px 10px;
+            display: flex; justify-content: space-between; align-items: center; padding: 6px 14px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
         
-        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
+        .header-left-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
-        .brand-title-main { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.1; }
-        .brand-all-in-one { font-size: 0.38rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; margin-top: 1px; }
+        .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.1; }
+        .brand-all-in-one { font-size: 0.4rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; margin-top: 1px; }
 
-        .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
+        .header-portals-box { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
         .portal-btn {
-            font-size: 0.38rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 2px 4px; border-radius: 3px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center; width: 95px;
+            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 3px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap; text-align: center; width: 105px;
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* নিউ কালেকশন সেকশন হেডার (বর্ডারের ঠিক নিচে নিখুঁত গ্যাপ) */
-        .new-collection-header { text-align: center; padding: 3px 10px 1px 10px; }
+        /* নিউ কালেকশন সেকশন হেডার */
+        .new-collection-header { text-align: center; padding: 4px 10px 2px 10px; }
         .new-collection-title {
-            font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient);
+            font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
         }
 
@@ -60,13 +60,12 @@
         .feed-container {
             padding: 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 10px; column-gap: 10px; } }
-        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 12px; } }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 16px; } }
 
         .product-card {
             break-inside: avoid; background: var(--card-bg); border-radius: 10px 10px 6px 6px; margin-bottom: 8px; overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; transition: 0.3s; position: relative;
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
@@ -76,16 +75,16 @@
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 6px 8px; background: #0a0a0a; }
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: #0a0a0a; }
         .love-share-group { display: flex; align-items: center; gap: 16px; justify-content: center; width: 100%; }
         
-        .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
+        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.95rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
         .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active { color: var(--gold-solid); }
 
-        .share-action-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .subdomain-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -94,143 +93,180 @@
         .subdomain-iframe { width: 100%; height: 100%; border: none; background: #000; }
         
         .golden-close-btn {
-            position: absolute; top: 10px; right: 10px; z-index: 2100; background: #141414;
-            border: 1px solid rgba(212,175,55,0.4); width: 32px; height: 32px; border-radius: 50%;
+            position: absolute; top: 12px; right: 12px; z-index: 2100; background: #141414;
+            border: 1px solid rgba(212,175,55,0.4); width: 36px; height: 36px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .golden-close-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 2000; overflow-y: auto; padding: 12px 10px 80px 10px;
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 15px 12px 90px 12px;
         }
 
         .search-popup-box {
-            display: none; position: fixed; top: 58px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 480px;
-            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 6px; border-radius: 35px;
+            display: none; position: fixed; top: 62px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
+            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 8px; border-radius: 35px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
         .search-input-field-box {
             display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 30px; padding: 4px 10px; gap: 8px;
+            border-radius: 30px; padding: 6px 14px; gap: 10px;
         }
-        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.78rem; width: 100%; }
-        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.9rem; cursor: pointer; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.6rem; padding: 4px 9px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
+        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
+        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ (বড় ছবি ও সেন্ট্রালাইজড স্ট্রিপ) */
-        .product-details-content { padding: 6px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+        /* পপ-আপ বেস ডিজাইন */
+        .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
         
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-        .main-display-media { width: 100%; height: 320px; object-fit: contain; display: block; background: #000; }
+        .main-display-media { width: 100%; height: 300px; object-fit: contain; display: block; background: #000; }
         
-        /* থাম্বনেইল স্ট্রিপ একদম মাঝখানে (Center) */
         .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
         .thumb-item { width: 50px; height: 50px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
         .thumb-item.active { border-color: var(--gold-solid); }
 
-        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 6px 0; background: #0c0c0c; border-radius: 6px; }
+        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
 
-        .product-title-line { font-size: 0.75rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
+        .product-title-line { font-size: 0.8rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
 
-        /* প্রাইস (সাদা), ডিসকাউন্ট (মাঝখানে বড়), এবং চ্যাট উইথ সেলার */
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
         
-        /* প্রাইস উজ্জ্বল সাদা */
-        .detail-price { font-size: 1.05rem; font-weight: 900; color: #ffffff; }
+        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; }
         
-        /* ডিসকাউন্ট বাটন একদম মাঝখানে বড় আকারে */
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 6px 16px;
+            background: var(--pink-discount); color: #fff; font-size: 0.62rem; font-weight: 800; padding: 6px 16px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
             box-shadow: 0 4px 12px rgba(255,42,133,0.4); margin: 0 auto;
         }
 
         .seller-chat-inline-btn {
-            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 5px 8px;
-            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
+            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 6px 10px;
+            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
         .action-popup-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 7px 2px;
-            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
+            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 8px 4px;
+            border-radius: 5px; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.68rem; padding: 9px;
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.72rem; padding: 10px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
         .sub-popup-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 12px;
+            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 15px;
         }
         .sub-popup-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 340px;
+            padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
+            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 15px;
         }
         .share-modal-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 300px;
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; text-align: center;
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
+            padding: 15px; display: flex; flex-direction: column; gap: 10px; text-align: center;
         }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 5px; }
         .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
-            background: #1a1a1a; padding: 6px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
+            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
+            background: #1a1a1a; padding: 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
             transition: 0.2s;
         }
         .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .share-icon-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.45rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
         /* ক্যাটাগরি কার্ড স্টাইল */
-        .category-section { padding: 10px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 8px; padding: 0 4px; text-align: center; }
-        .category-title { font-size: 0.75rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
+        .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; padding: 0 4px; text-align: center; }
+        .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         
-        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
-        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 8px; } }
+        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; }
+        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 10px; } }
 
         .app-card {
             background: #161616; border-radius: 8px; border: none;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            padding: 8px 2px 6px 2px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: all 0.3s ease-in-out; height: 90px; justify-content: space-between;
+            padding: 8px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; transition: all 0.3s ease-in-out; height: 95px; justify-content: space-between;
         }
         .app-card:hover { transform: translateY(-3px); background: #1f1f1f; }
         .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; transition: transform 0.3s ease; }
         .app-card:hover .app-card-icon { transform: scale(1.15); }
-        .app-card-icon i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.45rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
+        .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-card-name { font-size: 0.48rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
         /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
             z-index: 3000; border-top: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.45rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+            color: var(--text-gray); font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center; gap: 3px; flex: 1;
             transition: 0.3s;
         }
-        .nav-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover { color: var(--gold-solid); transform: translateY(-2px); }
         .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
+
+        /* ========================================================
+           COMPUTERS / DESKTOP RESPONSIVE SCALING (পিসির জন্য বড় ও স্পষ্ট ডিসপ্লে)
+           ======================================================== */
+        @media (min-width: 1024px) {
+            body { padding-top: 85px; padding-bottom: 100px; }
+            header.app-header { padding: 8px 25px; }
+            .logo { width: 48px; height: 48px; }
+            .brand-title-main { font-size: 1.35rem; }
+            .brand-all-in-one { font-size: 0.55rem; letter-spacing: 1.8px; }
+            .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
+            
+            .new-collection-title { font-size: 1.2rem; letter-spacing: 4px; }
+            
+            /* পিসিতে প্রোডাক্ট ডিটেইলস পপ-আপ বড় এবং চমৎকার স্পষ্ট দেখাবে */
+            .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
+            .main-display-media { height: 420px; }
+            .thumb-item { width: 65px; height: 65px; }
+            .product-title-line { font-size: 1.05rem; letter-spacing: 1px; }
+            .detail-price { font-size: 1.4rem; }
+            .discount-badge-btn { font-size: 0.75rem; padding: 8px 22px; }
+            .seller-chat-inline-btn { font-size: 0.7rem; padding: 8px 14px; }
+            .action-popup-btn { font-size: 0.7rem; padding: 10px 6px; }
+            .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
+            
+            /* পিসিতে সাব-পপআপ ও শেয়ার মোডাল বড় */
+            .sub-popup-box, .share-modal-box { max-width: 450px; padding: 20px; gap: 14px; }
+            .sub-popup-box span { font-size: 0.85rem !important; }
+            .sub-popup-box p { font-size: 0.7rem !important; }
+            
+            /* পিসিতে ক্যাটাগরি গ্রিড ও ফন্ট বড় */
+            .category-title { font-size: 1rem; }
+            .app-card { height: 115px; padding: 12px 6px; }
+            .app-card-icon i { font-size: 1.6rem; }
+            .app-card-name { font-size: 0.58rem; }
+            
+            /* পিসিতে বটম ন্যাভবার ফন্ট বড় */
+            nav.bottom-nav { padding: 10px 20px; }
+            .nav-item { font-size: 0.6rem; }
+            .nav-item i { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -276,7 +312,7 @@
     <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
-            <span style="font-size:0.7rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
             <div class="share-icons-grid">
                 <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
                 <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
@@ -288,7 +324,7 @@
                 <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
                 <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:5px; margin-top:4px; font-size:0.6rem;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
@@ -297,9 +333,9 @@
         <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="product-details-content" style="margin-top: 30px;">
+        <div class="product-details-content" style="margin-top: 35px;">
             
-            <!-- মাল্টিপল ছবি ও ভিডিও প্রিভিউ স্লাইডার (বড় ছবি ও সেন্ট্রালাইজড স্ট্রিপ) -->
+            <!-- মাল্টিপল ছবি ও ভিডিও প্রিভিউ স্লাইডার -->
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
@@ -322,7 +358,7 @@
                 </button>
             </div>
             
-            <!-- প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) -->
+            <!-- প্রোডাক্ট টাইটেল -->
             <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
 
             <!-- প্রাইস (সাদা), ডিসকাউন্ট (মাঝখানে বড়), এবং চ্যাট উইথ সেলার -->
@@ -351,41 +387,41 @@
     <!-- সাব-পপআপ: Description -->
     <div id="descPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.55rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:5px; font-size:0.6rem;">Close</button>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
+            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
-    <!-- সাব-পপআপ: Color (কালার থাম্বনেইল সহ, যা ক্লিক করলে মূল ছবি ও ড্যাশবোর্ড আপডেট হবে) -->
+    <!-- সাব-পপআপ: Color -->
     <div id="colorPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color Variant</span>
-            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:6px; margin-top:6px;">
-                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5'); closeSubPopup('colorPopup');" style="border:1.5px solid var(--gold-solid); border-radius:6px; padding:4px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:45px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.48rem; font-weight:700; color:#fff; display:block; margin-top:2px;">Golden Variant</span>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color Variant</span>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px;">
+                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5'); closeSubPopup('colorPopup');" style="border:1.5px solid var(--gold-solid); border-radius:6px; padding:5px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:50px; object-fit:cover; border-radius:4px;">
+                    <span style="font-size:0.5rem; font-weight:700; color:#fff; display:block; margin-top:3px;">Golden Variant</span>
                 </div>
-                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'); closeSubPopup('colorPopup');" style="border:1.5px solid rgba(212,175,55,0.3); border-radius:6px; padding:4px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:45px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.48rem; font-weight:700; color:#fff; display:block; margin-top:2px;">Velvet Black</span>
+                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'); closeSubPopup('colorPopup');" style="border:1.5px solid rgba(212,175,55,0.3); border-radius:6px; padding:5px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:50px; object-fit:cover; border-radius:4px;">
+                    <span style="font-size:0.5rem; font-weight:700; color:#fff; display:block; margin-top:3px;">Velvet Black</span>
                 </div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:5px; margin-top:6px; font-size:0.6rem;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:6px; margin-top:8px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
     <!-- সাব-পপআপ: Size -->
     <div id="sizePopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
-            <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;">
-                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:3px 8px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Standard</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Medium</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Large</div>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;">
+                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Standard</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Medium</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Large</div>
             </div>
-            <input type="text" placeholder="Type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:6px; border-radius:5px; color:#fff; font-size:0.55rem; outline:none; margin-top:6px;">
-            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:5px; margin-top:6px; font-size:0.6rem;">Done</button>
+            <input type="text" placeholder="Type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:5px; color:#fff; font-size:0.6rem; outline:none; margin-top:8px;">
+            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:6px; margin-top:8px; font-size:0.65rem;">Done</button>
         </div>
     </div>
 
@@ -394,8 +430,8 @@
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div style="margin-bottom: 20px; text-align: center;">
-            <span style="font-size:0.9rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
+        <div style="margin-bottom: 25px; text-align: center;">
+            <span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
         </div>
 
         <section class="category-section">
@@ -655,7 +691,6 @@
             }
         }
 
-        /* পারমিশন ছাড়াই ডিরেক্ট শেয়ার ও ক্লিপবোর্ড কপি সিস্টেম */
         function shareTo(platform) {
             const currentUrl = window.location.href;
             if(platform === 'facebook') {
