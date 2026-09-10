@@ -59,38 +59,37 @@
             .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; }
         }
 
-        /* কার্ডকে ভার্টিকাল (লম্বাটে) করা হয়েছে */
+        /* ভার্টিকাল কার্ড (লম্বাটে) */
         .app-card {
             background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px;
-            padding: 16px 4px 10px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding: 18px 4px 12px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
             cursor: pointer; transition: 0.25s ease-in-out; height: 140px; justify-content: flex-start;
         }
         .app-card:hover, .app-card:active { border-color: var(--gold-solid); background: #1a1a1a; }
         
-        /* আইকনের বক্স এবং আইকন বড় করা হয়েছে */
+        /* আইকনের ব্যাকগ্রাউন্ড ও বর্ডার রিমুভ করা হয়েছে */
         .app-card-icon {
-            width: 48px; height: 48px; border-radius: 12px; background: #000;
-            border: 1px solid var(--gold-solid); display: flex; align-items: center; justify-content: center;
-            margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 12px; flex: 1;
         }
         
-        /* কোনো কন্টিনিউয়াস অ্যানিমেশন নেই, শুধু ক্লিক/হোভারে জুম হবে */
+        /* আইকনটি এখন অনেক বড় এবং স্পষ্ট */
         .app-card-icon i {
-            font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 2.8rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             transition: transform 0.2s ease-in-out;
         }
         .app-card:hover .app-card-icon i, .app-card:active .app-card-icon i {
-            transform: scale(1.25);
+            transform: scale(1.15); /* ক্লিকে হালকা জুম হবে */
         }
 
-        /* লেখার সাইজ স্পষ্ট এবং দুই লাইনে ভেঙে যাওয়ার স্টাইল */
+        /* লেখার সাইজ বড় করা হয়েছে, দুই শব্দের হলে সুন্দরভাবে দুই লাইনে বসবে */
         .app-card-name { 
-            font-size: 0.55rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; 
-            line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-            margin-top: auto;
+            font-size: 0.65rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; 
+            line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            margin-top: auto; padding: 0 2px;
         }
 
-        /* বটম ন্যাভবার (বিপরীত মেনু) */
+        /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
@@ -224,7 +223,7 @@
         </div>
     </section>
 
-    <!-- বটম ন্যাভবার (বিপরীত মেনু) -->
+    <!-- বটম ন্যাভবার -->
     <nav class="bottom-nav">
         <!-- ১. লেক্সাস ইকোসিস্টেম -->
         <div class="nav-item" onclick="navigateToSubdomain('nexusecosystem')">
