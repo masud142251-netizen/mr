@@ -39,8 +39,8 @@
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         .brand-title-main { font-size: 1.15rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; }
         
-        /* ব্র্যান্ড নামের দৈর্ঘ্য অনুযায়ী সামঞ্জস্যপূর্ণ ফাঁক ফাঁক 'ALL IN ONE' */
-        .brand-all-in-one { font-size: 0.46rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 2.2px; margin-top: 2px; }
+        /* সাদা রঙের 'ALL IN ONE' লেটার স্পেসিং */
+        .brand-all-in-one { font-size: 0.46rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 2.2px; margin-top: 2px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
         .portal-btn {
@@ -57,7 +57,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* Pinterest Style Masonry Feed */
+        /* Pinterest Style Masonry Feed (সমর্থন করে ৯:১৬ এবং ১:১ রেশিও ছবি) */
         .feed-container {
             padding: 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
@@ -73,19 +73,19 @@
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
+        /* কার্ড ফুটার: লাভ ও শেয়ার বাটন একসাথে পাশাপাশি */
         .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0c0c0c; }
-        .love-share-group { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: space-between; }
+        .love-share-group { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: flex-start; }
         
-        /* পিঙ্ক ও গোল্ডেন থিমযুক্ত লাভ বাটন */
-        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .love-action.loved i { background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.95rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
+        .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .love-action.gold-active { color: var(--gold-solid); }
 
-        .share-action-box { display: flex; gap: 8px; align-items: center; }
-        .share-btn { background: none; border: none; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-btn:hover { transform: scale(1.15); }
+        .share-action-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); cursor: pointer; }
+        .share-action-btn i { font-size: 0.95rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* সাবডোমেইন লোড করার জন্য ফুল-স্ক্রিন Iframe ভিউ */
+        /* সাবডোমেইন লোড করার জন্য Iframe ভিউ */
         .subdomain-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 2000; overflow: hidden;
@@ -101,86 +101,87 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ক্যাটাগরি ফুল-স্ক্রিন ওভারলে */
+        /* ক্যাটাগরি ও ডিটেইলস ফুল-স্ক্রিন ওভারলে */
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 15px 100px 15px;
         }
 
-        /* সার্চ পপ-আপ বক্স (ক্লিন ও সিম্পল) */
+        /* সার্চ পপ-আপ বক্স (বাইরের বর্ডারহীন, কেবল গোল রাউন্ড ফিল্ড) */
         .search-popup-box {
-            display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 600px;
-            background: rgba(12, 12, 12, 0.98); z-index: 2000; padding: 14px; border-radius: 12px;
-            border: 1.5px solid var(--gold-solid); backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px;
+            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 10px; border-radius: 35px;
+            backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.8);
         }
         .search-input-field-box {
-            display: flex; align-items: center; background: #050505; border: 1px solid rgba(212,175,55,0.4);
-            border-radius: 30px; padding: 8px 15px; gap: 10px;
+            display: flex; align-items: center; background: #000000; border: 1.5px solid rgba(212,175,55,0.5);
+            border-radius: 30px; padding: 6px 14px; gap: 10px;
         }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
         .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.7rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ */
-        .product-details-content { padding: 15px; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-        .detail-img-box { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(212,175,55,0.4); background: #000; }
-        .detail-img-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ (কম্পিউটার ও মোবাইলে স্ক্রিন ফিট) */
+        .product-details-content { padding: 10px; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .detail-img-box { width: 100%; max-height: 350px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(212,175,55,0.4); background: #000; display: flex; justify-content: center; align-items: center; }
+        .detail-img-box img { width: 100%; height: auto; max-height: 350px; display: block; object-fit: contain; }
         
-        .price-love-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #141414; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); }
-        .price-and-offer { display: flex; flex-direction: column; gap: 2px; }
-        .detail-price { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .offer-flag-box { font-size: 0.55rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 4px; }
-        .modal-love-box { display: flex; align-items: center; gap: 4px; color: var(--pink-love); font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+        /* প্রাইস, ডিসকাউন্ট, চ্যাট উইথ সেলার এক সারিতে */
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #141414; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.25); }
+        .price-and-offer { display: flex; align-items: center; gap: 8px; }
+        .detail-price { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .offer-flag-box { font-size: 0.52rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 3px; }
         
         .seller-chat-inline-btn {
-            background: #1c1c1c; border: 1px solid rgba(212,175,55,0.4); color: var(--text-white); padding: 8px 12px;
-            border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 5px; transition: 0.2s; white-space: nowrap;
+            background: #1c1c1c; border: 1px solid rgba(212,175,55,0.4); color: var(--text-white); padding: 6px 10px;
+            border-radius: 6px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px; }
+        /* এক লাইনে ৩টি বাটন: Description, Color, Size */
+        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
         .action-popup-btn {
-            background: #181818; border: 1px solid rgba(212,175,55,0.4); color: var(--gold-solid); padding: 10px 4px;
+            background: #181818; border: 1px solid rgba(212,175,55,0.4); color: var(--gold-solid); padding: 8px 4px;
             border-radius: 6px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.8rem; padding: 12px;
-            border-radius: 8px; border: none; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 10px;
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.75rem; padding: 10px;
+            border-radius: 8px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
+        /* সাব-পপআপ মোডাল */
         .sub-popup-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 20px;
         }
         .sub-popup-box {
-            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 12px; width: 100%; max-width: 400px;
-            padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 12px; width: 100%; max-width: 380px;
+            padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
-        /* সোশ্যাল মিডিয়া শেয়ার পপ-আপ মোডাল */
+        /* সোশ্যাল মিডিয়া শেয়ার পপ-আপ */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 20px;
         }
         .share-modal-box {
             background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 14px; width: 100%; max-width: 340px;
-            padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: center;
+            padding: 15px; display: flex; flex-direction: column; gap: 12px; text-align: center;
         }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 5px; }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 5px; }
         .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer;
-            background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2);
+            display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+            background: #1a1a1a; padding: 8px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2);
             transition: 0.2s;
         }
         .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.5rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .share-icon-item i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.48rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
         /* ক্যাটাগরি কার্ড স্টাইল */
         .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
@@ -240,7 +241,7 @@
         <h1 class="new-collection-title">New Collection</h1>
     </div>
 
-    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড -->
+    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড (৯:১৬ এবং ১:১ রেশিও ছবি সমর্থিত) -->
     <main class="feed-container" id="productFeed">
         <div class="product-card" onclick="openProductDetails('LUXURY GOLDEN EMBROIDERED SILK GOWN', '$185.00', 'https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5')">
             <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product"></div>
@@ -249,69 +250,62 @@
                     <div class="love-action" onclick="toggleLove(this)">
                         <i class="fa-solid fa-heart"></i> <span class="love-count">142</span>
                     </div>
-                    <div class="share-action-box">
-                        <button class="share-btn" onclick="openShareModal()" title="Share Options"><i class="fa-solid fa-share-nodes"></i></button>
-                    </div>
+                    <button class="share-action-btn" onclick="openShareModal()">
+                        <i class="fa-solid fa-share-nodes"></i> Share
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ মোডাল -->
+    <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ (Gmail সহ ডাইরেক্ট শেয়ার) -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
-            <span style="font-size:0.85rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <span style="font-size:0.8rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
             <div class="share-icons-grid">
-                <div class="share-icon-item" onclick="shareTo('facebook')">
-                    <i class="fa-brands fa-facebook"></i><span>Facebook</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('instagram')">
-                    <i class="fa-brands fa-instagram"></i><span>Instagram</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('tiktok')">
-                    <i class="fa-brands fa-tiktok"></i><span>TikTok</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('youtube')">
-                    <i class="fa-brands fa-youtube"></i><span>YouTube</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('whatsapp')">
-                    <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('telegram')">
-                    <i class="fa-brands fa-telegram"></i><span>Telegram</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('imo')">
-                    <i class="fa-solid fa-comment-dots"></i><span>Imo</span>
-                </div>
-                <div class="share-icon-item" onclick="shareTo('copy')">
-                    <i class="fa-solid fa-link"></i><span>Copy Link</span>
-                </div>
+                <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
+                <div class="share-icon-item" onclick="shareTo('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                <div class="share-icon-item" onclick="shareTo('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-item" onclick="shareTo('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+                <div class="share-icon-item" onclick="shareTo('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                <div class="share-icon-item" onclick="shareTo('imo')"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></div>
+                <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
+                <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:8px; margin-top:5px;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
-    <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ -->
+    <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ (স্ক্রিন ফিট এবং লাভ ও শেয়ার সহ) -->
     <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 4000;">
         <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="product-details-content" style="margin-top: 30px;">
+        <div class="product-details-content" style="margin-top: 35px;">
+            <!-- কার্ডের মতো লাভ ও শেয়ার বাটন ছবির উপরে বা সাথে -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 4px;">
+                <div class="love-action" onclick="toggleModalLove(this)">
+                    <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
+                </div>
+                <button class="share-action-btn" onclick="openShareModal()">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            </div>
+
             <div class="detail-img-box"><img id="modalProductImg" src="" alt="Detail"></div>
             
-            <div class="price-love-chat-row">
+            <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$185.00</span>
                     <span class="offer-flag-box">🇧🇩 5% OFF</span>
-                </div>
-                <div class="modal-love-box" onclick="toggleLoveModal(this)">
-                    <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
                 </div>
                 <button class="seller-chat-inline-btn" onclick="openSellerChat()">
                     <i class="fa-solid fa-comments"></i> Chat with Seller
                 </button>
             </div>
 
+            <!-- এক লাইনে ৩টি বাটন -->
             <div class="three-action-row">
                 <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
                 <button class="action-popup-btn" onclick="openSubPopup('colorPopup')">Select Color</button>
@@ -325,41 +319,41 @@
     <!-- সাব-পপআপ: Description -->
     <div id="descPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.8rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.65rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:8px;">Close</button>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
+            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
-    <!-- সাব-পপআপ: Color -->
+    <!-- সাব-পপআপ: Color (ছোট থাম্বনেইল ছবিসহ) -->
     <div id="colorPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.8rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color</span>
-            <div class="color-img-grid" style="margin-top:5px;">
-                <div class="color-img-card" onclick="selectColorCard(this); closeSubPopup('colorPopup');">
-                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color">
-                    <span class="color-img-name">Golden</span>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color</span>
+            <div class="color-img-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:6px; margin-top:5px;">
+                <div class="color-img-card" onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:6px; padding:4px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:45px; object-fit:cover; border-radius:4px;">
+                    <span style="font-size:0.48rem; font-weight:600; color:#fff;">Golden</span>
                 </div>
-                <div class="color-img-card" onclick="selectColorCard(this); closeSubPopup('colorPopup');">
-                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color">
-                    <span class="color-img-name">Velvet Black</span>
+                <div class="color-img-card" onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:6px; padding:4px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:45px; object-fit:cover; border-radius:4px;">
+                    <span style="font-size:0.48rem; font-weight:600; color:#fff;">Velvet Black</span>
                 </div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:8px; margin-top:10px;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
-    <!-- সাব-পপআপ: Size -->
+    <!-- সাব-পপআপ: Size (স্ট্যান্ডার্ড ও কাস্টম লেখার অপশন) -->
     <div id="sizePopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.8rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
-            <div class="size-chips-box" style="margin-top:5px;">
-                <div class="size-chip selected" onclick="selectSizeChip(this)">Standard</div>
-                <div class="size-chip" onclick="selectSizeChip(this)">Medium</div>
-                <div class="size-chip" onclick="selectSizeChip(this)">Large</div>
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
+            <div class="size-chips-box" style="display:flex; gap:5px; flex-wrap:wrap; margin-top:5px;">
+                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:4px 8px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Standard</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Medium</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Large</div>
             </div>
-            <input type="text" class="custom-size-field" placeholder="Or type custom size here..." style="margin-top:5px;">
-            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:8px; margin-top:10px;">Done</button>
+            <input type="text" class="custom-size-field" placeholder="Or type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(255,255,255,0.2); padding:6px; border-radius:6px; color:#fff; font-size:0.6rem; outline:none; margin-top:5px;">
+            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:6px; margin-top:5px; font-size:0.65rem;">Done</button>
         </div>
     </div>
 
@@ -465,7 +459,7 @@
         </section>
     </div>
 
-    <!-- ৩. সার্চ পপ-আপ বক্স (গ্যালারি ক্যামেরা ও সার্চ বাটনসহ) -->
+    <!-- ৩. সার্চ পপ-আপ বক্স (বাইরের বর্ডারহীন ও ক্যামেরা গ্যালারি সহ) -->
     <div id="searchPopup" class="search-popup-box">
         <div class="search-input-field-box">
             <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
@@ -521,7 +515,6 @@
     </nav>
 
     <script>
-        /* সাবডোমেইন Iframe ভিউ টগল */
         function toggleSubdomainView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -533,7 +526,6 @@
             }
         }
 
-        /* ক্যাটাগরি ও প্রোডাক্ট ডিটেইলস ভিউ টগল */
         function toggleCategoryView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -545,7 +537,6 @@
             }
         }
 
-        /* সার্চ পপ-আপ টগল */
         function toggleSearchPopup() {
             const popup = document.getElementById('searchPopup');
             if (popup.style.display === 'block') {
@@ -595,26 +586,27 @@
             document.getElementById('shareModal').style.display = 'none';
         }
 
+        /* লাভ বাটনে ক্লিক করলে পিঙ্ক থেকে গোল্ডেন কালার হবে এবং কাউন্ট বাড়বে */
         function toggleLove(element) {
             const countSpan = element.querySelector('.love-count');
             let count = parseInt(countSpan.innerText);
-            if(element.classList.contains('loved')) {
-                element.classList.remove('loved');
+            if(element.classList.contains('gold-active')) {
+                element.classList.remove('gold-active');
                 countSpan.innerText = count - 1;
             } else {
-                element.classList.add('loved');
+                element.classList.add('gold-active');
                 countSpan.innerText = count + 1;
             }
         }
 
-        function toggleLoveModal(element) {
+        function toggleModalLove(element) {
             const countSpan = element.querySelector('.modal-love-count');
             let count = parseInt(countSpan.innerText);
-            if(element.classList.contains('loved')) {
-                element.classList.remove('loved');
+            if(element.classList.contains('gold-active')) {
+                element.classList.remove('gold-active');
                 countSpan.innerText = count - 1;
             } else {
-                element.classList.add('loved');
+                element.classList.add('gold-active');
                 countSpan.innerText = count + 1;
             }
         }
@@ -627,6 +619,8 @@
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`, '_blank');
             } else if(platform === 'telegram') {
                 window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item!')}`, '_blank');
+            } else if(platform === 'gmail') {
+                window.open(`mailto:?subject=Check out this Rorraxy Luxury Item&body=${encodeURIComponent(currentUrl)}`, '_blank');
             } else {
                 navigator.clipboard.writeText(currentUrl);
                 alert("Product link copied successfully!");
@@ -640,8 +634,14 @@
         }
 
         function selectSizeChip(chip) {
-            chip.parentElement.querySelectorAll('.size-chip').forEach(c => c.classList.remove('selected'));
-            chip.classList.add('selected');
+            chip.parentElement.querySelectorAll('.size-chip').forEach(c => {
+                c.style.background = '#1c1c1c';
+                c.style.borderColor = 'rgba(255,255,255,0.2)';
+                c.style.color = '#fff';
+            });
+            chip.style.background = '#1c1c1c';
+            chip.style.borderColor = 'var(--gold-solid)';
+            chip.style.color = 'var(--gold-solid)';
         }
 
         function openSellerChat() {
