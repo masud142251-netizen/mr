@@ -28,7 +28,7 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
         body { padding-top: 65px; padding-bottom: 90px; }
 
-        /* লাক্সারি হেডার (৩ ভাগে বিভক্ত: ব্র্যান্ড, ডায়নামিক কান্ট্রি ফ্ল্যাগ, পোর্টাল বাটন) */
+        /* লাক্সারি হেডার */
         header.app-header {
             display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -39,17 +39,19 @@
         .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
-        .brand-all-in-one { font-size: 0.35rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
+        
+        /* 'All In One Ecosystem' লেখা সাদা রঙের করা হলো */
+        .brand-all-in-one { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
 
-        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
+        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন (বর্ডার রিমুভ করা হয়েছে) */
         .header-country-flag-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
-            background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 6px; padding: 3px 8px;
-            transition: 0.3s;
+            background: transparent; border: none; padding: 2px 6px;
         }
-        .header-country-flag-box:hover { border-color: var(--gold-solid); background: #1a1a1a; }
-        .dynamic-flag-img { width: 26px; height: 18px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.8); }
-        .country-name-text { font-size: 0.38rem; font-weight: 700; color: var(--gold-solid); text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+        .dynamic-flag-img { width: 28px; height: 19px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+        
+        /* গ্লোবাল/কান্ট্রি নাম সাদা রঙের করা হলো */
+        .country-name-text { font-size: 0.4rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
         .portal-btn {
@@ -59,16 +61,9 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* নিউ কালেকশন সেকশন হেডার */
-        .new-collection-header { text-align: center; padding: 4px 10px 2px 10px; }
-        .new-collection-title {
-            font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
-        }
-
         /* Pinterest Style Masonry Feed */
         .feed-container {
-            padding: 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
+            padding: 8px 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 16px; } }
@@ -128,7 +123,7 @@
         .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* পপ-আপ ডিজাইন */
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ ডিজাইন */
         .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
         
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
@@ -141,7 +136,14 @@
 
         .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
 
-        .product-title-line { font-size: 0.75rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
+        /* ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ பேজ ব্যানার স্টাইল */
+        .free-shipping-tax-banner {
+            font-size: 0.65rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; text-align: center; letter-spacing: 1px; padding: 2px 0;
+        }
+
+        /* প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) */
+        .product-title-line { font-size: 0.75rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
 
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
@@ -161,10 +163,11 @@
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        /* কালার অপশন বাদ দিয়ে এখন মাত্র ২টি বাটন (Description এবং Select Size) একদম মিডল বরাবর */
+        .two-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-width: 320px; margin: 0 auto; width: 100%; }
         .action-popup-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 7px 2px;
-            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
+            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 9px 4px;
+            border-radius: 5px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
@@ -247,10 +250,10 @@
             .dynamic-flag-img { width: 36px; height: 24px; }
             .country-name-text { font-size: 0.5rem; }
             .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
-            .new-collection-title { font-size: 1.2rem; letter-spacing: 4px; }
             .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
             .main-display-media { height: 420px; }
             .thumb-item { width: 65px; height: 65px; }
+            .free-shipping-tax-banner { font-size: 0.85rem; }
             .product-title-line { font-size: 1.05rem; }
             .detail-price { font-size: 1.4rem; }
             .discount-badge-btn { font-size: 0.75rem; padding: 8px 22px; }
@@ -270,7 +273,7 @@
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার (মাঝখানে ডায়নামিক কান্ট্রি ফ্ল্যাগ সহ) -->
+    <!-- লাক্সারি হেডার (মাঝখানে বর্ডারবিহীন ডায়নামিক কান্ট্রি ফ্ল্যাগ ও সাদা টেক্সট) -->
     <header class="app-header">
         <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
@@ -280,10 +283,9 @@
             </div>
         </div>
 
-        <!-- মাঝখানের ডায়নামিক দেশের পতাকা ও নাম সেকশন -->
         <div class="header-country-flag-box" id="visitorCountryBox" title="Your Current Region">
             <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
-            <span id="visitorCountryName" class="country-name-text">Bangladesh</span>
+            <span id="visitorCountryName" class="country-name-text">Global</span>
         </div>
 
         <div class="header-portals-box">
@@ -292,11 +294,6 @@
             <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
         </div>
     </header>
-
-    <!-- নিউ কালেকশন সেকশন হেডার -->
-    <div class="new-collection-header">
-        <h1 class="new-collection-title">New Collection</h1>
-    </div>
 
     <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড -->
     <main class="feed-container" id="productFeed">
@@ -362,8 +359,10 @@
                 </button>
             </div>
             
-            <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
+            <!-- টাইটেলের পরিবর্তে ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ -->
+            <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
 
+            <!-- প্রাইস, বড় ডিসকাউন্ট বাটন ও চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$185.00</span>
@@ -376,9 +375,12 @@
                 </div>
             </div>
 
-            <div class="three-action-row">
+            <!-- মূল প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) -->
+            <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
+
+            <!-- কালার অপশন বাদ দিয়ে মাত্র দুটি বাটন (Description ও Select Size) মাঝ বরাবর -->
+            <div class="two-action-row">
                 <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
-                <button class="action-popup-btn" onclick="openSubPopup('colorPopup')">Select Color</button>
                 <button class="action-popup-btn" onclick="openSubPopup('sizePopup')">Select Size</button>
             </div>
 
@@ -392,24 +394,6 @@
             <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
             <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
             <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
-        </div>
-    </div>
-
-    <!-- সাব-পপআপ: Color -->
-    <div id="colorPopup" class="sub-popup-modal">
-        <div class="sub-popup-box">
-            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color Variant</span>
-            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px;">
-                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5'); closeSubPopup('colorPopup');" style="border:1.5px solid var(--gold-solid); border-radius:6px; padding:5px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:50px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.5rem; font-weight:700; color:#fff; display:block; margin-top:3px;">Golden Variant</span>
-                </div>
-                <div onclick="switchMedia('https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc'); closeSubPopup('colorPopup');" style="border:1.5px solid rgba(212,175,55,0.3); border-radius:6px; padding:5px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:50px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.5rem; font-weight:700; color:#fff; display:block; margin-top:3px;">Velvet Black</span>
-                </div>
-            </div>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:6px; margin-top:8px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
@@ -585,24 +569,22 @@
     </nav>
 
     <script>
-        /* ভিজিটরের কান্ট্রি এবং ফ্ল্যাগ অটো ডিটেক্ট করার ফাংশন */
+        /* ডায়নামিক কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
-                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
-                let countryName = data.country_name ? data.country_name : 'Bangladesh';
+                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'global';
+                let countryName = data.country_name ? data.country_name : 'Global';
                 
                 document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
                 document.getElementById('visitorCountryName').innerText = countryName;
             } catch (error) {
-                // ডিফল্ট হিসেবে বাংলাদেশ বা গ্লোবাল সেট থাকবে যদি নেটওয়ার্ক প্রবলেম হয়
                 document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
                 document.getElementById('visitorCountryName').innerText = 'Global';
             }
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে কান্ট্রি ডিটেক্ট হবে
         window.onload = function() {
             detectVisitorCountry();
         };
@@ -748,8 +730,9 @@
         }
 
         function addToCart() {
-            alert("Product successfully added to cart and redirecting to rorraxy.com checkout/subdomain session...");
-            window.location.href = "https://rorraxy.com/cart";
+            const selectedImage = document.getElementById('mainDisplayMedia').src;
+            alert("Product successfully added to cart with selected variant image and redirecting to checkout session...");
+            window.location.href = `https://rorraxy.com/cart?img=${encodeURIComponent(selectedImage)}`;
             toggleCategoryView('productDetailModal');
         }
     </script>
