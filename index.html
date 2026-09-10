@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RORRAXY - LUXURY ENTERPRISE</title>
+    <title>RORRAXY - LUXURY GLOBAL ENTERPRISE</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
@@ -28,31 +28,41 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
         body { padding-top: 65px; padding-bottom: 90px; }
 
-        /* লাক্সারি হেডার */
+        /* লাক্সারি হেডার (৩ ভাগে বিভক্ত: ব্র্যান্ড, ডায়নামিক কান্ট্রি ফ্ল্যাগ, পোর্টাল বাটন) */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 14px;
+            display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
         
-        .header-left-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
+        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
-        .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.1; }
-        .brand-all-in-one { font-size: 0.4rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; margin-top: 1px; }
+        .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+        .brand-all-in-one { font-size: 0.35rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
 
-        .header-portals-box { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
+        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
+        .header-country-flag-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
+            background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 6px; padding: 3px 8px;
+            transition: 0.3s;
+        }
+        .header-country-flag-box:hover { border-color: var(--gold-solid); background: #1a1a1a; }
+        .dynamic-flag-img { width: 26px; height: 18px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .country-name-text { font-size: 0.38rem; font-weight: 700; color: var(--gold-solid); text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+
+        .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
         .portal-btn {
-            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 3px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center; width: 105px;
+            font-size: 0.38rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 2px 5px; border-radius: 3px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap; text-align: center; width: 95px;
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
         /* নিউ কালেকশন সেকশন হেডার */
         .new-collection-header { text-align: center; padding: 4px 10px 2px 10px; }
         .new-collection-title {
-            font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient);
+            font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
         }
 
@@ -78,13 +88,13 @@
         .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: #0a0a0a; }
         .love-share-group { display: flex; align-items: center; gap: 16px; justify-content: center; width: 100%; }
         
-        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 0.95rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
+        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
         .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active { color: var(--gold-solid); }
 
-        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-action-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .subdomain-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -118,7 +128,7 @@
         .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* পপ-আপ বেস ডিজাইন */
+        /* পপ-আপ ডিজাইন */
         .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
         
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
@@ -131,138 +141,127 @@
 
         .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
 
-        .product-title-line { font-size: 0.8rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
+        .product-title-line { font-size: 0.75rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
 
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
         
-        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; }
+        .detail-price { font-size: 1.05rem; font-weight: 900; color: #ffffff; }
         
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.62rem; font-weight: 800; padding: 6px 16px;
+            background: var(--pink-discount); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 6px 16px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
             box-shadow: 0 4px 12px rgba(255,42,133,0.4); margin: 0 auto;
         }
 
         .seller-chat-inline-btn {
-            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 6px 10px;
-            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap;
+            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 5px 8px;
+            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
         .action-popup-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 8px 4px;
-            border-radius: 5px; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
+            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 7px 2px;
+            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.72rem; padding: 10px;
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.68rem; padding: 9px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
         .sub-popup-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 12px;
         }
         .sub-popup-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 340px;
-            padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
+            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
         }
         .share-modal-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
-            padding: 15px; display: flex; flex-direction: column; gap: 10px; text-align: center;
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 300px;
+            padding: 12px; display: flex; flex-direction: column; gap: 8px; text-align: center;
         }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 5px; }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
         .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
-            background: #1a1a1a; padding: 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
+            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
+            background: #1a1a1a; padding: 6px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
             transition: 0.2s;
         }
         .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.45rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
         /* ক্যাটাগরি কার্ড স্টাইল */
-        .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; padding: 0 4px; text-align: center; }
-        .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
+        .category-section { padding: 10px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 8px; padding: 0 4px; text-align: center; }
+        .category-title { font-size: 0.75rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         
-        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; }
-        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 10px; } }
+        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
+        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 8px; } }
 
         .app-card {
             background: #161616; border-radius: 8px; border: none;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            padding: 8px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: all 0.3s ease-in-out; height: 95px; justify-content: space-between;
+            padding: 8px 2px 6px 2px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; transition: all 0.3s ease-in-out; height: 90px; justify-content: space-between;
         }
         .app-card:hover { transform: translateY(-3px); background: #1f1f1f; }
         .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; transition: transform 0.3s ease; }
         .app-card:hover .app-card-icon { transform: scale(1.15); }
-        .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.48rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
+        .app-card-icon i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-card-name { font-size: 0.45rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
         /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
+            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
             z-index: 3000; border-top: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center; gap: 3px; flex: 1;
+            color: var(--text-gray); font-size: 0.45rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
             transition: 0.3s;
         }
-        .nav-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover { color: var(--gold-solid); transform: translateY(-2px); }
         .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
 
-        /* ========================================================
-           COMPUTERS / DESKTOP RESPONSIVE SCALING (পিসির জন্য বড় ও স্পষ্ট ডিসপ্লে)
-           ======================================================== */
+        /* পিসির জন্য রেসপন্সিভ স্কেলিং */
         @media (min-width: 1024px) {
             body { padding-top: 85px; padding-bottom: 100px; }
             header.app-header { padding: 8px 25px; }
             .logo { width: 48px; height: 48px; }
-            .brand-title-main { font-size: 1.35rem; }
-            .brand-all-in-one { font-size: 0.55rem; letter-spacing: 1.8px; }
+            .brand-title-main { font-size: 1.3rem; }
+            .brand-all-in-one { font-size: 0.5rem; letter-spacing: 1.5px; }
+            .dynamic-flag-img { width: 36px; height: 24px; }
+            .country-name-text { font-size: 0.5rem; }
             .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
-            
             .new-collection-title { font-size: 1.2rem; letter-spacing: 4px; }
-            
-            /* পিসিতে প্রোডাক্ট ডিটেইলস পপ-আপ বড় এবং চমৎকার স্পষ্ট দেখাবে */
             .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
             .main-display-media { height: 420px; }
             .thumb-item { width: 65px; height: 65px; }
-            .product-title-line { font-size: 1.05rem; letter-spacing: 1px; }
+            .product-title-line { font-size: 1.05rem; }
             .detail-price { font-size: 1.4rem; }
             .discount-badge-btn { font-size: 0.75rem; padding: 8px 22px; }
             .seller-chat-inline-btn { font-size: 0.7rem; padding: 8px 14px; }
             .action-popup-btn { font-size: 0.7rem; padding: 10px 6px; }
             .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
-            
-            /* পিসিতে সাব-পপআপ ও শেয়ার মোডাল বড় */
             .sub-popup-box, .share-modal-box { max-width: 450px; padding: 20px; gap: 14px; }
-            .sub-popup-box span { font-size: 0.85rem !important; }
-            .sub-popup-box p { font-size: 0.7rem !important; }
-            
-            /* পিসিতে ক্যাটাগরি গ্রিড ও ফন্ট বড় */
             .category-title { font-size: 1rem; }
             .app-card { height: 115px; padding: 12px 6px; }
             .app-card-icon i { font-size: 1.6rem; }
             .app-card-name { font-size: 0.58rem; }
-            
-            /* পিসিতে বটম ন্যাভবার ফন্ট বড় */
             nav.bottom-nav { padding: 10px 20px; }
             .nav-item { font-size: 0.6rem; }
             .nav-item i { font-size: 1.4rem; }
@@ -271,7 +270,7 @@
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার -->
+    <!-- লাক্সারি হেডার (মাঝখানে ডায়নামিক কান্ট্রি ফ্ল্যাগ সহ) -->
     <header class="app-header">
         <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
@@ -280,6 +279,13 @@
                 <span class="brand-all-in-one">All In One Ecosystem</span>
             </div>
         </div>
+
+        <!-- মাঝখানের ডায়নামিক দেশের পতাকা ও নাম সেকশন -->
+        <div class="header-country-flag-box" id="visitorCountryBox" title="Your Current Region">
+            <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
+            <span id="visitorCountryName" class="country-name-text">Bangladesh</span>
+        </div>
+
         <div class="header-portals-box">
             <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B Portal</button>
             <button class="portal-btn" onclick="location.href='https://solutions.rorraxy.com'">Business Solution</button>
@@ -335,7 +341,6 @@
         </div>
         <div class="product-details-content" style="margin-top: 35px;">
             
-            <!-- মাল্টিপল ছবি ও ভিডিও প্রিভিউ স্লাইডার -->
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
@@ -348,7 +353,6 @@
                 </div>
             </div>
 
-            <!-- লাভ ও শেয়ার বাটন ছবির নিচে এবং টাইটেলের উপরে সেন্টারে -->
             <div class="modal-love-share-row">
                 <div class="love-action" onclick="toggleModalLove(this)">
                     <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
@@ -358,10 +362,8 @@
                 </button>
             </div>
             
-            <!-- প্রোডাক্ট টাইটেল -->
             <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
 
-            <!-- প্রাইস (সাদা), ডিসকাউন্ট (মাঝখানে বড়), এবং চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$185.00</span>
@@ -583,6 +585,28 @@
     </nav>
 
     <script>
+        /* ভিজিটরের কান্ট্রি এবং ফ্ল্যাগ অটো ডিটেক্ট করার ফাংশন */
+        async function detectVisitorCountry() {
+            try {
+                let response = await fetch('https://ipapi.co/json/');
+                let data = await response.json();
+                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
+                let countryName = data.country_name ? data.country_name : 'Bangladesh';
+                
+                document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
+                document.getElementById('visitorCountryName').innerText = countryName;
+            } catch (error) {
+                // ডিফল্ট হিসেবে বাংলাদেশ বা গ্লোবাল সেট থাকবে যদি নেটওয়ার্ক প্রবলেম হয়
+                document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
+                document.getElementById('visitorCountryName').innerText = 'Global';
+            }
+        }
+
+        // পেজ লোড হওয়ার সাথে সাথে কান্ট্রি ডিটেক্ট হবে
+        window.onload = function() {
+            detectVisitorCountry();
+        };
+
         function toggleSubdomainView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
