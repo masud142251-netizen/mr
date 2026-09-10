@@ -26,7 +26,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 68px; padding-bottom: 90px; }
+        body { padding-top: 65px; padding-bottom: 90px; }
 
         /* লাক্সারি হেডার */
         header.app-header {
@@ -49,14 +49,14 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* নিউ কালেকশন সেকশন হেডার */
-        .new-collection-header { text-align: center; padding: 6px 10px 2px 10px; }
+        /* নিউ কালেকশন সেকশন হেডার (বর্ডারের ঠিক নিচে নিখুঁত গ্যাপ) */
+        .new-collection-header { text-align: center; padding: 3px 10px 1px 10px; }
         .new-collection-title {
             font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* Pinterest Style Masonry Feed with Folding Effect */
+        /* Pinterest Style Masonry Feed */
         .feed-container {
             padding: 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
@@ -66,10 +66,8 @@
         .product-card {
             break-inside: avoid; background: var(--card-bg); border-radius: 10px 10px 6px 6px; margin-bottom: 8px; overflow: hidden;
             box-shadow: 0 6px 20px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; transition: 0.3s;
-            position: relative;
+            display: flex; flex-direction: column; transition: 0.3s; position: relative;
         }
-        /* ফোল্ডিং টপ ফ্লেভার */
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
             background: var(--gold-gradient); opacity: 0.6;
@@ -89,7 +87,6 @@
         .share-action-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* সাবডোমেইন লোড করার জন্য Iframe ভিউ */
         .subdomain-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 2000; overflow: hidden;
@@ -109,7 +106,6 @@
             background: #000000; z-index: 2000; overflow-y: auto; padding: 12px 10px 80px 10px;
         }
 
-        /* সার্চ পপ-আপ বক্স */
         .search-popup-box {
             display: none; position: fixed; top: 58px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 480px;
             background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 6px; border-radius: 35px;
@@ -123,13 +119,15 @@
         .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.9rem; cursor: pointer; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.6rem; padding: 4px 9px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ (ক্লিন ফোল্ডিং স্টাইল) */
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ (বড় ছবি ও সেন্ট্রালাইজড স্ট্রিপ) */
         .product-details-content { padding: 6px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
         
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-        .main-display-media { width: 100%; height: 260px; object-fit: contain; display: block; background: #000; }
-        .thumbnail-strip { display: flex; gap: 5px; padding: 5px; background: #0c0c0c; overflow-x: auto; }
-        .thumb-item { width: 45px; height: 45px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(212,175,55,0.2); cursor: pointer; flex-shrink: 0; }
+        .main-display-media { width: 100%; height: 320px; object-fit: contain; display: block; background: #000; }
+        
+        /* থাম্বনেইল স্ট্রিপ একদম মাঝখানে (Center) */
+        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
+        .thumb-item { width: 50px; height: 50px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
         .thumb-item.active { border-color: var(--gold-solid); }
 
@@ -137,14 +135,18 @@
 
         .product-title-line { font-size: 0.75rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
 
+        /* প্রাইস (সাদা), ডিসকাউন্ট (মাঝখানে বড়), এবং চ্যাট উইথ সেলার */
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .price-and-offer { display: flex; align-items: center; gap: 8px; }
-        .detail-price { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
         
+        /* প্রাইস উজ্জ্বল সাদা */
+        .detail-price { font-size: 1.05rem; font-weight: 900; color: #ffffff; }
+        
+        /* ডিসকাউন্ট বাটন একদম মাঝখানে বড় আকারে */
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 5px 12px;
-            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
-            box-shadow: 0 4px 12px rgba(255,42,133,0.4);
+            background: var(--pink-discount); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 6px 16px;
+            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
+            box-shadow: 0 4px 12px rgba(255,42,133,0.4); margin: 0 auto;
         }
 
         .seller-chat-inline-btn {
@@ -195,7 +197,7 @@
         .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
-        /* ক্যাটাগরি কার্ড স্টাইল (ক্লিন এবং আইকন জুম অ্যানিমেশন) */
+        /* ক্যাটাগরি কার্ড স্টাইল */
         .category-section { padding: 10px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
         .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 8px; padding: 0 4px; text-align: center; }
         .category-title { font-size: 0.75rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
@@ -210,11 +212,8 @@
             cursor: pointer; transition: all 0.3s ease-in-out; height: 90px; justify-content: space-between;
         }
         .app-card:hover { transform: translateY(-3px); background: #1f1f1f; }
-        
-        /* লোগো/আইকন জুম-ইন ও জুম-আউট এফেক্ট */
         .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; transition: transform 0.3s ease; }
         .app-card:hover .app-card-icon { transform: scale(1.15); }
-        
         .app-card-icon i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.45rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
@@ -300,7 +299,7 @@
         </div>
         <div class="product-details-content" style="margin-top: 30px;">
             
-            <!-- মাল্টিপল ছবি ও ভিডিও প্রিভিউ স্লাইডার -->
+            <!-- মাল্টিপল ছবি ও ভিডিও প্রিভিউ স্লাইডার (বড় ছবি ও সেন্ট্রালাইজড স্ট্রিপ) -->
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
@@ -326,17 +325,17 @@
             <!-- প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) -->
             <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
 
-            <!-- প্রাইস, বড় ডিসকাউন্ট বাটন ও চ্যাট উইথ সেলার -->
+            <!-- প্রাইস (সাদা), ডিসকাউন্ট (মাঝখানে বড়), এবং চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$185.00</span>
                     <button class="discount-badge-btn">
                         <span>🇧🇩 5% OFF</span>
                     </button>
+                    <button class="seller-chat-inline-btn" onclick="openSellerChat()">
+                        <i class="fa-solid fa-comments"></i> Chat with Seller
+                    </button>
                 </div>
-                <button class="seller-chat-inline-btn" onclick="openSellerChat()">
-                    <i class="fa-solid fa-comments"></i> Chat with Seller
-                </button>
             </div>
 
             <div class="three-action-row">
@@ -358,7 +357,7 @@
         </div>
     </div>
 
-    <!-- সাব-পপআপ: Color -->
+    <!-- সাব-পপআপ: Color (কালার থাম্বনেইল সহ, যা ক্লিক করলে মূল ছবি ও ড্যাশবোর্ড আপডেট হবে) -->
     <div id="colorPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
             <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color Variant</span>
@@ -656,6 +655,7 @@
             }
         }
 
+        /* পারমিশন ছাড়াই ডিরেক্ট শেয়ার ও ক্লিপবোর্ড কপি সিস্টেম */
         function shareTo(platform) {
             const currentUrl = window.location.href;
             if(platform === 'facebook') {
