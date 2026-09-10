@@ -3,844 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>mrmasudar.com - Luxury Enterprise</title>
+    <title>MRMASUDAR.COM - LUXURY ENTERPRISE</title>
     
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCvUftOHiXFCuAzivaBut1XvNLpGE-LQ-w",
-            authDomain: "mr-masudar.firebaseapp.com",
-            projectId: "mr-masudar",
-            storageBucket: "mr-masudar.firebasestorage.app",
-            messagingSenderId: "644110210393",
-            appId: "1:644110210393:web:dc756217266f0af039e848",
-            measurementId: "G-BZBCMZQ87M"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        window.db = getFirestore(app);
-        window.firebaseAddDoc = addDoc;
-        window.firebaseCollection = collection;
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const refSeller = urlParams.get('seller');
-        const refAffiliate = urlParams.get('ref') || urlParams.get('affiliate') || urlParams.get('aff') || urlParams.get('partner');
-
-        if(refSeller) {
-            localStorage.setItem('mrmasudar_seller_id', refSeller);
-            sessionStorage.setItem('mrmasudar_seller_id', refSeller);
-        }
-        if(refAffiliate) {
-            localStorage.setItem('mrmasudar_affiliate_id', refAffiliate.toLowerCase());
-            sessionStorage.setItem('mrmasudar_affiliate_id', refAffiliate.toLowerCase());
-        }
-
-        async function fetchCartCountFromFirebase() {
-            let badge = document.getElementById('cartCount');
-            try {
-                const querySnapshot = await getDocs(collection(window.db, "global_carts"));
-                let totalCount = 0;
-                querySnapshot.forEach((doc) => {
-                    let item = doc.data();
-                    totalCount += (item.quantity || 1);
-                });
-                localStorage.setItem('mme_cart_count', totalCount);
-                if(badge) badge.innerText = totalCount;
-            } catch(e) {
-                let cachedCount = localStorage.getItem('mme_cart_count') || '0';
-                if(badge) badge.innerText = cachedCount;
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchCartCountFromFirebase();
-            if(typeof window.loadCombinedProducts === 'function') window.loadCombinedProducts();
-        });
-        window.fetchCartCountFromFirebase = fetchCartCountFromFirebase;
-    </script>
 
     <style>
         :root {
-            --bg-black: #080808;
-            --card-bg: #121212;
+            --bg-black: #000000;
+            --card-bg: #0d0d0d;
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
-            --text-gray: #dfdfdf;
-            --pink-heart: #ff2d55;
-            --font-luxury: 'Cinzel', serif;
-            --font-body: 'Poppins', sans-serif;
+            --text-gray: #b0b0b0;
+            --font-main: 'Poppins', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); position: relative; font-family: var(--font-body); }
-        body { padding-top: 70px; padding-bottom: 85px; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
+        body { padding-top: 75px; padding-bottom: 90px; }
 
-        h1, h2, h3, h4, h5, h6, .brand-title-main, .category-modal-box h3 { font-family: var(--font-luxury); }
+        /* Typography */
+        .uppercase-title { font-family: var(--font-main); font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; }
+        .detail-text { font-family: var(--font-main); font-weight: 400; color: var(--text-gray); }
 
+        /* লাক্সারি হেডার */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
-            background: rgba(11, 11, 11, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(12px); width: 100%; border-bottom: 1px solid rgba(212,175,55,0.2);
+            display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.35);
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; max-width: 70%; min-width: 0; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,175,55,0.4); }
-        
-        .brand-text-box { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.8px; font-family: var(--font-luxury); }
-        .brand-subtitle-craft { font-size: 0.36rem; color: var(--text-gray); font-weight: 700; white-space: nowrap; letter-spacing: 4px; text-transform: uppercase; display: block; width: 100%; font-family: var(--font-body); }
+        .brand-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); background: #000; box-shadow: 0 0 12px rgba(212, 175, 55, 0.4); }
+        .brand-text-box { display: flex; flex-direction: column; }
+        .brand-title-main { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; font-family: var(--font-main); }
+        .brand-subtitle-craft { font-size: 0.42rem; color: var(--text-gray); font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; }
 
-        .top-right-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .country-square-badge { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; background: rgba(20,20,20,0.95); border: 1.5px solid var(--gold-solid); padding: 3px 6px; border-radius: 6px; }
-        .badge-top-text { font-size: 0.52rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 3px; font-family: var(--font-luxury); }
-        .badge-sub-text { font-size: 0.42rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; font-family: var(--font-body); }
-
-        .golden-cross-btn-bottom-right { background: rgba(10,10,10,0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; font-weight: bold; position: fixed; bottom: 20px; right: 20px; z-index: 5000; box-shadow: 0 0 15px rgba(212,175,55,0.4); transition: 0.3s; }
-        .golden-cross-btn-bottom-right:hover { background: var(--gold-gradient); color: #000; transform: scale(1.1); }
-
-        .golden-cross-btn-top-right { background: transparent; border: 1.5px solid var(--gold-solid); color: var(--gold-solid); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 15; transition: 0.3s; }
-        .golden-cross-btn-top-right:hover { background: var(--gold-gradient); color: #000; }
-
-        .custom-toast { position: fixed; top: 78px; left: 50%; transform: translateX(-50%); background: rgba(18, 18, 18, 0.95); border: 1.5px solid var(--gold-solid); color: var(--gold-solid); padding: 7px 16px; border-radius: 30px; font-size: 0.72rem; font-weight: 700; z-index: 9999; display: none; font-family: var(--font-body); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-
-        .share-modal-overlay, .category-modal-overlay, .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(8px); padding: 12px; 
-        }
-        .share-modal-box, .category-modal-box { background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; border-radius: 18px; padding: 35px 16px 18px 16px; text-align: center; position: relative; max-height: 88vh; overflow-y: auto; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
-
-        .modal-content { 
-            background: #141414; border: 1.5px solid var(--gold-solid); width: 100%; max-width: 380px; max-height: 90vh; border-radius: 16px; padding: 35px 12px 14px 12px; text-align: center; position: relative; overflow-y: auto; box-shadow: 0 0 30px rgba(212,175,55,0.3); 
-            scrollbar-width: thin; scrollbar-color: var(--gold-solid) #121212;
+        /* ট্রেন্ডিং ও নিউ কালেকশন স্ট্যাটাস বার (উপরে এক লাইনে) */
+        .trending-banner-bar {
+            background: rgba(18, 18, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 6px 12px; font-size: 0.6rem; font-weight: 700; text-align: center;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .share-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0; }
-        .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1f1f1f; border: 1.5px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 6px 2px; color: white; font-size: 0.5rem; cursor: pointer; font-weight: 600; }
-        .share-icon-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .copy-link-box { display: flex; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 8px; overflow: hidden; margin-top: 8px; margin-bottom: 6px; }
-        .copy-link-input { flex: 1; background: transparent; border: none; color: white; padding: 6px; font-size: 0.6rem; outline: none; font-weight: 600; }
-        .copy-link-btn { background: var(--gold-gradient); border: none; padding: 0 10px; font-weight: 800; font-size: 0.65rem; cursor: pointer; color: #000; font-family: var(--font-luxury); }
-
-        .category-grid-popup { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 4px; }
-        .cat-popup-item { 
-            background: rgba(20, 20, 20, 0.95); border: 1.5px solid rgba(212, 175, 55, 0.4); padding: 10px 6px; border-radius: 10px; color: var(--text-white); font-size: 0.65rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; transition: 0.25s;
+        /* অ্যান্ড্রয়েড অ্যাপ স্টাইল ক্যাটাগরি গ্রিড (প্রতি সারিতে ৫টি আইকন ও ছোট লেখা) */
+        .app-category-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 12px 10px;
+            background: #080808; border-bottom: 1.5px solid rgba(212, 175, 55, 0.2);
+            overflow-x: auto;
         }
-        .cat-popup-item:hover, .cat-popup-item:active { border-color: var(--gold-solid); background: var(--gold-gradient); color: var(--bg-black); }
-        .cat-popup-item:nth-child(1) { grid-column: span 2; flex-direction: row; justify-content: space-between; padding: 8px 12px; }
-        
-        .cat-popup-item i { 
-            font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            animation: continuousCategoryZoom 2s infinite ease-in-out;
+        .app-cat-item {
+            display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; gap: 4px;
         }
-        @keyframes continuousCategoryZoom {
+        .app-cat-icon-circle {
+            width: 52px; height: 52px; border-radius: 50%; background: #121212;
+            border: 1.5px solid var(--gold-solid); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.25); transition: 0.3s;
+        }
+        .app-cat-icon-circle i {
+            font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: continuousZoom 2s infinite ease-in-out;
+        }
+        @keyframes continuousZoom {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.22); }
+            50% { transform: scale(1.15); }
         }
+        .app-cat-item span { font-size: 0.5rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; line-height: 1.15; max-width: 65px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        .cat-popup-item:hover i, .cat-popup-item:active i { -webkit-text-fill-color: var(--bg-black) !important; background: none !important; color: var(--bg-black) !important; animation: none !important; }
+        /* Pinterest Style Masonry Feed */
+        .feed-container { padding: 12px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 15px; } }
 
-        .ecosystem-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: none; flex-direction: column; z-index: 4000; }
-        .ecosystem-body { flex: 1; width: 100%; height: 100%; background: #000; position: relative; }
-        .ecosystem-body iframe { width: 100%; height: 100%; border: none; }
-
-        .feed-container { padding: 10px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 14px; column-gap: 10px; } }
-        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 12px; padding: 18px; } }
-
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.35); display: flex; flex-direction: column; }
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-media-box img { width: 100%; height: auto; max-height: 340px; display: block; object-fit: cover; }
+        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 10px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        .video-wrapper { position: relative; width: 100%; padding-bottom: 140%; background: #000; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: -20%; left: -15%; width: 130%; height: 140%; border: none; pointer-events: none; }
-        .video-click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; cursor: pointer; }
+        .product-info { padding: 8px; display: flex; flex-direction: column; gap: 3px; }
+        .product-title { font-size: 0.72rem; font-weight: 800; color: var(--text-white); text-transform: uppercase; font-family: var(--font-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { font-size: 0.82rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .product-bottom-actions { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 7px 4px; border-top: 1.5px solid rgba(212, 175, 55, 0.25); font-size: 0.68rem; }
-        .action-item { display: flex; align-items: center; gap: 3px; color: var(--text-white); cursor: pointer; font-weight: 700; }
-        .action-item span { font-weight: 600; }
-        .action-item.view-icon i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .action-item.like-icon i { color: var(--pink-heart); }
-        .action-item.like-icon.liked i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .action-item.share-icon i { color: var(--gold-solid); }
-
-        .modal-media-slider { width: 100%; border-radius: 6px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 4px; margin-bottom: 4px; border: 1.5px solid rgba(212, 175, 55, 0.3); background: #000; scrollbar-width: none; }
-        .modal-media-slider::-webkit-scrollbar { display: none; }
-        .modal-slide-item { flex: 0 0 100%; width: 100%; height: 220px; scroll-snap-align: center; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .modal-slide-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
-
-        .modal-thumbs-row { display: flex; gap: 4px; margin-bottom: 4px; overflow-x: auto; padding-bottom: 2px; justify-content: center; }
-        .modal-thumb-img { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); cursor: pointer; opacity: 0.7; }
-        .modal-thumb-img.active { opacity: 1; border-color: var(--gold-solid); transform: scale(1.06); }
-
-        .modal-price-shipping-bar { display: flex; flex-direction: column; gap: 2px; margin-bottom: 5px; background: rgba(18,18,18,0.95); padding: 5px 7px; border-radius: 6px; text-align: left; }
-        .modal-price-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .modal-price-group { display: flex; align-items: center; gap: 5px; }
-        .modal-price { font-size: 0.92rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .modal-bd-discount { background: linear-gradient(135deg, #ff2d55, #ff6b8b); color: white; font-size: 0.44rem; padding: 2px 4px; border-radius: 3px; font-weight: 800; }
+        /* বটম ন্যাভবার (৫টি মেনু: Live, Account, Seller, Affiliate, Nexus Ecosystem) */
+        nav.bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
+            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            z-index: 1000; border-top: 1.5px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(15px);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; text-decoration: none;
+            color: var(--text-gray); font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+        }
+        .nav-item img.nav-logo-icon {
+            width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold-solid); object-fit: cover; margin-bottom: 1px;
+        }
+        .nav-item i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item.active, .nav-item:hover { color: var(--gold-solid); }
+        .nav-item span { text-transform: uppercase; letter-spacing: 0.4px; font-family: var(--font-main); }
         
-        .free-shipping-tax-text { font-size: 0.55rem; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; gap: 3px; }
-        .free-shipping-tax-text i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .modal-actions-bar { display: flex; justify-content: space-around; align-items: center; background: #121212; padding: 4px; border-radius: 5px; margin-bottom: 5px; font-size: 0.6rem; color: #ffffff; font-weight: 600; }
-
-        .animated-cycling-box { background: #141414; border: 1.5px solid var(--gold-solid); border-radius: 8px; padding: 6px 10px; margin-bottom: 6px; height: 68px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        .cycling-content-item { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 0.35s ease-in-out; flex-direction: column; align-items: center; justify-content: center; gap: 3px; position: absolute; top: 0; left: 0; padding: 4px 8px; }
-        .cycling-content-item.active { display: flex; opacity: 1; }
-
-        .cycling-title { font-size: 0.78rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.25; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-luxury); }
-        .cycling-desc { font-size: 0.6rem; color: #ffffff; line-height: 1.3; width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 400; }
-        .cycling-section-title { font-size: 0.58rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1px; font-family: var(--font-luxury); }
-        
-        .modal-circle-item { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.7); cursor: pointer; display: inline-block; transition: 0.2s; }
-        .modal-circle-item.selected { transform: scale(1.15); border-color: #fff; box-shadow: 0 0 6px var(--gold-solid); }
-
-        .modal-pill-item { background: #1a1a1a; border: 1.5px solid rgba(212,175,55,0.4); padding: 2px 7px; border-radius: 4px; font-size: 0.6rem; cursor: pointer; color: #fff; font-weight: 600; display: inline-block; transition: 0.2s; }
-        .modal-pill-item.selected { background: var(--gold-gradient); color: #000; font-weight: 800; border-color: #fff; }
-
-        .modal-footer-action-wrap { margin-top: 3px; display: flex; flex-direction: column; gap: 4px; width: 100%; }
-        .qty-label-top { font-size: 0.52rem; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
-        .golden-round-qty-box { display: flex; align-items: center; justify-content: center; background: #000; border: 1.5px solid var(--gold-solid); border-radius: 16px; padding: 1px 4px; gap: 6px; margin: 0 auto; width: 90px; }
-        .round-qty-btn { width: 15px; height: 15px; border-radius: 50%; background: var(--gold-gradient); border: none; color: #000; font-size: 0.45rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .round-qty-input { width: 15px; background: transparent; border: none; color: white; text-align: center; font-size: 0.62rem; font-weight: 600; outline: none; }
-        
-        .modal-add-btn { width: 100%; background: var(--gold-gradient); border: 1.5px solid var(--gold-solid); padding: 7px; border-radius: 6px; color: var(--bg-black); font-weight: 800; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-family: var(--font-luxury); transition: 0.2s; }
-        .modal-add-btn:hover { background: #000; color: var(--gold-solid); }
-
-        .floating-cart { position: fixed; bottom: 68px; right: 12px; background: var(--card-bg); border: 1.5px solid var(--gold-solid); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); animation: cartGentleBounce 3s infinite ease-in-out; }
-        @keyframes cartGentleBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08) translateY(-3px); } }
-        .floating-cart.cart-zoom-anim { transform: scale(1.3) rotate(12deg); }
-        .floating-cart i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.05rem; }
-        .cart-badge { position: absolute; top: -3px; right: -3px; background: var(--pink-heart); color: white; font-size: 0.58rem; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-        
-        .flying-coin { position: fixed; width: 20px; height: 20px; background: var(--gold-gradient); border-radius: 50%; border: 2px solid #fff; z-index: 9999; pointer-events: none; transition: all 0.95s cubic-bezier(0.15, 0.85, 0.35, 1.2); box-shadow: 0 0 10px var(--gold-solid); }
-
-        nav.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(11, 11, 11, 0.99); display: flex; justify-content: space-between; align-items: center; padding: 5px 6px; z-index: 1000; gap: 3px; border-top: 1px solid rgba(212,175,55,0.25); }
-        
-        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-white); font-size: 0.44rem; font-weight: 600; padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: var(--font-body); flex: 1; max-width: 44px; text-align: center; }
-        .nav-item i { font-size: 0.8rem; margin-bottom: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-item.active { color: var(--gold-solid); background: rgba(212, 175, 55, 0.12); }
-
-        .bottom-search-wrapper { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--gold-solid); border-radius: 14px; padding: 2px 5px; flex: 2.2; min-width: 100px; gap: 3px; }
-        .bottom-search-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-white); font-size: 0.58rem; padding: 2px; font-weight: 600; min-width: 0; font-family: var(--font-body); }
-        .bottom-search-actions { display: flex; align-items: center; gap: 3px; color: var(--gold-solid); font-size: 0.65rem; flex-shrink: 0; }
-        .bottom-search-actions i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; padding: 2px; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bg-black); font-size: 0.48rem; cursor: pointer; flex-shrink: 0; }
-        .search-submit-btn i { background: none !important; -webkit-text-fill-color: var(--bg-black) !important; color: var(--bg-black) !important; }
+        /* লেক্সাস ইকোসিস্টেম দুই লাইন ডিজাইন */
+        .ecosystem-text { display: flex; flex-direction: column; line-height: 1.1; font-size: 0.42rem; font-weight: 700; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <div class="custom-toast" id="customToast">Action completed successfully!</div>
-
+    <!-- লাক্সারি হেডার -->
     <header class="app-header">
-        <div class="brand-container" onclick="showCustomToast('mrmasudar.com - Supreme Enterprise')">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo" loading="lazy">
+        <div class="brand-container" onclick="location.href='https://www.mrmasudar.com'">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
             <div class="brand-text-box">
                 <span class="brand-title-main">mrmasudar.com</span>
-                <span class="brand-subtitle-craft">HANDCRAFTED ART</span>
+                <span class="brand-subtitle-craft">LUXURY ENTERPRISE</span>
             </div>
         </div>
-        <div class="top-right-controls">
-            <div class="country-square-badge">
-                <span class="badge-top-text"><i class="fa-solid fa-globe"></i> GLOBAL</span>
-                <span class="badge-sub-text">ENTERPRISE</span>
-            </div>
+        <div style="font-size: 0.65rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="uppercase-title">
+            NEW COLLECTION
         </div>
     </header>
 
-    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
-        <div class="share-modal-box">
-            <h3 style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">Share Product</h3>
-            <div class="share-grid">
-                <div class="share-icon-btn" onclick="shareToPlatform('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('imo')"><i class="fa-solid fa-comment-sms"></i><span>Imo</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('messenger')"><i class="fa-brands fa-facebook-messenger"></i><span>Messenger</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('linkedin')"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></div>
-                <div class="share-icon-btn" onclick="shareToPlatform('twitter')"><i class="fa-brands fa-x-twitter"></i><span>X</span></div>
-            </div>
-            <div class="copy-link-box">
-                <input type="text" class="copy-link-input" id="shareLinkInput" readonly value="">
-                <button class="copy-link-btn" onclick="copyShareLink()">Copy Link</button>
-            </div>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('shareModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+    <!-- ট্রেন্ডিং ও বেস্ট প্রোডাক্ট স্ট্যাটাস (সর্বোচ্চ ৩ দিন/৩ মাস ফিল্টার ঘোষণা) -->
+    <div class="trending-banner-bar">
+        ⚡ Trending & Best Products (Active Within 3 Months New Collection)
+    </div>
+
+    <!-- অ্যান্ড্রয়েড অ্যাপ স্টাইল ক্যাটাগরি গ্রিড (৫টি করে সারিতে সাজানো নিশসমূহ) -->
+    <div class="app-category-grid">
+        <div class="app-cat-item" onclick="filterCategory('womens-1')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-person-dress"></i></div>
+            <span>Womens 1</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('womens-2')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-shirt"></i></div>
+            <span>Womens 2</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('baby-kids')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-child-reaching"></i></div>
+            <span>Baby & Kids</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('girls-fashion')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <span>Girls Fashion</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('mens-fashion')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-user-tie"></i></div>
+            <span>Mens Fashion</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('gamar-wood')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-couch"></i></div>
+            <span>Gamar Wood</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('home-decor')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-house-chimney"></i></div>
+            <span>Home Decor</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('luxury-gifts')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-gift"></i></div>
+            <span>Luxury Gifts</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('art-craft')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-palette"></i></div>
+            <span>Art & Craft</span>
+        </div>
+        <div class="app-cat-item" onclick="filterCategory('all-items')">
+            <div class="app-cat-icon-circle"><i class="fa-solid fa-border-all"></i></div>
+            <span>All Items</span>
         </div>
     </div>
 
-    <div class="category-modal-overlay" id="categoryModalOverlay" onclick="closeCategoryModal(event)">
-        <div class="category-modal-box">
-            <h3 class="cat-modal-title" style="font-size:0.92rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">Luxury Categories</h3>
-            <div class="category-grid-popup">
-                <div class="cat-popup-item" onclick="selectCategory('All')">
-                    <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 4px;"></i> All Products</span> <i class="fa-solid fa-arrow-right"></i>
-                </div>
-                <div class="cat-popup-item" onclick="selectCategory('👔 FASHION (MEN)')"><i class="fa-solid fa-shirt"></i><span>Men Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👗 FASHION (WOMEN)')"><i class="fa-solid fa-person-dress"></i><span>Women Fashion</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('👶 BABY & KIDS')"><i class="fa-solid fa-child"></i><span>Baby & Kids</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎁 LUXURY GIFTS')"><i class="fa-solid fa-gift"></i><span>Luxury Gifts</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🏡 HOME DECOR')"><i class="fa-solid fa-house-chimney"></i><span>Home Decor</span></div>
-                <div class="cat-popup-item" onclick="selectCategory('🎨 ART & CRAFT')"><i class="fa-solid fa-palette"></i><span>Art & Craft</span></div>
+    <!-- Pinterest স্টাইলে ইটের গাঁথুনির মতো প্রোডাক্ট ফিড -->
+    <main class="feed-container" id="productFeed">
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product">
             </div>
-            <button class="golden-cross-btn-top-right" onclick="document.getElementById('categoryModalOverlay').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <div class="ecosystem-modal-overlay" id="ecosystemModal">
-        <div class="ecosystem-body">
-            <iframe id="ecosystemIframe" src="" loading="lazy"></iframe>
-        </div>
-        <button class="golden-cross-btn-bottom-right" onclick="closeEcosystemModal()" title="Back to Home"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-
-    <div class="floating-cart" id="floatingCart" onclick="handleCartClick()" title="View Cart & Go to Checkout">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-badge" id="cartCount">0</span>
-    </div>
-
-    <main class="feed-container" id="productFeed"></main>
-
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
-            <button class="golden-cross-btn-top-right" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
-
-            <div class="modal-media-slider" id="modalMediaSlider"></div>
-            <div class="modal-thumbs-row" id="modalThumbsRow"></div>
-            
-            <div class="modal-price-shipping-bar">
-                <div class="modal-price-row">
-                    <div class="modal-price-group">
-                        <span class="modal-price" id="modalPrice">$0.00</span>
-                        <span class="modal-bd-discount" id="modalBdDiscount">BD 20% OFF</span>
-                    </div>
-                </div>
-                <div class="free-shipping-tax-text">
-                    <i class="fa-solid fa-circle-check"></i> Free Shipping | Tax & VAT Included
-                </div>
-            </div>
-
-            <div class="modal-actions-bar" id="modalActionsBar">
-                <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span id="modalViewCount">1,240</span></div>
-                <div class="action-item like-icon" id="modalLikeBtnItem"><i class="fa-solid fa-heart"></i> <span id="modalLikeCount">450</span></div>
-                <div class="action-item share-icon" id="modalShareBtnItem"><i class="fa-solid fa-share-nodes"></i> Share</div>
-            </div>
-
-            <div class="animated-cycling-box" id="animatedCyclingBox">
-                <div class="cycling-content-item active">
-                    <h3 class="cycling-title" id="modalTitle">Product Title</h3>
-                </div>
-                <div class="cycling-content-item" id="cyclingColorItemBox">
-                    <span class="cycling-section-title">COLOR</span>
-                    <div id="modalColorCirclesInline" style="display:flex; gap:6px; align-items:center; justify-content:center;"></div>
-                </div>
-                <div class="cycling-content-item" id="cyclingSizeItemBox">
-                    <span class="cycling-section-title">SIZE</span>
-                    <div id="modalSizePillsInline" style="display:flex; gap:4px; align-items:center; justify-content:center; flex-wrap:wrap;"></div>
-                </div>
-                <div class="cycling-content-item">
-                    <p class="cycling-desc" id="modalDesc">Exquisite luxury craft.</p>
-                </div>
-                <div class="cycling-content-item">
-                    <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
-                        <span style="font-size:0.58rem; color:var(--text-white); font-weight:600;">Stock: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specStock">Available</span></span>
-                        <span style="font-size:0.58rem; color:var(--text-white); font-weight:600;">Packaging: <span style="background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" id="specPackaging">Luxury Box</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer-action-wrap">
-                <div style="text-align: center;">
-                    <span class="qty-label-top">Quantity</span>
-                    <div class="golden-round-qty-box">
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                        <input type="text" id="modalProductQty" class="round-qty-input" value="1" readonly>
-                        <button type="button" class="round-qty-btn" onclick="updateModalQuantity(1)"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                </div>
-                <button class="modal-add-btn" id="addToCartBtnElement" onclick="addToCartWithFirebase(this)">
-                    Add To Cart
-                </button>
+            <div class="product-info">
+                <span class="product-title uppercase-title">LUXURY GOLDEN EMBROIDERED SILK GOWN</span>
+                <span class="product-price">$185.00</span>
+                <span class="detail-text" style="font-size: 0.55rem;">New collection item active within 3 months limit.</span>
             </div>
         </div>
-    </div>
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Product">
+            </div>
+            <div class="product-info">
+                <span class="product-title uppercase-title">PREMIUM GAMAR WOOD LUXURY DECOR</span>
+                <span class="product-price">$120.00</span>
+                <span class="detail-text" style="font-size: 0.55rem;">Handcrafted golden finish executive item.</span>
+            </div>
+        </div>
+    </main>
 
+    <!-- ৫টি নির্দিষ্ট মেনু সম্বলিত বটম ন্যাভবার -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="openEcosystemPage('https://etech.mrmasudar.com', this)"><i class="fa-solid fa-graduation-cap"></i><span>E-Tech</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://affiliate.mrmasudar.com', this)"><i class="fa-solid fa-handshake"></i><span>Affiliate</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://seller.mrmasudar.com', this)"><i class="fa-solid fa-chart-line"></i><span>Seller</span></div>
-        <div class="nav-item" onclick="openEcosystemPage('https://track.mrmasudar.com', this)"><i class="fa-solid fa-truck-fast"></i><span>Track</span></div>
-        
-        <div class="nav-item active" id="itemNavBtn" onclick="openCategoryModal(this)"><i class="fa-solid fa-clipboard-list"></i><span>Item</span></div>
-        
-        <div class="bottom-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Search..." onkeypress="handleSearchKey(event)">
-            <div class="bottom-search-actions">
-                <i class="fa-solid fa-camera" onclick="triggerCameraAuto()" title="Visual Inquiry Search"></i>
-                <button class="search-submit-btn" onclick="performSearchSubmit()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <!-- ১. লাইভ আইটেম -->
+        <div class="nav-item active" onclick="navigateToSubdomain('www')">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Live Items</span>
+        </div>
+        <!-- ২. একাউন্ট -->
+        <div class="nav-item" onclick="navigateToSubdomain('account')">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>Account</span>
+        </div>
+        <!-- ৩. সেলার -->
+        <div class="nav-item" onclick="navigateToSubdomain('seller')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Seller</span>
+        </div>
+        <!-- ৪. এফিলিয়েট -->
+        <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
+            <i class="fa-solid fa-handshake"></i>
+            <span>Affiliate</span>
+        </div>
+        <!-- ৫. লেক্সাস ইকোসিস্টেম (উপরে লোগো এবং নিচে দুই লাইনে ছোট করে ইকোসিস্টেম) -->
+        <div class="nav-item" onclick="navigateToSubdomain('nexusecosystem')">
+            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="nav-logo-icon">
+            <div class="ecosystem-text">
+                <span>Lexus</span>
+                <span>Ecosystem</span>
             </div>
         </div>
     </nav>
 
     <script>
-        let activeCurrentProduct = null;
-        let selectedColor = "Standard";
-        let selectedSize = "Standard";
-        let currentModalQty = 1;
-        let cyclingInterval = null;
-        let currentShareTitle = "";
-
-        let currentAffiliateId = sessionStorage.getItem('mrmasudar_affiliate_id') || localStorage.getItem('mrmasudar_affiliate_id') || '';
-        let currentSellerId = sessionStorage.getItem('mrmasudar_seller_id') || localStorage.getItem('mrmasudar_seller_id') || 'SELLER-MR-DEFAULT';
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchCartCountFromFirebase();
-            loadCombinedProducts();
-        });
-
-        function showCustomToast(msg) {
-            let toast = document.getElementById('customToast');
-            toast.innerText = msg;
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2200);
+        function filterCategory(categoryKey) {
+            console.log("Filtering category for:", categoryKey);
+            // ক্যাটাগরি অনুযায়ী প্রোডাক্ট ফিল্টারিং লজিক এখানে যুক্ত হবে
         }
 
-        function getDynamicProductStats(productId) {
-            let storageKeyViews = `mme_views_${productId}`;
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-
-            let views = parseInt(localStorage.getItem(storageKeyViews));
-            if(!views) {
-                views = Math.floor(2000 + Math.random() * 1500);
-                localStorage.setItem(storageKeyViews, views);
+        function navigateToSubdomain(sub) {
+            const domain = "mrmasudar.com";
+            if(sub === 'www') {
+                window.location.href = `https://www.${domain}`;
             } else {
-                if(Math.random() > 0.5) {
-                    views += Math.floor(1 + Math.random() * 5);
-                    localStorage.setItem(storageKeyViews, views);
-                }
+                window.location.href = `https://${sub}.${domain}`;
             }
-
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || Math.floor(300 + Math.random() * 200);
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-            let isLiked = (Date.now() - likedTime) < 86400000;
-
-            return { views, likes, isLiked };
-        }
-
-        function toggleProductLike(productId, el) {
-            let storageKeyLikes = `mme_likes_${productId}`;
-            let storageKeyLikedByMe = `mme_liked_time_${productId}`;
-            let likedTime = parseInt(localStorage.getItem(storageKeyLikedByMe)) || 0;
-            if((Date.now() - likedTime) < 86400000) return;
-
-            let likes = parseInt(localStorage.getItem(storageKeyLikes)) || 300;
-            likes += 1;
-            localStorage.setItem(storageKeyLikes, likes);
-            localStorage.setItem(storageKeyLikedByMe, Date.now());
-
-            let span = el.querySelector('span');
-            if(span) span.innerText = likes;
-            el.classList.add('liked');
-            showCustomToast("Product liked successfully!");
-        }
-
-        function openCategoryModal(element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('categoryModalOverlay').style.display = 'flex';
-        }
-
-        function closeCategoryModal(e) {
-            if(!e || e.target.id === 'categoryModalOverlay') document.getElementById('categoryModalOverlay').style.display = 'none';
-        }
-
-        function selectCategory(cat) {
-            document.getElementById('categoryModalOverlay').style.display = 'none';
-            let all = getAllProducts();
-            if(cat === 'All') loadCombinedProducts(all);
-            else loadCombinedProducts(all.filter(p => p.category === cat));
-        }
-
-        function openEcosystemPage(url, element) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            if(element) element.classList.add('active');
-            document.getElementById('ecosystemIframe').src = url;
-            document.getElementById('ecosystemModal').style.display = 'flex';
-        }
-
-        function closeEcosystemModal() {
-            document.getElementById('ecosystemModal').style.display = 'none';
-            document.getElementById('ecosystemIframe').src = '';
-            document.getElementById('itemNavBtn').classList.add('active');
-        }
-
-        function getAllProducts() {
-            let defaultProds = [
-                {
-                    id: 1, title: "Luxury Silk Designer Evening Gown", price: "$185.00", bdDiscount: "BD 20% OFF",
-                    category: "👗 FASHION (WOMEN)",
-                    videoUrl: "https://www.youtube.com/embed/EjSt6U8SQ0I?autoplay=1&mute=1&loop=1&playlist=EjSt6U8SQ0I&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0",
-                    images: [
-                        "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5",
-                        "https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc"
-                    ],
-                    desc: "Exquisite hand-stitched silk evening gown with golden embroidery detailing.",
-                    stock: "45 Units Ready", packaging: "Luxury Gift Box", quantity: "1 Piece", sku: "mme-fashion-01",
-                    colors: ["#d4af37", "#111111", "#b76e79", "#ffffff", "#8b0000"], 
-                    sizes: ["XS", "S", "M", "L", "XL"]
-                }
-            ];
-
-            let sellers = JSON.parse(localStorage.getItem('mme_sellers') || '[]');
-            sellers.forEach(s => {
-                if(s.uploadedProducts) {
-                    s.uploadedProducts.forEach((p, i) => {
-                        let cleanVid = "";
-                        if(p.videoUrl && p.videoUrl.trim() !== "") {
-                            let rawBase = p.videoUrl.replace("watch?v=", "embed/").split('?')[0];
-                            let videoIdMatch = rawBase.split('/').pop();
-                            cleanVid = `${rawBase}?autoplay=1&mute=1&loop=1&playlist=${videoIdMatch}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
-                        }
-                        defaultProds.push({
-                            id: 'v-' + s.id + '-' + i,
-                            sellerId: s.id,
-                            title: p.title || p.name || "Exclusive Item",
-                            price: p.global || '$35.00',
-                            bdDiscount: p.countryDiscount || 'BD 15% OFF',
-                            category: p.category || '👗 FASHION (WOMEN)',
-                            videoUrl: cleanVid,
-                            images: [p.imgUrl || "https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5"],
-                            desc: p.desc || 'Exclusive premium collection.',
-                            stock: p.stock || 'In Stock',
-                            packaging: p.packaging || 'Secure Box',
-                            quantity: p.quantity || '1 Unit',
-                            sku: (p.sku || `mme-ven-${s.id}-${i}`).toLowerCase(),
-                            colors: p.colors || ["#d4af37", "#111111", "#ffffff"],
-                            sizes: p.sizes || ["Standard", "Large"]
-                        });
-                    });
-                }
-            });
-            return defaultProds;
-        }
-
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-            return array;
-        }
-
-        function loadCombinedProducts(list = getAllProducts()) {
-            let randomizedList = shuffleArray([...list]);
-            const feed = document.getElementById('productFeed');
-            if(!feed) return;
-            feed.innerHTML = "";
-
-            randomizedList.forEach(item => {
-                let stats = getDynamicProductStats(item.id);
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                
-                let mediaContent = "";
-                if (item.videoUrl && item.videoUrl.trim() !== "") {
-                    mediaContent = `
-                        <div class="video-wrapper">
-                            <iframe src="${item.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                            <div class="video-click-shield" onclick="openProductModal('${item.id}')"></div>
-                        </div>
-                    `;
-                } else {
-                    mediaContent = `
-                        <div class="product-media-box" onclick="openProductModal('${item.id}')">
-                            <img src="${item.images[0]}" alt="${item.title}" loading="lazy">
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    ${mediaContent}
-                    <div class="product-bottom-actions">
-                        <div class="action-item view-icon"><i class="fa-solid fa-eye"></i> <span>${stats.views}</span></div>
-                        <div class="action-item like-icon ${stats.isLiked ? 'liked' : ''}" onclick="toggleProductLike('${item.id}', this)"><i class="fa-solid fa-heart"></i> <span>${stats.likes}</span></div>
-                        <div class="action-item share-icon" onclick="openShareModal('${item.title}')"><i class="fa-solid fa-share-nodes"></i> Share</div>
-                    </div>
-                `;
-                feed.appendChild(card);
-            });
-        }
-        window.loadCombinedProducts = loadCombinedProducts;
-
-        function openShareModal(title) {
-            currentShareTitle = title;
-            let currentUrl = window.location.href.split('?')[0];
-            let refQuery = currentAffiliateId ? `?ref=${currentAffiliateId}` : '';
-            if(currentSellerId && currentSellerId !== 'SELLER-MR-DEFAULT') {
-                refQuery += refQuery ? `&seller=${currentSellerId}` : `?seller=${currentSellerId}`;
-            }
-            document.getElementById('shareLinkInput').value = currentUrl + refQuery;
-            document.getElementById('shareModalOverlay').style.display = 'flex';
-        }
-
-        function closeShareModal(e) {
-            if(e.target.id === 'shareModalOverlay') document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function copyShareLink() {
-            let input = document.getElementById('shareLinkInput');
-            input.select();
-            navigator.clipboard.writeText(input.value);
-            showCustomToast("Affiliate referral link copied successfully!");
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function shareToPlatform(platform) {
-            let linkVal = document.getElementById('shareLinkInput').value;
-            let url = encodeURIComponent(linkVal);
-            let text = encodeURIComponent(`✨ Check out "${currentShareTitle}" on mrmasudar.com 🌟`);
-            let targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            if(platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            else if(platform === 'imo') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            else if(platform === 'facebook' || platform === 'messenger') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            else if(platform === 'tiktok') targetUrl = `https://www.tiktok.com/`;
-            else if(platform === 'instagram') targetUrl = `https://www.instagram.com/`;
-            else if(platform === 'youtube') targetUrl = `https://www.youtube.com/`;
-            else if(platform === 'linkedin') targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            else if(platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-            window.open(targetUrl, '_blank');
-            document.getElementById('shareModalOverlay').style.display = 'none';
-        }
-
-        function startSequentialAnimation() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            const items = document.querySelectorAll('.cycling-content-item');
-            let currentIndex = 0;
-            
-            items.forEach(el => el.classList.remove('active'));
-            items[0].classList.add('active');
-
-            cyclingInterval = setInterval(() => {
-                items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add('active');
-            }, 2200);
-        }
-
-        function openProductModal(id) {
-            let product = getAllProducts().find(p => p.id == id);
-            if(!product) return;
-            activeCurrentProduct = product;
-            currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
-
-            let stats = getDynamicProductStats(product.id);
-            document.getElementById('modalViewCount').innerText = stats.views;
-            document.getElementById('modalLikeCount').innerText = stats.likes;
-            let likeBtnItem = document.getElementById('modalLikeBtnItem');
-            if(stats.isLiked) likeBtnItem.classList.add('liked');
-            else likeBtnItem.classList.remove('liked');
-            likeBtnItem.onclick = () => toggleProductLike(product.id, likeBtnItem);
-
-            document.getElementById('modalShareBtnItem').onclick = () => {
-                document.getElementById('productModal').style.display = 'none';
-                openShareModal(product.title);
-            };
-
-            document.getElementById('modalTitle').innerText = product.title;
-            document.getElementById('modalPrice').innerText = product.price;
-            document.getElementById('modalBdDiscount').innerText = product.bdDiscount;
-            document.getElementById('modalDesc').innerText = product.desc;
-            document.getElementById('specStock').innerText = product.stock || "Available";
-            document.getElementById('specPackaging').innerText = product.packaging || "Luxury Box";
-
-            const slider = document.getElementById('modalMediaSlider');
-            const thumbs = document.getElementById('modalThumbsRow');
-            
-            slider.innerHTML = product.images.map((img, idx) => `<div class="modal-slide-item" id="slide-${idx}"><img src="${img}"></div>`).join('');
-            thumbs.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="modal-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchSlide(${idx})">`).join('');
-
-            const colorBox = document.getElementById('modalColorCirclesInline');
-            const colorItemBox = document.getElementById('cyclingColorItemBox');
-            if(product.colors && product.colors.length > 0) {
-                colorItemBox.style.display = 'flex';
-                selectedColor = product.colors[0];
-                colorBox.innerHTML = product.colors.map((c, idx) => `
-                    <span class="modal-circle-item ${idx === 0 ? 'selected' : ''}" style="background-color: ${c};" onclick="selectModalColor('${c}', this)"></span>
-                `).join('');
-            } else { colorItemBox.style.display = 'none'; selectedColor = "Standard"; }
-
-            const sizeBox = document.getElementById('modalSizePillsInline');
-            const sizeItemBox = document.getElementById('cyclingSizeItemBox');
-            if(product.sizes && product.sizes.length > 0) {
-                sizeItemBox.style.display = 'flex';
-                selectedSize = product.sizes[0];
-                sizeBox.innerHTML = product.sizes.map((s, idx) => `
-                    <span class="modal-pill-item ${idx === 0 ? 'selected' : ''}" onclick="selectModalSize('${s}', this)">${s}</span>
-                `).join('');
-            } else { sizeItemBox.style.display = 'none'; selectedSize = "Standard"; }
-
-            document.getElementById('productModal').style.display = 'flex';
-            startSequentialAnimation();
-        }
-
-        function switchSlide(idx) {
-            let slideEl = document.getElementById(`slide-${idx}`);
-            if(slideEl) slideEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            document.querySelectorAll('.modal-thumb-img').forEach((t, i) => {
-                if(i === idx) t.classList.add('active');
-                else t.classList.remove('active');
-            });
-        }
-
-        function selectModalColor(cVal, el) {
-            selectedColor = cVal;
-            document.querySelectorAll('.modal-circle-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function selectModalSize(sVal, el) {
-            selectedSize = sVal;
-            document.querySelectorAll('.modal-pill-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function updateModalQuantity(change) {
-            currentModalQty += change;
-            if(currentModalQty < 1) currentModalQty = 1;
-            document.getElementById('modalProductQty').value = currentModalQty;
-        }
-
-        function closeProductModal() {
-            if(cyclingInterval) clearInterval(cyclingInterval);
-            document.getElementById('productModal').style.display = 'none';
-        }
-
-        function playHeavyLuxuryCoinSound() {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880.00, audioCtx.currentTime + 0.15);
-                
-                gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.55);
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.55);
-            } catch(e) {}
-        }
-
-        async function addToCartWithFirebase(buttonEl) {
-            if(!activeCurrentProduct) return;
-            
-            let cartItem = {
-                productId: activeCurrentProduct.id,
-                sellerId: activeCurrentProduct.sellerId || currentSellerId,
-                title: activeCurrentProduct.title,
-                price: activeCurrentProduct.price,
-                quantity: currentModalQty,
-                color: selectedColor,
-                size: selectedSize,
-                image: activeCurrentProduct.images[0],
-                affiliateRef: currentAffiliateId || 'direct',
-                timestamp: new Date().toISOString()
-            };
-
-            let badge = document.getElementById('cartCount');
-            let currentCount = parseInt(localStorage.getItem('mme_cart_count') || badge.innerText || '0') + currentModalQty;
-            localStorage.setItem('mme_cart_count', currentCount);
-            if(badge) badge.innerText = currentCount;
-
-            try {
-                if(window.db && window.firebaseAddDoc && window.firebaseCollection) {
-                    await window.firebaseAddDoc(window.firebaseCollection(window.db, "global_carts"), cartItem);
-                    if(typeof window.fetchCartCountFromFirebase === 'function') {
-                        window.fetchCartCountFromFirebase();
-                    }
-                }
-            } catch(e) {}
-
-            closeProductModal();
-            playFlyingCoinAnimation(buttonEl);
-            showCustomToast("Product added to cart successfully!");
-        }
-
-        function playFlyingCoinAnimation(buttonEl) {
-            try {
-                let btnRect = buttonEl.getBoundingClientRect();
-                let cartRect = document.getElementById('floatingCart').getBoundingClientRect();
-                
-                let coin = document.createElement('div');
-                coin.className = 'flying-coin';
-                coin.style.left = `${btnRect.left + btnRect.width/2 - 10}px`;
-                coin.style.top = `${btnRect.top + btnRect.height/2 - 10}px`;
-                document.body.appendChild(coin);
-
-                setTimeout(() => {
-                    coin.style.left = `${cartRect.left + cartRect.width/2 - 10}px`;
-                    coin.style.top = `${cartRect.top + cartRect.height/2 - 10}px`;
-                    coin.style.transform = 'scale(0.35) rotate(1080deg)';
-                    coin.style.opacity = '0.3';
-                }, 40);
-
-                setTimeout(() => {
-                    coin.remove();
-                    playHeavyLuxuryCoinSound();
-                    let cartEl = document.getElementById('floatingCart');
-                    cartEl.classList.add('cart-zoom-anim');
-                    setTimeout(() => cartEl.classList.remove('cart-zoom-anim'), 500);
-                }, 950);
-            } catch(e) {}
-        }
-
-        async function handleCartClick() {
-            if(typeof window.fetchCartCountFromFirebase === 'function') {
-                await window.fetchCartCountFromFirebase();
-            }
-            let checkoutUrl = "https://out.mrmasudar.com";
-            let params = [];
-            if(currentSellerId) params.push(`seller=${currentSellerId}`);
-            if(currentAffiliateId) params.push(`ref=${currentAffiliateId}`);
-            if(params.length > 0) checkoutUrl += `?${params.join('&')}`;
-
-            window.location.href = checkoutUrl;
-        }
-
-        function performSearchSubmit() {
-            let q = document.getElementById('searchInput').value.toLowerCase();
-            loadCombinedProducts(getAllProducts().filter(p => p.title.toLowerCase().includes(q)));
-        }
-        function handleSearchKey(e) { if(e.key === 'Enter') performSearchSubmit(); }
-
-        function triggerCameraAuto() {
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                let file = e.target.files[0];
-                if(file) {
-                    showCustomToast("Visual image uploaded for product source inquiry!");
-                }
-            };
-            input.click();
         }
     </script>
 </body>
