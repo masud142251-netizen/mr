@@ -38,7 +38,9 @@
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         .brand-title-main { font-size: 1.15rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; }
-        .brand-all-in-one { font-size: 0.48rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 3.5px; margin-top: 2px; }
+        
+        /* ব্র্যান্ড নামের দৈর্ঘ্য অনুযায়ী সামঞ্জস্যপূর্ণ ফাঁক ফাঁক 'ALL IN ONE' */
+        .brand-all-in-one { font-size: 0.46rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 2.2px; margin-top: 2px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
         .portal-btn {
@@ -73,30 +75,52 @@
         
         .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0c0c0c; }
         .love-share-group { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: space-between; }
-        .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
-        .share-action-box { display: flex; gap: 6px; align-items: center; }
-        .share-btn { background: none; border: none; color: var(--text-gray); font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
-        .share-btn:hover { color: var(--gold-solid); }
+        
+        /* পিঙ্ক ও গোল্ডেন থিমযুক্ত লাভ বাটন */
+        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .love-action.loved i { background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* একদম ব্ল্যাঙ্ক ফুল-স্ক্রিন ভিউ (কোনো এক্সট্রা হেডার বা টেক্সট ছাড়া) */
-        .pure-blank-view {
+        .share-action-box { display: flex; gap: 8px; align-items: center; }
+        .share-btn { background: none; border: none; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-btn:hover { transform: scale(1.15); }
+
+        /* সাবডোমেইন লোড করার জন্য ফুল-স্ক্রিন Iframe ভিউ */
+        .subdomain-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000000; z-index: 2000; overflow: hidden;
+        }
+        .subdomain-iframe { width: 100%; height: 100%; border: none; background: #000; }
+        
+        /* গোল্ডেন ক্রস ক্লোজ বাটন */
+        .golden-close-btn {
+            position: absolute; top: 15px; right: 15px; z-index: 2100; background: #141414;
+            border: 1.5px solid var(--gold-solid); width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+        }
+        .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* ক্যাটাগরি ফুল-স্ক্রিন ওভারলে */
+        .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 15px 100px 15px;
         }
 
-        /* সার্চ পপ-আপ ওভারলে (সিম্পল সার্চ বক্স ঠিক নিচে পপ-আপ হয়ে আসবে) */
+        /* সার্চ পপ-আপ বক্স (ক্লিন ও সিম্পল) */
         .search-popup-box {
             display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 600px;
-            background: rgba(15, 15, 15, 0.98); z-index: 2000; padding: 15px; border-radius: 12px;
+            background: rgba(12, 12, 12, 0.98); z-index: 2000; padding: 14px; border-radius: 12px;
             border: 1.5px solid var(--gold-solid); backdrop-filter: blur(15px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
         .search-input-field-box {
-            display: flex; align-items: center; background: #080808; border: 1px solid rgba(212,175,55,0.4);
+            display: flex; align-items: center; background: #050505; border: 1px solid rgba(212,175,55,0.4);
             border-radius: 30px; padding: 8px 15px; gap: 10px;
         }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
         .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
         /* প্রোডাক্ট ডিটেইলস পপ-আপ */
         .product-details-content { padding: 15px; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
@@ -116,7 +140,6 @@
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        /* এক লাইনে ৩টি বাটন: Description, Color, Size */
         .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px; }
         .action-popup-btn {
             background: #181818; border: 1px solid rgba(212,175,55,0.4); color: var(--gold-solid); padding: 10px 4px;
@@ -131,7 +154,6 @@
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
-        /* সাব-পপআপ (বাটনে ক্লিক করলে যে পপ-আপ আসবে) */
         .sub-popup-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 20px;
@@ -141,7 +163,26 @@
             padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
-        /* ক্যাটাগরি কার্ড স্টাইল (৭টি সম্পূর্ণ ক্যাটাগরি) */
+        /* সোশ্যাল মিডিয়া শেয়ার পপ-আপ মোডাল */
+        .share-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .share-modal-box {
+            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 14px; width: 100%; max-width: 340px;
+            padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: center;
+        }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 5px; }
+        .share-icon-item {
+            display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer;
+            background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2);
+            transition: 0.2s;
+        }
+        .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
+        .share-icon-item i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.5rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+
+        /* ক্যাটাগরি কার্ড স্টাইল */
         .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
         .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 4px; }
         .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -157,8 +198,7 @@
         }
         .app-card:hover { transform: translateY(-3px); border-color: var(--gold-solid); background: #222; }
         .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; }
-        .app-card-icon i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: smoothZoomInOut 3s infinite ease-in-out; }
-        @keyframes smoothZoomInOut { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+        .app-card-icon i { font-size: 1.4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.5rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
         /* বটম ন্যাভবার */
@@ -210,26 +250,53 @@
                         <i class="fa-solid fa-heart"></i> <span class="love-count">142</span>
                     </div>
                     <div class="share-action-box">
-                        <button class="share-btn" onclick="shareProduct('facebook')" title="Facebook"><i class="fa-brands fa-facebook"></i></button>
-                        <button class="share-btn" onclick="shareProduct('instagram')" title="Instagram"><i class="fa-brands fa-instagram"></i></button>
-                        <button class="share-btn" onclick="shareProduct('tiktok')" title="TikTok"><i class="fa-brands fa-tiktok"></i></button>
-                        <button class="share-btn" onclick="shareProduct('youtube')" title="YouTube"><i class="fa-brands fa-youtube"></i></button>
-                        <button class="share-btn" onclick="shareProduct('whatsapp')" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
-                        <button class="share-btn" onclick="shareProduct('telegram')" title="Telegram"><i class="fa-brands fa-telegram"></i></button>
-                        <button class="share-btn" onclick="shareProduct('imo')" title="Imo"><i class="fa-solid fa-comment-dots"></i></button>
-                        <button class="share-btn" onclick="shareProduct('copy')" title="Copy Link"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button class="share-btn" onclick="openShareModal()" title="Share Options"><i class="fa-solid fa-share-nodes"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ -->
-    <div id="productDetailModal" class="pure-blank-view" style="z-index: 4000;">
-        <div style="display:flex; justify-content:flex-end; padding-bottom:10px;">
-            <button class="close-modal-btn" onclick="toggleView('productDetailModal')"><i class="fa-solid fa-xmark"></i></button>
+    <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ মোডাল -->
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-box">
+            <span style="font-size:0.85rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <div class="share-icons-grid">
+                <div class="share-icon-item" onclick="shareTo('facebook')">
+                    <i class="fa-brands fa-facebook"></i><span>Facebook</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('instagram')">
+                    <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('tiktok')">
+                    <i class="fa-brands fa-tiktok"></i><span>TikTok</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('youtube')">
+                    <i class="fa-brands fa-youtube"></i><span>YouTube</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('whatsapp')">
+                    <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('telegram')">
+                    <i class="fa-brands fa-telegram"></i><span>Telegram</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('imo')">
+                    <i class="fa-solid fa-comment-dots"></i><span>Imo</span>
+                </div>
+                <div class="share-icon-item" onclick="shareTo('copy')">
+                    <i class="fa-solid fa-link"></i><span>Copy Link</span>
+                </div>
+            </div>
+            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:8px; margin-top:5px;">Close</button>
         </div>
-        <div class="product-details-content">
+    </div>
+
+    <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ -->
+    <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 4000;">
+        <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="product-details-content" style="margin-top: 30px;">
             <div class="detail-img-box"><img id="modalProductImg" src="" alt="Detail"></div>
             
             <div class="price-love-chat-row">
@@ -245,7 +312,6 @@
                 </button>
             </div>
 
-            <!-- এক লাইনে ৩টি বাটন -->
             <div class="three-action-row">
                 <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
                 <button class="action-popup-btn" onclick="openSubPopup('colorPopup')">Select Color</button>
@@ -297,11 +363,13 @@
         </div>
     </div>
 
-    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ (৭টি ক্যাটাগরি সহ) -->
-    <div id="categoryView" class="pure-blank-view">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ওভারলে -->
+    <div id="categoryView" class="category-fullscreen-view">
+        <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div style="margin-bottom: 25px;">
             <span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">All Categories</span>
-            <button class="close-modal-btn" onclick="toggleView('categoryView')"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <section class="category-section">
@@ -397,41 +465,52 @@
         </section>
     </div>
 
-    <!-- ৩. সার্চ পপ-আপ বক্স (সিম্পল সার্চ বার) -->
+    <!-- ৩. সার্চ পপ-আপ বক্স (গ্যালারি ক্যামেরা ও সার্চ বাটনসহ) -->
     <div id="searchPopup" class="search-popup-box">
-        <div class="search-box-wrap">
-            <div class="search-input-field-box">
-                <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
-                <input type="text" placeholder="Search Rorraxy Collections...">
-                <button class="camera-search-btn" title="Gallery Upload"><i class="fa-solid fa-camera"></i></button>
-            </div>
+        <div class="search-input-field-box">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
+            <input type="text" id="searchInputField" placeholder="Search Rorraxy Collections...">
+            <label class="camera-search-btn" title="Upload from Gallery/Camera" style="cursor: pointer;">
+                <i class="fa-solid fa-camera"></i>
+                <input type="file" accept="image/*" style="display: none;" onchange="handleImageSearch(this)">
+            </label>
+            <button class="search-submit-btn" onclick="executeSearch()">Search</button>
         </div>
     </div>
 
-    <!-- ৪. একাউন্ট ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ -->
-    <div id="accountView" class="pure-blank-view"></div>
+    <!-- ৪. একাউন্ট সাবডোমেইন Iframe ভিউ -->
+    <div id="accountView" class="subdomain-view">
+        <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
+        <iframe src="https://account.rorraxy.com" class="subdomain-iframe"></iframe>
+    </div>
 
-    <!-- ৫. সেলার ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ -->
-    <div id="sellerView" class="pure-blank-view"></div>
+    <!-- ৫. সেলার সাবডোমেইন Iframe ভিউ -->
+    <div id="sellerView" class="subdomain-view">
+        <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
+        <iframe src="https://seller.rorraxy.com" class="subdomain-iframe"></iframe>
+    </div>
 
-    <!-- ৬. এফিলিয়েট ফুল-স্ক্রিন ব্ল্যাঙ্ক ভিউ -->
-    <div id="affiliateView" class="pure-blank-view"></div>
+    <!-- ৬. এফিলিয়েট সাবডোমেইন Iframe ভিউ -->
+    <div id="affiliateView" class="subdomain-view">
+        <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
+        <iframe src="https://affiliate.rorraxy.com" class="subdomain-iframe"></iframe>
+    </div>
 
     <!-- বটম ন্যাভবার -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="toggleView('affiliateView')">
+        <div class="nav-item" onclick="toggleSubdomainView('affiliateView')">
             <i class="fa-solid fa-handshake"></i>
             <span>Affiliate</span>
         </div>
-        <div class="nav-item" onclick="toggleView('sellerView')">
+        <div class="nav-item" onclick="toggleSubdomainView('sellerView')">
             <i class="fa-solid fa-chart-line"></i>
             <span>Seller</span>
         </div>
-        <div class="nav-item" onclick="toggleView('accountView')">
+        <div class="nav-item" onclick="toggleSubdomainView('accountView')">
             <i class="fa-solid fa-user-shield"></i>
             <span>Account</span>
         </div>
-        <div class="nav-item" onclick="toggleView('categoryView')">
+        <div class="nav-item" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-border-all"></i>
             <span>Category</span>
         </div>
@@ -442,32 +521,62 @@
     </nav>
 
     <script>
-        /* টগল ভিউ সিস্টেম */
-        function toggleView(viewId) {
+        /* সাবডোমেইন Iframe ভিউ টগল */
+        function toggleSubdomainView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
                 view.style.display = 'none';
             } else {
-                document.querySelectorAll('.pure-blank-view').forEach(v => v.style.display = 'none');
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
                 document.getElementById('searchPopup').style.display = 'none';
                 view.style.display = 'block';
             }
         }
 
+        /* ক্যাটাগরি ও প্রোডাক্ট ডিটেইলস ভিউ টগল */
+        function toggleCategoryView(viewId) {
+            const view = document.getElementById(viewId);
+            if (view.style.display === 'block') {
+                view.style.display = 'none';
+            } else {
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
+                document.getElementById('searchPopup').style.display = 'none';
+                view.style.display = 'block';
+            }
+        }
+
+        /* সার্চ পপ-আপ টগল */
         function toggleSearchPopup() {
             const popup = document.getElementById('searchPopup');
             if (popup.style.display === 'block') {
                 popup.style.display = 'none';
             } else {
-                document.querySelectorAll('.pure-blank-view').forEach(v => v.style.display = 'none');
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
                 popup.style.display = 'block';
+            }
+        }
+
+        function executeSearch() {
+            const query = document.getElementById('searchInputField').value;
+            if(query.trim() !== "") {
+                alert(`Searching for: "${query}"`);
+                toggleSearchPopup();
+            } else {
+                alert("Please enter a search keyword!");
+            }
+        }
+
+        function handleImageSearch(input) {
+            if (input.files && input.files[0]) {
+                alert("Visual image uploaded from gallery successfully! Processing search...");
+                toggleSearchPopup();
             }
         }
 
         function openProductDetails(title, price, img) {
             document.getElementById('modalProductImg').src = img;
             document.getElementById('modalProductPrice').innerText = price;
-            toggleView('productDetailModal');
+            toggleCategoryView('productDetailModal');
         }
 
         function openSubPopup(popupId) {
@@ -478,17 +587,23 @@
             document.getElementById(popupId).style.display = 'none';
         }
 
+        function openShareModal() {
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
         function toggleLove(element) {
             const countSpan = element.querySelector('.love-count');
             let count = parseInt(countSpan.innerText);
             if(element.classList.contains('loved')) {
                 element.classList.remove('loved');
                 countSpan.innerText = count - 1;
-                element.style.color = 'var(--text-gray)';
             } else {
                 element.classList.add('loved');
                 countSpan.innerText = count + 1;
-                element.style.color = 'var(--pink-love)';
             }
         }
 
@@ -498,15 +613,13 @@
             if(element.classList.contains('loved')) {
                 element.classList.remove('loved');
                 countSpan.innerText = count - 1;
-                element.style.color = 'var(--text-gray)';
             } else {
                 element.classList.add('loved');
                 countSpan.innerText = count + 1;
-                element.style.color = 'var(--pink-love)';
             }
         }
 
-        function shareProduct(platform) {
+        function shareTo(platform) {
             const currentUrl = window.location.href;
             if(platform === 'facebook') {
                 window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
@@ -518,6 +631,7 @@
                 navigator.clipboard.writeText(currentUrl);
                 alert("Product link copied successfully!");
             }
+            closeShareModal();
         }
 
         function selectColorCard(card) {
@@ -536,7 +650,7 @@
 
         function addToCart() {
             alert("Product successfully added to cart!");
-            toggleView('productDetailModal');
+            toggleCategoryView('productDetailModal');
         }
     </script>
 </body>
