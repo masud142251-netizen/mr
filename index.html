@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RORRAXY - LUXURY ENTERPRISE</title>
+    <title>RORRAXY - TRENDING & BEST PRODUCTS</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc">
+    <!-- Favicon (New Logo) -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
     <!-- Google Font: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,299 +14,254 @@
     <style>
         :root {
             --bg-black: #000000;
-            --card-bg: #111111;
+            --card-bg: #0d0d0d;
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
-            --text-gray: #a0a0a0;
+            --text-gray: #b0b0b0;
             --font-main: 'Poppins', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 75px; padding-bottom: 90px; }
-
-        /* Typography */
-        .uppercase-title { font-family: var(--font-main); font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; }
-        .detail-text { font-family: var(--font-main); font-weight: 400; color: var(--text-gray); }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
+        body { padding-top: 65px; padding-bottom: 90px; }
 
         /* লাক্সারি হেডার */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.35);
         }
-        .brand-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); background: #000; box-shadow: 0 0 12px rgba(212, 175, 55, 0.4); }
-        .brand-text-box { display: flex; flex-direction: column; }
-        .brand-title-main { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; font-family: var(--font-main); letter-spacing: 1px; }
-        .brand-subtitle-craft { font-size: 0.42rem; color: var(--text-gray); font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; }
+        .brand-container { display: flex; align-items: center; gap: 10px; cursor: pointer; flex: 1; }
+        .logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
+        .brand-title-main { font-size: 1.05rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+        .brand-subtitle-craft { font-size: 0.45rem; color: var(--text-gray); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; margin-top: 2px; }
 
-        /* ট্রেন্ডিং ও নিউ কালেকশন স্ট্যাটাস বার (৩ মাস লিমিট) */
-        .trending-banner-bar {
-            background: rgba(18, 18, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            padding: 8px 12px; font-size: 0.58rem; font-weight: 700; text-align: center;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; letter-spacing: 1px;
+        /* ডানদিকের কর্নার: New Collection & 3 Months Icon */
+        .header-right-box {
+            display: flex; flex-direction: column; align-items: flex-end; justify-content: center; text-align: right;
         }
+        .new-coll-title { font-size: 0.7rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; line-height: 1.1; }
+        .three-month-badge { font-size: 0.5rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; display: flex; align-items: center; gap: 4px; line-height: 1.1; margin-top: 3px; }
+        .three-month-badge i { color: var(--gold-solid); font-size: 0.55rem; }
 
-        /* অ্যাপ স্টোর স্টাইল ক্যাটাগরি সেকশন */
-        .category-section { padding: 15px 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
-        .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 4px; }
-        .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
+        /* ক্যাটাগরি সেকশন */
+        .category-section { padding: 15px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
+        .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 6px; }
+        .category-title { font-size: 0.85rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* উইন্ডোজ/অ্যান্ড্রয়েড অ্যাপ স্টাইল হরিজন্টাল স্ক্রোল গ্রিড (প্রতি সারিতে ৫টি আইটেম) */
+        /* উইন্ডোজ/অ্যান্ড্রয়েড অ্যাপ স্টাইল গ্রিড (এক সারিতে ঠিক ৫টি করে আইটেম, বড় সাইজ) */
         .app-store-grid {
-            display: grid; grid-template-columns: repeat(10, 85px); gap: 10px; overflow-x: auto; padding-bottom: 5px;
-            scrollbar-width: none;
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); /* এক সারিতে ৫টি */
+            gap: 8px; 
+            width: 100%;
         }
-        .app-store-grid::-webkit-scrollbar { display: none; }
+
+        @media (min-width: 768px) {
+            .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; }
+        }
 
         .app-card {
-            background: var(--card-bg); border: 1.5px solid rgba(212, 175, 55, 0.3); border-radius: 14px;
-            padding: 10px 6px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: 0.3s; position: relative; height: 110px; justify-content: space-between;
+            background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px;
+            padding: 12px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; transition: 0.3s; height: 100%;
         }
-        .app-card:hover { border-color: var(--gold-solid); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
+        .app-card:hover, .app-card:active { border-color: var(--gold-solid); background: #1a1a1a; }
         
         .app-card-icon {
-            width: 44px; height: 44px; border-radius: 12px; background: #000;
+            width: 44px; height: 44px; border-radius: 10px; background: #000;
             border: 1px solid var(--gold-solid); display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 8px rgba(212,175,55,0.25);
+            margin-bottom: 8px; box-shadow: 0 0 8px rgba(212,175,55,0.2);
         }
-        .app-card-icon i {
-            font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: continuousZoom 2s infinite ease-in-out;
-        }
-        @keyframes continuousZoom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .app-card-name { font-size: 0.5rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; line-height: 1.1; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .app-card-badge { font-size: 0.4rem; font-weight: 700; color: #000; background: var(--gold-gradient); padding: 1px 5px; border-radius: 4px; text-transform: uppercase; }
-
-        /* Pinterest Style Product Feed */
-        .feed-container { padding: 15px 8px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 20px; column-gap: 12px; } }
-        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 15px; } }
-
-        .product-card { break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 10px; overflow: hidden; border: 1.5px solid rgba(212, 175, 55, 0.3); display: flex; flex-direction: column; }
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
-        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        .product-info { padding: 8px; display: flex; flex-direction: column; gap: 3px; }
-        .product-title { font-size: 0.72rem; font-weight: 800; color: var(--text-white); text-transform: uppercase; font-family: var(--font-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .product-price { font-size: 0.82rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* কন্টিনিউয়াস ইফেক্ট রিমুভ করে হোভার/ক্লিক ইফেক্ট দেওয়া হয়েছে */
+        .app-card-icon i {
+            font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            transition: transform 0.25s ease-in-out;
+        }
+        .app-card:hover .app-card-icon i, .app-card:active .app-card-icon i {
+            transform: scale(1.25);
+        }
 
-        /* ৫টি নির্দিষ্ট মেনু সম্বলিত বটম ন্যাভবার */
+        .app-card-name { 
+            font-size: 0.55rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; 
+            line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+
+        /* প্রোডাক্ট ফিড (বর্তমানে ব্ল্যাংক রাখা হয়েছে ডাইনামিক লোডের জন্য) */
+        .feed-container { padding: 15px 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
+
+        /* বটম ন্যাভবার (বিপরীত ক্রমে সাজানো এবং সাইজ বড় করা হয়েছে) */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
             z-index: 1000; border-top: 1.5px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+            color: var(--text-gray); font-size: 0.5rem; font-weight: 600; cursor: pointer; text-align: center; gap: 3px; flex: 1;
+            transition: 0.3s;
         }
         .nav-item img.nav-logo-icon {
-            width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold-solid); object-fit: cover; margin-bottom: 1px;
+            width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gold-solid); object-fit: cover; margin-bottom: 2px;
         }
-        .nav-item i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-item.active, .nav-item:hover { color: var(--gold-solid); }
-        .nav-item span { text-transform: uppercase; letter-spacing: 0.4px; font-family: var(--font-main); }
+        .nav-item i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item.active, .nav-item:hover, .nav-item:active { color: var(--gold-solid); transform: translateY(-2px); }
+        .nav-item span { text-transform: uppercase; letter-spacing: 0.4px; }
         
-        /* লেক্সাস ইকোসিস্টেম দুই লাইন ডিজাইন */
-        .ecosystem-text { display: flex; flex-direction: column; line-height: 1.1; font-size: 0.42rem; font-weight: 700; text-transform: uppercase; }
+        .ecosystem-text { display: flex; flex-direction: column; line-height: 1.1; font-size: 0.45rem; font-weight: 700; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার -->
+    <!-- হেডার -->
     <header class="app-header">
         <div class="brand-container" onclick="location.href='https://rorraxy.com'">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="logo">
+            <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
             <div class="brand-text-box">
-                <span class="brand-title-main">rorraxy</span>
-                <span class="brand-subtitle-craft">LUXURY ENTERPRISE</span>
+                <span class="brand-title-main">RORRAXY</span>
+                <span class="brand-subtitle-craft">TRENDING & BEST PRODUCTS</span>
             </div>
         </div>
-        <div style="font-size: 0.65rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="uppercase-title">
-            NEW COLLECTION
+        <div class="header-right-box">
+            <span class="new-coll-title">NEW COLLECTION</span>
+            <span class="three-month-badge"><i class="fa-solid fa-clock-rotate-left"></i> 3 MONTHS</span>
         </div>
     </header>
 
-    <!-- ট্রেন্ডিং ও বেস্ট প্রোডাক্ট স্ট্যাটাস বার -->
-    <div class="trending-banner-bar">
-        ⚡ Trending & Best Products (Active Within 3 Months New Collection)
-    </div>
-
-    <!-- ১. WOMEN'S FASHION CATEGORY -->
+    <!-- ১. WOMEN'S FASHION -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">1. Women's Fashion</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Clothing</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='handbags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Handbags</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='lingerie.html'"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='beauty.html'"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='traditional.html'"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Clothing</span></div>
+            <div class="app-card" onclick="location.href='handbags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Handbags</span></div>
+            <div class="app-card" onclick="location.href='shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+            <div class="app-card" onclick="location.href='jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
+            <div class="app-card" onclick="location.href='watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+            <div class="app-card" onclick="location.href='lingerie.html'"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
+            <div class="app-card" onclick="location.href='beauty.html'"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
+            <div class="app-card" onclick="location.href='activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
+            <div class="app-card" onclick="location.href='traditional.html'"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
+            <div class="app-card" onclick="location.href='accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
 
-    <!-- ২. BOYS' FASHION CATEGORY -->
+    <!-- ২. BOYS' FASHION -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">2. Boys' Fashion</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='boys-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Boys Clothing</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Boys Shoes</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Boys Watches</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-backpack"></i></div><span class="app-card-name">Boys Bags</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='boys-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='boys-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Boys Clothing</span></div>
+            <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Boys Shoes</span></div>
+            <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Boys Watches</span></div>
+            <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-backpack"></i></div><span class="app-card-name">Boys Bags</span></div>
+            <div class="app-card" onclick="location.href='boys-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
 
-    <!-- ৩. MATCHING SETS CATEGORY -->
+    <!-- ৩. MATCHING SETS -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">3. Matching Sets</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='couplematchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='familymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='mommesets.html'"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='dadmesets.html'"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='siblingmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='teammatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='bffmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='petownerents.html'"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='holidaymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='valuebundles.html'"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='couplematchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
+            <div class="app-card" onclick="location.href='familymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
+            <div class="app-card" onclick="location.href='mommesets.html'"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
+            <div class="app-card" onclick="location.href='dadmesets.html'"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
+            <div class="app-card" onclick="location.href='siblingmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
+            <div class="app-card" onclick="location.href='teammatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
+            <div class="app-card" onclick="location.href='bffmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
+            <div class="app-card" onclick="location.href='petownerents.html'"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
+            <div class="app-card" onclick="location.href='holidaymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
+            <div class="app-card" onclick="location.href='valuebundles.html'"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
         </div>
     </section>
 
-    <!-- ৪. LUXURY GIFTS CATEGORY -->
+    <!-- ৪. LUXURY GIFTS -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">4. Luxury Gifts</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='corporategifts.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='luxurygiftitems.html'"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='premiumhandicrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='woodresincrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='giftsetsandhampers.html'"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='corporategifts.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
+            <div class="app-card" onclick="location.href='luxurygiftitems.html'"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
+            <div class="app-card" onclick="location.href='premiumhandicrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
+            <div class="app-card" onclick="location.href='woodresincrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
+            <div class="app-card" onclick="location.href='giftsetsandhampers.html'"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
         </div>
     </section>
 
-    <!-- ৫. GIRLS' FASHION CATEGORY -->
+    <!-- ৫. GIRLS' FASHION -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">5. Girls' Fashion</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='girls-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Girls Clothing</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Girls Shoes</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Girls Bags</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Girls Jewelry</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Girls Watches</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic"></i></div><span class="app-card-name">Hair Acc.</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-sleepwear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-party-dresses.html'"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='girls-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='girls-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Girls Clothing</span></div>
+            <div class="app-card" onclick="location.href='girls-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Girls Shoes</span></div>
+            <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Girls Bags</span></div>
+            <div class="app-card" onclick="location.href='girls-jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Girls Jewelry</span></div>
+            <div class="app-card" onclick="location.href='girls-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Girls Watches</span></div>
+            <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic"></i></div><span class="app-card-name">Hair Acc.</span></div>
+            <div class="app-card" onclick="location.href='girls-activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
+            <div class="app-card" onclick="location.href='girls-sleepwear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
+            <div class="app-card" onclick="location.href='girls-party-dresses.html'"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
+            <div class="app-card" onclick="location.href='girls-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
 
-    <!-- ৬. MEN'S FASHION CATEGORY -->
+    <!-- ৬. MEN'S FASHION -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">6. Men's Fashion</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='men-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Men Clothing</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='men-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Men Shoes</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='men-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Men Watches</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='men-grooming.html'"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='men-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='men-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Men Clothing</span></div>
+            <div class="app-card" onclick="location.href='men-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Men Shoes</span></div>
+            <div class="app-card" onclick="location.href='men-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Men Watches</span></div>
+            <div class="app-card" onclick="location.href='men-grooming.html'"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span></div>
+            <div class="app-card" onclick="location.href='men-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
 
-    <!-- ৭. MOTHER & BABY CATEGORY -->
+    <!-- ৭. MOTHER & BABY -->
     <section class="category-section">
-        <div class="category-header-row">
-            <h2 class="category-title">7. Mother & Baby</h2>
-        </div>
+        <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
         <div class="app-store-grid">
-            <div class="app-card" onclick="location.href='m2bclothing.html'"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">M2B Clothing</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-child-reaching"></i></div><span class="app-card-name">Maternity</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='m2bbabycare.html'"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Nursery Gear</span><span class="app-card-badge">Open</span></div>
-            <div class="app-card" onclick="location.href='m2baccessories.html'"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span><span class="app-card-badge">Open</span></div>
+            <div class="app-card" onclick="location.href='m2bclothing.html'"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">M2B Clothing</span></div>
+            <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-child-reaching"></i></div><span class="app-card-name">Maternity</span></div>
+            <div class="app-card" onclick="location.href='m2bbabycare.html'"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
+            <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Nursery Gear</span></div>
+            <div class="app-card" onclick="location.href='m2baccessories.html'"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
 
-    <!-- Pinterest স্টাইলে প্রোডাক্ট ফিড -->
-    <main class="feed-container" id="productFeed">
-        <div class="product-card">
-            <div class="product-media-box">
-                <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product">
-            </div>
-            <div class="product-info">
-                <span class="product-title uppercase-title">LUXURY GOLDEN EMBROIDERED SILK GOWN</span>
-                <span class="product-price">$185.00</span>
-                <span class="detail-text" style="font-size: 0.55rem;">New collection item active within 3 months limit.</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-media-box">
-                <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Product">
-            </div>
-            <div class="product-info">
-                <span class="product-title uppercase-title">PREMIUM GAMAR WOOD LUXURY DECOR</span>
-                <span class="product-price">$120.00</span>
-                <span class="detail-text" style="font-size: 0.55rem;">Handcrafted golden finish executive item.</span>
-            </div>
-        </div>
-    </main>
+    <!-- ডাইনামিক প্রোডাক্ট ইনজেক্ট করার জন্য কন্টেইনার (বর্তমানে রিমুভ করা আছে) -->
+    <main class="feed-container" id="productFeed"></main>
 
-    <!-- ৫টি নির্দিষ্ট মেনু সম্বলিত বটম ন্যাভবার (rorraxy সাবডোমেইন লিংকসহ) -->
+    <!-- বটম ন্যাভবার (মেনুর অর্ডার বিপরীত করা হয়েছে) -->
     <nav class="bottom-nav">
-        <!-- ১. লাইভ আইটেম -->
-        <div class="nav-item active" onclick="navigateToSubdomain('www')">
-            <i class="fa-solid fa-bolt"></i>
-            <span>Live Items</span>
+        <!-- ১. লেক্সাস ইকোসিস্টেম (আগে শেষে ছিল, এখন প্রথমে) -->
+        <div class="nav-item" onclick="navigateToSubdomain('nexusecosystem')">
+            <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="nav-logo-icon">
+            <div class="ecosystem-text">
+                <span>Lexus</span>
+                <span>Ecosystem</span>
+            </div>
         </div>
-        <!-- ২. একাউন্ট -->
-        <div class="nav-item" onclick="navigateToSubdomain('account')">
-            <i class="fa-solid fa-user-shield"></i>
-            <span>Account</span>
+        <!-- ২. এফিলিয়েট -->
+        <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
+            <i class="fa-solid fa-handshake"></i>
+            <span>Affiliate</span>
         </div>
         <!-- ৩. সেলার -->
         <div class="nav-item" onclick="navigateToSubdomain('seller')">
             <i class="fa-solid fa-chart-line"></i>
             <span>Seller</span>
         </div>
-        <!-- ৪. এফিলিয়েট -->
-        <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
-            <i class="fa-solid fa-handshake"></i>
-            <span>Affiliate</span>
+        <!-- ৪. একাউন্ট -->
+        <div class="nav-item" onclick="navigateToSubdomain('account')">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>Account</span>
         </div>
-        <!-- ৫. লেক্সাস ইকোসিস্টেম -->
-        <div class="nav-item" onclick="navigateToSubdomain('nexusecosystem')">
-            <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Logo" class="nav-logo-icon">
-            <div class="ecosystem-text">
-                <span>Lexus</span>
-                <span>Ecosystem</span>
-            </div>
+        <!-- ৫. লাইভ আইটেম (আগে প্রথমে ছিল, এখন শেষে) -->
+        <div class="nav-item active" onclick="navigateToSubdomain('www')">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Live Items</span>
         </div>
     </nav>
 
