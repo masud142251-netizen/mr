@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RORRAXY - TRENDING & BEST PRODUCTS</title>
+    <title>RORRAXY - LUXURY ENTERPRISE</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
@@ -18,276 +18,184 @@
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
-            --text-gray: #c0c0c0;
+            --text-gray: #b0b0b0;
             --font-main: 'Poppins', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 85px; padding-bottom: 90px; }
+        body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* মেইন র‍্যাপার যা কম্পিউটারে মোবাইলের মতো সুন্দর ও সুসংহত রাখবে */
-        .page-wrapper {
-            max-width: 750px;
-            margin: 0 auto;
-            width: 100%;
-            background-color: var(--bg-black);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-        }
-
-        /* লাক্সারি হেডার (সেন্ট্রালাইজড) */
+        /* লাক্সারি হেডার (বাম কোণায় লোগো ও ব্র্যান্ড নাম, ডানপাশে ৩টি পোর্টাল) */
         header.app-header {
-            display: flex; justify-content: center; align-items: center; padding: 12px;
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.3);
         }
-        .header-content-wrapper {
-            display: flex; align-items: center; gap: 14px; cursor: pointer;
-        }
-        .logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
-        
-        .brand-text-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .brand-title-main { font-size: 1.25rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; }
-        .brand-subtitle-craft { font-size: 0.5rem; color: var(--text-gray); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.2; margin-top: 3px; }
-        .brand-new-collection { font-size: 0.5rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; line-height: 1.2; margin-top: 2px; }
+        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
+        .brand-text-box { display: flex; flex-direction: column; }
+        .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+        .brand-new-coll { font-size: 0.42rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* ক্যাটাগরি সেকশন */
-        .category-section { padding: 15px 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
-        .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px; }
-        .category-title { font-size: 0.85rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        /* গ্রিড লেআউট (সব ডিভাইসে এক সারিতে ঠিক ৫টি করে কার্ড) */
-        .app-store-grid {
-            display: grid; 
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px; 
+        /* ডানদিকের ৩টি পোর্টাল */
+        .header-portals-box { display: flex; align-items: center; gap: 6px; }
+        .portal-btn {
+            font-size: 0.42rem; font-weight: 700; background: #181818; border: 1px solid rgba(212,175,55,0.4);
+            color: var(--text-white); padding: 4px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap;
+        }
+        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; }
+
+        /* Pinterest Style Masonry Feed (ইটের গাঁথুনির মতো স্লাইড বা কার্ড) */
+        .feed-container {
+            padding: 10px 8px;
+            column-count: 2; /* মোবাইলে ঠিক দুটি কলাম */
+            column-gap: 8px;
             width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .feed-container { column-count: 3; padding: 15px; column-gap: 12px; }
+        }
+        @media (min-width: 1024px) {
+            .feed-container { column-count: 4; column-gap: 15px; }
         }
 
-        /* লাক্সারি 3D ফ্লোটিং কার্ড */
-        .app-card {
-            background: var(--card-bg); 
-            border: none; 
+        .product-card {
+            break-inside: avoid;
+            background: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 8px rgba(212, 175, 55, 0.1);
-            padding: 12px 2px 10px 2px; 
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: all 0.3s ease-in-out; height: 120px; justify-content: space-between;
+            margin-bottom: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
         }
-        .app-card:hover, .app-card:active { 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 55, 0.3);
-            background: #181818; 
-        }
+        .product-card:hover { border-color: var(--gold-solid); transform: translateY(-2px); }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
-        .app-card-icon {
-            display: flex; align-items: center; justify-content: center;
-            margin-top: 4px; flex: 1;
-        }
-        
-        /* আইকন সাইজ ও স্মুথ জুম অ্যানিমেশন */
-        .app-card-icon i {
-            font-size: 2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: smoothZoomInOut 3s infinite ease-in-out;
-        }
-        @keyframes smoothZoomInOut {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
+        .product-info { padding: 8px; display: flex; flex-direction: column; gap: 3px; }
+        .product-title { font-size: 0.68rem; font-weight: 800; color: var(--text-white); text-transform: uppercase; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { font-size: 0.78rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* টেক্সট সাইজ স্পষ্ট এবং দুই লাইনে সুন্দরভাবে বিন্যস্ত */
-        .app-card-name { 
-            font-size: 0.55rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; 
-            line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-            width: 100%; padding: 0 2px;
-        }
-
-        /* বটম ন্যাভবার */
+        /* নতুন ৫টি মেনু সম্বলিত বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
             z-index: 1000; border-top: 1.5px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(15px);
-        }
-        .nav-inner-container {
-            max-width: 750px;
-            margin: 0 auto;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
             color: var(--text-gray); font-size: 0.5rem; font-weight: 600; cursor: pointer; text-align: center; gap: 3px; flex: 1;
             transition: 0.3s;
         }
-        .nav-item img.nav-logo-icon {
-            width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gold-solid); object-fit: cover; margin-bottom: 2px;
-        }
         .nav-item i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover, .nav-item:active { color: var(--gold-solid); transform: translateY(-2px); }
         .nav-item span { text-transform: uppercase; letter-spacing: 0.4px; }
-        
-        .ecosystem-text { display: flex; flex-direction: column; line-height: 1.1; font-size: 0.45rem; font-weight: 700; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <!-- হেডার -->
+    <!-- লাক্সারি হেডার -->
     <header class="app-header">
-        <div class="header-content-wrapper" onclick="location.href='https://rorraxy.com'">
+        <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
             <div class="brand-text-box">
                 <span class="brand-title-main">RORRAXY</span>
-                <span class="brand-subtitle-craft">TRENDING & BEST PRODUCTS</span>
-                <span class="brand-new-collection">NEW COLLECTION</span>
+                <span class="brand-new-coll">NEW COLLECTION</span>
             </div>
+        </div>
+        <div class="header-portals-box">
+            <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B Partner</button>
+            <button class="portal-btn" onclick="location.href='https://solutions.rorraxy.com'">Solution</button>
+            <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Academy</button>
         </div>
     </header>
 
-    <div class="page-wrapper">
-        <!-- ১. WOMEN'S FASHION -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="location.href='handbags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Handbags</span></div>
-                <div class="app-card" onclick="location.href='shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="location.href='jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
-                <div class="app-card" onclick="location.href='watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="location.href='lingerie.html'"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
-                <div class="app-card" onclick="location.href='beauty.html'"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
-                <div class="app-card" onclick="location.href='activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="location.href='traditional.html'"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
-                <div class="app-card" onclick="location.href='accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
+    <!-- Pinterest স্টাইলে নতুন কালেকশন প্রোডাক্ট ফিড (Masonry Grid) -->
+    <main class="feed-container" id="productFeed">
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product">
             </div>
-        </section>
-
-        <!-- ২. BOYS' FASHION -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='boys-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="location.href='boys-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
+            <div class="product-info">
+                <span class="product-title">LUXURY GOLDEN EMBROIDERED SILK GOWN</span>
+                <span class="product-price">$185.00</span>
             </div>
-        </section>
-
-        <!-- ৩. MATCHING SETS -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='couplematchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
-                <div class="app-card" onclick="location.href='familymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
-                <div class="app-card" onclick="location.href='mommesets.html'"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
-                <div class="app-card" onclick="location.href='dadmesets.html'"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
-                <div class="app-card" onclick="location.href='siblingmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
-                <div class="app-card" onclick="location.href='teammatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
-                <div class="app-card" onclick="location.href='bffmatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
-                <div class="app-card" onclick="location.href='petownerents.html'"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
-                <div class="app-card" onclick="location.href='holidaymatchingsets.html'"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
-                <div class="app-card" onclick="location.href='valuebundles.html'"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Product">
             </div>
-        </section>
-
-        <!-- ৪. LUXURY GIFTS -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='corporategifts.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
-                <div class="app-card" onclick="location.href='luxurygiftitems.html'"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
-                <div class="app-card" onclick="location.href='premiumhandicrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
-                <div class="app-card" onclick="location.href='woodresincrafts.html'"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
-                <div class="app-card" onclick="location.href='giftsetsandhampers.html'"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
+            <div class="product-info">
+                <span class="product-title">PREMIUM GAMAR WOOD LUXURY DECOR</span>
+                <span class="product-price">$120.00</span>
             </div>
-        </section>
-
-        <!-- ৫. GIRLS' FASHION -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='girls-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="location.href='girls-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="location.href='girls-jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Jewelry</span></div>
-                <div class="app-card" onclick="location.href='girls-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="app-card-name">Hair Acc.</span></div>
-                <div class="app-card" onclick="location.href='girls-activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="location.href='girls-sleepwear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
-                <div class="app-card" onclick="location.href='girls-party-dresses.html'"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
-                <div class="app-card" onclick="location.href='girls-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product">
             </div>
-        </section>
-
-        <!-- ৬. MEN'S FASHION -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='men-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="location.href='men-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="location.href='men-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="location.href='men-grooming.html'"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span></div>
-                <div class="app-card" onclick="location.href='men-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span></div>
+            <div class="product-info">
+                <span class="product-title">ROYAL DESIGNER VELVET BLAZER</span>
+                <span class="product-price">$210.00</span>
             </div>
-        </section>
-
-        <!-- ৭. MOTHER & BABY -->
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="location.href='m2bclothing.html'"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
-                <div class="app-card" onclick="location.href='m2bbabycare.html'"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
-                <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-baby-carriage"></i></div><span class="app-card-name">Nursery Gear</span></div>
-                <div class="app-card" onclick="location.href='m2baccessories.html'"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-media-box">
+                <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Product">
             </div>
-        </section>
-    </div>
+            <div class="product-info">
+                <span class="product-title">EXECUTIVE HANDCRAFTED LEATHER BAG</span>
+                <span class="product-price">$95.00</span>
+            </div>
+        </div>
+    </main>
 
-    <!-- বটম ন্যাভবার -->
+    <!-- নতুন ৫টি মেনু সম্বলিত বটম ন্যাভবার -->
     <nav class="bottom-nav">
-        <div class="nav-inner-container">
-            <!-- ১. লেক্সাস ইকোসিস্টেম -->
-            <div class="nav-item" onclick="navigateToSubdomain('nexusecosystem')">
-                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="nav-logo-icon">
-                <div class="ecosystem-text">
-                    <span>Lexus</span>
-                    <span>Ecosystem</span>
-                </div>
-            </div>
-            <!-- ২. এফিলিয়েট -->
-            <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
-                <i class="fa-solid fa-handshake"></i>
-                <span>Affiliate</span>
-            </div>
-            <!-- ৩. সেলার -->
-            <div class="nav-item" onclick="navigateToSubdomain('seller')">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Seller</span>
-            </div>
-            <!-- ৪. একাউন্ট -->
-            <div class="nav-item" onclick="navigateToSubdomain('account')">
-                <i class="fa-solid fa-user-shield"></i>
-                <span>Account</span>
-            </div>
-            <!-- ৫. লাইভ আইটেম -->
-            <div class="nav-item active" onclick="navigateToSubdomain('www')">
-                <i class="fa-solid fa-bolt"></i>
-                <span>Live Items</span>
-            </div>
+        <!-- ১. লাইভ চ্যাট -->
+        <div class="nav-item" onclick="openLiveChat()">
+            <i class="fa-solid fa-headset"></i>
+            <span>Live Chat</span>
+        </div>
+        <!-- ২. ক্যাটাগরি -->
+        <div class="nav-item" onclick="openCategories()">
+            <i class="fa-solid fa-border-all"></i>
+            <span>Category</span>
+        </div>
+        <!-- ৩. একাউন্ট -->
+        <div class="nav-item" onclick="navigateToSubdomain('account')">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>Account</span>
+        </div>
+        <!-- ৪. সেলার -->
+        <div class="nav-item" onclick="navigateToSubdomain('seller')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Seller</span>
+        </div>
+        <!-- ৫. এফিলিয়েট -->
+        <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
+            <i class="fa-solid fa-handshake"></i>
+            <span>Affiliate</span>
         </div>
     </nav>
 
     <script>
         function navigateToSubdomain(sub) {
             const domain = "rorraxy.com";
-            if(sub === 'www') {
-                window.location.href = `https://${domain}`;
-            } else {
-                window.location.href = `https://${sub}.${domain}`;
-            }
+            window.location.href = `https://${sub}.${domain}`;
+        }
+        function openLiveChat() {
+            alert("Live Chat support is connecting...");
+        }
+        function openCategories() {
+            alert("Opening Categories modal or page...");
         }
     </script>
 </body>
