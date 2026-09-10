@@ -39,19 +39,15 @@
         .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
         .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
-        
-        /* 'All In One Ecosystem' লেখা সাদা রঙের করা হলো */
         .brand-all-in-one { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
 
-        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন (বর্ডার রিমুভ করা হয়েছে) */
+        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন (শুধু পতাকা ও দেশের নাম, 'গ্লোবাল' লেখা বাদ) */
         .header-country-flag-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
             background: transparent; border: none; padding: 2px 6px;
         }
-        .dynamic-flag-img { width: 28px; height: 19px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.9); }
-        
-        /* গ্লোবাল/কান্ট্রি নাম সাদা রঙের করা হলো */
-        .country-name-text { font-size: 0.4rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+        .dynamic-flag-img { width: 32px; height: 22px; object-fit: cover; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+        .country-name-text { font-size: 0.42rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
         .portal-btn {
@@ -136,34 +132,34 @@
 
         .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
 
-        /* ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ பேজ ব্যানার স্টাইল */
         .free-shipping-tax-banner {
             font-size: 0.65rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-transform: uppercase; text-align: center; letter-spacing: 1px; padding: 2px 0;
         }
 
-        /* প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) */
-        .product-title-line { font-size: 0.75rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
+        /* ফিক্সড প্রোডাক্ট টাইটেল: LUXURY CLOCK */
+        .product-title-line { font-size: 0.85rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1.2px; }
 
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
         
-        .detail-price { font-size: 1.05rem; font-weight: 900; color: #ffffff; }
+        .detail-price { font-size: 1.15rem; font-weight: 900; color: #ffffff; }
         
+        /* বড় এবং স্পষ্ট ডিসকাউন্ট বাটন ও বড় পতাকা */
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 6px 16px;
-            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
-            box-shadow: 0 4px 12px rgba(255,42,133,0.4); margin: 0 auto;
+            background: var(--pink-discount); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 8px 18px;
+            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(255,42,133,0.5); margin: 0 auto;
         }
+        .discount-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(255,255,255,0.4); }
 
         .seller-chat-inline-btn {
-            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 5px 8px;
-            border-radius: 5px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
+            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 6px 10px;
+            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        /* কালার অপশন বাদ দিয়ে এখন মাত্র ২টি বাটন (Description এবং Select Size) একদম মিডল বরাবর */
         .two-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-width: 320px; margin: 0 auto; width: 100%; }
         .action-popup-btn {
             background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 9px 4px;
@@ -247,16 +243,17 @@
             .logo { width: 48px; height: 48px; }
             .brand-title-main { font-size: 1.3rem; }
             .brand-all-in-one { font-size: 0.5rem; letter-spacing: 1.5px; }
-            .dynamic-flag-img { width: 36px; height: 24px; }
-            .country-name-text { font-size: 0.5rem; }
+            .dynamic-flag-img { width: 40px; height: 28px; }
+            .country-name-text { font-size: 0.55rem; }
             .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
             .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
             .main-display-media { height: 420px; }
             .thumb-item { width: 65px; height: 65px; }
             .free-shipping-tax-banner { font-size: 0.85rem; }
-            .product-title-line { font-size: 1.05rem; }
-            .detail-price { font-size: 1.4rem; }
-            .discount-badge-btn { font-size: 0.75rem; padding: 8px 22px; }
+            .product-title-line { font-size: 1.15rem; }
+            .detail-price { font-size: 1.5rem; }
+            .discount-badge-btn { font-size: 0.85rem; padding: 10px 24px; }
+            .discount-flag-img { width: 28px; height: 18px; }
             .seller-chat-inline-btn { font-size: 0.7rem; padding: 8px 14px; }
             .action-popup-btn { font-size: 0.7rem; padding: 10px 6px; }
             .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
@@ -273,7 +270,7 @@
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার (মাঝখানে বর্ডারবিহীন ডায়নামিক কান্ট্রি ফ্ল্যাগ ও সাদা টেক্সট) -->
+    <!-- লাক্সারি হেডার (মাঝখানে শুধু ডায়নামিক কান্ট্রি ফ্ল্যাগ ও নাম, কোনো 'গ্লোবাল' টেক্সট বা বর্ডার নেই) -->
     <header class="app-header">
         <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
@@ -283,9 +280,9 @@
             </div>
         </div>
 
-        <div class="header-country-flag-box" id="visitorCountryBox" title="Your Current Region">
+        <div class="header-country-flag-box" id="visitorCountryBox" title="Your Region Flag">
             <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
-            <span id="visitorCountryName" class="country-name-text">Global</span>
+            <span id="visitorCountryName" class="country-name-text">Bangladesh</span>
         </div>
 
         <div class="header-portals-box">
@@ -295,10 +292,10 @@
         </div>
     </header>
 
-    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড -->
+    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড (ঘড়ির ছবি সহ) -->
     <main class="feed-container" id="productFeed">
-        <div class="product-card" onclick="openProductDetails('LUXURY GOLDEN EMBROIDERED SILK GOWN', '$185.00', 'https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5')">
-            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Product"></div>
+        <div class="product-card" onclick="openProductDetails('LUXURY CLOCK', '$100.00', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
+            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Luxury Clock"></div>
             <div class="card-footer-actions" onclick="event.stopPropagation()">
                 <div class="love-share-group">
                     <div class="love-action" onclick="toggleLove(this)">
@@ -341,11 +338,8 @@
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
-                    <div class="thumb-item active" onclick="switchMedia('https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5')">
-                        <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Thumb">
-                    </div>
-                    <div class="thumb-item" onclick="switchMedia('https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc')">
-                        <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Thumb">
+                    <div class="thumb-item active" onclick="switchMedia('https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
+                        <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Thumb">
                     </div>
                 </div>
             </div>
@@ -359,15 +353,16 @@
                 </button>
             </div>
             
-            <!-- টাইটেলের পরিবর্তে ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ -->
+            <!-- ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ -->
             <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
 
-            <!-- প্রাইস, বড় ডিসকাউন্ট বাটন ও চ্যাট উইথ সেলার -->
+            <!-- প্রাইস ($100.00), বড় ডিসকাউন্ট বাটন (বড় ফ্ল্যাগ সহ) ও চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
-                    <span class="detail-price" id="modalProductPrice">$185.00</span>
+                    <span class="detail-price" id="modalProductPrice">$100.00</span>
                     <button class="discount-badge-btn">
-                        <span>🇧🇩 5% OFF</span>
+                        <img id="modalDiscountFlag" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="discount-flag-img">
+                        <span>5% OFF</span>
                     </button>
                     <button class="seller-chat-inline-btn" onclick="openSellerChat()">
                         <i class="fa-solid fa-comments"></i> Chat with Seller
@@ -375,10 +370,10 @@
                 </div>
             </div>
 
-            <!-- মূল প্রোডাক্ট টাইটেল (২২ ক্যারেক্টার এক লাইনে) -->
-            <div class="product-title-line" id="modalProductTitle">LUXURY GOLDEN SILK GOWN</div>
+            <!-- ফিক্সড প্রোডাক্ট টাইটেল: LUXURY CLOCK -->
+            <div class="product-title-line" id="modalProductTitle">LUXURY CLOCK</div>
 
-            <!-- কালার অপশন বাদ দিয়ে মাত্র দুটি বাটন (Description ও Select Size) মাঝ বরাবর -->
+            <!-- Description এবং Select Size বাটন -->
             <div class="two-action-row">
                 <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
                 <button class="action-popup-btn" onclick="openSubPopup('sizePopup')">Select Size</button>
@@ -392,7 +387,7 @@
     <div id="descPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
             <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
+            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Exquisite handcrafted luxury clock designed for elite interiors. Premium materials with 1-year global warranty.</p>
             <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
         </div>
     </div>
@@ -569,19 +564,24 @@
     </nav>
 
     <script>
-        /* ডায়নামিক কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
+        /* ডায়নামিক কান্ট্রি ও ফ্ল্যাগ অটো ডিটেকশন (১৯৫+ দেশের জন্য) */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
-                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'global';
-                let countryName = data.country_name ? data.country_name : 'Global';
+                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
+                let countryName = data.country_name ? data.country_name : 'Bangladesh';
                 
-                document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
+                let flagUrl = `https://flagcdn.com/w80/${countryCode}.png`;
+                
+                document.getElementById('visitorFlagImg').src = flagUrl;
                 document.getElementById('visitorCountryName').innerText = countryName;
+                document.getElementById('modalDiscountFlag').src = flagUrl;
             } catch (error) {
-                document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
-                document.getElementById('visitorCountryName').innerText = 'Global';
+                let defaultFlag = 'https://flagcdn.com/w80/bd.png';
+                document.getElementById('visitorFlagImg').src = defaultFlag;
+                document.getElementById('visitorCountryName').innerText = 'Bangladesh';
+                document.getElementById('modalDiscountFlag').src = defaultFlag;
             }
         }
 
