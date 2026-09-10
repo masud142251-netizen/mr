@@ -14,7 +14,7 @@
     <style>
         :root {
             --bg-black: #000000;
-            --card-bg: #111111;
+            --card-bg: #141414;
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --text-white: #ffffff;
@@ -47,9 +47,26 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
+        /* ALL IN ONE সেকশন হেডার (হোমপেজে প্রোডাক্টের উপরে) */
+        .all-in-one-header {
+            text-align: center;
+            padding: 18px 10px 10px 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 10px;
+        }
+        .all-in-one-title {
+            font-size: 1.05rem;
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* অক্ষরগুলো ফাঁক ফাঁক করার জন্য */
+        }
+
         /* Pinterest Style Masonry Feed (হোমপেজ) */
         .feed-container {
-            padding: 12px 8px;
+            padding: 8px;
             column-count: 2;
             column-gap: 8px;
             width: 100%;
@@ -69,8 +86,8 @@
             border-radius: 12px;
             margin-bottom: 8px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.9), 0 0 10px rgba(212, 175, 55, 0.15);
             display: flex;
             flex-direction: column;
             transition: 0.3s;
@@ -83,7 +100,7 @@
         .product-title { font-size: 0.68rem; font-weight: 800; color: var(--text-white); text-transform: uppercase; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .product-price { font-size: 0.78rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ক্যাটাগরি মোডাল/পপআপ ওভারলে (যা Category মেনুতে ক্লিক করলে ওপেন হবে) */
+        /* ক্যাটাগরি মোডাল/পপআপ ওভারলে */
         #categoryModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.96); z-index: 2000; overflow-y: auto; padding-bottom: 90px;
@@ -96,7 +113,7 @@
         .modal-title { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .close-modal-btn { background: none; border: none; color: var(--gold-solid); font-size: 1.4rem; cursor: pointer; }
 
-        /* ক্যাটাগরি কার্ড ডিজাইন (আগের সেই সুন্দর ছোট আইকন ও ফ্লোটিং স্টাইল) */
+        /* ক্যাটাগরি কার্ড ডিজাইন - কম আলোতেও স্পষ্ট ভাসমান (3D Floating Effect) */
         .category-section { padding: 12px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
         .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 4px; }
         .category-title { font-size: 0.8rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -112,17 +129,19 @@
         }
 
         .app-card {
-            background: var(--card-bg); 
+            background: #181818; 
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 6px rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.35); /* স্পষ্ট বর্ডার */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.95), 0 0 12px rgba(212, 175, 55, 0.2); /* ডিপ লাক্সারি শ্যাডো */
             padding: 10px 2px 8px 2px; 
             display: flex; flex-direction: column; align-items: center; text-align: center;
             cursor: pointer; transition: all 0.3s ease-in-out; height: 110px; justify-content: space-between;
         }
         .app-card:hover, .app-card:active { 
             transform: translateY(-3px); 
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.3);
-            background: #181818; 
+            border-color: var(--gold-solid);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 1), 0 0 18px rgba(212, 175, 55, 0.4);
+            background: #222222; 
         }
         
         .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; }
@@ -175,6 +194,11 @@
         </div>
     </header>
 
+    <!-- ALL IN ONE সেকশন হেডার -->
+    <div class="all-in-one-header">
+        <h1 class="all-in-one-title">All In One</h1>
+    </div>
+
     <!-- হোমপেজে Pinterest স্টাইল নিউ কালেকশন প্রোডাক্ট ফিড -->
     <main class="feed-container" id="productFeed">
         <div class="product-card">
@@ -207,7 +231,7 @@
         </div>
     </main>
 
-    <!-- ক্যাটাগরি মেনুতে ক্লিক করলে যে পপ-আপ বা ওভারলে ওপেন হবে -->
+    <!-- ক্যাটাগরি পপ-আপ ওভারলে -->
     <div id="categoryModal">
         <div class="modal-header">
             <span class="modal-title">All Categories</span>
@@ -314,7 +338,7 @@
         </section>
     </div>
 
-    <!-- বটম ন্যাভবার -->
+    <!-- বটম ন্যাভবার (ডান থেকে বাম: Search, Category, Account, Seller, Affiliate) -->
     <nav class="bottom-nav">
         <!-- ১. এফিলিয়েট -->
         <div class="nav-item" onclick="navigateToSubdomain('affiliate')">
@@ -331,15 +355,15 @@
             <i class="fa-solid fa-user-shield"></i>
             <span>Account</span>
         </div>
-        <!-- ৪. ক্যাটাগরি (ক্লিক করলে এই মেনুর সাথে ক্যাটাগরি পপ-আপ ওপেন হবে) -->
-        <div class="nav-item active" onclick="openCategories()">
+        <!-- ৪. ক্যাটাগরি -->
+        <div class="nav-item" onclick="openCategories()">
             <i class="fa-solid fa-border-all"></i>
             <span>Category</span>
         </div>
-        <!-- ৫. লাইভ চ্যাট -->
-        <div class="nav-item" onclick="openLiveChat()">
-            <i class="fa-solid fa-headset"></i>
-            <span>Live Chat</span>
+        <!-- ৫. সার্চ -->
+        <div class="nav-item active" onclick="openSearch()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
         </div>
     </nav>
 
@@ -348,8 +372,8 @@
             const domain = "rorraxy.com";
             window.location.href = `https://${sub}.${domain}`;
         }
-        function openLiveChat() {
-            alert("Live Chat support is connecting...");
+        function openSearch() {
+            alert("Live Search feature is ready for bot/search integration.");
         }
         function openCategories() {
             document.getElementById('categoryModal').style.display = 'block';
