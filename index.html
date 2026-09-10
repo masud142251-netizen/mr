@@ -25,35 +25,35 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 80px; padding-bottom: 90px; }
+        body { padding-top: 70px; padding-bottom: 90px; }
 
         /* লাক্সারি হেডার */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
+            display: flex; justify-content: space-between; align-items: center; padding: 4px 10px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.35);
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
         }
         
-        .header-left-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
+        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
-        .brand-title-main { font-size: 1.05rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; }
+        .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.1; }
         
-        /* সাদা রঙের 'ALL IN ONE' লেটার স্পেসিং */
-        .brand-all-in-one { font-size: 0.44rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-top: 1px; }
+        /* উজ্জ্বল সাদা রঙের 'ALL IN ONE' লেটার স্পেসিং */
+        .brand-all-in-one { font-size: 0.42rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-top: 1px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
         .portal-btn {
-            font-size: 0.42rem; font-weight: 700; background: #181818; border: 1px solid rgba(212,175,55,0.4);
-            color: var(--text-white); padding: 2px 5px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center; width: 110px;
+            font-size: 0.4rem; font-weight: 700; background: #181818; border: 1px solid rgba(212,175,55,0.4);
+            color: var(--text-white); padding: 2px 4px; border-radius: 3px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap; text-align: center; width: 105px;
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* নিউ কালেকশন সেকশন হেডার (বর্ডারের ঠিক নিচে পারফেক্ট গ্যাপ) */
-        .new-collection-header { text-align: center; padding: 8px 10px 4px 10px; }
+        /* নিউ কালেকশন সেকশন হেডার (হেডার বর্ডারের ঠিক নিচে খুব কাছাকাছি গোছালো গ্যাপ) */
+        .new-collection-header { text-align: center; padding: 4px 10px 2px 10px; }
         .new-collection-title {
-            font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient);
+            font-size: 0.8rem; font-weight: 900; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 2.5px;
         }
 
@@ -61,11 +61,11 @@
         .feed-container {
             padding: 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 12px; column-gap: 10px; } }
+        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 10px; column-gap: 10px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 12px; } }
 
         .product-card {
-            break-inside: avoid; background: var(--card-bg); border-radius: 10px; margin-bottom: 6px; overflow: hidden;
+            break-inside: avoid; background: var(--card-bg); border-radius: 8px; margin-bottom: 6px; overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.9);
             display: flex; flex-direction: column; transition: 0.3s;
         }
@@ -74,7 +74,7 @@
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
         
         /* কার্ড ফুটার: লাভ ও শেয়ার বাটন একসাথে পাশাপাশি */
-        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: #0c0c0c; }
+        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 5px 8px; background: #0c0c0c; }
         .love-share-group { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: flex-start; }
         
         .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
@@ -94,123 +94,123 @@
         
         /* গোল্ডেন ক্রস ক্লোজ বাটন */
         .golden-close-btn {
-            position: absolute; top: 12px; right: 12px; z-index: 2100; background: #141414;
-            border: 1.5px solid var(--gold-solid); width: 35px; height: 35px; border-radius: 50%;
+            position: absolute; top: 10px; right: 10px; z-index: 2100; background: #141414;
+            border: 1.5px solid var(--gold-solid); width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
-        .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .golden-close-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* ক্যাটাগরি ও ডিটেইলস ফুল-স্ক্রিন ওভারলে */
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 2000; overflow-y: auto; padding: 15px 12px 90px 12px;
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 12px 10px 80px 10px;
         }
 
-        /* সার্চ পপ-আপ বক্স (বাইরের বর্ডারহীন, কেবল গোল রাউন্ড ফিল্ড) */
+        /* সার্চ পপ-আপ বক্স (বাইরের বর্ডারহীন, শুধু রাউন্ড ফিল্ড) */
         .search-popup-box {
-            display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px;
-            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 8px; border-radius: 35px;
-            backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            display: none; position: fixed; top: 60px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 480px;
+            background: rgba(8, 8, 8, 0.98); z-index: 2000; padding: 6px; border-radius: 35px;
+            backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
         .search-input-field-box {
             display: flex; align-items: center; background: #000000; border: 1.5px solid rgba(212,175,55,0.5);
-            border-radius: 30px; padding: 5px 12px; gap: 8px;
+            border-radius: 30px; padding: 4px 10px; gap: 8px;
         }
-        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.8rem; width: 100%; }
-        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.95rem; cursor: pointer; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 10px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
+        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.78rem; width: 100%; }
+        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.9rem; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.6rem; padding: 4px 9px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ */
-        .product-details-content { padding: 8px; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
-        .detail-img-box { width: 100%; max-height: 320px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(212,175,55,0.4); background: #000; display: flex; justify-content: center; align-items: center; }
-        .detail-img-box img { width: 100%; height: auto; max-height: 320px; display: block; object-fit: contain; }
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ (স্ক্রিন ফিট) */
+        .product-details-content { padding: 6px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+        .detail-img-box { width: 100%; max-height: 280px; border-radius: 6px; overflow: hidden; border: 1px solid rgba(212,175,55,0.4); background: #000; display: flex; justify-content: center; align-items: center; }
+        .detail-img-box img { width: 100%; height: auto; max-height: 280px; display: block; object-fit: contain; }
         
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #141414; padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.25); }
-        .price-and-offer { display: flex; align-items: center; gap: 6px; }
-        .detail-price { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .offer-flag-box { font-size: 0.48rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 2px; }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 5px; background: #141414; padding: 5px 8px; border-radius: 5px; border: 1px solid rgba(212,175,55,0.25); }
+        .price-and-offer { display: flex; align-items: center; gap: 5px; }
+        .detail-price { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .offer-flag-box { font-size: 0.45rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 2px; }
         
         .seller-chat-inline-btn {
-            background: #1c1c1c; border: 1px solid rgba(212,175,55,0.4); color: var(--text-white); padding: 5px 8px;
-            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            background: #1c1c1c; border: 1px solid rgba(212,175,55,0.4); color: var(--text-white); padding: 4px 7px;
+            border-radius: 4px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
             align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .three-action-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
         .action-popup-btn {
-            background: #181818; border: 1px solid rgba(212,175,55,0.4); color: var(--gold-solid); padding: 7px 3px;
-            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
+            background: #181818; border: 1px solid rgba(212,175,55,0.4); color: var(--gold-solid); padding: 6px 2px;
+            border-radius: 4px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.7rem; padding: 9px;
-            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.65rem; padding: 8px;
+            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
         .sub-popup-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 12px;
         }
         .sub-popup-box {
-            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 10px; width: 100%; max-width: 350px;
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 8px; width: 100%; max-width: 320px;
+            padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
         /* সোশ্যাল মিডিয়া শেয়ার পপ-আপ */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
         }
         .share-modal-box {
-            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 12px; width: 100%; max-width: 320px;
-            padding: 12px; display: flex; flex-direction: column; gap: 10px; text-align: center;
+            background: #121212; border: 1.5px solid var(--gold-solid); border-radius: 10px; width: 100%; max-width: 300px;
+            padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: center;
         }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 3px; }
         .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
-            background: #1a1a1a; padding: 6px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.2);
+            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
+            background: #1a1a1a; padding: 5px; border-radius: 5px; border: 1px solid rgba(212,175,55,0.2);
             transition: 0.2s;
         }
         .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.45rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
         /* ক্যাটাগরি কার্ড স্টাইল */
-        .category-section { padding: 10px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
-        .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 4px; }
-        .category-title { font-size: 0.75rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
+        .category-section { padding: 8px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
+        .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding: 0 4px; }
+        .category-title { font-size: 0.7rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
-        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 8px; } }
+        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 100%; }
+        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 6px; } }
 
         .app-card {
-            background: #181818; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
-            padding: 8px 2px 6px 2px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: all 0.3s ease-in-out; height: 95px; justify-content: space-between;
+            background: #181818; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+            padding: 6px 2px 5px 2px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; transition: all 0.3s ease-in-out; height: 85px; justify-content: space-between;
         }
-        .app-card:hover { transform: translateY(-3px); border-color: var(--gold-solid); background: #222; }
-        .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; }
-        .app-card-icon i { font-size: 1.25rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.48rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
+        .app-card:hover { transform: translateY(-2px); border-color: var(--gold-solid); background: #222; }
+        .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 1px; flex: 1; }
+        .app-card-icon i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-card-name { font-size: 0.45rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
 
         /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            display: flex; justify-content: space-around; align-items: center; padding: 5px 4px;
             z-index: 3000; border-top: 1.5px solid rgba(212, 175, 55, 0.4); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+            color: var(--text-gray); font-size: 0.45rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
             transition: 0.3s;
         }
-        .nav-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover { color: var(--gold-solid); transform: translateY(-2px); }
         .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
     </style>
@@ -233,7 +233,7 @@
         </div>
     </header>
 
-    <!-- নিউ কালেকশন সেকশন হেডার (বর্ডারের নিচে পারফেক্ট গ্যাপসহ) -->
+    <!-- নিউ কালেকশন সেকশন হেডার (হেডার বর্ডারের ঠিক নিচে পারফেক্ট গ্যাপসহ) -->
     <div class="new-collection-header">
         <h1 class="new-collection-title">New Collection</h1>
     </div>
@@ -258,7 +258,7 @@
     <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
-            <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <span style="font-size:0.7rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
             <div class="share-icons-grid">
                 <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
                 <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
@@ -270,7 +270,7 @@
                 <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
                 <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:5px; margin-top:4px; font-size:0.6rem;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:4px; margin-top:3px; font-size:0.55rem;">Close</button>
         </div>
     </div>
 
@@ -279,7 +279,7 @@
         <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="product-details-content" style="margin-top: 30px;">
+        <div class="product-details-content" style="margin-top: 25px;">
             <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 4px;">
                 <div class="love-action" onclick="toggleModalLove(this)">
                     <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
@@ -314,41 +314,41 @@
     <!-- সাব-পপআপ: Description -->
     <div id="descPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.58rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:5px; font-size:0.6rem;">Close</button>
+            <span style="font-size:0.65rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
+            <p style="font-size:0.52rem; color:var(--text-gray); line-height:1.4;">Handcrafted luxury attire made with pure silk and premium gold embroidery. Designed for royal occasions with 1-year quality assurance.</p>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:4px; font-size:0.55rem;">Close</button>
         </div>
     </div>
 
     <!-- সাব-পপআপ: Color -->
     <div id="colorPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color</span>
-            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:5px; margin-top:4px;">
-                <div onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:5px; padding:3px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:40px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.45rem; font-weight:600; color:#fff;">Golden</span>
+            <span style="font-size:0.65rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Color</span>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:4px; margin-top:3px;">
+                <div onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:2px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/18yy4G5Nd4OUf5a1T4mKHhvUFTq_6Eds5" alt="Color" style="width:100%; height:35px; object-fit:cover; border-radius:3px;">
+                    <span style="font-size:0.42rem; font-weight:600; color:#fff;">Golden</span>
                 </div>
-                <div onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:5px; padding:3px; text-align:center; background:#000; cursor:pointer;">
-                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:40px; object-fit:cover; border-radius:4px;">
-                    <span style="font-size:0.45rem; font-weight:600; color:#fff;">Velvet Black</span>
+                <div onclick="selectColorCard(this); closeSubPopup('colorPopup');" style="border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:2px; text-align:center; background:#000; cursor:pointer;">
+                    <img src="https://lh3.googleusercontent.com/d/1POhz8vb-MocaPNHg-i6nDSKwV4ky16Lc" alt="Color" style="width:100%; height:35px; object-fit:cover; border-radius:3px;">
+                    <span style="font-size:0.42rem; font-weight:600; color:#fff;">Velvet Black</span>
                 </div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:5px; margin-top:4px; font-size:0.6rem;">Close</button>
+            <button class="add-to-cart-btn" onclick="closeSubPopup('colorPopup')" style="padding:4px; margin-top:3px; font-size:0.55rem;">Close</button>
         </div>
     </div>
 
     <!-- সাব-পপআপ: Size -->
     <div id="sizePopup" class="sub-popup-modal">
         <div class="sub-popup-box">
-            <span style="font-size:0.7rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
-            <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;">
-                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:3px 6px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Standard</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:3px 6px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Medium</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:3px 6px; border-radius:4px; font-size:0.5rem; cursor:pointer;">Large</div>
+            <span style="font-size:0.65rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:2px 5px; border-radius:3px; font-size:0.45rem; cursor:pointer;">Standard</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:2px 5px; border-radius:3px; font-size:0.45rem; cursor:pointer;">Medium</div>
+                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:2px 5px; border-radius:3px; font-size:0.45rem; cursor:pointer;">Large</div>
             </div>
-            <input type="text" placeholder="Or type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(255,255,255,0.2); padding:5px; border-radius:5px; color:#fff; font-size:0.55rem; outline:none; margin-top:4px;">
-            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:5px; margin-top:4px; font-size:0.6rem;">Done</button>
+            <input type="text" placeholder="Or type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(255,255,255,0.2); padding:4px; border-radius:4px; color:#fff; font-size:0.5rem; outline:none; margin-top:3px;">
+            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:4px; margin-top:3px; font-size:0.55rem;">Done</button>
         </div>
     </div>
 
@@ -357,8 +357,8 @@
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div style="margin-bottom: 20px;">
-            <span style="font-size:0.9rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">All Categories</span>
+        <div style="margin-bottom: 15px;">
+            <span style="font-size:0.85rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">All Categories</span>
         </div>
 
         <section class="category-section">
