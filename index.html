@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RORRAXY - TRENDING & BEST PRODUCTS</title>
     
-    <!-- Favicon (New Logo) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
     <!-- Google Font: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,37 +24,34 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 65px; padding-bottom: 90px; }
+        body { padding-top: 80px; padding-bottom: 90px; }
 
-        /* লাক্সারি হেডার */
+        /* লাক্সারি হেডার (মাঝখানে সুন্দরভাবে সাজানো এবং সব বাড়তি ইফেক্ট মুক্ত) */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px;
+            display: flex; justify-content: center; align-items: center; padding: 10px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.35);
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1.5px solid rgba(212, 175, 55, 0.25);
         }
-        .brand-container { display: flex; align-items: center; gap: 10px; cursor: pointer; flex: 1; }
-        .logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        .header-content-wrapper {
+            display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
+        /* লোগোতে কোনো শ্যাডো ইফেক্ট নেই */
+        .logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
+        
         .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
-        .brand-title-main { font-size: 1.05rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
-        .brand-subtitle-craft { font-size: 0.45rem; color: var(--text-gray); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; margin-top: 2px; }
-
-        /* ডানদিকের কর্নার: New Collection & 3 Months Icon */
-        .header-right-box {
-            display: flex; flex-direction: column; align-items: flex-end; justify-content: center; text-align: right;
-        }
-        .new-coll-title { font-size: 0.7rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; line-height: 1.1; }
-        .three-month-badge { font-size: 0.5rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; display: flex; align-items: center; gap: 4px; line-height: 1.1; margin-top: 3px; }
-        .three-month-badge i { color: var(--gold-solid); font-size: 0.55rem; }
+        .brand-title-main { font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; }
+        .brand-subtitle-craft { font-size: 0.55rem; color: var(--text-gray); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; margin-top: 2px; }
+        .brand-new-collection { font-size: 0.55rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; line-height: 1.1; margin-top: 2px; }
 
         /* ক্যাটাগরি সেকশন */
         .category-section { padding: 15px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
         .category-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 6px; }
         .category-title { font-size: 0.85rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* উইন্ডোজ/অ্যান্ড্রয়েড অ্যাপ স্টাইল গ্রিড (এক সারিতে ঠিক ৫টি করে আইটেম, বড় সাইজ) */
+        /* উইন্ডোজ/অ্যান্ড্রয়েড অ্যাপ স্টাইল গ্রিড (এক সারিতে ঠিক ৫টি করে আইটেম) */
         .app-store-grid {
             display: grid; 
-            grid-template-columns: repeat(5, 1fr); /* এক সারিতে ৫টি */
+            grid-template-columns: repeat(5, 1fr);
             gap: 8px; 
             width: 100%;
         }
@@ -63,37 +60,39 @@
             .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; }
         }
 
+        /* কার্ডকে আগের মতো লম্বাটে (Vertical) রূপ দেওয়া হয়েছে */
         .app-card {
             background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px;
-            padding: 12px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: 0.3s; height: 100%;
+            padding: 14px 4px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; transition: 0.3s; height: 115px; justify-content: flex-start;
         }
         .app-card:hover, .app-card:active { border-color: var(--gold-solid); background: #1a1a1a; }
         
+        /* আইকনের বক্স - শ্যাডো ইফেক্ট রিমুভ করা হয়েছে */
         .app-card-icon {
-            width: 44px; height: 44px; border-radius: 10px; background: #000;
+            width: 40px; height: 40px; border-radius: 10px; background: #000;
             border: 1px solid var(--gold-solid); display: flex; align-items: center; justify-content: center;
-            margin-bottom: 8px; box-shadow: 0 0 8px rgba(212,175,55,0.2);
+            margin-bottom: 10px;
         }
         
-        /* কন্টিনিউয়াস ইফেক্ট রিমুভ করে হোভার/ক্লিক ইফেক্ট দেওয়া হয়েছে */
+        /* আইকনের ভেতরে কন্টিনিউয়াস জুম-ইন জুম-আউট অ্যানিমেশন */
         .app-card-icon i {
-            font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            transition: transform 0.25s ease-in-out;
+            font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: pulseZoomInOut 2.5s infinite ease-in-out;
         }
-        .app-card:hover .app-card-icon i, .app-card:active .app-card-icon i {
-            transform: scale(1.25);
+        @keyframes pulseZoomInOut {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
         }
 
+        /* লেখার সাইজ স্পষ্ট এবং দুই লাইনে ভেঙে যাওয়ার স্টাইল */
         .app-card-name { 
-            font-size: 0.55rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; 
+            font-size: 0.5rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; 
             line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            margin-top: auto;
         }
 
-        /* প্রোডাক্ট ফিড (বর্তমানে ব্ল্যাংক রাখা হয়েছে ডাইনামিক লোডের জন্য) */
-        .feed-container { padding: 15px 8px; width: 100%; max-width: 1400px; margin: 0 auto; }
-
-        /* বটম ন্যাভবার (বিপরীত ক্রমে সাজানো এবং সাইজ বড় করা হয়েছে) */
+        /* বটম ন্যাভবার (মেনুর অর্ডার বিপরীত করা হয়েছে এবং স্পষ্ট করা হয়েছে) */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
@@ -116,18 +115,15 @@
 </head>
 <body>
 
-    <!-- হেডার -->
+    <!-- হেডার (মাঝখানে সাজানো, কোনো বাড়তি ইফেক্ট ছাড়া) -->
     <header class="app-header">
-        <div class="brand-container" onclick="location.href='https://rorraxy.com'">
+        <div class="header-content-wrapper" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
             <div class="brand-text-box">
                 <span class="brand-title-main">RORRAXY</span>
                 <span class="brand-subtitle-craft">TRENDING & BEST PRODUCTS</span>
+                <span class="brand-new-collection">NEW COLLECTION</span>
             </div>
-        </div>
-        <div class="header-right-box">
-            <span class="new-coll-title">NEW COLLECTION</span>
-            <span class="three-month-badge"><i class="fa-solid fa-clock-rotate-left"></i> 3 MONTHS</span>
         </div>
     </header>
 
@@ -153,9 +149,9 @@
         <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
         <div class="app-store-grid">
             <div class="app-card" onclick="location.href='boys-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Boys Clothing</span></div>
-            <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Boys Shoes</span></div>
-            <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Boys Watches</span></div>
-            <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-backpack"></i></div><span class="app-card-name">Boys Bags</span></div>
+            <div class="app-card" onclick="location.href='boys-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Boys Shoes</span></div>
+            <div class="app-card" onclick="location.href='boys-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Boys Watches</span></div>
+            <div class="app-card" onclick="location.href='boys-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Boys Bags</span></div>
             <div class="app-card" onclick="location.href='boys-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
@@ -195,10 +191,10 @@
         <div class="app-store-grid">
             <div class="app-card" onclick="location.href='girls-clothing.html'"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Girls Clothing</span></div>
             <div class="app-card" onclick="location.href='girls-shoes.html'"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Girls Shoes</span></div>
-            <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Girls Bags</span></div>
+            <div class="app-card" onclick="location.href='girls-bags.html'"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Girls Bags</span></div>
             <div class="app-card" onclick="location.href='girls-jewelry.html'"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Girls Jewelry</span></div>
             <div class="app-card" onclick="location.href='girls-watches.html'"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Girls Watches</span></div>
-            <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic"></i></div><span class="app-card-name">Hair Acc.</span></div>
+            <div class="app-card" onclick="location.href='girls-hair-accessories.html'"><div class="app-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="app-card-name">Hair Acc.</span></div>
             <div class="app-card" onclick="location.href='girls-activewear.html'"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
             <div class="app-card" onclick="location.href='girls-sleepwear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
             <div class="app-card" onclick="location.href='girls-party-dresses.html'"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
@@ -223,15 +219,12 @@
         <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
         <div class="app-store-grid">
             <div class="app-card" onclick="location.href='m2bclothing.html'"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">M2B Clothing</span></div>
-            <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-child-reaching"></i></div><span class="app-card-name">Maternity</span></div>
+            <div class="app-card" onclick="location.href='m2bpregnancymaternity.html'"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
             <div class="app-card" onclick="location.href='m2bbabycare.html'"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
-            <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Nursery Gear</span></div>
+            <div class="app-card" onclick="location.href='m2bnurserygear.html'"><div class="app-card-icon"><i class="fa-solid fa-baby-carriage"></i></div><span class="app-card-name">Nursery Gear</span></div>
             <div class="app-card" onclick="location.href='m2baccessories.html'"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
         </div>
     </section>
-
-    <!-- ডাইনামিক প্রোডাক্ট ইনজেক্ট করার জন্য কন্টেইনার (বর্তমানে রিমুভ করা আছে) -->
-    <main class="feed-container" id="productFeed"></main>
 
     <!-- বটম ন্যাভবার (মেনুর অর্ডার বিপরীত করা হয়েছে) -->
     <nav class="bottom-nav">
