@@ -41,7 +41,7 @@
         .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
         .brand-all-in-one { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
 
-        /* মাঝখানের ১৯৫+ দেশের অটো ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
+        /* ১৯৫+ দেশের অটো ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
         .header-country-flag-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
             background: transparent; border: none; padding: 2px 6px;
@@ -57,26 +57,44 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* Pinterest Style Masonry Feed */
+        /* ========================================================
+           Pinterest Style Masonry Feed Layout (খাঁটি পিন্টারেস্ট লুক)
+           ======================================================== */
         .feed-container {
-            padding: 8px 6px; column-count: 2; column-gap: 6px; width: 100%; max-width: 1400px; margin: 0 auto;
+            padding: 8px 6px; 
+            column-count: 2; /* মোবাইলে দুই পাশেই সমানভাবে পিন্টারেস্ট স্টাইলে দেখাবে */
+            column-gap: 8px; 
+            width: 100%; 
+            max-width: 1400px; 
+            margin: 0 auto;
         }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 16px; } }
 
         .product-card {
-            break-inside: avoid; background: var(--card-bg); border-radius: 10px 10px 6px 6px; margin-bottom: 8px; overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            break-inside: avoid; 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            margin-bottom: 8px; 
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.85); 
+            display: flex; 
+            flex-direction: column; 
+            transition: 0.3s; 
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold-gradient); opacity: 0.6;
+            background: var(--gold-gradient); opacity: 0.8;
         }
-        .product-card:hover { transform: translateY(-3px); }
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
-        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
         
-        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: #0a0a0a; }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
+        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.4s ease; }
+        .product-card:hover .product-media-box img { transform: scale(1.03); }
+        
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
         .love-share-group { display: flex; align-items: center; gap: 16px; justify-content: center; width: 100%; }
         
         .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
@@ -137,7 +155,6 @@
             text-transform: uppercase; text-align: center; letter-spacing: 0.8px; padding: 1px 0;
         }
 
-        /* ফিক্সড প্রোডাক্ট টাইটেল: LUXURY CLOCK */
         .product-title-line { font-size: 0.8rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1px; }
 
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
@@ -145,7 +162,6 @@
         
         .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
         
-        /* ডিসকাউন্টের ঘর পরিপাটি ও এক লাইনে ফিট করার জন্য অপ্টিমাইজড সাইজ */
         .discount-badge-btn {
             background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 5px 10px;
             border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 5px;
@@ -292,10 +308,10 @@
         </div>
     </header>
 
-    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড (প্রথমে ঘড়ি এবং পরে লোগো) -->
+    <!-- হোমপেজে Pinterest স্টাইল Masonry প্রোডাক্ট ফিড (নতুন ব্রেসলেট ইমেজ সহ) -->
     <main class="feed-container" id="productFeed">
-        <div class="product-card" onclick="openProductDetails('LUXURY CLOCK', '$100.00', 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
-            <div class="product-media-box"><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80" alt="Luxury Clock"></div>
+        <div class="product-card" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
+            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Premium Bracelet"></div>
             <div class="card-footer-actions" onclick="event.stopPropagation()">
                 <div class="love-share-group">
                     <div class="love-action" onclick="toggleLove(this)">
@@ -307,6 +323,7 @@
                 </div>
             </div>
         </div>
+        <!-- আরও প্রোডাক্ট কার্ড পরবর্তীতে এখানে পিন্টারেস্ট স্টাইলে যোগ করতে পারবেন -->
     </main>
 
     <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
@@ -335,12 +352,11 @@
         </div>
         <div class="product-details-content" style="margin-top: 35px;">
             
-            <!-- স্লাইডার: প্রথমে ঘড়ি, পরে আপনার লোগো -->
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
-                    <div class="thumb-item active" onclick="switchMedia('https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80', this)">
-                        <img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80" alt="Clock">
+                    <div class="thumb-item active" onclick="switchMedia('https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', this)">
+                        <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Bracelet">
                     </div>
                     <div class="thumb-item" onclick="switchMedia('https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT', this)">
                         <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Brand Logo">
@@ -357,10 +373,8 @@
                 </button>
             </div>
             
-            <!-- ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ -->
             <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
 
-            <!-- প্রাইস ($100.00), এক লাইনে পরিপাটি ডিসকাউন্ট বাটন ও চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$100.00</span>
@@ -374,10 +388,8 @@
                 </div>
             </div>
 
-            <!-- ফিক্সড প্রোডাক্ট টাইটেল: LUXURY CLOCK -->
-            <div class="product-title-line" id="modalProductTitle">LUXURY CLOCK</div>
+            <div class="product-title-line" id="modalProductTitle">PREMIUM BRACELET</div>
 
-            <!-- Description এবং Select Size বাটন -->
             <div class="two-action-row">
                 <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
                 <button class="action-popup-btn" onclick="openSubPopup('sizePopup')">Select Size</button>
@@ -391,7 +403,7 @@
     <div id="descPopup" class="sub-popup-modal">
         <div class="sub-popup-box">
             <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Exquisite handcrafted luxury clock designed for elite interiors. Premium materials with 1-year global warranty.</p>
+            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Exquisite handcrafted premium bracelet designed with elite craftsmanship. Backed by 1-year global quality assurance.</p>
             <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
         </div>
     </div>
@@ -568,7 +580,7 @@
     </nav>
 
     <script>
-        /* ১৯৯৫+ দেশের অটো কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
+        /* ১৯৫+ দেশের অটো কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
@@ -647,10 +659,9 @@
             document.getElementById('modalProductPrice').innerText = price;
             document.getElementById('modalProductTitle').innerText = title;
             
-            // থাম্বনেইল স্ট্রিপ আপডেট (প্রথমে ঘড়ি, পরে লোগো)
             document.getElementById('thumbStrip').innerHTML = `
                 <div class="thumb-item active" onclick="switchMedia('${mainImg}', this)">
-                    <img src="${mainImg}" alt="Clock">
+                    <img src="${mainImg}" alt="Bracelet">
                 </div>
                 <div class="thumb-item" onclick="switchMedia('${logoImg}', this)">
                     <img src="${logoImg}" alt="Logo">
