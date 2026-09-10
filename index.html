@@ -41,13 +41,13 @@
         .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
         .brand-all-in-one { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
 
-        /* মাঝখানের ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন (শুধু পতাকা ও দেশের নাম, 'গ্লোবাল' লেখা বাদ) */
+        /* মাঝখানের ১৯৫+ দেশের অটো ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
         .header-country-flag-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
             background: transparent; border: none; padding: 2px 6px;
         }
-        .dynamic-flag-img { width: 32px; height: 22px; object-fit: cover; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,0.9); }
-        .country-name-text { font-size: 0.42rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+        .dynamic-flag-img { width: 30px; height: 20px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .country-name-text { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
 
         .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
         .portal-btn {
@@ -133,37 +133,37 @@
         .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
 
         .free-shipping-tax-banner {
-            font-size: 0.65rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; text-align: center; letter-spacing: 1px; padding: 2px 0;
+            font-size: 0.62rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; text-align: center; letter-spacing: 0.8px; padding: 1px 0;
         }
 
         /* ফিক্সড প্রোডাক্ট টাইটেল: LUXURY CLOCK */
-        .product-title-line { font-size: 0.85rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1.2px; }
+        .product-title-line { font-size: 0.8rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1px; }
 
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .price-and-offer { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .price-and-offer { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: space-between; }
         
-        .detail-price { font-size: 1.15rem; font-weight: 900; color: #ffffff; }
+        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
         
-        /* বড় এবং স্পষ্ট ডিসকাউন্ট বাটন ও বড় পতাকা */
+        /* ডিসকাউন্টের ঘর পরিপাটি ও এক লাইনে ফিট করার জন্য অপ্টিমাইজড সাইজ */
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 8px 18px;
-            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 15px rgba(255,42,133,0.5); margin: 0 auto;
+            background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 5px 10px;
+            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 5px;
+            box-shadow: 0 3px 10px rgba(255,42,133,0.4); white-space: nowrap;
         }
-        .discount-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(255,255,255,0.4); }
+        .discount-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(255,255,255,0.5); flex-shrink: 0; }
 
         .seller-chat-inline-btn {
-            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 6px 10px;
-            border-radius: 5px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap;
+            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 5px 8px;
+            border-radius: 5px; font-size: 0.5rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
         }
         .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .two-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-width: 320px; margin: 0 auto; width: 100%; }
         .action-popup-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 9px 4px;
-            border-radius: 5px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
+            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 8px 4px;
+            border-radius: 5px; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
             transition: 0.2s;
         }
         .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
@@ -243,18 +243,18 @@
             .logo { width: 48px; height: 48px; }
             .brand-title-main { font-size: 1.3rem; }
             .brand-all-in-one { font-size: 0.5rem; letter-spacing: 1.5px; }
-            .dynamic-flag-img { width: 40px; height: 28px; }
-            .country-name-text { font-size: 0.55rem; }
+            .dynamic-flag-img { width: 38px; height: 25px; }
+            .country-name-text { font-size: 0.52rem; }
             .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
             .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
             .main-display-media { height: 420px; }
             .thumb-item { width: 65px; height: 65px; }
-            .free-shipping-tax-banner { font-size: 0.85rem; }
-            .product-title-line { font-size: 1.15rem; }
-            .detail-price { font-size: 1.5rem; }
-            .discount-badge-btn { font-size: 0.85rem; padding: 10px 24px; }
-            .discount-flag-img { width: 28px; height: 18px; }
-            .seller-chat-inline-btn { font-size: 0.7rem; padding: 8px 14px; }
+            .free-shipping-tax-banner { font-size: 0.8rem; }
+            .product-title-line { font-size: 1.1rem; }
+            .detail-price { font-size: 1.4rem; }
+            .discount-badge-btn { font-size: 0.72rem; padding: 8px 16px; }
+            .discount-flag-img { width: 24px; height: 16px; }
+            .seller-chat-inline-btn { font-size: 0.65rem; padding: 7px 12px; }
             .action-popup-btn { font-size: 0.7rem; padding: 10px 6px; }
             .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
             .sub-popup-box, .share-modal-box { max-width: 450px; padding: 20px; gap: 14px; }
@@ -270,7 +270,7 @@
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার (মাঝখানে শুধু ডায়নামিক কান্ট্রি ফ্ল্যাগ ও নাম, কোনো 'গ্লোবাল' টেক্সট বা বর্ডার নেই) -->
+    <!-- লাক্সারি হেডার (১৯৫+ দেশের অটো ডায়নামিক ফ্ল্যাগ সহ) -->
     <header class="app-header">
         <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
@@ -292,10 +292,10 @@
         </div>
     </header>
 
-    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড (ঘড়ির ছবি সহ) -->
+    <!-- হোমপেজে Pinterest স্টাইল প্রোডাক্ট ফিড (প্রথমে ঘড়ি এবং পরে লোগো) -->
     <main class="feed-container" id="productFeed">
-        <div class="product-card" onclick="openProductDetails('LUXURY CLOCK', '$100.00', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
-            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Luxury Clock"></div>
+        <div class="product-card" onclick="openProductDetails('LUXURY CLOCK', '$100.00', 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
+            <div class="product-media-box"><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80" alt="Luxury Clock"></div>
             <div class="card-footer-actions" onclick="event.stopPropagation()">
                 <div class="love-share-group">
                     <div class="love-action" onclick="toggleLove(this)">
@@ -335,11 +335,15 @@
         </div>
         <div class="product-details-content" style="margin-top: 35px;">
             
+            <!-- স্লাইডার: প্রথমে ঘড়ি, পরে আপনার লোগো -->
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip">
-                    <div class="thumb-item active" onclick="switchMedia('https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
-                        <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Thumb">
+                    <div class="thumb-item active" onclick="switchMedia('https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80', this)">
+                        <img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600&auto=format&fit=crop&q=80" alt="Clock">
+                    </div>
+                    <div class="thumb-item" onclick="switchMedia('https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT', this)">
+                        <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Brand Logo">
                     </div>
                 </div>
             </div>
@@ -356,7 +360,7 @@
             <!-- ফ্রি শিপিং এবং ট্যাক্স ইনক্লুসিভ নোটিশ -->
             <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
 
-            <!-- প্রাইস ($100.00), বড় ডিসকাউন্ট বাটন (বড় ফ্ল্যাগ সহ) ও চ্যাট উইথ সেলার -->
+            <!-- প্রাইস ($100.00), এক লাইনে পরিপাটি ডিসকাউন্ট বাটন ও চ্যাট উইথ সেলার -->
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$100.00</span>
@@ -564,7 +568,7 @@
     </nav>
 
     <script>
-        /* ডায়নামিক কান্ট্রি ও ফ্ল্যাগ অটো ডিটেকশন (১৯৫+ দেশের জন্য) */
+        /* ১৯৯৫+ দেশের অটো কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
@@ -638,18 +642,29 @@
             }
         }
 
-        function openProductDetails(title, price, img) {
-            document.getElementById('mainDisplayMedia').src = img;
+        function openProductDetails(title, price, mainImg, logoImg) {
+            document.getElementById('mainDisplayMedia').src = mainImg;
             document.getElementById('modalProductPrice').innerText = price;
             document.getElementById('modalProductTitle').innerText = title;
+            
+            // থাম্বনেইল স্ট্রিপ আপডেট (প্রথমে ঘড়ি, পরে লোগো)
+            document.getElementById('thumbStrip').innerHTML = `
+                <div class="thumb-item active" onclick="switchMedia('${mainImg}', this)">
+                    <img src="${mainImg}" alt="Clock">
+                </div>
+                <div class="thumb-item" onclick="switchMedia('${logoImg}', this)">
+                    <img src="${logoImg}" alt="Logo">
+                </div>
+            `;
+            
             toggleCategoryView('productDetailModal');
         }
 
-        function switchMedia(src) {
+        function switchMedia(src, element) {
             const mainMedia = document.getElementById('mainDisplayMedia');
             mainMedia.src = src;
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            element.classList.add('active');
         }
 
         function openSubPopup(popupId) {
