@@ -8,87 +8,89 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
     <!-- Google Font: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --bg-black: #000000;
             --card-bg: #111111;
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --gold-gradient: linear-gradient(135deg, #d4af37, #f3e5ab, #aa771c);
             --gold-solid: #d4af37;
             --pink-love: #ff2a85;
             --pink-discount: #ff2a85;
-            --text-white: #ffffff;
-            --text-gray: #b0b0b0;
+            --text-white: #f5f5f7;
+            --text-gray: #98989f;
             --font-main: 'Poppins', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 65px; padding-bottom: 90px; }
+        body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* লাক্সারি হেডার */
+        /* লাক্সারি দুই-লাইনের রিফাইন্ড হেডার */
         header.app-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex; flex-direction: column; padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.95); position: fixed; top: 0; left: 0; z-index: 1000;
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            gap: 4px;
+        }
+
+        /* প্রথম লাইন: লোগো, ফ্ল্যাগ ও লগইন অপশন */
+        .header-top-row {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
         }
         
         .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); background: #000; }
-        .brand-text-box { display: flex; flex-direction: column; justify-content: center; }
-        .brand-title-main { font-size: 0.9rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
-        .brand-all-in-one { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
+        .logo { width: 32px; height: 32px; object-fit: contain; background: transparent; border: none; }
+        .brand-title-main { font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* ১৯৫+ দেশের অটো ডায়নামিক কান্ট্রি ফ্ল্যাগ সেকশন */
+        /* মাঝখানের কান্ট্রি ফ্ল্যাগ */
         .header-country-flag-box {
-            display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
-            background: transparent; border: none; padding: 2px 6px;
+            display: flex; align-items: center; gap: 5px; cursor: pointer;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.2); padding: 2px 8px; border-radius: 12px;
         }
-        .dynamic-flag-img { width: 30px; height: 20px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.8); }
-        .country-name-text { font-size: 0.38rem; font-weight: 700; color: #ffffff; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+        .dynamic-flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+        .country-name-text { font-size: 0.45rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .header-portals-box { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
+        /* ডানপাশের লগইন বাটন গ্রুপ */
+        .header-auth-box { display: flex; align-items: center; gap: 6px; }
+        .auth-btn {
+            font-size: 0.5rem; font-weight: 600; background: transparent; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 3px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap;
+        }
+        .auth-btn.login-hl { background: var(--gold-gradient); color: #000; font-weight: 700; border: none; }
+        .auth-btn:hover { border-color: var(--gold-solid); opacity: 0.9; }
+
+        /* দ্বিতীয় লাইন: পোর্টাল বাটনসমূহ */
+        .header-bottom-row {
+            display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding-bottom: 2px;
+        }
         .portal-btn {
-            font-size: 0.38rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 2px 5px; border-radius: 3px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center; width: 95px;
+            font-size: 0.48rem; font-weight: 600; background: #0e0e0e; border: 1px solid rgba(212,175,55,0.2);
+            color: var(--text-gray); padding: 3px 10px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap; text-align: center; flex: 1; max-width: 130px;
         }
-        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
+        .portal-btn:hover { border-color: var(--gold-solid); color: var(--gold-solid); background: rgba(212,175,55,0.05); }
 
-        /* ========================================================
-           Pinterest Style Masonry Feed Layout (খাঁটি পিন্টারেস্ট লুক)
-           ======================================================== */
+        /* Pinterest Style Masonry Feed Layout */
         .feed-container {
-            padding: 8px 6px; 
-            column-count: 2; /* মোবাইলে দুই পাশেই সমানভাবে পিন্টারেস্ট স্টাইলে দেখাবে */
-            column-gap: 8px; 
-            width: 100%; 
-            max-width: 1400px; 
-            margin: 0 auto;
+            padding: 8px 6px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
         @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
         @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 16px; } }
 
         .product-card {
-            break-inside: avoid; 
-            background: var(--card-bg); 
-            border-radius: 12px; 
-            margin-bottom: 8px; 
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.85); 
-            display: flex; 
-            flex-direction: column; 
-            transition: 0.3s; 
-            position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.85); display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold-gradient); opacity: 0.8;
+            background: var(--gold-gradient); opacity: 0.6;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.3); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.4s ease; }
@@ -119,13 +121,14 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+        /* ক্যাটাগরি ফুল-স্ক্রিন ওভারলে (বড়, স্পষ্ট ও সফট ফন্ট সহ) */
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 2000; overflow-y: auto; padding: 15px 12px 90px 12px;
+            background: #080808; z-index: 2000; overflow-y: auto; padding: 20px 15px 90px 15px;
         }
 
         .search-popup-box {
-            display: none; position: fixed; top: 62px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
+            display: none; position: fixed; top: 68px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
             background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 8px; border-radius: 35px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
@@ -217,25 +220,25 @@
         .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
-        /* ক্যাটাগরি কার্ড স্টাইল */
-        .category-section { padding: 10px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        .category-header-row { display: flex; justify-content: center; align-items: center; margin-bottom: 8px; padding: 0 4px; text-align: center; }
-        .category-title { font-size: 0.75rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
+        /* উন্নত ক্যাটাগরি গ্রিড (উল্লম্ব ও বড়, সফট লেআউট) */
+        .category-section { padding: 14px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; border-left: 3px solid var(--gold-solid); padding-left: 8px; }
+        .category-title { font-size: 0.9rem; font-weight: 700; color: #e2e2e6; text-transform: uppercase; letter-spacing: 0.8px; }
         
-        .app-store-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
-        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(10, 1fr); gap: 8px; } }
+        .app-store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+        @media (min-width: 576px) { .app-store-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; } }
 
         .app-card {
-            background: #161616; border-radius: 8px; border: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            padding: 8px 2px 6px 2px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; transition: all 0.3s ease-in-out; height: 90px; justify-content: space-between;
+            background: #131315; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            padding: 14px 10px; display: flex; align-items: center; text-align: left;
+            cursor: pointer; transition: all 0.3s ease-in-out; gap: 12px; min-height: 70px;
         }
-        .app-card:hover { transform: translateY(-3px); background: #1f1f1f; }
-        .app-card-icon { display: flex; align-items: center; justify-content: center; margin-top: 2px; flex: 1; transition: transform 0.3s ease; }
-        .app-card:hover .app-card-icon { transform: scale(1.15); }
-        .app-card-icon i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.45rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
+        .app-card:hover { transform: translateY(-2px); background: #1a1a1e; border-color: rgba(212, 175, 55, 0.3); }
+        .app-card-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; line-height: 1.3; letter-spacing: 0.3px; }
 
         /* বটম ন্যাভবার */
         nav.bottom-nav {
@@ -256,12 +259,12 @@
         @media (min-width: 1024px) {
             body { padding-top: 85px; padding-bottom: 100px; }
             header.app-header { padding: 8px 25px; }
-            .logo { width: 48px; height: 48px; }
-            .brand-title-main { font-size: 1.3rem; }
-            .brand-all-in-one { font-size: 0.5rem; letter-spacing: 1.5px; }
-            .dynamic-flag-img { width: 38px; height: 25px; }
-            .country-name-text { font-size: 0.52rem; }
-            .portal-btn { font-size: 0.55rem; padding: 4px 10px; width: 130px; }
+            .logo { width: 38px; height: 38px; }
+            .brand-title-main { font-size: 1.2rem; }
+            .dynamic-flag-img { width: 26px; height: 18px; }
+            .country-name-text { font-size: 0.5rem; }
+            .auth-btn { font-size: 0.6rem; padding: 5px 12px; }
+            .portal-btn { font-size: 0.58rem; padding: 5px 14px; max-width: 150px; }
             .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
             .main-display-media { height: 420px; }
             .thumb-item { width: 65px; height: 65px; }
@@ -275,9 +278,9 @@
             .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
             .sub-popup-box, .share-modal-box { max-width: 450px; padding: 20px; gap: 14px; }
             .category-title { font-size: 1rem; }
-            .app-card { height: 115px; padding: 12px 6px; }
-            .app-card-icon i { font-size: 1.6rem; }
-            .app-card-name { font-size: 0.58rem; }
+            .app-card { min-height: 80px; padding: 16px 14px; }
+            .app-card-icon i { font-size: 1.5rem; }
+            .app-card-name { font-size: 0.75rem; }
             nav.bottom-nav { padding: 10px 20px; }
             .nav-item { font-size: 0.6rem; }
             .nav-item i { font-size: 1.4rem; }
@@ -286,29 +289,35 @@
 </head>
 <body>
 
-    <!-- লাক্সারি হেডার (১৯৫+ দেশের অটো ডায়নামিক ফ্ল্যাগ সহ) -->
+    <!-- সংশোধিত ও পরিপাটি লাক্সারি হেডার -->
     <header class="app-header">
-        <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
-            <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
-            <div class="brand-text-box">
+        <!-- প্রথম লাইন: লোগো ও নাম, কান্ট্রি ফ্ল্যাগ, লগইন অপশন -->
+        <div class="header-top-row">
+            <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
+                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
                 <span class="brand-title-main">RORRAXY</span>
-                <span class="brand-all-in-one">All In One Ecosystem</span>
+            </div>
+
+            <div class="header-country-flag-box" id="visitorCountryBox" title="Your Region Flag">
+                <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
+                <span id="visitorCountryName" class="country-name-text">Bangladesh</span>
+            </div>
+
+            <div class="header-auth-box">
+                <button class="auth-btn login-hl" onclick="toggleSubdomainView('accountView')">Login</button>
+                <button class="auth-btn" onclick="toggleSubdomainView('accountView')">Sign Up</button>
             </div>
         </div>
 
-        <div class="header-country-flag-box" id="visitorCountryBox" title="Your Region Flag">
-            <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
-            <span id="visitorCountryName" class="country-name-text">Bangladesh</span>
-        </div>
-
-        <div class="header-portals-box">
+        <!-- দ্বিতীয় লাইন: ৩টি পোর্টাল বাটন সুবিন্যস্তভাবে -->
+        <div class="header-bottom-row">
             <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B Portal</button>
             <button class="portal-btn" onclick="location.href='https://solutions.rorraxy.com'">Business Solution</button>
             <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
         </div>
     </header>
 
-    <!-- হোমপেজে Pinterest স্টাইল Masonry প্রোডাক্ট ফিড (নতুন ব্রেসলেট ইমেজ সহ) -->
+    <!-- হোমপেজে Pinterest স্টাইল Masonry প্রোডাক্ট ফিড -->
     <main class="feed-container" id="productFeed">
         <div class="product-card" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
             <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Premium Bracelet"></div>
@@ -323,10 +332,9 @@
                 </div>
             </div>
         </div>
-        <!-- আরও প্রোডাক্ট কার্ড পরবর্তীতে এখানে পিন্টারেস্ট স্টাইলে যোগ করতে পারবেন -->
     </main>
 
-    <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
+    <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
             <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
@@ -422,13 +430,13 @@
         </div>
     </div>
 
-    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ওভারলে -->
+    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ওভারলে (বড় ও স্পষ্ট টেক্সটসহ উন্নত গ্রিড) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div style="margin-bottom: 25px; text-align: center;">
-            <span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
+            <span style="font-size:1.1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1.5px;">All Categories</span>
         </div>
 
         <section class="category-section">
