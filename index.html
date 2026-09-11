@@ -15,12 +15,12 @@
         :root {
             --bg-black: #000000;
             --card-bg: #111111;
-            --gold-gradient: linear-gradient(135deg, #d4af37, #f3e5ab, #aa771c);
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --pink-love: #ff2a85;
             --pink-discount: #ff2a85;
-            --text-white: #f5f5f7;
-            --text-gray: #98989f;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
             --font-main: 'Poppins', sans-serif;
         }
 
@@ -28,51 +28,51 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
         body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* লাক্সারি দুই-লাইনের রিফাইন্ড হেডার */
+        /* লাক্সারি দুই-লাইনের হেডার */
         header.app-header {
             display: flex; flex-direction: column; padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.95); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             gap: 4px;
         }
 
-        /* প্রথম লাইন: লোগো, ফ্ল্যাগ ও লগইন অপশন */
+        /* প্রথম লাইন: লোগো, ফ্ল্যাগ ও লগইন অপশন (বর্ডারহীন ও প্রিমিয়াম) */
         .header-top-row {
             display: flex; justify-content: space-between; align-items: center; width: 100%;
         }
         
         .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 32px; height: 32px; object-fit: contain; background: transparent; border: none; }
-        .brand-title-main { font-size: 0.95rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; }
+        .logo { width: 34px; height: 34px; object-fit: contain; background: transparent; border: none; }
+        .brand-title-main { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* মাঝখানের কান্ট্রি ফ্ল্যাগ */
+        /* মাঝখানের কান্ট্রি ফ্ল্যাগ (বর্ডার ছাড়া) */
         .header-country-flag-box {
             display: flex; align-items: center; gap: 5px; cursor: pointer;
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.2); padding: 2px 8px; border-radius: 12px;
+            background: transparent; border: none; padding: 2px 4px;
         }
-        .dynamic-flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
-        .country-name-text { font-size: 0.45rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .dynamic-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; }
+        .country-name-text { font-size: 0.42rem; font-weight: 700; color: var(--text-white); text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* ডানপাশের লগইন বাটন গ্রুপ */
         .header-auth-box { display: flex; align-items: center; gap: 6px; }
         .auth-btn {
-            font-size: 0.5rem; font-weight: 600; background: transparent; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 3px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            font-size: 0.5rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 3px 9px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.2s; white-space: nowrap;
         }
-        .auth-btn.login-hl { background: var(--gold-gradient); color: #000; font-weight: 700; border: none; }
-        .auth-btn:hover { border-color: var(--gold-solid); opacity: 0.9; }
+        .auth-btn.login-hl { background: var(--gold-gradient); color: #000; font-weight: 800; border: none; }
+        .auth-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; }
 
-        /* দ্বিতীয় লাইন: পোর্টাল বাটনসমূহ */
+        /* দ্বিতীয় লাইন: পোর্টাল/হোলসেল বাটনসমূহ (আগের মতো সুন্দর গোল্ডেন গ্রাডিয়েন্ট সহ) */
         .header-bottom-row {
             display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding-bottom: 2px;
         }
         .portal-btn {
-            font-size: 0.48rem; font-weight: 600; background: #0e0e0e; border: 1px solid rgba(212,175,55,0.2);
-            color: var(--text-gray); padding: 3px 10px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center; flex: 1; max-width: 130px;
+            font-size: 0.46rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 3px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; max-width: 130px;
         }
-        .portal-btn:hover { border-color: var(--gold-solid); color: var(--gold-solid); background: rgba(212,175,55,0.05); }
+        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
         /* Pinterest Style Masonry Feed Layout */
         .feed-container {
@@ -84,13 +84,13 @@
         .product-card {
             break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.85); display: flex; flex-direction: column; transition: 0.3s; position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold-gradient); opacity: 0.6;
+            background: var(--gold-gradient); opacity: 0.8;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.3); }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
         .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.4s ease; }
@@ -121,10 +121,10 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ক্যাটাগরি ফুল-স্ক্রিন ওভারলে (বড়, স্পষ্ট ও সফট ফন্ট সহ) */
+        /* ক্যাটাগরি ফুল-স্ক্রিন ওভারলে */
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #080808; z-index: 2000; overflow-y: auto; padding: 20px 15px 90px 15px;
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 12px 90px 12px;
         }
 
         .search-popup-box {
@@ -220,10 +220,14 @@
         .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
-        /* উন্নত ক্যাটাগরি গ্রিড (উল্লম্ব ও বড়, সফট লেআউট) */
+        /* ক্যাটাগরি কার্ড স্টাইল (গোল্ডেন গ্রাডিয়েন্ট টাইটেলসহ) */
         .category-section { padding: 14px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; border-left: 3px solid var(--gold-solid); padding-left: 8px; }
-        .category-title { font-size: 0.9rem; font-weight: 700; color: #e2e2e6; text-transform: uppercase; letter-spacing: 0.8px; }
+        .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; }
+        .category-title { 
+            font-size: 0.85rem; font-weight: 800; 
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            text-transform: uppercase; letter-spacing: 1px; 
+        }
         
         .app-store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
         @media (min-width: 576px) { .app-store-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -259,9 +263,9 @@
         @media (min-width: 1024px) {
             body { padding-top: 85px; padding-bottom: 100px; }
             header.app-header { padding: 8px 25px; }
-            .logo { width: 38px; height: 38px; }
-            .brand-title-main { font-size: 1.2rem; }
-            .dynamic-flag-img { width: 26px; height: 18px; }
+            .logo { width: 40px; height: 40px; }
+            .brand-title-main { font-size: 1.3rem; }
+            .dynamic-flag-img { width: 28px; height: 19px; }
             .country-name-text { font-size: 0.5rem; }
             .auth-btn { font-size: 0.6rem; padding: 5px 12px; }
             .portal-btn { font-size: 0.58rem; padding: 5px 14px; max-width: 150px; }
@@ -289,9 +293,9 @@
 </head>
 <body>
 
-    <!-- সংশোধিত ও পরিপাটি লাক্সারি হেডার -->
+    <!-- লাক্সারি রিফাইন্ড হেডার -->
     <header class="app-header">
-        <!-- প্রথম লাইন: লোগো ও নাম, কান্ট্রি ফ্ল্যাগ, লগইন অপশন -->
+        <!-- প্রথম লাইন: লোগো, কান্ট্রি ফ্ল্যাগ ও লগইন অপশন -->
         <div class="header-top-row">
             <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
                 <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
@@ -309,9 +313,9 @@
             </div>
         </div>
 
-        <!-- দ্বিতীয় লাইন: ৩টি পোর্টাল বাটন সুবিন্যস্তভাবে -->
+        <!-- দ্বিতীয় লাইন: Wholesale, Business Solution, Creative Academy (আগের মতো গোল্ডেন গ্রাডিয়েন্ট সহ) -->
         <div class="header-bottom-row">
-            <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B Portal</button>
+            <button class="portal-btn" onclick="location.href='https://wholesale.rorraxy.com'">Wholesale</button>
             <button class="portal-btn" onclick="location.href='https://solutions.rorraxy.com'">Business Solution</button>
             <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
         </div>
@@ -430,13 +434,13 @@
         </div>
     </div>
 
-    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ওভারলে (বড় ও স্পষ্ট টেক্সটসহ উন্নত গ্রিড) -->
+    <!-- ২. ক্যাটাগরি ফুল-স্ক্রিন ওভারলে (গোল্ডেন গ্রাডিয়েন্ট টাইটেলসহ) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div style="margin-bottom: 25px; text-align: center;">
-            <span style="font-size:1.1rem; font-weight:800; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1.5px;">All Categories</span>
+            <span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1.5px;">All Categories</span>
         </div>
 
         <section class="category-section">
