@@ -26,34 +26,36 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 75px; padding-bottom: 85px; }
+        body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* হেডার: উপরে লোগো, নাম ও ফ্ল্যাগ, নিচে ৩টি গোছালো বাটন */
+        /* হেডার: মাঝখানে লোগো, নাম ও পতাকা; নিচে ৩টি বাটন */
         header.app-header {
-            display: flex; flex-direction: column; padding: 6px 12px;
+            display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            gap: 5px; transition: transform 0.3s ease-in-out;
+            gap: 6px; transition: transform 0.3s ease-in-out;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
-        .header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 34px; height: 34px; object-fit: contain; background: transparent; border: none; }
+        .header-center-group { display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; width: 100%; }
+        .logo { width: 32px; height: 32px; object-fit: contain; }
         .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
+        .dynamic-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        .header-country-flag-box { display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .dynamic-flag-img { width: 24px; height: 16px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
-
-        /* নিচের ৩টি বাটন */
-        .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; }
+        .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; max-width: 600px; }
         .portal-btn {
-            font-size: 0.5rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 4px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            font-size: 0.48rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 5px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.3s; white-space: nowrap; text-align: center; flex: 1;
         }
         .portal-btn.wholesale-btn { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
+
+        @media (min-width: 768px) {
+            .portal-btn { font-size: 0.65rem; padding: 6px 14px; }
+            .brand-title-main { font-size: 1.2rem; }
+            .logo { width: 38px; height: 38px; }
+        }
 
         /* Pinterest Style Masonry Feed Layout */
         .feed-container {
@@ -77,8 +79,9 @@
         .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
-        .love-share-group { display: flex; align-items: center; gap: 14px; }
+        /* কার্ডের ঠিক মাঝবরাবর লাইক ও শেয়ার বাটন */
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
+        .love-share-group { display: flex; align-items: center; gap: 20px; justify-content: center; width: 100%; }
         
         .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
         .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -88,11 +91,11 @@
         .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শুধু প্রিমিয়াম গোল্ডেন ঝুড়ি আইকন (ফ্লোটিং বটম রাইট কর্নার) */
+        /* জেনুইন গোল্ডেন গ্রেডিয়েন্ট ঝুড়ি আইকন (ফ্লোটিং বটম রাইট কর্নার) */
         .floating-cart-icon-btn {
             position: fixed; bottom: 75px; right: 20px; z-index: 3500; background: var(--gold-gradient);
             width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 6px 25px rgba(212,175,55,0.6); cursor: pointer; border: 2px solid #fff; transition: 0.3s;
+            box-shadow: 0 6px 20px rgba(212,175,55,0.4); cursor: pointer; border: 2px solid #000; transition: 0.3s;
         }
         .floating-cart-icon-btn:hover { transform: scale(1.1); }
         .floating-cart-icon-btn i { font-size: 1.5rem; color: #000; }
@@ -114,7 +117,7 @@
             animation: coinFly 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* এসপিএ ওভারলে ও ফুলস্ক্রিন পপআপ ভিউ */
+        /* ওভারলে প্যানেল ও ফুলস্ক্রিন পপআপ ভিউ */
         .subdomain-view, .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
@@ -128,7 +131,26 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ (ছবি, ডিসকাউন্ট, প্রাইস ও ফিচারসহ) */
+        /* শেয়ার পপ-আপ মোডাল (সমস্ত সোশ্যাল অপশনসহ) */
+        .share-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
+        }
+        .share-modal-box {
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
+            padding: 15px; display: flex; flex-direction: column; gap: 10px; text-align: center;
+        }
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; }
+        .share-icon-item {
+            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
+            background: #1a1a1a; padding: 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
+            transition: 0.2s;
+        }
+        .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
+        .share-icon-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.45rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ */
         .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .main-display-media { width: 100%; height: 300px; object-fit: contain; display: block; background: #000; }
@@ -176,7 +198,7 @@
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* সম্পূর্ণ ক্যাটাগরি গ্রিড (কোনো ক্যাটাগরি মিসিং নেই) */
+        /* ক্যাটাগরি গ্রিড */
         .category-section { padding: 14px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
         .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; }
         .category-title { 
@@ -198,11 +220,11 @@
         .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
-        /* বটম ন্যাভবার */
+        /* ফিক্সড বটম ন্যাভবার (ক্লিক করলে ওভারলে খুলবে, মেনুবার ফিক্সড থাকবে) */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
-            z-index: 3000; border-top: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(15px);
+            z-index: 5000; border-top: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
@@ -216,33 +238,30 @@
 </head>
 <body>
 
-    <!-- রিফাইন্ড হেডার: উপরে লোগো, নাম ও ফ্ল্যাগ, নিচে ৩টি গোছালো বাটন -->
+    <!-- হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ; নিচে ৩টি বাটন -->
     <header class="app-header" id="mainHeader">
-        <div class="header-top-row">
-            <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
-                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
-                <span class="brand-title-main">RORRAXY</span>
-            </div>
-
+        <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
+            <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
+            <span class="brand-title-main">RORRAXY</span>
             <div class="header-country-flag-box" id="visitorCountryBox" title="Visitor Country Flag">
                 <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
             </div>
         </div>
 
         <div class="header-bottom-row">
-            <button class="portal-btn wholesale-btn" onclick="location.href='https://wholesale.rorraxy.com'">Wholesale</button>
-            <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B/B2C Solution</button>
-            <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
+            <button class="portal-btn wholesale-btn" onclick="toggleSubdomainView('sellerView')">Wholesale</button>
+            <button class="portal-btn" onclick="toggleSubdomainView('sellerView')">B2B/B2C Solution</button>
+            <button class="portal-btn" onclick="toggleSubdomainView('sellerView')">Creative Academy</button>
         </div>
     </header>
 
-    <!-- ফ্লোটিং প্রিমিয়াম ঝুড়ি আইকন (Bottom-Right Floating Cart) -->
-    <div class="floating-cart-icon-btn" onclick="toggleSubdomainView('cartView')" title="Luxury Basket">
+    <!-- ফিক্সড গোল্ডেন ঝুড়ি আইকন (Bottom-Right Floating Cart) -->
+    <div class="floating-cart-icon-btn" onclick="toggleSubdomainView('cartView')" title="Basket">
         <i class="fa-solid fa-basket-shopping"></i>
         <span class="cart-badge-dot" id="floatingCartCount">0</span>
     </div>
 
-    <!-- Pinterest Style Masonry Feed (কার্ডে ক্লিক করলে পপ-আপ ইমেজ ও ডিটেইলস দেখাবে) -->
+    <!-- Pinterest Style Masonry Feed Layout -->
     <main class="feed-container" id="productFeed">
         <div class="product-card">
             <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
@@ -261,8 +280,27 @@
         </div>
     </main>
 
-    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ (ক্লিক করলে ওপেন হবে) -->
-    <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 5000;">
+    <!-- শেয়ার পপ-আপ মোডাল (সমস্ত সোশ্যাল অপশনসহ) -->
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-box">
+            <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <div class="share-icons-grid">
+                <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
+                <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
+                <div class="share-icon-item" onclick="shareTo('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                <div class="share-icon-item" onclick="shareTo('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                <div class="share-icon-item" onclick="shareTo('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+                <div class="share-icon-item" onclick="shareTo('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                <div class="share-icon-item" onclick="shareTo('imo')"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></div>
+                <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
+                <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
+            </div>
+            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
+        </div>
+    </div>
+
+    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ -->
+    <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 6000;">
         <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
             <i class="fa-solid fa-xmark"></i>
         </div>
@@ -290,16 +328,15 @@
                 </div>
             </div>
             <div class="product-title-line" id="modalProductTitle">PREMIUM BRACELET</div>
-            <!-- অ্যাড টু কার্ড উইথ কয়েন অ্যানিমেশন -->
             <button class="add-to-cart-btn" onclick="triggerCoinAnimation(event)">Add To Cart</button>
         </div>
     </div>
 
-    <!-- লাক্সারি ঝুড়ি (Cart View - শুধুমাত্র যোগ করা প্রোডাক্ট থাকবে) -->
+    <!-- ঝুড়ি (Cart View - শুধুমাত্র যোগ করা প্রোডাক্ট ও Process to Order বাটন) -->
     <div id="cartView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('cartView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="max-width: 480px; margin: 40px auto; padding: 15px; text-align: center;">
-            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;">Luxury Basket</span>
+            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;">Basket</span>
             <div id="cartItemsContainer" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
                 <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
             </div>
@@ -307,7 +344,7 @@
         </div>
     </div>
 
-    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে (টগিল সিস্টেম: ক্লিক করলে আসবে, আবার ক্লিক করলে বন্ধ হবে) -->
+    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে (টগিল সিস্টেম) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
@@ -416,7 +453,7 @@
         </div>
     </div>
 
-    <!-- একাউন্ট, সেলার ও এফিলিয়েট প্যানেল ওভারলে -->
+    <!-- একাউন্ট প্যানেল ওভারলে -->
     <div id="accountView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="max-width: 350px; margin: 40px auto; padding: 15px; text-align: center;">
@@ -431,17 +468,19 @@
         </div>
     </div>
 
+    <!-- সেলার হাব ওভারলে -->
     <div id="sellerView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub</span></div>
+        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub & Portal</span></div>
     </div>
 
+    <!-- এফিলিয়েট প্যানেল ওভারলে -->
     <div id="affiliateView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Affiliate Program</span></div>
     </div>
 
-    <!-- বটম ন্যাভবার -->
+    <!-- ফিক্সড বটম ন্যাভবার (মেনুবার সবসময় দৃশ্যমান থাকবে) -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="toggleSubdomainView('affiliateView')">
             <i class="fa-solid fa-handshake"></i>
@@ -504,6 +543,7 @@
             if(refId) sessionStorage.setItem('rorraxy_ref', refId);
         };
 
+        /* টগিল ওভারলে লজিক (মেনুবার ফিক্সড রেখে পপআপ ওপেন/ক্লোজ) */
         function toggleSubdomainView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -516,7 +556,6 @@
             }
         }
 
-        /* ক্যাটাগরি টগিল সিস্টেম (ক্লিক করলে ওপেন, আবার ক্লিক করলে ক্লোজ) */
         function toggleCategoryView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -573,7 +612,6 @@
             }
         }
 
-        /* প্রোডাক্ট কার্ডে ক্লিক করলে ইমেজ ও ডিটেইলস পপ-আপ ওপেন হবে */
         function openProductDetails(title, price, mainImg, logoImg) {
             document.getElementById('mainDisplayMedia').src = mainImg;
             document.getElementById('modalProductPrice').innerText = price;
@@ -592,8 +630,26 @@
         }
 
         function openShareModal() {
-            navigator.clipboard.writeText(window.location.href);
-            alert("Product link copied to clipboard!");
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        function shareTo(platform) {
+            const currentUrl = window.location.href;
+            if(platform === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
+            } else if(platform === 'whatsapp') {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this item: ' + currentUrl)}`, '_blank');
+            } else if(platform === 'telegram') {
+                window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}`, '_blank');
+            } else {
+                navigator.clipboard.writeText(currentUrl);
+                alert("Product link copied!");
+            }
+            closeShareModal();
         }
 
         /* কয়েন ফ্লাইং অ্যানিমেশন ও কার্টে প্রোডাক্ট যুক্ত করা */
@@ -628,7 +684,7 @@
             let container = document.getElementById('cartItemsContainer');
             container.innerHTML = '';
             if(cart.length === 0) {
-                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Your luxury basket is empty.</p>';
+                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Basket is empty.</p>';
                 return;
             }
             cart.forEach((item, index) => {
