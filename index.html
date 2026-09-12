@@ -39,7 +39,7 @@
             min-height: 100vh; 
             transition: background 0.4s ease;
         }
-        body { padding-top: 70px; padding-bottom: 90px; }
+        body { padding-top: 75px; padding-bottom: 90px; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -68,7 +68,7 @@
             background: rgba(3, 21, 64, 0.92) !important;
         }
 
-        /* হেডার */
+        /* হেডার লেআউট */
         header.app-header {
             display: flex; flex-direction: column; padding: 6px 10px; align-items: center;
             background: var(--header-retail); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -77,49 +77,24 @@
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
-        .header-top-bar { display: flex; justify-content: center; align-items: center; width: 100%; max-width: 600px; position: relative; }
+        .header-top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; position: relative; }
         
         /* লোগো, কোম্পানির নাম এবং পতাকা একসাথে মাঝখানে */
-        .header-center-group { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+        .header-center-group { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; margin: 0 auto; }
         .brand-logo-img { width: 26px; height: 26px; object-fit: contain; background: transparent; }
         .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        /* হেডার বাটনগুলোকে ছোট এবং স্লিম করা হলো */
-        .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 4px; width: 100%; max-width: 500px; }
-        .portal-btn {
-            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 4px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
+        /* ঝুড়ি আইকন একদম ডানপাশের কর্নারে */
+        .header-right-corner { display: flex; align-items: center; position: absolute; right: 0; }
+        .top-basket-icon-btn {
+            position: relative; cursor: pointer; width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center; background: none;
         }
-        .portal-btn.wholesale-btn { background: #161616; color: var(--gold-solid); border: 1px solid var(--gold-solid); font-weight: 800; }
-        .portal-btn.wholesale-active { background: var(--gold-gradient) !important; color: #000 !important; font-weight: 900 !important; border: none !important; }
-        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
-
-        /* ফ্লোটিং লাইভ চ্যাট উইজেট (ছোট সাইজ, মেনুবারের উপরে, ড্র্যাগএবল) */
-        .live-chat-widget {
-            position: fixed; bottom: 70px; right: 20px; z-index: 3500; cursor: grab;
-            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none;
-            touch-action: none; user-select: none;
-        }
-        .live-chat-widget:active { cursor: grabbing; }
-        .live-chat-widget i {
-            font-size: 1.6rem; background: var(--gold-gradient);
+        .top-basket-icon-btn:hover { transform: scale(1.1); }
+        .top-basket-icon-btn i {
+            font-size: 1.5rem; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
-        }
-
-        /* ফ্লোটিং ঝুড়ি আইকন (নিচে ডানপাশে চ্যাটের পাশেই ভাসমান ও ড্র্যাগএবল) */
-        .floating-basket-widget {
-            position: fixed; bottom: 70px; right: 70px; z-index: 3500; cursor: grab;
-            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none;
-            touch-action: none; user-select: none;
-        }
-        .floating-basket-widget:active { cursor: grabbing; }
-        .floating-basket-widget i {
-            font-size: 1.6rem; background: var(--gold-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
         }
         .cart-badge-dot {
             position: absolute; top: -2px; right: -2px; background: var(--pink-discount); color: #fff;
@@ -131,6 +106,30 @@
             50% { transform: scale(1.3); }
         }
         .basket-bounce { animation: bounceBasket 0.4s ease; }
+
+        /* ছোট ও স্লিম বাটন রো (Creative Academy, B2B/B2C Solution, Wholesale) */
+        .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 4px; width: 100%; max-width: 520px; }
+        .portal-btn {
+            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 4px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
+        }
+        .portal-btn.wholesale-btn { background: #161616; color: var(--gold-solid); border: 1px solid var(--gold-solid); font-weight: 800; }
+        .portal-btn.wholesale-active { background: var(--gold-gradient) !important; color: #000 !important; font-weight: 900 !important; border: none !important; }
+        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
+
+        /* ফ্লোটিং লাইভ চ্যাট উইজেট (মেনুবারের ঠিক উপরে, ড্র্যাগএবল) */
+        .live-chat-widget {
+            position: fixed; bottom: 70px; right: 20px; z-index: 3500; cursor: grab;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none;
+            touch-action: none; user-select: none;
+        }
+        .live-chat-widget:active { cursor: grabbing; }
+        .live-chat-widget i {
+            font-size: 1.8rem; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+        }
 
         /* সুনির্দিষ্ট এবং স্মুথ গোল্ডেন কয়েন লাফিং ও ফ্লাইং অ্যানিমেশন */
         @keyframes coinParabola {
@@ -354,24 +353,27 @@
                     <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
                 </div>
             </div>
+
+            <!-- ঝুড়ি আইকন একদম ডানপাশের কর্নারে লাইভ হেডার লাইনে -->
+            <div class="header-right-corner">
+                <div class="top-basket-icon-btn" id="topBasketIcon" onclick="toggleBasketView()" title="Basket">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-badge-dot" id="floatingCartCount">0</span>
+                </div>
+            </div>
         </div>
 
+        <!-- বাটনগুলো: Creative Academy বামে, B2B/B2C Solution মাঝে, Wholesale ডানে -->
         <div class="header-bottom-row">
-            <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
-            <a href="https://solutions.rorraxy.com" target="_blank" class="portal-btn">B2B/B2C Solution</a>
             <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
+            <a href="https://solutions.rorraxy.com" target="_blank" class="portal-btn">B2B/B2C Solution</a>
+            <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
         </div>
     </header>
 
-    <!-- ফ্লোটিং লাইভ চ্যাট উইজেট (মেনুবারের ঠিক উপরে এবং ড্র্যাগ করার সুবিধাযুক্ত) -->
+    <!-- ফ্লোটিং লাইভ চ্যাট উইজেট (মেনুবারের ঠিক উপরে, ড্র্যাগএবল) -->
     <div class="live-chat-widget" id="draggableChat" onclick="openLiveChat()" title="Live Chat">
         <i class="fa-solid fa-comments"></i>
-    </div>
-
-    <!-- ফ্লোটিং ঝুড়ি আইকন (নিচে ডানপাশে ভাসমান এবং ড্র্যাগ করার সুবিধাযুক্ত) -->
-    <div class="floating-basket-widget" id="draggableBasket" onclick="toggleBasketView()" title="Basket">
-        <i class="fa-solid fa-basket-shopping"></i>
-        <span class="cart-badge-dot" id="floatingCartCount">0</span>
     </div>
 
     <!-- Pinterest Style Masonry Feed Layout -->
@@ -603,39 +605,35 @@
         let selectedSize = "Standard";
         let customNote = "";
 
-        /* ড্র্যাগ (Drag/Move) ফাংশন জেনেরিক */
-        function makeDraggable(elm) {
-            let isDragging = false;
-            let startX, startY, initialX, initialY;
+        /* লাইভ চ্যাট ড্র্যাগ (Drag/Move) লজিক */
+        const dragEl = document.getElementById('draggableChat');
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
 
-            elm.addEventListener('pointerdown', (e) => {
-                isDragging = true;
-                startX = e.clientX;
-                startY = e.clientY;
-                const rect = elm.getBoundingClientRect();
-                initialX = rect.left;
-                initialY = rect.top;
-                elm.setPointerCapture(e.pointerId);
-            });
+        dragEl.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = dragEl.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            dragEl.setPointerCapture(e.pointerId);
+        });
 
-            elm.addEventListener('pointermove', (e) => {
-                if (!isDragging) return;
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-                elm.style.left = `${initialX + dx}px`;
-                elm.style.top = `${initialY + dy}px`;
-                elm.style.bottom = 'auto';
-                elm.style.right = 'auto';
-            });
+        dragEl.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            dragEl.style.left = `${initialX + dx}px`;
+            dragEl.style.top = `${initialY + dy}px`;
+            dragEl.style.bottom = 'auto';
+            dragEl.style.right = 'auto';
+        });
 
-            elm.addEventListener('pointerup', (e) => {
-                isDragging = false;
-                elm.releasePointerCapture(e.pointerId);
-            });
-        }
-
-        makeDraggable(document.getElementById('draggableChat'));
-        makeDraggable(document.getElementById('draggableBasket'));
+        dragEl.addEventListener('pointerup', (e) => {
+            isDragging = false;
+            dragEl.releasePointerCapture(e.pointerId);
+        });
 
         /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন */
         function toggleRetailWholesaleMode() {
@@ -1038,7 +1036,7 @@
         /* গোল্ডেন কয়েন লাফিং ও ফ্লাইং অ্যানিমেশন সরাসরি ঝুড়িতে */
         function triggerCoinAnimation(event) {
             const btnRect = event.target.getBoundingClientRect();
-            const basketIcon = document.getElementById('draggableBasket').getBoundingClientRect();
+            const basketIcon = document.getElementById('topBasketIcon').getBoundingClientRect();
 
             const coin = document.createElement('div');
             coin.className = 'flying-coin';
@@ -1056,7 +1054,7 @@
             setTimeout(() => { 
                 coin.remove(); 
                 playSuccessSound();
-                const basketEl = document.getElementById('draggableBasket');
+                const basketEl = document.getElementById('topBasketIcon');
                 basketEl.classList.add('basket-bounce');
                 setTimeout(() => basketEl.classList.remove('basket-bounce'), 400);
             }, 1100);
