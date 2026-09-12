@@ -241,7 +241,7 @@
             padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: center; position: relative;
         }
         
-        /* লিংক প্রদর্শনের প্রিমিয়াম গোল্ডেন বক্স স্টাইল */
+        /* লিংক প্রদর্শনের প্রিমিয়াম গোল্ডেন বক্স স্টাইল ও কপি স্ট্যাটাস টেক্সট */
         .share-link-display-box {
             display: flex; align-items: center; background: #0a0a0a; border: 1px solid rgba(212,175,55,0.4);
             border-radius: 6px; padding: 6px 8px; gap: 6px; margin-bottom: 2px;
@@ -253,6 +253,7 @@
         .copy-direct-btn {
             background: var(--gold-gradient); color: #000; border: none; font-size: 0.52rem; font-weight: 900;
             padding: 5px 10px; border-radius: 4px; cursor: pointer; text-transform: uppercase; white-space: pointer; flex-shrink: 0;
+            transition: 0.2s;
         }
         .copy-direct-btn:hover { opacity: 0.9; }
 
@@ -443,7 +444,7 @@
             <!-- দৃশ্যমান লিংক বক্স -->
             <div class="share-link-display-box">
                 <input type="text" id="shareUrlInput" class="share-link-input" readonly value="">
-                <button class="copy-direct-btn" onclick="copyShareLink()">Copy</button>
+                <button class="copy-direct-btn" id="copyBtnText" onclick="copyShareLink()">Copy</button>
             </div>
 
             <div class="share-icons-grid">
@@ -1076,8 +1077,9 @@
                 finalShareUrl = `${baseUrl}?ref=${affiliateId}`;
             }
 
-            // দৃশ্যমান বক্সে লিংক সেট করা
+            // দৃশ্যমান বক্সে লিংক সেট করা এবং টেক্সট রিসেট রাখা
             document.getElementById('shareUrlInput').value = finalShareUrl;
+            document.getElementById('copyBtnText').innerText = "Copy";
 
             // সোশ্যাল মিডিয়া শেয়ার লিংকগুলো আপডেট করা
             const encodedUrl = encodeURIComponent(finalShareUrl);
@@ -1103,28 +1105,38 @@
             setTimeout(() => { closeShareModal(); }, 1000);
         }
 
-        /* কোনো পারমিশন বা পপআপ ছাড়াই নীরবে লিংক কপি ও মোডাল বন্ধ করার ফাংশন */
+        /* কপি হওয়ার পর ২.৫ সেকেন্ড সময় দিয়ে তারপর উইন্ডো বন্ধ করার ফাংশন */
         function copyShareLink() {
             const inputField = document.getElementById('shareUrlInput');
+            const copyBtn = document.getElementById('copyBtnText');
+            
             inputField.select();
             inputField.setSelectionRange(0, 99999);
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(inputField.value).then(() => {
-                    closeShareModal();
+                    copyBtn.innerText = "Copied!";
+                    setTimeout(() => {
+                        closeShareModal();
+                    }, 2500); // আড়াই সেকেন্ড (2.5 Seconds) পর উইন্ডো বন্ধ হবে
                 }).catch(() => {
-                    fallbackCopyDirect(inputField.value);
+                    fallbackCopyDirect(inputField.value, copyBtn);
                 });
             } else {
-                fallbackCopyDirect(inputField.value);
+                fallbackCopyDirect(inputField.value, copyBtn);
             }
         }
 
-        function fallbackCopyDirect(text) {
+        function fallbackCopyDirect(text, copyBtn) {
             try {
                 document.execCommand('copy');
-            } catch (err) {}
-            closeShareModal();
+                copyBtn.innerText = "Copied!";
+            } catch (err) {
+                copyBtn.innerText = "Failed";
+            }
+            setTimeout(() => {
+                closeShareModal();
+            }, 2500);
         }
 
         /* প্লে সফট সাকসেস সাউন্ড (Web Audio API) */
