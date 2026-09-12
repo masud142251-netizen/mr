@@ -61,8 +61,12 @@
         }
         body.wholesale-mode .category-fullscreen-view,
         body.wholesale-mode .fullscreen-portal-view,
+        body.wholesale-mode .subdomain-iframe-overlay,
         body.wholesale-mode #productDetailModal {
             background: var(--royal-blue-gradient) !important;
+        }
+        body.wholesale-mode .basket-modal-box {
+            background: rgba(3, 21, 64, 0.92) !important;
         }
 
         /* হেডার লেআউট */
@@ -197,28 +201,22 @@
         .share-action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* হেডার বাটনগুলোর জন্য ফুল-স্ক্রিন পেজ ভিউ (Creative Academy & Solutions) */
+        /* ফুল-স্ক্রিন ওভারলে ভিউ (Creative Academy & B2B/B2C Solution) - কোনো অতিরিক্ত টাইটেল বার ছাড়াই শুধু ক্লিন স্ক্রিন ও ক্রস বাটন */
         .fullscreen-portal-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 9000; flex-direction: column; overflow: hidden;
         }
-        .fullscreen-header-bar {
-            display: flex; justify-content: space-between; align-items: center; padding: 12px 20px;
-            background: #0a0a0a; border-bottom: 1px solid rgba(212,175,55,0.3);
-        }
 
-        /* বটম ন্যাভবারের জন্য স্লাইড-আপ পপ-আপ ভিউ (Affiliate, Seller, You) */
-        .bottom-sheet-overlay {
+        /* সাব-ডোমেইন ওভারলে প্যানেল (Affiliate, Seller, You, Basket) - হোম পেজের ভেতর স্মুথ টগল */
+        .subdomain-iframe-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 4500; align-items: flex-end; justify-content: center;
+            background: rgba(0, 0, 0, 0.92); z-index: 6000; flex-direction: column; padding: 15px;
         }
-        .bottom-sheet-container {
-            background: #0d0d0d; border: 1px solid rgba(212,175,55,0.4); border-bottom: none;
-            border-radius: 20px 20px 0 0; width: 100%; max-width: 800px; height: 75vh;
-            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 -10px 40px rgba(0,0,0,0.9);
-            animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        .subdomain-iframe-box {
+            background: #0c0c0c; border: 1px solid rgba(212,175,55,0.4); border-radius: 14px;
+            width: 100%; max-width: 900px; height: 85vh; margin: auto; display: flex; flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9); overflow: hidden; position: relative;
         }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -231,9 +229,16 @@
         }
         .product-details-content { padding: 4px; max-width: 440px; margin: 25px auto 0 auto; display: flex; flex-direction: column; gap: 8px; }
 
+        .basket-modal-box {
+            background: #0c0c0c; border: 1px solid rgba(212,175,55,0.35); border-radius: 14px;
+            width: 100%; max-width: 460px; margin: 60px auto; padding: 20px; position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+
         .golden-close-btn {
             background: #141414; border: 1px solid rgba(212,175,55,0.4); width: 34px; height: 34px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: absolute; top: 15px; right: 15px; z-index: 9100;
         }
         .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
@@ -258,6 +263,11 @@
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .main-display-media { width: 100%; height: 210px; object-fit: contain; display: block; background: #000; }
         
+        .thumbnail-strip { display: flex; justify-content: center; gap: 5px; padding: 4px; background: #0c0c0c; overflow-x: auto; }
+        .thumb-item { width: 38px; height: 38px; border-radius: 4px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; background: transparent; }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-item.active { border-color: var(--gold-solid); }
+
         .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 8px 10px; border-radius: 6px; }
         .detail-price { font-size: 1.05rem; font-weight: 900; color: #ffffff; }
         
@@ -283,7 +293,7 @@
 
         .add-to-cart-btn { background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.72rem; padding: 10px; border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 2px; }
 
-        /* সিঙ্গেল ক্লিন সার্চ বার (কোনো ডাবল বর্ডার নেই) */
+        /* সিঙ্গেল ক্লিন সার্চ বার */
         .search-popup-box { display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px; background: transparent; z-index: 4000; padding: 0; border: none; box-shadow: none; }
         .search-input-field-box { display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.4); border-radius: 30px; padding: 6px 14px; gap: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.9); }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
@@ -332,13 +342,15 @@
 
         <div class="header-bottom-row">
             <div class="header-buttons-group">
-                <!-- ফুল-স্ক্রিন পেজ মোডে একাডেমি এবং বিটুবি সলিউশন -->
-                <button class="portal-btn" onclick="openFullScreenPortal('https://academy.rorraxy.com', 'Creative Academy')">Creative Academy</button>
-                <button class="portal-btn" onclick="openFullScreenPortal('https://solutions.rorraxy.com', 'B2B/B2C Solution')">B2B/B2C Solution</button>
+                <!-- Creative Academy (ফুল-স্ক্রিন ওভারলে মোড) -->
+                <button class="portal-btn" onclick="openFullScreenPortal('https://academy.rorraxy.com')">Creative Academy</button>
+                <!-- B2B/B2C Solution (ফুল-স্ক্রিন ওভারলে মোড) -->
+                <button class="portal-btn" onclick="openFullScreenPortal('https://solutions.rorraxy.com')">B2B/B2C Solution</button>
                 <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
             </div>
 
-            <div class="top-basket-icon-btn" id="topBasketIcon" onclick="toggleBottomSheet('https://you.rorraxy.com', 'You / Basket Portal')" title="Basket">
+            <!-- Basket Icon (you.rorraxy.com টগল প্যানেল) -->
+            <div class="top-basket-icon-btn" id="topBasketIcon" onclick="toggleSubdomainOverlay('https://you.rorraxy.com')" title="Basket">
                 <i class="fa-solid fa-basket-shopping"></i>
                 <span class="cart-badge-dot" id="floatingCartCount">0</span>
             </div>
@@ -369,23 +381,17 @@
         </div>
     </main>
 
-    <!-- হেডার বাটনগুলোর জন্য ফুল-স্ক্রিন ভিউ (Creative Academy & Solutions) -->
+    <!-- ফুল-স্ক্রিন ওভারলে ভিউ (Creative Academy & Solutions) - শুধু ক্লিন স্ক্রিন ও ক্রস বাটন -->
     <div id="fullScreenPortal" class="fullscreen-portal-view">
-        <div class="fullscreen-header-bar">
-            <span id="fullScreenPortalTitle" style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Portal</span>
-            <div class="golden-close-btn" onclick="closeFullScreenPortal()"><i class="fa-solid fa-xmark"></i></div>
-        </div>
+        <div class="golden-close-btn" onclick="closeFullScreenPortal()"><i class="fa-solid fa-xmark"></i></div>
         <iframe id="fullScreenIframe" src="" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
     </div>
 
-    <!-- বটম মেনুর জন্য স্লাইড-আপ পপ-আপ প্যানেল (Affiliate, Seller, You) -->
-    <div id="bottomSheetOverlay" class="bottom-sheet-overlay">
-        <div class="bottom-sheet-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #121212; border-bottom: 1px solid rgba(212,175,55,0.2);">
-                <span id="bottomSheetTitle" style="font-size: 0.85rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Portal</span>
-                <div class="golden-close-btn" onclick="closeBottomSheet()" style="width:28px; height:28px;"><i class="fa-solid fa-xmark" style="font-size:0.8rem;"></i></div>
-            </div>
-            <iframe id="bottomSheetIframe" src="" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
+    <!-- সাব-ডোমেইন ওভারলে প্যানেল (Affiliate, Seller, You, Basket) -->
+    <div id="subdomainOverlay" class="subdomain-iframe-overlay">
+        <div class="subdomain-iframe-box">
+            <div class="golden-close-btn" onclick="closeSubdomainOverlay()"><i class="fa-solid fa-xmark"></i></div>
+            <iframe id="subdomainIframeElement" src="" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
         </div>
     </div>
 
@@ -413,9 +419,9 @@
         </div>
     </div>
 
-    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ -->
+    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ (হোলসেল ৩ টিয়ার ও রিটেইল ডিসকাউন্ট সহ) -->
     <div id="productDetailModal">
-        <div class="golden-close-btn" onclick="closeProductDetails()" style="position: absolute; top: 12px; right: 12px;">
+        <div class="golden-close-btn" onclick="closeProductDetails()">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="product-details-content">
@@ -470,15 +476,49 @@
         </div>
     </div>
 
-    <!-- সম্পূর্ণ ৭টি ক্যাটাগরি তালিকা (কোনো তথ্য মিসিং নেই) -->
+    <!-- ডেসক্রিপশন পপআপ -->
+    <div id="descModal" class="subdomain-iframe-overlay" style="z-index: 6500;">
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="closeDescPopup()"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align: center;">
+                <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Product Description</span>
+                <p style="font-size: 0.7rem; color: var(--text-gray); margin-top: 15px; text-align: left; line-height: 1.6;">
+                    Crafted with precision using high-grade Gamar wood and premium luxury finishes. Designed for durability, elegance, and global export standards. Free shipping and tax inclusive worldwide.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- সাইজ ও স্পেক পপআপ -->
+    <div id="sizeModal" class="subdomain-iframe-overlay" style="z-index: 6500;">
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="closeSizePopup()"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align: center;">
+                <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Size & Custom Request</span>
+                <div style="margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Select Size / Variant</label>
+                    <select id="productSizeSelect" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                        <option value="Standard">Standard Size</option>
+                        <option value="Large">Large Size</option>
+                        <option value="Custom">Custom Specification</option>
+                    </select>
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase; margin-top: 5px;">Edit / Other Instructions</label>
+                    <textarea id="customSizeNote" placeholder="Write any specific instruction or custom note here..." style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none; height:70px; resize:none;"></textarea>
+                    <button class="add-to-cart-btn" style="margin-top: 10px; padding: 9px; font-size: 0.7rem;" onclick="closeSizePopup()">Apply & Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- সম্পূর্ণ ৭টি ক্যাটাগরি ওভারলে -->
     <div id="categoryView" class="category-fullscreen-view">
-        <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')" style="position: absolute; top: 12px; right: 12px;"><i class="fa-solid fa-xmark"></i></div>
+        <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
             <span id="categoryViewTitle" style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
         </div>
 
         <div id="dynamicCategoryContent">
-            <!-- JavaScript দিয়ে সমস্ত ক্যাটাগরি লোড হবে -->
+            <!-- সম্পূর্ণ ক্যাটাগরি লিস্ট -->
         </div>
     </div>
 
@@ -491,17 +531,17 @@
         </div>
     </div>
 
-    <!-- ফিক্সড বটম ন্যাভবার -->
+    <!-- ফিক্সড বটম ন্যাভবার (Affiliate, Seller, You - সাবডোমেইন টগল ওভারলে সহ) -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="toggleBottomSheet('https://affiliate.rorraxy.com', 'Affiliate Portal')">
+        <div class="nav-item" onclick="toggleSubdomainOverlay('https://affiliate.rorraxy.com')">
             <i class="fa-solid fa-handshake"></i>
             <span>Affiliate</span>
         </div>
-        <div class="nav-item" onclick="toggleBottomSheet('https://seller.rorraxy.com', 'Seller Hub')">
+        <div class="nav-item" onclick="toggleSubdomainOverlay('https://seller.rorraxy.com')">
             <i class="fa-solid fa-chart-line"></i>
             <span>Seller</span>
         </div>
-        <div class="nav-item" onclick="toggleBottomSheet('https://you.rorraxy.com', 'Customer Account')">
+        <div class="nav-item" onclick="toggleSubdomainOverlay('https://you.rorraxy.com')">
             <i class="fa-solid fa-user-shield"></i>
             <span>You</span>
         </div>
@@ -519,7 +559,7 @@
         let isWholesaleMode = false;
         let currentQuantity = 1;
         let baseUnitPrice = 100.00;
-        let activeBottomSheetUrl = "";
+        let activeSubdomainUrl = "";
 
         /* ড্র্যাগ চ্যাট লজিক */
         const dragEl = document.getElementById('draggableChat');
@@ -540,8 +580,7 @@
         dragEl.addEventListener('pointerup', (e) => { isDragging = false; dragEl.releasePointerCapture(e.pointerId); });
 
         /* ১. হেডারের জন্য ফুল-স্ক্রিন মোড (Creative Academy & Solutions) */
-        function openFullScreenPortal(url, title) {
-            document.getElementById('fullScreenPortalTitle').innerText = title;
+        function openFullScreenPortal(url) {
             document.getElementById('fullScreenIframe').src = url;
             document.getElementById('fullScreenPortal').style.display = 'flex';
         }
@@ -550,28 +589,84 @@
             document.getElementById('fullScreenIframe').src = '';
         }
 
-        /* ২. বটম মেনুর জন্য স্লাইড-আপ টগল মোড (Affiliate, Seller, You) */
-        function toggleBottomSheet(url, title) {
-            const overlay = document.getElementById('bottomSheetOverlay');
-            const iframe = document.getElementById('bottomSheetIframe');
+        /* ২. বটম মেনু ও ঝুড়ির জন্য টগল সাব-ডোমেইন ওভারলে (Affiliate, Seller, You) */
+        function toggleSubdomainOverlay(url) {
+            const overlay = document.getElementById('subdomainOverlay');
+            const iframe = document.getElementById('subdomainIframeElement');
 
-            if (overlay.style.display === 'flex' && activeBottomSheetUrl === url) {
-                closeBottomSheet();
+            if (overlay.style.display === 'flex' && activeSubdomainUrl === url) {
+                closeSubdomainOverlay();
                 return;
             }
 
-            activeBottomSheetUrl = url;
-            document.getElementById('bottomSheetTitle').innerText = title;
+            activeSubdomainUrl = url;
             iframe.src = url;
             overlay.style.display = 'flex';
         }
-        function closeBottomSheet() {
-            document.getElementById('bottomSheetOverlay').style.display = 'none';
-            document.getElementById('bottomSheetIframe').src = '';
-            activeBottomSheetUrl = "";
+        function closeSubdomainOverlay() {
+            document.getElementById('subdomainOverlay').style.display = 'none';
+            document.getElementById('subdomainIframeElement').src = '';
+            activeSubdomainUrl = "";
         }
 
-        /* সম্পূর্ণ ৭টি মূল ক্যাটাগরি ও সাব-ক্যাটাগরি রেন্ডার করা (কোনো মিসিং ছাড়া) */
+        /* রিটেইল এবং হোলসেল মোড টগিল */
+        function toggleRetailWholesaleMode() {
+            const qtyContainer = document.getElementById('qtyTierContainer');
+            const toggleBtn = document.getElementById('wholesaleToggleBtn');
+            const discountText = document.getElementById('modalDiscountText');
+
+            isWholesaleMode = !isWholesaleMode;
+            document.body.classList.toggle('wholesale-mode');
+
+            if (isWholesaleMode) {
+                qtyContainer.classList.add('wholesale-mode-active');
+                toggleBtn.innerText = "Retail Mode";
+                toggleBtn.classList.add('wholesale-active');
+                discountText.innerText = "0% OFF";
+                setWholesaleTier(1, 100, null);
+            } else {
+                qtyContainer.classList.remove('wholesale-mode-active');
+                toggleBtn.innerText = "Wholesale";
+                toggleBtn.classList.remove('wholesale-active');
+                discountText.innerText = "5% OFF";
+                currentQuantity = 1;
+                baseUnitPrice = 100.00;
+                document.getElementById('productQtyDisplay').innerText = currentQuantity;
+                updateCalculatedPrice();
+            }
+        }
+
+        function adjustQuantity(amount) {
+            currentQuantity += amount;
+            if (currentQuantity < 1) currentQuantity = 1;
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
+            updateCalculatedPrice();
+        }
+
+        function setWholesaleTier(qty, unitPrice, eventObj) {
+            currentQuantity = qty;
+            baseUnitPrice = unitPrice;
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
+            updateCalculatedPrice();
+
+            if(eventObj) {
+                document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
+                eventObj.target.classList.add('active');
+            }
+        }
+
+        function updateCalculatedPrice() {
+            let finalPrice = baseUnitPrice * currentQuantity;
+            document.getElementById('modalProductPrice').innerText = `$${finalPrice.toFixed(2)}`;
+        }
+
+        function openDescriptionPopup() { document.getElementById('descModal').style.display = 'flex'; }
+        function closeDescPopup() { document.getElementById('descModal').style.display = 'none'; }
+        function openSizePopup() { document.getElementById('sizeModal').style.display = 'flex'; }
+        function closeSizePopup() { document.getElementById('sizeModal').style.display = 'none'; }
+        function openLiveChat() { alert("Connecting to live support chatbot..."); }
+
+        /* সম্পূর্ণ ৭টি মূল ক্যাটাগরি ও সাব-ক্যাটাগরি রেন্ডার করা */
         function openCategoryView() {
             const container = document.getElementById('dynamicCategoryContent');
             const titleEl = document.getElementById('categoryViewTitle');
@@ -693,33 +788,73 @@
             if(q.trim()) { alert(`Searching: "${q}"`); toggleSearchPopup(); }
         }
 
-        function toggleRetailWholesaleMode() {
-            isWholesaleMode = !isWholesaleMode;
-            document.body.classList.toggle('wholesale-mode');
-            const btn = document.getElementById('wholesaleToggleBtn');
-            btn.innerText = isWholesaleMode ? "Retail Mode" : "Wholesale";
-            btn.classList.toggle('wholesale-active');
-        }
-
-        function openProductDetails(title, price, images) {
-            document.getElementById('mainDisplayMedia').src = images[0];
-            document.getElementById('modalProductPrice').innerText = price;
-            document.getElementById('modalProductTitle').innerText = title;
-            document.getElementById('productDetailModal').style.display = 'block';
-        }
-        function closeProductDetails() { document.getElementById('productDetailModal').style.display = 'none'; }
-
         function toggleLove(el) { el.classList.toggle('gold-active'); }
         function toggleModalLove(el) { el.classList.toggle('gold-active'); }
-        function openShareModal() { document.getElementById('shareModal').style.display = 'flex'; }
+
+        function openProductDetails(title, price, images) {
+            if(isWholesaleMode) {
+                currentQuantity = 1;
+                baseUnitPrice = 100.00;
+                document.getElementById('modalDiscountText').innerText = "0% OFF";
+            } else {
+                currentQuantity = 1;
+                baseUnitPrice = parseFloat(price.replace('$', ''));
+                document.getElementById('modalDiscountText').innerText = "5% OFF";
+            }
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
+            document.getElementById('mainDisplayMedia').src = images[0];
+            document.getElementById('modalProductPrice').innerText = isWholesaleMode ? `$${(baseUnitPrice * currentQuantity).toFixed(2)}` : price;
+            document.getElementById('modalProductTitle').innerText = title;
+            
+            let thumbHTML = '';
+            images.forEach((img, index) => {
+                thumbHTML += `<div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="switchMedia('${img}', this)"><img src="${img}"></div>`;
+            });
+            document.getElementById('thumbStrip').innerHTML = thumbHTML;
+            document.getElementById('productDetailModal').style.display = 'block';
+        }
+
+        function closeProductDetails() { document.getElementById('productDetailModal').style.display = 'none'; }
+        function switchMedia(src, element) {
+            document.getElementById('mainDisplayMedia').src = src;
+            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function chatWithSeller() { alert("Connecting to seller..."); }
+
+        function openShareModal() {
+            let baseUrl = window.location.href.split('?')[0];
+            document.getElementById('shareUrlInput').value = baseUrl;
+            document.getElementById('shareModal').style.display = 'flex';
+        }
         function closeShareModal() { document.getElementById('shareModal').style.display = 'none'; }
-        
-        function triggerCoinAnimation() {
-            alert("Product added to cart!");
-            closeProductDetails();
+        function autoCloseShare() { setTimeout(() => { closeShareModal(); }, 1000); }
+
+        function copyShareLink() {
+            const inputField = document.getElementById('shareUrlInput');
+            inputField.select();
+            navigator.clipboard.writeText(inputField.value);
+            document.getElementById('copyBtnText').innerText = "Copied!";
+            setTimeout(() => { closeShareModal(); }, 2500);
+        }
+
+        function triggerCoinAnimation(event) {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            cart.push({ title: 'Item', price: '$100', qty: currentQuantity });
+            localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
+            updateCartBadge();
+            document.getElementById('productDetailModal').style.display = 'none';
+            alert("Added to cart successfully!");
+        }
+
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            document.getElementById('floatingCartCount').innerText = cart.length;
         }
 
         window.onload = function() {
+            updateCartBadge();
             fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
                 let cc = d.country_code ? d.country_code.toLowerCase() : 'bd';
                 document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${cc}.png`;
