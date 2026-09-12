@@ -40,7 +40,8 @@
             background: rgba(2, 43, 122, 0.98) !important;
             border-top: none !important;
         }
-        /* হোলসেল মোডে প্রোডাক্ট ডিটেইলস পপআপ ব্যাকগ্রাউন্ড থিম */
+        body.wholesale-mode .category-fullscreen-view,
+        body.wholesale-mode .subdomain-view,
         body.wholesale-mode #productDetailModal {
             background: linear-gradient(135deg, #022b7a, #0b4fbc, #106ece) !important;
         }
@@ -49,7 +50,7 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); transition: background 0.4s ease; min-height: 100vh; }
         body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* হেডার: বর্ডার বা দাড়ি রিমুভ করা হয়েছে */
+        /* হেডার: বর্ডার লাইন বা দাড়ি সম্পূর্ণ রিমুভ করা হয়েছে */
         header.app-header {
             display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -59,10 +60,7 @@
         header.app-header.hidden { transform: translateY(-100%); }
 
         .header-center-group { display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; width: 100%; }
-        
-        /* ব্র্যান্ড লোগো ইমেজ */
         .brand-logo-img { width: 32px; height: 32px; object-fit: contain; background: transparent; }
-        
         .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
@@ -146,7 +144,6 @@
         .subdomain-view, .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
-            transition: background 0.4s ease;
         }
 
         .basket-modal-box {
@@ -286,7 +283,7 @@
         .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
-        /* ফিক্সড বটম ন্যাভবার: বর্ডার লাইন রিমুভ করা হয়েছে */
+        /* ফিক্সড বটম ন্যাভবার: বর্ডার লাইন সম্পূর্ণ রিমুভ */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
@@ -305,7 +302,7 @@
 </head>
 <body id="mainBody">
 
-    <!-- হেডার: মাঝখানে অরিজিনাল লোগো লিংক, নাম ও ফ্ল্যাগ -->
+    <!-- হেডার: মাঝখানে ব্র্যান্ড লোগো, নাম ও ফ্ল্যাগ -->
     <header class="app-header" id="mainHeader">
         <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" class="brand-logo-img">
@@ -404,7 +401,7 @@
                 <button class="extra-action-btn" onclick="openSizePopup()"><i class="fa-solid fa-ruler"></i> Size & Spec</button>
             </div>
 
-            <!-- কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন (Add to Cart-এর ঠিক উপরে) -->
+            <!-- কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন -->
             <div class="quantity-tier-container" id="qtyTierContainer">
                 <div class="wholesale-tiers-row">
                     <button class="tier-btn active" onclick="setWholesaleTier(1, 100)">Sample (1 Pcs)</button>
@@ -473,104 +470,16 @@
         </div>
     </div>
 
-    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে -->
+    <!-- ক্যাটাগরি ওভারলে (ডায়নামিক খুচরা ও পাইকারি ক্যাটাগরি ফিল্টার) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
-            <span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
+            <span id="categoryViewTitle" style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
         </div>
 
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Clothing')"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Handbags')"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Handbags</span></div>
-                <div class="app-card" onclick="filterCategory('Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
-                <div class="app-card" onclick="filterCategory('Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Lingerie')"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
-                <div class="app-card" onclick="filterCategory('Beauty')"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
-                <div class="app-card" onclick="filterCategory('Activewear')"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="filterCategory('Traditional')"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
-                <div class="app-card" onclick="filterCategory('Accessories')"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Boys Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Shoes')"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Watches')"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Bags')"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Accessories')"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Couple Sets')"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Family Sets')"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Mom & Me')"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
-                <div class="app-card" onclick="filterCategory('Dad & Me')"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
-                <div class="app-card" onclick="filterCategory('Sibling Sets')"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Team Sets')"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
-                <div class="app-card" onclick="filterCategory('BFF Sets')"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Pet & Owner')"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
-                <div class="app-card" onclick="filterCategory('Holiday Sets')"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Value Bundles')"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Corporate Gifts')"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
-                <div class="app-card" onclick="filterCategory('Luxury Items')"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
-                <div class="app-card" onclick="filterCategory('Handicrafts')"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
-                <div class="app-card" onclick="filterCategory('Wood Resin')"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
-                <div class="app-card" onclick="filterCategory('Gift Hampers')"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Girls Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Bags')"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Jewelry</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Hair Acc')"><div class="app-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="app-card-name">Hair Acc.</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Activewear')"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Sleepwear')"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Party Dresses')"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Accessories')"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Men Clothing')"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Men Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Men Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Men Grooming')"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span></div>
-                <div class="app-card" onclick="filterCategory('Men Accessories')"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Baby Clothing')"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Maternity')"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
-                <div class="app-card" onclick="filterCategory('Baby Care')"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
-                <div class="app-card" onclick="filterCategory('Nursery Gear')"><div class="app-card-icon"><i class="fa-solid fa-baby-carriage"></i></div><span class="app-card-name">Nursery Gear</span></div>
-                <div class="app-card" onclick="filterCategory('Baby Accessories')"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
+        <div id="dynamicCategoryContent">
+            <!-- খুচরা বা পাইকারি মোড অনুযায়ী ক্যাটাগরি লিস্ট রেন্ডার হবে -->
+        </div>
     </div>
 
     <!-- সার্চ পপআপ -->
@@ -629,7 +538,7 @@
             <i class="fa-solid fa-user-shield"></i>
             <span>Account</span>
         </div>
-        <div class="nav-item" onclick="toggleCategoryView('categoryView')">
+        <div class="nav-item" onclick="openCategoryView()">
             <i class="fa-solid fa-border-all"></i>
             <span>Category</span>
         </div>
@@ -777,6 +686,51 @@
             }
         }
 
+        /* ক্যাটাগরি ওপেন করার সময় মোড অনুযায়ী কন্টেন্ট রেন্ডার করা */
+        function openCategoryView() {
+            const container = document.getElementById('dynamicCategoryContent');
+            const titleEl = document.getElementById('categoryViewTitle');
+
+            if (isWholesaleMode) {
+                titleEl.innerText = "Wholesale Bulk Categories";
+                container.innerHTML = `
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">B2B Wholesale Hub</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Bulk Handicrafts')"><div class="app-card-icon"><i class="fa-solid fa-boxes-stacked"></i></div><span class="app-card-name">Bulk Handicrafts</span></div>
+                            <div class="app-card" onclick="filterCategory('OEM Wood Resin')"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">OEM Wood Resin</span></div>
+                            <div class="app-card" onclick="filterCategory('Bulk Apparel')"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Bulk Apparel</span></div>
+                            <div class="app-card" onclick="filterCategory('Export Accessories')"><div class="app-card-icon"><i class="fa-solid fa-globe"></i></div><span class="app-card-name">Export Accessories</span></div>
+                        </div>
+                    </section>
+                `;
+            } else {
+                titleEl.innerText = "Retail Categories";
+                container.innerHTML = `
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Clothing')"><div class="app-card-icon"><i class="fa-solid fa-shirt"></i></div><span class="app-card-name">Clothing</span></div>
+                            <div class="app-card" onclick="filterCategory('Handbags')"><div class="app-card-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="app-card-name">Handbags</span></div>
+                            <div class="app-card" onclick="filterCategory('Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+                            <div class="app-card" onclick="filterCategory('Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
+                            <div class="app-card" onclick="filterCategory('Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                        </div>
+                    </section>
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">2. Men's Fashion</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Men Clothing')"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
+                            <div class="app-card" onclick="filterCategory('Men Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+                            <div class="app-card" onclick="filterCategory('Men Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                        </div>
+                    </section>
+                `;
+            }
+
+            toggleCategoryView('categoryView');
+        }
+
         function toggleCategoryView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -794,7 +748,7 @@
         }
 
         function filterCategory(catName) {
-            alert(`Filtering category: ${catName}`);
+            alert(`Filtering category (${isWholesaleMode ? 'Wholesale' : 'Retail'}): ${catName}`);
             toggleCategoryView('categoryView');
         }
 
