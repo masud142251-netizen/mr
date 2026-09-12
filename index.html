@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RORRAXY - LUXURY GLOBAL ENTERPRISE</title>
+    <title>RORRAXY - LUXURY GLOBAL ECOSYSTEM</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT">
@@ -26,276 +26,213 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 65px; padding-bottom: 80px; }
+        body { padding-top: 55px; padding-bottom: 80px; }
 
-        /* লাক্সারি কম্প্যাক্ট হেডার (শূন্য গ্যাপ ও রিফাইন্ড লেআউট) */
+        /* অতি স্লিম, কমপ্যাক্ট এবং অটো-হাইড হেডার (স্ক্রোল করলে উপরে লুকিয়ে যাবে) */
         header.app-header {
             display: flex; flex-direction: column; padding: 4px 10px;
-            background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            gap: 3px;
+            background: rgba(0, 0, 0, 0.95); position: fixed; top: 0; left: 0; z-index: 1000;
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            gap: 2px; transition: transform 0.3s ease-in-out;
         }
+        header.app-header.hidden { transform: translateY(-100%); }
 
-        /* প্রথম লাইন: লোগো + নাম, পতাকা এবং বড় হোলসেল বাটন */
+        /* প্রথম লাইন: লোগো, পতাকা এবং ডানপাশে বড় হোলসেল বাটন */
         .header-top-row {
-            display: flex; justify-content: space-between; align-items: center; width: 100%;
+            display: flex; justify-content: space-between; align-items: center; width: 100%; height: 28px;
         }
         
         .header-left-box { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        .logo { width: 30px; height: 30px; object-fit: contain; background: transparent; border: none; }
-        .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; }
+        .logo { width: 24px; height: 24px; object-fit: contain; background: transparent; border: none; }
+        .brand-title-main { font-size: 0.8rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* দেশের পতাকা (নাম ছাড়া) */
-        .header-country-flag-box {
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            background: transparent; border: none; padding: 2px;
-        }
-        .dynamic-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .header-country-flag-box { display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent; border: none; }
+        .dynamic-flag-img { width: 20px; height: 13px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
-        /* ডানপাশের স্পষ্ট ও বড় হোলসেল বাটন */
-        .header-auth-box { display: flex; align-items: center; }
         .wholesale-prime-btn {
-            font-size: 0.55rem; font-weight: 800; background: var(--gold-gradient); border: none;
-            color: #000; padding: 4px 12px; border-radius: 5px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; box-shadow: 0 2px 10px rgba(212,175,55,0.4);
+            font-size: 0.5rem; font-weight: 800; background: var(--gold-gradient); border: none;
+            color: #000; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.2s; white-space: nowrap; box-shadow: 0 2px 8px rgba(212,175,55,0.3);
         }
         .wholesale-prime-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         /* দ্বিতীয় লাইন: বিজনেস সলিউশন ও ক্রিয়েটিভ একাডেমি বাটন */
         .header-bottom-row {
-            display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; padding-bottom: 2px;
+            display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; height: 22px;
         }
         .portal-btn {
-            font-size: 0.48rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 3px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; max-width: 140px;
+            font-size: 0.44rem; font-weight: 700; background: #121212; border: 1px solid rgba(212,175,55,0.25);
+            color: var(--text-white); padding: 2px 6px; border-radius: 3px; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; max-width: 130px;
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* Pinterest Style Masonry Feed Layout */
+        /* দুই কলাম বিশিষ্ট প্রিমিয়াম মোবাইল ও ডেস্কটপ গ্রিড (ন্যানো-সেকেন্ড বাফার সিস্টেম) */
         .feed-container {
-            padding: 8px 6px; column-count: 2; column-gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto;
+            padding: 8px 6px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 768px) { .feed-container { column-count: 3; padding: 15px; column-gap: 12px; } }
-        @media (min-width: 1024px) { .feed-container { column-count: 4; column-gap: 16px; } }
+        @media (min-width: 768px) { .feed-container { grid-template-columns: repeat(3, 1fr); padding: 15px; gap: 12px; } }
+        @media (min-width: 1024px) { .feed-container { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
 
         .product-card {
-            break-inside: avoid; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.85); display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            background: var(--card-bg); border-radius: 10px; overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; transition: 0.3s; position: relative;
             border: 1px solid rgba(212, 175, 55, 0.15);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
             background: var(--gold-gradient); opacity: 0.8;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
+        .product-card:hover { transform: translateY(-3px); border-color: rgba(212, 175, 55, 0.4); }
         
-        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; }
-        .product-media-box img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.4s ease; }
+        .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; aspect-ratio: 1/1; }
+        .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
-        .love-share-group { display: flex; align-items: center; gap: 16px; justify-content: center; width: 100%; }
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 6px 8px; background: rgba(15, 15, 15, 0.95); }
+        .love-share-group { display: flex; align-items: center; gap: 12px; justify-content: center; width: 100%; }
         
-        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.2s; }
+        .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.65rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.8rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active { color: var(--gold-solid); }
 
-        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; font-size: 0.65rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn i { font-size: 0.8rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* SPA ইন-পেজ ওভারলে ভিউ */
+        /* এসপিএ ওভারলে ও লাক্সারি কার্ট ড্রয়ার */
         .subdomain-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 12px 80px 12px;
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 15px 10px 80px 10px;
         }
         
         .golden-close-btn {
-            position: absolute; top: 12px; right: 12px; z-index: 2100; background: #141414;
-            border: 1px solid rgba(212,175,55,0.4); width: 36px; height: 36px; border-radius: 50%;
+            position: absolute; top: 10px; right: 10px; z-index: 2100; background: #141414;
+            border: 1px solid rgba(212,175,55,0.4); width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-        .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ক্যাটাগরি ওভারলে */
-        .category-fullscreen-view {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 2000; overflow-y: auto; padding: 20px 12px 90px 12px;
-        }
-
+        /* সার্চ বক্স */
         .search-popup-box {
-            display: none; position: fixed; top: 60px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
-            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 8px; border-radius: 35px;
+            display: none; position: fixed; top: 52px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 500px;
+            background: rgba(10, 10, 10, 0.98); z-index: 2000; padding: 6px; border-radius: 30px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
         .search-input-field-box {
             display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 30px; padding: 6px 14px; gap: 10px;
+            border-radius: 25px; padding: 5px 12px; gap: 8px;
         }
-        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
-        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 1rem; cursor: pointer; }
-        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
+        .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.8rem; width: 100%; }
+        .camera-search-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.9rem; cursor: pointer; }
+        .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.6rem; padding: 4px 10px; border-radius: 15px; cursor: pointer; text-transform: uppercase; }
 
-        /* প্রোডাক্ট ডিটেইলস পপ-আপ ডিজাইন */
-        .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ */
+        .category-fullscreen-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000000; z-index: 2000; overflow-y: auto; padding: 15px 10px 80px 10px;
+        }
+        .product-details-content { padding: 6px; max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
         
-        .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-        .main-display-media { width: 100%; height: 300px; object-fit: contain; display: block; background: #000; }
+        .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+        .main-display-media { width: 100%; height: 260px; object-fit: contain; display: block; background: #000; }
         
-        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
-        .thumb-item { width: 50px; height: 50px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; }
+        .thumbnail-strip { display: flex; justify-content: center; gap: 5px; padding: 5px; background: #0c0c0c; overflow-x: auto; }
+        .thumb-item { width: 45px; height: 45px; border-radius: 4px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
         .thumb-item.active { border-color: var(--gold-solid); }
 
-        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
+        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 6px 0; background: #0c0c0c; border-radius: 5px; }
 
         .free-shipping-tax-banner {
-            font-size: 0.62rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; text-align: center; letter-spacing: 0.8px; padding: 1px 0;
+            font-size: 0.58rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; text-align: center; letter-spacing: 0.8px;
         }
 
-        .product-title-line { font-size: 0.8rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1px; }
+        .product-title-line { font-size: 0.75rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 0.8px; }
 
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .price-and-offer { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: space-between; }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 8px; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .price-and-offer { display: flex; align-items: center; gap: 6px; width: 100%; justify-content: space-between; }
         
-        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
+        .detail-price { font-size: 1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
         
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 5px 10px;
-            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 5px;
-            box-shadow: 0 3px 10px rgba(255,42,133,0.4); white-space: nowrap;
+            background: var(--pink-discount); color: #fff; font-size: 0.52rem; font-weight: 800; padding: 4px 8px;
+            border-radius: 4px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px;
         }
-        .discount-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .discount-flag-img { width: 15px; height: 10px; object-fit: cover; border-radius: 2px; }
 
         .seller-chat-inline-btn {
-            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 5px 8px;
-            border-radius: 5px; font-size: 0.5rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
-            align-items: center; gap: 3px; transition: 0.2s; white-space: nowrap;
+            background: #1a1a1a; border: 1px solid rgba(212,175,55,0.3); color: var(--text-white); padding: 4px 6px;
+            border-radius: 4px; font-size: 0.45rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex;
+            align-items: center; gap: 3px;
         }
-        .seller-chat-inline-btn:hover { background: var(--gold-gradient); color: #000; }
 
-        .two-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-width: 320px; margin: 0 auto; width: 100%; }
+        .two-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; max-width: 300px; margin: 0 auto; width: 100%; }
         .action-popup-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 8px 4px;
-            border-radius: 5px; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
-            transition: 0.2s;
+            background: #161616; border: 1px solid rgba(212,175,55,0.25); color: var(--gold-solid); padding: 6px 4px;
+            border-radius: 4px; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center;
         }
-        .action-popup-btn:hover { background: var(--gold-gradient); color: #000; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.68rem; padding: 9px;
-            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.62rem; padding: 8px;
+            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
         }
 
-        .sub-popup-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 12px;
-        }
-        .sub-popup-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-        }
-
-        .share-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
-        }
-        .share-modal-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 300px;
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; text-align: center;
-        }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
-        .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
-            background: #1a1a1a; padding: 6px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
-            transition: 0.2s;
-        }
-        .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.42rem; font-weight: 700; color: #fff; text-transform: uppercase; }
-
-        /* ক্যাটাগরি কার্ড স্টাইল (গোল্ডেন গ্রাডিয়েন্ট টাইটেলসহ) */
-        .category-section { padding: 14px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; }
+        /* ক্যাটাগরি গ্রিড সেকশন */
+        .category-section { padding: 12px 6px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; padding: 0 4px; }
         .category-title { 
-            font-size: 0.85rem; font-weight: 800; 
+            font-size: 0.8rem; font-weight: 800; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            text-transform: uppercase; letter-spacing: 1px; 
+            text-transform: uppercase; letter-spacing: 0.8px; 
         }
         
-        .app-store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+        .app-store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; }
         @media (min-width: 576px) { .app-store-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; } }
+        @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
 
         .app-card {
-            background: #131315; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            padding: 14px 10px; display: flex; align-items: center; text-align: left;
-            cursor: pointer; transition: all 0.3s ease-in-out; gap: 12px; min-height: 70px;
+            background: #131315; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);
+            padding: 10px 8px; display: flex; align-items: center; text-align: left;
+            cursor: pointer; transition: all 0.2s ease-in-out; gap: 10px; min-height: 60px;
         }
         .app-card:hover { transform: translateY(-2px); background: #1a1a1e; border-color: rgba(212, 175, 55, 0.3); }
-        .app-card-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; line-height: 1.3; letter-spacing: 0.3px; }
+        .app-card-icon i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-card-name { font-size: 0.58rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
         /* বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            display: flex; justify-content: space-around; align-items: center; padding: 5px 4px;
             z-index: 3000; border-top: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.45rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
-            transition: 0.3s;
+            color: var(--text-gray); font-size: 0.42rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+            transition: 0.3s; position: relative;
         }
-        .nav-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover { color: var(--gold-solid); transform: translateY(-2px); }
         .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
 
-        /* পিসির জন্য রেসপন্সিভ স্কেলিং */
-        @media (min-width: 1024px) {
-            body { padding-top: 75px; padding-bottom: 90px; }
-            header.app-header { padding: 6px 20px; }
-            .logo { width: 36px; height: 36px; }
-            .brand-title-main { font-size: 1.1rem; }
-            .dynamic-flag-img { width: 26px; height: 18px; }
-            .wholesale-prime-btn { font-size: 0.62rem; padding: 5px 14px; }
-            .portal-btn { font-size: 0.58rem; padding: 5px 14px; max-width: 160px; }
-            .product-details-content { max-width: 650px; gap: 14px; padding: 15px; }
-            .main-display-media { height: 420px; }
-            .thumb-item { width: 65px; height: 65px; }
-            .free-shipping-tax-banner { font-size: 0.8rem; }
-            .product-title-line { font-size: 1.1rem; }
-            .detail-price { font-size: 1.4rem; }
-            .discount-badge-btn { font-size: 0.72rem; padding: 8px 16px; }
-            .discount-flag-img { width: 24px; height: 16px; }
-            .seller-chat-inline-btn { font-size: 0.65rem; padding: 7px 12px; }
-            .action-popup-btn { font-size: 0.7rem; padding: 10px 6px; }
-            .add-to-cart-btn { font-size: 0.85rem; padding: 12px; }
-            .sub-popup-box, .share-modal-box { max-width: 450px; padding: 20px; gap: 14px; }
-            .category-title { font-size: 1rem; }
-            .app-card { min-height: 80px; padding: 16px 14px; }
-            .app-card-icon i { font-size: 1.5rem; }
-            .app-card-name { font-size: 0.75rem; }
-            nav.bottom-nav { padding: 10px 20px; }
-            .nav-item { font-size: 0.6rem; }
-            .nav-item i { font-size: 1.4rem; }
+        /* কার্ট ব্যাজ কাউন্ট */
+        .cart-badge {
+            position: absolute; top: 0; right: 22%; background: var(--pink-discount); color: #fff;
+            font-size: 0.45rem; font-weight: 900; width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- লাক্সারি রিফাইন্ড হেডার -->
-    <header class="app-header">
-        <!-- প্রথম লাইন: লোগো, শুধু ফ্ল্যাগ, এবং স্পষ্ট হোলসেল বাটন -->
+    <!-- আল্ট্রা-কম্প্যাক্ট হেডার (অটো-হাইড অন স্ক্রোল সিস্টেম সহ) -->
+    <header class="app-header" id="mainHeader">
         <div class="header-top-row">
             <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
-                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Rorraxy Logo" class="logo">
+                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
                 <span class="brand-title-main">RORRAXY</span>
             </div>
 
@@ -308,17 +245,16 @@
             </div>
         </div>
 
-        <!-- দ্বিতীয় লাইন: Business Solution ও Creative Academy বাটন -->
         <div class="header-bottom-row">
             <button class="portal-btn" onclick="location.href='https://solutions.rorraxy.com'">Business Solution</button>
             <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
         </div>
     </header>
 
-    <!-- হোমপেজে Pinterest স্টাইল Masonry প্রোডাক্ট ফিড -->
+    <!-- ইনস্ট্যান্ট বাফারড প্রোডাক্ট ফিড (ন্যানো-সেকেন্ড স্ক্রোল রেসপন্স) -->
     <main class="feed-container" id="productFeed">
         <div class="product-card" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
-            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Premium Bracelet"></div>
+            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product"></div>
             <div class="card-footer-actions" onclick="event.stopPropagation()">
                 <div class="love-share-group">
                     <div class="love-action" onclick="toggleLove(this)">
@@ -333,54 +269,31 @@
     </main>
 
     <!-- সোশ্যাল মিডিয়া শেয়ার পপ-আপ -->
-    <div id="shareModal" class="share-modal">
-        <div class="share-modal-box">
+    <div id="shareModal" class="subdomain-view" style="align-items: center; justify-content: center; display: none;">
+        <div class="golden-close-btn" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 90%; max-width: 300px; padding: 15px; text-align: center; margin: auto;">
             <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
-            <div class="share-icons-grid">
-                <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-item" onclick="shareTo('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-item" onclick="shareTo('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-item" onclick="shareTo('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
-                <div class="share-icon-item" onclick="shareTo('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-item" onclick="shareTo('imo')"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></div>
-                <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
-                <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
+            <div class="share-icons-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:10px;">
+                <div class="share-icon-item" onclick="shareTo('facebook')" style="background:#1a1a1a; padding:8px; border-radius:6px; cursor:pointer;"><i class="fa-brands fa-facebook" style="color:#3b5998; font-size:1.1rem;"></i><span style="display:block; font-size:0.4rem; color:#fff; margin-top:2px;">Facebook</span></div>
+                <div class="share-icon-item" onclick="shareTo('whatsapp')" style="background:#1a1a1a; padding:8px; border-radius:6px; cursor:pointer;"><i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.1rem;"></i><span style="display:block; font-size:0.4rem; color:#fff; margin-top:2px;">WhatsApp</span></div>
+                <div class="share-icon-item" onclick="shareTo('copy')" style="background:#1a1a1a; padding:8px; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-link" style="color:var(--gold-solid); font-size:1.1rem;"></i><span style="display:block; font-size:0.4rem; color:#fff; margin-top:2px;">Copy Link</span></div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
-    <!-- ১. প্রোডাক্ট ডিটেইলস পপ-আপ -->
-    <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 4000;">
-        <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-        <div class="product-details-content" style="margin-top: 35px;">
-            
+    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ -->
+    <div id="productDetailModal" class="category-fullscreen-view">
+        <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="product-details-content" style="margin-top: 30px;">
             <div class="media-slider-container">
-                <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
-                <div class="thumbnail-strip" id="thumbStrip">
-                    <div class="thumb-item active" onclick="switchMedia('https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', this)">
-                        <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Bracelet">
-                    </div>
-                    <div class="thumb-item" onclick="switchMedia('https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT', this)">
-                        <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Brand Logo">
-                    </div>
-                </div>
+                <img id="mainDisplayMedia" class="main-display-media" src="" alt="Preview">
+                <div class="thumbnail-strip" id="thumbStrip"></div>
             </div>
-
             <div class="modal-love-share-row">
-                <div class="love-action" onclick="toggleModalLove(this)">
-                    <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
-                </div>
-                <button class="share-action-btn" onclick="openShareModal()">
-                    <i class="fa-solid fa-share-nodes"></i> Share
-                </button>
+                <div class="love-action" onclick="toggleModalLove(this)"><i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span></div>
+                <button class="share-action-btn" onclick="openShareModal()"><i class="fa-solid fa-share-nodes"></i> Share</button>
             </div>
-            
             <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
-
             <div class="price-chat-row">
                 <div class="price-and-offer">
                     <span class="detail-price" id="modalProductPrice">$100.00</span>
@@ -388,55 +301,17 @@
                         <img id="modalDiscountFlag" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="discount-flag-img">
                         <span>5% OFF</span>
                     </button>
-                    <button class="seller-chat-inline-btn" onclick="openSellerChat()">
-                        <i class="fa-solid fa-comments"></i> Chat with Seller
-                    </button>
                 </div>
             </div>
-
             <div class="product-title-line" id="modalProductTitle">PREMIUM BRACELET</div>
-
-            <div class="two-action-row">
-                <button class="action-popup-btn" onclick="openSubPopup('descPopup')">Description</button>
-                <button class="action-popup-btn" onclick="openSubPopup('sizePopup')">Select Size</button>
-            </div>
-
-            <button class="add-to-cart-btn" onclick="addToCart()">Add To Cart</button>
+            <button class="add-to-cart-btn" onclick="addToCart()">Add To Cart (Luxury Basket)</button>
         </div>
     </div>
 
-    <!-- সাব-পপআপ: Description -->
-    <div id="descPopup" class="sub-popup-modal">
-        <div class="sub-popup-box">
-            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Product Description</span>
-            <p style="font-size:0.6rem; color:var(--text-gray); line-height:1.4;">Exquisite handcrafted premium bracelet designed with elite craftsmanship. Backed by 1-year global quality assurance.</p>
-            <button class="add-to-cart-btn" onclick="closeSubPopup('descPopup')" style="padding:6px; font-size:0.65rem;">Close</button>
-        </div>
-    </div>
-
-    <!-- সাব-পপআপ: Size -->
-    <div id="sizePopup" class="sub-popup-modal">
-        <div class="sub-popup-box">
-            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-solid); text-transform:uppercase;">Select Size & Custom</span>
-            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;">
-                <div class="size-chip selected" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid var(--gold-solid); color:var(--gold-solid); padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Standard</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Medium</div>
-                <div class="size-chip" onclick="selectSizeChip(this)" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.55rem; cursor:pointer;">Large</div>
-            </div>
-            <input type="text" placeholder="Type custom size / X-Y-Z details..." style="width:100%; background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:5px; color:#fff; font-size:0.6rem; outline:none; margin-top:8px;">
-            <button class="add-to-cart-btn" onclick="closeSubPopup('sizePopup')" style="padding:6px; margin-top:8px; font-size:0.65rem;">Done</button>
-        </div>
-    </div>
-
-    <!-- ২. ক্যাটাগরি ওভারলে (হোমপেজের ভেতরেই পপআপ ভিউ) -->
+    <!-- ক্যাটাগরি ওভারলে -->
     <div id="categoryView" class="category-fullscreen-view">
-        <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-        <div style="margin-bottom: 25px; text-align: center;">
-            <span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1.5px;">All Categories</span>
-        </div>
-
+        <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
+        <div style="margin-bottom: 20px; text-align: center;"><span style="font-size:1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">All Categories</span></div>
         <section class="category-section">
             <div class="category-header-row"><h2 class="category-title">1. Women's Fashion</h2></div>
             <div class="app-store-grid">
@@ -445,176 +320,63 @@
                 <div class="app-card" onclick="filterCategory('Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
                 <div class="app-card" onclick="filterCategory('Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
                 <div class="app-card" onclick="filterCategory('Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Lingerie')"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
-                <div class="app-card" onclick="filterCategory('Beauty')"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
-                <div class="app-card" onclick="filterCategory('Activewear')"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="filterCategory('Traditional')"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
-                <div class="app-card" onclick="filterCategory('Accessories')"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Boys Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Shoes')"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Watches')"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Bags')"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="filterCategory('Boys Accessories')"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Couple Sets')"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Family Sets')"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Mom & Me')"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
-                <div class="app-card" onclick="filterCategory('Dad & Me')"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
-                <div class="app-card" onclick="filterCategory('Sibling Sets')"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Team Sets')"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
-                <div class="app-card" onclick="filterCategory('BFF Sets')"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Pet & Owner')"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
-                <div class="app-card" onclick="filterCategory('Holiday Sets')"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
-                <div class="app-card" onclick="filterCategory('Value Bundles')"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Corporate Gifts')"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
-                <div class="app-card" onclick="filterCategory('Luxury Items')"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
-                <div class="app-card" onclick="filterCategory('Handicrafts')"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
-                <div class="app-card" onclick="filterCategory('Wood Resin')"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
-                <div class="app-card" onclick="filterCategory('Gift Hampers')"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Girls Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Bags')"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Bags</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Jewelry</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Hair Acc')"><div class="app-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="app-card-name">Hair Acc.</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Activewear')"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Sleepwear')"><div class="app-card-icon"><i class="fa-solid fa-bed"></i></div><span class="app-card-name">Sleepwear</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Party Dresses')"><div class="app-card-icon"><i class="fa-solid fa-chess-queen"></i></div><span class="app-card-name">Party Dresses</span></div>
-                <div class="app-card" onclick="filterCategory('Girls Accessories')"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Men Clothing')"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Men Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
-                <div class="app-card" onclick="filterCategory('Men Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
-                <div class="app-card" onclick="filterCategory('Men Grooming')"><div class="app-card-icon"><i class="fa-solid fa-scissors"></i></div><span class="app-card-name">Grooming</span></div>
-                <div class="app-card" onclick="filterCategory('Men Accessories')"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Accessories</span></div>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
-            <div class="app-store-grid">
-                <div class="app-card" onclick="filterCategory('Baby Clothing')"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">Clothing</span></div>
-                <div class="app-card" onclick="filterCategory('Maternity')"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
-                <div class="app-card" onclick="filterCategory('Baby Care')"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
-                <div class="app-card" onclick="filterCategory('Nursery Gear')"><div class="app-card-icon"><i class="fa-solid fa-baby-carriage"></i></div><span class="app-card-name">Nursery Gear</span></div>
-                <div class="app-card" onclick="filterCategory('Baby Accessories')"><div class="app-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div><span class="app-card-name">Accessories</span></div>
             </div>
         </section>
     </div>
 
-    <!-- ৩. সার্চ পপ-আপ বক্স -->
+    <!-- সার্চ পপ-আপ -->
     <div id="searchPopup" class="search-popup-box">
         <div class="search-input-field-box">
             <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
             <input type="text" id="searchInputField" placeholder="Search Rorraxy Collections...">
-            <label class="camera-search-btn" title="Upload from Gallery/Camera" style="cursor: pointer;">
-                <i class="fa-solid fa-camera"></i>
-                <input type="file" accept="image/*" style="display: none;" onchange="handleImageSearch(this)">
-            </label>
             <button class="search-submit-btn" onclick="executeSearch()">Search</button>
         </div>
     </div>
 
-    <!-- ৪. একাউন্ট প্যানেল ওভারলে (লোকাল স্টোরেজ ভিত্তিক) -->
+    <!-- অ্যাকাউন্ট, কার্ট (ঝুড়ি), সেলার ও এফিলিয়েট ওভারলে প্যানেল -->
     <div id="accountView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 20px; text-align: center;">
-            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 5px;">Customer Account</span>
-            <p style="font-size: 0.7rem; color: var(--text-gray); margin-bottom: 20px;">Manage orders, profile and contact details.</p>
-            <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 20px; border-radius: 10px; width: 100%; max-width: 350px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
-                <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
-                <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:#fff; font-size:0.7rem; outline:none;">
-                
-                <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number (195+ Countries)</label>
-                <div style="display: flex; gap: 5px;">
-                    <select id="countryCodeSelect" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:var(--gold-solid); font-size:0.7rem; outline:none;">
-                        <option value="+880" selected>BD (+880)</option>
-                        <option value="+1">US (+1)</option>
-                        <option value="+44">UK (+44)</option>
-                        <option value="+91">IN (+91)</option>
-                    </select>
-                    <input type="tel" id="accPhone" value="1700000000" style="flex:1; background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:#fff; font-size:0.7rem; outline:none;">
-                </div>
-                <button class="add-to-cart-btn" style="margin-top: 10px;" onclick="saveAccountData()">Update Profile</button>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 15px; text-align: center;">
+            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 10px;">Customer Profile & Account</span>
+            <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 8px; text-align: left;">
+                <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
+                <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
+                <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
+                <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
+                <button class="add-to-cart-btn" style="margin-top: 5px;" onclick="saveAccountData()">Save Profile</button>
             </div>
         </div>
     </div>
 
-    <!-- ৫. সেলার প্যানেল ওভারলে -->
+    <!-- লাক্সারি ঝুড়ি (Cart & Checkout Process to out.rorraxy.com) -->
+    <div id="cartView" class="subdomain-view">
+        <div class="golden-close-btn" onclick="toggleSubdomainView('cartView')"><i class="fa-solid fa-xmark"></i></div>
+        <div style="max-width: 450px; margin: 30px auto; padding: 10px; text-align: center;">
+            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Luxury Basket (Cart)</span>
+            <div id="cartItemsContainer" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                <!-- কার্ট আইটেম ডাইনামিকালি লোড হবে -->
+            </div>
+            <button class="add-to-cart-btn" style="margin-top: 20px;" onclick="proceedToCheckout()">Proceed to Checkout (out.rorraxy.com)</button>
+        </div>
+    </div>
+
     <div id="sellerView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 20px; text-align: center;">
-            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 5px;">Seller Hub & Products</span>
-            <span style="font-size: 0.6rem; color: #10b981; font-family: monospace; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3); margin-bottom: 15px;">b2b.rorraxy.com</span>
-            <p style="font-size: 0.7rem; color: var(--text-gray); margin-bottom: 20px;">Retail/Wholesale selection & zero-SEO product uploads.</p>
-            
-            <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 20px; border-radius: 10px; width: 100%; max-width: 350px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
-                <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Business Model</label>
-                <select id="businessModelSelect" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:#fff; font-size:0.7rem; outline:none;">
-                    <option>Retail (B2C)</option>
-                    <option>Wholesale (B2B)</option>
-                    <option selected>Both (Retail & Wholesale)</option>
-                </select>
-
-                <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Product Title / Item</label>
-                <input type="text" placeholder="Enter product name..." style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:#fff; font-size:0.7rem; outline:none;">
-                
-                <button class="add-to-cart-btn" style="margin-top: 10px; background: linear-gradient(135deg, #10b981, #059669); color: #fff;" onclick="alert('Product successfully uploaded to feed!')">Upload Item</button>
-            </div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 15px; text-align: center;">
+            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 5px;">Seller Hub</span>
+            <p style="font-size: 0.65rem; color: var(--text-gray); margin-bottom: 15px;">Zero-SEO instant product uploads.</p>
         </div>
     </div>
 
-    <!-- ৬. এফিলিয়েট প্যানেল ওভারলে -->
     <div id="affiliateView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 20px; text-align: center;">
-            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 5px;">Affiliate Marketing</span>
-            <p style="font-size: 0.7rem; color: var(--text-gray); margin-bottom: 20px;">One-Link tracking and 10% commission analytics.</p>
-            
-            <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 20px; border-radius: 10px; width: 100%; max-width: 350px; display: flex; flex-direction: column; gap: 12px; text-align: left;">
-                <div style="background: #0a0a0a; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2); font-size: 0.65rem; color: var(--text-gray); line-height: 1.4;">
-                    <p style="color: var(--gold-solid); font-weight: 700; margin-bottom: 4px;">Terms Agreed ✔</p>
-                    <p>• Clean traffic via official One-Link.</p>
-                    <p>• 10% confirmed commission on delivery.</p>
-                </div>
-                
-                <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Your One-Link</label>
-                <input type="text" id="affLinkIdInput" value="https://rorraxy.com/ref/RX-99420" readonly style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:5px; color:var(--text-gray); font-family:monospace; font-size:0.65rem; outline:none; text-align:center;">
-                
-                <button class="add-to-cart-btn" onclick="navigator.clipboard.writeText('https://rorraxy.com/ref/RX-99420'); alert('Affiliate Link Copied!');">Copy Link</button>
-            </div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column; padding: 15px; text-align: center;">
+            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin-bottom: 5px;">Affiliate Program</span>
+            <p style="font-size: 0.65rem; color: var(--text-gray); margin-bottom: 15px;">One-Link tracking and 10% commission.</p>
         </div>
     </div>
 
-    <!-- বটম ন্যাভবার -->
+    <!-- বটম ন্যাভবার (সেন্ট্রালাইজড কার্ট ঝুড়ি সহ) -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="toggleSubdomainView('affiliateView')">
             <i class="fa-solid fa-handshake"></i>
@@ -628,6 +390,11 @@
             <i class="fa-solid fa-user-shield"></i>
             <span>Account</span>
         </div>
+        <div class="nav-item" onclick="toggleSubdomainView('cartView')">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span>Basket</span>
+            <span class="cart-badge" id="cartCountBadge">0</span>
+        </div>
         <div class="nav-item" onclick="toggleCategoryView('categoryView')">
             <i class="fa-solid fa-border-all"></i>
             <span>Category</span>
@@ -639,14 +406,26 @@
     </nav>
 
     <script>
-        /* দেশ ডিটেকশন ও শুধু ফ্ল্যাগ সেট করা */
+        /* অটো-হাইড হেডার অন স্ক্রোল লজিক (স্ক্রোল করলে হেডার উপরে লুকিয়ে যাবে) */
+        let lastScrollTop = 0;
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 40) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
                 let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
-                let flagUrl = `https://flagcdn.com/w80/${countryCode}.png`;
-                document.getElementById('visitorFlagImg').src = flagUrl;
+                document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
             } catch (error) {
                 document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
             }
@@ -654,19 +433,16 @@
 
         window.onload = function() {
             detectVisitorCountry();
+            updateCartBadge();
             
-            // LocalStorage থেকে প্রোফাইল ডেটা লোড করা
             const savedName = localStorage.getItem('rorraxy_user_name');
             const savedPhone = localStorage.getItem('rorraxy_user_phone');
             if(savedName) document.getElementById('accName').value = savedName;
             if(savedPhone) document.getElementById('accPhone').value = savedPhone;
 
-            // URL থেকে এফিলিয়েট রেফারেন্স সেশনাল স্টোরেজে সংরক্ষণ
             const urlParams = new URLSearchParams(window.location.search);
             const refId = urlParams.get('ref');
-            if(refId) {
-                sessionStorage.setItem('rorraxy_ref', refId);
-            }
+            if(refId) sessionStorage.setItem('rorraxy_ref', refId);
         };
 
         function toggleSubdomainView(viewId) {
@@ -677,6 +453,7 @@
                 document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
                 document.getElementById('searchPopup').style.display = 'none';
                 view.style.display = 'block';
+                if(viewId === 'cartView') renderCartItems();
             }
         }
 
@@ -702,24 +479,17 @@
         }
 
         function filterCategory(catName) {
-            alert(`Filtering feed for category: ${catName}`);
+            alert(`Instant buffer filter for: ${catName}`);
             toggleCategoryView('categoryView');
         }
 
         function executeSearch() {
             const query = document.getElementById('searchInputField').value;
             if(query.trim() !== "") {
-                alert(`Searching for: "${query}"`);
+                alert(`Searching: "${query}"`);
                 toggleSearchPopup();
             } else {
-                alert("Please enter a search keyword!");
-            }
-        }
-
-        function handleImageSearch(input) {
-            if (input.files && input.files[0]) {
-                alert("Visual image uploaded successfully! Processing AI search...");
-                toggleSearchPopup();
+                alert("Please enter a keyword!");
             }
         }
 
@@ -729,10 +499,10 @@
             if(name && phone) {
                 localStorage.setItem('rorraxy_user_name', name);
                 localStorage.setItem('rorraxy_user_phone', phone);
-                alert("Account profile updated successfully!");
+                alert("Profile saved to Local Storage!");
                 toggleSubdomainView('accountView');
             } else {
-                alert("Please fill in the required fields!");
+                alert("Fill all fields!");
             }
         }
 
@@ -740,56 +510,29 @@
             document.getElementById('mainDisplayMedia').src = mainImg;
             document.getElementById('modalProductPrice').innerText = price;
             document.getElementById('modalProductTitle').innerText = title;
-            
             document.getElementById('thumbStrip').innerHTML = `
-                <div class="thumb-item active" onclick="switchMedia('${mainImg}', this)">
-                    <img src="${mainImg}" alt="Product">
-                </div>
-                <div class="thumb-item" onclick="switchMedia('${logoImg}', this)">
-                    <img src="${logoImg}" alt="Logo">
-                </div>
+                <div class="thumb-item active" onclick="switchMedia('${mainImg}', this)"><img src="${mainImg}"></div>
+                <div class="thumb-item" onclick="switchMedia('${logoImg}', this)"><img src="${logoImg}"></div>
             `;
-            
             toggleCategoryView('productDetailModal');
         }
 
         function switchMedia(src, element) {
-            const mainMedia = document.getElementById('mainDisplayMedia');
-            mainMedia.src = src;
+            document.getElementById('mainDisplayMedia').src = src;
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
         }
 
-        function openSubPopup(popupId) {
-            document.getElementById(popupId).style.display = 'flex';
-        }
-
-        function closeSubPopup(popupId) {
-            document.getElementById(popupId).style.display = 'none';
-        }
-
-        let shareTimeout;
-        function openShareModal() {
-            document.getElementById('shareModal').style.display = 'flex';
-            clearTimeout(shareTimeout);
-            shareTimeout = setTimeout(() => {
-                closeShareModal();
-            }, 5000);
-        }
-
-        function closeShareModal() {
-            document.getElementById('shareModal').style.display = 'none';
-        }
+        function openShareModal() { document.getElementById('shareModal').style.display = 'flex'; }
+        function closeShareModal() { document.getElementById('shareModal').style.display = 'none'; }
 
         function toggleLove(element) {
             const countSpan = element.querySelector('.love-count');
             let count = parseInt(countSpan.innerText);
             if(element.classList.contains('gold-active')) {
-                element.classList.remove('gold-active');
-                countSpan.innerText = count - 1;
+                element.classList.remove('gold-active'); countSpan.innerText = count - 1;
             } else {
-                element.classList.add('gold-active');
-                countSpan.innerText = count + 1;
+                element.classList.add('gold-active'); countSpan.innerText = count + 1;
             }
         }
 
@@ -797,52 +540,86 @@
             const countSpan = element.querySelector('.modal-love-count');
             let count = parseInt(countSpan.innerText);
             if(element.classList.contains('gold-active')) {
-                element.classList.remove('gold-active');
-                countSpan.innerText = count - 1;
+                element.classList.remove('gold-active'); countSpan.innerText = count - 1;
             } else {
-                element.classList.add('gold-active');
-                countSpan.innerText = count + 1;
+                element.classList.add('gold-active'); countSpan.innerText = count + 1;
             }
         }
 
         function shareTo(platform) {
-            const currentUrl = window.location.href;
-            if(platform === 'facebook') {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
-            } else if(platform === 'whatsapp') {
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this luxury item: ' + currentUrl)}`, '_blank');
-            } else if(platform === 'telegram') {
-                window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('Check out this item!')}`, '_blank');
-            } else if(platform === 'gmail') {
-                window.open(`mailto:?subject=Check out this Rorraxy Luxury Item&body=${encodeURIComponent(currentUrl)}`, '_blank');
-            } else {
-                navigator.clipboard.writeText(currentUrl);
-                alert("Product link copied successfully!");
-            }
+            navigator.clipboard.writeText(window.location.href);
+            alert("Product link copied!");
             closeShareModal();
         }
 
-        function selectSizeChip(chip) {
-            chip.parentElement.querySelectorAll('.size-chip').forEach(c => {
-                c.style.background = '#1a1a1a';
-                c.style.borderColor = 'rgba(255,255,255,0.2)';
-                c.style.color = '#fff';
-            });
-            chip.style.background = '#1a1a1a';
-            chip.style.borderColor = 'var(--gold-solid)';
-            chip.style.color = 'var(--gold-solid)';
-        }
-
-        function openSellerChat() {
-            alert("Connecting to live AI/Seller chat bot...");
-        }
-
+        /* লাক্সারি ঝুড়ি ও কার্ট ম্যানেজমেন্ট সিস্টেম */
         function addToCart() {
-            const selectedImage = document.getElementById('mainDisplayMedia').src;
-            const refCode = sessionStorage.getItem('rorraxy_ref') || 'direct';
-            alert(`Redirecting to checkout session (out.rorraxy.com) with Ref: ${refCode}`);
-            window.location.href = `https://out.rorraxy.com/checkout?img=${encodeURIComponent(selectedImage)}&ref=${refCode}`;
+            const title = document.getElementById('modalProductTitle').innerText;
+            const price = document.getElementById('modalProductPrice').innerText;
+            const img = document.getElementById('mainDisplayMedia').src;
+
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            cart.push({ title, price, img, qty: 1 });
+            localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
+            updateCartBadge();
+            alert("Product added to your Luxury Basket successfully!");
             toggleCategoryView('productDetailModal');
+        }
+
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            document.getElementById('cartCountBadge').innerText = cart.length;
+        }
+
+        function renderCartItems() {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            let container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+            if(cart.length === 0) {
+                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Your luxury basket is empty.</p>';
+                return;
+            }
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div style="display:flex; align-items:center; justify-content:space-between; background:#121212; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
+                        <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
+                        <div style="text-align:left; flex:1; margin-left:10px;">
+                            <p style="font-size:0.6rem; font-weight:700; color:#fff;">${item.title}</p>
+                            <p style="font-size:0.55rem; color:var(--gold-solid);">${item.price}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--pink-discount); font-size:0.8rem; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        /* out.rorraxy.com এ চেকআউট ফ্লো রিডাইরেকশন */
+        function proceedToCheckout() {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            if(cart.length === 0) {
+                alert("Your basket is empty!");
+                return;
+            }
+            const userName = localStorage.getItem('rorraxy_user_name') || 'Guest';
+            const userPhone = localStorage.getItem('rorraxy_user_phone') || '';
+            const refCode = sessionStorage.getItem('rorraxy_ref') || 'direct';
+
+            if(!userPhone) {
+                alert("Please update your mobile number in your Account profile first!");
+                toggleSubdomainView('accountView');
+                return;
+            }
+
+            alert(`Redirecting to secure checkout (out.rorraxy.com) for ${userName}...`);
+            window.location.href = `https://out.rorraxy.com/checkout?ref=${refCode}&phone=${encodeURIComponent(userPhone)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
         }
     </script>
 </body>
