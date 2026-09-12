@@ -434,7 +434,7 @@
         </div>
     </main>
 
-    <!-- শেয়ার পপ-আপ মোডাল (লিংক বক্স প্রথমে এবং ডায়নামিক এফিলিয়েট/সাধারণ ইউআরএল দৃশ্যমান) -->
+    <!-- শেয়ার পপ-আপ মোডাল -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
             <div class="golden-close-btn" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></div>
@@ -481,7 +481,7 @@
 
             <div class="price-chat-row">
                 <span class="detail-price" id="modalProductPrice">$100.00</span>
-                <!-- ডিসকাউন্ট ব্যাজ (রিটেইলে নির্দিষ্ট ডিসকাউন্ট এবং হোলসেলে স্বয়ংক্রিয়ভাবে 0% দেখাবে) -->
+                <!-- ডিসকাউন্ট ব্যাজ -->
                 <button class="discount-badge-btn" id="modalDiscountBadgeBtn">
                     <img id="modalDiscountFlag" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="discount-flag-img">
                     <span id="modalDiscountText">5% OFF</span>
@@ -1067,7 +1067,7 @@
         function openShareModal() {
             let baseUrl = window.location.href.split('?')[0];
             
-            // এফিলিয়েট আইডি চেক করা (যেমন URL-এ ?ref=ID বা localStorage থেকে এফিলিয়েট আইডি)
+            // এফিলিয়েট আইডি চেক করা
             const urlParams = new URLSearchParams(window.location.search);
             let affiliateId = urlParams.get('ref') || localStorage.getItem('rorraxy_affiliate_id');
             
@@ -1103,15 +1103,14 @@
             setTimeout(() => { closeShareModal(); }, 1000);
         }
 
-        /* দৃশ্যমান বক্স থেকে সরাসরি লিংক কপি ও উইন্ডো বন্ধ করার ফাংশন */
+        /* কোনো পারমিশন বা পপআপ ছাড়াই নীরবে লিংক কপি ও মোডাল বন্ধ করার ফাংশন */
         function copyShareLink() {
             const inputField = document.getElementById('shareUrlInput');
             inputField.select();
-            inputField.setSelectionRange(0, 99999); // মোবাইল ডিভাইসের জন্য
+            inputField.setSelectionRange(0, 99999);
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(inputField.value).then(() => {
-                    alert("Link copied successfully!");
                     closeShareModal();
                 }).catch(() => {
                     fallbackCopyDirect(inputField.value);
@@ -1124,10 +1123,7 @@
         function fallbackCopyDirect(text) {
             try {
                 document.execCommand('copy');
-                alert("Link copied successfully!");
-            } catch (err) {
-                alert("Failed to copy link.");
-            }
+            } catch (err) {}
             closeShareModal();
         }
 
