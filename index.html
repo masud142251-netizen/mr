@@ -77,29 +77,15 @@
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
-        /* শীর্ষ সারি: লোগো ও ব্র্যান্ডের ঠিক পাশেই ক্লাসিক অ্যানিমেটেড New এবং Trending কার্ড */
-        .header-top-bar { display: flex; justify-content: center; align-items: center; width: 100%; max-width: 600px; position: relative; gap: 8px; padding: 0 4px; }
+        /* শীর্ষ সারি: শুধুমাত্র লোগো, ব্র্যান্ডের নাম এবং পতাকা মাঝখানে */
+        .header-top-bar { display: flex; justify-content: center; align-items: center; width: 100%; max-width: 600px; padding: 2px 4px; }
         
-        @keyframes pulseCard {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.06); }
-        }
-
-        .header-card-badge {
-            font-size: 0.45rem; font-weight: 800; background: #121212;
-            color: var(--gold-solid); padding: 3px 7px; border-radius: 6px; text-transform: uppercase; cursor: pointer;
-            display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            animation: pulseCard 2.5s infinite ease-in-out; border: none;
-        }
-        .header-card-badge:hover { background: var(--gold-gradient); color: #000; }
-
-        /* লোগো, কোম্পানির নাম এবং পতাকা একসাথে মাঝখানে */
         .header-center-group { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
         .brand-logo-img { width: 24px; height: 24px; object-fit: contain; background: transparent; }
         .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        /* নিচের সারি: ছোট বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে */
+        /* নিচের সারি: আলাদা সাবডোমেইন লিঙ্কযুক্ত বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে */
         .header-bottom-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; gap: 6px; }
         .header-buttons-group { display: flex; align-items: center; gap: 4px; flex: 1; }
         
@@ -107,12 +93,28 @@
             font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
             color: var(--text-white); padding: 5px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
+            display: flex; align-items: center; justify-content: center;
         }
-        .portal-btn.wholesale-btn { background: #161616; color: var(--gold-solid); border: 1px solid var(--gold-solid); font-weight: 800; }
-        .portal-btn.wholesale-active { background: var(--gold-gradient) !important; color: #000 !important; font-weight: 900 !important; border: none !important; }
+        /* হোলসেলের বাটনটিকে প্রিমিয়াম গোল্ডেন গ্রেডিয়েন্ট দেওয়া হয়েছে */
+        .portal-btn.wholesale-btn { 
+            background: var(--gold-gradient); 
+            color: #000; 
+            border: none; 
+            font-weight: 900; 
+            box-shadow: 0 2px 10px rgba(212,175,55,0.4);
+        }
+        .portal-btn.wholesale-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        
+        .portal-btn.wholesale-active { 
+            background: #161616 !important; 
+            color: var(--gold-solid) !important; 
+            font-weight: 900 !important; 
+            border: 1px solid var(--gold-solid) !important; 
+            box-shadow: none !important;
+        }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* বড় ঝুড়ি আইকন (বর্ডারবিহীন ও আকর্ষণীয়) */
+        /* বড় ঝুড়ি আইকন (বর্ডারবিহীন) */
         .top-basket-icon-btn {
             position: relative; cursor: pointer; width: 38px; height: 32px;
             display: flex; align-items: center; justify-content: center; background: none;
@@ -361,13 +363,8 @@
 
     <!-- হেডার -->
     <header class="app-header" id="mainHeader">
-        <!-- শীর্ষ সারি: লোগো ও ব্র্যান্ডের ঠিক পাশেই ক্লাসিক অ্যানিমেটেড New এবং Trending কার্ড -->
+        <!-- শীর্ষ সারি: শুধুমাত্র লোগো, কোম্পানির নাম এবং পতাকা মাঝখানে -->
         <div class="header-top-bar">
-            <div class="header-card-badge" onclick="alert('Viewing New Products')">
-                <i class="fa-solid fa-bolt" style="color:var(--pink-love);"></i> New
-            </div>
-
-            <!-- লোগো, কোম্পানির নাম এবং পতাকা একসাথে মাঝখানে -->
             <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
                 <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" class="brand-logo-img">
                 <span class="brand-title-main">RORRAXY</span>
@@ -375,13 +372,9 @@
                     <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
                 </div>
             </div>
-
-            <div class="header-card-badge" onclick="alert('Viewing Trending Products')">
-                <i class="fa-solid fa-fire" style="color:var(--gold-solid);"></i> Trending
-            </div>
         </div>
 
-        <!-- নিচের সারি: ছোট ও স্লিম বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে -->
+        <!-- নিচের সারি: সাবডোমেইন লিঙ্কযুক্ত বাটনগুলো (একাডেমি ও সলিউশন আলাদা গিটহাবে লিঙ্ক করা) এবং বড় ঝুড়ি -->
         <div class="header-bottom-row">
             <div class="header-buttons-group">
                 <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
