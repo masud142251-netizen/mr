@@ -79,7 +79,7 @@
 
         .header-top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; position: relative; }
         
-        /* লোগো, কোম্পানির নাম এবং পতাকার গ্রুপ (মাঝখানে) */
+        /* লোগো, কোম্পানির নাম এবং পতাকা একসাথে মাঝখানে */
         .header-center-group { display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin: 0 auto; }
         .brand-logo-img { width: 30px; height: 30px; object-fit: contain; background: transparent; }
         .brand-title-main { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
@@ -118,30 +118,34 @@
         .portal-btn.wholesale-active { background: var(--gold-gradient) !important; color: #000 !important; font-weight: 900 !important; border: none !important; }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* লাইভ চ্যাট উইজেট (শুধু লাক্সারি গোল্ডেন আইকন, নিচে ডানপাশে) */
+        /* লাইভ চ্যাট উইজেট - ফিক্সড মেনুবারের ঠিক উপরে এবং ড্র্যাগ করার সুবিধাযুক্ত */
         .live-chat-widget {
-            position: fixed; bottom: 80px; right: 20px; z-index: 3500; cursor: pointer;
+            position: fixed; bottom: 72px; right: 20px; z-index: 3500; cursor: grab;
             width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: none;
+            touch-action: none; user-select: none;
         }
-        .live-chat-widget:hover { transform: scale(1.1); }
+        .live-chat-widget:active { cursor: grabbing; }
         .live-chat-widget i {
             font-size: 2.1rem; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
         }
 
-        /* স্মুথ ও দৃশ্যমান ফ্লাইং শপিং ব্যাগ অ্যানিমেশন */
-        @keyframes flyBagSmooth {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
-            50% { transform: translate(35vw, -45vh) scale(1.5) rotate(15deg); opacity: 0.95; }
-            100% { transform: translate(80vw, -85vh) scale(0.4) rotate(30deg); opacity: 0; }
+        /* সুনির্দিষ্ট এবং স্মুথ গোল্ডেন কয়েন লাফিং ও ফ্লাইং অ্যানিমেশন */
+        @keyframes coinParabola {
+            0% { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 1; }
+            40% { transform: translate(calc(var(--dx) * 0.45), -35vh) scale(1.3) rotate(180deg); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0.4) rotate(360deg); opacity: 0; }
         }
-        .flying-bag {
-            position: fixed; z-index: 9999; width: 32px; height: 32px; background: var(--gold-gradient);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            border: 2px solid #fff; box-shadow: 0 0 20px var(--gold-solid);
-            animation: flyBagSmooth 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .flying-coin {
+            position: fixed; z-index: 9999; width: 28px; height: 28px; background: var(--gold-gradient);
+            border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 18px var(--gold-solid);
+            animation: coinParabola 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            display: flex; align-items: center; justify-content: center;
         }
-        .flying-bag i { font-size: 1rem; color: #000; }
+        .flying-coin::after {
+            content: '$'; font-size: 0.75rem; font-weight: 900; color: #000;
+        }
 
         /* Pinterest Style Masonry Feed Layout */
         .feed-container {
@@ -259,7 +263,6 @@
 
         .quantity-tier-container { display: flex; flex-direction: column; gap: 6px; padding: 2px 0; }
         
-        /* হোলসেল মোডে ৩টি ছোট বাটন গ্রিড */
         .wholesale-tiers-row { display: none; gap: 5px; margin-bottom: 2px; }
         .wholesale-mode-active .wholesale-tiers-row { display: grid; grid-template-columns: repeat(3, 1fr); }
         
@@ -367,8 +370,8 @@
         </div>
     </header>
 
-    <!-- লাইভ চ্যাট উইজেট (শুধু লাক্সারি গোল্ডেন আইকন, নিচে ডানপাশে) -->
-    <div class="live-chat-widget" onclick="openLiveChat()" title="Live Chat">
+    <!-- ফ্লোটিং লাইভ চ্যাট উইজেট (মেনুবারের ঠিক উপরে এবং ড্র্যাগ করার সুবিধাযুক্ত) -->
+    <div class="live-chat-widget" id="draggableChat" onclick="openLiveChat()" title="Live Chat">
         <i class="fa-solid fa-comments"></i>
     </div>
 
@@ -464,7 +467,7 @@
                 </div>
             </div>
 
-            <button class="add-to-cart-btn" onclick="triggerBagAnimation(event)">Add To Cart</button>
+            <button class="add-to-cart-btn" onclick="triggerCoinAnimation(event)">Add To Cart</button>
         </div>
     </div>
 
@@ -601,6 +604,36 @@
         let selectedSize = "Standard";
         let customNote = "";
 
+        /* লাইভ চ্যাট ড্র্যাগ (Drag/Move) লজিক */
+        const dragEl = document.getElementById('draggableChat');
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        dragEl.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = dragEl.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            dragEl.setPointerCapture(e.pointerId);
+        });
+
+        dragEl.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            dragEl.style.left = `${initialX + dx}px`;
+            dragEl.style.top = `${initialY + dy}px`;
+            dragEl.style.bottom = 'auto';
+            dragEl.style.right = 'auto';
+        });
+
+        dragEl.addEventListener('pointerup', (e) => {
+            isDragging = false;
+            dragEl.releasePointerCapture(e.pointerId);
+        });
+
         /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন */
         function toggleRetailWholesaleMode() {
             const bodyEl = document.getElementById('mainBody');
@@ -663,7 +696,6 @@
             document.getElementById('modalProductPrice').innerText = `$${finalPrice.toFixed(2)}`;
         }
 
-        /* ডেসক্রিপশন ও সাইজ পপআপ কন্ট্রোল */
         function openDescriptionPopup() {
             document.getElementById('descModal').style.display = 'block';
         }
@@ -1000,26 +1032,32 @@
             } catch(e) {}
         }
 
-        /* স্মুথ শপিং ব্যাগ ফ্লাইং অ্যানিমেশন ও ঝুড়ি বাউন্স */
-        function triggerBagAnimation(event) {
+        /* গোল্ডেন কয়েন লাফিং ও ফ্লাইং অ্যানিমেশন সরাসরি ঝুড়িতে */
+        function triggerCoinAnimation(event) {
             const btnRect = event.target.getBoundingClientRect();
             const basketIcon = document.getElementById('topBasketIcon').getBoundingClientRect();
 
-            const bag = document.createElement('div');
-            bag.className = 'flying-bag';
-            bag.innerHTML = '<i class="fa-solid fa-bag-shopping"></i>';
-            bag.style.left = `${btnRect.left + btnRect.width / 2}px`;
-            bag.style.top = `${btnRect.top}px`;
+            const coin = document.createElement('div');
+            coin.className = 'flying-coin';
+            coin.style.left = `${btnRect.left + btnRect.width / 2 - 14}px`;
+            coin.style.top = `${btnRect.top + btnRect.height / 2 - 14}px`;
             
-            document.body.appendChild(bag);
+            // হিসাব করা ডিস্টেন্স যেন সরাসরি ঝুড়িতে নিখুঁতভাবে যায়
+            const dx = (basketIcon.left + basketIcon.width / 2) - (btnRect.left + btnRect.width / 2);
+            const dy = (basketIcon.top + basketIcon.height / 2) - (btnRect.top + btnRect.height / 2);
+            
+            coin.style.setProperty('--dx', `${dx}px`);
+            coin.style.setProperty('--dy', `${dy}px`);
+
+            document.body.appendChild(coin);
 
             setTimeout(() => { 
-                bag.remove(); 
+                coin.remove(); 
                 playSuccessSound();
                 const basketEl = document.getElementById('topBasketIcon');
                 basketEl.classList.add('basket-bounce');
                 setTimeout(() => basketEl.classList.remove('basket-bounce'), 400);
-            }, 1200);
+            }, 1100);
 
             const title = document.getElementById('modalProductTitle').innerText;
             const price = document.getElementById('modalProductPrice').innerText;
