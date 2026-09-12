@@ -85,7 +85,7 @@
         .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        /* নিচের সারি: বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে (লেখাগুলো এখন আরও স্পষ্ট ও বড় করা হয়েছে) */
+        /* নিচের সারি: বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে */
         .header-bottom-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; gap: 6px; }
         .header-buttons-group { display: flex; align-items: center; gap: 5px; flex: 1; }
         
@@ -118,21 +118,21 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* বড় ঝুড়ি আইকন (বর্ডারবিহীন) */
+        /* ঝুড়ি আইকনটি আরও বড় ও আকর্ষণীয় করা হলো */
         .top-basket-icon-btn {
-            position: relative; cursor: pointer; width: 38px; height: 32px;
+            position: relative; cursor: pointer; width: 44px; height: 36px;
             display: flex; align-items: center; justify-content: center; background: none;
             border: none; flex-shrink: 0; transition: transform 0.2s;
         }
-        .top-basket-icon-btn:hover { transform: scale(1.1); }
+        .top-basket-icon-btn:hover { transform: scale(1.12); }
         .top-basket-icon-btn i {
-            font-size: 1.5rem; background: var(--gold-gradient);
+            font-size: 1.85rem; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
         }
         .cart-badge-dot {
-            position: absolute; top: -2px; right: 0px; background: var(--pink-discount); color: #fff;
-            font-size: 0.48rem; font-weight: 900; width: 15px; height: 15px; border-radius: 50%;
+            position: absolute; top: -3px; right: -2px; background: var(--pink-discount); color: #fff;
+            font-size: 0.52rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; border: 1.5px solid #000;
         }
         @keyframes bounceBasket {
@@ -378,7 +378,7 @@
             </div>
         </div>
 
-        <!-- নিচের সারি: বড় ও স্পষ্ট ফন্টযুক্ত বাটনগুলো এবং বড় ঝুড়ি এক লাইনে -->
+        <!-- নিচের সারি: বড় বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে -->
         <div class="header-bottom-row">
             <div class="header-buttons-group">
                 <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
@@ -459,9 +459,10 @@
 
             <div class="price-chat-row">
                 <span class="detail-price" id="modalProductPrice">$100.00</span>
-                <button class="discount-badge-btn">
+                <!-- ডিসকাউন্ট ব্যাজ (রিটেইলে নির্দিষ্ট ডিসকাউন্ট এবং হোলসেলে স্বয়ংক্রিয়ভাবে 0% দেখাবে) -->
+                <button class="discount-badge-btn" id="modalDiscountBadgeBtn">
                     <img id="modalDiscountFlag" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="discount-flag-img">
-                    <span>5% OFF</span>
+                    <span id="modalDiscountText">5% OFF</span>
                 </button>
                 <button class="chat-with-seller-btn" onclick="chatWithSeller()">Chat with Seller</button>
             </div>
@@ -658,11 +659,12 @@
             dragEl.releasePointerCapture(e.pointerId);
         });
 
-        /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন */
+        /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন (ডিসকাউন্ট হ্যান্ডলিং সহ) */
         function toggleRetailWholesaleMode() {
             const bodyEl = document.getElementById('mainBody');
             const qtyContainer = document.getElementById('qtyTierContainer');
             const toggleBtn = document.getElementById('wholesaleToggleBtn');
+            const discountText = document.getElementById('modalDiscountText');
 
             isWholesaleMode = !isWholesaleMode;
 
@@ -671,12 +673,20 @@
                 qtyContainer.classList.add('wholesale-mode-active');
                 toggleBtn.innerText = "Retail Mode";
                 toggleBtn.classList.add('wholesale-active');
+                
+                // হোলসেলে ডিসকাউন্ট সবসময় 0% করা হলো
+                discountText.innerText = "0% OFF";
+                
                 setWholesaleTier(1, 100, null);
             } else {
                 bodyEl.classList.remove('wholesale-mode');
                 qtyContainer.classList.remove('wholesale-mode-active');
                 toggleBtn.innerText = "Wholesale";
                 toggleBtn.classList.remove('wholesale-active');
+                
+                // রিটেইলে নির্দিষ্ট ডিসকাউন্ট (যেমন: 5% OFF) ফিরিয়ে আনা হলো
+                discountText.innerText = "5% OFF";
+                
                 currentQuantity = 1;
                 baseUnitPrice = 100.00;
                 document.getElementById('productQtyDisplay').innerText = currentQuantity;
@@ -764,9 +774,11 @@
                     let data = await response.json();
                     let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
                     document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
+                    document.getElementById('modalDiscountFlag').src = `https://flagcdn.com/w80/${countryCode}.png`;
                 }
             } catch (error) {
                 document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
+                document.getElementById('modalDiscountFlag').src = 'https://flagcdn.com/w80/bd.png';
             }
         }
 
@@ -966,9 +978,11 @@
             if(isWholesaleMode) {
                 currentQuantity = 1;
                 baseUnitPrice = 100.00;
+                document.getElementById('modalDiscountText').innerText = "0% OFF";
             } else {
                 currentQuantity = 1;
                 baseUnitPrice = parseFloat(price.replace('$', ''));
+                document.getElementById('modalDiscountText').innerText = "5% OFF";
             }
             document.getElementById('productQtyDisplay').innerText = currentQuantity;
             document.getElementById('mainDisplayMedia').src = images[0];
