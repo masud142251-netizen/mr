@@ -24,8 +24,20 @@
             --font-main: 'Poppins', sans-serif;
         }
 
+        /* হোলসেল মোডের জন্য লাক্সারি ব্লু-গ্রেডিয়েন্ট থিম */
+        body.wholesale-mode {
+            background: linear-gradient(135deg, #020817, #0b192c, #1e3e62) !important;
+        }
+        body.wholesale-mode .product-card {
+            background: rgba(11, 25, 44, 0.9) !important;
+            border-color: rgba(212, 175, 55, 0.3) !important;
+        }
+        body.wholesale-mode header.app-header {
+            background: rgba(2, 8, 23, 0.98) !important;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); transition: background 0.4s ease; }
         body { padding-top: 75px; padding-bottom: 90px; }
 
         /* হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ; নিচে ৩টি বাটন */
@@ -33,7 +45,7 @@
             display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            gap: 6px; transition: transform 0.3s ease-in-out;
+            gap: 6px; transition: transform 0.3s ease-in-out, background 0.4s ease;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
@@ -90,7 +102,7 @@
         .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শতভাগ ক্লিন ঝুড়ি আইকন (শ্যাডো বা ইফেক্ট মুক্ত) */
+        /* শতভাগ ক্লিন ঝুড়ি আইকন */
         .floating-basket-icon-btn {
             position: fixed; bottom: 75px; right: 20px; z-index: 3500; cursor: pointer;
             width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: none; box-shadow: none; filter: none;
@@ -192,13 +204,31 @@
         }
         .chat-with-seller-btn:hover { opacity: 0.9; }
 
+        /* কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন স্টাইল */
+        .quantity-tier-container { display: flex; flex-direction: column; gap: 8px; background: #0c0c0c; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2); }
+        
+        .quantity-row { display: flex; justify-content: space-between; align-items: center; }
+        .quantity-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--gold-solid); }
+        .qty-box { display: flex; align-items: center; gap: 8px; background: #161616; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); }
+        .qty-btn { background: none; border: none; color: var(--gold-solid); font-size: 0.9rem; font-weight: 900; cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+        .qty-display { font-size: 0.85rem; font-weight: 900; color: #fff; min-width: 25px; text-align: center; }
+
+        .wholesale-tiers-row { display: none; gap: 6px; }
+        .wholesale-mode-active .wholesale-tiers-row { display: grid; grid-template-columns: repeat(3, 1fr); }
+        
+        .tier-btn {
+            background: #161616; border: 1px solid rgba(212,175,55,0.3); color: #fff;
+            font-size: 0.5rem; font-weight: 700; padding: 6px 4px; border-radius: 6px; cursor: pointer; text-align: center; transition: 0.3s;
+        }
+        .tier-btn.active, .tier-btn:hover { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
+
         .add-to-cart-btn {
             background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.68rem; padding: 10px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
-        /* সার্চ পপআপ */
+        /* সার্চ পপআপ ও অন্যান্য প্যানেল */
         .search-popup-box {
             display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
             background: rgba(10, 10, 10, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
@@ -211,7 +241,6 @@
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* ক্যাটাগরি গ্রিড */
         .category-section { padding: 14px 8px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
         .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; }
         .category-title { 
@@ -249,9 +278,9 @@
         .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
-    <!-- হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ; Wholesale এর লিংক https://b2b.rorraxy.com -->
+    <!-- হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ; Wholesale বাটনে ক্লিক করলে রিটেইল ও হোলসেল মোড টগিল হবে -->
     <header class="app-header" id="mainHeader">
         <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
             <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
@@ -262,13 +291,13 @@
         </div>
 
         <div class="header-bottom-row">
-            <a href="https://b2b.rorraxy.com" class="portal-btn wholesale-btn">Wholesale</a>
+            <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
             <a href="https://solutions.rorraxy.com" class="portal-btn">B2B/B2C Solution</a>
             <a href="https://academy.rorraxy.com" class="portal-btn">Creative Academy</a>
         </div>
     </header>
 
-    <!-- শতভাগ ক্লিন গোল্ডেন ঝুড়ি আইকন -->
+    <!-- ক্লিন গোল্ডেন ঝুড়ি আইকন -->
     <div class="floating-basket-icon-btn" onclick="toggleBasketView()" title="Basket">
         <i class="fa-solid fa-basket-shopping"></i>
         <span class="cart-badge-dot" id="floatingCartCount">0</span>
@@ -312,7 +341,7 @@
         </div>
     </div>
 
-    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ (প্রাইস, ডিসকাউন্ট এবং চ্যাট উইথ সেলার বাটনযুক্ত) -->
+    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ (কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ারসহ) -->
     <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 6000;">
         <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
             <i class="fa-solid fa-xmark"></i>
@@ -330,7 +359,7 @@
                     <i class="fa-solid fa-share-nodes"></i> Share
                 </button>
             </div>
-            <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
+            <div class="free-shipping-tax-banner" id="pricingModeBanner">Free Shipping & Tax Inclusive</div>
             <div class="price-chat-row">
                 <span class="detail-price" id="modalProductPrice">$100.00</span>
                 <button class="discount-badge-btn">
@@ -339,6 +368,25 @@
                 </button>
                 <button class="chat-with-seller-btn" onclick="chatWithSeller()">Chat with Seller</button>
             </div>
+
+            <!-- কোয়ান্টিটি ও পাইকারি টায়ার অপশন -->
+            <div class="quantity-tier-container" id="qtyTierContainer">
+                <div class="quantity-row">
+                    <span class="quantity-label" id="qtyLabelTitle">Quantity</span>
+                    <div class="qty-box">
+                        <button class="qty-btn" onclick="adjustQuantity(-1)">-</button>
+                        <span class="qty-display" id="productQtyDisplay">1</span>
+                        <button class="qty-btn" onclick="adjustQuantity(1)">+</button>
+                    </div>
+                </div>
+                <!-- হোলসেল মোডের জন্য ৩টি পাইকারি টায়ার বাটন -->
+                <div class="wholesale-tiers-row">
+                    <button class="tier-btn active" onclick="setWholesaleTier(1, 100)">Sample (1 Pcs)</button>
+                    <button class="tier-btn" onclick="setWholesaleTier(50, 85)">50 - 200 Pcs</button>
+                    <button class="tier-btn" onclick="setWholesaleTier(500, 70)">500+ Pcs</button>
+                </div>
+            </div>
+
             <div class="product-title-line" id="modalProductTitle">PREMIUM BRACELET</div>
             <button class="add-to-cart-btn" onclick="triggerCoinAnimation(event)">Add To Cart</button>
         </div>
@@ -525,6 +573,56 @@
     </nav>
 
     <script>
+        let isWholesaleMode = false;
+        let currentQuantity = 1;
+        let baseUnitPrice = 100.00;
+
+        /* হোম পেজের ভেতরেই Retail এবং Wholesale মোড টগিল করার ফাংশন */
+        function toggleRetailWholesaleMode() {
+            const bodyEl = document.getElementById('mainBody');
+            const qtyContainer = document.getElementById('qtyTierContainer');
+            const banner = document.getElementById('pricingModeBanner');
+            const toggleBtn = document.getElementById('wholesaleToggleBtn');
+
+            isWholesaleMode = !isWholesaleMode;
+
+            if (isWholesaleMode) {
+                bodyEl.classList.add('wholesale-mode');
+                qtyContainer.classList.add('wholesale-mode-active');
+                banner.innerText = "B2B Wholesale & Sample Tier";
+                toggleBtn.innerText = "Retail Mode";
+            } else {
+                bodyEl.classList.remove('wholesale-mode');
+                qtyContainer.classList.remove('wholesale-mode-active');
+                banner.innerText = "Free Shipping & Tax Inclusive";
+                toggleBtn.innerText = "Wholesale";
+            }
+        }
+
+        /* কোয়ান্টিটি প্লাস / মাইনাস কন্ট্রোল */
+        function adjustQuantity(amount) {
+            currentQuantity += amount;
+            if (currentQuantity < 1) currentQuantity = 1;
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
+            updateCalculatedPrice();
+        }
+
+        function setWholesaleTier(qty, unitPrice) {
+            currentQuantity = qty;
+            baseUnitPrice = unitPrice;
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
+            updateCalculatedPrice();
+
+            const tierButtons = document.querySelectorAll('.tier-btn');
+            tierButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function updateCalculatedPrice() {
+            let finalPrice = baseUnitPrice * currentQuantity;
+            document.getElementById('modalProductPrice').innerText = `$${finalPrice.toFixed(2)}`;
+        }
+
         /* অটো-হাইড হেডার অন স্ক্রোল */
         let lastScrollTop = 0;
         const header = document.getElementById('mainHeader');
@@ -538,7 +636,7 @@
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         });
 
-        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন (নন-ব্লকিং সেফ ট্রাই-কচ) */
+        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
@@ -559,10 +657,6 @@
             const savedPhone = localStorage.getItem('rorraxy_user_phone');
             if(savedName) document.getElementById('accName').value = savedName;
             if(savedPhone) document.getElementById('accPhone').value = savedPhone;
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const refId = urlParams.get('ref');
-            if(refId) sessionStorage.setItem('rorraxy_ref', refId);
         };
 
         function toggleSubdomainView(viewId) {
@@ -645,6 +739,9 @@
         }
 
         function openProductDetails(title, price, images) {
+            currentQuantity = 1;
+            baseUnitPrice = parseFloat(price.replace('$', ''));
+            document.getElementById('productQtyDisplay').innerText = currentQuantity;
             document.getElementById('mainDisplayMedia').src = images[0];
             document.getElementById('modalProductPrice').innerText = price;
             document.getElementById('modalProductTitle').innerText = title;
@@ -711,9 +808,10 @@
             const title = document.getElementById('modalProductTitle').innerText;
             const price = document.getElementById('modalProductPrice').innerText;
             const img = document.getElementById('mainDisplayMedia').src;
+            const qty = currentQuantity;
 
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            cart.push({ title, price, img });
+            cart.push({ title, price, img, qty });
             localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
             updateCartBadge();
             toggleCategoryView('productDetailModal');
@@ -737,7 +835,7 @@
                     <div style="display:flex; align-items:center; justify-content:space-between; background:#121212; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
                         <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                         <div style="text-align:left; flex:1; margin-left:10px;">
-                            <p style="font-size:0.6rem; font-weight:700; color:#fff;">${item.title}</p>
+                            <p style="font-size:0.6rem; font-weight:700; color:#fff;">${item.title} (Qty: ${item.qty || 1})</p>
                             <p style="font-size:0.55rem; color:var(--gold-solid);">${item.price}</p>
                         </div>
                         <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--pink-discount); font-size:0.8rem; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
