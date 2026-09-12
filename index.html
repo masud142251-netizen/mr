@@ -330,7 +330,7 @@
             box-shadow: 0 4px 15px rgba(212,175,55,0.3); margin-top: 2px;
         }
 
-        /* ক্লিন সার্চ বার (কোনো ডাবল বর্ডার নেই) */
+        /* সার্চ বারের বাইরের সমস্ত অতিরিক্ত বর্ডার এবং ডাবল শেপ সম্পূর্ণ রিমুভ করা হলো */
         .search-popup-box {
             display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
             background: transparent; z-index: 4000; padding: 0; border: none; box-shadow: none;
@@ -397,16 +397,17 @@
         <!-- নিচের সারি: বড় বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে -->
         <div class="header-bottom-row">
             <div class="header-buttons-group">
+                <!-- সঠিক সাব-ডোমেইন লিঙ্কযুক্ত বাটন -->
                 <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
                 <a href="https://solutions.rorraxy.com" target="_blank" class="portal-btn">B2B/B2C Solution</a>
                 <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
             </div>
 
-            <!-- বড় ঝুড়ি আইকন সরাসরি you.rorraxy.com সাব-ডোমেইনে রিডাইরেক্ট করবে -->
-            <button class="top-basket-icon-btn" onclick="location.href='https://you.rorraxy.com'" title="Basket">
+            <!-- ঝুড়ি আইকন যা সরাসরি you.rorraxy.com সাব-ডোমেইনে যাবে -->
+            <a href="https://you.rorraxy.com" target="_blank" class="top-basket-icon-btn" title="Basket">
                 <i class="fa-solid fa-basket-shopping"></i>
                 <span class="cart-badge-dot" id="floatingCartCount">0</span>
-            </button>
+            </a>
         </div>
     </header>
 
@@ -564,7 +565,7 @@
         </div>
     </div>
 
-    <!-- সার্চ পপআপ -->
+    <!-- সার্চ পপআপ (ক্লিন এবং ডাবল বর্ডারমুক্ত) -->
     <div id="searchPopup" class="search-popup-box">
         <div class="search-input-field-box">
             <i class="fa-solid fa-magnifying-glass" style="color:var(--gold-solid);"></i>
@@ -573,7 +574,7 @@
         </div>
     </div>
 
-    <!-- ফিক্সড বটম ন্যাভবার (সরাসরি সাব-ডোমেইনের সাথে কানেক্টেড) -->
+    <!-- ফিক্সড বটম ন্যাভবার (সঠিক সাব-ডোমেইন লিঙ্কযুক্ত) -->
     <nav class="bottom-nav">
         <a href="https://affiliate.rorraxy.com" target="_blank" class="nav-item">
             <i class="fa-solid fa-handshake"></i>
