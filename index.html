@@ -231,16 +231,32 @@
         }
         .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শেয়ার পপ-আপ মোডাল (সর্বোচ্চ z-index দিয়ে ওপরের স্তরে রাখা হয়েছে) */
+        /* শেয়ার পপ-আপ মোডাল */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 7000; justify-content: center; align-items: center; padding: 12px;
         }
         .share-modal-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; width: 100%; max-width: 340px;
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; width: 100%; max-width: 350px;
             padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: center; position: relative;
         }
-        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; }
+        
+        /* লিংক প্রদর্শনের প্রিমিয়াম গোল্ডেন বক্স স্টাইল */
+        .share-link-display-box {
+            display: flex; align-items: center; background: #0a0a0a; border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 6px; padding: 6px 8px; gap: 6px; margin-bottom: 2px;
+        }
+        .share-link-input {
+            background: transparent; border: none; outline: none; color: var(--gold-solid);
+            font-size: 0.62rem; font-weight: 600; width: 100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+        }
+        .copy-direct-btn {
+            background: var(--gold-gradient); color: #000; border: none; font-size: 0.52rem; font-weight: 900;
+            padding: 5px 10px; border-radius: 4px; cursor: pointer; text-transform: uppercase; white-space: pointer; flex-shrink: 0;
+        }
+        .copy-direct-btn:hover { opacity: 0.9; }
+
+        .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 2px; }
         .share-icon-item {
             display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
             background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.15);
@@ -418,11 +434,18 @@
         </div>
     </main>
 
-    <!-- শেয়ার পপ-আপ মোডাল -->
+    <!-- শেয়ার পপ-আপ মোডাল (লিংক বক্স প্রথমে এবং ডায়নামিক এফিলিয়েট/সাধারণ ইউআরএল দৃশ্যমান) -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
             <div class="golden-close-btn" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></div>
-            <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
+            <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product & Link</span>
+            
+            <!-- দৃশ্যমান লিংক বক্স -->
+            <div class="share-link-display-box">
+                <input type="text" id="shareUrlInput" class="share-link-input" readonly value="">
+                <button class="copy-direct-btn" onclick="copyShareLink()">Copy</button>
+            </div>
+
             <div class="share-icons-grid">
                 <a class="share-icon-item" id="shareFb" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
                 <a class="share-icon-item" id="shareWa" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
@@ -432,7 +455,6 @@
                 <a class="share-icon-item" id="shareYt" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-youtube"></i><span>YouTube</span></a>
                 <a class="share-icon-item" id="shareImo" target="_blank" onclick="autoCloseShare()"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></a>
                 <a class="share-icon-item" id="shareGmail" target="_blank" onclick="autoCloseShare()"><i class="fa-solid fa-envelope"></i><span>Gmail</span></a>
-                <div class="share-icon-item" onclick="copyShareLink()"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
             </div>
         </div>
     </div>
@@ -1041,18 +1063,34 @@
             alert(`Connecting to seller regarding: ${title}`);
         }
 
+        /* ডায়নামিক লিংক তৈরি এবং শেয়ার মোডাল ওপেন করার ফাংশন */
         function openShareModal() {
-            const currentUrl = encodeURIComponent(window.location.href);
+            let baseUrl = window.location.href.split('?')[0];
+            
+            // এফিলিয়েট আইডি চেক করা (যেমন URL-এ ?ref=ID বা localStorage থেকে এফিলিয়েট আইডি)
+            const urlParams = new URLSearchParams(window.location.search);
+            let affiliateId = urlParams.get('ref') || localStorage.getItem('rorraxy_affiliate_id');
+            
+            let finalShareUrl = baseUrl;
+            if (affiliateId) {
+                finalShareUrl = `${baseUrl}?ref=${affiliateId}`;
+            }
+
+            // দৃশ্যমান বক্সে লিংক সেট করা
+            document.getElementById('shareUrlInput').value = finalShareUrl;
+
+            // সোশ্যাল মিডিয়া শেয়ার লিংকগুলো আপডেট করা
+            const encodedUrl = encodeURIComponent(finalShareUrl);
             const title = encodeURIComponent("Check out this luxury item on Rorraxy");
             
-            document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
-            document.getElementById('shareWa').href = `https://api.whatsapp.com/send?text=${title}%20-%20${currentUrl}`;
-            document.getElementById('shareTg').href = `https://t.me/share/url?url=${currentUrl}&text=${title}`;
+            document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+            document.getElementById('shareWa').href = `https://api.whatsapp.com/send?text=${title}%20-%20${encodedUrl}`;
+            document.getElementById('shareTg').href = `https://t.me/share/url?url=${encodedUrl}&text=${title}`;
             document.getElementById('shareIg').href = `https://www.instagram.com/`;
             document.getElementById('shareTt').href = `https://www.tiktok.com/`;
             document.getElementById('shareYt').href = `https://www.youtube.com/`;
             document.getElementById('shareImo').href = `imojoin://`;
-            document.getElementById('shareGmail').href = `mailto:?subject=${title}&body=${currentUrl}`;
+            document.getElementById('shareGmail').href = `mailto:?subject=${title}&body=${encodedUrl}`;
 
             document.getElementById('shareModal').style.display = 'flex';
         }
@@ -1065,35 +1103,31 @@
             setTimeout(() => { closeShareModal(); }, 1000);
         }
 
-        /* পারমিশন ছাড়াই সরাসরি লিংক কপি ও উইন্ডো বন্ধ করার ফাংশন */
+        /* দৃশ্যমান বক্স থেকে সরাসরি লিংক কপি ও উইন্ডো বন্ধ করার ফাংশন */
         function copyShareLink() {
-            const shareLink = window.location.href;
+            const inputField = document.getElementById('shareUrlInput');
+            inputField.select();
+            inputField.setSelectionRange(0, 99999); // মোবাইল ডিভাইসের জন্য
+
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(shareLink).then(() => {
-                    alert("Product link copied successfully!");
+                navigator.clipboard.writeText(inputField.value).then(() => {
+                    alert("Link copied successfully!");
                     closeShareModal();
                 }).catch(() => {
-                    fallbackCopyText(shareLink);
+                    fallbackCopyDirect(inputField.value);
                 });
             } else {
-                fallbackCopyText(shareLink);
+                fallbackCopyDirect(inputField.value);
             }
         }
 
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";  // স্ক্রিন স্ক্রল এড়াতে
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+        function fallbackCopyDirect(text) {
             try {
                 document.execCommand('copy');
-                alert("Product link copied successfully!");
+                alert("Link copied successfully!");
             } catch (err) {
                 alert("Failed to copy link.");
             }
-            document.body.removeChild(textArea);
             closeShareModal();
         }
 
