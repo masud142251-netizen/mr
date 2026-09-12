@@ -73,7 +73,7 @@
             display: flex; flex-direction: column; padding: 6px 10px; align-items: center;
             background: var(--header-retail); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212,175,55,0.15);
-            gap: 4px; transition: transform 0.3s ease-in-out, background 0.4s ease;
+            gap: 5px; transition: transform 0.3s ease-in-out, background 0.4s ease;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
@@ -85,16 +85,20 @@
         .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        /* নিচের সারি: আলাদা সাবডোমেইন লিঙ্কযুক্ত বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে */
+        /* নিচের সারি: বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে (লেখাগুলো এখন আরও স্পষ্ট ও বড় করা হয়েছে) */
         .header-bottom-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; gap: 6px; }
-        .header-buttons-group { display: flex; align-items: center; gap: 4px; flex: 1; }
+        .header-buttons-group { display: flex; align-items: center; gap: 5px; flex: 1; }
         
         .portal-btn {
-            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 5px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            font-size: 0.52rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 7px 8px; border-radius: 5px; text-transform: uppercase; cursor: pointer;
             transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
             display: flex; align-items: center; justify-content: center;
         }
+        @media (min-width: 768px) {
+            .portal-btn { font-size: 0.62rem; padding: 8px 10px; }
+        }
+
         /* হোলসেলের বাটনটিকে প্রিমিয়াম গোল্ডেন গ্রেডিয়েন্ট দেওয়া হয়েছে */
         .portal-btn.wholesale-btn { 
             background: var(--gold-gradient); 
@@ -374,7 +378,7 @@
             </div>
         </div>
 
-        <!-- নিচের সারি: সাবডোমেইন লিঙ্কযুক্ত বাটনগুলো (একাডেমি ও সলিউশন আলাদা গিটহাবে লিঙ্ক করা) এবং বড় ঝুড়ি -->
+        <!-- নিচের সারি: বড় ও স্পষ্ট ফন্টযুক্ত বাটনগুলো এবং বড় ঝুড়ি এক লাইনে -->
         <div class="header-bottom-row">
             <div class="header-buttons-group">
                 <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
