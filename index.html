@@ -61,7 +61,8 @@
         }
         body.wholesale-mode .category-fullscreen-view,
         body.wholesale-mode .subdomain-view,
-        body.wholesale-mode #productDetailModal {
+        body.wholesale-mode #productDetailModal,
+        body.wholesale-mode .seamless-iframe-view {
             background: var(--royal-blue-gradient) !important;
         }
         body.wholesale-mode .basket-modal-box {
@@ -207,6 +208,15 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-retail); z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
             transition: background 0.4s ease;
+        }
+
+        /* সাব-ডোমেইনগুলো হোম পেজের ভেতরে সিমলেস লোড করার জন্য বিশেষ ভিউ (Iframe Wrapper) */
+        .seamless-iframe-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-retail); z-index: 6000; overflow: hidden;
+        }
+        .seamless-iframe-view iframe {
+            width: 100%; height: calc(100% - 75px); border: none; background: transparent;
         }
 
         #productDetailModal {
@@ -384,7 +394,7 @@
 
     <!-- হেডার -->
     <header class="app-header" id="mainHeader">
-        <!-- শীর্ষ সারি: শুধুমাত্র লোগো, কোম্পানির নাম এবং পতাকা মাঝখানে -->
+        <!-- শীর্ষ সারি: শুধুমাত্র লোগো, ব্র্যান্ডের নাম এবং পতাকা মাঝখানে -->
         <div class="header-top-bar">
             <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
                 <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" class="brand-logo-img">
@@ -395,7 +405,7 @@
             </div>
         </div>
 
-        <!-- নিচের সারি: বড় বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে -->
+        <!-- নিচের সারি: বাটনগুলো এবং বড় ঝুড়ি আইকন এক লাইনে -->
         <div class="header-bottom-row">
             <div class="header-buttons-group">
                 <a href="https://academy.rorraxy.com" target="_blank" class="portal-btn">Creative Academy</a>
@@ -458,6 +468,15 @@
                 <a class="share-icon-item" id="shareGmail" target="_blank" onclick="autoCloseShare()"><i class="fa-solid fa-envelope"></i><span>Gmail</span></a>
             </div>
         </div>
+    </div>
+
+    <!-- সাব-ডোমেইন সিমলেস ভিউ (আইফ্রেম মোড - হোম পেজের ভেতর সাব-ডোমেইন লোড করার জন্য) -->
+    <div id="seamlessSubdomainView" class="seamless-iframe-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 15px; background:#0c0c0c; border-bottom:1px solid rgba(212,175,55,0.3);">
+            <span id="seamlessTitle" style="font-size:0.85rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Portal</span>
+            <div class="golden-close-btn" style="position:relative; top:0; right:0;" onclick="closeSeamlessView()"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <iframe id="seamlessIframe" src=""></iframe>
     </div>
 
     <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ -->
@@ -588,52 +607,19 @@
         </div>
     </div>
 
-    <!-- একাউন্ট প্যানেল ওভারলে -->
-    <div id="accountView" class="subdomain-view">
-        <div class="basket-modal-box">
-            <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
-            <div style="text-align: center;">
-                <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
-                <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
-                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
-                    <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
-                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
-                    <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
-                    <button class="add-to-cart-btn" style="margin-top: 5px; padding: 9px;" onclick="saveAccountData()">Save Profile</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- সেলার হাব ওভারলে -->
-    <div id="sellerView" class="subdomain-view">
-        <div class="basket-modal-box">
-            <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
-            <div style="text-align:center;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub & Portal</span></div>
-        </div>
-    </div>
-
-    <!-- এফিলিয়েট প্যানেল ওভারলে -->
-    <div id="affiliateView" class="subdomain-view">
-        <div class="basket-modal-box">
-            <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
-            <div style="text-align:center;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Affiliate Program</span></div>
-        </div>
-    </div>
-
-    <!-- ফিক্সড বটম ন্যাভবার -->
+    <!-- ফিক্সড বটম ন্যাভবার (আইফ্রেমের মাধ্যমে হোম পেজের ভেতরে সাব-ডোমেইন লোড করার লজিক যুক্ত) -->
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="toggleSubdomainView('affiliateView')">
+        <div class="nav-item" onclick="openSeamlessSubdomain('https://affiliate.rorraxy.com', 'Affiliate Hub')">
             <i class="fa-solid fa-handshake"></i>
             <span>Affiliate</span>
         </div>
-        <div class="nav-item" onclick="toggleSubdomainView('sellerView')">
+        <div class="nav-item" onclick="openSeamlessSubdomain('https://seller.rorraxy.com', 'Seller Portal')">
             <i class="fa-solid fa-chart-line"></i>
             <span>Seller</span>
         </div>
-        <div class="nav-item" onclick="toggleSubdomainView('accountView')">
+        <div class="nav-item" onclick="openSeamlessSubdomain('https://you.rorraxy.com', 'You Account')">
             <i class="fa-solid fa-user-shield"></i>
-            <span>Account</span>
+            <span>You</span>
         </div>
         <div class="nav-item" onclick="openCategoryView()">
             <i class="fa-solid fa-border-all"></i>
@@ -681,6 +667,21 @@
             isDragging = false;
             dragEl.releasePointerCapture(e.pointerId);
         });
+
+        /* আলাদা রিপোজিটরি সাব-ডোমেইন হোম পেজের ভেতরে সিমলেস লোড করার ফাংশন */
+        function openSeamlessSubdomain(url, title) {
+            document.querySelectorAll('.subdomain-view, .category-fullscreen-view, #productDetailModal, #shareModal').forEach(v => v.style.display = 'none');
+            document.getElementById('searchPopup').style.display = 'none';
+            
+            document.getElementById('seamlessTitle').innerText = title;
+            document.getElementById('seamlessIframe').src = url;
+            document.getElementById('seamlessSubdomainView').style.display = 'block';
+        }
+
+        function closeSeamlessView() {
+            document.getElementById('seamlessSubdomainView').style.display = 'none';
+            document.getElementById('seamlessIframe').src = '';
+        }
 
         /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন (ডিসকাউন্ট হ্যান্ডলিং সহ) */
         function toggleRetailWholesaleMode() {
@@ -808,29 +809,14 @@
         window.onload = function() {
             detectVisitorCountry();
             updateCartBadge();
-            const savedName = localStorage.getItem('rorraxy_user_name');
-            const savedPhone = localStorage.getItem('rorraxy_user_phone');
-            if(savedName) document.getElementById('accName').value = savedName;
-            if(savedPhone) document.getElementById('accPhone').value = savedPhone;
         };
-
-        function toggleSubdomainView(viewId) {
-            const view = document.getElementById(viewId);
-            if (view.style.display === 'block') {
-                view.style.display = 'none';
-            } else {
-                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
-                document.getElementById('searchPopup').style.display = 'none';
-                view.style.display = 'block';
-            }
-        }
 
         function toggleBasketView() {
             const view = document.getElementById('cartView');
             if (view.style.display === 'block') {
                 view.style.display = 'none';
             } else {
-                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view, .seamless-iframe-view').forEach(v => v.style.display = 'none');
                 document.getElementById('searchPopup').style.display = 'none';
                 view.style.display = 'block';
                 renderCartItems();
@@ -946,7 +932,7 @@
             if (view.style.display === 'block') {
                 view.style.display = 'none';
             } else {
-                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view, .seamless-iframe-view').forEach(v => v.style.display = 'none');
                 document.getElementById('searchPopup').style.display = 'none';
                 view.style.display = 'block';
             }
@@ -968,13 +954,6 @@
                 alert(`Searching: "${query}"`);
                 toggleSearchPopup();
             }
-        }
-
-        function saveAccountData() {
-            localStorage.setItem('rorraxy_user_name', document.getElementById('accName').value);
-            localStorage.setItem('rorraxy_user_phone', document.getElementById('accPhone').value);
-            alert("Profile saved successfully!");
-            toggleSubdomainView('accountView');
         }
 
         /* কার্ড এবং মোডালের লাইক সিঙ্ক লজিক */
@@ -1118,7 +1097,7 @@
                     copyBtn.innerText = "Copied!";
                     setTimeout(() => {
                         closeShareModal();
-                    }, 2500); // আড়াই সেকেন্ড (2.5 Seconds) পর উইন্ডো বন্ধ হবে
+                    }, 2500);
                 }).catch(() => {
                     fallbackCopyDirect(inputField.value, copyBtn);
                 });
@@ -1239,12 +1218,7 @@
                 alert("Your basket is empty!");
                 return;
             }
-            const phone = localStorage.getItem('rorraxy_user_phone');
-            if(!phone) {
-                alert("Please update your mobile number in Account first!");
-                toggleSubdomainView('accountView');
-                return;
-            }
+            const phone = localStorage.getItem('rorraxy_user_phone') || "+8801700000000";
             alert("Processing order to Checkout step...");
             window.location.href = `https://out.rorraxy.com/checkout?phone=${encodeURIComponent(phone)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
         }
