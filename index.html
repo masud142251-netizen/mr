@@ -90,7 +90,7 @@
         .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শতভাগ ক্লিন ঝুড়ি আইকন (কোনো প্রকারের শ্যাডো বা এক্সট্রা ইফেক্ট ছাড়া) */
+        /* শতভাগ ক্লিন ঝুড়ি আইকন (শ্যাডো বা ইফেক্ট মুক্ত) */
         .floating-basket-icon-btn {
             position: fixed; bottom: 75px; right: 20px; z-index: 3500; cursor: pointer;
             width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: none; box-shadow: none; filter: none;
@@ -268,7 +268,7 @@
         </div>
     </header>
 
-    <!-- শতভাগ ক্লিন গোল্ডেন ঝুড়ি আইকন (কোনো ইফেক্ট ছাড়া) -->
+    <!-- শতভাগ ক্লিন গোল্ডেন ঝুড়ি আইকন -->
     <div class="floating-basket-icon-btn" onclick="toggleBasketView()" title="Basket">
         <i class="fa-solid fa-basket-shopping"></i>
         <span class="cart-badge-dot" id="floatingCartCount">0</span>
@@ -538,13 +538,15 @@
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         });
 
-        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
+        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন (নন-ব্লকিং সেফ ট্রাই-কচ) */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
-                let data = await response.json();
-                let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
-                document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
+                if(response.ok) {
+                    let data = await response.json();
+                    let countryCode = data.country_code ? data.country_code.toLowerCase() : 'bd';
+                    document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${countryCode}.png`;
+                }
             } catch (error) {
                 document.getElementById('visitorFlagImg').src = 'https://flagcdn.com/w80/bd.png';
             }
@@ -642,7 +644,6 @@
             }
         }
 
-        /* একাধিক এঙ্গেল বা স্টাইলের ছবি সহ প্রোডাক্ট ডিটেইলস ওপেন করা */
         function openProductDetails(title, price, images) {
             document.getElementById('mainDisplayMedia').src = images[0];
             document.getElementById('modalProductPrice').innerText = price;
