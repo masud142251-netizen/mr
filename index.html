@@ -211,7 +211,7 @@
 
         #productDetailModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-retail); z-index: 6000; overflow-y: auto; padding: 10px 10px 80px 10px;
+            background: var(--bg-retail); z-index: 5000; overflow-y: auto; padding: 10px 10px 80px 10px;
         }
         .product-details-content { 
             padding: 4px; max-width: 440px; margin: 25px auto 0 auto; display: flex; flex-direction: column; gap: 8px; 
@@ -231,10 +231,10 @@
         }
         .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শেয়ার পপ-আপ মোডাল */
+        /* শেয়ার পপ-আপ মোডাল (সর্বোচ্চ z-index দিয়ে ওপরের স্তরে রাখা হয়েছে) */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
+            background: rgba(0,0,0,0.85); z-index: 7000; justify-content: center; align-items: center; padding: 12px;
         }
         .share-modal-box {
             background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; width: 100%; max-width: 340px;
@@ -401,13 +401,13 @@
 
     <!-- Pinterest Style Masonry Feed Layout -->
     <main class="feed-container" id="productFeed">
-        <div class="product-card">
+        <div class="product-card" id="card-prod-1">
             <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', ['https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG'])">
                 <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product">
             </div>
             <div class="card-footer-actions">
                 <div class="love-share-group">
-                    <div class="love-action" onclick="toggleLove(this)">
+                    <div class="love-action card-love-btn" onclick="toggleLove(this)">
                         <i class="fa-solid fa-heart"></i> <span class="love-count">142</span>
                     </div>
                     <button class="share-action-btn" onclick="openShareModal()">
@@ -439,7 +439,7 @@
 
     <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ -->
     <div id="productDetailModal">
-        <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
+        <div class="golden-close-btn" onclick="closeProductDetails()">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="product-details-content">
@@ -449,7 +449,7 @@
             </div>
 
             <div class="modal-love-share-row">
-                <div class="love-action" onclick="toggleModalLove(this)">
+                <div class="love-action modal-love-btn" onclick="toggleModalLove(this)">
                     <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
                 </div>
                 <button class="share-action-btn" onclick="openShareModal()">
@@ -497,7 +497,7 @@
     </div>
 
     <!-- ডেসক্রিপশন পপআপ -->
-    <div id="descModal" class="subdomain-view" style="z-index: 6500;">
+    <div id="descModal" class="subdomain-view" style="z-index: 6000;">
         <div class="basket-modal-box">
             <div class="golden-close-btn" onclick="closeDescPopup()"><i class="fa-solid fa-xmark"></i></div>
             <div style="text-align: center;">
@@ -510,7 +510,7 @@
     </div>
 
     <!-- সাইজ ও কাস্টম নোট পপআপ -->
-    <div id="sizeModal" class="subdomain-view" style="z-index: 6500;">
+    <div id="sizeModal" class="subdomain-view" style="z-index: 6000;">
         <div class="basket-modal-box">
             <div class="golden-close-btn" onclick="closeSizePopup()"><i class="fa-solid fa-xmark"></i></div>
             <div style="text-align: center;">
@@ -954,23 +954,52 @@
             toggleSubdomainView('accountView');
         }
 
+        /* কার্ড এবং মোডালের লাইক সিঙ্ক লজিক */
         function toggleLove(element) {
             const countSpan = element.querySelector('.love-count');
             let count = parseInt(countSpan.innerText);
-            if(element.classList.contains('gold-active')) {
-                element.classList.remove('gold-active'); countSpan.innerText = count - 1;
+            let isGold = element.classList.contains('gold-active');
+
+            if(isGold) {
+                element.classList.remove('gold-active');
+                countSpan.innerText = count - 1;
             } else {
-                element.classList.add('gold-active'); countSpan.innerText = count + 1;
+                element.classList.add('gold-active');
+                countSpan.innerText = count + 1;
+            }
+
+            // মোডাল বাটন সিঙ্ক করা
+            const modalBtn = document.querySelector('.modal-love-btn');
+            const modalCountSpan = modalBtn.querySelector('.modal-love-count');
+            modalCountSpan.innerText = countSpan.innerText;
+            if(element.classList.contains('gold-active')) {
+                modalBtn.classList.add('gold-active');
+            } else {
+                modalBtn.classList.remove('gold-active');
             }
         }
 
         function toggleModalLove(element) {
             const countSpan = element.querySelector('.modal-love-count');
             let count = parseInt(countSpan.innerText);
-            if(element.classList.contains('gold-active')) {
-                element.classList.remove('gold-active'); countSpan.innerText = count - 1;
+            let isGold = element.classList.contains('gold-active');
+
+            if(isGold) {
+                element.classList.remove('gold-active');
+                countSpan.innerText = count - 1;
             } else {
-                element.classList.add('gold-active'); countSpan.innerText = count + 1;
+                element.classList.add('gold-active');
+                countSpan.innerText = count + 1;
+            }
+
+            // কার্ড বাটন সিঙ্ক করা
+            const cardBtn = document.querySelector('.card-love-btn');
+            const cardCountSpan = cardBtn.querySelector('.love-count');
+            cardCountSpan.innerText = countSpan.innerText;
+            if(element.classList.contains('gold-active')) {
+                cardBtn.classList.add('gold-active');
+            } else {
+                cardBtn.classList.remove('gold-active');
             }
         }
 
@@ -995,6 +1024,10 @@
             });
             document.getElementById('thumbStrip').innerHTML = thumbHTML;
             document.getElementById('productDetailModal').style.display = 'block';
+        }
+
+        function closeProductDetails() {
+            document.getElementById('productDetailModal').style.display = 'none';
         }
 
         function switchMedia(src, element) {
@@ -1032,24 +1065,36 @@
             setTimeout(() => { closeShareModal(); }, 1000);
         }
 
+        /* পারমিশন ছাড়াই সরাসরি লিংক কপি ও উইন্ডো বন্ধ করার ফাংশন */
         function copyShareLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert("Product link copied successfully!");
-                closeShareModal();
-            }).catch(err => {
-                const textArea = document.createElement("textarea");
-                textArea.value = window.location.href;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
+            const shareLink = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareLink).then(() => {
                     alert("Product link copied successfully!");
-                } catch (e) {
-                    alert("Failed to copy link.");
-                }
-                document.body.removeChild(textArea);
-                closeShareModal();
-            });
+                    closeShareModal();
+                }).catch(() => {
+                    fallbackCopyText(shareLink);
+                });
+            } else {
+                fallbackCopyText(shareLink);
+            }
+        }
+
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // স্ক্রিন স্ক্রল এড়াতে
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert("Product link copied successfully!");
+            } catch (err) {
+                alert("Failed to copy link.");
+            }
+            document.body.removeChild(textArea);
+            closeShareModal();
         }
 
         /* প্লে সফট সাকসেস সাউন্ড (Web Audio API) */
