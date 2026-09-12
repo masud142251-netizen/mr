@@ -26,38 +26,36 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
-        body { padding-top: 60px; padding-bottom: 90px; }
+        body { padding-top: 75px; padding-bottom: 85px; }
 
-        /* হেডার: বড় লোগো, ব্র্যান্ড নেম, পতাকা এবং চারটি বাটন নিখুঁত এক লাইনে */
+        /* হেডার: উপরে লোগো, নাম ও ফ্ল্যাগ, নিচে ৩টি গোছালো বাটন */
         header.app-header {
-            display: flex; align-items: center; justify-content: space-between; padding: 8px 12px;
+            display: flex; flex-direction: column; padding: 6px 12px;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            gap: 6px; transition: transform 0.3s ease-in-out;
+            gap: 5px; transition: transform 0.3s ease-in-out;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
-        .header-left-group { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .logo { width: 36px; height: 36px; object-fit: contain; background: transparent; border: none; }
-        .brand-title-main { font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1.2px; }
+        .header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .header-left-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo { width: 34px; height: 34px; object-fit: contain; background: transparent; border: none; }
+        .brand-title-main { font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
 
-        .header-flag-box { display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .dynamic-flag-img { width: 26px; height: 18px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+        .header-country-flag-box { display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .dynamic-flag-img { width: 24px; height: 16px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        .header-actions-group { display: flex; align-items: center; gap: 4px; }
-        .header-btn {
-            font-size: 0.42rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 5px 6px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
-            transition: 0.2s; white-space: nowrap; text-align: center;
+        /* নিচের ৩টি বাটন */
+        .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; }
+        .portal-btn {
+            font-size: 0.5rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 4px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s; white-space: nowrap; text-align: center; flex: 1;
         }
-        .header-btn.wholesale-hl { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
-        .header-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
+        .portal-btn.wholesale-btn { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
+        .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        @media (min-width: 768px) {
-            .header-btn { font-size: 0.6rem; padding: 6px 12px; }
-        }
-
-        /* প্রোডাক্ট ফিড গ্রিড (মোবাইলে ২ কলাম, বড় স্ক্রিনে বেশি) */
+        /* Pinterest Style Masonry Feed Layout */
         .feed-container {
             padding: 10px 8px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
@@ -79,31 +77,28 @@
         .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); gap: 6px; }
+        .card-footer-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
+        .love-share-group { display: flex; align-items: center; gap: 14px; }
         
-        .love-action { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 0.85rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active { color: var(--gold-solid); }
 
-        .card-add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 800; font-size: 0.55rem; padding: 5px 8px;
-            border-radius: 4px; border: none; text-transform: uppercase; cursor: pointer; box-shadow: 0 2px 8px rgba(212,175,55,0.3);
-            white-space: nowrap; transition: 0.2s;
-        }
-        .card-add-to-cart-btn:hover { opacity: 0.9; transform: scale(1.02); }
+        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ফ্লোটিং ঝুড়ি (ডানপাশের নিচে কর্নারে ফিক্সড) */
-        .floating-cart-btn {
+        /* শুধু প্রিমিয়াম গোল্ডেন ঝুড়ি আইকন (ফ্লোটিং বটম রাইট কর্নার) */
+        .floating-cart-icon-btn {
             position: fixed; bottom: 75px; right: 20px; z-index: 3500; background: var(--gold-gradient);
             width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 6px 25px rgba(212,175,55,0.5); cursor: pointer; border: 2px solid #fff; transition: 0.3s;
+            box-shadow: 0 6px 25px rgba(212,175,55,0.6); cursor: pointer; border: 2px solid #fff; transition: 0.3s;
         }
-        .floating-cart-btn:hover { transform: scale(1.1); }
-        .floating-cart-btn i { font-size: 1.4rem; color: #000; }
-        .cart-badge-count {
-            position: absolute; top: -4px; right: -4px; background: var(--pink-discount); color: #fff;
-            font-size: 0.55rem; font-weight: 900; width: 20px; height: 20px; border-radius: 50%;
+        .floating-cart-icon-btn:hover { transform: scale(1.1); }
+        .floating-cart-icon-btn i { font-size: 1.5rem; color: #000; }
+        .cart-badge-dot {
+            position: absolute; top: -3px; right: -3px; background: var(--pink-discount); color: #fff;
+            font-size: 0.55rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; border: 1.5px solid #000;
         }
 
@@ -119,7 +114,7 @@
             animation: coinFly 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* ওভারলে প্যানেল ও ফুলস্ক্রিন ভিউ */
+        /* এসপিএ ওভারলে ও ফুলস্ক্রিন পপআপ ভিউ */
         .subdomain-view, .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
@@ -133,9 +128,44 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* সার্চ বক্স পপআপ */
+        /* প্রোডাক্ট ডিটেইলস পপ-আপ (ছবি, ডিসকাউন্ট, প্রাইস ও ফিচারসহ) */
+        .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .main-display-media { width: 100%; height: 300px; object-fit: contain; display: block; background: #000; }
+        
+        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
+        .thumb-item { width: 50px; height: 50px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-item.active { border-color: var(--gold-solid); }
+
+        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 8px 0; background: #0c0c0c; border-radius: 6px; }
+
+        .free-shipping-tax-banner {
+            font-size: 0.62rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; text-align: center; letter-spacing: 0.8px; padding: 1px 0;
+        }
+
+        .product-title-line { font-size: 0.8rem; font-weight: 900; color: #ffffff; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; letter-spacing: 1px; }
+
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: #111111; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .price-and-offer { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: space-between; }
+        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
+        
+        .discount-badge-btn {
+            background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 5px 10px;
+            border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 5px;
+        }
+        .discount-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; }
+
+        .add-to-cart-btn {
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.68rem; padding: 10px;
+            border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+        }
+
+        /* সার্চ পপআপ */
         .search-popup-box {
-            display: none; position: fixed; top: 70px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
+            display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
             background: rgba(10, 10, 10, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
@@ -186,42 +216,84 @@
 </head>
 <body>
 
-    <!-- হেডার: বড় লোগো, ব্র্যান্ড নেম, পতাকা এবং ৪টি বাটন নিখুঁত এক লাইনে -->
+    <!-- রিফাইন্ড হেডার: উপরে লোগো, নাম ও ফ্ল্যাগ, নিচে ৩টি গোছালো বাটন -->
     <header class="app-header" id="mainHeader">
-        <div class="header-left-group" onclick="location.href='https://rorraxy.com'">
-            <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
-            <span class="brand-title-main">RORRAXY</span>
-            <div class="header-flag-box" id="visitorCountryBox" title="Visitor Country Flag">
+        <div class="header-top-row">
+            <div class="header-left-box" onclick="location.href='https://rorraxy.com'">
+                <img src="https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT" alt="Logo" class="logo">
+                <span class="brand-title-main">RORRAXY</span>
+            </div>
+
+            <div class="header-country-flag-box" id="visitorCountryBox" title="Visitor Country Flag">
                 <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
             </div>
         </div>
 
-        <div class="header-actions-group">
-            <button class="header-btn wholesale-hl" onclick="location.href='https://wholesale.rorraxy.com'">Wholesale</button>
-            <button class="header-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B/B2C</button>
-            <button class="header-btn" onclick="location.href='https://solutions.rorraxy.com'">Solution</button>
-            <button class="header-btn" onclick="location.href='https://academy.rorraxy.com'">Creative</button>
+        <div class="header-bottom-row">
+            <button class="portal-btn wholesale-btn" onclick="location.href='https://wholesale.rorraxy.com'">Wholesale</button>
+            <button class="portal-btn" onclick="location.href='https://b2b.rorraxy.com'">B2B/B2C Solution</button>
+            <button class="portal-btn" onclick="location.href='https://academy.rorraxy.com'">Creative Academy</button>
         </div>
     </header>
 
-    <!-- ফ্লোটিং ঝুড়ি (ডানপাশের নিচে কর্নারে ফিক্সড) -->
-    <div class="floating-cart-btn" onclick="toggleSubdomainView('cartView')" title="Luxury Basket">
+    <!-- ফ্লোটিং প্রিমিয়াম ঝুড়ি আইকন (Bottom-Right Floating Cart) -->
+    <div class="floating-cart-icon-btn" onclick="toggleSubdomainView('cartView')" title="Luxury Basket">
         <i class="fa-solid fa-basket-shopping"></i>
-        <span class="cart-badge-count" id="floatingCartCount">0</span>
+        <span class="cart-badge-dot" id="floatingCartCount">0</span>
     </div>
 
-    <!-- প্রোডাক্ট ফিড -->
+    <!-- Pinterest Style Masonry Feed (কার্ডে ক্লিক করলে পপ-আপ ইমেজ ও ডিটেইলস দেখাবে) -->
     <main class="feed-container" id="productFeed">
         <div class="product-card">
-            <div class="product-media-box"><img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product"></div>
+            <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1s34xHuxCBJ7fyKLgb8mvUdHGp7GF_uuT')">
+                <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product">
+            </div>
             <div class="card-footer-actions">
-                <div class="love-action" onclick="toggleLove(this)">
-                    <i class="fa-solid fa-heart"></i> <span class="love-count">142</span>
+                <div class="love-share-group">
+                    <div class="love-action" onclick="toggleLove(this)">
+                        <i class="fa-solid fa-heart"></i> <span class="love-count">142</span>
+                    </div>
+                    <button class="share-action-btn" onclick="openShareModal()">
+                        <i class="fa-solid fa-share-nodes"></i> Share
+                    </button>
                 </div>
-                <button class="card-add-to-cart-btn" onclick="triggerCoinAnimation(event, 'PREMIUM BRACELET', '$100.00', 'https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW')">Add to Cart</button>
             </div>
         </div>
     </main>
+
+    <!-- প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ (ক্লিক করলে ওপেন হবে) -->
+    <div id="productDetailModal" class="category-fullscreen-view" style="z-index: 5000;">
+        <div class="golden-close-btn" onclick="toggleCategoryView('productDetailModal')">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="product-details-content" style="margin-top: 35px;">
+            <div class="media-slider-container">
+                <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
+                <div class="thumbnail-strip" id="thumbStrip"></div>
+            </div>
+            <div class="modal-love-share-row">
+                <div class="love-action" onclick="toggleModalLove(this)">
+                    <i class="fa-solid fa-heart"></i> <span class="modal-love-count">142</span>
+                </div>
+                <button class="share-action-btn" onclick="openShareModal()">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            </div>
+            <div class="free-shipping-tax-banner">Free Shipping & Tax Inclusive</div>
+            <div class="price-chat-row">
+                <div class="price-and-offer">
+                    <span class="detail-price" id="modalProductPrice">$100.00</span>
+                    <button class="discount-badge-btn">
+                        <img id="modalDiscountFlag" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="discount-flag-img">
+                        <span>5% OFF</span>
+                    </button>
+                </div>
+            </div>
+            <div class="product-title-line" id="modalProductTitle">PREMIUM BRACELET</div>
+            <!-- অ্যাড টু কার্ড উইথ কয়েন অ্যানিমেশন -->
+            <button class="add-to-cart-btn" onclick="triggerCoinAnimation(event)">Add To Cart</button>
+        </div>
+    </div>
 
     <!-- লাক্সারি ঝুড়ি (Cart View - শুধুমাত্র যোগ করা প্রোডাক্ট থাকবে) -->
     <div id="cartView" class="subdomain-view">
@@ -231,12 +303,11 @@
             <div id="cartItemsContainer" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
                 <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
             </div>
-            <!-- Process to Order বাটন -->
-            <button class="card-add-to-cart-btn" style="margin-top: 25px; padding: 12px; font-size: 0.75rem; width: 100%;" onclick="proceedToOrder()">Process to Order</button>
+            <button class="add-to-cart-btn" style="margin-top: 25px; padding: 12px; font-size: 0.75rem;" onclick="proceedToOrder()">Process to Order</button>
         </div>
     </div>
 
-    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে (কোনো ক্যাটাগরি মিসিং নেই) -->
+    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে (টগিল সিস্টেম: ক্লিক করলে আসবে, আবার ক্লিক করলে বন্ধ হবে) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
@@ -345,29 +416,29 @@
         </div>
     </div>
 
-    <!-- অ্যাকাউন্ট, সেলার ও এফিলিয়েট প্যানেল ওভারলে -->
+    <!-- একাউন্ট, সেলার ও এফিলিয়েট প্যানেল ওভারলে -->
     <div id="accountView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="max-width: 350px; margin: 40px auto; padding: 15px; text-align: center;">
-            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Account Profile</span>
+            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
             <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
                 <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
                 <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
                 <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
                 <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
-                <button class="card-add-to-cart-btn" style="margin-top: 5px; padding: 8px;" onclick="saveAccountData()">Save Profile</button>
+                <button class="add-to-cart-btn" style="margin-top: 5px; padding: 8px;" onclick="saveAccountData()">Save Profile</button>
             </div>
         </div>
     </div>
 
     <div id="sellerView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Seller Hub</span></div>
+        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub</span></div>
     </div>
 
     <div id="affiliateView" class="subdomain-view">
         <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Affiliate Program</span></div>
+        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Affiliate Program</span></div>
     </div>
 
     <!-- বটম ন্যাভবার -->
@@ -395,7 +466,7 @@
     </nav>
 
     <script>
-        /* অটো-হাইড হেডার অন স্ক্রোল লজিক */
+        /* অটো-হাইড হেডার অন স্ক্রোল */
         let lastScrollTop = 0;
         const header = document.getElementById('mainHeader');
         window.addEventListener('scroll', function() {
@@ -408,7 +479,7 @@
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         });
 
-        /* কান্ট্রি ও ট্র্যাকিং ফ্ল্যাগ অটো ডিটেকশন */
+        /* কান্ট্রি ও ফ্ল্যাগ ডিটেকশন */
         async function detectVisitorCountry() {
             try {
                 let response = await fetch('https://ipapi.co/json/');
@@ -445,6 +516,7 @@
             }
         }
 
+        /* ক্যাটাগরি টগিল সিস্টেম (ক্লিক করলে ওপেন, আবার ক্লিক করলে ক্লোজ) */
         function toggleCategoryView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -491,8 +563,41 @@
             }
         }
 
+        function toggleModalLove(element) {
+            const countSpan = element.querySelector('.modal-love-count');
+            let count = parseInt(countSpan.innerText);
+            if(element.classList.contains('gold-active')) {
+                element.classList.remove('gold-active'); countSpan.innerText = count - 1;
+            } else {
+                element.classList.add('gold-active'); countSpan.innerText = count + 1;
+            }
+        }
+
+        /* প্রোডাক্ট কার্ডে ক্লিক করলে ইমেজ ও ডিটেইলস পপ-আপ ওপেন হবে */
+        function openProductDetails(title, price, mainImg, logoImg) {
+            document.getElementById('mainDisplayMedia').src = mainImg;
+            document.getElementById('modalProductPrice').innerText = price;
+            document.getElementById('modalProductTitle').innerText = title;
+            document.getElementById('thumbStrip').innerHTML = `
+                <div class="thumb-item active" onclick="switchMedia('${mainImg}', this)"><img src="${mainImg}"></div>
+                <div class="thumb-item" onclick="switchMedia('${logoImg}', this)"><img src="${logoImg}"></div>
+            `;
+            document.getElementById('productDetailModal').style.display = 'block';
+        }
+
+        function switchMedia(src, element) {
+            document.getElementById('mainDisplayMedia').src = src;
+            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function openShareModal() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Product link copied to clipboard!");
+        }
+
         /* কয়েন ফ্লাইং অ্যানিমেশন ও কার্টে প্রোডাক্ট যুক্ত করা */
-        function triggerCoinAnimation(event, title, price, img) {
+        function triggerCoinAnimation(event) {
             const btnRect = event.target.getBoundingClientRect();
             const coin = document.createElement('div');
             coin.className = 'flying-coin';
@@ -502,10 +607,15 @@
 
             setTimeout(() => { coin.remove(); }, 800);
 
+            const title = document.getElementById('modalProductTitle').innerText;
+            const price = document.getElementById('modalProductPrice').innerText;
+            const img = document.getElementById('mainDisplayMedia').src;
+
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
             cart.push({ title, price, img });
             localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
             updateCartBadge();
+            toggleCategoryView('productDetailModal');
         }
 
         function updateCartBadge() {
@@ -518,7 +628,7 @@
             let container = document.getElementById('cartItemsContainer');
             container.innerHTML = '';
             if(cart.length === 0) {
-                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Your basket is empty.</p>';
+                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Your luxury basket is empty.</p>';
                 return;
             }
             cart.forEach((item, index) => {
