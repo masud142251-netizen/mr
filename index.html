@@ -13,49 +13,36 @@
 
     <style>
         :root {
-            --bg-black: #000000;
-            --card-bg: #111111;
+            /* প্রিমিয়াম উইন্ডোজ রয়্যাল ব্লু গ্রেডিয়েন্ট থিম (উভয় মোডের জন্য পরিমার্জিত) */
+            --royal-blue-gradient: radial-gradient(circle at center, #1856c8 0%, #0b3fa8 50%, #031d5c 100%);
+            --card-bg: rgba(11, 45, 110, 0.45);
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --pink-love: #ff2a85;
             --pink-discount: #ff2a85;
             --text-white: #ffffff;
-            --text-gray: #b0b0b0;
+            --text-gray: #cfd8dc;
             --font-main: 'Poppins', sans-serif;
         }
 
-        /* উইন্ডোজ ১১ রয়্যাল ব্লু কালার থিম (হোলসেল মোড) */
-        body.wholesale-mode {
-            background: linear-gradient(135deg, #022b7a, #0b4fbc, #106ece) !important;
+        /* সম্পূর্ণ পেজের ব্যাকগ্রাউন্ড প্রিমিয়াম ব্লু-গ্রেডিয়েন্ট */
+        html, body { 
+            width: 100%; max-width: 100%; overflow-x: hidden; 
+            background: var(--royal-blue-gradient) !important; 
+            background-attachment: fixed !important;
+            color: var(--text-white); font-family: var(--font-main); 
+            min-height: 100vh; 
         }
-        body.wholesale-mode .product-card {
-            background: rgba(11, 79, 188, 0.25) !important;
-            border-color: rgba(212, 175, 55, 0.35) !important;
-        }
-        body.wholesale-mode header.app-header {
-            background: rgba(2, 43, 122, 0.98) !important;
-            border-bottom: none !important;
-        }
-        body.wholesale-mode nav.bottom-nav {
-            background: rgba(2, 43, 122, 0.98) !important;
-            border-top: none !important;
-        }
-        body.wholesale-mode .category-fullscreen-view,
-        body.wholesale-mode .subdomain-view,
-        body.wholesale-mode #productDetailModal {
-            background: linear-gradient(135deg, #022b7a, #0b4fbc, #106ece) !important;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); transition: background 0.4s ease; min-height: 100vh; }
         body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* হেডার: বর্ডার লাইন বা দাড়ি সম্পূর্ণ রিমুভ করা হয়েছে */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        /* হেডার: কোনো ডিভাইডার লাইন বা দাড়ি নেই, প্রিমিয়াম ব্লু ব্যাকগ্রাউন্ড */
         header.app-header {
-            display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
-            background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
+            display: flex; flex-direction: column; padding: 8px 12px; align-items: center;
+            background: rgba(3, 29, 92, 0.95); position: fixed; top: 0; left: 0; z-index: 1000;
             backdrop-filter: blur(15px); width: 100%; border-bottom: none;
-            gap: 6px; transition: transform 0.3s ease-in-out, background 0.4s ease;
+            gap: 6px; transition: transform 0.3s ease-in-out;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
@@ -66,65 +53,66 @@
 
         .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; max-width: 600px; }
         .portal-btn {
-            font-size: 0.48rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
-            color: var(--text-white); padding: 5px 8px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
+            font-size: 0.52rem; font-weight: 700; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-white); padding: 6px 10px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
         }
         .portal-btn.wholesale-btn { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
         @media (min-width: 768px) {
-            .portal-btn { font-size: 0.65rem; padding: 6px 14px; }
+            .portal-btn { font-size: 0.7rem; padding: 8px 14px; }
             .brand-title-main { font-size: 1.2rem; }
             .brand-logo-img { width: 38px; height: 38px; }
         }
 
         /* Pinterest Style Masonry Feed Layout */
         .feed-container {
-            padding: 10px 8px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; max-width: 1400px; margin: 0 auto;
+            padding: 12px 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 768px) { .feed-container { grid-template-columns: repeat(3, 1fr); padding: 15px; gap: 14px; } }
-        @media (min-width: 1024px) { .feed-container { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+        @media (min-width: 768px) { .feed-container { grid-template-columns: repeat(3, 1fr); padding: 20px; gap: 16px; } }
+        @media (min-width: 1024px) { .feed-container { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
 
         .product-card {
             background: var(--card-bg); border-radius: 12px; overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.85); display: flex; flex-direction: column; transition: 0.3s; position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4); display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(10px);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold-gradient); opacity: 0.8;
+            background: var(--gold-gradient); opacity: 0.9;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.6); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; aspect-ratio: 1/1; }
         .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 10px; background: rgba(3, 21, 64, 0.85); }
         .love-share-group { display: flex; align-items: center; gap: 20px; justify-content: center; width: 100%; }
         
-        .love-action { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 700; color: var(--pink-love); }
-        .love-action i { font-size: 0.9rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .love-action { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
+        .love-action i { font-size: 0.95rem; background: var(--pink-love); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .love-action.gold-active { color: var(--gold-solid); }
 
-        .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-action-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* শতভাগ ক্লিন ঝুড়ি আইকন */
         .floating-basket-icon-btn {
-            position: fixed; bottom: 75px; right: 20px; z-index: 3500; cursor: pointer;
-            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: none; box-shadow: none; filter: none;
+            position: fixed; bottom: 80px; right: 20px; z-index: 3500; cursor: pointer;
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: none; box-shadow: none; filter: none;
         }
         .floating-basket-icon-btn:hover { transform: scale(1.1); }
         .floating-basket-icon-btn i {
-            font-size: 2rem; background: var(--gold-gradient);
+            font-size: 2.2rem; background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .cart-badge-dot {
             position: absolute; top: -2px; right: -2px; background: var(--pink-discount); color: #fff;
-            font-size: 0.5rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%;
+            font-size: 0.55rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; border: 1.5px solid #000;
         }
 
@@ -140,16 +128,16 @@
             animation: coinFly 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* ওভারলে প্যানেল ও ফুলস্ক্রিন পপআপ ভিউ */
+        /* ওভারলে প্যানেল ও ফুলস্ক্রিন পপআপ ভিউ (উইন্ডোজ রয়্যাল ব্লু ব্যাকগ্রাউন্ড) */
         .subdomain-view, .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
+            background: var(--royal-blue-gradient) !important; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
         }
 
         .basket-modal-box {
-            background: #0c0c0c; border: 1px solid rgba(212,175,55,0.35); border-radius: 14px;
+            background: rgba(3, 21, 64, 0.92); border: 1px solid rgba(212,175,55,0.4); border-radius: 14px;
             width: 100%; max-width: 460px; margin: 60px auto; padding: 20px; position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
         }
         
         .golden-close-btn {
@@ -185,39 +173,39 @@
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .main-display-media { width: 100%; height: 280px; object-fit: contain; display: block; background: #000; }
         
-        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
+        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: rgba(3, 21, 64, 0.9); overflow-x: auto; }
         .thumb-item { width: 45px; height: 45px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; background: transparent; }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; background: transparent; }
         .thumb-item.active { border-color: var(--gold-solid); }
 
-        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 6px 0; background: #0c0c0c; border-radius: 6px; }
+        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 6px 0; background: rgba(3, 21, 64, 0.9); border-radius: 6px; }
 
         /* প্রাইস, ডিসকাউন্ট এবং চ্যাট উইথ সেলার বাটন রো */
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .detail-price { font-size: 1.1rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: rgba(3, 21, 64, 0.85); padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .detail-price { font-size: 1.15rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
         
         .discount-badge-btn {
-            background: var(--pink-discount); color: #fff; font-size: 0.55rem; font-weight: 800; padding: 5px 8px;
+            background: var(--pink-discount); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 6px 9px;
             border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;
         }
         .discount-flag-img { width: 16px; height: 11px; object-fit: cover; border-radius: 2px; }
 
         .chat-with-seller-btn {
-            background: var(--gold-gradient); color: #000; font-size: 0.58rem; font-weight: 800; padding: 6px 10px;
+            background: var(--gold-gradient); color: #000; font-size: 0.6rem; font-weight: 800; padding: 7px 12px;
             border-radius: 5px; border: none; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: 0.3s;
         }
         .chat-with-seller-btn:hover { opacity: 0.9; }
 
         /* প্রোডাক্ট টাইটেল প্রাইসের ঠিক নিচে */
-        .product-title-bottom { font-size: 0.85rem; font-weight: 900; color: #ffffff; text-transform: uppercase; text-align: center; letter-spacing: 1px; }
+        .product-title-bottom { font-size: 0.9rem; font-weight: 900; color: #ffffff; text-transform: uppercase; text-align: center; letter-spacing: 1px; }
 
         /* ডেসক্রিপশন ও সাইজ বাটন রো */
         .desc-size-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
         .extra-action-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.3); color: #fff;
-            font-size: 0.6rem; font-weight: 700; padding: 8px; border-radius: 6px; cursor: pointer; text-align: center; text-transform: uppercase;
+            background: rgba(3, 21, 64, 0.8); border: 1px solid rgba(212,175,55,0.3); color: #fff;
+            font-size: 0.65rem; font-weight: 700; padding: 9px; border-radius: 6px; cursor: pointer; text-align: center; text-transform: uppercase;
         }
-        .extra-action-btn:hover { border-color: var(--gold-solid); background: #222; }
+        .extra-action-btn:hover { border-color: var(--gold-solid); background: rgba(11, 79, 188, 0.5); }
 
         /* কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন স্টাইল */
         .quantity-tier-container { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
@@ -226,25 +214,25 @@
         .wholesale-mode-active .wholesale-tiers-row { display: grid; grid-template-columns: repeat(2, 1fr); }
         
         .tier-btn {
-            background: #161616; border: 1px solid rgba(212,175,55,0.3); color: #fff;
-            font-size: 0.5rem; font-weight: 700; padding: 6px 4px; border-radius: 6px; cursor: pointer; text-align: center; transition: 0.3s;
+            background: rgba(3, 21, 64, 0.8); border: 1px solid rgba(212,175,55,0.3); color: #fff;
+            font-size: 0.55rem; font-weight: 700; padding: 7px 5px; border-radius: 6px; cursor: pointer; text-align: center; transition: 0.3s;
         }
         .tier-btn.active, .tier-btn:hover { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
 
         .quantity-row { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .quantity-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: var(--gold-solid); text-align: center; }
+        .quantity-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--gold-solid); text-align: center; }
         
-        .qty-box { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; }
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 18px; width: 100%; }
         .qty-btn { 
-            background: var(--gold-gradient); border: none; color: #000; font-size: 1.1rem; font-weight: 900; 
-            cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            background: var(--gold-gradient); border: none; color: #000; font-size: 1.2rem; font-weight: 900; 
+            cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
             box-shadow: 0 4px 12px rgba(212,175,55,0.4); transition: 0.2s; 
         }
         .qty-btn:hover { transform: scale(1.1); }
-        .qty-display { font-size: 1rem; font-weight: 900; color: #fff; min-width: 35px; text-align: center; }
+        .qty-display { font-size: 1.05rem; font-weight: 900; color: #fff; min-width: 40px; text-align: center; }
 
         .add-to-cart-btn {
-            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.75rem; padding: 12px;
+            background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.78rem; padding: 13px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
             box-shadow: 0 4px 15px rgba(212,175,55,0.3); margin-top: 4px;
         }
@@ -252,11 +240,12 @@
         /* সার্চ পপআপ ও অন্যান্য প্যানেল */
         .search-popup-box {
             display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
-            background: rgba(10, 10, 10, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
+            background: rgba(3, 21, 64, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
+            border: 1px solid rgba(212,175,55,0.3);
         }
         .search-input-field-box {
-            display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.3);
+            display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3);
             border-radius: 30px; padding: 6px 14px; gap: 10px;
         }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
@@ -265,7 +254,7 @@
         .category-section { padding: 14px 8px; }
         .category-header-row { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 12px; padding: 0 4px; }
         .category-title { 
-            font-size: 0.85rem; font-weight: 800; 
+            font-size: 0.9rem; font-weight: 800; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             text-transform: uppercase; letter-spacing: 1px; 
         }
@@ -275,29 +264,28 @@
         @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; } }
 
         .app-card {
-            background: #131315; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(3, 21, 64, 0.75); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);
             padding: 14px 10px; display: flex; align-items: center; text-align: left;
             cursor: pointer; transition: all 0.3s ease-in-out; gap: 12px; min-height: 70px;
         }
-        .app-card:hover { transform: translateY(-2px); background: #1a1a1e; border-color: rgba(212, 175, 55, 0.3); }
+        .app-card:hover { transform: translateY(-2px); background: rgba(11, 79, 188, 0.5); border-color: rgba(212, 175, 55, 0.5); }
         .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
+        .app-card-name { font-size: 0.7rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
-        /* ফিক্সড বটম ন্যাভবার: বর্ডার লাইন সম্পূর্ণ রিমুভ */
+        /* ফিক্সড বটম ন্যাভবার: টেক্সট সাইজ বড়, স্পষ্ট ও দৃশ্যমান করা হয়েছে */
         nav.bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(3, 29, 92, 0.98);
+            display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
             z-index: 5000; border-top: none; backdrop-filter: blur(15px);
-            transition: background 0.4s ease;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: var(--text-gray); font-size: 0.45rem; font-weight: 600; cursor: pointer; text-align: center; gap: 2px; flex: 1;
+            color: var(--text-gray); font-size: 0.6rem; font-weight: 700; cursor: pointer; text-align: center; gap: 3px; flex: 1;
             transition: 0.3s;
         }
-        .nav-item i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item i { font-size: 1.15rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active, .nav-item:hover { color: var(--gold-solid); transform: translateY(-2px); }
-        .nav-item span { text-transform: uppercase; letter-spacing: 0.3px; }
+        .nav-item span { text-transform: uppercase; letter-spacing: 0.4px; }
     </style>
 </head>
 <body id="mainBody">
@@ -428,7 +416,7 @@
             <div class="golden-close-btn" onclick="closeDescPopup()"><i class="fa-solid fa-xmark"></i></div>
             <div style="text-align: center;">
                 <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Product Description</span>
-                <p style="font-size: 0.65rem; color: var(--text-gray); margin-top: 15px; text-align: left; line-height: 1.6;">
+                <p style="font-size: 0.7rem; color: var(--text-gray); margin-top: 15px; text-align: left; line-height: 1.6;">
                     Crafted with precision using high-grade Gamar wood and premium luxury finishes. Designed for durability, elegance, and global export standards. Free shipping and tax inclusive worldwide.
                 </p>
             </div>
@@ -442,15 +430,15 @@
             <div style="text-align: center;">
                 <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Size & Custom Request</span>
                 <div style="margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
-                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Select Size / Variant</label>
-                    <select id="productSizeSelect" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Select Size / Variant</label>
+                    <select id="productSizeSelect" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
                         <option value="Standard">Standard Size</option>
                         <option value="Large">Large Size</option>
                         <option value="Custom">Custom Specification</option>
                     </select>
-                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase; margin-top: 5px;">Edit / Other Instructions</label>
-                    <textarea id="customSizeNote" placeholder="Write any specific instruction or custom note here..." style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none; height:70px; resize:none;"></textarea>
-                    <button class="add-to-cart-btn" style="margin-top: 10px; padding: 8px; font-size: 0.65rem;" onclick="saveCustomSize()">Apply & Save</button>
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase; margin-top: 5px;">Edit / Other Instructions</label>
+                    <textarea id="customSizeNote" placeholder="Write any specific instruction or custom note here..." style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none; height:70px; resize:none;"></textarea>
+                    <button class="add-to-cart-btn" style="margin-top: 10px; padding: 9px; font-size: 0.7rem;" onclick="saveCustomSize()">Apply & Save</button>
                 </div>
             </div>
         </div>
@@ -465,12 +453,12 @@
                 <div id="cartItemsContainer" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
                     <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
                 </div>
-                <button class="add-to-cart-btn" style="margin-top: 20px; padding: 10px; font-size: 0.7rem;" onclick="proceedToOrder()">Process to Order</button>
+                <button class="add-to-cart-btn" style="margin-top: 20px; padding: 10px; font-size: 0.75rem;" onclick="proceedToOrder()">Process to Order</button>
             </div>
         </div>
     </div>
 
-    <!-- ক্যাটাগরি ওভারলে (ডায়নামিক খুচরা ও পাইকারি ক্যাটাগরি ফিল্টার) -->
+    <!-- ক্যাটাগরি ওভারলে -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
@@ -478,7 +466,7 @@
         </div>
 
         <div id="dynamicCategoryContent">
-            <!-- খুচরা বা পাইকারি মোড অনুযায়ী ক্যাটাগরি লিস্ট রেন্ডার হবে -->
+            <!-- ক্যাটাগরি কনটেন্ট ডায়নামিকালি লোড হবে -->
         </div>
     </div>
 
@@ -497,12 +485,12 @@
             <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
             <div style="text-align: center;">
                 <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
-                <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
-                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
-                    <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
-                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
-                    <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
-                    <button class="add-to-cart-btn" style="margin-top: 5px; padding: 8px;" onclick="saveAccountData()">Save Profile</button>
+                <div style="background: rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
+                    <input type="text" id="accName" value="Masudar Rahman" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                    <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
+                    <input type="tel" id="accPhone" value="+8801700000000" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                    <button class="add-to-cart-btn" style="margin-top: 5px; padding: 9px;" onclick="saveAccountData()">Save Profile</button>
                 </div>
             </div>
         </div>
@@ -880,19 +868,19 @@
             let container = document.getElementById('cartItemsContainer');
             container.innerHTML = '';
             if(cart.length === 0) {
-                container.innerHTML = '<p style="font-size:0.65rem; color:var(--text-gray);">Basket is empty.</p>';
+                container.innerHTML = '<p style="font-size:0.7rem; color:var(--text-gray);">Basket is empty.</p>';
                 return;
             }
             cart.forEach((item, index) => {
                 container.innerHTML += `
-                    <div style="display:flex; align-items:center; justify-content:space-between; background:#121212; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.5); border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
                         <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                         <div style="text-align:left; flex:1; margin-left:10px;">
-                            <p style="font-size:0.6rem; font-weight:700; color:#fff;">${item.title} (${item.modeType})</p>
-                            <p style="font-size:0.55rem; color:var(--text-gray);">Qty: ${item.qty} | Size: ${item.sizeInfo || 'Standard'}</p>
-                            <p style="font-size:0.55rem; color:var(--gold-solid);">${item.price}</p>
+                            <p style="font-size:0.65rem; font-weight:700; color:#fff;">${item.title} (${item.modeType})</p>
+                            <p style="font-size:0.6rem; color:var(--text-gray);">Qty: ${item.qty} | Size: ${item.sizeInfo || 'Standard'}</p>
+                            <p style="font-size:0.6rem; color:var(--gold-solid);">${item.price}</p>
                         </div>
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--pink-discount); font-size:0.8rem; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--pink-discount); font-size:0.9rem; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
             });
