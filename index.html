@@ -13,36 +13,70 @@
 
     <style>
         :root {
-            /* প্রিমিয়াম উইন্ডোজ রয়্যাল ব্লু গ্রেডিয়েন্ট থিম (উভয় মোডের জন্য পরিমার্জিত) */
+            /* খুচরা (Retail) মোডের জন্য প্রিমিয়াম ব্ল্যাক থিম */
+            --bg-retail: #000000;
+            --card-retail: #111111;
+            --header-retail: rgba(12, 12, 12, 0.95);
+            --footer-retail: rgba(12, 12, 12, 0.95);
+
+            /* পাইকারি (Wholesale) মোডের জন্য প্রিমিয়াম রয়্যাল ব্লু গ্রেডিয়েন্ট থিম */
             --royal-blue-gradient: radial-gradient(circle at center, #1856c8 0%, #0b3fa8 50%, #031d5c 100%);
-            --card-bg: rgba(11, 45, 110, 0.45);
+            --card-wholesale: rgba(11, 45, 110, 0.45);
+            --header-wholesale: rgba(3, 29, 92, 0.95);
+            --footer-wholesale: rgba(3, 29, 92, 0.98);
+
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --pink-love: #ff2a85;
             --pink-discount: #ff2a85;
             --text-white: #ffffff;
-            --text-gray: #cfd8dc;
+            --text-gray: #b0b0b0;
             --font-main: 'Poppins', sans-serif;
         }
 
-        /* সম্পূর্ণ পেজের ব্যাকগ্রাউন্ড প্রিমিয়াম ব্লু-গ্রেডিয়েন্ট */
+        /* ডিফল্ট রিটেইল মোড (সম্পূর্ণ ব্ল্যাক ও লাক্সারি লুক) */
         html, body { 
             width: 100%; max-width: 100%; overflow-x: hidden; 
-            background: var(--royal-blue-gradient) !important; 
-            background-attachment: fixed !important;
+            background: var(--bg-retail) !important; 
             color: var(--text-white); font-family: var(--font-main); 
             min-height: 100vh; 
+            transition: background 0.4s ease;
         }
         body { padding-top: 75px; padding-bottom: 90px; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        /* হেডার: কোনো ডিভাইডার লাইন বা দাড়ি নেই, প্রিমিয়াম ব্লু ব্যাকগ্রাউন্ড */
+        /* হোলসেল মোড অ্যাক্টিভেটেড স্টাইল */
+        body.wholesale-mode {
+            background: var(--royal-blue-gradient) !important;
+            background-attachment: fixed !important;
+        }
+        body.wholesale-mode .product-card {
+            background: var(--card-wholesale) !important;
+            border-color: rgba(212, 175, 55, 0.35) !important;
+            backdrop-filter: blur(10px);
+        }
+        body.wholesale-mode header.app-header {
+            background: var(--header-wholesale) !important;
+        }
+        body.wholesale-mode nav.bottom-nav {
+            background: var(--footer-wholesale) !important;
+        }
+        body.wholesale-mode .category-fullscreen-view,
+        body.wholesale-mode .subdomain-view,
+        body.wholesale-mode #productDetailModal {
+            background: var(--royal-blue-gradient) !important;
+        }
+        body.wholesale-mode .basket-modal-box {
+            background: rgba(3, 21, 64, 0.92) !important;
+        }
+
+        /* হেডার: খুচরায় হালকা ডার্ক টোন, পাইকারিতে ব্লু */
         header.app-header {
             display: flex; flex-direction: column; padding: 8px 12px; align-items: center;
-            background: rgba(3, 29, 92, 0.95); position: fixed; top: 0; left: 0; z-index: 1000;
-            backdrop-filter: blur(15px); width: 100%; border-bottom: none;
-            gap: 6px; transition: transform 0.3s ease-in-out;
+            background: var(--header-retail); position: fixed; top: 0; left: 0; z-index: 1000;
+            backdrop-filter: blur(15px); width: 100%; border-bottom: 1px solid rgba(212,175,55,0.15);
+            gap: 6px; transition: transform 0.3s ease-in-out, background 0.4s ease;
         }
         header.app-header.hidden { transform: translateY(-100%); }
 
@@ -53,7 +87,7 @@
 
         .header-bottom-row { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; max-width: 600px; }
         .portal-btn {
-            font-size: 0.52rem; font-weight: 700; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(212,175,55,0.3);
+            font-size: 0.52rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
             color: var(--text-white); padding: 6px 10px; border-radius: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.3s; white-space: nowrap; text-align: center; flex: 1; text-decoration: none;
         }
@@ -74,22 +108,21 @@
         @media (min-width: 1024px) { .feed-container { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
 
         .product-card {
-            background: var(--card-bg); border-radius: 12px; overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4); display: flex; flex-direction: column; transition: 0.3s; position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            backdrop-filter: blur(10px);
+            background: var(--card-retail); border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.85); display: flex; flex-direction: column; transition: 0.3s; position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
         .product-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold-gradient); opacity: 0.9;
+            background: var(--gold-gradient); opacity: 0.8;
         }
-        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.6); }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
         
         .product-media-box { position: relative; width: 100%; cursor: pointer; background: #000; overflow: hidden; aspect-ratio: 1/1; }
         .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 10px; background: rgba(3, 21, 64, 0.85); }
+        .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 10px; background: rgba(15, 15, 15, 0.95); }
         .love-share-group { display: flex; align-items: center; gap: 20px; justify-content: center; width: 100%; }
         
         .love-action { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--pink-love); }
@@ -128,16 +161,17 @@
             animation: coinFly 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* ওভারলে প্যানেল ও ফুলস্ক্রিন পপআপ ভিউ (উইন্ডোজ রয়্যাল ব্লু ব্যাকগ্রাউন্ড) */
+        /* ওভারলে প্যানেল ও ফুলস্ক্রিন পপআপ ভিউ */
         .subdomain-view, .category-fullscreen-view {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--royal-blue-gradient) !important; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
+            background: var(--bg-retail); z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
+            transition: background 0.4s ease;
         }
 
         .basket-modal-box {
-            background: rgba(3, 21, 64, 0.92); border: 1px solid rgba(212,175,55,0.4); border-radius: 14px;
+            background: #0c0c0c; border: 1px solid rgba(212,175,55,0.35); border-radius: 14px;
             width: 100%; max-width: 460px; margin: 60px auto; padding: 20px; position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
         
         .golden-close-btn {
@@ -173,15 +207,15 @@
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .main-display-media { width: 100%; height: 280px; object-fit: contain; display: block; background: #000; }
         
-        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: rgba(3, 21, 64, 0.9); overflow-x: auto; }
+        .thumbnail-strip { display: flex; justify-content: center; gap: 6px; padding: 6px; background: #0c0c0c; overflow-x: auto; }
         .thumb-item { width: 45px; height: 45px; border-radius: 5px; overflow: hidden; border: 1.5px solid rgba(212,175,55,0.3); cursor: pointer; flex-shrink: 0; background: transparent; }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; background: transparent; }
         .thumb-item.active { border-color: var(--gold-solid); }
 
-        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 6px 0; background: rgba(3, 21, 64, 0.9); border-radius: 6px; }
+        .modal-love-share-row { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 6px 0; background: #0c0c0c; border-radius: 6px; }
 
         /* প্রাইস, ডিসকাউন্ট এবং চ্যাট উইথ সেলার বাটন রো */
-        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: rgba(3, 21, 64, 0.85); padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .price-chat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #111111; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .detail-price { font-size: 1.15rem; font-weight: 900; color: #ffffff; white-space: nowrap; }
         
         .discount-badge-btn {
@@ -202,10 +236,10 @@
         /* ডেসক্রিপশন ও সাইজ বাটন রো */
         .desc-size-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
         .extra-action-btn {
-            background: rgba(3, 21, 64, 0.8); border: 1px solid rgba(212,175,55,0.3); color: #fff;
+            background: #161616; border: 1px solid rgba(212,175,55,0.3); color: #fff;
             font-size: 0.65rem; font-weight: 700; padding: 9px; border-radius: 6px; cursor: pointer; text-align: center; text-transform: uppercase;
         }
-        .extra-action-btn:hover { border-color: var(--gold-solid); background: rgba(11, 79, 188, 0.5); }
+        .extra-action-btn:hover { border-color: var(--gold-solid); background: #222; }
 
         /* কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন স্টাইল */
         .quantity-tier-container { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
@@ -214,7 +248,7 @@
         .wholesale-mode-active .wholesale-tiers-row { display: grid; grid-template-columns: repeat(2, 1fr); }
         
         .tier-btn {
-            background: rgba(3, 21, 64, 0.8); border: 1px solid rgba(212,175,55,0.3); color: #fff;
+            background: #161616; border: 1px solid rgba(212,175,55,0.3); color: #fff;
             font-size: 0.55rem; font-weight: 700; padding: 7px 5px; border-radius: 6px; cursor: pointer; text-align: center; transition: 0.3s;
         }
         .tier-btn.active, .tier-btn:hover { background: var(--gold-gradient); color: #000; font-weight: 900; border: none; }
@@ -240,12 +274,12 @@
         /* সার্চ পপআপ ও অন্যান্য প্যানেল */
         .search-popup-box {
             display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
-            background: rgba(3, 21, 64, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
+            background: rgba(10, 10, 10, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
             backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
             border: 1px solid rgba(212,175,55,0.3);
         }
         .search-input-field-box {
-            display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3);
+            display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.3);
             border-radius: 30px; padding: 6px 14px; gap: 10px;
         }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
@@ -264,19 +298,20 @@
         @media (min-width: 768px) { .app-store-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; } }
 
         .app-card {
-            background: rgba(3, 21, 64, 0.75); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);
+            background: #131315; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);
             padding: 14px 10px; display: flex; align-items: center; text-align: left;
             cursor: pointer; transition: all 0.3s ease-in-out; gap: 12px; min-height: 70px;
         }
-        .app-card:hover { transform: translateY(-2px); background: rgba(11, 79, 188, 0.5); border-color: rgba(212, 175, 55, 0.5); }
+        .app-card:hover { transform: translateY(-2px); background: #1a1a1e; border-color: rgba(212, 175, 55, 0.3); }
         .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.7rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
-        /* ফিক্সড বটম ন্যাভবার: টেক্সট সাইজ বড়, স্পষ্ট ও দৃশ্যমান করা হয়েছে */
+        /* ফিক্সড বটম ন্যাভবার: বড়, স্পষ্ট এবং দৃশ্যমান টেক্সট */
         nav.bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(3, 29, 92, 0.98);
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--footer-retail);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
-            z-index: 5000; border-top: none; backdrop-filter: blur(15px);
+            z-index: 5000; border-top: 1px solid rgba(212,175,55,0.15); backdrop-filter: blur(15px);
+            transition: background 0.4s ease;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
@@ -431,13 +466,13 @@
                 <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Size & Custom Request</span>
                 <div style="margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
                     <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Select Size / Variant</label>
-                    <select id="productSizeSelect" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                    <select id="productSizeSelect" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
                         <option value="Standard">Standard Size</option>
                         <option value="Large">Large Size</option>
                         <option value="Custom">Custom Specification</option>
                     </select>
                     <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase; margin-top: 5px;">Edit / Other Instructions</label>
-                    <textarea id="customSizeNote" placeholder="Write any specific instruction or custom note here..." style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none; height:70px; resize:none;"></textarea>
+                    <textarea id="customSizeNote" placeholder="Write any specific instruction or custom note here..." style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.3); padding:8px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none; height:70px; resize:none;"></textarea>
                     <button class="add-to-cart-btn" style="margin-top: 10px; padding: 9px; font-size: 0.7rem;" onclick="saveCustomSize()">Apply & Save</button>
                 </div>
             </div>
@@ -458,7 +493,7 @@
         </div>
     </div>
 
-    <!-- ক্যাটাগরি ওভারলে -->
+    <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে (সমস্ত ক্যাটাগরি ও তথ্যসহ শতভাগ রিস্টোর করা) -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
         <div style="margin-bottom: 25px; text-align: center;">
@@ -466,7 +501,7 @@
         </div>
 
         <div id="dynamicCategoryContent">
-            <!-- ক্যাটাগরি কনটেন্ট ডায়নামিকালি লোড হবে -->
+            <!-- খুচরা এবং পাইকারি ক্যাটাগরি ডেটা -->
         </div>
     </div>
 
@@ -485,11 +520,11 @@
             <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
             <div style="text-align: center;">
                 <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
-                <div style="background: rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
                     <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
-                    <input type="text" id="accName" value="Masudar Rahman" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                    <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
                     <label style="font-size: 0.6rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
-                    <input type="tel" id="accPhone" value="+8801700000000" style="background:rgba(0,0,0,0.6); border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
+                    <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:7px; border-radius:4px; color:#fff; font-size:0.7rem; outline:none;">
                     <button class="add-to-cart-btn" style="margin-top: 5px; padding: 9px;" onclick="saveAccountData()">Save Profile</button>
                 </div>
             </div>
@@ -674,7 +709,7 @@
             }
         }
 
-        /* ক্যাটাগরি ওপেন করার সময় মোড অনুযায়ী কন্টেন্ট রেন্ডার করা */
+        /* ক্যাটাগরি ওপেন করার সময় মোড অনুযায়ী সম্পূর্ণ কন্টেন্ট রেন্ডার করা */
         function openCategoryView() {
             const container = document.getElementById('dynamicCategoryContent');
             const titleEl = document.getElementById('categoryViewTitle');
@@ -703,14 +738,78 @@
                             <div class="app-card" onclick="filterCategory('Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
                             <div class="app-card" onclick="filterCategory('Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-gem"></i></div><span class="app-card-name">Jewelry</span></div>
                             <div class="app-card" onclick="filterCategory('Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                            <div class="app-card" onclick="filterCategory('Lingerie')"><div class="app-card-icon"><i class="fa-solid fa-heart"></i></div><span class="app-card-name">Lingerie</span></div>
+                            <div class="app-card" onclick="filterCategory('Beauty')"><div class="app-card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div><span class="app-card-name">Beauty</span></div>
+                            <div class="app-card" onclick="filterCategory('Activewear')"><div class="app-card-icon"><i class="fa-solid fa-person-running"></i></div><span class="app-card-name">Activewear</span></div>
+                            <div class="app-card" onclick="filterCategory('Traditional')"><div class="app-card-icon"><i class="fa-solid fa-vest"></i></div><span class="app-card-name">Traditional</span></div>
+                            <div class="app-card" onclick="filterCategory('Accessories')"><div class="app-card-icon"><i class="fa-solid fa-glasses"></i></div><span class="app-card-name">Accessories</span></div>
                         </div>
                     </section>
+
                     <section class="category-section">
-                        <div class="category-header-row"><h2 class="category-title">2. Men's Fashion</h2></div>
+                        <div class="category-header-row"><h2 class="category-title">2. Boys' Fashion</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Boys Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child"></i></div><span class="app-card-name">Clothing</span></div>
+                            <div class="app-card" onclick="filterCategory('Boys Shoes')"><div class="app-card-icon"><i class="fa-solid fa-socks"></i></div><span class="app-card-name">Shoes</span></div>
+                            <div class="app-card" onclick="filterCategory('Boys Watches')"><div class="app-card-icon"><i class="fa-solid fa-stopwatch"></i></div><span class="app-card-name">Watches</span></div>
+                            <div class="app-card" onclick="filterCategory('Boys Bags')"><div class="app-card-icon"><i class="fa-solid fa-suitcase"></i></div><span class="app-card-name">Bags</span></div>
+                            <div class="app-card" onclick="filterCategory('Boys Accessories')"><div class="app-card-icon"><i class="fa-solid fa-hat-cowboy"></i></div><span class="app-card-name">Accessories</span></div>
+                        </div>
+                    </section>
+
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">3. Matching Sets</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Couple Sets')"><div class="app-card-icon"><i class="fa-solid fa-user-group"></i></div><span class="app-card-name">Couple Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('Family Sets')"><div class="app-card-icon"><i class="fa-solid fa-house"></i></div><span class="app-card-name">Family Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('Mom & Me')"><div class="app-card-icon"><i class="fa-solid fa-venus"></i></div><span class="app-card-name">Mom & Me</span></div>
+                            <div class="app-card" onclick="filterCategory('Dad & Me')"><div class="app-card-icon"><i class="fa-solid fa-mars"></i></div><span class="app-card-name">Dad & Me</span></div>
+                            <div class="app-card" onclick="filterCategory('Sibling Sets')"><div class="app-card-icon"><i class="fa-solid fa-children"></i></div><span class="app-card-name">Sibling Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('Team Sets')"><div class="app-card-icon"><i class="fa-solid fa-people-group"></i></div><span class="app-card-name">Team Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('BFF Sets')"><div class="app-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div><span class="app-card-name">BFF Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('Pet & Owner')"><div class="app-card-icon"><i class="fa-solid fa-paw"></i></div><span class="app-card-name">Pet & Owner</span></div>
+                            <div class="app-card" onclick="filterCategory('Holiday Sets')"><div class="app-card-icon"><i class="fa-solid fa-gifts"></i></div><span class="app-card-name">Holiday Sets</span></div>
+                            <div class="app-card" onclick="filterCategory('Value Bundles')"><div class="app-card-icon"><i class="fa-solid fa-box-open"></i></div><span class="app-card-name">Value Bundles</span></div>
+                        </div>
+                    </section>
+
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">4. Luxury Gifts</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Corporate Gifts')"><div class="app-card-icon"><i class="fa-solid fa-briefcase"></i></div><span class="app-card-name">Corporate Gifts</span></div>
+                            <div class="app-card" onclick="filterCategory('Luxury Items')"><div class="app-card-icon"><i class="fa-solid fa-gift"></i></div><span class="app-card-name">Luxury Items</span></div>
+                            <div class="app-card" onclick="filterCategory('Handicrafts')"><div class="app-card-icon"><i class="fa-solid fa-palette"></i></div><span class="app-card-name">Handicrafts</span></div>
+                            <div class="app-card" onclick="filterCategory('Wood Resin')"><div class="app-card-icon"><i class="fa-solid fa-tree"></i></div><span class="app-card-name">Wood Resin</span></div>
+                            <div class="app-card" onclick="filterCategory('Gift Hampers')"><div class="app-card-icon"><i class="fa-solid fa-basket-shopping"></i></div><span class="app-card-name">Gift Hampers</span></div>
+                        </div>
+                    </section>
+
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">5. Girls' Fashion</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Girls Clothing')"><div class="app-card-icon"><i class="fa-solid fa-child-dress"></i></div><span class="app-card-name">Clothing</span></div>
+                            <div class="app-card" onclick="filterCategory('Girls Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
+                            <div class="app-card" onclick="filterCategory('Girls Bags')"><div class="app-card-icon"><i class="fa-solid fa-shopping-basket"></i></div><span class="app-card-name">Bags</span></div>
+                            <div class="app-card" onclick="filterCategory('Girls Jewelry')"><div class="app-card-icon"><i class="fa-solid fa-ring"></i></div><span class="app-card-name">Jewelry</span></div>
+                            <div class="app-card" onclick="filterCategory('Girls Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                        </div>
+                    </section>
+
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">6. Men's Fashion</h2></div>
                         <div class="app-store-grid">
                             <div class="app-card" onclick="filterCategory('Men Clothing')"><div class="app-card-icon"><i class="fa-solid fa-user-tie"></i></div><span class="app-card-name">Clothing</span></div>
                             <div class="app-card" onclick="filterCategory('Men Shoes')"><div class="app-card-icon"><i class="fa-solid fa-shoe-prints"></i></div><span class="app-card-name">Shoes</span></div>
                             <div class="app-card" onclick="filterCategory('Men Watches')"><div class="app-card-icon"><i class="fa-solid fa-clock"></i></div><span class="app-card-name">Watches</span></div>
+                        </div>
+                    </section>
+
+                    <section class="category-section">
+                        <div class="category-header-row"><h2 class="category-title">7. Mother & Baby</h2></div>
+                        <div class="app-store-grid">
+                            <div class="app-card" onclick="filterCategory('Baby Clothing')"><div class="app-card-icon"><i class="fa-solid fa-baby"></i></div><span class="app-card-name">Clothing</span></div>
+                            <div class="app-card" onclick="filterCategory('Maternity')"><div class="app-card-icon"><i class="fa-solid fa-person-pregnant"></i></div><span class="app-card-name">Maternity</span></div>
+                            <div class="app-card" onclick="filterCategory('Baby Care')"><div class="app-card-icon"><i class="fa-solid fa-bottle-droplet"></i></div><span class="app-card-name">Baby Care</span></div>
                         </div>
                     </section>
                 `;
@@ -873,7 +972,7 @@
             }
             cart.forEach((item, index) => {
                 container.innerHTML += `
-                    <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.5); border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; background:#121212; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
                         <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                         <div style="text-align:left; flex:1; margin-left:10px;">
                             <p style="font-size:0.65rem; font-weight:700; color:#fff;">${item.title} (${item.modeType})</p>
