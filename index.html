@@ -28,7 +28,7 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); }
         body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* হেডার: মাঝখানে লোগো, নাম ও পতাকা; নিচে ৩টি বাটন */
+        /* হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ; নিচে ৩টি বাটন */
         header.app-header {
             display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -79,7 +79,6 @@
         .product-media-box img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
         .product-card:hover .product-media-box img { transform: scale(1.03); }
         
-        /* কার্ডের ঠিক মাঝবরাবর লাইক ও শেয়ার বাটন */
         .card-footer-actions { display: flex; justify-content: center; align-items: center; padding: 8px 10px; background: rgba(15, 15, 15, 0.95); }
         .love-share-group { display: flex; align-items: center; gap: 20px; justify-content: center; width: 100%; }
         
@@ -91,17 +90,20 @@
         .share-action-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; font-size: 0.7rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.9rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* জেনুইন গোল্ডেন গ্রেডিয়েন্ট ঝুড়ি আইকন (ফ্লোটিং বটম রাইট কর্নার) */
-        .floating-cart-icon-btn {
-            position: fixed; bottom: 75px; right: 20px; z-index: 3500; background: var(--gold-gradient);
-            width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 6px 20px rgba(212,175,55,0.4); cursor: pointer; border: 2px solid #000; transition: 0.3s;
+        /* শুধুমাত্র গোল্ডেন গ্রেডিয়েন্ট ঝুড়ি আইকন (ফ্লোটিং বটম রাইট কর্নার) */
+        .floating-basket-icon-btn {
+            position: fixed; bottom: 75px; right: 20px; z-index: 3500; cursor: pointer;
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 4px 12px rgba(212,175,55,0.6)); transition: 0.3s;
         }
-        .floating-cart-icon-btn:hover { transform: scale(1.1); }
-        .floating-cart-icon-btn i { font-size: 1.5rem; color: #000; }
+        .floating-basket-icon-btn:hover { transform: scale(1.1); }
+        .floating-basket-icon-btn i {
+            font-size: 2.2rem; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
         .cart-badge-dot {
-            position: absolute; top: -3px; right: -3px; background: var(--pink-discount); color: #fff;
-            font-size: 0.55rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%;
+            position: absolute; top: 0; right: 0; background: var(--pink-discount); color: #fff;
+            font-size: 0.5rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; border: 1.5px solid #000;
         }
 
@@ -122,33 +124,40 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; z-index: 4000; overflow-y: auto; padding: 20px 12px 90px 12px;
         }
+
+        /* কম্পিউটারের জন্য ঝুড়ির মডাল উইন্ডো ফিক্সড (সম্পূর্ণ স্ক্রিন জুড়ে থাকবে না) */
+        .basket-modal-box {
+            background: #0c0c0c; border: 1px solid rgba(212,175,55,0.35); border-radius: 14px;
+            width: 100%; max-width: 460px; margin: 60px auto; padding: 20px; position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
         
         .golden-close-btn {
             position: absolute; top: 12px; right: 12px; z-index: 4100; background: #141414;
-            border: 1px solid rgba(212,175,55,0.4); width: 36px; height: 36px; border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.4); width: 34px; height: 34px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .golden-close-btn i { font-size: 1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শেয়ার পপ-আপ মোডাল (সমস্ত সোশ্যাল অপশনসহ) */
+        /* শেয়ার পপ-আপ মোডাল (সোশ্যাল মিডিয়া অপশনসহ) */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 12px;
         }
         .share-modal-box {
-            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; width: 100%; max-width: 320px;
-            padding: 15px; display: flex; flex-direction: column; gap: 10px; text-align: center;
+            background: #121212; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; width: 100%; max-width: 340px;
+            padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: center; position: relative;
         }
         .share-icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; }
         .share-icon-item {
-            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
-            background: #1a1a1a; padding: 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.15);
-            transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+            background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.15);
+            transition: 0.2s; text-decoration: none;
         }
         .share-icon-item:hover { border-color: var(--gold-solid); background: #222; }
-        .share-icon-item i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .share-icon-item span { font-size: 0.45rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .share-icon-item i { font-size: 1.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .share-icon-item span { font-size: 0.48rem; font-weight: 700; color: #fff; text-transform: uppercase; }
 
         /* প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ */
         .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
@@ -220,7 +229,7 @@
         .app-card-icon i { font-size: 1.3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .app-card-name { font-size: 0.65rem; font-weight: 600; color: var(--text-white); text-transform: uppercase; }
 
-        /* ফিক্সড বটম ন্যাভবার (ক্লিক করলে ওভারলে খুলবে, মেনুবার ফিক্সড থাকবে) */
+        /* ফিক্সড বটম ন্যাভবার */
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: space-around; align-items: center; padding: 6px 4px;
@@ -255,8 +264,8 @@
         </div>
     </header>
 
-    <!-- ফিক্সড গোল্ডেন ঝুড়ি আইকন (Bottom-Right Floating Cart) -->
-    <div class="floating-cart-icon-btn" onclick="toggleSubdomainView('cartView')" title="Basket">
+    <!-- শুধুমাত্র গোল্ডেন গ্রেডিয়েন্ট ঝুড়ি আইকন (ক্লিক করলে টগিল হবে) -->
+    <div class="floating-basket-icon-btn" onclick="toggleBasketView()" title="Basket">
         <i class="fa-solid fa-basket-shopping"></i>
         <span class="cart-badge-dot" id="floatingCartCount">0</span>
     </div>
@@ -280,22 +289,22 @@
         </div>
     </main>
 
-    <!-- শেয়ার পপ-আপ মোডাল (সমস্ত সোশ্যাল অপশনসহ) -->
+    <!-- শেয়ার পপ-আপ মোডাল (ডাইরেক্ট সোশ্যাল শেয়ার ও অটো-ক্লোজ অপশনসহ) -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
+            <div class="golden-close-btn" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></div>
             <span style="font-size:0.75rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase;">Share Product</span>
             <div class="share-icons-grid">
-                <div class="share-icon-item" onclick="shareTo('facebook')"><i class="fa-brands fa-facebook"></i><span>Facebook</span></div>
-                <div class="share-icon-item" onclick="shareTo('instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></div>
-                <div class="share-icon-item" onclick="shareTo('tiktok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
-                <div class="share-icon-item" onclick="shareTo('youtube')"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
-                <div class="share-icon-item" onclick="shareTo('whatsapp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
-                <div class="share-icon-item" onclick="shareTo('telegram')"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
-                <div class="share-icon-item" onclick="shareTo('imo')"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></div>
-                <div class="share-icon-item" onclick="shareTo('gmail')"><i class="fa-solid fa-envelope"></i><span>Gmail</span></div>
-                <div class="share-icon-item" onclick="shareTo('copy')"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
+                <a class="share-icon-item" id="shareFb" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+                <a class="share-icon-item" id="shareWa" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+                <a class="share-icon-item" id="shareTg" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-telegram"></i><span>Telegram</span></a>
+                <a class="share-icon-item" id="shareIg" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+                <a class="share-icon-item" id="shareTt" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a>
+                <a class="share-icon-item" id="shareYt" target="_blank" onclick="autoCloseShare()"><i class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+                <a class="share-icon-item" id="shareImo" target="_blank" onclick="autoCloseShare()"><i class="fa-solid fa-comment-dots"></i><span>Imo</span></a>
+                <a class="share-icon-item" id="shareGmail" target="_blank" onclick="autoCloseShare()"><i class="fa-solid fa-envelope"></i><span>Gmail</span></a>
+                <div class="share-icon-item" onclick="copyShareLink()"><i class="fa-solid fa-link"></i><span>Copy Link</span></div>
             </div>
-            <button class="add-to-cart-btn" onclick="closeShareModal()" style="padding:6px; margin-top:5px; font-size:0.65rem;">Close</button>
         </div>
     </div>
 
@@ -332,15 +341,17 @@
         </div>
     </div>
 
-    <!-- ঝুড়ি (Cart View - শুধুমাত্র যোগ করা প্রোডাক্ট ও Process to Order বাটন) -->
+    <!-- ঝুড়ি (Basket Modal View - কম্পিউটারে নির্দিষ্ট মাপের প্রিমিয়াম পপআপ) -->
     <div id="cartView" class="subdomain-view">
-        <div class="golden-close-btn" onclick="toggleSubdomainView('cartView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="max-width: 480px; margin: 40px auto; padding: 15px; text-align: center;">
-            <span style="font-size: 1.2rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;">Basket</span>
-            <div id="cartItemsContainer" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
-                <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="toggleBasketView()"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align: center;">
+                <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;">Basket</span>
+                <div id="cartItemsContainer" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
+                    <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
+                </div>
+                <button class="add-to-cart-btn" style="margin-top: 20px; padding: 10px; font-size: 0.7rem;" onclick="proceedToOrder()">Process to Order</button>
             </div>
-            <button class="add-to-cart-btn" style="margin-top: 25px; padding: 12px; font-size: 0.75rem;" onclick="proceedToOrder()">Process to Order</button>
         </div>
     </div>
 
@@ -455,32 +466,38 @@
 
     <!-- একাউন্ট প্যানেল ওভারলে -->
     <div id="accountView" class="subdomain-view">
-        <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="max-width: 350px; margin: 40px auto; padding: 15px; text-align: center;">
-            <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
-            <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
-                <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
-                <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
-                <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
-                <button class="add-to-cart-btn" style="margin-top: 5px; padding: 8px;" onclick="saveAccountData()">Save Profile</button>
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="toggleSubdomainView('accountView')"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align: center;">
+                <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Customer Account</span>
+                <div style="background: #121212; border: 1px solid rgba(212,175,55,0.3); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Full Name</label>
+                    <input type="text" id="accName" value="Masudar Rahman" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
+                    <label style="font-size: 0.55rem; color: var(--text-gray); text-transform: uppercase;">Mobile Number</label>
+                    <input type="tel" id="accPhone" value="+8801700000000" style="background:#0a0a0a; border:1px solid rgba(212,175,55,0.2); padding:6px; border-radius:4px; color:#fff; font-size:0.65rem; outline:none;">
+                    <button class="add-to-cart-btn" style="margin-top: 5px; padding: 8px;" onclick="saveAccountData()">Save Profile</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- সেলার হাব ওভারলে -->
     <div id="sellerView" class="subdomain-view">
-        <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub & Portal</span></div>
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="toggleSubdomainView('sellerView')"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align:center;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Seller Hub & Portal</span></div>
+        </div>
     </div>
 
     <!-- এফিলিয়েট প্যানেল ওভারলে -->
     <div id="affiliateView" class="subdomain-view">
-        <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
-        <div style="text-align:center; margin-top:50px;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Affiliate Program</span></div>
+        <div class="basket-modal-box">
+            <div class="golden-close-btn" onclick="toggleSubdomainView('affiliateView')"><i class="fa-solid fa-xmark"></i></div>
+            <div style="text-align:center;"><span style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform: uppercase;">Affiliate Program</span></div>
+        </div>
     </div>
 
-    <!-- ফিক্সড বটম ন্যাভবার (মেনুবার সবসময় দৃশ্যমান থাকবে) -->
+    <!-- ফিক্সড বটম ন্যাভবার -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="toggleSubdomainView('affiliateView')">
             <i class="fa-solid fa-handshake"></i>
@@ -543,7 +560,7 @@
             if(refId) sessionStorage.setItem('rorraxy_ref', refId);
         };
 
-        /* টগিল ওভারলে লজিক (মেনুবার ফিক্সড রেখে পপআপ ওপেন/ক্লোজ) */
+        /* টগিল ওভারলে লজিক (মেনুবারে ক্লিক করলে ওপেন, আবার ক্লিক করলে বা ক্রস দিলে ক্লোজ) */
         function toggleSubdomainView(viewId) {
             const view = document.getElementById(viewId);
             if (view.style.display === 'block') {
@@ -552,7 +569,18 @@
                 document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
                 document.getElementById('searchPopup').style.display = 'none';
                 view.style.display = 'block';
-                if(viewId === 'cartView') renderCartItems();
+            }
+        }
+
+        function toggleBasketView() {
+            const view = document.getElementById('cartView');
+            if (view.style.display === 'block') {
+                view.style.display = 'none';
+            } else {
+                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
+                document.getElementById('searchPopup').style.display = 'none';
+                view.style.display = 'block';
+                renderCartItems();
             }
         }
 
@@ -629,7 +657,20 @@
             element.classList.add('active');
         }
 
+        /* ডাইরেক্ট সোশ্যাল শেয়ার লিঙ্ক সেটআপ */
         function openShareModal() {
+            const currentUrl = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent("Check out this luxury item on Rorraxy");
+            
+            document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+            document.getElementById('shareWa').href = `https://api.whatsapp.com/send?text=${title}%20-%20${currentUrl}`;
+            document.getElementById('shareTg').href = `https://t.me/share/url?url=${currentUrl}&text=${title}`;
+            document.getElementById('shareIg').href = `https://www.instagram.com/`;
+            document.getElementById('shareTt').href = `https://www.tiktok.com/`;
+            document.getElementById('shareYt').href = `https://www.youtube.com/`;
+            document.getElementById('shareImo').href = `imojoin://`;
+            document.getElementById('shareGmail').href = `mailto:?subject=${title}&body=${currentUrl}`;
+
             document.getElementById('shareModal').style.display = 'flex';
         }
 
@@ -637,18 +678,13 @@
             document.getElementById('shareModal').style.display = 'none';
         }
 
-        function shareTo(platform) {
-            const currentUrl = window.location.href;
-            if(platform === 'facebook') {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
-            } else if(platform === 'whatsapp') {
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this item: ' + currentUrl)}`, '_blank');
-            } else if(platform === 'telegram') {
-                window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}`, '_blank');
-            } else {
-                navigator.clipboard.writeText(currentUrl);
-                alert("Product link copied!");
-            }
+        function autoCloseShare() {
+            setTimeout(() => { closeShareModal(); }, 1000);
+        }
+
+        function copyShareLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Product link copied successfully!");
             closeShareModal();
         }
 
