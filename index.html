@@ -330,15 +330,14 @@
             box-shadow: 0 4px 15px rgba(212,175,55,0.3); margin-top: 2px;
         }
 
+        /* সার্চ পপআপ বক্সের ডাবল বর্ডার রিমুভ করে ক্লিন ও একটি মাত্র বর্ডার করা হয়েছে */
         .search-popup-box {
             display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px;
-            background: rgba(10, 10, 10, 0.98); z-index: 4000; padding: 8px; border-radius: 35px;
-            backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0,0,0,0.9);
-            border: 1px solid rgba(212,175,55,0.3);
+            background: transparent; z-index: 4000; padding: 0; border: none; box-shadow: none;
         }
         .search-input-field-box {
-            display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 30px; padding: 6px 14px; gap: 10px;
+            display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 30px; padding: 6px 14px; gap: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.9);
         }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
         .search-submit-btn { background: var(--gold-gradient); border: none; color: #000; font-weight: 800; font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; }
@@ -403,8 +402,8 @@
                 <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
             </div>
 
-            <!-- বড় ঝুড়ি আইকন (বর্ডারবিহীন) -->
-            <div class="top-basket-icon-btn" id="topBasketIcon" onclick="toggleBasketView()" title="Basket">
+            <!-- বড় ঝুড়ি আইকন (you.rorraxy.com সাব-ডোমেইনের সাথে কানেক্টেড) -->
+            <div class="top-basket-icon-btn" id="topBasketIcon" onclick="openYouBasketSubdomain()" title="Basket">
                 <i class="fa-solid fa-basket-shopping"></i>
                 <span class="cart-badge-dot" id="floatingCartCount">0</span>
             </div>
@@ -566,20 +565,6 @@
         </div>
     </div>
 
-    <!-- ঝুড়ি (Basket Modal View) -->
-    <div id="cartView" class="subdomain-view">
-        <div class="basket-modal-box">
-            <div class="golden-close-btn" onclick="toggleBasketView()"><i class="fa-solid fa-xmark"></i></div>
-            <div style="text-align: center;">
-                <span style="font-size: 1.1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;">Basket</span>
-                <div id="cartItemsContainer" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                    <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
-                </div>
-                <button class="add-to-cart-btn" style="margin-top: 20px; padding: 10px; font-size: 0.75rem;" onclick="proceedToOrder()">Process to Order</button>
-            </div>
-        </div>
-    </div>
-
     <!-- সম্পূর্ণ ক্যাটাগরি ওভারলে -->
     <div id="categoryView" class="category-fullscreen-view">
         <div class="golden-close-btn" onclick="toggleCategoryView('categoryView')"><i class="fa-solid fa-xmark"></i></div>
@@ -601,7 +586,7 @@
         </div>
     </div>
 
-    <!-- ফিক্সড বটম ন্যাভবার (নিখুঁত ও গোছানো আগের লেআউট) -->
+    <!-- ফিক্সড বটম ন্যাভবার -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="openSubdomainModal('https://affiliate.rorraxy.com', 'Affiliate Portal')">
             <i class="fa-solid fa-handshake"></i>
@@ -675,6 +660,11 @@
         function closeSubdomainPanel() {
             document.getElementById('subdomainPanel').style.display = 'none';
             document.getElementById('subdomainIframe').src = '';
+        }
+
+        /* ঝুড়ির বাটনটি you.rorraxy.com সাব-ডোমেইনের সাথে সংযুক্ত করার ফাংশন */
+        function openYouBasketSubdomain() {
+            openSubdomainModal('https://you.rorraxy.com', 'You / Basket Portal');
         }
 
         /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন (ডিসকাউন্ট হ্যান্ডলিং সহ) */
@@ -804,18 +794,6 @@
             detectVisitorCountry();
             updateCartBadge();
         };
-
-        function toggleBasketView() {
-            const view = document.getElementById('cartView');
-            if (view.style.display === 'block') {
-                view.style.display = 'none';
-            } else {
-                document.querySelectorAll('.subdomain-view, .category-fullscreen-view').forEach(v => v.style.display = 'none');
-                document.getElementById('searchPopup').style.display = 'none';
-                view.style.display = 'block';
-                renderCartItems();
-            }
-        }
 
         /* সম্পূর্ণ ক্যাটাগরি লিস্ট রেন্ডার করা */
         function openCategoryView() {
@@ -1173,48 +1151,6 @@
         function updateCartBadge() {
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
             document.getElementById('floatingCartCount').innerText = cart.length;
-        }
-
-        function renderCartItems() {
-            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            let container = document.getElementById('cartItemsContainer');
-            container.innerHTML = '';
-            if(cart.length === 0) {
-                container.innerHTML = '<p style="font-size:0.7rem; color:var(--text-gray);">Basket is empty.</p>';
-                return;
-            }
-            cart.forEach((item, index) => {
-                container.innerHTML += `
-                    <div style="display:flex; align-items:center; justify-content:space-between; background:#121212; border:1px solid rgba(212,175,55,0.2); padding:8px; border-radius:6px;">
-                        <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
-                        <div style="text-align:left; flex:1; margin-left:10px;">
-                            <p style="font-size:0.65rem; font-weight:700; color:#fff;">${item.title} (${item.modeType})</p>
-                            <p style="font-size:0.6rem; color:var(--text-gray);">Qty: ${item.qty} | Size: ${item.sizeInfo || 'Standard'}</p>
-                            <p style="font-size:0.6rem; color:var(--gold-solid);">${item.price}</p>
-                        </div>
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--pink-discount); font-size:0.9rem; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                `;
-            });
-        }
-
-        function removeFromCart(index) {
-            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
-            updateCartBadge();
-            renderCartItems();
-        }
-
-        function proceedToOrder() {
-            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            if(cart.length === 0) {
-                alert("Your basket is empty!");
-                return;
-            }
-            const phone = localStorage.getItem('rorraxy_user_phone') || "+8801700000000";
-            alert("Processing order to Checkout step...");
-            window.location.href = `https://out.rorraxy.com/checkout?phone=${encodeURIComponent(phone)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
         }
     </script>
 </body>
