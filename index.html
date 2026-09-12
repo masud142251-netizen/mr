@@ -6,7 +6,7 @@
     <title>RORRAXY - LUXURY GLOBAL ECOSYSTEM</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/10QW85rP908nJ5Vf_0x6gV_6gV_6gV_6">
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/1G2w817/rorraxy-logo.png">
     <!-- Google Font: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
             --font-main: 'Poppins', sans-serif;
         }
 
-        /* হোলসেল মোডের জন্য সম্পূর্ণ পেজের লাক্সারি ব্লু-গ্রেডিয়েন্ট থিম */
+        /* হোলসেল মোডের জন্য ফুল পেজ লাক্সারি ব্লু-গ্রেডিয়েন্ট থিম */
         body.wholesale-mode {
             background: linear-gradient(135deg, #020817, #0b192c, #1e3e62) !important;
         }
@@ -43,7 +43,7 @@
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-main); transition: background 0.4s ease; min-height: 100vh; }
         body { padding-top: 75px; padding-bottom: 90px; }
 
-        /* হেডার: মাঝখানে ব্যাকগ্রাউন্ডলেস লোগো, নাম ও ফ্ল্যাগ */
+        /* হেডার: মাঝখানে লোগো, নাম ও ফ্ল্যাগ */
         header.app-header {
             display: flex; flex-direction: column; padding: 6px 12px; align-items: center;
             background: rgba(0, 0, 0, 0.98); position: fixed; top: 0; left: 0; z-index: 1000;
@@ -174,7 +174,6 @@
 
         /* প্রোডাক্ট ডিটেইলস পপ-আপ ভিউ */
         .product-details-content { padding: 8px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-        .product-title-top { font-size: 0.95rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; text-align: center; letter-spacing: 1px; margin-bottom: 4px; }
         
         .media-slider-container { width: 100%; position: relative; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .main-display-media { width: 100%; height: 280px; object-fit: contain; display: block; background: #000; }
@@ -202,6 +201,9 @@
         }
         .chat-with-seller-btn:hover { opacity: 0.9; }
 
+        /* প্রোডাক্ট টাইটেল প্রাইসের নিচে */
+        .product-title-bottom { font-size: 0.85rem; font-weight: 900; color: #ffffff; text-transform: uppercase; text-align: center; letter-spacing: 1px; }
+
         /* ডেসক্রিপশন ও সাইজ বাটন রো */
         .desc-size-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
         .extra-action-btn {
@@ -210,23 +212,23 @@
         }
         .extra-action-btn:hover { border-color: var(--gold-solid); background: #222; }
 
-        /* কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন স্টাইল (Add to Cart-এর ঠিক উপরে) */
-        .quantity-tier-container { display: flex; flex-direction: column; gap: 8px; background: #0c0c0c; padding: 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.2); }
+        /* কোয়ান্টিটি কাউন্টার ও পাইকারি টায়ার অপশন স্টাইল (বর্ডার ও অতিরিক্ত শেপ মুক্ত ক্লিন লেআউট) */
+        .quantity-tier-container { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
         
-        .quantity-row { display: flex; justify-content: space-between; align-items: center; }
-        .quantity-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--gold-solid); }
-        .qty-box { display: flex; align-items: center; gap: 8px; background: #161616; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); }
+        .quantity-row { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .quantity-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: var(--gold-solid); text-align: center; }
         
-        /* গোল সুন্দর প্লাস মাইনাস বাটন */
+        /* বড় এবং সুন্দর গোল প্লাস-মাইনাস বাটন ও মাঝখানে কোয়ান্টিটি */
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; }
         .qty-btn { 
-            background: var(--gold-gradient); border: none; color: #000; font-size: 0.9rem; font-weight: 900; 
-            cursor: pointer; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 2px 8px rgba(212,175,55,0.4); transition: 0.2s; 
+            background: var(--gold-gradient); border: none; color: #000; font-size: 1.1rem; font-weight: 900; 
+            cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 4px 12px rgba(212,175,55,0.4); transition: 0.2s; 
         }
         .qty-btn:hover { transform: scale(1.1); }
-        .qty-display { font-size: 0.85rem; font-weight: 900; color: #fff; min-width: 25px; text-align: center; }
+        .qty-display { font-size: 1rem; font-weight: 900; color: #fff; min-width: 35px; text-align: center; }
 
-        .wholesale-tiers-row { display: none; gap: 6px; }
+        .wholesale-tiers-row { display: none; gap: 6px; margin-top: 4px; }
         .wholesale-mode-active .wholesale-tiers-row { display: grid; grid-template-columns: repeat(3, 1fr); }
         
         .tier-btn {
@@ -238,7 +240,7 @@
         .add-to-cart-btn {
             background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.75rem; padding: 12px;
             border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3); margin-top: 4px;
         }
 
         /* সার্চ পপআপ ও অন্যান্য প্যানেল */
@@ -297,7 +299,7 @@
     <!-- হেডার: মাঝখানে ব্যাকগ্রাউন্ডলেস লোগো, নাম ও ফ্ল্যাগ -->
     <header class="app-header" id="mainHeader">
         <div class="header-center-group" onclick="location.href='https://rorraxy.com'">
-            <img src="https://lh3.googleusercontent.com/d/10QW85rP908nJ5Vf_0x6gV_6gV_6gV_6" alt="Logo" class="logo">
+            <img src="https://i.ibb.co.com/1G2w817/rorraxy-logo.png" alt="Logo" class="logo">
             <span class="brand-title-main">RORRAXY</span>
             <div class="header-country-flag-box" id="visitorCountryBox" title="Visitor Country Flag">
                 <img id="visitorFlagImg" src="https://flagcdn.com/w80/bd.png" alt="Flag" class="dynamic-flag-img">
@@ -320,7 +322,7 @@
     <!-- Pinterest Style Masonry Feed Layout -->
     <main class="feed-container" id="productFeed">
         <div class="product-card">
-            <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', ['https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/10QW85rP908nJ5Vf_0x6gV_6gV_6gV_6'])">
+            <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', ['https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://i.ibb.co.com/1G2w817/rorraxy-logo.png'])">
                 <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product">
             </div>
             <div class="card-footer-actions">
@@ -361,9 +363,6 @@
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="product-details-content" style="margin-top: 30px;">
-            <!-- প্রোডাক্ট টাইটেল উপরে রাখা হয়েছে -->
-            <div class="product-title-top" id="modalProductTitle">PREMIUM BRACELET</div>
-
             <div class="media-slider-container">
                 <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
                 <div class="thumbnail-strip" id="thumbStrip"></div>
@@ -386,6 +385,9 @@
                 </button>
                 <button class="chat-with-seller-btn" onclick="chatWithSeller()">Chat with Seller</button>
             </div>
+
+            <!-- প্রোডাক্ট টাইটেল প্রাইসের ঠিক নিচে -->
+            <div class="product-title-bottom" id="modalProductTitle">PREMIUM BRACELET</div>
 
             <!-- Description এবং Size অপশন বাটন -->
             <div class="desc-size-row">
@@ -636,7 +638,7 @@
         let selectedSize = "Standard";
         let customNote = "";
 
-        /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন (পুরো পেজের ব্যাকগ্রাউন্ড ও বটম ন্যাভসহ) */
+        /* রিটেইল এবং হোলসেল মোড টগিল করার ফাংশন */
         function toggleRetailWholesaleMode() {
             const bodyEl = document.getElementById('mainBody');
             const qtyContainer = document.getElementById('qtyTierContainer');
@@ -648,7 +650,7 @@
                 bodyEl.classList.add('wholesale-mode');
                 qtyContainer.classList.add('wholesale-mode-active');
                 toggleBtn.innerText = "Retail Mode";
-                setWholesaleTier(1, 100); // ডিফল্ট স্যাম্পল
+                setWholesaleTier(1, 100);
             } else {
                 bodyEl.classList.remove('wholesale-mode');
                 qtyContainer.classList.remove('wholesale-mode-active');
@@ -663,11 +665,7 @@
         /* কোয়ান্টিটি প্লাস / মাইনাস কন্ট্রোল */
         function adjustQuantity(amount) {
             currentQuantity += amount;
-            if (isWholesaleMode) {
-                if (currentQuantity < 1) currentQuantity = 1;
-            } else {
-                if (currentQuantity < 1) currentQuantity = 1;
-            }
+            if (currentQuantity < 1) currentQuantity = 1;
             document.getElementById('productQtyDisplay').innerText = currentQuantity;
             updateCalculatedPrice();
         }
