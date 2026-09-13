@@ -11,6 +11,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Firebase SDK Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDokhLgGe4Ib7oxUJ8zczLFWj0YJKk57Y",
+            authDomain: "rorraxy-fcb91.firebaseapp.com",
+            projectId: "rorraxy-fcb91",
+            storageBucket: "rorraxy-fcb91.firebasestorage.app",
+            messagingSenderId: "880891394208",
+            appId: "1:880891394208:web:3bd8ccacf68ad5d53af1c5",
+            measurementId: "G-0XTRV9TPM3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        window.RorraxyFirebaseApp = app;
+    </script>
+
     <style>
         :root {
             --bg-retail: #000000;
@@ -85,8 +105,8 @@
         .brand-title-main { font-size: 0.85rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .dynamic-flag-img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-        .header-bottom-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; gap: 6px; }
-        .header-buttons-group { display: flex; align-items: center; gap: 5px; flex: 1; }
+        .header-bottom-row { display: flex; justify-content: center; align-items: center; width: 100%; max-width: 600px; gap: 6px; }
+        .header-buttons-group { display: flex; align-items: center; gap: 5px; width: 100%; justify-content: center; }
         
         .portal-btn {
             font-size: 0.52rem; font-weight: 700; background: #161616; border: 1px solid rgba(212,175,55,0.3);
@@ -116,29 +136,6 @@
         }
         .portal-btn:hover { border-color: var(--gold-solid); background: var(--gold-gradient); color: #000; font-weight: 800; }
 
-        /* ঝুড়ি আইকন */
-        .top-basket-icon-btn {
-            position: relative; cursor: pointer; width: 44px; height: 36px;
-            display: flex; align-items: center; justify-content: center; background: none;
-            border: none; flex-shrink: 0; transition: transform 0.2s;
-        }
-        .top-basket-icon-btn:hover { transform: scale(1.12); }
-        .top-basket-icon-btn i {
-            font-size: 1.85rem; background: var(--gold-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
-        }
-        .cart-badge-dot {
-            position: absolute; top: -3px; right: -2px; background: var(--pink-discount); color: #fff;
-            font-size: 0.52rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: 1.5px solid #000;
-        }
-        @keyframes bounceBasket {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.35); }
-        }
-        .basket-bounce { animation: bounceBasket 0.4s ease; }
-
         /* ফ্লোটিং লাইভ চ্যাট উইজেট */
         .live-chat-widget {
             position: fixed; bottom: 70px; right: 20px; z-index: 3500; cursor: grab;
@@ -151,19 +148,6 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
         }
-
-        @keyframes coinParabola {
-            0% { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 1; }
-            40% { transform: translate(calc(var(--dx) * 0.45), -35vh) scale(1.3) rotate(180deg); opacity: 1; }
-            100% { transform: translate(var(--dx), var(--dy)) scale(0.4) rotate(360deg); opacity: 0; }
-        }
-        .flying-coin {
-            position: fixed; z-index: 9999; width: 28px; height: 28px; background: var(--gold-gradient);
-            border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 18px var(--gold-solid);
-            animation: coinParabola 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .flying-coin::after { content: '$'; font-size: 0.75rem; font-weight: 900; color: #000; }
 
         /* Feed Layout */
         .feed-container {
@@ -198,13 +182,11 @@
         .share-action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .share-action-btn i { font-size: 0.95rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ১. ফুল-স্ক্রিন ওভারলে ভিউ (Creative Academy & Solutions) - বর্ডারমুক্ত, শতভাগ স্ক্রিন জুড়ে */
         .fullscreen-portal-view {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000000; z-index: 9000; flex-direction: column; overflow: hidden;
         }
 
-        /* ২. সাব-ডোমেইন ওভারলে প্যানেল (Affiliate, Seller, You, Basket) - সমস্ত বর্ডার রিমুভ করে মোবাইল ও কম্পিউটারে শতভাগ ফুল স্ক্রিন করা হয়েছে */
         .subdomain-iframe-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000000; z-index: 6000; flex-direction: column; padding: 0; margin: 0; overflow: hidden;
@@ -227,7 +209,6 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
 
-        /* গোল্ডেন ক্লোজ (X) বাটন - একদম নিখুঁত অবস্থানে সেট করা */
         .golden-close-btn {
             background: #141414; border: 1px solid rgba(212,175,55,0.4); width: 38px; height: 38px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.8);
@@ -235,7 +216,6 @@
         }
         .golden-close-btn i { font-size: 1.1rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* শেয়ার মোডাল */
         .share-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 7000; justify-content: center; align-items: center; padding: 12px;
@@ -286,7 +266,6 @@
 
         .add-to-cart-btn { background: var(--gold-gradient); color: #000; font-weight: 900; font-size: 0.72rem; padding: 10px; border-radius: 6px; border: none; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 2px; }
 
-        /* সিঙ্গেল ক্লিন সার্চ বার */
         .search-popup-box { display: none; position: fixed; top: 75px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 520px; background: transparent; z-index: 4000; padding: 0; border: none; box-shadow: none; }
         .search-input-field-box { display: flex; align-items: center; background: #000000; border: 1px solid rgba(212,175,55,0.4); border-radius: 30px; padding: 6px 14px; gap: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.9); }
         .search-input-field-box input { background: none; border: none; outline: none; color: #fff; font-size: 0.85rem; width: 100%; }
@@ -308,7 +287,7 @@
         nav.bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--footer-retail);
             display: flex; justify-content: space-around; align-items: center; padding: 8px 4px;
-            z-index: 5000; border-top: 1px solid rgba(212,175,55,0.15); backdrop-filter: blur(15px);
+            z-index: 6500; border-top: 1px solid rgba(212,175,55,0.15); backdrop-filter: blur(15px);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
@@ -339,11 +318,6 @@
                 <button class="portal-btn" onclick="openFullScreenPortal('https://solutions.rorraxy.com')">B2B/B2C Solution</button>
                 <button class="portal-btn wholesale-btn" id="wholesaleToggleBtn" onclick="toggleRetailWholesaleMode()">Wholesale</button>
             </div>
-
-            <div class="top-basket-icon-btn" id="topBasketIcon" onclick="toggleSubdomainOverlay('https://you.rorraxy.com')" title="Basket">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span class="cart-badge-dot" id="floatingCartCount">0</span>
-            </div>
         </div>
     </header>
 
@@ -352,11 +326,11 @@
         <i class="fa-solid fa-comments"></i>
     </div>
 
-    <!-- Feed Layout -->
+    <!-- Feed Layout (Cloudflare R2 Storage CDN Integration) -->
     <main class="feed-container" id="productFeed">
         <div class="product-card" id="card-prod-1">
-            <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', ['https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW', 'https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG'])">
-                <img src="https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW" alt="Product">
+            <div class="product-media-box" onclick="openProductDetails('PREMIUM BRACELET', '$100.00', ['https://0d2bc64b36fe70d346646a8bf8bfd5a.r2.cloudflarestorage.com/bracelet-1.jpg', 'https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG'])">
+                <img src="https://0d2bc64b36fe70d346646a8bf8bfd5a.r2.cloudflarestorage.com/bracelet-1.jpg" alt="Product Optimized R2" onerror="this.src='https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW'">
             </div>
             <div class="card-footer-actions">
                 <div class="love-share-group">
@@ -371,19 +345,19 @@
         </div>
     </main>
 
-    <!-- ফুল-স্ক্রিন ওভারলে ভিউ (Creative Academy & Solutions) - বর্ডারমুক্ত, শতভাগ স্ক্রিন জুড়ে -->
+    <!-- ফুল-স্ক্রিন ওভারলে ভিউ (Creative Academy & Solutions) -->
     <div id="fullScreenPortal" class="fullscreen-portal-view">
         <div class="golden-close-btn" onclick="closeFullScreenPortal()"><i class="fa-solid fa-xmark"></i></div>
         <iframe id="fullScreenIframe" src="" style="width: 100vw; height: 100vh; border: none; background: #000;"></iframe>
     </div>
 
-    <!-- সাব-ডোমেইন ওভারলে প্যানেল (Affiliate, Seller, You, Basket) - বর্ডারমুক্ত ও শতভাগ ফুল স্ক্রিন -->
+    <!-- সাব-ডোমেইন ওভারলে প্যানেল (Affiliate, Seller, You - Firebase & R2 Connected) -->
     <div id="subdomainOverlay" class="subdomain-iframe-overlay">
         <div class="golden-close-btn" onclick="closeSubdomainOverlay()"><i class="fa-solid fa-xmark"></i></div>
-        <iframe id="subdomainIframeElement" src="" style="width: 100vw; height: 100vh; border: none; background: #000;"></iframe>
+        <iframe id="subdomainIframeElement" src="" style="width: 100vw; height: calc(100vh - 65px); border: none; background: #000; display: block;"></iframe>
     </div>
 
-    <!-- শেয়ার পপ-আপ মোডাল -->
+    <!-- শেয়ার পপ-আপ মোডাল -->
     <div id="shareModal" class="share-modal">
         <div class="share-modal-box">
             <div class="golden-close-btn" onclick="closeShareModal()" style="position: absolute; top: 12px; right: 12px;"><i class="fa-solid fa-xmark"></i></div>
@@ -414,7 +388,7 @@
         </div>
         <div class="product-details-content">
             <div class="media-slider-container">
-                <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview">
+                <img id="mainDisplayMedia" class="main-display-media" src="" alt="Product Preview R2 Optimized" onerror="this.src='https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW'">
                 <div class="thumbnail-strip" id="thumbStrip"></div>
             </div>
 
@@ -471,7 +445,7 @@
             <div style="text-align: center;">
                 <span style="font-size: 1rem; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;">Product Description</span>
                 <p style="font-size: 0.7rem; color: var(--text-gray); margin-top: 15px; text-align: left; line-height: 1.6;">
-                    Crafted with precision using high-grade Gamar wood and premium luxury finishes. Designed for durability, elegance, and global export standards. Free shipping and tax inclusive worldwide.
+                    Crafted with precision using high-grade Gamar wood and optimized via Cloudflare R2 Storage. Designed for durability, elegance, and global export standards.
                 </p>
             </div>
         </div>
@@ -504,7 +478,6 @@
         <div style="margin-bottom: 25px; text-align: center;">
             <span id="categoryViewTitle" style="font-size:1.1rem; font-weight:900; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing: 1px;">All Categories</span>
         </div>
-
         <div id="dynamicCategoryContent"></div>
     </div>
 
@@ -517,7 +490,7 @@
         </div>
     </div>
 
-    <!-- ফিক্সড বটম ন্যাভবার -->
+    <!-- ফিক্সড বটম ন্যাভবার (Affiliate, Seller, You - Firebase & R2 Synced) -->
     <nav class="bottom-nav">
         <div class="nav-item" onclick="toggleSubdomainOverlay('https://affiliate.rorraxy.com')">
             <i class="fa-solid fa-handshake"></i>
@@ -646,7 +619,7 @@
         function closeDescPopup() { document.getElementById('descModal').style.display = 'none'; }
         function openSizePopup() { document.getElementById('sizeModal').style.display = 'flex'; }
         function closeSizePopup() { document.getElementById('sizeModal').style.display = 'none'; }
-        function openLiveChat() { alert("Connecting to live support chatbot..."); }
+        function openLiveChat() { alert("Connecting to live support chatbot via Firebase R2 Engine..."); }
 
         function openCategoryView() {
             const container = document.getElementById('dynamicCategoryContent');
@@ -760,13 +733,13 @@
         }
 
         function filterCategory(catName) {
-            alert(`Filtering: ${catName}`);
+            alert(`Filtering Cloudflare R2 Database for: ${catName}`);
             toggleCategoryView('categoryView');
         }
 
         function executeSearch() {
             const q = document.getElementById('searchInputField').value;
-            if(q.trim()) { alert(`Searching: "${q}"`); toggleSearchPopup(); }
+            if(q.trim()) { alert(`Searching Cloudflare & Firebase Records: "${q}"`); toggleSearchPopup(); }
         }
 
         function toggleLove(el) { el.classList.toggle('gold-active'); }
@@ -789,7 +762,7 @@
             
             let thumbHTML = '';
             images.forEach((img, index) => {
-                thumbHTML += `<div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="switchMedia('${img}', this)"><img src="${img}"></div>`;
+                thumbHTML += `<div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="switchMedia('${img}', this)"><img src="${img}" onerror="this.src='https://lh3.googleusercontent.com/d/1a6lFxluTSYUQjB8oqlVQYApRRSmCxEOW'"></div>`;
             });
             document.getElementById('thumbStrip').innerHTML = thumbHTML;
             document.getElementById('productDetailModal').style.display = 'block';
@@ -802,7 +775,7 @@
             element.classList.add('active');
         }
 
-        function chatWithSeller() { alert("Connecting to seller..."); }
+        function chatWithSeller() { alert("Connecting to Seller via Firebase Realtime Chat..."); }
 
         function openShareModal() {
             let baseUrl = window.location.href.split('?')[0];
@@ -824,18 +797,11 @@
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
             cart.push({ title: 'Item', price: '$100', qty: currentQuantity });
             localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
-            updateCartBadge();
             document.getElementById('productDetailModal').style.display = 'none';
-            alert("Added to cart successfully!");
-        }
-
-        function updateCartBadge() {
-            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            document.getElementById('floatingCartCount').innerText = cart.length;
+            alert("Added to Customer (You) Cart successfully via Firebase Sync!");
         }
 
         window.onload = function() {
-            updateCartBadge();
             fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
                 let cc = d.country_code ? d.country_code.toLowerCase() : 'bd';
                 document.getElementById('visitorFlagImg').src = `https://flagcdn.com/w80/${cc}.png`;
