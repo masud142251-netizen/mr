@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rorraxy Affiliate Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #d4af37; /* গোল্ডেন কালার */
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .google-btn {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: 0.3s ease;
+        }
+        .google-btn:hover {
+            background-color: #f1f1f1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+        .google-icon {
+            font-weight: bold;
+            color: #4285F4;
+            font-size: 20px;
+        }
+        #loadingText {
+            margin-top: 20px;
+            color: #888888;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <!-- আপনার লোগো বা আইকন -->
+        <div style="font-size: 32px; font-weight: bold; color: #d4af37; margin-bottom: 10px;">rorraxy</div>
+        
+        <h1>AFFILIATE PROGRAM</h1>
+
+        <!-- আপনার ডিজাইন করা সেই ভেরিফিকেশন বাটন -->
+        <button id="googleVerifyBtn" class="google-btn">
+            <span class="google-icon">G</span> CONTINUE & VERIFY WITH GOOGLE
+        </button>
+
+        <p id="loadingText">যাচাই করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+    </div>
+
+    <!-- ফায়ারবেস এবং লজিক স্ক্রিপ্ট -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // আপনার ফায়ারবেস কনফিগারেশন
+        const firebaseConfig = {
+            apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
+            authDomain: "rorraxy-fcb91.firebaseapp.com",
+            projectId: "rorraxy-fcb91",
+            storageBucket: "rorraxy-fcb91.firebasestorage.app",
+            messagingSenderId: "880891394208",
+            appId: "1:880891394208:web:3bd8ccacf68ad5d53af1c5",
+            measurementId: "G-0XTRV9TPM3"
+        };
+
+        // ফায়ারবেস ইনিশিয়ালাইজ
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        const verifyBtn = document.getElementById("googleVerifyBtn");
+        const loadingText = document.getElementById("loadingText");
+
+        verifyBtn.addEventListener("click", async () => {
+            try {
+                verifyBtn.style.opacity = "0.6";
+                verifyBtn.style.pointerEvents = "none";
+                loadingText.style.display = "block";
+
+                // গুগলের পপআপ উইন্ডো ওপেন হবে
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+                    const existingData = userSnap.data();
+                    
+                    // সিকিউরিটি চেক: সেলার বা কাস্টমার অ্যাকাউন্ট দিয়ে অ্যাফিলিয়েটে ঢোকা রোধ করা
+                    if (existingData.role !== 'affiliate') {
+                        alert(`বমিকা ত্রুটি! এই জিমেইল দিয়ে ইতিমধ্যে একটি '${existingData.role}' অ্যাকাউন্ট রয়েছে। আপনি অ্যাফিলিয়েট হতে পারবেন না।`);
+                        location.reload();
+                        return;
+                    }
+                } else {
+                    // একদম নতুন অ্যাফিলিয়েট হলে ডেটাবেজে 'affiliate' রোল দিয়ে সেভ হবে
+                    await setDoc(userRef, {
+                        uid: user.uid,
+                        name: user.displayName || "Affiliate User",
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        role: 'affiliate',
+                        createdAt: new Date().toISOString()
+                    });
+                }
+
+                alert(`স্বাগতম, ${user.displayName}! আপনার অ্যাফিলিয়েট ভেরিফিকেশন সফল হয়েছে।`);
+                
+                // সফলভাবে ভেরিফাই হওয়ার পর ড্যাশবোর্ডে রিডাইরেক্ট করবে
+                // window.location.href = "/affiliate-dashboard.html";
+
+            } catch (error) {
+                console.error("লগইন ব্যর্থ:", error.message);
+                alert("ভেরিফিকেশন সম্পন্ন হয়নি: " + error.message);
+                verifyBtn.style.opacity = "1";
+                verifyBtn.style.pointerEvents = "auto";
+                loadingText.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
