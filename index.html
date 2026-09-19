@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - luxury customer dashboard & cart</title>
+    <title>rorraxy - daraz style customer dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,14 +14,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- FIREBASE SDK & AUTH INTEGRATION -->
+    <!-- FIREBASE SDK & AUTH INTEGRATION (আপনার দেওয়া আসল কোড স্ট্রাকচার) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDokhLgGe4Ib7oxUJ8zczLFWj0YJKk57Y",
+            apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
             authDomain: "rorraxy-fcb91.firebaseapp.com",
             projectId: "rorraxy-fcb91",
             storageBucket: "rorraxy-fcb91.firebasestorage.app",
@@ -31,44 +31,48 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
 
-        window.handleGoogleAccountVerify = async function(redirectToCheckout = false) {
+        // ইউনিভার্সাল গুগল লগইন এবং রোল চেক ফাংশন
+        window.handleDarazGoogleVerify = async function(redirectToDashboard = true) {
             try {
-                const result = await signInWithPopup(auth, provider);
+                const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
 
-                await addDoc(collection(db, "affiliates"), {
-                    uid: user.uid,
-                    name: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                    verifiedAt: serverTimestamp()
-                });
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
 
                 let userData = {
                     uid: user.uid,
-                    name: user.displayName,
+                    name: user.displayName || "No Name",
                     email: user.email,
-                    photo: user.photoURL
+                    photoURL: user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png",
+                    role: "customer"
                 };
-                
+
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        ...userData,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
 
                 closeUserModal();
                 closeCartDrawerModal();
 
-                if(redirectToCheckout) {
-                    openCustomerDashboard(userData, true); // সরাসরি অ্যাড্রেস ও পেমেন্ট অপশনে নিয়ে যাবে
-                } else {
-                    openCustomerDashboard(userData, false);
+                if(redirectToDashboard) {
+                    openDarazCustomerDashboard(userData);
                 }
 
+                return { success: true, user };
             } catch (error) {
-                console.error("Google Sign-In Error: ", error);
-                alert('Verification failed: ' + error.message);
+                console.error("অথেন্টিকেশনে সমস্যা হয়েছে:", error.message);
+                alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                return { success: false, error: error.message };
             }
         };
     </script>
@@ -570,13 +574,13 @@
             <button class="modal-close-x" onclick="closeUserModal()">&times;</button>
             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="portal-card-logo">
             <h1 class="portal-card-title">YOUR ACCOUNT</h1>
-            <button class="google-verify-btn" onclick="handleGoogleAccountVerify(false)">
+            <button class="google-verify-btn" onclick="handleDarazGoogleVerify(true)">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1.1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
     </div>
 
-    <!-- কাস্টমার ড্যাশবোর্ড পপআপ মডাল (একাধিক অ্যাড্রেস ম্যানেজমেন্টসহ) -->
+    <!-- কাস্টমার ড্যাশবোর্ড পপআপ মডাল (দারাজ স্টাইল অ্যাড্রেস ও পেমেন্ট ফ্লো) -->
     <div id="customerDashboardModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'customerDashboardModalOverlay')">
         <div class="modal-content-box" style="max-width: 580px; text-align: left;">
             <button class="modal-close-x" onclick="closeDashboardModal()">&times;</button>
@@ -626,7 +630,7 @@
         </div>
     </div>
 
-    <!-- কার্ট পপআপ (যেখান থেকে চেকআউট বা ভেরিফিকেশন হবে) -->
+    <!-- কার্ট পপআপ (দারাজ স্টাইল চেকআউট ও গুগল ভেরিফিকেশন) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
@@ -673,7 +677,7 @@
         </div>
     </div>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক -->
+    <!-- স্ক্রিপ্ট লজিক -->
     <script>
         let currentUnitBasePrice = 100.00;
         let currentItemQuantity = 1;
@@ -770,7 +774,7 @@
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
-                openCustomerDashboard(JSON.parse(savedUser));
+                openDarazCustomerDashboard(JSON.parse(savedUser));
             } else {
                 document.getElementById('userAccountModalOverlay').style.display = 'flex';
             }
@@ -778,22 +782,21 @@
 
         function closeUserModal() { document.getElementById('userAccountModalOverlay').style.display = 'none'; }
 
-        /* কার্ট থেকে চেকআউট বা ভেরিফিকেশন ফ্লো */
+        /* কার্ট থেকে চেকআউট ভেরিফিকেশন ফ্লো */
         function handleCartCheckoutVerify() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
                 closeCartDrawerModal();
-                openCustomerDashboard(JSON.parse(savedUser));
+                openDarazCustomerDashboard(JSON.parse(savedUser));
             } else {
-                // ইউজার লগইন করা না থাকলে গুগল ভেরিফিকেশন ফায়ার করবে
-                handleGoogleAccountVerify(true);
+                window.handleDarazGoogleVerify(true);
             }
         }
 
-        function openCustomerDashboard(user) {
+        function openDarazCustomerDashboard(user) {
             document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
             document.getElementById('dashUserEmail').innerText = user.email || "";
-            document.getElementById('dashUserPhoto').src = user.photo || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
+            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
             
             renderSavedAddresses();
             document.getElementById('customerDashboardModalOverlay').style.display = 'flex';
@@ -805,7 +808,7 @@
             form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        /* একাধিক ডেলিভারি অ্যাড্রেস সেভ ও ম্যানেজমেন্ট সিস্টেম (অটো-শো করবে) */
+        /* একাধিক ডেলিভারি অ্যাড্রেস সেভ ও ম্যানেজমেন্ট সিস্টেম */
         function saveNewDeliveryAddress() {
             let name = document.getElementById('addrFullName').value.trim();
             let phone = document.getElementById('addrPhone').value.trim();
