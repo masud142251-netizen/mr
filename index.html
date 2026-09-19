@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - direct verify & customer dashboard</title>
+    <title>rorraxy - luxury e-commerce & customer dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
 
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -34,8 +35,8 @@
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // সরাসরি গুগল ভেরিফিকেশন এবং ড্যাশবোর্ড ট্রিগার
-        window.handleDirectGoogleVerify = async function() {
+        // ঝুড়ি বা চেকআউট থেকে ডাইরেক্ট ফায়ারবেস গুগল ভেরিফিকেশন
+        window.handleCartGoogleVerify = async function() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
@@ -59,9 +60,10 @@
                 }
 
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
-                
-                // ভেরিফাই হওয়ার সাথে সাথে মূল প্রোডাক্ট ভিউ লুকিয়ে সরাসরি ড্যাশবোর্ড দেখাবে
-                showCustomerDashboardPanel(userData);
+                closeCartDrawerModal();
+
+                // ভেরিফিকেশনের পর সরাসরি ইউ (YOU) প্যানেলে বা ড্যাশবোর্ডে নিয়ে যাবে
+                openCustomerDashboard(userData);
 
             } catch (error) {
                 console.error("অথেন্টিকেশনে সমস্যা হয়েছে:", error.message);
@@ -105,17 +107,14 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            overflow-x: hidden;
         }
         @media(min-width: 768px) {
             .ecommerce-main-wrapper { max-width: 1100px; padding: 25px; padding-bottom: 140px; gap: 24px; }
         }
 
         .product-details-clean-section { 
-            width: 100%; 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 16px; 
-            align-items: start;
+            width: 100%; max-width: 100%; background: transparent; display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start;
         }
         @media(min-width: 950px) {
             .product-details-clean-section { grid-template-columns: 1.1fr 0.9fr; gap: 35px; }
@@ -124,33 +123,15 @@
         .product-left-col { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 
         .media-viewport { 
-            width: 100%; 
-            position: relative; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            background: #030305; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 300px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.95); 
+            width: 100%; position: relative; border-radius: 12px; overflow: hidden; background: #030305; 
+            display: flex; align-items: center; justify-content: center; min-height: 300px; box-shadow: 0 15px 40px rgba(0,0,0,0.95); 
         }
         @media(min-width: 768px) { .media-viewport { min-height: 460px; border-radius: 18px; } }
         
-        .main-media-element { 
-            width: 100%; 
-            height: auto; 
-            max-height: 460px; 
-            object-fit: contain; 
-            display: block; 
-            background: #000; 
-        }
+        .main-media-element { width: 100%; height: auto; max-height: 460px; object-fit: contain; display: block; background: #000; }
 
         .thumbnail-slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; overflow: hidden; }
-        .thumbnail-strip { 
-            display: flex; gap: 8px; padding: 4px 0; overflow-x: auto; width: 100%;
-            scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent;
-        }
+        .thumbnail-strip { display: flex; gap: 8px; padding: 4px 0; overflow-x: auto; width: 100%; scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent; }
         .thumb-item { 
             width: 58px; height: 58px; border-radius: 10px; overflow: hidden; cursor: pointer; flex-shrink: 0; 
             background: #000; border: 1.5px solid rgba(255,255,255,0.15); position: relative; transition: 0.2s; 
@@ -162,9 +143,7 @@
 
         .product-right-col { display: flex; flex-direction: column; gap: 12px; width: 100%; }
 
-        .product-title-restricted { 
-            font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%;
-        }
+        .product-title-restricted { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%; }
         @media(min-width: 768px) { .product-title-restricted { font-size: 1.8rem; } }
 
         .stock-shipping-inline-row { 
@@ -253,19 +232,7 @@
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;
         }
 
-        /* ড্যাশবোর্ড প্যানেল (ভেরিফিকেশনের পর সরাসরি স্ক্রিনে শো করবে) */
-        #customerDashboardMainPanel {
-            display: none; width: 100%; background: #0c0c10; border-radius: 18px; padding: 20px;
-            flex-direction: column; gap: 16px; border: 1px solid rgba(212,175,55,0.3); margin-bottom: 40px;
-        }
-
-        .google-verify-btn {
-            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.88rem; padding: 14px 24px; border-radius: 35px;
-            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
-            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25); width: 100%; text-decoration: none;
-        }
-
-        /* কার্ট ড্রয়ার মোডাল */
+        /* মোডাল ওভারলে */
         .modal-overlay-bg {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(4, 4, 7, 0.95); z-index: 999999; backdrop-filter: blur(12px);
@@ -273,18 +240,24 @@
         }
         .modal-content-box {
             background: #0c0c10; border-radius: 18px; padding: 22px 16px; max-width: 520px; width: 100%;
-            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; position: relative;
+            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; position: relative; max-height: 85vh; overflow-y: auto;
         }
         .modal-close-x {
             position: absolute; top: 12px; right: 16px; background: none; border: none;
-            color: var(--gold-solid); font-size: 1.35rem; font-weight: 700; cursor: pointer;
+            color: var(--gold-solid); font-size: 1.35rem; font-weight: 700; cursor: pointer; z-index: 10;
         }
         .cart-items-preview-box {
-            background: #121216; border-radius: 12px; padding: 8px; max-height: 220px; overflow-y: auto; width: 100%;
+            background: #121216; border-radius: 12px; padding: 8px; max-height: 200px; overflow-y: auto; width: 100%;
             display: flex; flex-direction: column; gap: 8px;
         }
         .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 8px; border-radius: 8px; gap: 8px; }
         .cart-item-img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+
+        .google-verify-btn {
+            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.85rem; padding: 14px 24px; border-radius: 35px;
+            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
+            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25); width: 100%; text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -292,7 +265,7 @@
     <!-- মূল পেজ কন্টেইনার -->
     <div class="ecommerce-main-wrapper" id="mainStoreContainer">
         
-        <!-- ১. প্রোডাক্ট ডিটেইলস পেজ (স্বাভাবিক অবস্থায় এটি দেখাবে) -->
+        <!-- প্রোডাক্ট ডিটেইলস পেজ -->
         <div class="product-details-clean-section" id="productDetailsViewSection">
             <div class="product-left-col">
                 <div class="media-viewport" id="mediaViewportContainer">
@@ -361,49 +334,6 @@
             </div>
         </div>
 
-        <!-- ২. কাস্টমার ড্যাশবোর্ড ও ডেলিভারি অ্যাড্রেস প্যানেল (ভেরিফিকেশনের পর সরাসরি এখানে চলে আসবে) -->
-        <div id="customerDashboardMainPanel">
-            <div style="display:flex; align-items:center; gap:12px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
-                <img id="dashUserPhoto" src="" style="width:50px; height:50px; border-radius:50%; border:2px solid var(--gold-solid);">
-                <div>
-                    <h2 id="dashUserName" style="font-size:1rem; font-weight:700; color:#fff;"></h2>
-                    <span id="dashUserEmail" style="font-size:0.72rem; color:var(--text-gray);"></span>
-                </div>
-            </div>
-
-            <!-- ডেলিভারি অ্যাড্রেস লিস্ট ও প্লাস (+) বাটন -->
-            <div style="width:100%; background:#121216; padding:14px; border-radius:12px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
-                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                
-                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto;">
-                    <!-- সেভ করা অ্যাড্রেস এখানে দেখাবে -->
-                </div>
-
-                <!-- নতুন অ্যাড্রেস ইনপুট ফর্ম -->
-                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:8px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
-                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:9px; border-radius:6px; font-weight:700; font-size:0.72rem; cursor:pointer;">SAVE NEW ADDRESS</button>
-                </div>
-            </div>
-
-            <!-- প্রোডাক্ট আইডি ও পেমেন্ট বাটন -->
-            <div style="width:100%; background:#121216; padding:14px; border-radius:12px; display:flex; flex-direction:column; gap:8px;">
-                <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER DETAILS</span>
-                <div style="font-size:0.72rem; color:#fff; display:flex; justify-content:space-between;">
-                    <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
-                    <span>STATUS: <strong style="color:#4cd964;">READY FOR PAYMENT</strong></span>
-                </div>
-                <button class="google-verify-btn" onclick="alert('Proceeding to Secure Payment Gateway...');" style="width:100%; max-width:100%; margin-top:6px;">
-                    <i class="fa-solid fa-shield-halved" style="color:#2ecc71;"></i> PROCEED TO SECURE PAYMENT
-                </button>
-            </div>
-        </div>
-
     </div>
 
     <!-- ফুটার বার (হোম, অ্যাড টু কার্ট, ইউ, কার্ট) -->
@@ -428,46 +358,92 @@
         </div>
     </div>
 
-    <!-- কার্ট ড্রয়ার মোডাল (যেখানে সরাসরি কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন থাকবে) -->
+    <!-- কার্ট ড্রয়ার মোডাল (যেখান থেকে গুগল ভেরিফিকেশন হবে) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
-            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" style="width:55px; object-fit:contain;">
-            <h1 style="font-size:1.2rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">YOUR CART</h1>
+            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" style="width:50px; object-fit:contain;">
+            <h1 style="font-size:1.15rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">YOUR CART</h1>
             
             <div id="cartItemsPreviewBox" class="cart-items-preview-box"></div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; width:100%; background:#121216; padding:10px; border-radius:8px;">
-                <span style="font-size:0.72rem; color:var(--text-gray);">TOTAL AMOUNT:</span>
-                <span id="cartModalTotalVal" style="font-size:1rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
+                <span style="font-size:0.7rem; color:var(--text-gray);">TOTAL AMOUNT:</span>
+                <span id="cartModalTotalVal" style="font-size:0.95rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
             </div>
 
-            <!-- দারাজ স্টাইল কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন -->
-            <button class="google-verify-btn" onclick="handleDirectGoogleVerify()">
+            <!-- কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন -->
+            <button class="google-verify-btn" onclick="handleCartGoogleVerify()">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
     </div>
 
-    <!-- চ্যাট মোডাল -->
-    <div id="chatModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'chatModalOverlay')">
-        <div class="modal-content-box" style="max-width: 420px; text-align: left;">
-            <button class="modal-close-x" onclick="closeChatModal()">&times;</button>
-            <div style="display:flex; align-items:center; gap:8px; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px;">
-                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
+    <!-- ইউ (YOU) ড্যাশবোর্ড মোডাল (যেখানে প্রোফাইল, ডেলিভারি অ্যাড্রেস ও প্লাস (+) বাটন থাকবে) -->
+    <div id="customerDashboardModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'customerDashboardModalOverlay')">
+        <div class="modal-content-box" style="max-width: 540px; text-align: left;">
+            <button class="modal-close-x" onclick="closeDashboardModal()">&times;</button>
+            <div style="display:flex; align-items:center; gap:12px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                <img id="dashUserPhoto" src="" style="width:45px; height:45px; border-radius:50%; border:2px solid var(--gold-solid);">
                 <div>
-                    <span style="font-size:0.75rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
-                    <span style="font-size:0.58rem; color:#4cd964; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE</span>
+                    <h2 id="dashUserName" style="font-size:0.9rem; font-weight:700; color:#fff;"></h2>
+                    <span id="dashUserEmail" style="font-size:0.68rem; color:var(--text-gray);"></span>
                 </div>
             </div>
-            <div id="chatMessagesContainer" style="background:#121216; border-radius:10px; padding:10px; height:160px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:6px;">
-                <div style="background:#1a1a22; padding:8px; border-radius:8px; font-size:0.7rem; color:#fff; max-width:85%; text-transform:none !important;">
+
+            <!-- ডেলিভারি অ্যাড্রেস লিস্ট ও প্লাস (+) বাটন -->
+            <div style="width:100%; background:#121216; padding:12px; border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:0.72rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
+                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:24px; height:24px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                
+                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:6px; max-height:130px; overflow-y:auto;">
+                    <!-- সেভ করা অ্যাড্রেস এখানে দেখাবে -->
+                </div>
+
+                <!-- নতুন অ্যাড্রেস ইনপুট ফর্ম -->
+                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:6px; margin-top:8px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
+                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
+                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
+                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
+                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:8px; border-radius:6px; font-weight:700; font-size:0.7rem; cursor:pointer;">SAVE NEW ADDRESS</button>
+                </div>
+            </div>
+
+            <!-- পেমেন্ট ও অর্ডার ডিটেইলস -->
+            <div style="width:100%; background:#121216; padding:12px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:0.72rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER STATUS</span>
+                <div style="font-size:0.7rem; color:#fff; display:flex; justify-content:space-between;">
+                    <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
+                    <span>STATUS: <strong style="color:#4cd964;">READY FOR PAYMENT</strong></span>
+                </div>
+                <button class="google-verify-btn" onclick="alert('Proceeding to Secure Payment Gateway...');" style="width:100%; font-size:0.8rem; padding:12px;">
+                    <i class="fa-solid fa-shield-halved" style="color:#2ecc71;"></i> PROCEED TO SECURE PAYMENT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- চ্যাট মোডাল -->
+    <div id="chatModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'chatModalOverlay')">
+        <div class="modal-content-box" style="max-width: 400px; text-align: left;">
+            <button class="modal-close-x" onclick="closeChatModal()">&times;</button>
+            <div style="display:flex; align-items:center; gap:8px; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px;">
+                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                <div>
+                    <span style="font-size:0.72rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
+                    <span style="font-size:0.55rem; color:#4cd964; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE</span>
+                </div>
+            </div>
+            <div id="chatMessagesContainer" style="background:#121216; border-radius:10px; padding:10px; height:150px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:6px;">
+                <div style="background:#1a1a22; padding:8px; border-radius:8px; font-size:0.68rem; color:#fff; max-width:85%; text-transform:none !important;">
                     welcome! how can we assist you with your luxury order?
                 </div>
             </div>
-            <div style="display:flex; gap:6px; width:100%; margin-top:4px;">
-                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px; color:#fff; font-size:0.7rem;">
-                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 12px; border-radius:8px; font-weight:700; font-size:0.7rem; cursor:pointer;">SEND</button>
+            <div style="display:flex; gap:6px; width:100%;">
+                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px; color:#fff; font-size:0.68rem;">
+                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 12px; border-radius:8px; font-weight:700; font-size:0.68rem; cursor:pointer;">SEND</button>
             </div>
         </div>
     </div>
@@ -480,26 +456,7 @@
 
         window.onload = function() {
             updateCartBadgeCount();
-            checkExistingLoginState();
         };
-
-        function checkExistingLoginState() {
-            let savedUser = localStorage.getItem('rorraxy_logged_user');
-            if(savedUser) {
-                showCustomerDashboardPanel(JSON.parse(savedUser));
-            }
-        }
-
-        function showCustomerDashboardPanel(user) {
-            document.getElementById('productDetailsViewSection').style.display = 'none';
-            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
-            document.getElementById('dashUserEmail').innerText = user.email || "";
-            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
-            
-            renderSavedAddresses();
-            document.getElementById('customerDashboardMainPanel').style.display = 'flex';
-            closeCartDrawerModal();
-        }
 
         function switchMainMedia(type, src, el) {
             activeMediaSource = src;
@@ -561,14 +518,25 @@
             if(badge) badge.innerText = totalQty;
         }
 
+        /* ইউ (YOU) মেনু ক্লিক হ্যান্ডেলার */
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
-                showCustomerDashboardPanel(JSON.parse(savedUser));
+                openCustomerDashboard(JSON.parse(savedUser));
             } else {
                 openCartDrawerModal();
             }
         }
+
+        function openCustomerDashboard(user) {
+            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
+            document.getElementById('dashUserEmail').innerText = user.email || "";
+            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
+            
+            renderSavedAddresses();
+            document.getElementById('customerDashboardModalOverlay').style.display = 'flex';
+        }
+        function closeDashboardModal() { document.getElementById('customerDashboardModalOverlay').style.display = 'none'; }
 
         function toggleAddressForm() {
             let form = document.getElementById('addressInputFormContainer');
@@ -601,14 +569,14 @@
             let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
 
             if(addresses.length === 0) {
-                container.innerHTML = '<div style="font-size:0.7rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
+                container.innerHTML = '<div style="font-size:0.68rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
                 return;
             }
 
             let html = '';
             addresses.forEach((addr, idx) => {
                 html += `
-                <div style="background:#1a1a22; padding:8px; border-radius:6px; font-size:0.7rem; text-transform:none; display:flex; justify-content:space-between; align-items:center;">
+                <div style="background:#1a1a22; padding:8px; border-radius:6px; font-size:0.68rem; text-transform:none; display:flex; justify-content:space-between; align-items:center;">
                     <div>
                         <strong style="color:var(--gold-solid);">${addr.name}</strong> (${addr.phone})<br>
                         <span style="color:var(--text-gray);">${addr.street}</span>
@@ -637,7 +605,7 @@
             let container = document.getElementById('cartItemsPreviewBox');
             let totalValEl = document.getElementById('cartModalTotalVal');
             if(cart.length === 0) {
-                container.innerHTML = '<div style="color:var(--text-gray); text-align:center; font-size:0.72rem; padding:12px;">YOUR CART IS EMPTY.</div>';
+                container.innerHTML = '<div style="color:var(--text-gray); text-align:center; font-size:0.7rem; padding:10px;">YOUR CART IS EMPTY.</div>';
                 totalValEl.innerText = "$0.00";
                 return;
             }
@@ -650,8 +618,8 @@
                 <div class="cart-item-row">
                     <img src="${item.img}" class="cart-item-img">
                     <div style="flex:1; text-align:left; min-width:0;">
-                        <div style="font-size:0.7rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
-                        <div style="font-size:0.62rem; color:var(--text-gray);">QTY: ${item.qty} | $${itemTotal.toFixed(2)}</div>
+                        <div style="font-size:0.68rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
+                        <div style="font-size:0.6rem; color:var(--text-gray);">QTY: ${item.qty} | $${itemTotal.toFixed(2)}</div>
                     </div>
                 </div>`;
             });
@@ -669,7 +637,7 @@
             let input = document.getElementById('chatMessageInput');
             let box = document.getElementById('chatMessagesContainer');
             if(input.value.trim() !== "") {
-                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:8px; border-radius:8px; font-size:0.7rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
+                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:8px; border-radius:8px; font-size:0.68rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
                 input.value = "";
                 box.scrollTop = box.scrollHeight;
             }
