@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- FIREBASE SDK & AUTH INTEGRATION (আপনার দেওয়া অ্যাফিলিয়েট কোডের হুবহু ফায়ারবেস কাঠামো) -->
+    <!-- FIREBASE SDK & AUTH INTEGRATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -35,13 +35,11 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // গ্লোবাল ফায়ারবেস গুগল ভেরিফিকেশন ফাংশন
-        window.handleGoogleAccountVerify = async function() {
+        window.handleGoogleAccountVerify = async function(redirectToCheckout = false) {
             try {
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
 
-                // ফায়ারস্টোর ডেটাবেজে ইউজারের তথ্য সেভ করা
                 await addDoc(collection(db, "affiliates"), {
                     uid: user.uid,
                     name: user.displayName,
@@ -57,14 +55,16 @@
                     photo: user.photoURL
                 };
                 
-                // লোকালস্টোরেজে লগইন স্টেট সেভ করা যাতে পরবর্তীতে রি-লগইন করতে না হয়
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
 
-                alert('Verification Successful! Welcome, ' + user.displayName);
-                
                 closeUserModal();
                 closeCartDrawerModal();
-                openCustomerDashboard(userData);
+
+                if(redirectToCheckout) {
+                    openCustomerDashboard(userData, true); // সরাসরি অ্যাড্রেস ও পেমেন্ট অপশনে নিয়ে যাবে
+                } else {
+                    openCustomerDashboard(userData, false);
+                }
 
             } catch (error) {
                 console.error("Google Sign-In Error: ", error);
@@ -570,7 +570,7 @@
             <button class="modal-close-x" onclick="closeUserModal()">&times;</button>
             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="portal-card-logo">
             <h1 class="portal-card-title">YOUR ACCOUNT</h1>
-            <button class="google-verify-btn" onclick="handleGoogleAccountVerify()">
+            <button class="google-verify-btn" onclick="handleGoogleAccountVerify(false)">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1.1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
@@ -626,7 +626,7 @@
         </div>
     </div>
 
-    <!-- কার্ট পপআপ (এখান থেকে সরাসরি ভেরিফিকেশন ও চেকআউট) -->
+    <!-- কার্ট পপআপ (যেখান থেকে চেকআউট বা ভেরিফিকেশন হবে) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
@@ -642,7 +642,7 @@
                 </div>
             </div>
 
-            <button class="google-verify-btn" onclick="handleGoogleAccountVerify()" style="width:100%; max-width:100%;">
+            <button class="google-verify-btn" onclick="handleCartCheckoutVerify()" style="width:100%; max-width:100%;">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
@@ -766,7 +766,7 @@
             if(badge) badge.innerText = totalQty;
         }
 
-        /* ইউ মেনু ক্লিক হ্যান্ডেলার (লগইন থাকলে ড্যাশবোর্ড, না থাকলে ভেরিফিকেশন পপআপ) */
+        /* ইউ মেনু ক্লিক হ্যান্ডেলার */
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
@@ -777,6 +777,18 @@
         }
 
         function closeUserModal() { document.getElementById('userAccountModalOverlay').style.display = 'none'; }
+
+        /* কার্ট থেকে চেকআউট বা ভেরিফিকেশন ফ্লো */
+        function handleCartCheckoutVerify() {
+            let savedUser = localStorage.getItem('rorraxy_logged_user');
+            if(savedUser) {
+                closeCartDrawerModal();
+                openCustomerDashboard(JSON.parse(savedUser));
+            } else {
+                // ইউজার লগইন করা না থাকলে গুগল ভেরিফিকেশন ফায়ার করবে
+                handleGoogleAccountVerify(true);
+            }
+        }
 
         function openCustomerDashboard(user) {
             document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
@@ -793,7 +805,7 @@
             form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        /* একাধিক ডেলিভারি অ্যাড্রেস সেভ ও ম্যানেজমেন্ট সিস্টেম */
+        /* একাধিক ডেলিভারি অ্যাড্রেস সেভ ও ম্যানেজমেন্ট সিস্টেম (অটো-শো করবে) */
         function saveNewDeliveryAddress() {
             let name = document.getElementById('addrFullName').value.trim();
             let phone = document.getElementById('addrPhone').value.trim();
@@ -820,7 +832,7 @@
             let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
 
             if(addresses.length === 0) {
-                container.innerHTML = '<div style="font-size:0.7rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
+                container.innerHTML = '<div style="font-size:0.7rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে আপনার ডেলিভারি অ্যাড্রেস যুক্ত করুন।</div>';
                 return;
             }
 
