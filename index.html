@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    <title>rorraxy - Complete Seller Ecosystem & Dashboard</title>
+    <title>rorraxy - Complete Verified Seller Dashboard & Ecosystem</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +90,16 @@
                 const sellerSnap = await getDoc(sellerRef);
                 if (sellerSnap.exists() && sellerSnap.data().sellerId) {
                     finalSellerId = sellerSnap.data().sellerId;
+                    const data = sellerSnap.data();
+                    document.getElementById('storeFullName').value = data.fullName || user.displayName || "";
+                    document.getElementById('storeNameInput').value = data.storeName || "";
+                    document.getElementById('personalAddressInput').value = data.personalAddress || "";
+                    document.getElementById('warehouseAddressInput').value = data.warehouseAddress || "";
+                    document.getElementById('whatsappInput').value = data.whatsapp || "";
+                    if(data.logoURL) {
+                        document.getElementById('headerUserAvatar').src = data.logoURL;
+                        document.getElementById('currentLogoPreview').src = data.logoURL;
+                    }
                 } else {
                     let emailPrefix = user.email ? user.email.split('@')[0].toLowerCase() : "rorraxy";
                     let cleanIdBase = emailPrefix.replace(/[^a-z0-9]/g, '');
@@ -101,7 +111,8 @@
 
                     await setDoc(sellerRef, {
                         uid: user.uid,
-                        name: user.displayName || "MR MASUDAR ENTERPRISE",
+                        fullName: user.displayName || "",
+                        storeName: "MR MASUDAR ENTERPRISE",
                         email: user.email,
                         sellerId: finalSellerId,
                         photoURL: user.photoURL,
@@ -121,13 +132,15 @@
             }
 
             window.userState.sellerId = finalSellerId;
-            document.getElementById('userDisplayName').value = user.displayName || "MR MASUDAR ENTERPRISE";
+            document.getElementById('storeFullName').value = user.displayName || "";
+            document.getElementById('storeNameInput').value = "MR MASUDAR ENTERPRISE";
             document.getElementById('userDisplayEmail').value = user.email || "";
             document.getElementById('headerUserName').innerText = user.displayName || "MR MASUDAR ENTERPRISE";
             document.getElementById('headerUserId').innerText = "ID: " + finalSellerId + " (Verified Seller)";
             
-            if(user.photoURL) {
+            if(user.photoURL && !document.getElementById('currentLogoPreview').src) {
                 document.getElementById('headerUserAvatar').src = user.photoURL;
+                document.getElementById('currentLogoPreview').src = user.photoURL;
             }
 
             await loadSellerProducts();
@@ -164,7 +177,58 @@
             }
         }
 
-        // প্রোডাক্ট সাবমিট ও ফায়ারবেজে সংরক্ষণ
+        // অ্যাকাউন্ট ইনফো সেভ করা
+        window.saveAccountForm = async function(e) {
+            e.preventDefault();
+            showSpinner(true);
+            try {
+                const fullName = document.getElementById('storeFullName').value;
+                const storeName = document.getElementById('storeNameInput').value;
+                const personalAddress = document.getElementById('personalAddressInput').value;
+                const warehouseAddress = document.getElementById('warehouseAddressInput').value;
+                const countryCode = document.getElementById('countryCodeSelect').value;
+                const whatsapp = document.getElementById('whatsappInput').value;
+
+                const user = auth.currentUser;
+                if(user) {
+                    const sellerRef = doc(db, "sellers", user.uid);
+                    await setDoc(sellerRef, {
+                        fullName, storeName, personalAddress, warehouseAddress, countryCode, whatsapp
+                    }, { merge: true });
+                }
+                showSpinner(false);
+                window.showToast("Account Info updated successfully!");
+            } catch(err) {
+                showSpinner(false);
+                window.showToast("Save failed: " + err.message, true);
+            }
+        }
+
+        // লোগো আপলোড ও আপডেট
+        window.updateStoreLogo = async function(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Img = e.target.result;
+                document.getElementById('currentLogoPreview').src = base64Img;
+                document.getElementById('headerUserAvatar').src = base64Img;
+                
+                const user = auth.currentUser;
+                if(user) {
+                    try {
+                        const sellerRef = doc(db, "sellers", user.uid);
+                        await setDoc(sellerRef, { logoURL: base64Img }, { merge: true });
+                        window.showToast("Store Logo Updated Successfully!");
+                    } catch(err) {
+                        window.showToast("Logo save error!", true);
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // প্রোডাক্ট সাবমিট এবং ফায়ারবেজে সংরক্ষণ
         window.submitProductToFirebase = async function(e) {
             e.preventDefault();
             showSpinner(true);
@@ -174,6 +238,8 @@
                 const productName = document.getElementById('product_name').value;
                 const sellingPrice = parseFloat(document.getElementById('selling_price').value);
                 const marketPrice = parseFloat(document.getElementById('market_price').value) || 0;
+                const discountBD = parseFloat(document.getElementById('discount_bd').value) || 0;
+                const discountIntl = parseFloat(document.getElementById('discount_intl').value) || 0;
                 const stock = parseInt(document.getElementById('stock').value);
                 const description = document.getElementById('description').value;
                 const enableCustom = document.getElementById('enable_custom').checked;
@@ -187,15 +253,8 @@
                     productId: fullProductId,
                     sellerId: window.userState.sellerId,
                     sellerUid: window.userState.firebaseUser ? window.userState.firebaseUser.uid : "",
-                    category: category,
-                    productName: productName,
-                    sellingPrice: sellingPrice,
-                    marketPrice: marketPrice,
-                    stock: stock,
-                    description: description,
-                    enableCustom: enableCustom,
-                    customNotes: customNotes,
-                    enableChat: enableChat,
+                    category, productName, sellingPrice, marketPrice, discountBD, discountIntl, stock,
+                    description, enableCustom, customNotes, enableChat,
                     createdAt: new Date().toISOString(),
                     status: "active"
                 };
@@ -207,10 +266,7 @@
                 window.showToast("প্রোডাক্ট সফলভাবে প্রমোট ও পাবলিশ করা হয়েছে!");
                 
                 await loadSellerProducts();
-                setTimeout(() => {
-                    switchTab('dashboard');
-                }, 1000);
-
+                setTimeout(() => { switchTab('dashboard'); }, 1000);
             } catch (error) {
                 showSpinner(false);
                 window.showToast("প্রোডাক্ট প্রমোট ব্যর্থ হয়েছে: " + error.message, true);
@@ -256,6 +312,8 @@
                         tbody.appendChild(tr);
                     }
                 });
+
+                document.getElementById('totalProductsCount').innerText = count;
 
                 if(count === 0) {
                     tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #666; padding: 20px;">No products uploaded yet. Click 'Add New Product' to list items!</td></tr>`;
@@ -346,7 +404,7 @@
             margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
         }
         .dash-logo-area { display: flex; align-items: center; gap: 10px; }
-        .dash-logo-img { width: 48px; height: auto; border-radius: 50%; border: 2px solid var(--gold-solid); }
+        .dash-logo-img { width: 48px; height: 48px; object-fit: cover; border-radius: 50%; border: 2px solid var(--gold-solid); cursor: pointer; }
         .user-big-identity h2 { margin: 0; font-size: 1rem; font-weight: 700; color: #ffffff; }
         .user-big-identity p {
             margin: 2px 0 0 0; font-size: 0.75rem;
@@ -434,7 +492,14 @@
             padding: 10px 20px; border-radius: 7px; cursor: pointer; text-transform: uppercase; width: 100%; font-size: 0.8rem;
         }
 
-        /* --- স্ট্যান্ডার্ড সাইজের ফুল-স্ক্রিন অ্যাড নিউ প্রোডাক্ট পেজ ডিজাইন --- */
+        /* লোগো এডিট বক্স (সেটিংসের একদম উপরে) */
+        .logo-edit-box {
+            background: #15151a; border: 1px dashed var(--gold-solid); border-radius: 10px;
+            padding: 12px; margin-bottom: 18px; display: flex; align-items: center; gap: 15px;
+        }
+        .logo-edit-box img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-solid); }
+
+        /* --- ফুল-স্ক্রিন স্ট্যান্ডার্ড অ্যাড নিউ প্রোডাক্ট পেজ ডিজাইন --- */
         #addProductSection {
             display: none; width: 100%; max-width: 1000px; margin: 0 auto; padding: 20px 15px;
         }
@@ -516,6 +581,23 @@
             } else if(tabName === 'settings') {
                 settingsSec.style.display = 'block';
                 btnSet.classList.add('active');
+                
+                // সেটিংস ট্যাবে আসলে কিউআর কোড নিশ্চিত রেন্ডার করা
+                setTimeout(() => {
+                    const qrContainer = document.getElementById('qrcodeContainer');
+                    if (qrContainer && qrContainer.innerHTML === "") {
+                        const otpauthUrl = "otpauth://totp/rorraxy:seller?secret=JBSWY3DPEHPK3PXP&issuer=rorraxy";
+                        new QRCode(qrContainer, {
+                            text: otpauthUrl,
+                            width: 130,
+                            height: 130,
+                            colorDark : "#000000",
+                            colorLight : "#ffffff",
+                            correctLevel : QRCode.CorrectLevel.H
+                        });
+                    }
+                }, 100);
+
             } else if(tabName === 'add_product') {
                 addProdSec.style.display = 'block';
                 resetCategorySelection();
@@ -527,6 +609,23 @@
             document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(subTabId).classList.add('active');
             btnElement.classList.add('active');
+
+            if(subTabId === 'tab2FA') {
+                setTimeout(() => {
+                    const qrContainer = document.getElementById('qrcodeContainer');
+                    if (qrContainer && qrContainer.innerHTML === "") {
+                        const otpauthUrl = "otpauth://totp/rorraxy:seller?secret=JBSWY3DPEHPK3PXP&issuer=rorraxy";
+                        new QRCode(qrContainer, {
+                            text: otpauthUrl,
+                            width: 130,
+                            height: 130,
+                            colorDark : "#000000",
+                            colorLight : "#ffffff",
+                            correctLevel : QRCode.CorrectLevel.H
+                        });
+                    }
+                }, 50);
+            }
         }
 
         function handlePayoutMethodChange() {
@@ -610,7 +709,7 @@
     <div id="dashboardSection">
         <header class="dash-header">
             <div class="dash-logo-area">
-                <img id="headerUserAvatar" src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="dash-logo-img">
+                <img id="headerUserAvatar" src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="dash-logo-img" onclick="switchTab('settings')" title="Click to Edit Logo">
                 <div class="user-big-identity">
                     <h2 id="headerUserName">MR MASUDAR ENTERPRISE</h2>
                     <p id="headerUserId">ID: loading...</p>
@@ -637,7 +736,7 @@
                 </div>
                 <div class="summary-card">
                     <h3>Total Products</h3>
-                    <p class="value">0</p>
+                    <p class="value" id="totalProductsCount">0</p>
                     <i class="fa-solid fa-box-open gold-icon"></i>
                 </div>
             </div>
@@ -673,9 +772,21 @@
             </div>
         </div>
 
-        <!-- সেটিংস ট্যাব সেকশন (সম্পূর্ণ ফিচারসহ) -->
+        <!-- সেটিংস ট্যাব সেকশন (সম্পূর্ণ ১৯৫+ দেশ, লোগো এডিট, ও অন্যান্য তথ্যসহ) -->
         <div id="settingsSection">
             <div class="settings-container">
+                
+                <!-- লোগো এডিট অপশন (সেটিংসের একদম উপরে) -->
+                <div class="logo-edit-box">
+                    <img id="currentLogoPreview" src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo">
+                    <div style="flex: 1;">
+                        <h4 style="margin:0 0 3px 0; color:var(--gold-solid); font-size:0.85rem;">Store Logo Branding</h4>
+                        <p style="margin:0; font-size:0.72rem; color:#888;">Upload your custom store avatar or logo.</p>
+                    </div>
+                    <button type="button" class="add-product-btn" onclick="document.getElementById('logoFileInput').click()">Change Logo</button>
+                    <input type="file" id="logoFileInput" accept="image/*" style="display: none;" onchange="updateStoreLogo(event)">
+                </div>
+
                 <div class="settings-nav-tabs">
                     <button class="sub-tab-btn active" onclick="switchSettingsTab('tabAccount', this)"><i class="fa-solid fa-user-pen"></i> Account Info</button>
                     <button class="sub-tab-btn" onclick="switchSettingsTab('tabPayment', this)"><i class="fa-solid fa-wallet"></i> Payment Setup</button>
@@ -683,13 +794,94 @@
                     <button class="sub-tab-btn" onclick="switchSettingsTab('tab2FA', this)"><i class="fa-solid fa-shield-halved"></i> 2FA Security</button>
                 </div>
 
+                <!-- একাউন্ট ইনফো ট্যাব (সব তথ্য এবং ১৯৫+ দেশের কোডসহ) -->
                 <div id="tabAccount" class="sub-tab-content active">
-                    <form onsubmit="event.preventDefault(); window.showToast('Account Info updated successfully!');">
-                        <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Seller Store Information</h4>
-                        <div class="form-group"><label>Store Name</label><input type="text" id="userDisplayName" required></div>
-                        <div class="form-group"><label>Gmail Account</label><input type="email" id="userDisplayEmail" readonly style="color: #d4af37; background: #0c0c0c;"></div>
-                        <div class="form-group"><label>Warehouse Address</label><input type="text" placeholder="Area, City, Country" required></div>
-                        <button type="submit" class="save-btn">Save Info</button>
+                    <form onsubmit="saveAccountForm(event)">
+                        <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Seller Full Profile & Store Information</h4>
+                        
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="storeFullName" placeholder="Your Full Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Store / Business Name</label>
+                            <input type="text" id="storeNameInput" placeholder="Store Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gmail Account (Read-only)</label>
+                            <input type="email" id="userDisplayEmail" readonly style="color: #d4af37; background: #0c0c0c; cursor: not-allowed;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Personal Address</label>
+                            <input type="text" id="personalAddressInput" placeholder="Your Residential Address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Business Warehouse Address</label>
+                            <input type="text" id="warehouseAddressInput" placeholder="Warehouse / Shipping Hub Address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>WhatsApp Business Number (195+ Country Codes)</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select id="countryCodeSelect" style="width: 120px; min-width: 100px;">
+                                    <option value="+93">🇦🇫 +93</option>
+                                    <option value="+355">🇦🇱 +355</option>
+                                    <option value="+213">🇩🇿 +213</option>
+                                    <option value="+54">🇦🇷 +54</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                    <option value="+43">🇦🇹 +43</option>
+                                    <option value="+973">🇧🇭 +973</option>
+                                    <option value="+880" selected>🇧🇩 +880</option>
+                                    <option value="+32">🇧🇪 +32</option>
+                                    <option value="+55">🇧🇷 +55</option>
+                                    <option value="+1">🇨🇦 +1</option>
+                                    <option value="+86">🇨🇳 +86</option>
+                                    <option value="+45">🇩🇰 +45</option>
+                                    <option value="+20">🇪🇬 +20</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+852">🇭🇰 +852</option>
+                                    <option value="+36">🇭🇺 +36</option>
+                                    <option value="+91">🇮🇳 +91</option>
+                                    <option value="+62">🇮🇩 +62</option>
+                                    <option value="+353">🇮🇪 +353</option>
+                                    <option value="+972">🇮🇱 +972</option>
+                                    <option value="+39">🇮🇹 +39</option>
+                                    <option value="+81">🇯🇵 +81</option>
+                                    <option value="+60">🇲🇾 +60</option>
+                                    <option value="+52">🇲🇽 +52</option>
+                                    <option value="+31">🇳🇱 +31</option>
+                                    <option value="+64">🇳🇿 +64</option>
+                                    <option value="+47">🇳🇴 +47</option>
+                                    <option value="+92">🇵🇰 +92</option>
+                                    <option value="+63">🇵🇭 +63</option>
+                                    <option value="+48">🇵🇱 +48</option>
+                                    <option value="+351">🇵🇹 +351</option>
+                                    <option value="+974">🇶🇦 +974</option>
+                                    <option value="+7">🇷🇺 +7</option>
+                                    <option value="+966">🇸🇦 +966</option>
+                                    <option value="+65">🇸🇬 +65</option>
+                                    <option value="+27">🇿🇦 +27</option>
+                                    <option value="+34">🇪🇸 +34</option>
+                                    <option value="+46">🇸🇪 +46</option>
+                                    <option value="+41">🇨🇭 +41</option>
+                                    <option value="+886">🇹🇼 +886</option>
+                                    <option value="+66">🇹🇭 +66</option>
+                                    <option value="+90">🇹🇷 +90</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+84">🇻🇳 +84</option>
+                                </select>
+                                <input type="text" id="whatsappInput" placeholder="17XXXXXXXX" required style="flex: 1;">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="save-btn">Save Account Info</button>
                     </form>
                 </div>
 
@@ -758,7 +950,7 @@
         </div>
     </div>
 
-    <!-- ফুল-স্ক্রিন স্ট্যান্ডার্ড অ্যাড নিউ প্রোডাক্ট পেজ -->
+    <!-- ফুল-স্ক্রিন স্ট্যান্ডার্ড অ্যাড নিউ প্রোডাক্ট পেজ (চ্যাট, কাস্টমাইজ এবং বাংলাদেশ/আন্তর্জাতিক ডিসকাউন্ট সহ) -->
     <div id="addProductSection">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
             <button type="button" class="back-cat-btn" onclick="switchTab('dashboard')"><i class="fa-solid fa-arrow-left"></i> BACK TO DASHBOARD</button>
@@ -815,7 +1007,7 @@
                 <button type="button" class="back-cat-btn" style="margin:0; padding: 4px 10px; font-size:0.75rem;" onclick="resetCategorySelection()">Change</button>
             </div>
 
-            <!-- ধাপ ২: প্রোডাক্ট ইনফরমেশন -->
+            <!-- ধাপ ২: প্রোডাক্ট ইনফরমেশন (ডিসকাউন্ট ঘরসহ) -->
             <div class="form-section-box hidden-step" id="step-product-info">
                 <h3><i class="fa-solid fa-box-open"></i> Product Information</h3>
                 
@@ -835,15 +1027,27 @@
                     </div>
                 </div>
 
+                <!-- বাংলাদেশ ও আন্তর্জাতিক ডিসকাউন্ট অপশন -->
+                <div class="row-grid">
+                    <div class="product-input-group">
+                        <label for="discount_bd">Bangladesh Discount (%)</label>
+                        <input type="number" step="0.1" id="discount_bd" name="discount_bd" placeholder="10%">
+                    </div>
+                    <div class="product-input-group">
+                        <label for="discount_intl">International Discount (%)</label>
+                        <input type="number" step="0.1" id="discount_intl" name="discount_intl" placeholder="5%">
+                    </div>
+                </div>
+
                 <div class="product-input-group">
                     <label for="stock">Stock Quantity</label>
                     <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required>
                 </div>
 
-                <button type="button" class="next-btn" onclick="goToStepDescription()">Next: Description & Customization <i class="fa-solid fa-arrow-right"></i></button>
+                <button type="button" class="next-btn" onclick="goToStepDescription()">Next: Description & Options <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
-            <!-- ধাপ ৩: ডেসক্রিপশন এবং চ্যাট ও কাস্টমাইজ অপশন -->
+            <!-- ধাপ ৩: ডেসক্রিপশন এবং চ্যাট ও কাস্টমাইজ অপশন (ডিফল্ট চেক করা) -->
             <div class="form-section-box hidden-step" id="step-description-custom">
                 <h3><i class="fa-solid fa-pen-to-square"></i> Product Description</h3>
                 
@@ -863,12 +1067,12 @@
                     <label for="enable_chat">Chat (Allow customers to chat directly with seller)</label>
                 </div>
 
-                <div class="toggle-container" onclick="toggleCustomSection()">
-                    <input type="checkbox" id="enable_custom" name="enable_custom" value="yes" onchange="toggleCustomSection()">
+                <div class="toggle-container">
+                    <input type="checkbox" id="enable_custom" name="enable_custom" value="yes" checked onchange="toggleCustomSection()">
                     <label for="enable_custom">Enable Custom</label>
                 </div>
 
-                <div class="product-input-group hidden-step" id="custom-box-container">
+                <div class="product-input-group" id="custom-box-container">
                     <label for="custom_notes">Size, Color & Personal Notes</label>
                     <textarea id="custom_notes" name="custom_notes" rows="2" placeholder="Enter customer customization instructions..."></textarea>
                 </div>
