@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - luxury ecommerce</title>
+    <title>rorraxy - luxury customer dashboard & cart</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ফায়ারবেস অথেন্টিকেশন লজিক -->
+    <!-- ফায়ারবেস অথেন্টিকেশন -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -32,7 +32,6 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // গুগল ভেরিফিকেশন ফাংশন (অফলাইন এরর এড়াতে সরাসরি অথ ফোকাস করা হয়েছে)
         window.handleCartGoogleVerify = async function() {
             try {
                 const result = await signInWithPopup(auth, provider);
@@ -46,7 +45,6 @@
                 };
 
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
-                
                 closeCartDrawerModal();
                 openCustomerDashboard(userData);
 
@@ -72,162 +70,170 @@
         
         html, body {
             width: 100%; max-width: 100%; background: var(--bg-retail) !important; color: var(--text-white);
-            font-family: var(--font-main); font-size: 15px; text-transform: uppercase !important;
+            font-family: var(--font-main); font-size: 16px; text-transform: uppercase !important;
             -webkit-font-smoothing: antialiased; overflow-x: hidden !important; position: relative;
         }
 
         .ecommerce-main-wrapper {
-            width: 100%; max-width: 100%; margin: 0 auto; padding: 12px; padding-bottom: 130px;
-            display: flex; flex-direction: column; gap: 16px;
-        }
-        @media(min-width: 768px) {
-            .ecommerce-main-wrapper { max-width: 1100px; padding: 25px; padding-bottom: 140px; gap: 24px; }
+            width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 150px;
+            display: flex; flex-direction: column; gap: 24px;
         }
 
         .product-details-clean-section { 
-            width: 100%; display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start;
+            width: 100%; display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start;
         }
         @media(min-width: 950px) {
-            .product-details-clean-section { grid-template-columns: 1.1fr 0.9fr; gap: 35px; }
+            .product-details-clean-section { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
         }
 
-        .product-left-col { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+        .product-left-col { width: 100%; display: flex; flex-direction: column; gap: 14px; }
 
         .media-viewport { 
-            width: 100%; position: relative; border-radius: 12px; overflow: hidden; background: #030305; 
-            display: flex; align-items: center; justify-content: center; min-height: 300px; box-shadow: 0 15px 40px rgba(0,0,0,0.95); 
+            width: 100%; position: relative; border-radius: 16px; overflow: hidden; background: #030305; 
+            display: flex; align-items: center; justify-content: center; min-height: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); 
         }
-        @media(min-width: 768px) { .media-viewport { min-height: 460px; border-radius: 18px; } }
+        @media(min-width: 768px) { .media-viewport { min-height: 520px; } }
         
-        .main-media-element { width: 100%; height: auto; max-height: 460px; object-fit: contain; display: block; background: #000; }
+        .main-media-element { width: 100%; height: auto; max-height: 520px; object-fit: contain; display: block; background: #000; }
 
         .thumbnail-slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; overflow: hidden; }
-        .thumbnail-strip { display: flex; gap: 8px; padding: 4px 0; overflow-x: auto; width: 100%; scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent; }
+        .thumbnail-strip { display: flex; gap: 10px; padding: 6px 0; overflow-x: auto; width: 100%; scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent; }
         .thumb-item { 
-            width: 58px; height: 58px; border-radius: 10px; overflow: hidden; cursor: pointer; flex-shrink: 0; 
-            background: #000; border: 1.5px solid rgba(255,255,255,0.15); position: relative; transition: 0.2s; 
+            width: 70px; height: 70px; border-radius: 12px; overflow: hidden; cursor: pointer; flex-shrink: 0; 
+            background: #000; border: 2px solid rgba(255,255,255,0.15); position: relative; transition: 0.2s; 
         }
-        @media(min-width: 768px) { .thumb-item { width: 75px; height: 75px; border-radius: 12px; } }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
-        .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 14px rgba(212,175,55,0.7); }
+        .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 16px rgba(212,175,55,0.8); }
 
-        .product-right-col { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .product-right-col { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-        .product-title-restricted { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%; }
-        @media(min-width: 768px) { .product-title-restricted { font-size: 1.8rem; } }
+        .product-title-restricted { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: 1px; line-height: 1.3; width: 100%; }
+        @media(min-width: 768px) { .product-title-restricted { font-size: 2.2rem; } }
 
         .stock-shipping-inline-row { 
-            display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; 
-            background: #0a0a0e; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; 
+            background: #0a0a0e; padding: 14px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
         }
-        .stock-available { font-size: 0.75rem; font-weight: 600; color: #4cd964; display: flex; align-items: center; gap: 5px; }
-        .free-shipping-clean { font-size: 0.75rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 5px; }
+        .stock-available { font-size: 0.85rem; font-weight: 600; color: #4cd964; display: flex; align-items: center; gap: 6px; }
+        .free-shipping-clean { font-size: 0.85rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 6px; }
 
         .price-discount-box { 
-            display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #0a0a0e; 
-            padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); width: 100%; 
+            display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #0a0a0e; 
+            padding: 16px 18px; border-radius: 14px; border: 1px solid rgba(212,175,55,0.3); width: 100%; 
         }
-        .current-price-tag { font-size: 1.35rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        @media(min-width: 768px) { .current-price-tag { font-size: 1.8rem; } }
-        .crossed-old-price { font-size: 0.75rem; color: var(--text-gray); text-decoration: line-through; font-weight: 600; }
+        .current-price-tag { font-size: 1.6rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        @media(min-width: 768px) { .current-price-tag { font-size: 2.1rem; } }
+        .crossed-old-price { font-size: 0.9rem; color: var(--text-gray); text-decoration: line-through; font-weight: 600; }
         
         .discount-badge-center { 
-            background: var(--pink-accent); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; 
-            border-radius: 6px; display: inline-flex; align-items: center; gap: 3px; box-shadow: 0 3px 10px rgba(255,42,133,0.45); 
+            background: var(--pink-accent); color: #fff; font-size: 0.8rem; font-weight: 700; padding: 6px 12px; 
+            border-radius: 8px; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 12px rgba(255,42,133,0.5); 
         }
         
-        .qty-inline-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .qty-label-mini { font-size: 0.55rem; font-weight: 700; color: var(--gold-solid); }
-        .qty-controls-flex { display: flex; align-items: center; gap: 6px; background: #141418; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); }
-        .qty-btn-ch { background: var(--gold-gradient); border: none; color: #000; font-size: 0.75rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .qty-num-val { font-size: 0.88rem; font-weight: 700; color: #fff; min-width: 12px; text-align: center; }
+        .qty-inline-box { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .qty-label-mini { font-size: 0.65rem; font-weight: 700; color: var(--gold-solid); }
+        .qty-controls-flex { display: flex; align-items: center; gap: 10px; background: #141418; padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .qty-btn-ch { background: var(--gold-gradient); border: none; color: #000; font-size: 0.9rem; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .qty-num-val { font-size: 1rem; font-weight: 700; color: #fff; min-width: 16px; text-align: center; }
 
         .seller-clean-card {
-            background: #0a0a0e; border: 1px solid rgba(212,175,55,0.2); border-radius: 12px;
-            padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px;
+            background: #0a0a0e; border: 1px solid rgba(212,175,55,0.25); border-radius: 14px;
+            padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 12px;
         }
-        .seller-info-left { display: flex; align-items: center; gap: 8px; flex: 1; }
-        .seller-banner-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); }
-        .seller-name-txt { font-size: 0.78rem; font-weight: 700; color: #fff; display: block; }
-        .seller-verified-sub { font-size: 0.6rem; color: var(--gold-solid); display: block; font-weight: 600; }
+        .seller-info-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .seller-banner-logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-solid); }
+        .seller-name-txt { font-size: 0.9rem; font-weight: 700; color: #fff; display: block; }
+        .seller-verified-sub { font-size: 0.7rem; color: var(--gold-solid); display: block; font-weight: 600; }
 
         .seller-chat-inline-btn {
-            background: #121216; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold-solid);
-            font-size: 0.72rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; cursor: pointer;
-            display: flex; align-items: center; gap: 6px; transition: 0.2s; white-space: nowrap;
+            background: #121216; border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold-solid);
+            font-size: 0.8rem; font-weight: 700; padding: 10px 16px; border-radius: 10px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; transition: 0.2s; white-space: nowrap;
         }
 
         .product-info-section-box {
-            display: flex; flex-direction: column; gap: 8px; background: #0a0a0e; padding: 14px; 
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); width: 100%;
+            display: flex; flex-direction: column; gap: 10px; background: #0a0a0e; padding: 18px; 
+            border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); width: 100%;
         }
-        .info-box-title { font-size: 0.7rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 5px; }
-        .standard-description-box { font-size: 0.75rem; color: var(--text-gray); line-height: 1.5; text-transform: none !important; }
+        .info-box-title { font-size: 0.8rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 6px; }
+        .standard-description-box { font-size: 0.85rem; color: var(--text-gray); line-height: 1.6; text-transform: none !important; }
         .custom-note-input { 
-            background: #141418; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 9px 12px; 
-            color: #fff; font-size: 0.75rem; outline: none; font-family: var(--font-main); text-transform: uppercase; width: 100%; 
+            background: #141418; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; 
+            color: #fff; font-size: 0.85rem; outline: none; font-family: var(--font-main); text-transform: uppercase; width: 100%; 
         }
 
         /* ফুটার বার */
         .fixed-bottom-checkout-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.98);
-            backdrop-filter: blur(15px); padding: 8px 10px; display: grid; grid-template-columns: 1fr 1.6fr 1fr 1.1fr; gap: 4px; z-index: 5000; box-shadow: 0 -4px 15px rgba(0,0,0,0.95); align-items: center;
+            backdrop-filter: blur(20px); padding: 12px 18px; display: grid; grid-template-columns: 1fr 1.6fr 1fr 1.1fr; gap: 8px; z-index: 5000; box-shadow: 0 -6px 20px rgba(0,0,0,0.95); align-items: center;
         }
-        @media(min-width: 768px) { .fixed-bottom-checkout-bar { display: flex; justify-content: center; gap: 30px; padding: 12px 20px; } }
+        @media(min-width: 768px) { .fixed-bottom-checkout-bar { display: flex; justify-content: center; gap: 40px; padding: 16px 30px; } }
         
         .footer-menu-item { 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-decoration: none; cursor: pointer; gap: 4px; background: transparent !important; 
-            border: none !important; padding: 6px; transition: 0.2s; width: 100%; height: 100%; position: relative;
+            text-decoration: none; cursor: pointer; gap: 6px; background: transparent !important; 
+            border: none !important; padding: 8px; transition: 0.2s; width: 100%; height: 100%; position: relative;
         }
-        @media(min-width: 768px) { .footer-menu-item { width: 110px; } }
-        .footer-menu-icon { font-size: 1.25rem; color: var(--gold-solid); }
-        .footer-menu-label { font-size: 0.62rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; }
+        @media(min-width: 768px) { .footer-menu-item { width: 130px; } }
+        .footer-menu-icon { font-size: 1.5rem; color: var(--gold-solid); }
+        .footer-menu-label { font-size: 0.75rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; }
 
         .footer-menu-item.cart-highlight {
-            background: var(--gold-gradient) !important; border-radius: 10px !important; padding: 10px 12px !important;
+            background: var(--gold-gradient) !important; border-radius: 12px !important; padding: 12px 16px !important;
         }
-        .footer-menu-item.cart-highlight .footer-menu-label { color: #000000 !important; font-size: 0.72rem; font-weight: 800; }
+        .footer-menu-item.cart-highlight .footer-menu-label { color: #000000 !important; font-size: 0.85rem; font-weight: 800; }
 
         .footer-cart-icon-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
         .footer-cart-badge {
-            position: absolute; top: -6px; right: -10px; background: var(--pink-accent); color: #fff;
-            font-size: 0.6rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: -8px; right: -12px; background: var(--pink-accent); color: #fff;
+            font-size: 0.7rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(255,42,133,0.9);
         }
 
         .flying-luxury-coin {
-            position: fixed; z-index: 999999; width: 38px; height: 38px; object-fit: cover;
+            position: fixed; z-index: 999999; width: 45px; height: 45px; object-fit: cover;
             border-radius: 50%; border: 2px solid var(--gold-solid);
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;
+            box-shadow: 0 0 20px rgba(212,175,55,0.95);
         }
 
-        /* মোডাল ওভারলে */
+        /* মোডাল ওভারলে (ফুল স্ক্রিন রেসপন্সিভ) */
         .modal-overlay-bg {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(4, 4, 7, 0.95); z-index: 999999; backdrop-filter: blur(12px);
-            align-items: center; justify-content: center; padding: 12px;
+            background: rgba(4, 4, 7, 0.96); z-index: 999999; backdrop-filter: blur(15px);
+            align-items: center; justify-content: center; padding: 16px;
         }
         .modal-content-box {
-            background: #0c0c10; border-radius: 18px; padding: 22px 16px; max-width: 520px; width: 100%;
-            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; position: relative; max-height: 85vh; overflow-y: auto;
+            background: #0c0c10; border-radius: 20px; padding: 28px 20px; max-width: 650px; width: 100%;
+            display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(212,175,55,0.25); box-shadow: 0 25px 60px rgba(0,0,0,0.99);
         }
+        @media(min-width: 768px) { .modal-content-box { padding: 40px 35px; max-width: 720px; } }
+
         .modal-close-x {
-            position: absolute; top: 12px; right: 16px; background: none; border: none;
-            color: var(--gold-solid); font-size: 1.35rem; font-weight: 700; cursor: pointer; z-index: 10;
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            color: var(--gold-solid); font-size: 1.6rem; font-weight: 700; cursor: pointer; z-index: 10;
         }
         .cart-items-preview-box {
-            background: #121216; border-radius: 12px; padding: 8px; max-height: 200px; overflow-y: auto; width: 100%;
-            display: flex; flex-direction: column; gap: 8px;
+            background: #121216; border-radius: 14px; padding: 12px; max-height: 280px; overflow-y: auto; width: 100%;
+            display: flex; flex-direction: column; gap: 10px;
         }
-        .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 8px; border-radius: 8px; gap: 8px; }
-        .cart-item-img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+        .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 12px; border-radius: 10px; gap: 12px; }
+        .cart-item-img { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; }
 
         .google-verify-btn {
-            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.85rem; padding: 14px 24px; border-radius: 35px;
-            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
-            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25); width: 100%; text-decoration: none;
+            background: #ffffff; color: #000000; font-weight: 700; font-size: 1rem; padding: 16px 30px; border-radius: 40px;
+            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.3); width: 100%; text-decoration: none; transition: 0.2s;
         }
+        .google-verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+
+        /* প্রসিড টু পেমেন্ট বাটন (মাঝখানে বড় করে সেট করা) */
+        .proceed-payment-btn {
+            background: var(--gold-gradient); color: #000000; font-weight: 800; font-size: 1.05rem; padding: 18px 32px; border-radius: 40px;
+            border: none; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+            box-shadow: 0 6px 30px rgba(212,175,55,0.45); width: 100%; max-width: 480px; margin: 10px auto; transition: 0.2s;
+        }
+        .proceed-payment-btn:hover { transform: scale(1.02); }
     </style>
 </head>
 <body>
@@ -261,7 +267,7 @@
                 <h1 class="product-title-restricted">RORRAXY LUXURY BRACELET</h1>
                 
                 <div class="stock-shipping-inline-row">
-                    <span class="stock-available"><i class="fa-solid fa-circle" style="font-size:0.45rem;"></i> IN STOCK (45 UNITS)</span>
+                    <span class="stock-available"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> IN STOCK (45 UNITS)</span>
                     <span class="free-shipping-clean"><i class="fa-solid fa-truck-fast"></i> FREE SHIPPING</span>
                 </div>
 
@@ -306,7 +312,7 @@
 
     </div>
 
-    <!-- ফুটার বার (হোম, অ্যাড টু কার্ট, ইউ, কার্ট) -->
+    <!-- ফুটার বার -->
     <div class="fixed-bottom-checkout-bar">
         <a href="https://rorraxy.com" class="footer-menu-item">
             <i class="fa-solid fa-house footer-menu-icon"></i>
@@ -321,75 +327,79 @@
         </div>
         <div class="footer-menu-item" id="footerCartMenuBtn" onclick="openCartDrawerModal()">
             <div class="footer-cart-icon-wrapper">
-                <i class="fa-solid fa-cart-shopping footer-menu-icon" style="font-size: 1.25rem;"></i>
+                <i class="fa-solid fa-cart-shopping footer-menu-icon" style="font-size: 1.4rem;"></i>
                 <span class="footer-cart-badge" id="footerCartItemCountBadge">0</span>
             </div>
             <span class="footer-menu-label">CART</span>
         </div>
     </div>
 
-    <!-- কার্ট ড্রয়ার মোডাল (এখানে প্রোডাক্ট জমা থাকবে, ইউজার যখন ঝুড়িতে ক্লিক করবে তখনই এটি খুলবে) -->
+    <!-- কার্ট ড্রয়ার মোডাল (এখানে প্রোডাক্ট জমা থাকবে, ঝুড়িতে ক্লিক করলেই শুধু খুলবে) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
-            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" style="width:50px; object-fit:contain;">
-            <h1 style="font-size:1.15rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">YOUR CART</h1>
+            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" style="width:65px; object-fit:contain;">
+            <h1 style="font-size:1.4rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px;">YOUR CART</h1>
             
             <div id="cartItemsPreviewBox" class="cart-items-preview-box"></div>
 
-            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; background:#121216; padding:10px; border-radius:8px;">
-                <span style="font-size:0.7rem; color:var(--text-gray);">TOTAL AMOUNT:</span>
-                <span id="cartModalTotalVal" style="font-size:0.95rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; background:#121216; padding:14px 18px; border-radius:12px;">
+                <span style="font-size:0.8rem; color:var(--text-gray);">TOTAL AMOUNT:</span>
+                <span id="cartModalTotalVal" style="font-size:1.1rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
             </div>
 
             <!-- কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন -->
             <button class="google-verify-btn" onclick="handleCartGoogleVerify()">
-                <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
+                <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1.2rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
     </div>
 
-    <!-- ইউ (YOU) ড্যাশবোর্ড মোডাল (ভেরিফিকেশনের পর সরাসরি এখানে চলে আসবে) -->
+    <!-- ইউ (YOU) / ড্যাশবোর্ড মোডাল (যেখানে জিমেইল, নাম, অ্যাড্রেস এবং মাঝখানে বড় প্লাস বাটন থাকবে) -->
     <div id="customerDashboardModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'customerDashboardModalOverlay')">
-        <div class="modal-content-box" style="max-width: 540px; text-align: left;">
+        <div class="modal-content-box" style="max-width: 650px; text-align: left;">
             <button class="modal-close-x" onclick="closeDashboardModal()">&times;</button>
-            <div style="display:flex; align-items:center; gap:12px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-                <img id="dashUserPhoto" src="" style="width:45px; height:45px; border-radius:50%; border:2px solid var(--gold-solid);">
-                <div>
-                    <h2 id="dashUserName" style="font-size:0.9rem; font-weight:700; color:#fff;"></h2>
-                    <span id="dashUserEmail" style="font-size:0.68rem; color:var(--text-gray);"></span>
+            <div style="display:flex; align-items:center; gap:16px; width:100%; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:14px;">
+                <img id="dashUserPhoto" src="" style="width:55px; height:55px; border-radius:50%; border:2px solid var(--gold-solid);">
+                <div style="overflow:hidden;">
+                    <h2 id="dashUserName" style="font-size:1.05rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></h2>
+                    <span id="dashUserEmail" style="font-size:0.75rem; color:var(--gold-solid); font-weight:600; display:block;"></span>
                 </div>
             </div>
 
-            <!-- ডেলিভারি অ্যাড্রেস ফর্ম ও প্লাস (+) বাটন -->
-            <div style="width:100%; background:#121216; padding:12px; border-radius:12px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <span style="font-size:0.72rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
-                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:24px; height:24px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plus"></i></button>
+            <!-- ডেলিভারি অ্যাড্রেস ফর্ম ও মাঝখানে বড় প্লাস (+) বাটন -->
+            <div style="width:100%; background:#121216; padding:18px; border-radius:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <span style="font-size:0.85rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
                 </div>
                 
-                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:6px; max-height:130px; overflow-y:auto;">
+                <!-- প্লাস বাটনটি একদম মাঝখানে বড় করে দেওয়া হলো -->
+                <div style="display:flex; justify-content:center; margin-bottom:14px;">
+                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:800; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; box-shadow:0 4px 15px rgba(212,175,55,0.5);"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                
+                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto;">
                     <!-- সেভ করা অ্যাড্রেস এখানে দেখাবে -->
                 </div>
 
                 <!-- নতুন অ্যাড্রেস ইনপুট ফর্ম -->
-                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:6px; margin-top:8px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
-                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
-                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
-                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.68rem; font-family:var(--font-main);">
-                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:8px; border-radius:6px; font-weight:700; font-size:0.7rem; cursor:pointer;">SAVE NEW ADDRESS</button>
+                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:10px; margin-top:12px; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.15); padding:10px 14px; border-radius:8px; color:#fff; font-size:0.75rem; font-family:var(--font-main);">
+                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.15); padding:10px 14px; border-radius:8px; color:#fff; font-size:0.75rem; font-family:var(--font-main);">
+                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.15); padding:10px 14px; border-radius:8px; color:#fff; font-size:0.75rem; font-family:var(--font-main);">
+                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:10px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer;">SAVE NEW ADDRESS</button>
                 </div>
             </div>
 
-            <!-- পেমেন্ট ও অর্ডার ডিটেইলস -->
-            <div style="width:100%; background:#121216; padding:12px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
-                <span style="font-size:0.72rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER STATUS</span>
-                <div style="font-size:0.7rem; color:#fff; display:flex; justify-content:space-between;">
+            <!-- অর্ডার স্ট্যাটাস ও প্রসিড টু পেমেন্ট বাটন (মাঝখানে বড় করে) -->
+            <div style="width:100%; background:#121216; padding:18px; border-radius:16px; display:flex; flex-direction:column; gap:10px;">
+                <span style="font-size:0.85rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER STATUS</span>
+                <div style="font-size:0.78rem; color:#fff; display:flex; justify-content:space-between;">
                     <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
                     <span>STATUS: <strong style="color:#4cd964;">READY FOR PAYMENT</strong></span>
                 </div>
-                <button class="google-verify-btn" onclick="alert('Proceeding to Secure Payment Gateway...');" style="width:100%; font-size:0.8rem; padding:12px;">
-                    <i class="fa-solid fa-shield-halved" style="color:#2ecc71;"></i> PROCEED TO SECURE PAYMENT
+                <button class="proceed-payment-btn" onclick="alert('Proceeding to Secure Payment Gateway...');">
+                    <i class="fa-solid fa-shield-halved" style="color:#000;"></i> PROCEED TO SECURE PAYMENT
                 </button>
             </div>
         </div>
@@ -397,23 +407,23 @@
 
     <!-- চ্যাট মোডাল -->
     <div id="chatModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'chatModalOverlay')">
-        <div class="modal-content-box" style="max-width: 400px; text-align: left;">
+        <div class="modal-content-box" style="max-width: 450px; text-align: left;">
             <button class="modal-close-x" onclick="closeChatModal()">&times;</button>
-            <div style="display:flex; align-items:center; gap:8px; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px;">
-                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+            <div style="display:flex; align-items:center; gap:10px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
                 <div>
-                    <span style="font-size:0.72rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
-                    <span style="font-size:0.55rem; color:#4cd964; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE</span>
+                    <span style="font-size:0.8rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
+                    <span style="font-size:0.6rem; color:#4cd964; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE</span>
                 </div>
             </div>
-            <div id="chatMessagesContainer" style="background:#121216; border-radius:10px; padding:10px; height:150px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:6px;">
-                <div style="background:#1a1a22; padding:8px; border-radius:8px; font-size:0.68rem; color:#fff; max-width:85%; text-transform:none !important;">
+            <div id="chatMessagesContainer" style="background:#121216; border-radius:12px; padding:12px; height:180px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:8px;">
+                <div style="background:#1a1a22; padding:10px; border-radius:8px; font-size:0.75rem; color:#fff; max-width:85%; text-transform:none !important;">
                     welcome! how can we assist you with your luxury order?
                 </div>
             </div>
-            <div style="display:flex; gap:6px; width:100%;">
-                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px; color:#fff; font-size:0.68rem;">
-                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 12px; border-radius:8px; font-weight:700; font-size:0.68rem; cursor:pointer;">SEND</button>
+            <div style="display:flex; gap:8px; width:100%;">
+                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; color:#fff; font-size:0.75rem;">
+                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 16px; border-radius:8px; font-weight:800; font-size:0.75rem; cursor:pointer;">SEND</button>
             </div>
         </div>
     </div>
@@ -428,6 +438,23 @@
             updateCartBadgeCount();
         };
 
+        function playLuxuryAudioEffect() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(659.25, audioCtx.currentTime);
+                osc1.frequency.exponentialRampToValueAtTime(1318.50, audioCtx.currentTime + 0.45);
+                gain1.gain.setValueAtTime(0.4, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.9);
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.start();
+                osc1.stop(audioCtx.currentTime + 0.9);
+            } catch(e) {}
+        }
+
         function switchMainMedia(src, el) {
             activeMediaSource = src;
             document.getElementById('mainDisplayMediaElement').src = src;
@@ -441,21 +468,23 @@
             document.getElementById('itemQtyDisplayNum').innerText = currentItemQuantity;
         }
 
-        /* প্রোডাক্ট অ্যাড টু কার্ট (এখানে পপআপ ওপেন হবে না, শুধু কার্টে জমা হবে এবং কয়েন ফ্লাই করবে) */
+        /* অ্যাড টু কার্ট এবং সাউন্ড ও কয়েন ফ্লাই অ্যানিমেশন */
         function executeAddToCart(event) {
+            playLuxuryAudioEffect();
+
             let btnRect = document.getElementById('addToCartMainBtn').getBoundingClientRect();
             let cartMenuTarget = document.getElementById('footerCartMenuBtn').getBoundingClientRect();
             
             let coin = document.createElement('img');
             coin.src = activeMediaSource;
             coin.className = 'flying-luxury-coin';
-            coin.style.left = btnRect.left + (btnRect.width / 2) - 19 + 'px';
+            coin.style.left = btnRect.left + (btnRect.width / 2) - 22 + 'px';
             coin.style.top = btnRect.top - 10 + 'px';
             document.body.appendChild(coin);
 
             setTimeout(() => {
                 coin.style.top = cartMenuTarget.top + 'px';
-                coin.style.left = cartMenuTarget.left + (cartMenuTarget.width / 2) - 19 + 'px';
+                coin.style.left = cartMenuTarget.left + (cartMenuTarget.width / 2) - 22 + 'px';
                 coin.style.transform = 'scale(0.12) rotate(720deg)';
                 coin.style.opacity = '0.15';
             }, 30);
@@ -538,19 +567,19 @@
             let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
 
             if(addresses.length === 0) {
-                container.innerHTML = '<div style="font-size:0.68rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
+                container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-gray); text-transform:none; text-align:center;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
                 return;
             }
 
             let html = '';
             addresses.forEach((addr, idx) => {
                 html += `
-                <div style="background:#1a1a22; padding:8px; border-radius:6px; font-size:0.68rem; text-transform:none; display:flex; justify-content:space-between; align-items:center;">
+                <div style="background:#1a1a22; padding:10px 14px; border-radius:8px; font-size:0.75rem; text-transform:none; display:flex; justify-content:space-between; align-items:center;">
                     <div>
                         <strong style="color:var(--gold-solid);">${addr.name}</strong> (${addr.phone})<br>
                         <span style="color:var(--text-gray);">${addr.street}</span>
                     </div>
-                    <button onclick="deleteAddress(${idx})" style="background:none; border:none; color:#ff3b30; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="deleteAddress(${idx})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:1rem;"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             });
             container.innerHTML = html;
@@ -574,7 +603,7 @@
             let container = document.getElementById('cartItemsPreviewBox');
             let totalValEl = document.getElementById('cartModalTotalVal');
             if(cart.length === 0) {
-                container.innerHTML = '<div style="color:var(--text-gray); text-align:center; font-size:0.7rem; padding:10px;">YOUR CART IS EMPTY.</div>';
+                container.innerHTML = '<div style="color:var(--text-gray); text-align:center; font-size:0.8rem; padding:15px;">YOUR CART IS EMPTY.</div>';
                 totalValEl.innerText = "$0.00";
                 return;
             }
@@ -587,8 +616,8 @@
                 <div class="cart-item-row">
                     <img src="${item.img}" class="cart-item-img">
                     <div style="flex:1; text-align:left; min-width:0;">
-                        <div style="font-size:0.68rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
-                        <div style="font-size:0.6rem; color:var(--text-gray);">QTY: ${item.qty} | $${itemTotal.toFixed(2)}</div>
+                        <div style="font-size:0.78rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
+                        <div style="font-size:0.7rem; color:var(--text-gray);">QTY: ${item.qty} | $${itemTotal.toFixed(2)}</div>
                     </div>
                 </div>`;
             });
@@ -606,7 +635,7 @@
             let input = document.getElementById('chatMessageInput');
             let box = document.getElementById('chatMessagesContainer');
             if(input.value.trim() !== "") {
-                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:8px; border-radius:8px; font-size:0.68rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
+                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:10px; border-radius:8px; font-size:0.75rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
                 input.value = "";
                 box.scrollTop = box.scrollHeight;
             }
