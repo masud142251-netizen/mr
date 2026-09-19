@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - luxury e-commerce & customer dashboard</title>
+    <title>rorraxy - luxury ecommerce</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
 
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- FIREBASE SDK & AUTH INTEGRATION -->
+    <!-- ফায়ারবেস অথেন্টিকেশন লজিক -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
@@ -32,41 +30,28 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
 
-        // ঝুড়ি বা চেকআউট থেকে ডাইরেক্ট ফায়ারবেস গুগল ভেরিফিকেশন
+        // গুগল ভেরিফিকেশন ফাংশন (অফলাইন এরর এড়াতে সরাসরি অথ ফোকাস করা হয়েছে)
         window.handleCartGoogleVerify = async function() {
             try {
-                const result = await signInWithPopup(auth, googleProvider);
+                const result = await signInWithPopup(auth, provider);
                 const user = result.user;
-
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
 
                 let userData = {
                     uid: user.uid,
                     name: user.displayName || "Valued Customer",
                     email: user.email,
-                    photoURL: user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png",
-                    role: "customer"
+                    photoURL: user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
                 };
 
-                if (!userSnap.exists()) {
-                    await setDoc(userRef, {
-                        ...userData,
-                        createdAt: new Date().toISOString()
-                    });
-                }
-
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
+                
                 closeCartDrawerModal();
-
-                // ভেরিফিকেশনের পর সরাসরি ইউ (YOU) প্যানেলে বা ড্যাশবোর্ডে নিয়ে যাবে
                 openCustomerDashboard(userData);
 
             } catch (error) {
-                console.error("অথেন্টিকেশনে সমস্যা হয়েছে:", error.message);
+                console.error("Auth Error: ", error);
                 alert("লগইন ব্যর্থ হয়েছে: " + error.message);
             }
         };
@@ -86,35 +71,21 @@
         * { box-sizing: border-box !important; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         html, body {
-            width: 100%;
-            max-width: 100%;
-            background: var(--bg-retail) !important;
-            color: var(--text-white);
-            font-family: var(--font-main);
-            font-size: 15px;
-            text-transform: uppercase !important;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden !important;
-            position: relative;
+            width: 100%; max-width: 100%; background: var(--bg-retail) !important; color: var(--text-white);
+            font-family: var(--font-main); font-size: 15px; text-transform: uppercase !important;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden !important; position: relative;
         }
 
         .ecommerce-main-wrapper {
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 12px;
-            padding-bottom: 130px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            overflow-x: hidden;
+            width: 100%; max-width: 100%; margin: 0 auto; padding: 12px; padding-bottom: 130px;
+            display: flex; flex-direction: column; gap: 16px;
         }
         @media(min-width: 768px) {
             .ecommerce-main-wrapper { max-width: 1100px; padding: 25px; padding-bottom: 140px; gap: 24px; }
         }
 
         .product-details-clean-section { 
-            width: 100%; max-width: 100%; background: transparent; display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start;
+            width: 100%; display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start;
         }
         @media(min-width: 950px) {
             .product-details-clean-section { grid-template-columns: 1.1fr 0.9fr; gap: 35px; }
@@ -137,9 +108,8 @@
             background: #000; border: 1.5px solid rgba(255,255,255,0.15); position: relative; transition: 0.2s; 
         }
         @media(min-width: 768px) { .thumb-item { width: 75px; height: 75px; border-radius: 12px; } }
-        .thumb-item img, .thumb-item video { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
         .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 14px rgba(212,175,55,0.7); }
-        .thumb-video-badge { position: absolute; bottom: 2px; right: 2px; background: rgba(0,0,0,0.85); color: var(--pink-accent); font-size: 0.5rem; padding: 2px 4px; border-radius: 4px; }
 
         .product-right-col { display: flex; flex-direction: column; gap: 12px; width: 100%; }
 
@@ -274,13 +244,13 @@
 
                 <div class="thumbnail-slider-wrapper">
                     <div class="thumbnail-strip" id="productThumbnailsStrip">
-                        <div class="thumb-item active" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg', this)">
+                        <div class="thumb-item active" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg">
                         </div>
-                        <div class="thumb-item" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg', this)">
+                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg">
                         </div>
-                        <div class="thumb-item" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg', this)">
+                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg">
                         </div>
                     </div>
@@ -358,7 +328,7 @@
         </div>
     </div>
 
-    <!-- কার্ট ড্রয়ার মোডাল (যেখান থেকে গুগল ভেরিফিকেশন হবে) -->
+    <!-- কার্ট ড্রয়ার মোডাল (এখানে প্রোডাক্ট জমা থাকবে, ইউজার যখন ঝুড়িতে ক্লিক করবে তখনই এটি খুলবে) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
@@ -379,7 +349,7 @@
         </div>
     </div>
 
-    <!-- ইউ (YOU) ড্যাশবোর্ড মোডাল (যেখানে প্রোফাইল, ডেলিভারি অ্যাড্রেস ও প্লাস (+) বাটন থাকবে) -->
+    <!-- ইউ (YOU) ড্যাশবোর্ড মোডাল (ভেরিফিকেশনের পর সরাসরি এখানে চলে আসবে) -->
     <div id="customerDashboardModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'customerDashboardModalOverlay')">
         <div class="modal-content-box" style="max-width: 540px; text-align: left;">
             <button class="modal-close-x" onclick="closeDashboardModal()">&times;</button>
@@ -391,7 +361,7 @@
                 </div>
             </div>
 
-            <!-- ডেলিভারি অ্যাড্রেস লিস্ট ও প্লাস (+) বাটন -->
+            <!-- ডেলিভারি অ্যাড্রেস ফর্ম ও প্লাস (+) বাটন -->
             <div style="width:100%; background:#121216; padding:12px; border-radius:12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <span style="font-size:0.72rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
@@ -458,7 +428,7 @@
             updateCartBadgeCount();
         };
 
-        function switchMainMedia(type, src, el) {
+        function switchMainMedia(src, el) {
             activeMediaSource = src;
             document.getElementById('mainDisplayMediaElement').src = src;
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
@@ -471,7 +441,7 @@
             document.getElementById('itemQtyDisplayNum').innerText = currentItemQuantity;
         }
 
-        /* কয়েন ফ্লাই অ্যানিমেশন ও কার্ট আপডেট */
+        /* প্রোডাক্ট অ্যাড টু কার্ট (এখানে পপআপ ওপেন হবে না, শুধু কার্টে জমা হবে এবং কয়েন ফ্লাই করবে) */
         function executeAddToCart(event) {
             let btnRect = document.getElementById('addToCartMainBtn').getBoundingClientRect();
             let cartMenuTarget = document.getElementById('footerCartMenuBtn').getBoundingClientRect();
@@ -508,7 +478,6 @@
             }
             localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
             updateCartBadgeCount();
-            openCartDrawerModal();
         }
 
         function updateCartBadgeCount() {
@@ -610,7 +579,7 @@
                 return;
             }
             let html = '', totalAmt = 0;
-            cart.forEach((item, index) => {
+            cart.forEach((item) => {
                 let priceNum = parseFloat(item.price.replace('$', ''));
                 let itemTotal = priceNum * item.qty;
                 totalAmt += itemTotal;
