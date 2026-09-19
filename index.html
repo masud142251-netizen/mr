@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    <title>rorraxy - Seller Ecosystem & Add Product</title>
+    <title>rorraxy - Complete Seller Ecosystem & Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,7 @@
             console.error("Persistence Error:", error);
         });
 
+        const secretKeyBase32 = "JBSWY3DPEHPK3PXP";
         window.userState = {
             balance: 0.00,
             firebaseUser: null,
@@ -52,6 +53,16 @@
             toast.style.borderColor = isError ? '#ff4d4d' : 'var(--gold-solid)';
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 3500);
+        }
+
+        window.verifyTOTPCode = function(inputCode) {
+            try {
+                let totp = new jsOTP.totp();
+                let generatedCode = totp.getOtp(secretKeyBase32);
+                return inputCode.trim() === generatedCode;
+            } catch (e) {
+                return false;
+            }
         }
 
         function showSpinner(show) {
@@ -153,7 +164,7 @@
             }
         }
 
-        // প্রোডাক্ট সাবমিট এবং ফায়ারবেজে সেভ করার ফাংশন
+        // প্রোডাক্ট সাবমিট ও ফায়ারবেজে সংরক্ষণ
         window.submitProductToFirebase = async function(e) {
             e.preventDefault();
             showSpinner(true);
@@ -220,7 +231,7 @@
             }
         }
 
-        // সেলারের প্রোডাক্ট লিস্ট লোড করার ফাংশন
+        // সেলারের প্রোডাক্ট লোড করা
         async function loadSellerProducts() {
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
@@ -392,8 +403,26 @@
         th { color: #777; font-weight: 500; padding: 8px; border-bottom: 1px solid var(--border-color); }
         td { padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #ccc; }
 
+        /* সেটিংস ট্যাব ডিজাইন */
         #settingsSection { display: none; }
         .settings-container { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; }
+        .settings-nav-tabs {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px;
+        }
+        @media(min-width: 768px) { .settings-nav-tabs { grid-template-columns: repeat(4, 1fr); } }
+
+        .sub-tab-btn {
+            background: #ffffff; border: 1px solid var(--border-color); color: #000000;
+            padding: 10px 8px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700;
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px; text-align: center;
+            width: 100%; transition: 0.2s;
+        }
+        .sub-tab-btn.active { background: var(--gold-gradient); color: #000; border-color: transparent; }
+
+        .sub-tab-content { display: none; }
+        .sub-tab-content.active { display: block; }
+
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 4px; }
         .form-group input, .form-group select {
@@ -413,7 +442,6 @@
         .form-section-box h3 { font-size: 1.05rem; color: var(--text-white); margin-bottom: 18px; border-bottom: 1px solid rgba(212,175,55,0.12); padding-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .form-section-box h3 i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* স্ট্যান্ডার্ড ক্যাটাগরি গ্রিড (মোবাইল ও কম্পিউটারে ছোট ও সুন্দর দেখানোর জন্য) */
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }
         @media(min-width: 768px) { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; } }
 
@@ -448,13 +476,11 @@
         .preview-card { position: relative; width: 75px; height: 75px; border-radius: 8px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px rgba(191,149,63,0.4); }
         .preview-card img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* স্ট্যান্ডার্ড সাইজের আপলোড বক্স */
         .upload-box { border: 2px dashed rgba(191,149,63,0.3); border-radius: 12px; padding: 22px 15px; text-align: center; cursor: pointer; background: #15151a; transition: 0.25s; width: 100%; }
         .upload-box:hover { border-color: #bf953f; background: #1a1a22; }
         .upload-box i { font-size: 2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
         .upload-box p { font-size: 0.78rem; color: var(--text-gray); }
 
-        /* স্ট্যান্ডার্ড সাইজের প্রমোট প্রোডাক্ট বাটন */
         .next-btn, .submit-btn {
             width: 100%; background: var(--gold-gradient); color: #050505; border: none; padding: 14px 20px;
             border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
@@ -501,6 +527,63 @@
             document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(subTabId).classList.add('active');
             btnElement.classList.add('active');
+        }
+
+        function handlePayoutMethodChange() {
+            const method = document.getElementById('settingPayoutMethod').value;
+            const container = document.getElementById('settingDynamicFields');
+
+            if(method === 'payoneer') {
+                container.innerHTML = `<div class="form-group"><label>Payoneer Email</label><input type="email" placeholder="user@gmail.com" required></div>`;
+            } else if(method === 'bkash' || method === 'nagad') {
+                container.innerHTML = `<div class="form-group"><label>${method.toUpperCase()} Personal Number</label><input type="text" placeholder="017XXXXXXXX" required></div>`;
+            } else if(method === 'bank') {
+                container.innerHTML = `
+                    <div class="form-group"><label>Account Holder Name</label><input type="text" placeholder="Full Name" required></div>
+                    <div class="form-group"><label>Bank Name</label><input type="text" placeholder="Bank Name" required></div>
+                    <div class="form-group"><label>Account Number</label><input type="text" placeholder="Account Number" required></div>
+                    <div class="form-group"><label>Branch Name</label><input type="text" placeholder="Branch" required></div>
+                    <div class="form-group"><label>Routing Code</label><input type="text" placeholder="Routing / Swift" required></div>`;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        function savePinForm(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('pinInput1').value;
+            const p2 = document.getElementById('pinInput2').value;
+            if(p1 !== p2) {
+                window.showToast("নতুন পিন দুটি মেলেনি!", true);
+                return;
+            }
+            window.showToast("Withdrawal PIN updated successfully!");
+        }
+
+        function verifyAndEnable2FA(event) {
+            event.preventDefault();
+            const codeInput = document.getElementById('authCodeInput').value;
+            if(verifyTOTPCode(codeInput)) {
+                document.getElementById('twoFaActiveForm').style.display = 'none';
+                document.getElementById('twoFaSuccessBox').style.display = 'block';
+                window.showToast("Google Authenticator 2FA Enabled Successfully!");
+            } else {
+                window.showToast("অ্যাপের ৬ ডিজিটের কোডটি সঠিক নয়!", true);
+            }
+        }
+
+        function toggleVisibility(fieldId, iconId) {
+            const field = document.getElementById(fieldId);
+            const icon = document.getElementById(iconId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
     </script>
 </head>
@@ -590,14 +673,87 @@
             </div>
         </div>
 
+        <!-- সেটিংস ট্যাব সেকশন (সম্পূর্ণ ফিচারসহ) -->
         <div id="settingsSection">
             <div class="settings-container">
-                <form onsubmit="event.preventDefault(); window.showToast('Updated successfully!');">
-                    <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Seller Store Information</h4>
-                    <div class="form-group"><label>Store Name</label><input type="text" id="userDisplayName" required></div>
-                    <div class="form-group"><label>Gmail Account</label><input type="email" id="userDisplayEmail" readonly style="color: #d4af37; background: #0c0c0c;"></div>
-                    <button type="submit" class="save-btn">Save Info</button>
-                </form>
+                <div class="settings-nav-tabs">
+                    <button class="sub-tab-btn active" onclick="switchSettingsTab('tabAccount', this)"><i class="fa-solid fa-user-pen"></i> Account Info</button>
+                    <button class="sub-tab-btn" onclick="switchSettingsTab('tabPayment', this)"><i class="fa-solid fa-wallet"></i> Payment Setup</button>
+                    <button class="sub-tab-btn" onclick="switchSettingsTab('tabPin', this)"><i class="fa-solid fa-key"></i> Withdrawal PIN</button>
+                    <button class="sub-tab-btn" onclick="switchSettingsTab('tab2FA', this)"><i class="fa-solid fa-shield-halved"></i> 2FA Security</button>
+                </div>
+
+                <div id="tabAccount" class="sub-tab-content active">
+                    <form onsubmit="event.preventDefault(); window.showToast('Account Info updated successfully!');">
+                        <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Seller Store Information</h4>
+                        <div class="form-group"><label>Store Name</label><input type="text" id="userDisplayName" required></div>
+                        <div class="form-group"><label>Gmail Account</label><input type="email" id="userDisplayEmail" readonly style="color: #d4af37; background: #0c0c0c;"></div>
+                        <div class="form-group"><label>Warehouse Address</label><input type="text" placeholder="Area, City, Country" required></div>
+                        <button type="submit" class="save-btn">Save Info</button>
+                    </form>
+                </div>
+
+                <div id="tabPayment" class="sub-tab-content">
+                    <form onsubmit="event.preventDefault(); window.showToast('Payment Setup updated successfully!');">
+                        <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Configure Payout Destination</h4>
+                        <div class="form-group">
+                            <label>Select Preferred Gateway</label>
+                            <select id="settingPayoutMethod" onchange="handlePayoutMethodChange()" required>
+                                <option value="">Select Gateway</option>
+                                <option value="payoneer">Payoneer</option>
+                                <option value="bkash">bKash (Personal)</option>
+                                <option value="nagad">Nagad (Personal)</option>
+                                <option value="bank">Bank Transfer</option>
+                            </select>
+                        </div>
+                        <div id="settingDynamicFields"></div>
+                        <button type="submit" class="save-btn">Save Payment Setup</button>
+                    </form>
+                </div>
+
+                <div id="tabPin" class="sub-tab-content">
+                    <form onsubmit="savePinForm(event)">
+                        <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Change Withdrawal PIN</h4>
+                        <div class="form-group" style="position: relative;">
+                            <label>Current PIN</label>
+                            <input type="password" id="oldPinInput" placeholder="••••••••" minlength="6" maxlength="8" required>
+                            <i id="eyeIconOld" class="fa-solid fa-eye" onclick="toggleVisibility('oldPinInput', 'eyeIconOld')" style="position: absolute; right: 15px; top: 32px; color: #888; cursor: pointer;"></i>
+                        </div>
+                        <div class="form-group" style="position: relative;">
+                            <label>New PIN</label>
+                            <input type="password" id="pinInput1" placeholder="••••••••" minlength="6" maxlength="8" required>
+                            <i id="eyeIcon1" class="fa-solid fa-eye" onclick="toggleVisibility('pinInput1', 'eyeIcon1')" style="position: absolute; right: 15px; top: 32px; color: #888; cursor: pointer;"></i>
+                        </div>
+                        <div class="form-group" style="position: relative;">
+                            <label>Confirm New PIN</label>
+                            <input type="password" id="pinInput2" placeholder="••••••••" minlength="6" maxlength="8" required>
+                            <i id="eyeIcon2" class="fa-solid fa-eye" onclick="toggleVisibility('pinInput2', 'eyeIcon2')" style="position: absolute; right: 15px; top: 32px; color: #888; cursor: pointer;"></i>
+                        </div>
+                        <button type="submit" class="save-btn">Update PIN</button>
+                    </form>
+                </div>
+
+                <div id="tab2FA" class="sub-tab-content">
+                    <div id="twoFaActiveForm">
+                        <form onsubmit="verifyAndEnable2FA(event)">
+                            <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Google Authenticator 2FA</h4>
+                            <div style="display: flex; justify-content: center; margin: 15px 0;">
+                                <div style="background: #fff; padding: 10px; border-radius: 10px; display: inline-flex;">
+                                    <div id="qrcodeContainer"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>6-Digit Code from App</label>
+                                <input type="text" id="authCodeInput" placeholder="123456" maxlength="6" required>
+                            </div>
+                            <button type="submit" class="save-btn">Verify & Enable</button>
+                        </form>
+                    </div>
+                    <div id="twoFaSuccessBox" style="display: none; text-align: center; padding: 20px;">
+                        <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #4cd137; margin-bottom: 10px;"></i>
+                        <h4 style="color:#fff;">2FA Enabled Successfully</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -732,7 +888,6 @@
                     <input type="file" id="file-input" name="product_images[]" accept="image/*" multiple style="display: none;" onchange="previewImages(event)">
                 </div>
 
-                <!-- PROMOTE PRODUCT নামযুক্ত সাবমিট বাটন -->
                 <button type="submit" class="submit-btn" style="margin-top: 20px;"><i class="fa-solid fa-bullhorn"></i> PROMOTE PRODUCT</button>
             </div>
         </form>
