@@ -193,6 +193,8 @@
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-solid: #d4af37;
             --font-main: 'Poppins', sans-serif;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
         }
 
         html, body { 
@@ -201,7 +203,7 @@
             margin: 0; 
             padding: 0; 
             background: var(--bg-retail) !important; 
-            color: #ffffff; 
+            color: var(--text-white); 
             font-family: var(--font-main); 
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
@@ -425,6 +427,83 @@
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 15px; }
         .modal-box { background: #121212; border: 1px solid var(--gold-solid); border-radius: 14px; padding: 25px; width: 100%; max-width: 420px; position: relative; }
         .modal-close { position: absolute; right: 15px; top: 15px; background: transparent; border: none; color: #aaa; font-size: 1.1rem; cursor: pointer; }
+
+        /* --- প্রোডাক্ট পপআপ মোডাল স্টাইল --- */
+        .product-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 99999; align-items: center; justify-content: center;
+            padding: 15px; overflow-y: auto; backdrop-filter: blur(10px);
+        }
+        .product-modal-content {
+            background: #101014; border: 1px solid rgba(212,175,55,0.3); border-radius: 16px;
+            width: 100%; max-width: 850px; max-height: 90vh; overflow-y: auto; padding: 30px;
+            position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+        }
+        .product-modal-close {
+            position: absolute; right: 20px; top: 20px; background: #1a1a22; border: none;
+            color: #fff; width: 35px; height: 35px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: 0.2s;
+        }
+        .product-modal-close:hover { background: #ff4d4d; color: #fff; }
+
+        /* প্রোডাক্ট ফর্মের ভেতরের স্টাইল */
+        .form-card-modal { background: #15151a; border: none; border-radius: 14px; padding: 22px; margin-bottom: 20px; width: 100%; }
+        .form-card-modal h3 { font-size: 1.05rem; color: var(--text-white); margin-bottom: 18px; border-bottom: 1px solid rgba(212,175,55,0.12); padding-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .form-card-modal h3 i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }
+        @media(min-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .cat-box { background: #1c1c24; border: none; border-radius: 12px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+        .cat-box:hover { background: #252530; transform: translateY(-3px); }
+        .cat-box.clicked { background: #242012; box-shadow: inset 0 0 0 2px #bf953f, 0 0 15px rgba(191,149,63,0.35); }
+        .cat-box i { font-size: 1.8rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cat-box span { font-size: 0.78rem; font-weight: 600; color: var(--text-white); letter-spacing: 0.5px; }
+
+        .back-cat-btn { background: #1c1c24; border: none; color: var(--gold-solid); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.78rem; font-weight: 600; margin-bottom: 15px; display: inline-flex; align-items: center; gap: 6px; transition: 0.3s; }
+        .back-cat-btn:hover { background: #252530; }
+
+        .selected-badge { background: #1c1c24; border-left: 4px solid #bf953f; color: var(--text-white); padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .selected-badge strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .input-group { margin-bottom: 15px; width: 100%; }
+        .input-group label { display: block; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 500; }
+        .input-group input, .input-group textarea {
+            width: 100%; background: #1c1c24; border: none; border-radius: 10px;
+            padding: 12px 14px; color: var(--text-white); font-family: var(--font-main); font-size: 0.9rem; outline: none; transition: 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            background: #23232d; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6), 0 0 8px rgba(191,149,63,0.3);
+        }
+
+        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        @media(max-width: 576px) { .row-grid { grid-template-columns: 1fr; } }
+
+        .ai-helper-box { background: #1c1c24; border-left: 3px solid #bf953f; border-radius: 0 10px 10px 0; padding: 12px 14px; margin-bottom: 15px; font-size: 0.8rem; color: var(--text-gray); line-height: 1.5; }
+        .ai-helper-box strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 3px; font-weight: 600; font-size: 0.85rem; }
+
+        .toggle-container { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; background: #1c1c24; padding: 12px 16px; border-radius: 10px; cursor: pointer; width: 100%; }
+        .toggle-container input[type="checkbox"] { width: 18px; height: 18px; accent-color: #bf953f; cursor: pointer; }
+        .toggle-container label { font-size: 0.82rem; color: var(--text-white); font-weight: 500; cursor: pointer; margin: 0; }
+
+        .preview-container { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; width: 100%; }
+        .preview-card { position: relative; width: 75px; height: 75px; border-radius: 8px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px rgba(191,149,63,0.4); }
+        .preview-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .upload-box { border: 2px dashed rgba(191,149,63,0.3); border-radius: 12px; padding: 22px 15px; text-align: center; cursor: pointer; background: #1c1c24; transition: 0.3s; width: 100%; }
+        .upload-box:hover { border-color: #bf953f; background: #23232d; }
+        .upload-box i { font-size: 2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .upload-box p { font-size: 0.8rem; color: var(--text-gray); }
+
+        .next-btn, .submit-btn {
+            width: 100%; background: var(--gold-gradient); color: #050505; border: none; padding: 14px;
+            border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(191,149,63,0.25); transition: 0.3s; margin-top: 10px; letter-spacing: 0.5px;
+        }
+        .next-btn:hover, .submit-btn:hover { opacity: 0.93; transform: translateY(-2px); }
+
+        .hidden-step { display: none; }
     </style>
 
     <script>
@@ -549,10 +628,6 @@
             closePayoutModal();
         }
 
-        function openAddProductModal() {
-            window.showToast("Product upload form modal will open here.");
-        }
-
         function toggleVisibility(fieldId, iconId) {
             const field = document.getElementById(fieldId);
             const icon = document.getElementById(iconId);
@@ -565,6 +640,16 @@
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
             }
+        }
+
+        // --- অ্যাড নিউ প্রোডাক্ট পপআপ কন্ট্রোল ফাংশন ---
+        function openAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'flex';
+            resetCategorySelection();
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
         }
     </script>
 </head>
@@ -670,7 +755,7 @@
 
             <div class="dashboard-home-redirect-bar">
                 <a href="https://rorraxy.com" class="main-home-btn">
-                    <i class="fa-solid fa-house"></i> Go to Home (rorraxy.com)
+                    <i class="fa-solid fa-house"></i> GO TO HOME
                 </a>
             </div>
 
@@ -960,6 +1045,7 @@
 
     </div>
 
+    <!-- পেআউট রিকোয়েস্ট মোডাল -->
     <div id="payoutModal" class="modal-overlay">
         <div class="modal-box">
             <button class="modal-close" onclick="closePayoutModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -979,6 +1065,321 @@
             </form>
         </div>
     </div>
+
+    <!-- --- অ্যাড নিউ প্রোডাক্ট পপআপ মোডাল (এখানে আপনার কোডটি বসানো হয়েছে) --- -->
+    <div id="addProductModal" class="product-modal-overlay">
+        <div class="product-modal-content">
+            <button class="product-modal-close" onclick="closeAddProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h2 style="font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; text-transform: uppercase;">ADD NEW PRODUCT</h2>
+
+            <form action="submit_product.php" method="POST" enctype="multipart/form-data" id="productForm">
+                
+                <input type="hidden" id="selected_category" name="selected_category" required>
+
+                <!-- ধাপ ১: ক্যাটাগরি সিলেকশন -->
+                <div class="form-card-modal" id="step-category-card">
+                    <h3><i class="fa-solid fa-border-all"></i> Select Category</h3>
+                    
+                    <div id="main-categories" class="category-grid">
+                        <div class="cat-box" onclick="showSubCategories(this, 'womens')">
+                            <i class="fa-solid fa-person-dress"></i>
+                            <span>WOMEN'S FASHION</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'mens')">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span>MEN'S FASHION</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'boys')">
+                            <i class="fa-solid fa-child"></i>
+                            <span>BOYS' FASHION</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'girls')">
+                            <i class="fa-solid fa-child-dress"></i>
+                            <span>GIRLS' FASHION</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'luxury')">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>LUXURY GIFTS</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'matching')">
+                            <i class="fa-solid fa-people-group"></i>
+                            <span>MATCHING SETS</span>
+                        </div>
+                        <div class="cat-box" onclick="showSubCategories(this, 'baby')">
+                            <i class="fa-solid fa-baby-carriage"></i>
+                            <span>MOTHER & BABY</span>
+                        </div>
+                    </div>
+
+                    <div id="sub-categories" class="hidden-step">
+                        <button type="button" class="back-cat-btn" onclick="backToMainCategories()"><i class="fa-solid fa-arrow-left"></i> Back to Main Categories</button>
+                        <div id="sub-cat-content" class="category-grid"></div>
+                    </div>
+                </div>
+
+                <div id="selection-display" class="hidden-step selected-badge">
+                    <span>Category: <strong id="chosen-cat-text">None</strong></span>
+                    <button type="button" class="back-cat-btn" style="margin:0; padding: 4px 10px; font-size:0.75rem;" onclick="resetCategorySelection()">Change</button>
+                </div>
+
+                <!-- ধাপ ২: প্রোডাক্ট ইনফরমেশন -->
+                <div class="form-card-modal hidden-step" id="step-product-info">
+                    <h3><i class="fa-solid fa-box-open"></i> Product Information</h3>
+                    
+                    <div class="input-group">
+                        <label for="product_name">Product Name</label>
+                        <input type="text" id="product_name" name="product_name" placeholder="Enter full product name">
+                    </div>
+
+                    <div class="row-grid">
+                        <div class="input-group">
+                            <label for="selling_price">Selling Price ($)</label>
+                            <input type="number" step="0.01" id="selling_price" name="selling_price" placeholder="45.00">
+                        </div>
+                        <div class="input-group">
+                            <label for="market_price">Market Price ($)</label>
+                            <input type="number" step="0.01" id="market_price" name="market_price" placeholder="65.00">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="stock">Stock Quantity</label>
+                        <input type="number" id="stock" name="stock" placeholder="Enter stock quantity">
+                    </div>
+
+                    <button type="button" class="next-btn" onclick="goToStepDescription()">Next: Description & Customization <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- ধাপ ৩ ও ৪: ডেসক্রিপশন এবং কাস্টমাইজ একসাথে -->
+                <div class="form-card-modal hidden-step" id="step-description-custom">
+                    <h3><i class="fa-solid fa-pen-to-square"></i> Product Description</h3>
+                    
+                    <div class="ai-helper-box">
+                        <strong>AI Assistant Tip:</strong> Copy and paste AI-generated descriptions containing material, size, and fit details.
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 20px;">
+                        <label for="description">Full Details (Materials, Sizes, Fit & Features)</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Enter or paste product description details here..."></textarea>
+                    </div>
+
+                    <h3><i class="fa-solid fa-sliders"></i> Customization Options</h3>
+                    
+                    <div class="toggle-container" onclick="toggleCustomSection()">
+                        <input type="checkbox" id="enable_custom" name="enable_custom" value="yes" onchange="toggleCustomSection()">
+                        <label for="enable_custom">Enable Customization / Personalization for this product</label>
+                    </div>
+
+                    <div class="input-group hidden-step" id="custom-box-container">
+                        <label for="custom_notes">Customization Instructions (Size, Color, or Personal Notes)</label>
+                        <textarea id="custom_notes" name="custom_notes" rows="2" placeholder="Enter customer customization notes or instructions..."></textarea>
+                    </div>
+
+                    <button type="button" class="next-btn" onclick="goToStepImages()">Next: Product Images <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- ধাপ ৫: প্রোডাক্ট ইমেজ ও সাবমিট বাটন -->
+                <div class="form-card-modal hidden-step" id="step-images-submit">
+                    <h3><i class="fa-solid fa-images"></i> Product Images</h3>
+                    
+                    <div class="preview-container" id="image-preview"></div>
+
+                    <div class="upload-box" onclick="document.getElementById('file-input').click();">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Click here to upload product images (Multiple allowed)</p>
+                        <input type="file" id="file-input" name="product_images[]" accept="image/*" multiple style="display: none;" onchange="previewImages(event)">
+                    </div>
+
+                    <button type="submit" class="submit-btn" style="margin-top: 20px;"><i class="fa-solid fa-check"></i> Submit Product</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- প্রোডাক্ট ফর্মের সিকোয়েন্স ও লজিক স্ক্রিপ্ট -->
+    <script>
+        const subCategoriesData = {
+            womens: [
+                {name: "CLOTHING", icon: "fa-solid fa-shirt"},
+                {name: "HANDBAGS", icon: "fa-solid fa-bag-shopping"},
+                {name: "SHOES", icon: "fa-solid fa-shoe-prints"},
+                {name: "JEWELRY", icon: "fa-solid fa-gem"},
+                {name: "WATCHES", icon: "fa-solid fa-clock"},
+                {name: "LINGERIE", icon: "fa-solid fa-heart"},
+                {name: "BEAUTY", icon: "fa-solid fa-spray-can-sparkles"},
+                {name: "ACTIVEWEAR", icon: "fa-solid fa-person-running"},
+                {name: "TRADITIONAL", icon: "fa-solid fa-vest"},
+                {name: "ACCESSORIES", icon: "fa-solid fa-glasses"}
+            ],
+            mens: [
+                {name: "SUITS & BLAZERS", icon: "fa-solid fa-user-tie"},
+                {name: "SHIRTS & POLOS", icon: "fa-solid fa-shirt"},
+                {name: "TRADITIONAL WEAR", icon: "fa-solid fa-vest"},
+                {name: "MEN'S SHOES", icon: "fa-solid fa-socks"},
+                {name: "LUXURY WATCHES", icon: "fa-solid fa-clock"},
+                {name: "WALLETS & BELTS", icon: "fa-solid fa-wallet"},
+                {name: "HEADWEAR", icon: "fa-solid fa-hat-cowboy"},
+                {name: "EYEWEAR", icon: "fa-solid fa-glasses"},
+                {name: "OFFICE BAGS", icon: "fa-solid fa-briefcase"},
+                {name: "ACTIVEWEAR", icon: "fa-solid fa-dumbbell"}
+            ],
+            boys: [
+                {name: "CLOTHING SETS", icon: "fa-solid fa-child"},
+                {name: "T-SHIRTS", icon: "fa-solid fa-shirt"},
+                {name: "FOOTWEAR", icon: "fa-solid fa-socks"},
+                {name: "PARTY WEAR", icon: "fa-solid fa-hat-wizard"},
+                {name: "SPORTSWEAR", icon: "fa-solid fa-baseball-bat-ball"}
+            ],
+            girls: [
+                {name: "PARTY DRESSES", icon: "fa-solid fa-child-dress"},
+                {name: "CASUAL TOPS", icon: "fa-solid fa-shirt"},
+                {name: "FOOTWEAR", icon: "fa-solid fa-shoe-prints"},
+                {name: "HAIR ACCESSORIES", icon: "fa-solid fa-crown"},
+                {name: "MINI HANDBAGS", icon: "fa-solid fa-bag-shopping"},
+                {name: "JEWELRY SETS", icon: "fa-solid fa-gem"},
+                {name: "CAPS & HATS", icon: "fa-solid fa-hat-cowboy"},
+                {name: "SOCKS & TIGHTS", icon: "fa-solid fa-socks"},
+                {name: "ETHNIC WEAR", icon: "fa-solid fa-vest"},
+                {name: "SUNGLASSES", icon: "fa-solid fa-glasses"}
+            ],
+            luxury: [
+                {name: "VIP CORPORATE", icon: "fa-solid fa-briefcase"},
+                {name: "GIFT HAMPERS", icon: "fa-solid fa-gift"},
+                {name: "FINE JEWELRY", icon: "fa-solid fa-gem"},
+                {name: "LUXURY TIMEPIECES", icon: "fa-solid fa-clock"},
+                {name: "CRYSTAL & DECOR", icon: "fa-solid fa-champagne-glasses"},
+                {name: "PERFUMES & SCENTS", icon: "fa-solid fa-spray-can-sparkles"},
+                {name: "LEATHER WALLETS", icon: "fa-solid fa-wallet"},
+                {name: "PERSONALIZED", icon: "fa-solid fa-pen-nib"}
+            ],
+            matching: [
+                {name: "FAMILY OUTFITS", icon: "fa-solid fa-people-group"},
+                {name: "COUPLE SETS", icon: "fa-solid fa-shirt"},
+                {name: "MOM & ME SETS", icon: "fa-solid fa-child-reaching"},
+                {name: "DAD & SON SETS", icon: "fa-solid fa-user-gear"}
+            ],
+            baby: [
+                {name: "BABY CLOTHING", icon: "fa-solid fa-child-reaching"},
+                {name: "STROLLERS & GEAR", icon: "fa-solid fa-baby-carriage"},
+                {name: "FEEDING ESSENTIALS", icon: "fa-solid fa-bottle-water"},
+                {name: "BABY CARE", icon: "fa-solid fa-bath"},
+                {name: "NURSERY & BEDDING", icon: "fa-solid fa-bed"}
+            ]
+        };
+
+        function showSubCategories(element, categoryKey) {
+            document.querySelectorAll('#addProductModal .cat-box').forEach(box => box.classList.remove('clicked'));
+            element.classList.add('clicked');
+
+            setTimeout(() => {
+                document.getElementById('main-categories').style.display = 'none';
+                const subContainer = document.getElementById('sub-categories');
+                subContainer.style.display = 'block';
+
+                const contentDiv = document.getElementById('sub-cat-content');
+                contentDiv.innerHTML = '';
+
+                subCategoriesData[categoryKey].forEach(item => {
+                    const box = document.createElement('div');
+                    box.className = 'cat-box';
+                    box.onclick = () => {
+                        box.classList.add('clicked');
+                        setTimeout(() => selectFinalCategory(item.name), 180);
+                    };
+                    box.innerHTML = `<i class="${item.icon}"></i><span>${item.name}</span>`;
+                    contentDiv.appendChild(box);
+                });
+            }, 180);
+        }
+
+        function backToMainCategories() {
+            document.getElementById('sub-categories').style.display = 'none';
+            document.getElementById('main-categories').style.display = 'grid';
+            document.querySelectorAll('#addProductModal .cat-box').forEach(box => box.classList.remove('clicked'));
+        }
+
+        function selectFinalCategory(categoryName) {
+            document.getElementById('selected_category').value = categoryName;
+            document.getElementById('chosen-cat-text').innerText = categoryName;
+
+            document.getElementById('step-category-card').style.display = 'none';
+            document.getElementById('selection-display').style.display = 'flex';
+            document.getElementById('step-product-info').style.display = 'block';
+        }
+
+        function resetCategorySelection() {
+            document.getElementById('selected_category').value = '';
+            document.getElementById('step-product-info').style.display = 'none';
+            document.getElementById('step-description-custom').style.display = 'none';
+            document.getElementById('step-images-submit').style.display = 'none';
+            document.getElementById('selection-display').style.display = 'none';
+            document.getElementById('step-category-card').style.display = 'block';
+            document.getElementById('sub-categories').style.display = 'none';
+            document.getElementById('main-categories').style.display = 'grid';
+            document.querySelectorAll('#addProductModal .cat-box').forEach(box => box.classList.remove('clicked'));
+        }
+
+        function goToStepDescription() {
+            const pName = document.getElementById('product_name').value;
+            const sellingPrice = document.getElementById('selling_price').value;
+            const stock = document.getElementById('stock').value;
+
+            if(!pName || !sellingPrice || !stock) {
+                alert("Please fill in the Product Name, Selling Price, and Stock Quantity.");
+                return;
+            }
+
+            document.getElementById('step-product-info').style.display = 'none';
+            document.getElementById('step-description-custom').style.display = 'block';
+        }
+
+        function goToStepImages() {
+            const desc = document.getElementById('description').value;
+            if(!desc) {
+                alert("Please enter the Product Description.");
+                return;
+            }
+
+            document.getElementById('step-description-custom').style.display = 'none';
+            document.getElementById('step-images-submit').style.display = 'block';
+        }
+
+        function toggleCustomSection() {
+            const checkbox = document.getElementById('enable_custom');
+            const customBox = document.getElementById('custom-box-container');
+            if(checkbox.checked) {
+                customBox.style.display = 'block';
+            } else {
+                customBox.style.display = 'none';
+                document.getElementById('custom_notes').value = '';
+            }
+        }
+
+        function previewImages(event) {
+            const previewContainer = document.getElementById('image-preview');
+            previewContainer.innerHTML = ""; 
+            const files = event.target.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const card = document.createElement('div');
+                    card.className = 'preview-card';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    
+                    card.appendChild(img);
+                    previewContainer.appendChild(card);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 
 </body>
 </html>
