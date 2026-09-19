@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - daraz style customer dashboard</title>
+    <title>rorraxy - direct verify & customer dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
 
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- FIREBASE SDK & AUTH INTEGRATION (আপনার দেওয়া আসল কোড স্ট্রাকচার) -->
+    <!-- FIREBASE SDK & AUTH INTEGRATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -35,8 +34,8 @@
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // ইউনিভার্সাল গুগল লগইন এবং রোল চেক ফাংশন
-        window.handleDarazGoogleVerify = async function(redirectToDashboard = true) {
+        // সরাসরি গুগল ভেরিফিকেশন এবং ড্যাশবোর্ড ট্রিগার
+        window.handleDirectGoogleVerify = async function() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
@@ -46,7 +45,7 @@
 
                 let userData = {
                     uid: user.uid,
-                    name: user.displayName || "No Name",
+                    name: user.displayName || "Valued Customer",
                     email: user.email,
                     photoURL: user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png",
                     role: "customer"
@@ -60,19 +59,13 @@
                 }
 
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
+                
+                // ভেরিফাই হওয়ার সাথে সাথে মূল প্রোডাক্ট ভিউ লুকিয়ে সরাসরি ড্যাশবোর্ড দেখাবে
+                showCustomerDashboardPanel(userData);
 
-                closeUserModal();
-                closeCartDrawerModal();
-
-                if(redirectToDashboard) {
-                    openDarazCustomerDashboard(userData);
-                }
-
-                return { success: true, user };
             } catch (error) {
                 console.error("অথেন্টিকেশনে সমস্যা হয়েছে:", error.message);
                 alert("লগইন ব্যর্থ হয়েছে: " + error.message);
-                return { success: false, error: error.message };
             }
         };
     </script>
@@ -112,7 +105,6 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            overflow-x: hidden;
         }
         @media(min-width: 768px) {
             .ecommerce-main-wrapper { max-width: 1100px; padding: 25px; padding-bottom: 140px; gap: 24px; }
@@ -120,8 +112,6 @@
 
         .product-details-clean-section { 
             width: 100%; 
-            max-width: 100%; 
-            background: transparent; 
             display: grid; 
             grid-template-columns: 1fr; 
             gap: 16px; 
@@ -131,11 +121,10 @@
             .product-details-clean-section { grid-template-columns: 1.1fr 0.9fr; gap: 35px; }
         }
 
-        .product-left-col { width: 100%; max-width: 100%; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+        .product-left-col { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 
         .media-viewport { 
             width: 100%; 
-            max-width: 100%; 
             position: relative; 
             border-radius: 12px; 
             overflow: hidden; 
@@ -150,7 +139,6 @@
         
         .main-media-element { 
             width: 100%; 
-            max-width: 100%; 
             height: auto; 
             max-height: 460px; 
             object-fit: contain; 
@@ -158,314 +146,154 @@
             background: #000; 
         }
 
-        .thumbnail-slider-wrapper {
-            position: relative; 
-            width: 100%; 
-            max-width: 100%; 
-            display: flex; 
-            align-items: center; 
-            overflow: hidden;
-        }
+        .thumbnail-slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; overflow: hidden; }
         .thumbnail-strip { 
-            display: flex; 
-            gap: 8px; 
-            padding: 4px 0; 
-            overflow-x: auto; 
-            width: 100%; 
-            max-width: 100%;
-            scrollbar-width: thin; 
-            scrollbar-color: var(--gold-solid) transparent;
-            -webkit-overflow-scrolling: touch; 
-            scroll-behavior: smooth;
+            display: flex; gap: 8px; padding: 4px 0; overflow-x: auto; width: 100%;
+            scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent;
         }
-        .thumbnail-strip::-webkit-scrollbar { height: 4px; }
-        .thumbnail-strip::-webkit-scrollbar-thumb { background: var(--gold-solid); border-radius: 4px; }
-        
         .thumb-item { 
-            width: 58px; 
-            height: 58px; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            flex-shrink: 0; 
-            background: #000; 
-            border: 1.5px solid rgba(255,255,255,0.15); 
-            position: relative; 
-            transition: 0.2s; 
+            width: 58px; height: 58px; border-radius: 10px; overflow: hidden; cursor: pointer; flex-shrink: 0; 
+            background: #000; border: 1.5px solid rgba(255,255,255,0.15); position: relative; transition: 0.2s; 
         }
         @media(min-width: 768px) { .thumb-item { width: 75px; height: 75px; border-radius: 12px; } }
         .thumb-item img, .thumb-item video { width: 100%; height: 100%; object-fit: cover; }
         .thumb-item.active { border-color: var(--gold-solid); box-shadow: 0 0 14px rgba(212,175,55,0.7); }
         .thumb-video-badge { position: absolute; bottom: 2px; right: 2px; background: rgba(0,0,0,0.85); color: var(--pink-accent); font-size: 0.5rem; padding: 2px 4px; border-radius: 4px; }
 
-        .product-right-col { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 100%; min-width: 0; overflow: hidden; }
+        .product-right-col { display: flex; flex-direction: column; gap: 12px; width: 100%; }
 
         .product-title-restricted { 
-            font-size: 1.35rem; 
-            font-weight: 700; 
-            color: #fff; 
-            letter-spacing: 0.8px; 
-            line-height: 1.3; 
-            word-break: break-word; 
-            width: 100%;
+            font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%;
         }
         @media(min-width: 768px) { .product-title-restricted { font-size: 1.8rem; } }
 
         .stock-shipping-inline-row { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            gap: 10px;
-            width: 100%; 
-            max-width: 100%; 
-            background: #0a0a0e;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; 
+            background: #0a0a0e; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);
         }
-        .stock-available { font-size: 0.75rem; font-weight: 600; color: #4cd964; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-        .free-shipping-clean { font-size: 0.75rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+        .stock-available { font-size: 0.75rem; font-weight: 600; color: #4cd964; display: flex; align-items: center; gap: 5px; }
+        .free-shipping-clean { font-size: 0.75rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 5px; }
 
         .price-discount-box { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            gap: 8px; 
-            background: #0a0a0e; 
-            padding: 12px 14px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(212,175,55,0.2); 
-            width: 100%; 
-            max-width: 100%; 
+            display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #0a0a0e; 
+            padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); width: 100%; 
         }
-        .price-left-group { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
         .current-price-tag { font-size: 1.35rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         @media(min-width: 768px) { .current-price-tag { font-size: 1.8rem; } }
         .crossed-old-price { font-size: 0.75rem; color: var(--text-gray); text-decoration: line-through; font-weight: 600; }
         
         .discount-badge-center { 
-            background: var(--pink-accent); 
-            color: #fff; 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            padding: 4px 8px; 
-            border-radius: 6px; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 3px; 
-            box-shadow: 0 3px 10px rgba(255,42,133,0.45); 
-            white-space: nowrap; 
-            flex-shrink: 0;
+            background: var(--pink-accent); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; 
+            border-radius: 6px; display: inline-flex; align-items: center; gap: 3px; box-shadow: 0 3px 10px rgba(255,42,133,0.45); 
         }
         
-        .qty-inline-box { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; }
+        .qty-inline-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
         .qty-label-mini { font-size: 0.55rem; font-weight: 700; color: var(--gold-solid); }
         .qty-controls-flex { display: flex; align-items: center; gap: 6px; background: #141418; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); }
         .qty-btn-ch { background: var(--gold-gradient); border: none; color: #000; font-size: 0.75rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .qty-num-val { font-size: 0.88rem; font-weight: 700; color: #fff; min-width: 12px; text-align: center; }
 
         .seller-clean-card {
-            background: #0a0a0e; 
-            border: 1px solid rgba(212,175,55,0.2); 
-            border-radius: 12px;
-            padding: 10px 14px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 100%; 
-            max-width: 100%; 
-            gap: 8px;
+            background: #0a0a0e; border: 1px solid rgba(212,175,55,0.2); border-radius: 12px;
+            padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px;
         }
-        .seller-info-left { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
-        .seller-banner-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); flex-shrink: 0; }
-        .seller-name-txt { font-size: 0.78rem; font-weight: 700; color: #fff; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .seller-info-left { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .seller-banner-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-solid); }
+        .seller-name-txt { font-size: 0.78rem; font-weight: 700; color: #fff; display: block; }
         .seller-verified-sub { font-size: 0.6rem; color: var(--gold-solid); display: block; font-weight: 600; }
 
         .seller-chat-inline-btn {
-            background: #121216;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold-solid);
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-            white-space: nowrap;
+            background: #121216; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold-solid);
+            font-size: 0.72rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: 0.2s; white-space: nowrap;
         }
-        .seller-chat-inline-btn:hover { background: rgba(212,175,55,0.1); }
 
         .product-info-section-box {
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-            background: #0a0a0e; 
-            padding: 14px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255,255,255,0.08); 
-            width: 100%; 
-            max-width: 100%;
+            display: flex; flex-direction: column; gap: 8px; background: #0a0a0e; padding: 14px; 
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); width: 100%;
         }
-        .info-box-title { font-size: 0.7rem; font-weight: 700; color: var(--gold-solid); letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
-        .standard-description-box {
-            font-size: 0.75rem; 
-            color: var(--text-gray); 
-            line-height: 1.5; 
-            text-transform: none !important;
-            word-break: break-word;
-        }
+        .info-box-title { font-size: 0.7rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 5px; }
+        .standard-description-box { font-size: 0.75rem; color: var(--text-gray); line-height: 1.5; text-transform: none !important; }
         .custom-note-input { 
-            background: #141418; 
-            border: 1px solid rgba(255,255,255,0.12); 
-            border-radius: 8px; 
-            padding: 9px 12px; 
-            color: #fff; 
-            font-size: 0.75rem; 
-            outline: none; 
-            font-family: var(--font-main); 
-            text-transform: uppercase; 
-            width: 100%; 
-            margin-top: 4px;
+            background: #141418; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 9px 12px; 
+            color: #fff; font-size: 0.75rem; outline: none; font-family: var(--font-main); text-transform: uppercase; width: 100%; 
         }
 
         /* ফুটার বার */
         .fixed-bottom-checkout-bar {
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            max-width: 100%; 
-            background: rgba(0,0,0,0.98);
-            backdrop-filter: blur(15px); 
-            padding: 8px 10px;
-            display: grid;
-            grid-template-columns: 1fr 1.6fr 1fr 1.1fr; 
-            gap: 4px;
-            z-index: 5000; 
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.95);
-            align-items: center;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.98);
+            backdrop-filter: blur(15px); padding: 8px 10px; display: grid; grid-template-columns: 1fr 1.6fr 1fr 1.1fr; gap: 4px; z-index: 5000; box-shadow: 0 -4px 15px rgba(0,0,0,0.95); align-items: center;
         }
-        @media(min-width: 768px) { 
-            .fixed-bottom-checkout-bar { 
-                display: flex; 
-                justify-content: center; 
-                gap: 30px; 
-                padding: 12px 20px; 
-            } 
-        }
+        @media(min-width: 768px) { .fixed-bottom-checkout-bar { display: flex; justify-content: center; gap: 30px; padding: 12px 20px; } }
         
         .footer-menu-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            text-decoration: none; 
-            cursor: pointer; 
-            gap: 4px; 
-            background: transparent !important; 
-            border: none !important;
-            box-shadow: none !important;
-            padding: 6px;
-            border-radius: 0;
-            transition: 0.2s;
-            width: 100%;
-            height: 100%;
-            position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-decoration: none; cursor: pointer; gap: 4px; background: transparent !important; 
+            border: none !important; padding: 6px; transition: 0.2s; width: 100%; height: 100%; position: relative;
         }
-        @media(min-width: 768px) {
-            .footer-menu-item { width: 110px; padding: 6px 10px; }
-        }
-        .footer-menu-item:active { transform: scale(0.96); }
-
+        @media(min-width: 768px) { .footer-menu-item { width: 110px; } }
         .footer-menu-icon { font-size: 1.25rem; color: var(--gold-solid); }
-        .footer-menu-label { font-size: 0.62rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; white-space: nowrap; }
+        .footer-menu-label { font-size: 0.62rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; }
 
         .footer-menu-item.cart-highlight {
-            background: var(--gold-gradient) !important;
-            border-radius: 10px !important;
-            padding: 10px 12px !important;
-            box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+            background: var(--gold-gradient) !important; border-radius: 10px !important; padding: 10px 12px !important;
         }
-        .footer-menu-item.cart-highlight .footer-menu-label {
-            color: #000000 !important;
-            font-size: 0.72rem;
-            font-weight: 800;
-        }
+        .footer-menu-item.cart-highlight .footer-menu-label { color: #000000 !important; font-size: 0.72rem; font-weight: 800; }
 
         .footer-cart-icon-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
         .footer-cart-badge {
             position: absolute; top: -6px; right: -10px; background: var(--pink-accent); color: #fff;
             font-size: 0.6rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(255,42,133,0.85);
+            display: flex; align-items: center; justify-content: center;
         }
 
         .flying-luxury-coin {
             position: fixed; z-index: 999999; width: 38px; height: 38px; object-fit: cover;
             border-radius: 50%; border: 2px solid var(--gold-solid);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none; box-shadow: 0 0 18px rgba(212,175,55,0.95);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;
         }
 
-        /* মোডাল ওভারলে ও কনটেন্ট স্টাইল */
+        /* ড্যাশবোর্ড প্যানেল (ভেরিফিকেশনের পর সরাসরি স্ক্রিনে শো করবে) */
+        #customerDashboardMainPanel {
+            display: none; width: 100%; background: #0c0c10; border-radius: 18px; padding: 20px;
+            flex-direction: column; gap: 16px; border: 1px solid rgba(212,175,55,0.3); margin-bottom: 40px;
+        }
+
+        .google-verify-btn {
+            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.88rem; padding: 14px 24px; border-radius: 35px;
+            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25); width: 100%; text-decoration: none;
+        }
+
+        /* কার্ট ড্রয়ার মোডাল */
         .modal-overlay-bg {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(4, 4, 7, 0.95); z-index: 999999; backdrop-filter: blur(12px);
-            align-items: center; justify-content: center; padding: 12px; box-sizing: border-box;
+            align-items: center; justify-content: center; padding: 12px;
         }
         .modal-content-box {
-            background: #0c0c10; border: none; border-radius: 18px; padding: 22px 16px; 
-            max-width: 520px; width: 100%; display: flex; flex-direction: column; gap: 12px; 
-            align-items: center; text-align: center; box-shadow: 0 20px 45px rgba(0,0,0,0.98);
-            position: relative; max-height: 88vh; overflow-y: auto; box-sizing: border-box;
+            background: #0c0c10; border-radius: 18px; padding: 22px 16px; max-width: 520px; width: 100%;
+            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; position: relative;
         }
-        @media(min-width: 768px) { .modal-content-box { padding: 32px 28px; border-radius: 26px; } }
-        
         .modal-close-x {
             position: absolute; top: 12px; right: 16px; background: none; border: none;
             color: var(--gold-solid); font-size: 1.35rem; font-weight: 700; cursor: pointer;
-            filter: drop-shadow(0 0 8px rgba(212,175,55,0.7)); transition: 0.2s; padding: 2px 6px; z-index: 10;
         }
-        .modal-close-x:hover { transform: scale(1.15); }
-        
-        .portal-card-logo { width: 130px; height: auto; object-fit: contain; margin: 0 auto; filter: none !important; box-shadow: none !important; }
-        .portal-card-title { font-size: 1.4rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
-
-        .google-verify-btn {
-            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.88rem; padding: 16px 30px; border-radius: 35px;
-            border: none; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
-            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25); transition: 0.2s ease; width: 100%; max-width: 400px;
-        }
-        .google-verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255, 255, 255, 0.35); }
-
         .cart-items-preview-box {
-            background: #121216; border-radius: 12px; padding: 8px; 
-            max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; width: 100%;
-            border: none; scrollbar-width: thin; scrollbar-color: var(--gold-solid) #121216; box-sizing: border-box;
+            background: #121216; border-radius: 12px; padding: 8px; max-height: 220px; overflow-y: auto; width: 100%;
+            display: flex; flex-direction: column; gap: 8px;
         }
-        .cart-items-preview-box::-webkit-scrollbar { width: 4px; }
-        .cart-items-preview-box::-webkit-scrollbar-thumb { background: var(--gold-solid); border-radius: 4px; }
-
-        .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 8px 10px; border-radius: 9px; gap: 8px; width: 100%; border: none; box-sizing: border-box; }
-        .cart-item-img { width: 42px; height: 42px; object-fit: cover; border-radius: 7px; background: #000; flex-shrink: 0; }
-        .cart-item-info { flex: 1; display: flex; flex-direction: column; text-align: left; gap: 3px; min-width: 0; }
-        .cart-item-title { font-size: 0.72rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        .cart-item-bottom-row { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 6px; }
-        .cart-item-qty-controls { display: flex; align-items: center; gap: 5px; background: #0f0f13; padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); }
-        .cart-qty-btn { background: var(--gold-gradient); border: none; color: #000; font-size: 0.65rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .cart-qty-num { font-size: 0.72rem; font-weight: 700; color: #fff; min-width: 12px; text-align: center; }
-        .cart-item-price-val { font-size: 0.72rem; font-weight: 700; color: var(--gold-solid); white-space: nowrap; }
-        .cart-item-delete { background: none; border: none; color: #ff3b30; cursor: pointer; font-size: 0.9rem; padding: 2px; transition: 0.2s; flex-shrink: 0; }
+        .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 8px; border-radius: 8px; gap: 8px; }
+        .cart-item-img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
     </style>
 </head>
 <body>
 
     <!-- মূল পেজ কন্টেইনার -->
-    <div class="ecommerce-main-wrapper" id="topPageHeaderAnchor">
-        <div class="product-details-clean-section">
+    <div class="ecommerce-main-wrapper" id="mainStoreContainer">
+        
+        <!-- ১. প্রোডাক্ট ডিটেইলস পেজ (স্বাভাবিক অবস্থায় এটি দেখাবে) -->
+        <div class="product-details-clean-section" id="productDetailsViewSection">
             <div class="product-left-col">
                 <div class="media-viewport" id="mediaViewportContainer">
                     <img id="mainDisplayMediaElement" src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg" class="main-media-element" alt="Product">
@@ -482,16 +310,6 @@
                         <div class="thumb-item" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg">
                         </div>
-                        <div class="thumb-item" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(4).png', this)">
-                            <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(4).png">
-                        </div>
-                        <div class="thumb-item" onclick="switchMainMedia('image', 'https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(5).png', this)">
-                            <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(5).png">
-                        </div>
-                        <div class="thumb-item" onclick="switchMainMedia('video', 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-mit-green-screen-42998-large.mp4', this)">
-                            <video src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-mit-green-screen-42998-large.mp4" muted></video>
-                            <span class="thumb-video-badge"><i class="fa-solid fa-play"></i></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -505,13 +323,11 @@
                 </div>
 
                 <div class="price-discount-box">
-                    <div class="price-left-group">
-                        <span class="current-price-tag" id="displayUnitPrice">$100.00</span>
+                    <div>
+                        <span class="current-price-tag">$100.00</span>
                         <span class="crossed-old-price">$180.00</span>
                     </div>
-                    <div class="discount-badge-center">
-                        <img src="https://flagcdn.com/w80/bd.png" style="width:12px; height:8px; border-radius:1px;"> 45% OFF
-                    </div>
+                    <div class="discount-badge-center">45% OFF</div>
                     <div class="qty-inline-box">
                         <span class="qty-label-mini">QUANTITY</span>
                         <div class="qty-controls-flex">
@@ -538,15 +354,59 @@
                 <div class="product-info-section-box">
                     <span class="info-box-title"><i class="fa-solid fa-circle-info"></i> PRODUCT INFORMATION</span>
                     <div class="standard-description-box">
-                        Crafted with precision engineering and high-grade sustainable materials for global elite standards. Enjoy absolute elegance and durability with our complimentary free shipping worldwide. 100% Premium Certified Alloy, High-Gloss Lacquer Finish, Anti-Tarnish Protection Layer.
+                        Crafted with precision engineering and high-grade sustainable materials for global elite standards. Enjoy absolute elegance and durability with complimentary worldwide free shipping.
                     </div>
                     <input type="text" id="customSizeInputField" class="custom-note-input" placeholder="ENTER CUSTOM SIZE / NOTE (OPTIONAL)..." value="">
                 </div>
             </div>
         </div>
+
+        <!-- ২. কাস্টমার ড্যাশবোর্ড ও ডেলিভারি অ্যাড্রেস প্যানেল (ভেরিফিকেশনের পর সরাসরি এখানে চলে আসবে) -->
+        <div id="customerDashboardMainPanel">
+            <div style="display:flex; align-items:center; gap:12px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+                <img id="dashUserPhoto" src="" style="width:50px; height:50px; border-radius:50%; border:2px solid var(--gold-solid);">
+                <div>
+                    <h2 id="dashUserName" style="font-size:1rem; font-weight:700; color:#fff;"></h2>
+                    <span id="dashUserEmail" style="font-size:0.72rem; color:var(--text-gray);"></span>
+                </div>
+            </div>
+
+            <!-- ডেলিভারি অ্যাড্রেস লিস্ট ও প্লাস (+) বাটন -->
+            <div style="width:100%; background:#121216; padding:14px; border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
+                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                
+                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto;">
+                    <!-- সেভ করা অ্যাড্রেস এখানে দেখাবে -->
+                </div>
+
+                <!-- নতুন অ্যাড্রেস ইনপুট ফর্ম -->
+                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:8px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
+                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
+                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
+                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:9px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
+                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:9px; border-radius:6px; font-weight:700; font-size:0.72rem; cursor:pointer;">SAVE NEW ADDRESS</button>
+                </div>
+            </div>
+
+            <!-- প্রোডাক্ট আইডি ও পেমেন্ট বাটন -->
+            <div style="width:100%; background:#121216; padding:14px; border-radius:12px; display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER DETAILS</span>
+                <div style="font-size:0.72rem; color:#fff; display:flex; justify-content:space-between;">
+                    <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
+                    <span>STATUS: <strong style="color:#4cd964;">READY FOR PAYMENT</strong></span>
+                </div>
+                <button class="google-verify-btn" onclick="alert('Proceeding to Secure Payment Gateway...');" style="width:100%; max-width:100%; margin-top:6px;">
+                    <i class="fa-solid fa-shield-halved" style="color:#2ecc71;"></i> PROCEED TO SECURE PAYMENT
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ফুটার বার (হোম, অ্যাড টু কার্ট অ্যানিমেশনসহ, ইউ, কার্ট) -->
+    <!-- ফুটার বার (হোম, অ্যাড টু কার্ট, ইউ, কার্ট) -->
     <div class="fixed-bottom-checkout-bar">
         <a href="https://rorraxy.com" class="footer-menu-item">
             <i class="fa-solid fa-house footer-menu-icon"></i>
@@ -568,85 +428,22 @@
         </div>
     </div>
 
-    <!-- 'YOU' মেনু ভেরিফিকেশন পপআপ মডাল -->
-    <div id="userAccountModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'userAccountModalOverlay')">
-        <div class="modal-content-box">
-            <button class="modal-close-x" onclick="closeUserModal()">&times;</button>
-            <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="portal-card-logo">
-            <h1 class="portal-card-title">YOUR ACCOUNT</h1>
-            <button class="google-verify-btn" onclick="handleDarazGoogleVerify(true)">
-                <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1.1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
-            </button>
-        </div>
-    </div>
-
-    <!-- কাস্টমার ড্যাশবোর্ড পপআপ মডাল (দারাজ স্টাইল অ্যাড্রেস ও পেমেন্ট ফ্লো) -->
-    <div id="customerDashboardModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'customerDashboardModalOverlay')">
-        <div class="modal-content-box" style="max-width: 580px; text-align: left;">
-            <button class="modal-close-x" onclick="closeDashboardModal()">&times;</button>
-            <div style="display:flex; align-items:center; gap:12px; width:100%; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
-                <img id="dashUserPhoto" src="" style="width:45px; height:45px; border-radius:50%; border:2px solid var(--gold-solid);">
-                <div>
-                    <h2 id="dashUserName" style="font-size:0.95rem; font-weight:700; color:#fff;"></h2>
-                    <span id="dashUserEmail" style="font-size:0.7rem; color:var(--text-gray);"></span>
-                </div>
-            </div>
-
-            <!-- ডেলিভারি অ্যাড্রেস লিস্ট ও প্লাস বাটন -->
-            <div style="width:100%; background:#121216; padding:14px; border-radius:12px; margin-top:8px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
-                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                
-                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:6px; max-height:140px; overflow-y:auto;">
-                    <!-- সেভ করা অ্যাড্রেসসমূহ এখানে ডায়নামিক দেখাবে -->
-                </div>
-
-                <!-- নতুন অ্যাড্রেস যোগ করার ফর্ম -->
-                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:8px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
-                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <input type="text" id="addrStreet" placeholder="STREET ADDRESS / AREA" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.1); padding:8px; border-radius:6px; color:#fff; font-size:0.7rem; font-family:var(--font-main);">
-                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:8px; border-radius:6px; font-weight:700; font-size:0.72rem; cursor:pointer;">SAVE NEW ADDRESS</button>
-                </div>
-            </div>
-
-            <!-- প্রোডাক্ট আইডি ও সেলার চ্যাট লিঙ্ক -->
-            <div style="width:100%; background:#121216; padding:14px; border-radius:12px; display:flex; flex-direction:column; gap:8px;">
-                <span style="font-size:0.75rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER & PRODUCT DETAILS</span>
-                <div style="font-size:0.72rem; color:#fff; display:flex; justify-content:space-between;">
-                    <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
-                    <span>STATUS: <strong style="color:#4cd964;">READY FOR PAYMENT</strong></span>
-                </div>
-                <button class="seller-chat-inline-btn" onclick="toggleChatModal(); closeDashboardModal();" style="width:100%; justify-content:center; margin-top:4px;">
-                    <i class="fa-solid fa-comments"></i> CHAT WITH SELLER DIRECTLY
-                </button>
-            </div>
-
-            <button class="google-verify-btn" onclick="alert('Proceeding to Secure Payment Gateway...');" style="width:100%; max-width:100%;">
-                <i class="fa-solid fa-shield-halved" style="color:#2ecc71;"></i> PROCEED TO SECURE PAYMENT
-            </button>
-        </div>
-    </div>
-
-    <!-- কার্ট পপআপ (দারাজ স্টাইল চেকআউট ও গুগল ভেরিফিকেশন) -->
+    <!-- কার্ট ড্রয়ার মোডাল (যেখানে সরাসরি কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন থাকবে) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
-            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" class="portal-card-logo" style="width:55px;">
-            <h1 class="portal-card-title">YOUR CART</h1>
+            <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" alt="Logo" style="width:55px; object-fit:contain;">
+            <h1 style="font-size:1.2rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">YOUR CART</h1>
             
             <div id="cartItemsPreviewBox" class="cart-items-preview-box"></div>
 
-            <div style="display:flex; flex-direction:column; gap:6px; background:#121216; padding:10px; border-radius:10px; width:100%;">
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                    <span style="font-size:0.72rem; font-weight:600; color:var(--text-gray);">TOTAL AMOUNT:</span>
-                    <span id="cartModalTotalVal" style="font-size:1.1rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
-                </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; background:#121216; padding:10px; border-radius:8px;">
+                <span style="font-size:0.72rem; color:var(--text-gray);">TOTAL AMOUNT:</span>
+                <span id="cartModalTotalVal" style="font-size:1rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</span>
             </div>
 
-            <button class="google-verify-btn" onclick="handleCartCheckoutVerify()" style="width:100%; max-width:100%;">
+            <!-- দারাজ স্টাইল কন্টিনিউ অ্যান্ড গুগল ভেরিফাই বাটন -->
+            <button class="google-verify-btn" onclick="handleDirectGoogleVerify()">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
@@ -654,25 +451,23 @@
 
     <!-- চ্যাট মোডাল -->
     <div id="chatModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'chatModalOverlay')">
-        <div class="modal-content-box" style="max-width: 420px; text-align: left; padding: 18px;">
+        <div class="modal-content-box" style="max-width: 420px; text-align: left;">
             <button class="modal-close-x" onclick="closeChatModal()">&times;</button>
             <div style="display:flex; align-items:center; gap:8px; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px;">
-                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold-solid);">
+                <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
                 <div>
-                    <span style="font-size:0.78rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
-                    <span style="font-size:0.6rem; color:#4cd964; display:block; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE & READY</span>
+                    <span style="font-size:0.75rem; font-weight:700; color:#fff; display:block;">rorraxy store</span>
+                    <span style="font-size:0.58rem; color:#4cd964; font-weight:600;"><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i> ONLINE</span>
                 </div>
             </div>
-            <div id="chatMessagesContainer" style="background:#121216; border-radius:10px; padding:10px; height:180px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:6px; margin-top:8px; border:1px solid rgba(255,255,255,0.04);">
-                <div style="background:#1a1a22; padding:8px 10px; border-radius:8px; font-size:0.72rem; color:#fff; max-width:88%; align-self:flex-start; text-transform:none !important; line-height:1.4;">
-                    welcome to rorraxy.com luxury store! free shipping is ongoing. how can we assist you today?
+            <div id="chatMessagesContainer" style="background:#121216; border-radius:10px; padding:10px; height:160px; overflow-y:auto; width:100%; display:flex; flex-direction:column; gap:6px;">
+                <div style="background:#1a1a22; padding:8px; border-radius:8px; font-size:0.7rem; color:#fff; max-width:85%; text-transform:none !important;">
+                    welcome! how can we assist you with your luxury order?
                 </div>
             </div>
-            <div style="display:flex; gap:6px; width:100%; margin-top:8px;">
-                <input type="text" id="chatMessageInput" placeholder="TYPE YOUR MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:8px 10px; color:#fff; font-size:0.72rem; outline:none; font-family:var(--font-main);">
-                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 14px; border-radius:8px; font-weight:700; font-size:0.75rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:4px;">
-                    <i class="fa-solid fa-paper-plane"></i> SEND
-                </button>
+            <div style="display:flex; gap:6px; width:100%; margin-top:4px;">
+                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px; color:#fff; font-size:0.7rem;">
+                <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 12px; border-radius:8px; font-weight:700; font-size:0.7rem; cursor:pointer;">SEND</button>
             </div>
         </div>
     </div>
@@ -685,33 +480,30 @@
 
         window.onload = function() {
             updateCartBadgeCount();
+            checkExistingLoginState();
         };
 
-        function playLuxuryAudioEffect() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc1 = audioCtx.createOscillator();
-                const gain1 = audioCtx.createGain();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(659.25, audioCtx.currentTime);
-                osc1.frequency.exponentialRampToValueAtTime(1318.50, audioCtx.currentTime + 0.45);
-                gain1.gain.setValueAtTime(0.4, audioCtx.currentTime);
-                gain1.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.9);
-                osc1.connect(gain1);
-                gain1.connect(audioCtx.destination);
-                osc1.start();
-                osc1.stop(audioCtx.currentTime + 0.9);
-            } catch(e) {}
+        function checkExistingLoginState() {
+            let savedUser = localStorage.getItem('rorraxy_logged_user');
+            if(savedUser) {
+                showCustomerDashboardPanel(JSON.parse(savedUser));
+            }
+        }
+
+        function showCustomerDashboardPanel(user) {
+            document.getElementById('productDetailsViewSection').style.display = 'none';
+            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
+            document.getElementById('dashUserEmail').innerText = user.email || "";
+            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
+            
+            renderSavedAddresses();
+            document.getElementById('customerDashboardMainPanel').style.display = 'flex';
+            closeCartDrawerModal();
         }
 
         function switchMainMedia(type, src, el) {
-            activeMediaSource = type === 'video' ? "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg" : src;
-            const viewport = document.getElementById('mediaViewportContainer');
-            if(type === 'video') {
-                viewport.innerHTML = `<video src="${src}" class="main-media-element" autoplay loop muted playsinline></video>`;
-            } else {
-                viewport.innerHTML = `<img src="${src}" class="main-media-element" alt="Product">`;
-            }
+            activeMediaSource = src;
+            document.getElementById('mainDisplayMediaElement').src = src;
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
         }
@@ -722,10 +514,8 @@
             document.getElementById('itemQtyDisplayNum').innerText = currentItemQuantity;
         }
 
-        /* অ্যাড টু কার্ট এবং কয়েন ফ্লাই অ্যানিমেশন */
+        /* কয়েন ফ্লাই অ্যানিমেশন ও কার্ট আপডেট */
         function executeAddToCart(event) {
-            playLuxuryAudioEffect();
-
             let btnRect = document.getElementById('addToCartMainBtn').getBoundingClientRect();
             let cartMenuTarget = document.getElementById('footerCartMenuBtn').getBoundingClientRect();
             
@@ -747,7 +537,7 @@
 
             let chosenSize = document.getElementById('customSizeInputField').value || "STANDARD";
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            let existingItem = cart.find(item => item.title === "RORRAXY LUXURY BRACELET" && item.size === chosenSize && item.img === activeMediaSource);
+            let existingItem = cart.find(item => item.title === "RORRAXY LUXURY BRACELET" && item.size === chosenSize);
             if(existingItem) {
                 existingItem.qty += currentItemQuantity;
             } else {
@@ -761,6 +551,7 @@
             }
             localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
             updateCartBadgeCount();
+            openCartDrawerModal();
         }
 
         function updateCartBadgeCount() {
@@ -770,45 +561,20 @@
             if(badge) badge.innerText = totalQty;
         }
 
-        /* ইউ মেনু ক্লিক হ্যান্ডেলার */
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
-                openDarazCustomerDashboard(JSON.parse(savedUser));
+                showCustomerDashboardPanel(JSON.parse(savedUser));
             } else {
-                document.getElementById('userAccountModalOverlay').style.display = 'flex';
+                openCartDrawerModal();
             }
         }
-
-        function closeUserModal() { document.getElementById('userAccountModalOverlay').style.display = 'none'; }
-
-        /* কার্ট থেকে চেকআউট ভেরিফিকেশন ফ্লো */
-        function handleCartCheckoutVerify() {
-            let savedUser = localStorage.getItem('rorraxy_logged_user');
-            if(savedUser) {
-                closeCartDrawerModal();
-                openDarazCustomerDashboard(JSON.parse(savedUser));
-            } else {
-                window.handleDarazGoogleVerify(true);
-            }
-        }
-
-        function openDarazCustomerDashboard(user) {
-            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
-            document.getElementById('dashUserEmail').innerText = user.email || "";
-            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
-            
-            renderSavedAddresses();
-            document.getElementById('customerDashboardModalOverlay').style.display = 'flex';
-        }
-        function closeDashboardModal() { document.getElementById('customerDashboardModalOverlay').style.display = 'none'; }
 
         function toggleAddressForm() {
             let form = document.getElementById('addressInputFormContainer');
             form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        /* একাধিক ডেলিভারি অ্যাড্রেস সেভ ও ম্যানেজমেন্ট সিস্টেম */
         function saveNewDeliveryAddress() {
             let name = document.getElementById('addrFullName').value.trim();
             let phone = document.getElementById('addrPhone').value.trim();
@@ -826,7 +592,7 @@
 
                 renderSavedAddresses();
             } else {
-                alert('দয়া করে সব ফিল্ড সঠিকভাবে পূরণ করুন।');
+                alert('দয়া করে সব ফিল্ড পূরণ করুন।');
             }
         }
 
@@ -835,7 +601,7 @@
             let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
 
             if(addresses.length === 0) {
-                container.innerHTML = '<div style="font-size:0.7rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে আপনার ডেলিভারি অ্যাড্রেস যুক্ত করুন।</div>';
+                container.innerHTML = '<div style="font-size:0.7rem; color:var(--text-gray); text-transform:none;">কোনো অ্যাড্রেস সেভ করা নেই। প্লাস (+) এ ক্লিক করে অ্যাড করুন।</div>';
                 return;
             }
 
@@ -847,7 +613,7 @@
                         <strong style="color:var(--gold-solid);">${addr.name}</strong> (${addr.phone})<br>
                         <span style="color:var(--text-gray);">${addr.street}</span>
                     </div>
-                    <button onclick="deleteAddress(${idx})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="deleteAddress(${idx})" style="background:none; border:none; color:#ff3b30; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             });
             container.innerHTML = html;
@@ -877,52 +643,35 @@
             }
             let html = '', totalAmt = 0;
             cart.forEach((item, index) => {
-                let priceNum = parseFloat(item.price.replace('$', '').replace(/,/g, ''));
+                let priceNum = parseFloat(item.price.replace('$', ''));
                 let itemTotal = priceNum * item.qty;
                 totalAmt += itemTotal;
                 html += `
                 <div class="cart-item-row">
                     <img src="${item.img}" class="cart-item-img">
-                    <div class="cart-item-info">
-                        <span class="cart-item-title">${item.title}</span>
-                        <div class="cart-item-bottom-row">
-                            <span style="font-size:0.65rem; color:var(--text-gray);">QTY: ${item.qty}</span>
-                            <span class="cart-item-price-val">$${itemTotal.toFixed(2)}</span>
-                        </div>
+                    <div style="flex:1; text-align:left; min-width:0;">
+                        <div style="font-size:0.7rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
+                        <div style="font-size:0.62rem; color:var(--text-gray);">QTY: ${item.qty} | $${itemTotal.toFixed(2)}</div>
                     </div>
-                    <button class="cart-item-delete" onclick="removeCartItem(${index})"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             });
             container.innerHTML = html;
             totalValEl.innerText = `$${totalAmt.toFixed(2)}`;
         }
 
-        function removeCartItem(index) {
-            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('rorraxy_cart', JSON.stringify(cart));
-            updateCartBadgeCount();
-            renderCartModalList();
-        }
-
         function toggleChatModal() {
-            let chatModal = document.getElementById('chatModalOverlay');
-            chatModal.style.display = chatModal.style.display === 'flex' ? 'none' : 'flex';
+            let modal = document.getElementById('chatModalOverlay');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
         function closeChatModal() { document.getElementById('chatModalOverlay').style.display = 'none'; }
 
         function sendChatMessage() {
-            let inputEl = document.getElementById('chatMessageInput');
-            let msgBox = document.getElementById('chatMessagesContainer');
-            let text = inputEl.value.trim();
-            if(text !== "") {
-                msgBox.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:8px 10px; border-radius:8px; font-size:0.72rem; font-weight:600; max-width:88%; align-self:flex-end;">${text}</div>`;
-                inputEl.value = "";
-                msgBox.scrollTop = msgBox.scrollHeight;
-                setTimeout(() => {
-                    msgBox.innerHTML += `<div style="background:#1a1a22; padding:8px 10px; border-radius:8px; font-size:0.72rem; color:#fff; max-width:88%; align-self:flex-start;">thank you for your message! our seller will connect with you shortly.</div>`;
-                    msgBox.scrollTop = msgBox.scrollHeight;
-                }, 1000);
+            let input = document.getElementById('chatMessageInput');
+            let box = document.getElementById('chatMessagesContainer');
+            if(input.value.trim() !== "") {
+                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:8px; border-radius:8px; font-size:0.7rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
+                input.value = "";
+                box.scrollTop = box.scrollHeight;
             }
         }
 
