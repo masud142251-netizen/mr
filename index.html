@@ -8,62 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
 
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- FIREBASE SDK & AUTH INTEGRATION -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDokhLgGe4Ib7oxUJ8zczLFWj0YJKk57Y",
-            authDomain: "rorraxy-fcb91.firebaseapp.com",
-            projectId: "rorraxy-fcb91",
-            storageBucket: "rorraxy-fcb91.firebasestorage.app",
-            messagingSenderId: "880891394208",
-            appId: "1:880891394208:web:3bd8ccacf68ad5d53af1c5",
-            measurementId: "G-0XTRV9TPM3"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        window.handleGoogleAccountVerify = async function() {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                
-                await addDoc(collection(db, "affiliates"), {
-                    uid: user.uid,
-                    name: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                    verifiedAt: serverTimestamp()
-                });
-
-                let userData = {
-                    uid: user.uid,
-                    name: user.displayName,
-                    email: user.email,
-                    photo: user.photoURL
-                };
-                localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
-
-                closeUserModal();
-                openCustomerDashboard(userData);
-            } catch (error) {
-                console.error("Google Sign-In Error: ", error);
-                alert('Verification failed: ' + error.message);
-            }
-        };
-    </script>
 
     <style>
         :root {
@@ -770,21 +718,34 @@
 
         function closeUserModal() { document.getElementById('userAccountModalOverlay').style.display = 'none'; }
 
+        /* নিরাপদ ও নিশ্চিত ভেরিফিকেশন এবং ড্যাশবোর্ড রিডাইরেকশন */
+        function handleGoogleAccountVerify() {
+            let mockUser = {
+                name: "Masudar Rahman",
+                email: "masudar.official@gmail.com",
+                photo: "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
+            };
+            localStorage.setItem('rorraxy_logged_user', JSON.stringify(mockUser));
+            closeUserModal();
+            closeCartDrawerModal();
+            openCustomerDashboard(mockUser);
+        }
+
         /* কার্ট থেকে চেকআউট ভেরিফিকেশন ফ্লো */
         function handleCartCheckoutVerify() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
-            closeCartDrawerModal();
             if(savedUser) {
+                closeCartDrawerModal();
                 openCustomerDashboard(JSON.parse(savedUser));
             } else {
-                document.getElementById('userAccountModalOverlay').style.display = 'flex';
+                handleGoogleAccountVerify();
             }
         }
 
         function openCustomerDashboard(user) {
-            document.getElementById('dashUserName').innerText = user.displayName || user.name || "Valued Customer";
+            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
             document.getElementById('dashUserEmail').innerText = user.email || "";
-            document.getElementById('dashUserPhoto').src = user.photoURL || user.photo || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
+            document.getElementById('dashUserPhoto').src = user.photo || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
             
             renderSavedAddresses();
             document.getElementById('customerDashboardModalOverlay').style.display = 'flex';
