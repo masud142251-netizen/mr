@@ -19,7 +19,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
@@ -40,10 +40,10 @@
             console.error("Persistence Error:", error);
         });
 
-        const secretKeyBase32 = "JBSWY3DPEHPK3PXP";
         window.userState = {
             balance: 0.00,
-            firebaseUser: null
+            firebaseUser: null,
+            sellerId: ""
         };
 
         window.showToast = function(message, isError = false) {
@@ -52,16 +52,6 @@
             toast.style.borderColor = isError ? '#ff4d4d' : 'var(--gold-solid)';
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 3500);
-        }
-
-        window.verifyTOTPCode = function(inputCode) {
-            try {
-                let totp = new jsOTP.totp();
-                let generatedCode = totp.getOtp(secretKeyBase32);
-                return inputCode.trim() === generatedCode;
-            } catch (e) {
-                return false;
-            }
         }
 
         function showSpinner(show) {
@@ -119,6 +109,7 @@
                 }
             }
 
+            window.userState.sellerId = finalSellerId;
             document.getElementById('userDisplayName').value = user.displayName || "MR MASUDAR ENTERPRISE";
             document.getElementById('userDisplayEmail').value = user.email || "";
             document.getElementById('headerUserName').innerText = user.displayName || "MR MASUDAR ENTERPRISE";
@@ -128,30 +119,12 @@
                 document.getElementById('headerUserAvatar').src = user.photoURL;
             }
 
-            autoDetectUserCountry();
+            await loadSellerProducts();
 
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('dashboardSection').style.display = 'block';
             switchTab('dashboard');
             showSpinner(false);
-        }
-
-        async function autoDetectUserCountry() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                if (data && data.country_calling_code) {
-                    const countrySelect = document.getElementById('countryCodeSelect');
-                    for (let option of countrySelect.options) {
-                        if (option.value === data.country_calling_code) {
-                            option.selected = true;
-                            break;
-                        }
-                    }
-                }
-            } catch (e) {
-                console.log("Auto country detect fallback active");
-            }
         }
 
         window.handleGoogleAuth = async function() {
@@ -162,10 +135,7 @@
                 window.showToast("সেলার ভেরিফিকেশন সফলভাবে সম্পন্ন হয়েছে!");
             } catch (error) {
                 showSpinner(false);
-                console.error("লগইন ত্রুটি:", error.message);
-                if (error.code !== 'auth/popup-closed-by-user') {
-                    window.showToast("গুগল ভেরিফিকেশন ব্যর্থ হয়েছে: " + error.message, true);
-                }
+                window.showToast("গুগল ভেরিফিকেশন ব্যর্থ হয়েছে: " + error.message, true);
             }
         }
 
@@ -180,7 +150,107 @@
                 window.showToast("সফলভাবে লগআউট করা হয়েছে।");
             } catch (error) {
                 showSpinner(false);
-                console.error("লগআউট ত্রুটি:", error.message);
+            }
+        }
+
+        // প্রোডাক্ট সাবমিট এবং ফায়ারবেজে সেভ করার ফাংশন
+        window.submitProductToFirebase = async function(e) {
+            e.preventDefault();
+            showSpinner(true);
+
+            try {
+                const category = document.getElementById('selected_category').value;
+                const productName = document.getElementById('product_name').value;
+                const sellingPrice = parseFloat(document.getElementById('selling_price').value);
+                const marketPrice = parseFloat(document.getElementById('market_price').value) || 0;
+                const stock = parseInt(document.getElementById('stock').value);
+                const description = document.getElementById('description').value;
+                const enableCustom = document.getElementById('enable_custom').checked;
+                const customNotes = document.getElementById('custom_notes').value;
+                const enableChat = document.getElementById('enable_chat').checked;
+
+                const uniqueProductCode = "PRD-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.floor(Math.random() * 899 + 100);
+                const fullProductId = window.userState.sellerId + "_" + uniqueProductCode;
+
+                const productData = {
+                    productId: fullProductId,
+                    sellerId: window.userState.sellerId,
+                    sellerUid: window.userState.firebaseUser ? window.userState.firebaseUser.uid : "",
+                    category: category,
+                    productName: productName,
+                    sellingPrice: sellingPrice,
+                    marketPrice: marketPrice,
+                    stock: stock,
+                    description: description,
+                    enableCustom: enableCustom,
+                    customNotes: customNotes,
+                    enableChat: enableChat,
+                    createdAt: new Date().toISOString(),
+                    status: "active"
+                };
+
+                const productRef = doc(db, "products", fullProductId);
+                await setDoc(productRef, productData);
+
+                showSpinner(false);
+                window.showToast("প্রোডাক্ট সফলভাবে প্রমোট ও পাবলিশ করা হয়েছে!");
+                
+                await loadSellerProducts();
+                setTimeout(() => {
+                    switchTab('dashboard');
+                }, 1000);
+
+            } catch (error) {
+                showSpinner(false);
+                window.showToast("প্রোডাক্ট প্রমোট ব্যর্থ হয়েছে: " + error.message, true);
+            }
+        }
+
+        // প্রোডাক্ট ডিলিট ফাংশন
+        window.deleteProduct = async function(productId) {
+            if(!confirm("আপনি কি নিশ্চিতভাবে এই প্রোডাক্টটি ডিলিট করতে চান?")) return;
+            showSpinner(true);
+            try {
+                await deleteDoc(doc(db, "products", productId));
+                window.showToast("প্রোডাক্ট সফলভাবে ডিলিট করা হয়েছে!");
+                await loadSellerProducts();
+            } catch (error) {
+                showSpinner(false);
+                window.showToast("ডিলিট করতে সমস্যা হয়েছে: " + error.message, true);
+            }
+        }
+
+        // সেলারের প্রোডাক্ট লিস্ট লোড করার ফাংশন
+        async function loadSellerProducts() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                const tbody = document.getElementById('productTableBody');
+                tbody.innerHTML = "";
+                let count = 0;
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    if(data.sellerId === window.userState.sellerId) {
+                        count++;
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><strong>${data.productId}</strong><br><span style="color:#aaa;">${data.productName}</span></td>
+                            <td>$${data.sellingPrice.toFixed(2)}</td>
+                            <td>${data.stock}</td>
+                            <td><span style="color:#4cd137; font-weight:600;">Active</span></td>
+                            <td>
+                                <button onclick="deleteProduct('${data.productId}')" style="background:rgba(255,77,77,0.15); border:1px solid #ff4d4d; color:#ff4d4d; padding:5px 10px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                });
+
+                if(count === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #666; padding: 20px;">No products uploaded yet. Click 'Add New Product' to list items!</td></tr>`;
+                }
+            } catch (e) {
+                console.log("Error loading products:", e);
             }
         }
     </script>
@@ -216,27 +286,23 @@
             align-items: center; justify-content: center; z-index: 99999;
         }
 
-        .spinner-logo { width: 90px; height: auto; object-fit: contain; margin-bottom: 18px; }
-
+        .spinner-logo { width: 80px; height: auto; object-fit: contain; margin-bottom: 15px; }
         .spinner-bar {
-            width: 160px; height: 3px; background: #1a1a1a;
+            width: 140px; height: 3px; background: #1a1a1a;
             border-radius: 4px; overflow: hidden; position: relative;
         }
-
         .spinner-bar::before {
             content: ''; position: absolute; left: -50%; top: 0;
             width: 50%; height: 100%; background: var(--gold-solid);
             animation: loadingMove 1s infinite linear;
         }
-
         @keyframes loadingMove {
             0% { left: -50%; }
             100% { left: 100%; }
         }
-
         .spinner-text {
-            font-size: 0.78rem; letter-spacing: 2px; color: #888;
-            margin-top: 15px; text-transform: uppercase; font-weight: 500;
+            font-size: 0.75rem; letter-spacing: 2px; color: #888;
+            margin-top: 12px; text-transform: uppercase; font-weight: 500;
         }
 
         #loginSection {
@@ -244,250 +310,164 @@
             flex-direction: column; align-items: center; justify-content: center;
             padding: 20px; text-align: center;
         }
-
-        .seller-logo-img { width: 140px; height: auto; object-fit: contain; margin-bottom: 20px; }
-
+        .seller-logo-img { width: 120px; height: auto; object-fit: contain; margin-bottom: 20px; }
         .seller-sub-title {
-            font-size: 1.3rem; font-weight: 700;
+            font-size: 1.2rem; font-weight: 700;
             background: var(--gold-gradient);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px; margin-bottom: 25px; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase;
         }
-
         .google-verify-btn {
             background: #ffffff; color: #000000; font-weight: 700;
-            font-size: 0.85rem; padding: 15px 25px; border-radius: 35px;
+            font-size: 0.82rem; padding: 12px 22px; border-radius: 30px;
             border: none; display: inline-flex; align-items: center; justify-content: center;
-            gap: 12px; cursor: pointer; box-shadow: 0 4px 25px rgba(255, 255, 255, 0.2);
-            transition: 0.2s ease; text-transform: uppercase; max-width: 360px; width: 100%;
+            gap: 10px; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            transition: 0.2s ease; text-transform: uppercase; max-width: 320px; width: 100%;
         }
-
-        .google-verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
 
         #dashboardSection {
             display: none; width: 100%; max-width: 1100px;
-            margin: 0 auto; padding: 25px 15px;
+            margin: 0 auto; padding: 20px 15px;
         }
-
         .dash-header {
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 15px;
-            margin-bottom: 25px; flex-wrap: wrap; gap: 15px;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 12px;
+            margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
         }
-
-        .dash-logo-area { display: flex; align-items: center; gap: 12px; }
-        .dash-logo-img { width: 55px; height: auto; border-radius: 50%; border: 2px solid var(--gold-solid); }
-
-        .user-big-identity h2 { margin: 0; font-size: 1.1rem; font-weight: 700; color: #ffffff; }
+        .dash-logo-area { display: flex; align-items: center; gap: 10px; }
+        .dash-logo-img { width: 48px; height: auto; border-radius: 50%; border: 2px solid var(--gold-solid); }
+        .user-big-identity h2 { margin: 0; font-size: 1rem; font-weight: 700; color: #ffffff; }
         .user-big-identity p {
-            margin: 3px 0 0 0; font-size: 0.78rem;
+            margin: 2px 0 0 0; font-size: 0.75rem;
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-weight: 600;
         }
-
-        .header-right-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
+        .header-right-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .nav-tab-btn {
             background: #ffffff; color: #000000; border: none;
-            padding: 9px 16px; border-radius: 20px; cursor: pointer;
-            font-size: 0.8rem; font-weight: 700; transition: 0.2s;
-            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 14px; border-radius: 18px; cursor: pointer;
+            font-size: 0.78rem; font-weight: 700; transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 5px;
         }
-        .nav-tab-btn:hover { background: #f0f0f0; }
         .nav-tab-btn.active { background: var(--gold-gradient); color: #000; }
-
         .logout-btn {
             background: transparent; border: 1px solid var(--border-color);
-            color: #ff4d4d; width: 38px; height: 38px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;
-        }
-        .logout-btn:hover { background: rgba(255, 77, 77, 0.1); }
-
-        .commission-notice-banner {
-            background: linear-gradient(135deg, rgba(191, 149, 63, 0.1), rgba(11, 11, 11, 0.9));
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px;
-            padding: 12px 18px; margin-bottom: 25px; font-size: 0.82rem; text-align: center;
-        }
-        .commission-notice-banner span {
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-weight: 700;
+            color: #ff4d4d; width: 34px; height: 34px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
 
         .summary-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px; margin-bottom: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px; margin-bottom: 20px;
         }
-
         .summary-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 20px; position: relative;
+            border-radius: 12px; padding: 16px; position: relative;
         }
-        .summary-card h3 { margin: 0 0 8px 0; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .summary-card h3 { margin: 0 0 6px 0; font-size: 0.72rem; color: #888; text-transform: uppercase; }
         .summary-card .value {
-            margin: 0; font-size: 1.6rem; font-weight: 700;
+            margin: 0; font-size: 1.4rem; font-weight: 700;
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .summary-card .gold-icon {
-            position: absolute; right: 18px; top: 20px; font-size: 1.5rem;
+            position: absolute; right: 15px; top: 16px; font-size: 1.3rem;
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         .card-box {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 20px; margin-bottom: 20px; overflow-x: auto;
+            border-radius: 12px; padding: 16px; margin-bottom: 16px; overflow-x: auto;
         }
         .card-box-header {
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px;
-            flex-wrap: wrap; gap: 10px;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 12px;
         }
-        .card-box-header h3 { margin: 0; font-size: 0.9rem; font-weight: 600; border: none; padding: 0; }
-
         .add-product-btn {
             background: var(--gold-gradient); color: #000; border: none;
-            padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase;
+            padding: 7px 14px; border-radius: 7px; font-size: 0.75rem; font-weight: 700;
+            cursor: pointer; text-transform: uppercase;
         }
 
-        .table-responsive { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.8rem; min-width: 450px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.78rem; min-width: 450px; }
         th { color: #777; font-weight: 500; padding: 8px; border-bottom: 1px solid var(--border-color); }
-        td { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #ccc; }
-
-        .payout-action-box {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 20px; display: flex; justify-content: space-between;
-            align-items: center; flex-wrap: wrap; gap: 15px;
-        }
-        .request-payout-main-btn {
-            background: var(--gold-gradient); color: #000; border: none; font-weight: 700;
-            padding: 12px 24px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; text-transform: uppercase;
-        }
+        td { padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #ccc; }
 
         #settingsSection { display: none; }
-        .settings-container { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; }
-        
-        .settings-nav-tabs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        @media(min-width: 768px) {
-            .settings-nav-tabs { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .sub-tab-btn {
-            background: #ffffff; border: 1px solid var(--border-color); color: #000000;
-            padding: 12px 10px; border-radius: 10px; cursor: pointer; font-size: 0.78rem; font-weight: 700;
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-align: center;
-            width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: 0.2s;
-        }
-        .sub-tab-btn.active { background: var(--gold-gradient); color: #000; border-color: transparent; }
-
-        .sub-tab-content { display: none; }
-        .sub-tab-content.active { display: block; }
-
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.78rem; color: #888; margin-bottom: 5px; }
-        .form-group select, .form-group input {
+        .settings-container { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+        .form-group input, .form-group select {
             width: 100%; background: #080808; border: 1px solid #333;
-            border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.85rem; outline: none; box-sizing: border-box;
+            border-radius: 7px; padding: 9px 11px; color: #fff; font-size: 0.82rem; outline: none;
         }
-        
         .save-btn {
             background: var(--gold-gradient); color: #000; border: none; font-weight: 700;
-            padding: 11px 22px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; text-transform: uppercase; margin-top: 8px; width: 100%;
+            padding: 10px 20px; border-radius: 7px; cursor: pointer; text-transform: uppercase; width: 100%; font-size: 0.8rem;
         }
 
-        .dashboard-home-redirect-bar {
-            display: flex; justify-content: center; margin-top: 30px; margin-bottom: 15px;
-        }
-        .main-home-btn {
-            background: var(--gold-gradient); color: #000; border: none;
-            padding: 13px 30px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35); transition: 0.2s; text-decoration: none;
-        }
-        .main-home-btn:hover { transform: translateY(-2px); opacity: 0.95; }
-
-        .verified-success-display { display: none; text-align: center; padding: 30px 20px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 14px; }
-        .verified-success-display i.fa-circle-check { font-size: 3.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
-
-        #toastBox {
-            position: fixed; bottom: 30px; right: 30px; background: #1a1a1a;
-            border: 1px solid var(--gold-solid); color: #fff; padding: 14px 22px;
-            border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.8); z-index: 9999; display: none; font-size: 0.85rem; font-weight: 600;
-        }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 15px; }
-        .modal-box { background: #121212; border: 1px solid var(--gold-solid); border-radius: 14px; padding: 25px; width: 100%; max-width: 420px; position: relative; }
-        .modal-close { position: absolute; right: 15px; top: 15px; background: transparent; border: none; color: #aaa; font-size: 1.1rem; cursor: pointer; }
-
-        /* --- ফুল স্ক্রিন অ্যাড নিউ প্রোডাক্ট পেজ স্টাইল --- */
+        /* --- স্ট্যান্ডার্ড সাইজের ফুল-স্ক্রিন অ্যাড নিউ প্রোডাক্ট পেজ ডিজাইন --- */
         #addProductSection {
-            display: none; width: 100%; max-width: 1300px; margin: 0 auto; padding: 25px 15px;
+            display: none; width: 100%; max-width: 1000px; margin: 0 auto; padding: 20px 15px;
         }
-        .form-section-box { background: transparent; border: none; padding: 0; margin-bottom: 30px; width: 100%; }
-        .form-section-box h3 { font-size: 1.15rem; color: var(--text-white); margin-bottom: 22px; border-bottom: 1px solid rgba(212,175,55,0.12); padding-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .form-section-box { background: transparent; border: none; padding: 0; margin-bottom: 25px; width: 100%; }
+        .form-section-box h3 { font-size: 1.05rem; color: var(--text-white); margin-bottom: 18px; border-bottom: 1px solid rgba(212,175,55,0.12); padding-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .form-section-box h3 i { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: 100%; }
-        @media(min-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media(min-width: 1024px) { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+        /* স্ট্যান্ডার্ড ক্যাটাগরি গ্রিড (মোবাইল ও কম্পিউটারে ছোট ও সুন্দর দেখানোর জন্য) */
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }
+        @media(min-width: 768px) { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; } }
 
-        .cat-box { background: #15151a; border: none; border-radius: 14px; padding: 24px 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); width: 100%; }
-        .cat-box:hover { background: #1f1f28; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(191,149,63,0.18); }
-        .cat-box.clicked { background: #242012; box-shadow: inset 0 0 0 2px #bf953f, 0 0 20px rgba(191,149,63,0.35); }
-        .cat-box i { font-size: 2.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .cat-box span { font-size: 0.85rem; font-weight: 600; color: var(--text-white); letter-spacing: 0.5px; word-break: break-word; }
+        .cat-box { background: #15151a; border-radius: 12px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .cat-box:hover { background: #1f1f28; transform: translateY(-2px); }
+        .cat-box.clicked { background: #242012; box-shadow: inset 0 0 0 2px #bf953f, 0 0 15px rgba(191,149,63,0.3); }
+        .cat-box i { font-size: 1.8rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cat-box span { font-size: 0.78rem; font-weight: 600; color: var(--text-white); }
 
-        .back-cat-btn { background: #15151a; border: none; color: var(--gold-solid); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .back-cat-btn:hover { background: #202028; }
+        .back-cat-btn { background: #15151a; border: none; color: var(--gold-solid); padding: 8px 14px; border-radius: 7px; cursor: pointer; font-size: 0.78rem; font-weight: 600; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px; }
+        .selected-badge { background: #15151a; border-left: 3px solid #bf953f; color: var(--text-white); padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
 
-        .selected-badge { background: #15151a; border-left: 4px solid #bf953f; color: var(--text-white); padding: 14px 20px; border-radius: 10px; font-size: 0.92rem; font-weight: 500; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.4); width: 100%; }
-        .selected-badge strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .product-input-group { margin-bottom: 20px; width: 100%; }
-        .product-input-group label { display: block; font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; font-weight: 500; letter-spacing: 0.3px; }
+        .product-input-group { margin-bottom: 16px; width: 100%; }
+        .product-input-group label { display: block; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 500; }
         .product-input-group input, .product-input-group textarea {
-            width: 100%; background: #15151a; border: none; border-radius: 12px;
-            padding: 16px; color: var(--text-white); font-family: var(--font-main); font-size: 0.95rem; outline: none; transition: 0.3s;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
-        }
-        .product-input-group input:focus, .product-input-group textarea:focus {
-            background: #1c1c24; box-shadow: inset 0 2px 6px rgba(0,0,0,0.6), 0 0 10px rgba(191,149,63,0.3);
+            width: 100%; background: #15151a; border: none; border-radius: 10px;
+            padding: 13px 15px; color: var(--text-white); font-family: var(--font-main); font-size: 0.9rem; outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         @media(max-width: 576px) { .row-grid { grid-template-columns: 1fr; } }
 
-        .ai-helper-box { background: #15151a; border-left: 3px solid #bf953f; border-radius: 0 12px 12px 0; padding: 16px; margin-bottom: 18px; font-size: 0.83rem; color: var(--text-gray); line-height: 1.6; }
-        .ai-helper-box strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.9rem; }
+        .ai-helper-box { background: #15151a; border-left: 3px solid #bf953f; border-radius: 0 10px 10px 0; padding: 14px; margin-bottom: 16px; font-size: 0.8rem; color: var(--text-gray); line-height: 1.5; }
+        .ai-helper-box strong { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 3px; }
 
-        .toggle-container { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; background: #15151a; padding: 14px 18px; border-radius: 12px; cursor: pointer; width: 100%; }
-        .toggle-container input[type="checkbox"] { width: 20px; height: 20px; accent-color: #bf953f; cursor: pointer; }
-        .toggle-container label { font-size: 0.88rem; color: var(--text-white); font-weight: 500; cursor: pointer; margin: 0; }
+        .toggle-container { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; background: #15151a; padding: 12px 15px; border-radius: 10px; cursor: pointer; width: 100%; }
+        .toggle-container input[type="checkbox"] { width: 18px; height: 18px; accent-color: #bf953f; cursor: pointer; }
+        .toggle-container label { font-size: 0.82rem; color: var(--text-white); font-weight: 500; cursor: pointer; margin: 0; }
 
-        .preview-container { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; width: 100%; }
-        .preview-card { position: relative; width: 85px; height: 85px; border-radius: 10px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px rgba(191,149,63,0.4); }
+        .preview-container { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; width: 100%; }
+        .preview-card { position: relative; width: 75px; height: 75px; border-radius: 8px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px rgba(191,149,63,0.4); }
         .preview-card img { width: 100%; height: 100%; object-fit: cover; }
 
-        .upload-box { border: 2px dashed rgba(191,149,63,0.3); border-radius: 14px; padding: 30px 20px; text-align: center; cursor: pointer; background: #15151a; transition: 0.3s; width: 100%; }
-        .upload-box:hover { border-color: #bf953f; background: #1c1c24; box-shadow: 0 0 20px rgba(191,149,63,0.15); }
-        .upload-box i { font-size: 2.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-        .upload-box p { font-size: 0.85rem; color: var(--text-gray); }
+        /* স্ট্যান্ডার্ড সাইজের আপলোড বক্স */
+        .upload-box { border: 2px dashed rgba(191,149,63,0.3); border-radius: 12px; padding: 22px 15px; text-align: center; cursor: pointer; background: #15151a; transition: 0.25s; width: 100%; }
+        .upload-box:hover { border-color: #bf953f; background: #1a1a22; }
+        .upload-box i { font-size: 2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .upload-box p { font-size: 0.78rem; color: var(--text-gray); }
 
+        /* স্ট্যান্ডার্ড সাইজের প্রমোট প্রোডাক্ট বাটন */
         .next-btn, .submit-btn {
-            width: 100%; background: var(--gold-gradient); color: #050505; border: none; padding: 16px;
-            border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 6px 25px rgba(191,149,63,0.3); transition: 0.3s; margin-top: 12px; letter-spacing: 0.5px;
+            width: 100%; background: var(--gold-gradient); color: #050505; border: none; padding: 14px 20px;
+            border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(191,149,63,0.25); transition: 0.25s; margin-top: 10px; letter-spacing: 0.5px;
         }
-        .next-btn:hover, .submit-btn:hover { opacity: 0.93; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(191,149,63,0.45); }
+        .next-btn:hover, .submit-btn:hover { opacity: 0.93; transform: translateY(-1px); }
 
         .hidden-step { display: none; }
+        #toastBox {
+            position: fixed; bottom: 25px; right: 25px; background: #1a1a1a;
+            border: 1px solid var(--gold-solid); color: #fff; padding: 12px 18px;
+            border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 9999; display: none; font-size: 0.8rem; font-weight: 600;
+        }
     </style>
 
     <script>
@@ -522,87 +502,6 @@
             document.getElementById(subTabId).classList.add('active');
             btnElement.classList.add('active');
         }
-
-        function handlePayoutMethodChange() {
-            const method = document.getElementById('settingPayoutMethod').value;
-            const container = document.getElementById('settingDynamicFields');
-
-            if(method === 'payoneer') {
-                container.innerHTML = `<div class="form-group"><label>Payoneer Email</label><input type="email" placeholder="user@gmail.com" required></div>`;
-            } else if(method === 'bkash' || method === 'nagad') {
-                container.innerHTML = `<div class="form-group"><label>${method.toUpperCase()} Personal Number</label><input type="text" placeholder="017XXXXXXXX" required></div>`;
-            } else if(method === 'bank') {
-                container.innerHTML = `
-                    <div class="form-group"><label>Account Holder Name</label><input type="text" placeholder="Full Name" required></div>
-                    <div class="form-group"><label>Bank Name</label><input type="text" placeholder="Bank Name" required></div>
-                    <div class="form-group"><label>Account Number</label><input type="text" placeholder="Account Number" required></div>
-                    <div class="form-group"><label>Branch Name</label><input type="text" placeholder="Branch" required></div>
-                    <div class="form-group"><label>Routing Code</label><input type="text" placeholder="Routing / Swift" required></div>`;
-            } else {
-                container.innerHTML = '';
-            }
-        }
-
-        function saveAccountForm(e) {
-            e.preventDefault();
-            window.showToast("Seller Account Information updated successfully!");
-        }
-
-        function savePaymentForm(e) {
-            e.preventDefault();
-            window.showToast("Seller Payment Setup updated successfully!");
-        }
-
-        function savePinForm(e) {
-            e.preventDefault();
-            const p1 = document.getElementById('pinInput1').value;
-            const p2 = document.getElementById('pinInput2').value;
-            if(p1 !== p2) {
-                window.showToast("নতুন পিন দুটি মেলেনি!", true);
-                return;
-            }
-            window.showToast("Withdrawal PIN updated successfully!");
-        }
-
-        function verifyAndEnable2FA(event) {
-            event.preventDefault();
-            const codeInput = document.getElementById('authCodeInput').value;
-            if(window.verifyTOTPCode(codeInput)) {
-                document.getElementById('twoFaActiveForm').style.display = 'none';
-                document.getElementById('twoFaSuccessBox').style.display = 'block';
-                window.showToast("Google Authenticator 2FA Enabled Successfully!");
-            } else {
-                window.showToast("অ্যাপের ৬ ডিজিটের কোডটি সঠিক নয়!", true);
-            }
-        }
-
-        function openDirectPayoutModal() {
-            document.getElementById('maxBalanceText').innerText = '$' + window.userState.balance.toFixed(2);
-            document.getElementById('payoutAmountInput').max = window.userState.balance;
-            document.getElementById('payoutModal').style.display = 'flex';
-        }
-
-        function closePayoutModal() { document.getElementById('payoutModal').style.display = 'none'; }
-
-        function submitPayoutRequest(e) {
-            e.preventDefault();
-            window.showToast("Seller Payout request submitted successfully!");
-            closePayoutModal();
-        }
-
-        function toggleVisibility(fieldId, iconId) {
-            const field = document.getElementById(fieldId);
-            const icon = document.getElementById(iconId);
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                field.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
     </script>
 </head>
 <body>
@@ -617,26 +516,23 @@
 
     <!-- লগইন সেকশন -->
     <div id="loginSection" style="display: none;">
-        <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="rorraxy Logo" class="seller-logo-img">
+        <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="seller-logo-img">
         <h1 class="seller-sub-title">rorraxy - become a seller</h1>
         <button class="google-verify-btn" onclick="handleGoogleAuth()">
-            <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> 
-            CONTINUE & VERIFY WITH GOOGLE
+            <i class="fa-brands fa-google" style="color:#ea4335;"></i> CONTINUE & VERIFY WITH GOOGLE
         </button>
     </div>
 
     <!-- মেইন ড্যাশবোর্ড সেকশন -->
     <div id="dashboardSection">
-        
         <header class="dash-header">
             <div class="dash-logo-area">
                 <img id="headerUserAvatar" src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png" alt="Logo" class="dash-logo-img">
                 <div class="user-big-identity">
                     <h2 id="headerUserName">MR MASUDAR ENTERPRISE</h2>
-                    <p id="headerUserId">ID: loading... (Verified Seller)</p>
+                    <p id="headerUserId">ID: loading...</p>
                 </div>
             </div>
-
             <div class="header-right-actions">
                 <button id="btnTabDash" class="nav-tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
                 <button id="btnTabSet" class="nav-tab-btn" onclick="switchTab('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
@@ -644,12 +540,7 @@
             </div>
         </header>
 
-        <div class="commission-notice-banner">
-            <span>20% Platform Commission / Fee Structure</span> applied on your verified luxury store sales. Direct payouts enabled.
-        </div>
-
         <div id="mainDashboardContent">
-            
             <div class="summary-grid">
                 <div class="summary-card">
                     <h3>Total Sales Revenue</h3>
@@ -666,162 +557,60 @@
                     <p class="value">0</p>
                     <i class="fa-solid fa-box-open gold-icon"></i>
                 </div>
-                <div class="summary-card">
-                    <h3>Store Orders</h3>
-                    <p class="value">0</p>
-                    <i class="fa-solid fa-cart-shopping gold-icon"></i>
-                </div>
             </div>
 
-            <!-- প্রোডাক্ট লিস্ট ও আপলোড বাটন -->
+            <!-- প্রোডাক্ট তালিকা এবং ডিলিট অপশন সম্বলিত টেবিল -->
             <div class="card-box">
                 <div class="card-box-header">
                     <h3>My Store Products</h3>
                     <button class="add-product-btn" onclick="switchTab('add_product')"><i class="fa-solid fa-plus"></i> Add New Product</button>
                 </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product ID / Title</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5" style="text-align: center; color: #666; padding: 20px;">No products uploaded yet. Click 'Add New Product' to list items!</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product ID / Title</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #666; padding: 20px;">No products uploaded yet. Click 'Add New Product' to list items!</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="payout-action-box">
-                <div>
-                    <h3 style="margin:0 0 3px 0; font-size:0.95rem; color:#fff;">Ready to Withdraw Store Earnings?</h3>
-                    <p style="margin:0; font-size:0.75rem; color:#888;">Request your net revenue securely to your configured gateway.</p>
-                </div>
-                <button class="request-payout-main-btn" onclick="openDirectPayoutModal()"><i class="fa-solid fa-money-bill-transfer"></i> Request Payout</button>
-            </div>
-
-            <div class="dashboard-home-redirect-bar">
-                <a href="https://rorraxy.com" class="main-home-btn">
+            <div style="display: flex; justify-content: center; margin-top: 25px;">
+                <a href="https://rorraxy.com" style="background: var(--gold-gradient); color: #000; padding: 11px 26px; border-radius: 25px; font-weight: 700; text-decoration: none; text-transform: uppercase; font-size: 0.8rem;">
                     <i class="fa-solid fa-house"></i> GO TO HOME
                 </a>
             </div>
-
         </div>
 
-        <!-- সেটিংস সেকশন -->
-        <div id="settingsSection" style="display: none;">
+        <div id="settingsSection">
             <div class="settings-container">
-                <div class="settings-nav-tabs">
-                    <button class="sub-tab-btn active" onclick="switchSettingsTab('tabAccount', this)"><i class="fa-solid fa-user-pen"></i> Account Info</button>
-                    <button class="sub-tab-btn" onclick="switchSettingsTab('tabPayment', this)"><i class="fa-solid fa-wallet"></i> Payment Setup</button>
-                    <button class="sub-tab-btn" onclick="switchSettingsTab('tabPin', this)"><i class="fa-solid fa-key"></i> Withdrawal PIN</button>
-                    <button class="sub-tab-btn" onclick="switchSettingsTab('tab2FA', this)"><i class="fa-solid fa-shield-halved"></i> 2FA Security</button>
-                </div>
-
-                <div id="tabAccount" class="sub-tab-content active">
-                    <form onsubmit="saveAccountForm(event)">
-                        <h4 style="color: var(--gold-solid); margin-top:0; font-size:0.95rem;">Seller Store & Contact Information</h4>
-                        <div class="form-group"><label>Store / Business Name</label><input type="text" id="userDisplayName" value="" required></div>
-                        <div class="form-group"><label>Gmail Account</label><input type="email" id="userDisplayEmail" value="" readonly style="color: #d4af37; background: #0c0c0c; cursor: not-allowed; font-weight: 600;"></div>
-                        <div class="form-group">
-                            <label>WhatsApp Business Number</label>
-                            <div style="display: flex; gap: 8px;">
-                                <select id="countryCodeSelect" style="width: 110px; min-width: 90px;">
-                                    <option value="+880" selected>🇧🇩 +880</option>
-                                    <option value="+1">🇺🇸 +1</option>
-                                    <option value="+44">🇬🇧 +44</option>
-                                    <option value="+91">🇮🇳 +91</option>
-                                </select>
-                                <input type="text" placeholder="17XXXXXXXX" required style="flex: 1;">
-                            </div>
-                        </div>
-                        <div class="form-group"><label>Business Warehouse Address</label><input type="text" placeholder="House, Area, City, Country" required></div>
-                        <button type="submit" class="save-btn">Save Info</button>
-                    </form>
-                </div>
-
-                <div id="tabPayment" class="sub-tab-content">
-                    <form onsubmit="savePaymentForm(event)">
-                        <h4 style="color: var(--gold-solid); margin-top:0; font-size:0.95rem;">Configure Payout Destination</h4>
-                        <div class="form-group">
-                            <label>Select Preferred Gateway</label>
-                            <select id="settingPayoutMethod" onchange="handlePayoutMethodChange()" required>
-                                <option value="">Select Gateway</option>
-                                <option value="payoneer">Payoneer</option>
-                                <option value="bkash">bKash (Personal)</option>
-                                <option value="nagad">Nagad (Personal)</option>
-                                <option value="bank">Bank Transfer</option>
-                            </select>
-                        </div>
-                        <div id="settingDynamicFields"></div>
-                        <button type="submit" class="save-btn">Save Payment Setup</button>
-                    </form>
-                </div>
-
-                <div id="tabPin" class="sub-tab-content">
-                    <form onsubmit="savePinForm(event)">
-                        <h4 style="color: var(--gold-solid); margin-top:0; font-size:0.95rem;">Change Withdrawal PIN</h4>
-                        <div class="form-group" style="position: relative;">
-                            <label>Current PIN</label>
-                            <input type="password" id="oldPinInput" placeholder="••••••••" minlength="6" maxlength="8" required>
-                            <i id="eyeIconOld" class="fa-solid fa-eye" onclick="toggleVisibility('oldPinInput', 'eyeIconOld')" style="position: absolute; right: 15px; top: 34px; color: #888; cursor: pointer; font-size: 0.9rem;"></i>
-                        </div>
-                        <div class="form-group" style="position: relative;">
-                            <label>New PIN</label>
-                            <input type="password" id="pinInput1" placeholder="••••••••" minlength="6" maxlength="8" required>
-                            <i id="eyeIcon1" class="fa-solid fa-eye" onclick="toggleVisibility('pinInput1', 'eyeIcon1')" style="position: absolute; right: 15px; top: 34px; color: #888; cursor: pointer; font-size: 0.9rem;"></i>
-                        </div>
-                        <div class="form-group" style="position: relative;">
-                            <label>Confirm New PIN</label>
-                            <input type="password" id="pinInput2" placeholder="••••••••" minlength="6" maxlength="8" required>
-                            <i id="eyeIcon2" class="fa-solid fa-eye" onclick="toggleVisibility('pinInput2', 'eyeIcon2')" style="position: absolute; right: 15px; top: 34px; color: #888; cursor: pointer; font-size: 0.9rem;"></i>
-                        </div>
-                        <button type="submit" class="save-btn">Update PIN</button>
-                    </form>
-                </div>
-
-                <div id="tab2FA" class="sub-tab-content">
-                    <div id="twoFaActiveForm">
-                        <form onsubmit="verifyAndEnable2FA(event)">
-                            <h4 style="color: var(--gold-solid); margin-top:0; font-size:0.95rem;">Google Authenticator 2FA</h4>
-                            <div style="display: flex; justify-content: center; margin: 20px 0;">
-                                <div style="background: #fff; padding: 12px; border-radius: 12px; display: inline-flex;">
-                                    <div id="qrcodeContainer"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>6-Digit Code from App</label>
-                                <input type="text" id="authCodeInput" placeholder="123456" maxlength="6" required>
-                            </div>
-                            <button type="submit" class="save-btn">Verify & Enable</button>
-                        </form>
-                    </div>
-                    <div id="twoFaSuccessBox" class="verified-success-display">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <h3 style="font-size: 1.1rem; color:#fff;">2FA Enabled Successfully</h3>
-                    </div>
-                </div>
+                <form onsubmit="event.preventDefault(); window.showToast('Updated successfully!');">
+                    <h4 style="color: var(--gold-solid); font-size: 0.9rem; margin-top:0;">Seller Store Information</h4>
+                    <div class="form-group"><label>Store Name</label><input type="text" id="userDisplayName" required></div>
+                    <div class="form-group"><label>Gmail Account</label><input type="email" id="userDisplayEmail" readonly style="color: #d4af37; background: #0c0c0c;"></div>
+                    <button type="submit" class="save-btn">Save Info</button>
+                </form>
             </div>
         </div>
-
     </div>
 
-    <!-- ফুল-স্ক্রিন অ্যাড নিউ প্রোডাক্ট পেজ সেকশন -->
+    <!-- ফুল-স্ক্রিন স্ট্যান্ডার্ড অ্যাড নিউ প্রোডাক্ট পেজ -->
     <div id="addProductSection">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
             <button type="button" class="back-cat-btn" onclick="switchTab('dashboard')"><i class="fa-solid fa-arrow-left"></i> BACK TO DASHBOARD</button>
-            <h2 style="font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin: 0;">ADD NEW PRODUCT</h2>
-            <div style="width: 100px;"></div>
+            <h2 style="font-size: 1.1rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; margin: 0;">ADD NEW PRODUCT</h2>
+            <div style="width: 80px;"></div>
         </div>
 
-        <form action="https://rorraxy.com" method="POST" enctype="multipart/form-data" id="productForm">
+        <form onsubmit="submitProductToFirebase(event)" id="productForm">
             <input type="hidden" id="selected_category" name="selected_category" required>
 
             <!-- ধাপ ১: ক্যাটাগরি সিলেকশন -->
@@ -867,7 +656,7 @@
 
             <div id="selection-display" class="hidden-step selected-badge">
                 <span>Category: <strong id="chosen-cat-text">None</strong></span>
-                <button type="button" class="back-cat-btn" style="margin:0; padding: 6px 12px; font-size:0.78rem;" onclick="resetCategorySelection()">Change</button>
+                <button type="button" class="back-cat-btn" style="margin:0; padding: 4px 10px; font-size:0.75rem;" onclick="resetCategorySelection()">Change</button>
             </div>
 
             <!-- ধাপ ২: প্রোডাক্ট ইনফরমেশন -->
@@ -876,13 +665,13 @@
                 
                 <div class="product-input-group">
                     <label for="product_name">Product Name</label>
-                    <input type="text" id="product_name" name="product_name" placeholder="Enter full product name">
+                    <input type="text" id="product_name" name="product_name" placeholder="Enter full product name" required>
                 </div>
 
                 <div class="row-grid">
                     <div class="product-input-group">
                         <label for="selling_price">Selling Price ($)</label>
-                        <input type="number" step="0.01" id="selling_price" name="selling_price" placeholder="45.00">
+                        <input type="number" step="0.01" id="selling_price" name="selling_price" placeholder="45.00" required>
                     </div>
                     <div class="product-input-group">
                         <label for="market_price">Market Price ($)</label>
@@ -892,13 +681,13 @@
 
                 <div class="product-input-group">
                     <label for="stock">Stock Quantity</label>
-                    <input type="number" id="stock" name="stock" placeholder="Enter stock quantity">
+                    <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required>
                 </div>
 
                 <button type="button" class="next-btn" onclick="goToStepDescription()">Next: Description & Customization <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
-            <!-- ধাপ ৩ ও ৪: ডেসক্রিপশন এবং কাস্টমাইজ -->
+            <!-- ধাপ ৩: ডেসক্রিপশন এবং চ্যাট ও কাস্টমাইজ অপশন -->
             <div class="form-section-box hidden-step" id="step-description-custom">
                 <h3><i class="fa-solid fa-pen-to-square"></i> Product Description</h3>
                 
@@ -906,27 +695,32 @@
                     <strong>AI Assistant Tip:</strong> Copy and paste AI-generated descriptions containing material, size, and fit details.
                 </div>
 
-                <div class="product-input-group" style="margin-bottom: 25px;">
+                <div class="product-input-group" style="margin-bottom: 15px;">
                     <label for="description">Full Details (Materials, Sizes, Fit & Features)</label>
-                    <textarea id="description" name="description" rows="5" placeholder="Enter or paste product description details here..."></textarea>
+                    <textarea id="description" name="description" rows="3" placeholder="Enter or paste product description details here..." required></textarea>
                 </div>
 
-                <h3><i class="fa-solid fa-sliders"></i> Customization Options</h3>
+                <h3><i class="fa-solid fa-sliders"></i> Chat & Customization Options</h3>
                 
+                <div class="toggle-container">
+                    <input type="checkbox" id="enable_chat" name="enable_chat" value="yes" checked>
+                    <label for="enable_chat">Chat (Allow customers to chat directly with seller)</label>
+                </div>
+
                 <div class="toggle-container" onclick="toggleCustomSection()">
                     <input type="checkbox" id="enable_custom" name="enable_custom" value="yes" onchange="toggleCustomSection()">
-                    <label for="enable_custom">Enable Customization / Personalization for this product</label>
+                    <label for="enable_custom">Enable Custom</label>
                 </div>
 
                 <div class="product-input-group hidden-step" id="custom-box-container">
-                    <label for="custom_notes">Customization Instructions (Size, Color, or Personal Notes)</label>
-                    <textarea id="custom_notes" name="custom_notes" rows="3" placeholder="Enter customer customization notes or instructions..."></textarea>
+                    <label for="custom_notes">Size, Color & Personal Notes</label>
+                    <textarea id="custom_notes" name="custom_notes" rows="2" placeholder="Enter customer customization instructions..."></textarea>
                 </div>
 
                 <button type="button" class="next-btn" onclick="goToStepImages()">Next: Product Images <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
-            <!-- ধাপ ৫: প্রোডাক্ট ইমেজ ও সাবমিট -->
+            <!-- ধাপ ৪: প্রোডাক্ট ইমেজ ও প্রমোট বাটন -->
             <div class="form-section-box hidden-step" id="step-images-submit">
                 <h3><i class="fa-solid fa-images"></i> Product Images</h3>
                 
@@ -938,33 +732,13 @@
                     <input type="file" id="file-input" name="product_images[]" accept="image/*" multiple style="display: none;" onchange="previewImages(event)">
                 </div>
 
-                <button type="submit" class="submit-btn" style="margin-top: 25px;"><i class="fa-solid fa-check"></i> Submit Product</button>
+                <!-- PROMOTE PRODUCT নামযুক্ত সাবমিট বাটন -->
+                <button type="submit" class="submit-btn" style="margin-top: 20px;"><i class="fa-solid fa-bullhorn"></i> PROMOTE PRODUCT</button>
             </div>
         </form>
     </div>
 
-    <!-- পেআউট রিকোয়েস্ট মোডাল -->
-    <div id="payoutModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closePayoutModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 style="margin-top:0; color:var(--gold-solid); font-size:1rem; border-bottom:1px solid var(--border-color); padding-bottom:8px;">Request Payout</h3>
-            <p style="font-size:0.75rem; color:#888; margin-bottom:12px;">Available Balance: <strong id="maxBalanceText" style="color:var(--gold-solid)">$0.00</strong></p>
-            <form onsubmit="submitPayoutRequest(event)">
-                <div class="form-group">
-                    <label>Amount ($)</label>
-                    <input type="number" id="payoutAmountInput" placeholder="Amount" min="1" step="0.01" required>
-                </div>
-                <div class="form-group" style="position: relative;">
-                    <label>Security PIN</label>
-                    <input type="password" id="payoutPinInput" placeholder="PIN" minlength="6" maxlength="8" required>
-                    <i id="togglePinIcon" class="fa-solid fa-eye" onclick="toggleVisibility('payoutPinInput', 'togglePinIcon')" style="position: absolute; right: 15px; top: 34px; color: #888; cursor: pointer; font-size: 0.9rem;"></i>
-                </div>
-                <button type="submit" class="save-btn">Confirm Payout</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- প্রোডাক্ট ফর্ম স্ক্রিপ্ট -->
+    <!-- জাভাস্ক্রিপ্ট সিকোয়েন্স লজিক -->
     <script>
         const subCategoriesData = {
             womens: [
@@ -1052,12 +826,12 @@
                     box.className = 'cat-box';
                     box.onclick = () => {
                         box.classList.add('clicked');
-                        setTimeout(() => selectFinalCategory(item.name), 180);
+                        setTimeout(() => selectFinalCategory(item.name), 150);
                     };
                     box.innerHTML = `<i class="${item.icon}"></i><span>${item.name}</span>`;
                     contentDiv.appendChild(box);
                 });
-            }, 180);
+            }, 150);
         }
 
         function backToMainCategories() {
@@ -1135,10 +909,8 @@
                 reader.onload = function(e) {
                     const card = document.createElement('div');
                     card.className = 'preview-card';
-                    
                     const img = document.createElement('img');
                     img.src = e.target.result;
-                    
                     card.appendChild(img);
                     previewContainer.appendChild(card);
                 }
