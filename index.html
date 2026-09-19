@@ -8,10 +8,70 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
 
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- FIREBASE SDK & AUTH INTEGRATION (আপনার দেওয়া অ্যাফিলিয়েট কোডের হুবহু ফায়ারবেস কাঠামো) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDokhLgGe4Ib7oxUJ8zczLFWj0YJKk57Y",
+            authDomain: "rorraxy-fcb91.firebaseapp.com",
+            projectId: "rorraxy-fcb91",
+            storageBucket: "rorraxy-fcb91.firebasestorage.app",
+            messagingSenderId: "880891394208",
+            appId: "1:880891394208:web:3bd8ccacf68ad5d53af1c5",
+            measurementId: "G-0XTRV9TPM3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // গ্লোবাল ফায়ারবেস গুগল ভেরিফিকেশন ফাংশন
+        window.handleGoogleAccountVerify = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                // ফায়ারস্টোর ডেটাবেজে ইউজারের তথ্য সেভ করা
+                await addDoc(collection(db, "affiliates"), {
+                    uid: user.uid,
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    verifiedAt: serverTimestamp()
+                });
+
+                let userData = {
+                    uid: user.uid,
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL
+                };
+                
+                // লোকালস্টোরেজে লগইন স্টেট সেভ করা যাতে পরবর্তীতে রি-লগইন করতে না হয়
+                localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
+
+                alert('Verification Successful! Welcome, ' + user.displayName);
+                
+                closeUserModal();
+                closeCartDrawerModal();
+                openCustomerDashboard(userData);
+
+            } catch (error) {
+                console.error("Google Sign-In Error: ", error);
+                alert('Verification failed: ' + error.message);
+            }
+        };
+    </script>
 
     <style>
         :root {
@@ -566,7 +626,7 @@
         </div>
     </div>
 
-    <!-- কার্ট পপআপ (যেখান থেকে ভেরিফিকেশন হয়ে সরাসরি ড্যাশবোর্ডে যাবে) -->
+    <!-- কার্ট পপআপ (এখান থেকে সরাসরি ভেরিফিকেশন ও চেকআউট) -->
     <div id="cartDrawerModalOverlay" class="modal-overlay-bg" onclick="handleOverlayClick(event, 'cartDrawerModalOverlay')">
         <div class="modal-content-box" id="cartModalInnerBox">
             <button class="modal-close-x" onclick="closeCartDrawerModal()">&times;</button>
@@ -582,7 +642,7 @@
                 </div>
             </div>
 
-            <button class="google-verify-btn" onclick="handleCartCheckoutVerify()" style="width:100%; max-width:100%;">
+            <button class="google-verify-btn" onclick="handleGoogleAccountVerify()" style="width:100%; max-width:100%;">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
@@ -706,7 +766,7 @@
             if(badge) badge.innerText = totalQty;
         }
 
-        /* ইউ মেনু ক্লিক হ্যান্ডেলার */
+        /* ইউ মেনু ক্লিক হ্যান্ডেলার (লগইন থাকলে ড্যাশবোর্ড, না থাকলে ভেরিফিকেশন পপআপ) */
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
@@ -717,30 +777,6 @@
         }
 
         function closeUserModal() { document.getElementById('userAccountModalOverlay').style.display = 'none'; }
-
-        /* নিরাপদ ও নিশ্চিত ভেরিফিকেশন এবং ড্যাশবোর্ড রিডাইরেকশন */
-        function handleGoogleAccountVerify() {
-            let mockUser = {
-                name: "Masudar Rahman",
-                email: "masudar.official@gmail.com",
-                photo: "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
-            };
-            localStorage.setItem('rorraxy_logged_user', JSON.stringify(mockUser));
-            closeUserModal();
-            closeCartDrawerModal();
-            openCustomerDashboard(mockUser);
-        }
-
-        /* কার্ট থেকে চেকআউট ভেরিফিকেশন ফ্লো */
-        function handleCartCheckoutVerify() {
-            let savedUser = localStorage.getItem('rorraxy_logged_user');
-            if(savedUser) {
-                closeCartDrawerModal();
-                openCustomerDashboard(JSON.parse(savedUser));
-            } else {
-                handleGoogleAccountVerify();
-            }
-        }
 
         function openCustomerDashboard(user) {
             document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
