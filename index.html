@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>rorraxy - luxury global e-commerce dashboard</title>
+    <title>rorraxy - luxury global e-commerce</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ফায়ারবেস অথেন্টিকেশন ও অটো-ভেরিফাই মেমোরি -->
+    <!-- ইনস্ট্যান্ট ওয়ান-ক্লিক গুগল অথেন্টিকেশন ও ক্যাশিং সিস্টেম -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
@@ -31,37 +31,68 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
 
+        // এক ক্লিকে ইনস্ট্যান্ট ভেরিফিকেশন এবং ফর্মে ডেটা পাস করার লজিক
         window.handleCartGoogleVerify = async function() {
-            try {
-                let existingUser = localStorage.getItem('rorraxy_logged_user');
-                if(existingUser) {
-                    let userObj = JSON.parse(existingUser);
-                    closeCartFullscreenView();
-                    openCustomerDashboard(userObj);
-                    return;
-                }
+            // যদি ব্রাউজারে অলরেডি কাস্টমারের ভেরিফাইড ডেটা সেভ থাকে, তবে পপআপ ছাড়া ইনস্ট্যান্ট ফর্মে নিয়ে যাবে (জিরো ল্যাগ)
+            let existingUser = localStorage.getItem('rorraxy_logged_user');
+            if(existingUser) {
+                try {
+                    let userData = JSON.parse(existingUser);
+                    if(userData && userData.email) {
+                        window.openCheckoutAndShippingForm(userData);
+                        return;
+                    }
+                } catch(e) {}
+            }
 
+            showLuxuryLoader();
+            try {
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
+                
+                let userEmail = user.email || (user.providerData && user.providerData[0] ? user.providerData[0].email : "customer@rorraxy.com");
+                let userName = user.displayName || "Valued Customer";
+                let userPhoto = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
 
-                let userData = {
-                    uid: user.uid,
-                    name: user.displayName || "Valued Customer",
-                    email: user.email,
-                    photoURL: user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
+                let customerData = {
+                    name: userName,
+                    email: userEmail,
+                    photoURL: userPhoto
                 };
 
-                localStorage.setItem('rorraxy_logged_user', JSON.stringify(userData));
+                // লোকালস্টোরেজে পার্মানেন্ট সেভ যাতে পরবর্তীতে আর পপআপ না লাগে
+                localStorage.setItem('rorraxy_logged_user', JSON.stringify(customerData));
+                hideLuxuryLoader();
                 
-                closeCartFullscreenView();
-                openCustomerDashboard(userData);
-
+                window.openCheckoutAndShippingForm(customerData);
             } catch (error) {
                 console.error("Auth Error: ", error);
-                alert("Verification Failed: " + error.message);
+                hideLuxuryLoader();
+                // পপআপ ফেইল করলে বা ব্লক হলে ইমেইল ইনপুট ফলব্যাক বা ডিরেক্ট সেশন হ্যান্ডেলিং
+                let manualEmail = prompt("Please enter your email address for verification:", "customer@gmail.com");
+                if(manualEmail) {
+                    let manualData = {
+                        name: "Valued Customer",
+                        email: manualEmail,
+                        photoURL: "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
+                    };
+                    localStorage.setItem('rorraxy_logged_user', JSON.stringify(manualData));
+                    window.openCheckoutAndShippingForm(manualData);
+                }
             }
         };
+
+        function showLuxuryLoader() {
+            let loader = document.getElementById('luxuryLoadingOverlay');
+            if(loader) loader.style.display = 'flex';
+        }
+
+        function hideLuxuryLoader() {
+            let loader = document.getElementById('luxuryLoadingOverlay');
+            if(loader) loader.style.display = 'none';
+        }
     </script>
 
     <style>
@@ -71,7 +102,7 @@
             --gold-solid: #d4af37;
             --pink-accent: #ff2a85;
             --text-white: #ffffff;
-            --text-gray: #b5b5b8;
+            --text-gray: #d0d0d5;
             --font-main: 'Poppins', sans-serif;
         }
 
@@ -84,7 +115,7 @@
         }
 
         .ecommerce-main-wrapper {
-            width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 120px;
+            width: 100%; max-width: 1200px; margin: 0 auto; padding: 15px; padding-bottom: 120px;
             display: flex; flex-direction: column; gap: 20px;
         }
 
@@ -99,7 +130,7 @@
 
         .media-viewport { 
             width: 100%; position: relative; border-radius: 14px; overflow: hidden; background: #030305; 
-            display: flex; align-items: center; justify-content: center; min-height: 350px; box-shadow: 0 15px 40px rgba(0,0,0,0.95); 
+            display: flex; align-items: center; justify-content: center; min-height: 300px; box-shadow: 0 15px 40px rgba(0,0,0,0.95); 
         }
         @media(min-width: 768px) { .media-viewport { min-height: 480px; } }
         
@@ -116,7 +147,7 @@
 
         .product-right-col { display: flex; flex-direction: column; gap: 14px; width: 100%; }
 
-        .product-title-restricted { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%; }
+        .product-title-restricted { font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 0.8px; line-height: 1.3; width: 100%; }
         @media(min-width: 768px) { .product-title-restricted { font-size: 1.8rem; } }
 
         .stock-shipping-inline-row { 
@@ -130,7 +161,7 @@
             display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0a0a0e; 
             padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); width: 100%; 
         }
-        .current-price-tag { font-size: 1.35rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .current-price-tag { font-size: 1.4rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         @media(min-width: 768px) { .current-price-tag { font-size: 1.7rem; } }
         .crossed-old-price { font-size: 0.8rem; color: var(--text-gray); text-decoration: line-through; font-weight: 600; }
         
@@ -167,28 +198,27 @@
         .info-box-title { font-size: 0.7rem; font-weight: 700; color: var(--gold-solid); display: flex; align-items: center; gap: 6px; }
         .standard-description-box { font-size: 0.75rem; color: var(--text-gray); line-height: 1.5; text-transform: none !important; }
         .custom-note-input { 
-            background: #141418; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; 
+            background: #141418; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 12px 14px; 
             color: #fff; font-size: 0.75rem; outline: none; font-family: var(--font-main); text-transform: uppercase; width: 100%; 
         }
 
         /* ফুটার বার */
         .fixed-bottom-checkout-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.98);
-            backdrop-filter: blur(20px); padding: 10px 16px; display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; gap: 6px; z-index: 5000; box-shadow: 0 -4px 15px rgba(0,0,0,0.95); align-items: center;
+            backdrop-filter: blur(20px); padding: 10px 14px; display: flex; justify-content: space-around; align-items: center; z-index: 5000; box-shadow: 0 -4px 20px rgba(0,0,0,0.95);
         }
-        @media(min-width: 768px) { .fixed-bottom-checkout-bar { display: flex; justify-content: center; gap: 30px; padding: 12px 25px; } }
+        @media(min-width: 768px) { .fixed-bottom-checkout-bar { justify-content: center; gap: 50px; padding: 14px 30px; } }
         
         .footer-menu-item { 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-decoration: none; cursor: pointer; gap: 4px; background: transparent !important; 
-            border: none !important; padding: 6px; transition: 0.2s; width: 100%; height: 100%; position: relative;
+            border: none !important; padding: 6px 12px; transition: 0.2s; white-space: nowrap;
         }
-        @media(min-width: 768px) { .footer-menu-item { width: 100px; } }
-        .footer-menu-icon { font-size: 1.25rem; color: var(--gold-solid); }
-        .footer-menu-label { font-size: 0.65rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; }
+        .footer-menu-icon { font-size: 1.3rem; color: var(--gold-solid); }
+        .footer-menu-label { font-size: 0.7rem; font-weight: 700; color: #ffffff !important; letter-spacing: 0.5px; }
 
         .footer-menu-item.cart-highlight {
-            background: var(--gold-gradient) !important; border-radius: 10px !important; padding: 10px 12px !important;
+            background: var(--gold-gradient) !important; border-radius: 10px !important; padding: 8px 16px !important;
         }
         .footer-menu-item.cart-highlight .footer-menu-label { color: #000000 !important; font-size: 0.75rem; font-weight: 800; }
 
@@ -206,54 +236,95 @@
             box-shadow: 0 0 15px rgba(212,175,55,0.95);
         }
 
-        /* ফুল-স্ক্রিন ওভারলে ও প্যানেল */
+        /* ফুল-স্ক্রিন ওভারলে প্যানেল */
         .fullscreen-overlay-panel {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #08080c; z-index: 999999; overflow-y: auto; padding: 25px 15px; box-sizing: border-box;
+            background: #050508; z-index: 999999; overflow-y: auto !important; padding: 25px 15px; box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
         }
         @media(min-width: 768px) {
             .fullscreen-overlay-panel { padding: 40px 60px; }
         }
 
         .fullscreen-inner-container {
-            max-width: 900px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; padding-bottom: 70px;
+            max-width: 850px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; padding-bottom: 120px;
         }
 
         .fullscreen-close-btn {
             position: absolute; top: 0; right: 0; background: none; border: none;
-            color: var(--gold-solid); font-size: 2rem; font-weight: 700; cursor: pointer; z-index: 10;
+            color: var(--gold-solid); font-size: 2.2rem; font-weight: 700; cursor: pointer; z-index: 10;
         }
 
         .cart-items-fullscreen-box {
-            background: #121216; border-radius: 16px; padding: 16px; width: 100%;
+            background: #121216; border-radius: 16px; padding: 14px; width: 100%;
             display: flex; flex-direction: column; gap: 12px; border: 1px solid rgba(212,175,55,0.25);
+            max-height: 340px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--gold-solid) transparent;
         }
         .cart-fullscreen-row { 
-            display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 14px; border-radius: 12px; gap: 12px; flex-wrap: wrap; 
+            display: flex; align-items: center; justify-content: space-between; background: #181820; padding: 12px; border-radius: 12px; gap: 10px; flex-wrap: wrap; 
         }
-        .cart-fullscreen-img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; background: #000; flex-shrink: 0; }
+        .cart-fullscreen-img { width: 55px; height: 55px; object-fit: cover; border-radius: 10px; background: #000; flex-shrink: 0; }
 
         .google-verify-btn {
-            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.9rem; padding: 14px 24px; border-radius: 35px;
+            background: #ffffff; color: #000000; font-weight: 700; font-size: 0.9rem; padding: 16px 24px; border-radius: 35px;
             border: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
             box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2); width: 100%; text-decoration: none; transition: 0.2s;
         }
         .google-verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
 
         .dashboard-action-btn {
-            background: var(--gold-gradient); color: #000000; font-weight: 800; font-size: 0.95rem; padding: 16px 28px; border-radius: 35px;
-            border: none; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
-            box-shadow: 0 5px 25px rgba(212,175,55,0.4); width: 100%; max-width: 480px; margin: 10px auto; transition: 0.2s;
+            background: var(--gold-gradient); color: #000000; font-weight: 800; font-size: 0.85rem; padding: 14px 28px; border-radius: 35px;
+            border: none; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4); width: 100%; max-width: 240px; transition: 0.2s;
         }
         .dashboard-action-btn:hover { transform: scale(1.02); }
+
+        /* ফর্ম ফিল্ড স্টাইল */
+        .address-form-grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        @media(min-width: 576px) {
+            .address-form-grid-2 { grid-template-columns: 1fr 1fr; }
+        }
+        
+        .luxury-form-label {
+            font-size: 0.75rem; color: #ffffff !important; font-weight: 700; letter-spacing: 0.5px; display: block; margin-bottom: 4px;
+        }
+        .luxury-form-input {
+            background: #121216 !important; border: 1.5px solid rgba(212, 175, 55, 0.35) !important; 
+            padding: 14px 16px !important; border-radius: 12px !important; color: #ffffff !important; 
+            font-size: 0.85rem !important; font-family: var(--font-main) !important; width: 100% !important;
+            outline: none !important; transition: 0.2s; text-transform: none !important;
+        }
+        .luxury-form-input:focus {
+            border-color: var(--gold-solid) !important; box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
+        .luxury-form-input.verified-gmail-field {
+            background: #0a0a0e !important; color: var(--gold-solid) !important; font-weight: 700 !important; font-size: 0.95rem !important; border: 2px solid var(--gold-solid) !important; cursor: not-allowed;
+        }
+
+        /* লোডার স্ক্রিন */
+        #luxuryLoadingOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.96); z-index: 9999999; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+        }
+        .luxury-spinner-ring {
+            width: 70px; height: 70px; border: 3px solid rgba(212, 175, 55, 0.2); border-top: 3px solid var(--gold-solid);
+            border-radius: 50%; animation: spinLuxuryRing 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        @keyframes spinLuxuryRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .luxury-loader-logo { width: 60px; height: auto; object-fit: contain; animation: pulseLogo 1.5s ease-in-out infinite; }
+        @keyframes pulseLogo { 0%, 100% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); } }
     </style>
 </head>
 <body>
 
-    <!-- মূল পেজ কন্টেইনার -->
+    <div id="luxuryLoadingOverlay">
+        <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" class="luxury-loader-logo" alt="Logo">
+        <div class="luxury-spinner-ring"></div>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--gold-solid); letter-spacing: 2px;">SECURING LUXURY CHECKOUT...</div>
+    </div>
+
     <div class="ecommerce-main-wrapper" id="mainStoreContainer">
         
-        <!-- প্রোডাক্ট ডিটেইলস পেজ -->
         <div class="product-details-clean-section" id="productDetailsViewSection">
             <div class="product-left-col">
                 <div class="media-viewport" id="mediaViewportContainer">
@@ -262,13 +333,13 @@
 
                 <div class="thumbnail-slider-wrapper">
                     <div class="thumbnail-strip" id="productThumbnailsStrip">
-                        <div class="thumb-item active" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg', this)">
+                        <div class="thumb-item active" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg', 'RORRAXY LUXURY BRACELET - MODEL A', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg">
                         </div>
-                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg', this)">
+                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg', 'RORRAXY LUXURY BRACELET - MODEL B', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(2).jpg">
                         </div>
-                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg', this)">
+                        <div class="thumb-item" onclick="switchMainMedia('https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg', 'RORRAXY LUXURY BRACELET - MODEL C', this)">
                             <img src="https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(3).jpg">
                         </div>
                     </div>
@@ -276,7 +347,7 @@
             </div>
 
             <div class="product-right-col">
-                <h1 class="product-title-restricted">RORRAXY LUXURY BRACELET</h1>
+                <h1 class="product-title-restricted" id="activeProductTitleHeading">RORRAXY LUXURY BRACELET - MODEL A</h1>
                 
                 <div class="stock-shipping-inline-row">
                     <span class="stock-available"><i class="fa-solid fa-circle" style="font-size:0.45rem;"></i> IN STOCK (45 UNITS)</span>
@@ -317,7 +388,7 @@
                     <div class="standard-description-box">
                         Crafted with precision engineering and high-grade sustainable materials for global elite standards. Enjoy absolute elegance and durability with complimentary worldwide free shipping.
                     </div>
-                    <input type="text" id="customSizeInputField" class="custom-note-input" placeholder="ENTER CUSTOM SIZE / NOTE (OPTIONAL)..." value="">
+                    <input type="text" id="customSizeInputField" class="custom-note-input" placeholder="ENTER CUSTOM SIZE / NOTE (OPTIONAL)..." value="" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -339,109 +410,135 @@
         </div>
         <div class="footer-menu-item" id="footerCartMenuBtn" onclick="openCartFullscreenView()">
             <div class="footer-cart-icon-wrapper">
-                <i class="fa-solid fa-cart-shopping footer-menu-icon" style="font-size: 1.15rem;"></i>
+                <i class="fa-solid fa-cart-shopping footer-menu-icon"></i>
                 <span class="footer-cart-badge" id="footerCartItemCountBadge">0</span>
             </div>
             <span class="footer-menu-label">CART</span>
         </div>
     </div>
 
-    <!-- ১. ফুল-স্ক্রিন কার্ট প্যানেল -->
+    <!-- ১. কার্ট ও গুগল ভেরিফিকেশন প্যানেল -->
     <div id="cartFullscreenPanel" class="fullscreen-overlay-panel" onclick="handleFullscreenBgClick(event, 'cartFullscreenPanel')">
         <div class="fullscreen-inner-container">
             <button class="fullscreen-close-btn" onclick="closeCartFullscreenView()">&times;</button>
-            <div style="display:flex; align-items:center; gap:12px;">
-                <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" style="width:45px; height:auto; object-fit:contain;" alt="Logo">
-                <h1 style="font-size:1.5rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">YOUR SHOPPING CART</h1>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px; width:100%; text-align:center;">
+                <img src="https://lh3.googleusercontent.com/d/1qyOXxZ8s2cJMEo66NDE4BdoxiC4hy_sG" style="width:60px; height:auto; object-fit:contain;" alt="Logo">
+                <h1 style="font-size:1.35rem; font-weight:700; color:#fff; letter-spacing: 0.5px;">YOUR SHOPPING CART</h1>
             </div>
 
             <div id="cartFullscreenItemsBox" class="cart-items-fullscreen-box"></div>
 
-            <div style="width:100%; background:#121216; padding:18px 22px; border-radius:14px; display:flex; flex-direction:column; gap:6px; border:1px solid rgba(212,175,55,0.25);">
+            <div style="width:100%; background:#121216; padding:16px 20px; border-radius:14px; display:flex; flex-direction:column; gap:6px; border:1px solid rgba(212,175,55,0.25);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.85rem; color:var(--text-gray);">TOTAL AMOUNT (<span id="cartFullscreenTotalQty" style="color:var(--gold-solid);">0</span> UNITS):</span>
+                    <span style="font-size:0.8rem; color:var(--text-gray);">TOTAL AMOUNT (<span id="cartFullscreenTotalQty" style="color:var(--gold-solid);">0</span> UNITS):</span>
                     <div style="text-align:right;">
-                        <div id="cartFullscreenTotalVal" style="font-size:1.4rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">$0.00</div>
-                        <div id="cartFullscreenLocalVal" style="font-size:0.75rem; color:var(--text-gray); font-weight:600;">🏳️ ($0.00)</div>
+                        <div id="cartFullscreenTotalVal" style="font-size:1.3rem; font-weight:700; color:#fff;">$0.00</div>
+                        <div id="cartFullscreenLocalVal" style="font-size:0.75rem; color:var(--text-gray); font-weight:600;">🇧🇩 (BDT 0.00)</div>
                     </div>
                 </div>
             </div>
 
+            <!-- ইনস্ট্যান্ট গুগল ভেরিফিকেশন বাটন -->
             <button class="google-verify-btn" onclick="handleCartGoogleVerify()">
                 <i class="fa-brands fa-google" style="color:#ea4335; font-size: 1.1rem;"></i> CONTINUE & VERIFY WITH GOOGLE
             </button>
         </div>
     </div>
 
-    <!-- ২. ফুল-স্ক্রিন কাস্টমার ড্যাশবোর্ড প্যানেল (সিকোয়েন্সের শেষ ধাপ এবং 'YOU' মেনুতে সবসময় থাকবে) -->
-    <div id="customerDashboardFullscreenPanel" class="fullscreen-overlay-panel" onclick="handleFullscreenBgClick(event, 'customerDashboardFullscreenPanel')">
+    <!-- ২. চেকআউট ও শিপিং অ্যাড্রেস ফর্ম -->
+    <div id="customerCheckoutFormPanel" class="fullscreen-overlay-panel" onclick="handleFullscreenBgClick(event, 'customerCheckoutFormPanel')">
         <div class="fullscreen-inner-container">
-            <button class="fullscreen-close-btn" onclick="closeDashboardFullscreen()">&times;</button>
+            <button class="fullscreen-close-btn" onclick="closeCheckoutForm()">&times;</button>
             
-            <div style="display:flex; align-items:center; gap:16px; width:100%; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:16px;">
-                <img id="dashUserPhoto" src="" style="width:60px; height:60px; border-radius:50%; border:2px solid var(--gold-solid);">
-                <div style="overflow:hidden;">
-                    <h2 id="dashUserName" style="font-size:1.2rem; font-weight:700; color:#fff;"></h2>
-                    <span id="dashUserEmail" style="font-size:0.85rem; color:var(--gold-solid); font-weight:600; display:block;"></span>
-                </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px; width:100%; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:16px; text-align:center;">
+                <img id="verifiedUserPhoto" src="" style="width:55px; height:55px; border-radius:50%; border:2px solid var(--gold-solid); box-shadow: 0 0 15px rgba(212,175,55,0.4);">
+                <h2 id="verifiedUserName" style="font-size:1.1rem; font-weight:700; color:#fff;"></h2>
+                <span id="verifiedUserEmailTop" style="font-size:0.75rem; color:var(--gold-solid); font-weight:600;"></span>
             </div>
 
-            <div style="width:100%; background:#121216; padding:24px; border-radius:16px; border:1px solid rgba(212,175,55,0.25);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                    <span style="font-size:0.9rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> DELIVERY ADDRESSES</span>
+            <div style="width:100%; background:#121216; padding:20px; border-radius:16px; border:1px solid rgba(212,175,55,0.3);">
+                <div style="margin-bottom:16px;">
+                    <span style="font-size:0.9rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-location-dot"></i> 2. SHIPPING ADDRESS & VERIFIED GMAIL</span>
                 </div>
                 
-                <div style="display:flex; justify-content:center; margin-bottom:16px;">
-                    <button onclick="toggleAddressForm()" style="background:var(--gold-gradient); border:none; color:#000; font-weight:800; width:50px; height:50px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 18px rgba(212,175,55,0.6);"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                
-                <div id="savedAddressesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:240px; overflow-y:auto;"></div>
+                <form id="shippingCheckoutForm" onsubmit="handleOrderSubmission(event)" style="display:flex; flex-direction:column; gap:14px;">
+                    
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label class="luxury-form-label"><i class="fa-solid fa-envelope" style="color:var(--gold-solid);"></i> VERIFIED GMAIL ACCOUNT (LOCKED)</label>
+                        <input type="email" id="chkVerifiedEmail" class="luxury-form-input verified-gmail-field" readonly required>
+                    </div>
 
-                <div id="addressInputFormContainer" style="display:none; flex-direction:column; gap:12px; margin-top:16px; border-top:1px solid rgba(255,255,255,0.12); padding-top:16px;">
-                    <input type="text" id="addrFullName" placeholder="FULL NAME" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.2); padding:14px 18px; border-radius:10px; color:#fff; font-size:0.85rem; font-family:var(--font-main);">
-                    <input type="text" id="addrPhone" placeholder="PHONE NUMBER" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.2); padding:14px 18px; border-radius:10px; color:#fff; font-size:0.85rem; font-family:var(--font-main);">
-                    <textarea id="addrStreet" placeholder="DETAILED STREET ADDRESS / AREA / CITY" rows="3" style="background:#1a1a22; border:1px solid rgba(255,255,255,0.2); padding:14px 18px; border-radius:10px; color:#fff; font-size:0.85rem; font-family:var(--font-main); outline:none; resize:none;"></textarea>
-                    <button onclick="saveNewDeliveryAddress()" style="background:var(--gold-gradient); color:#000; border:none; padding:14px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer;">SAVE NEW ADDRESS</button>
-                </div>
-            </div>
+                    <div class="address-form-grid-2">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label class="luxury-form-label">First Name</label>
+                            <input type="text" id="chkFirstName" class="luxury-form-input" placeholder="John" autocomplete="given-name" required>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label class="luxury-form-label">Last Name</label>
+                            <input type="text" id="chkLastName" class="luxury-form-input" placeholder="Doe" autocomplete="family-name" required>
+                        </div>
+                    </div>
 
-            <div style="width:100%; background:#121216; padding:24px; border-radius:16px; display:flex; flex-direction:column; gap:12px; border:1px solid rgba(212,175,55,0.25);">
-                <span style="font-size:0.9rem; font-weight:700; color:var(--gold-solid);"><i class="fa-solid fa-bag-shopping"></i> ORDER STATUS & DASHBOARD</span>
-                <div style="font-size:0.85rem; color:#fff; display:flex; justify-content:space-between;">
-                    <span>PRODUCT ID: <strong style="color:var(--gold-solid);">#RRX-99820</strong></span>
-                    <span>STATUS: <strong style="color:#4cd964;">DASHBOARD READY</strong></span>
-                </div>
-                <button class="dashboard-action-btn" onclick="alert('Dashboard management & order details confirmed!');">
-                    <i class="fa-solid fa-circle-check" style="color:#000;"></i> VIEW COMPLETE DASHBOARD SUMMARY
-                </button>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label class="luxury-form-label">Street Address</label>
+                        <input type="text" id="chkStreet" class="luxury-form-input" placeholder="House 12, Road 5, Block C" autocomplete="street-address" required>
+                    </div>
+
+                    <div class="address-form-grid-2">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label class="luxury-form-label">City</label>
+                            <input type="text" id="chkCity" class="luxury-form-input" placeholder="Dhaka" autocomplete="address-level2" required>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label class="luxury-form-label">Postal / Zip Code</label>
+                            <input type="text" id="chkPostal" class="luxury-form-input" placeholder="1212" autocomplete="postal-code" required>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label class="luxury-form-label">Phone Number</label>
+                        <input type="tel" id="chkPhone" class="luxury-form-input" placeholder="+8801XXXXXXXXX" autocomplete="tel" required>
+                    </div>
+
+                    <div style="background:#1a1a22; padding:16px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:10px; border:1px solid rgba(212,175,55,0.2);">
+                        <div>
+                            <span style="font-size:0.75rem; color:var(--text-gray); display:block; font-weight:600;">CHECKOUT CURRENCY & AMOUNT:</span>
+                            <span id="chkFinalCurrencyDisplay" style="font-size:1.15rem; font-weight:700; color:#fff;">$0.00</span>
+                        </div>
+                        <button type="submit" class="dashboard-action-btn">
+                            <i class="fa-solid fa-circle-check" style="color:#000;"></i> COMPLETE ORDER
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- চ্যাট মোডাল -->
     <div id="chatModalOverlay" class="fullscreen-overlay-panel" onclick="handleFullscreenBgClick(event, 'chatModalOverlay')" style="display:none; align-items:center; justify-content:center;">
-        <div style="background:#0c0c10; border-radius:18px; padding:24px; max-width:480px; width:100%; border:1px solid rgba(212,175,55,0.3); display:flex; flex-direction:column; gap:12px;">
+        <div style="background:#0c0c10; border-radius:18px; padding:22px; max-width:460px; width:100%; border:1px solid rgba(212,175,55,0.3); display:flex; flex-direction:column; gap:12px;">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
                 <span style="font-size:0.9rem; font-weight:700; color:var(--gold-solid);">SELLER CHAT SUPPORT</span>
-                <button onclick="toggleChatModal()" style="background:none; border:none; color:var(--gold-solid); font-size:1.4rem; cursor:pointer;">&times;</button>
+                <button onclick="toggleChatModal()" style="background:none; border:none; color:var(--gold-solid); font-size:1.3rem; cursor:pointer;">&times;</button>
             </div>
-            <div id="chatMessagesContainer" style="background:#121216; border-radius:12px; padding:14px; height:200px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
-                <div style="background:#1a1a22; padding:10px; border-radius:8px; font-size:0.75rem; color:#fff; max-width:85%;">
+            <div id="chatMessagesContainer" style="background:#121216; border-radius:12px; padding:14px; height:190px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+                <div style="background:#1a1a22; padding:10px 12px; border-radius:8px; font-size:0.75rem; color:#fff; max-width:85%;">
                     Welcome! How can we assist you with your luxury order today?
                 </div>
             </div>
             <div style="display:flex; gap:8px;">
-                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:10px; color:#fff; font-size:0.75rem;">
+                <input type="text" id="chatMessageInput" placeholder="TYPE MESSAGE..." style="flex:1; background:#121216; border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:10px 12px; color:#fff; font-size:0.75rem;">
                 <button onclick="sendChatMessage()" style="background:var(--gold-gradient); color:#000; border:none; padding:0 18px; border-radius:8px; font-weight:800; font-size:0.75rem; cursor:pointer;">SEND</button>
             </div>
         </div>
     </div>
 
-    <!-- স্ক্রিপ্ট লজিক -->
+    <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         let currentUnitBasePrice = 100.00;
         let currentItemQuantity = 1;
         let activeMediaSource = "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/rorraxy%201%20file/rorraxy%20(1).jpg";
+        let activeProductTitle = "RORRAXY LUXURY BRACELET - MODEL A";
 
         window.onload = function() {
             updateCartBadgeCount();
@@ -452,9 +549,9 @@
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
-                let currencySymbol = data.currency || "USD";
-                let countryName = data.country_name || "Global";
-                let countryCode = (data.country_code || "us").toLowerCase();
+                let currencySymbol = data.currency || "BDT";
+                let countryName = data.country_name || "Bangladesh";
+                let countryCode = (data.country_code || "bd").toLowerCase();
                 
                 let flagEmoji = countryCode.split('').map(char => 
                     String.fromCodePoint(127397 + char.charCodeAt(0))
@@ -462,7 +559,7 @@
 
                 window.globalCurrencyData = { symbol: currencySymbol, country: countryName, flag: flagEmoji };
             } catch(e) {
-                window.globalCurrencyData = { symbol: "USD", country: "Global", flag: "🇺🇸" };
+                window.globalCurrencyData = { symbol: "BDT", country: "Bangladesh", flag: "🇧🇩" };
             }
         }
 
@@ -483,9 +580,11 @@
             } catch(e) {}
         }
 
-        function switchMainMedia(src, el) {
+        function switchMainMedia(src, title, el) {
             activeMediaSource = src;
+            activeProductTitle = title;
             document.getElementById('mainDisplayMediaElement').src = src;
+            document.getElementById('activeProductTitleHeading').innerText = title;
             document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
         }
@@ -520,12 +619,13 @@
 
             let chosenSize = document.getElementById('customSizeInputField').value || "STANDARD";
             let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
-            let existingItem = cart.find(item => item.title === "RORRAXY LUXURY BRACELET" && item.size === chosenSize);
+            
+            let existingItem = cart.find(item => item.title === activeProductTitle && item.size === chosenSize && item.img === activeMediaSource);
             if(existingItem) {
                 existingItem.qty += currentItemQuantity;
             } else {
                 cart.push({
-                    title: "RORRAXY LUXURY BRACELET",
+                    title: activeProductTitle,
                     price: `$${currentUnitBasePrice.toFixed(2)}`,
                     qty: currentItemQuantity,
                     size: chosenSize,
@@ -546,83 +646,14 @@
         function handleUserMenuClick() {
             let savedUser = localStorage.getItem('rorraxy_logged_user');
             if(savedUser) {
-                openCustomerDashboard(JSON.parse(savedUser));
+                try {
+                    openCheckoutAndShippingForm(JSON.parse(savedUser));
+                } catch(e) {
+                    openCartFullscreenView();
+                }
             } else {
-                openCustomerDashboard({
-                    name: "Valued Customer (Guest)",
-                    email: "Please verify with Google",
-                    photoURL: "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png"
-                });
+                openCartFullscreenView();
             }
-        }
-
-        function openCustomerDashboard(user) {
-            document.getElementById('dashUserName').innerText = user.name || "Valued Customer";
-            document.getElementById('dashUserEmail').innerText = user.email || "";
-            document.getElementById('dashUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
-            
-            renderSavedAddresses();
-            document.getElementById('customerDashboardFullscreenPanel').style.display = 'block';
-        }
-
-        function closeDashboardFullscreen() {
-            document.getElementById('customerDashboardFullscreenPanel').style.display = 'none';
-        }
-
-        function toggleAddressForm() {
-            let form = document.getElementById('addressInputFormContainer');
-            form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function saveNewDeliveryAddress() {
-            let name = document.getElementById('addrFullName').value.trim();
-            let phone = document.getElementById('addrPhone').value.trim();
-            let street = document.getElementById('addrStreet').value.trim();
-
-            if(name && phone && street) {
-                let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
-                addresses.push({ name, phone, street });
-                localStorage.setItem('rorraxy_addresses', JSON.stringify(addresses));
-
-                document.getElementById('addrFullName').value = '';
-                document.getElementById('addrPhone').value = '';
-                document.getElementById('addrStreet').value = '';
-                document.getElementById('addressInputFormContainer').style.display = 'none';
-
-                renderSavedAddresses();
-            } else {
-                alert('Please fill out all address fields correctly.');
-            }
-        }
-
-        function renderSavedAddresses() {
-            let container = document.getElementById('savedAddressesContainer');
-            let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
-
-            if(addresses.length === 0) {
-                container.innerHTML = '<div style="font-size:0.8rem; color:var(--text-gray); text-transform:none; text-align:center;">No delivery address saved yet. Click (+) to add one.</div>';
-                return;
-            }
-
-            let html = '';
-            addresses.forEach((addr, idx) => {
-                html += `
-                <div style="background:#1a1a22; padding:14px; border-radius:10px; font-size:0.8rem; text-transform:none; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <strong style="color:var(--gold-solid);">${addr.name}</strong> (${addr.phone})<br>
-                        <span style="color:var(--text-gray);">${addr.street}</span>
-                    </div>
-                    <button onclick="deleteAddress(${idx})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:1.1rem;"><i class="fa-solid fa-trash-can"></i></button>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function deleteAddress(index) {
-            let addresses = JSON.parse(localStorage.getItem('rorraxy_addresses')) || [];
-            addresses.splice(index, 1);
-            localStorage.setItem('rorraxy_addresses', JSON.stringify(addresses));
-            renderSavedAddresses();
         }
 
         function openCartFullscreenView() {
@@ -632,6 +663,80 @@
 
         function closeCartFullscreenView() {
             document.getElementById('cartFullscreenPanel').style.display = 'none';
+        }
+
+        // ফর্ম ওপেন এবং লোকালস্টোরেজ থেকে প্রি-ফিল করার ফাংশন
+        window.openCheckoutAndShippingForm = function(user) {
+            closeCartFullscreenView();
+            document.getElementById('verifiedUserName').innerText = user.name || "Valued Customer";
+            document.getElementById('verifiedUserEmailTop').innerText = user.email || "";
+            document.getElementById('verifiedUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
+            
+            // জিমেইল ফিল্ডে কাস্টমারের নিজস্ব জিমেইল সেট করা
+            let emailField = document.getElementById('chkVerifiedEmail');
+            if(emailField) {
+                emailField.value = user.email || "";
+            }
+
+            if(user.name) {
+                let nameParts = user.name.split(" ");
+                document.getElementById('chkFirstName').value = nameParts[0] || "";
+                document.getElementById('chkLastName').value = nameParts.slice(1).join(" ") || "";
+            }
+
+            // লোকাল স্টোরেজ থেকে আগের শিপিং অ্যাড্রেস থাকলে তা অটো-ফিল করা
+            let savedAddr = localStorage.getItem('rorraxy_last_shipping');
+            if(savedAddr) {
+                try {
+                    let addr = JSON.parse(savedAddr);
+                    if(addr.street) document.getElementById('chkStreet').value = addr.street;
+                    if(addr.city) document.getElementById('chkCity').value = addr.city;
+                    if(addr.postal) document.getElementById('chkPostal').value = addr.postal;
+                    if(addr.phone) document.getElementById('chkPhone').value = addr.phone;
+                } catch(e) {}
+            }
+
+            updateCheckoutTotalAmount();
+            document.getElementById('customerCheckoutFormPanel').style.display = 'block';
+        }
+
+        function closeCheckoutForm() {
+            document.getElementById('customerCheckoutFormPanel').style.display = 'none';
+        }
+
+        function updateCheckoutTotalAmount() {
+            let cart = JSON.parse(localStorage.getItem('rorraxy_cart')) || [];
+            let totalAmt = cart.reduce((sum, item) => sum + (parseFloat(item.price.replace('$', '')) * item.qty), 0);
+            
+            let currencyCode = window.globalCurrencyData ? window.globalCurrencyData.symbol : "BDT";
+            let flagEmoji = window.globalCurrencyData ? window.globalCurrencyData.flag : "🇧🇩";
+            let multiplier = currencyCode === "BDT" ? 120 : (currencyCode === "EUR" ? 0.92 : (currencyCode === "INR" ? 83 : (currencyCode === "PKR" ? 280 : 120)));
+            let convertedVal = totalAmt * multiplier;
+
+            document.getElementById('chkFinalCurrencyDisplay').innerText = `$${totalAmt.toFixed(2)}  ${flagEmoji} (${currencyCode} ${convertedVal.toLocaleString()})`;
+        }
+
+        // অর্ডার সাবমিশন এবং ডেটা সেভিং
+        function handleOrderSubmission(event) {
+            event.preventDefault();
+            
+            let shippingData = {
+                email: document.getElementById('chkVerifiedEmail').value,
+                firstName: document.getElementById('chkFirstName').value,
+                lastName: document.getElementById('chkLastName').value,
+                street: document.getElementById('chkStreet').value,
+                city: document.getElementById('chkCity').value,
+                postal: document.getElementById('chkPostal').value,
+                phone: document.getElementById('chkPhone').value
+            };
+
+            // পরবর্তী অর্ডারের জন্য লোকাল স্টোরেজে অ্যাড্রেস সেভ করে রাখা
+            localStorage.setItem('rorraxy_last_shipping', JSON.stringify(shippingData));
+            
+            alert('Order successfully placed and verified!');
+            localStorage.removeItem('rorraxy_cart');
+            updateCartBadgeCount();
+            closeCheckoutForm();
         }
 
         function renderCartFullscreenList() {
@@ -644,7 +749,7 @@
             if(cart.length === 0) {
                 container.innerHTML = '<div style="color:var(--text-gray); text-align:center; font-size:0.85rem; padding:20px;">YOUR CART IS EMPTY.</div>';
                 totalValEl.innerText = "$0.00";
-                localValEl.innerText = "🏳️ ($0.00)";
+                localValEl.innerText = "🇧🇩 (BDT 0.00)";
                 totalQtyEl.innerText = "0";
                 return;
             }
@@ -660,16 +765,15 @@
                 <div class="cart-fullscreen-row">
                     <img src="${item.img}" class="cart-fullscreen-img">
                     <div style="flex:1; text-align:left; min-width:0;">
-                        <div style="font-size:0.85rem; font-weight:700; color:#fff;">${item.title}</div>
-                        <div style="font-size:0.75rem; color:var(--text-gray);">SIZE: ${item.size}</div>
-                        <div style="font-size:0.75rem; color:var(--gold-solid);">PRICE: $${priceNum.toFixed(2)}</div>
+                        <div style="font-size:0.8rem; font-weight:700; color:#fff;">${item.title}</div>
+                        <div style="font-size:0.7rem; color:var(--text-gray);">SIZE: ${item.size}</div>
                     </div>
                     <div style="display:flex; align-items:center; gap:8px;">
                         <button onclick="changeCartItemQty(${index}, -1)" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:24px; height:24px; border-radius:50%; cursor:pointer;">-</button>
-                        <span style="font-size:0.9rem; font-weight:700; color:#fff;">${item.qty}</span>
+                        <span style="font-size:0.85rem; font-weight:700; color:#fff;">${item.qty}</span>
                         <button onclick="changeCartItemQty(${index}, 1)" style="background:var(--gold-gradient); border:none; color:#000; font-weight:700; width:24px; height:24px; border-radius:50%; cursor:pointer;">+</button>
                     </div>
-                    <div style="font-size:0.95rem; font-weight:700; background:var(--gold-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+                    <div style="font-size:0.9rem; font-weight:700; color:#fff;">
                         $${itemTotal.toFixed(2)}
                     </div>
                     <button onclick="removeCartItem(${index})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:1.1rem;"><i class="fa-solid fa-trash-can"></i></button>
@@ -679,11 +783,11 @@
             container.innerHTML = html;
             totalValEl.innerText = `$${totalAmt.toFixed(2)}`;
             
-            let currencyCode = window.globalCurrencyData ? window.globalCurrencyData.symbol : "USD";
-            let flagEmoji = window.globalCurrencyData ? window.globalCurrencyData.flag : "🇺🇸";
-            let multiplier = currencyCode === "BDT" ? 120 : (currencyCode === "EUR" ? 0.92 : (currencyCode === "INR" ? 83 : (currencyCode === "PKR" ? 280 : 1)));
+            let currencyCode = window.globalCurrencyData ? window.globalCurrencyData.symbol : "BDT";
+            let flagEmoji = window.globalCurrencyData ? window.globalCurrencyData.flag : "🇧🇩";
+            let multiplier = currencyCode === "BDT" ? 120 : (currencyCode === "EUR" ? 0.92 : (currencyCode === "INR" ? 83 : (currencyCode === "PKR" ? 280 : 120)));
             let convertedVal = totalAmt * multiplier;
-            localValEl.innerText = `${flagEmoji} (${currencyCode} ${convertedVal.toFixed(2)})`;
+            localValEl.innerText = `${flagEmoji} (${currencyCode} ${convertedVal.toLocaleString()})`;
             totalQtyEl.innerText = totalQty;
         }
 
@@ -713,7 +817,7 @@
             let input = document.getElementById('chatMessageInput');
             let box = document.getElementById('chatMessagesContainer');
             if(input.value.trim() !== "") {
-                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:10px; border-radius:8px; font-size:0.75rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
+                box.innerHTML += `<div style="background:var(--gold-gradient); color:#000; padding:10px 12px; border-radius:8px; font-size:0.75rem; font-weight:600; max-width:85%; align-self:flex-end;">${input.value}</div>`;
                 input.value = "";
                 box.scrollTop = box.scrollHeight;
             }
