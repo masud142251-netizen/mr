@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ইনস্ট্যান্ট ওয়ান-ক্লিক গুগল অথেন্টিকেশন ও ক্যাশিং সিস্টেম -->
+    <!-- ইনস্ট্যান্ট ওয়ান-ক্লিক জিমেইল ভেরিফিকেশন ও অটো-ফিল লজিক -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDokhLgGoe4Ib7oxUJ8zczLFWj0YJKk57Y",
@@ -33,9 +33,9 @@
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
 
-        // এক ক্লিকে ইনস্ট্যান্ট ভেরিফিকেশন এবং ফর্মে ডেটা পাস করার লজিক
+        // এক ক্লিকে ইনস্ট্যান্ট ভেরিফিকেশন এবং ফর্মে পাস করার ফাংশন
         window.handleCartGoogleVerify = async function() {
-            // যদি ব্রাউজারে অলরেডি কাস্টমারের ভেরিফাইড ডেটা সেভ থাকে, তবে পপআপ ছাড়া ইনস্ট্যান্ট ফর্মে নিয়ে যাবে (জিরো ল্যাগ)
+            // যদি আগে থেকেই কাস্টমারের জিমেইল লোকালস্টোরেজে থাকে, তবে কোনো সময় নষ্ট না করে ইনস্ট্যান্ট ফর্মে নিয়ে যাবে
             let existingUser = localStorage.getItem('rorraxy_logged_user');
             if(existingUser) {
                 try {
@@ -62,7 +62,6 @@
                     photoURL: userPhoto
                 };
 
-                // লোকালস্টোরেজে পার্মানেন্ট সেভ যাতে পরবর্তীতে আর পপআপ না লাগে
                 localStorage.setItem('rorraxy_logged_user', JSON.stringify(customerData));
                 hideLuxuryLoader();
                 
@@ -70,8 +69,8 @@
             } catch (error) {
                 console.error("Auth Error: ", error);
                 hideLuxuryLoader();
-                // পপআপ ফেইল করলে বা ব্লক হলে ইমেইল ইনপুট ফলব্যাক বা ডিরেক্ট সেশন হ্যান্ডেলিং
-                let manualEmail = prompt("Please enter your email address for verification:", "customer@gmail.com");
+                // ফলব্যাক হিসেবে দ্রুত ইমেল ইনপুট যাতে কাস্টমার আটকে না যায়
+                let manualEmail = prompt("Please confirm your email address for delivery verification:", "customer@gmail.com");
                 if(manualEmail) {
                     let manualData = {
                         name: "Valued Customer",
@@ -279,7 +278,7 @@
         }
         .dashboard-action-btn:hover { transform: scale(1.02); }
 
-        /* ফর্ম ফিল্ড স্টাইল */
+        /* ফর্মের ফিল্ডগুলো প্রিমিয়াম ও সুন্দর করার জন্য */
         .address-form-grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
         @media(min-width: 576px) {
             .address-form-grid-2 { grid-template-columns: 1fr 1fr; }
@@ -297,8 +296,9 @@
         .luxury-form-input:focus {
             border-color: var(--gold-solid) !important; box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
+        /* জিমেইল ফিল্ডটি বিশেষভাবে লাক্সারি গোল্ডেন বর্ডার ও কালার দেওয়া হয়েছে */
         .luxury-form-input.verified-gmail-field {
-            background: #0a0a0e !important; color: var(--gold-solid) !important; font-weight: 700 !important; font-size: 0.95rem !important; border: 2px solid var(--gold-solid) !important; cursor: not-allowed;
+            background: #0a0a0e !important; color: var(--gold-solid) !important; font-weight: 700 !important; font-size: 1rem !important; border: 2px solid var(--gold-solid) !important; cursor: not-allowed; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(212,175,55,0.25);
         }
 
         /* লোডার স্ক্রিন */
@@ -463,6 +463,7 @@
                 
                 <form id="shippingCheckoutForm" onsubmit="handleOrderSubmission(event)" style="display:flex; flex-direction:column; gap:14px;">
                     
+                    <!-- জিমেইল ফিল্ড (একদম স্পষ্ট ও লকড) -->
                     <div style="display:flex; flex-direction:column; gap:6px;">
                         <label class="luxury-form-label"><i class="fa-solid fa-envelope" style="color:var(--gold-solid);"></i> VERIFIED GMAIL ACCOUNT (LOCKED)</label>
                         <input type="email" id="chkVerifiedEmail" class="luxury-form-input verified-gmail-field" readonly required>
@@ -665,14 +666,14 @@
             document.getElementById('cartFullscreenPanel').style.display = 'none';
         }
 
-        // ফর্ম ওপেন এবং লোকালস্টোরেজ থেকে প্রি-ফিল করার ফাংশন
+        // ফর্ম ওপেন এবং লোকালস্টোরেজ থেকে জিমেইল ও পূর্বের ঠিকানা অটো-ফিল করার ফাংশন
         window.openCheckoutAndShippingForm = function(user) {
             closeCartFullscreenView();
             document.getElementById('verifiedUserName').innerText = user.name || "Valued Customer";
             document.getElementById('verifiedUserEmailTop').innerText = user.email || "";
             document.getElementById('verifiedUserPhoto').src = user.photoURL || "https://pub-508ef1e45bab487aadde85a1dba202c4.r2.dev/rorraxyfree/mr%20masudar%20logo%20(3).png";
             
-            // জিমেইল ফিল্ডে কাস্টমারের নিজস্ব জিমেইল সেট করা
+            // কাস্টমারের নিজস্ব জিমেইল ফিল্ডে সরাসরি বসানো
             let emailField = document.getElementById('chkVerifiedEmail');
             if(emailField) {
                 emailField.value = user.email || "";
